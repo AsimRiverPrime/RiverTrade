@@ -17,7 +17,7 @@ class DetailsViewController: UIViewController {
 
         
         detail_tableView.registerCells([
-            AccountTableViewCell.self
+            AccountTableViewCell.self, ListingTableViewCell.self
         ])
         detail_tableView.delegate = self
         detail_tableView.dataSource = self
@@ -43,7 +43,7 @@ extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
             
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-                cell.setHeaderUI(.withdraw)
+                cell.setHeaderUI(.detail)
 //                cell.delegate = self
                 
                 return cell

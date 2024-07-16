@@ -10,7 +10,7 @@ import UIKit
 class AccountsViewController: UIViewController {
    
     @IBOutlet weak var tblView: UITableView!
-    var model: [String] = ["Open","Pending","Close","\(UIImage(named: "eye") ?? UIImage.account)"]
+    var model: [String] = ["Open","Pending","Close","image"]
     
     
     override func viewDidLoad() {
@@ -55,7 +55,6 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
             return cell
         }
-                
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

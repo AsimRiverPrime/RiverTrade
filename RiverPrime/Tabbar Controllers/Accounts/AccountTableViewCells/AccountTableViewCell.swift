@@ -23,6 +23,7 @@ enum NavigationType{
     case history
     case deposit
     case withdraw
+    case detail
     case notification
 }
 protocol AccountInfoDelegate: AnyObject {
@@ -35,14 +36,21 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var secondTitle: UILabel!
     @IBOutlet weak var labelAmmount: UILabel!
-
     @IBOutlet weak var labelStack: UIStackView!
     @IBOutlet weak var viewOfAccount: UIStackView!
     @IBOutlet weak var viewOfBtnStack: UIView!
         
     @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
     
+    @IBOutlet weak var Btn_view: UIView!
+    @IBOutlet weak var btn_funds: UIButton!
+    @IBOutlet weak var btnFundsLineView: UIView!
+    
+    @IBOutlet weak var btn_Settings: UIButton!
+    @IBOutlet weak var btnSettingsLineView: UIView!
+    
     weak var delegate: AccountInfoDelegate?
+   
     var accountInfo: AccountInfo = .deposit
     var navigation: NavigationType = .account
     
@@ -64,6 +72,7 @@ class AccountTableViewCell: UITableViewCell {
         switch navigation {
             
         case .deposit:
+            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
             headerTitle.text = "Deposit"
             labelStack.isHidden = true
@@ -73,6 +82,7 @@ class AccountTableViewCell: UITableViewCell {
             heightOfAccountHeaderView.constant = heightOfSuperview * 1.0 // this has the same effect as multiplier
             
         case .account:
+            Btn_view.isHidden = true
             viewOfAccount.isHidden =  false
             headerTitle.text = "Account"
             labelStack.isHidden = false
@@ -80,24 +90,46 @@ class AccountTableViewCell: UITableViewCell {
             secondTitle.text = "#0123456"
             
         case .withdraw:
+            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
             headerTitle.text = "Withdraw"
             labelStack.isHidden = true
             viewOfBtnStack.isHidden = true
             secondTitle.text = "All payment methods"
             heightOfAccountHeaderView.constant = heightOfSuperview * 1.0
+         
+        case .detail:
+            Btn_view.isHidden = false
+            viewOfAccount.isHidden =  true
+            headerTitle.text = "Details"
+            labelStack.isHidden = false
+            viewOfBtnStack.isHidden = true
+            secondTitle.text = "#0123456"
             
         case .trade:
+            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
             headerTitle.text = "Trade"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
-            
             secondTitle.text = "#0123456"
+            
         case .market:
-            break
+            Btn_view.isHidden = true
+            viewOfAccount.isHidden =  true
+            headerTitle.text = "Market"
+            labelStack.isHidden = false
+            viewOfBtnStack.isHidden = false
+            secondTitle.text = "#0123456"
+            
         case .result:
-            break
+            Btn_view.isHidden = false
+            viewOfAccount.isHidden =  true
+            headerTitle.text = "Details"
+            labelStack.isHidden = false
+            viewOfBtnStack.isHidden = true
+            secondTitle.text = "#0123456"
+        
         case .history:
             break
         case .notification:
