@@ -47,10 +47,12 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.setHeaderUI(.account)
             cell.delegate = self
             return cell
+            
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradeTypeTableViewCell.self, for: indexPath)
-            
+            cell.backgroundColor = .clear
             return cell
+            
         }else{
             let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
             return cell

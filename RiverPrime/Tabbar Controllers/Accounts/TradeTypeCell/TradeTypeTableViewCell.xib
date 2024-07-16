@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,8 +18,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-4g-PFt">
-                        <rect key="frame" x="0.0" y="0.0" width="133" height="72"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <rect key="frame" x="15" y="0.0" width="103" height="72"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CEH-XC-eht">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -29,10 +28,11 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="Zr4-4g-PFt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="2rt-Qg-QGr"/>
-                    <constraint firstAttribute="trailing" secondItem="Zr4-4g-PFt" secondAttribute="trailing" id="NkI-7q-hue"/>
-                    <constraint firstItem="Zr4-4g-PFt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="pw4-aV-Bb6"/>
+                    <constraint firstItem="Zr4-4g-PFt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="4su-68-UIj"/>
+                    <constraint firstAttribute="trailing" secondItem="Zr4-4g-PFt" secondAttribute="trailing" constant="15" id="YEZ-7o-07h"/>
                     <constraint firstAttribute="bottom" secondItem="Zr4-4g-PFt" secondAttribute="bottom" id="yOw-fq-T7T"/>
                 </constraints>
             </tableViewCellContentView>
@@ -43,9 +43,4 @@
             <point key="canvasLocation" x="226.71755725190837" y="38.732394366197184"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

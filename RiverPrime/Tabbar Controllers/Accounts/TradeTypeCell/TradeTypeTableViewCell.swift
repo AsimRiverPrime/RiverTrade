@@ -10,7 +10,7 @@ import UIKit
 class TradeTypeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
-    var model: [String] = ["Open","Pending","Close"]
+    var model: [String] = ["Open","Pending","Close","test","test1","test2","test3"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
