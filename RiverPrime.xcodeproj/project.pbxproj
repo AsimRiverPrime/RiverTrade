@@ -1,0 +1,866 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
+		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
+		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
+		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
+		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
+		31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DB2C4514B10006E8EB /* NotificationViewController.swift */; };
+		31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */; };
+		31B102E12C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B102DF2C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib */; };
+		31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102E32C452E390006E8EB /* TradeTypeTableViewCell.swift */; };
+		31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B102E42C452E390006E8EB /* TradeTypeTableViewCell.xib */; };
+		31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248B2C3D461F0058C9DD /* InterVariable-Italic.ttf */; };
+		31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248C2C3D461F0058C9DD /* Inter.ttc */; };
+		31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248D2C3D461F0058C9DD /* InterVariable.ttf */; };
+		31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B124912C3D49420058C9DD /* PrivacyViewController.swift */; };
+		31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */; };
+		31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */; };
+		31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D122C3FC81700A7A0D2 /* BottomSheetController.swift */; };
+		31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D142C3FCA3D00A7A0D2 /* Utilities.swift */; };
+		31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D172C3FCBA800A7A0D2 /* DepositViewController.swift */; };
+		31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D1A2C3FCBEE00A7A0D2 /* WithdrawViewController.swift */; };
+		31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D1D2C3FCC0A00A7A0D2 /* HistoryViewController.swift */; };
+		31B90D212C3FCC3400A7A0D2 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D202C3FCC3400A7A0D2 /* DetailsViewController.swift */; };
+		31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D232C3FE94A00A7A0D2 /* ListingTableViewCell.swift */; };
+		31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B90D242C3FE94A00A7A0D2 /* ListingTableViewCell.xib */; };
+		31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D272C3FFDA200A7A0D2 /* CardView.swift */; };
+		31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D292C3FFDE400A7A0D2 /* ActivityIndicator.swift */; };
+		31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D2C2C400AF000A7A0D2 /* withDrawTableViewCell.swift */; };
+		31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B90D2D2C400AF000A7A0D2 /* withDrawTableViewCell.xib */; };
+		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
+		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
+		31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262052C3BECDE00FC6651 /* ViewController.swift */; };
+		31D262092C3BECDE00FC6651 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 31D262082C3BECDE00FC6651 /* Base */; };
+		31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D2620A2C3BECDE00FC6651 /* Assets.xcassets */; };
+		31D2620E2C3BECDE00FC6651 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 31D2620D2C3BECDE00FC6651 /* Base */; };
+		31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262192C3BF58200FC6651 /* SignUpViewController.swift */; };
+		31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2621C2C3BF5CE00FC6651 /* Extension.swift */; };
+		31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */; };
+		31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */; };
+		31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183A2C3C086400340CFC /* ForgotViewController.swift */; };
+		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
+		31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */; };
+		4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */; };
+		C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB4DCB2C4340B80049C961 /* AccountDetailTableViewCell.swift */; };
+		C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */; };
+		C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */; };
+		C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD2E272C41C6B1002F9D06 /* AccountTableViewCell.xib */; };
+		C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */; };
+		C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */; };
+		C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
+		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
+		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
+		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
+		31B102DB2C4514B10006E8EB /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		31B102DF2C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTypeCollectionViewCell.xib; sourceTree = "<group>"; };
+		31B102E32C452E390006E8EB /* TradeTypeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeTableViewCell.swift; sourceTree = "<group>"; };
+		31B102E42C452E390006E8EB /* TradeTypeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTypeTableViewCell.xib; sourceTree = "<group>"; };
+		31B1248B2C3D461F0058C9DD /* InterVariable-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InterVariable-Italic.ttf"; sourceTree = "<group>"; };
+		31B1248C2C3D461F0058C9DD /* Inter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttc; sourceTree = "<group>"; };
+		31B1248D2C3D461F0058C9DD /* InterVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterVariable.ttf; sourceTree = "<group>"; };
+		31B124912C3D49420058C9DD /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentModelController.swift; sourceTree = "<group>"; };
+		31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
+		31B90D122C3FC81700A7A0D2 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
+		31B90D142C3FCA3D00A7A0D2 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		31B90D172C3FCBA800A7A0D2 /* DepositViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositViewController.swift; sourceTree = "<group>"; };
+		31B90D1A2C3FCBEE00A7A0D2 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		31B90D1D2C3FCC0A00A7A0D2 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		31B90D202C3FCC3400A7A0D2 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		31B90D232C3FE94A00A7A0D2 /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
+		31B90D242C3FE94A00A7A0D2 /* ListingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListingTableViewCell.xib; sourceTree = "<group>"; };
+		31B90D272C3FFDA200A7A0D2 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		31B90D292C3FFDE400A7A0D2 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		31B90D2C2C400AF000A7A0D2 /* withDrawTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = withDrawTableViewCell.swift; sourceTree = "<group>"; };
+		31B90D2D2C400AF000A7A0D2 /* withDrawTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = withDrawTableViewCell.xib; sourceTree = "<group>"; };
+		31D261FE2C3BECDE00FC6651 /* RiverPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiverPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		31D262032C3BECDE00FC6651 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		31D262052C3BECDE00FC6651 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		31D262082C3BECDE00FC6651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		31D2620A2C3BECDE00FC6651 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		31D2620D2C3BECDE00FC6651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		31D2620F2C3BECDE00FC6651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31D262192C3BF58200FC6651 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		31D2621C2C3BF5CE00FC6651 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
+		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
+		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
+		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
+		441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
+		72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9EB4DCB2C4340B80049C961 /* AccountDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewCell.swift; sourceTree = "<group>"; };
+		C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailTableViewCell.xib; sourceTree = "<group>"; };
+		C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
+		C9FD2E272C41C6B1002F9D06 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
+		C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
+		C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
+		C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
+		D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		31D261FB2C3BECDE00FC6651 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3109C6CD2C413A9C00F2C69C /* TradeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */,
+				3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */,
+			);
+			path = TradeTableViewCell;
+			sourceTree = "<group>";
+		};
+		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
+			isa = PBXGroup;
+			children = (
+				31D262072C3BECDE00FC6651 /* Main.storyboard */,
+				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
+			);
+			path = SupportingFolder;
+			sourceTree = "<group>";
+		};
+		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				31B102DA2C45144E0006E8EB /* Notifications */,
+				31F3BAD62C3FAB49009A2A12 /* Profile */,
+				31F3BAD52C3FAB37009A2A12 /* Results */,
+				31F3BAD42C3FAB2E009A2A12 /* Markets */,
+				31F3BAD32C3FAB26009A2A12 /* Trade */,
+				31F3BAD22C3FAB08009A2A12 /* Accounts */,
+				31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */,
+			);
+			path = "Tabbar Controllers";
+			sourceTree = "<group>";
+		};
+		31A4F0432C3E90A1006FDE6E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D272C3FFDA200A7A0D2 /* CardView.swift */,
+				31B90D292C3FFDE400A7A0D2 /* ActivityIndicator.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		31B102DA2C45144E0006E8EB /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				31B102DB2C4514B10006E8EB /* NotificationViewController.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		31B102DD2C452A590006E8EB /* collectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */,
+				31B102DF2C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib */,
+			);
+			path = collectionViewCell;
+			sourceTree = "<group>";
+		};
+		31B102E22C452E190006E8EB /* TradeTypeCell */ = {
+			isa = PBXGroup;
+			children = (
+				31B102DD2C452A590006E8EB /* collectionViewCell */,
+				31B102E32C452E390006E8EB /* TradeTypeTableViewCell.swift */,
+				31B102E42C452E390006E8EB /* TradeTypeTableViewCell.xib */,
+			);
+			path = TradeTypeCell;
+			sourceTree = "<group>";
+		};
+		31B90D0C2C3FC0B000A7A0D2 /* CustomBottomSheet */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */,
+				31B90D122C3FC81700A7A0D2 /* BottomSheetController.swift */,
+			);
+			path = CustomBottomSheet;
+			sourceTree = "<group>";
+		};
+		31B90D0D2C3FC14700A7A0D2 /* PresentBottomController */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D0C2C3FC0B000A7A0D2 /* CustomBottomSheet */,
+				31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */,
+			);
+			path = PresentBottomController;
+			sourceTree = "<group>";
+		};
+		31B90D162C3FCB7E00A7A0D2 /* Deposit */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D222C3FE93400A7A0D2 /* TableViewCell */,
+				31B90D172C3FCBA800A7A0D2 /* DepositViewController.swift */,
+			);
+			path = Deposit;
+			sourceTree = "<group>";
+		};
+		31B90D192C3FCBC500A7A0D2 /* withDraw */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D2B2C400AD100A7A0D2 /* withdrawTableCell */,
+				31B90D1A2C3FCBEE00A7A0D2 /* WithdrawViewController.swift */,
+			);
+			path = withDraw;
+			sourceTree = "<group>";
+		};
+		31B90D1C2C3FCBF600A7A0D2 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D1D2C3FCC0A00A7A0D2 /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		31B90D1F2C3FCC2000A7A0D2 /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				C9EB4DCA2C4340230049C961 /* AccountDetailCell */,
+				31B90D202C3FCC3400A7A0D2 /* DetailsViewController.swift */,
+			);
+			path = Details;
+			sourceTree = "<group>";
+		};
+		31B90D222C3FE93400A7A0D2 /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D232C3FE94A00A7A0D2 /* ListingTableViewCell.swift */,
+				31B90D242C3FE94A00A7A0D2 /* ListingTableViewCell.xib */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		31B90D2B2C400AD100A7A0D2 /* withdrawTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				31B90D2C2C400AF000A7A0D2 /* withDrawTableViewCell.swift */,
+				31B90D2D2C400AF000A7A0D2 /* withDrawTableViewCell.xib */,
+			);
+			path = withdrawTableCell;
+			sourceTree = "<group>";
+		};
+		31BCC3232C3D3E120034CD6B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				31B1248C2C3D461F0058C9DD /* Inter.ttc */,
+				31B1248B2C3D461F0058C9DD /* InterVariable-Italic.ttf */,
+				31B1248D2C3D461F0058C9DD /* InterVariable.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		31D261F52C3BECDE00FC6651 = {
+			isa = PBXGroup;
+			children = (
+				31D262002C3BECDE00FC6651 /* RiverPrime */,
+				31D261FF2C3BECDE00FC6651 /* Products */,
+				96823B198E4329FFFFDD0F79 /* Pods */,
+				C926E638BC7FD00EC8B3D3E3 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		31D261FF2C3BECDE00FC6651 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				31D261FE2C3BECDE00FC6651 /* RiverPrime.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
+			isa = PBXGroup;
+			children = (
+				C9EB4DCF2C434ACE0049C961 /* Xib File */,
+				31B90D0D2C3FC14700A7A0D2 /* PresentBottomController */,
+				31A4F0432C3E90A1006FDE6E /* Helper */,
+				319D20952C3E543B00908DE2 /* Tabbar Controllers */,
+				31D2621B2C3BF5BC00FC6651 /* Extension */,
+				31D262162C3BED1300FC6651 /* SignIn */,
+				31D262152C3BED0900FC6651 /* SignUp */,
+				31D262182C3BED2C00FC6651 /* Forget */,
+				31FC183E2C3C0D1F00340CFC /* TermsNConditions */,
+				31D262012C3BECDE00FC6651 /* AppDelegate.swift */,
+				31D262032C3BECDE00FC6651 /* SceneDelegate.swift */,
+				31D262052C3BECDE00FC6651 /* ViewController.swift */,
+				31566CE22C3D04DC00C8D03B /* SupportingFolder */,
+				31BCC3232C3D3E120034CD6B /* Font */,
+				31D2620A2C3BECDE00FC6651 /* Assets.xcassets */,
+				31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */,
+				31D2620F2C3BECDE00FC6651 /* Info.plist */,
+			);
+			path = RiverPrime;
+			sourceTree = "<group>";
+		};
+		31D262152C3BED0900FC6651 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		31D262162C3BED1300FC6651 /* SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */,
+				31B102D82C44FAAB0006E8EB /* SignViewModel.swift */,
+			);
+			path = SignIn;
+			sourceTree = "<group>";
+		};
+		31D262182C3BED2C00FC6651 /* Forget */ = {
+			isa = PBXGroup;
+			children = (
+				31FC183A2C3C086400340CFC /* ForgotViewController.swift */,
+				31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */,
+			);
+			path = Forget;
+			sourceTree = "<group>";
+		};
+		31D2621B2C3BF5BC00FC6651 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				31D2621C2C3BF5CE00FC6651 /* Extension.swift */,
+				31B90D142C3FCA3D00A7A0D2 /* Utilities.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		31F3BAD22C3FAB08009A2A12 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				31B102E22C452E190006E8EB /* TradeTypeCell */,
+				C9FD2E2C2C42FE28002F9D06 /* TranscationCell */,
+				C944B1132C41C61B00C180FA /* AccountTableViewCells */,
+				31B90D1F2C3FCC2000A7A0D2 /* Details */,
+				31B90D1C2C3FCBF600A7A0D2 /* History */,
+				31B90D192C3FCBC500A7A0D2 /* withDraw */,
+				31B90D162C3FCB7E00A7A0D2 /* Deposit */,
+				31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
+		31F3BAD32C3FAB26009A2A12 /* Trade */ = {
+			isa = PBXGroup;
+			children = (
+				3109C6CD2C413A9C00F2C69C /* TradeTableViewCell */,
+				C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */,
+			);
+			path = Trade;
+			sourceTree = "<group>";
+		};
+		31F3BAD42C3FAB2E009A2A12 /* Markets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Markets;
+			sourceTree = "<group>";
+		};
+		31F3BAD52C3FAB37009A2A12 /* Results */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		31F3BAD62C3FAB49009A2A12 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		31FC183E2C3C0D1F00340CFC /* TermsNConditions */ = {
+			isa = PBXGroup;
+			children = (
+				31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */,
+				31B124912C3D49420058C9DD /* PrivacyViewController.swift */,
+			);
+			path = TermsNConditions;
+			sourceTree = "<group>";
+		};
+		96823B198E4329FFFFDD0F79 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */,
+				D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		C926E638BC7FD00EC8B3D3E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C944B1132C41C61B00C180FA /* AccountTableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */,
+				C9FD2E272C41C6B1002F9D06 /* AccountTableViewCell.xib */,
+			);
+			path = AccountTableViewCells;
+			sourceTree = "<group>";
+		};
+		C9EB4DCA2C4340230049C961 /* AccountDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				C9EB4DCB2C4340B80049C961 /* AccountDetailTableViewCell.swift */,
+				C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */,
+			);
+			path = AccountDetailCell;
+			sourceTree = "<group>";
+		};
+		C9EB4DCF2C434ACE0049C961 /* Xib File */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Xib File";
+			sourceTree = "<group>";
+		};
+		C9FD2E2C2C42FE28002F9D06 /* TranscationCell */ = {
+			isa = PBXGroup;
+			children = (
+				C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */,
+				C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */,
+			);
+			path = TranscationCell;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		31D261FD2C3BECDE00FC6651 /* RiverPrime */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 31D262122C3BECDE00FC6651 /* Build configuration list for PBXNativeTarget "RiverPrime" */;
+			buildPhases = (
+				301B32FD9870697A7F458E43 /* [CP] Check Pods Manifest.lock */,
+				31D261FA2C3BECDE00FC6651 /* Sources */,
+				31D261FB2C3BECDE00FC6651 /* Frameworks */,
+				31D261FC2C3BECDE00FC6651 /* Resources */,
+				F117F4D620DA4251DF41A1EA /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RiverPrime;
+			productName = RiverPrime;
+			productReference = 31D261FE2C3BECDE00FC6651 /* RiverPrime.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		31D261F62C3BECDE00FC6651 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					31D261FD2C3BECDE00FC6651 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 31D261F92C3BECDE00FC6651 /* Build configuration list for PBXProject "RiverPrime" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 31D261F52C3BECDE00FC6651;
+			packageReferences = (
+				31B124932C3D60F40058C9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+			);
+			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				31D261FD2C3BECDE00FC6651 /* RiverPrime */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		31D261FC2C3BECDE00FC6651 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
+				31B102E12C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib in Resources */,
+				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
+				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
+				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
+				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
+				31D262092C3BECDE00FC6651 /* Base in Resources */,
+				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
+				C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */,
+				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
+				31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */,
+				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
+				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
+				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
+				C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		301B32FD9870697A7F458E43 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RiverPrime-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F117F4D620DA4251DF41A1EA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RiverPrime/Pods-RiverPrime-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RiverPrime/Pods-RiverPrime-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RiverPrime/Pods-RiverPrime-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		31D261FA2C3BECDE00FC6651 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */,
+				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
+				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
+				31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */,
+				31B90D212C3FCC3400A7A0D2 /* DetailsViewController.swift in Sources */,
+				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
+				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
+				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
+				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
+				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
+				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
+				31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */,
+				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
+				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
+				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
+				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
+				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
+				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
+				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
+				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
+				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
+				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
+				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
+				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
+				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
+				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
+				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
+				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
+				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
+				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
+				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
+				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
+				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		31D262072C3BECDE00FC6651 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31D262082C3BECDE00FC6651 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31D2620D2C3BECDE00FC6651 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		31D262102C3BECDE00FC6651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		31D262112C3BECDE00FC6651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		31D262132C3BECDE00FC6651 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J9K56G79V5;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.RiverTrade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		31D262142C3BECDE00FC6651 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = J9K56G79V5;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.RiverTrade;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		31D261F92C3BECDE00FC6651 /* Build configuration list for PBXProject "RiverPrime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31D262102C3BECDE00FC6651 /* Debug */,
+				31D262112C3BECDE00FC6651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		31D262122C3BECDE00FC6651 /* Build configuration list for PBXNativeTarget "RiverPrime" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				31D262132C3BECDE00FC6651 /* Debug */,
+				31D262142C3BECDE00FC6651 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		31B124932C3D60F40058C9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+	};
+	rootObject = 31D261F62C3BECDE00FC6651 /* Project object */;
+}

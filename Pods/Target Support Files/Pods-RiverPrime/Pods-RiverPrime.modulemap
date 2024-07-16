@@ -1,0 +1,6 @@
+framework module Pods_RiverPrime {
+  umbrella header "Pods-RiverPrime-umbrella.h"
+
+  export *
+  module * { export * }
+}
