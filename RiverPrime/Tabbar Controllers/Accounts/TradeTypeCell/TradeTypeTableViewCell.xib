@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="133" height="72"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-4g-PFt">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Zr4-4g-PFt">
                         <rect key="frame" x="15" y="0.0" width="103" height="72"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CEH-XC-eht">

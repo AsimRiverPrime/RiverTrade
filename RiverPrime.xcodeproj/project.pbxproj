@@ -10,6 +10,17 @@
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
+		3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EC2C47D0540055F093 /* MarketsViewController.swift */; };
+		3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */; };
+		3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */; };
+		3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5F42C47D7520055F093 /* MarketTopMoversTableViewCell.swift */; };
+		3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5F52C47D7520055F093 /* MarketTopMoversTableViewCell.xib */; };
+		3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5FA2C47F13E0055F093 /* TradingSignalTableViewCell.swift */; };
+		3164C5FD2C47F13E0055F093 /* TradingSignalTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FB2C47F13E0055F093 /* TradingSignalTableViewCell.xib */; };
+		3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5FE2C47F1620055F093 /* TradingSignalCollectionViewCell.swift */; };
+		3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */; };
+		3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6022C47F1F20055F093 /* ProfileViewController.swift */; };
+		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
 		31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DB2C4514B10006E8EB /* NotificationViewController.swift */; };
@@ -62,6 +73,17 @@
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		3164C5EC2C47D0540055F093 /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
+		3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewCell.swift; sourceTree = "<group>"; };
+		3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsCollectionViewCell.xib; sourceTree = "<group>"; };
+		3164C5F42C47D7520055F093 /* MarketTopMoversTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketTopMoversTableViewCell.swift; sourceTree = "<group>"; };
+		3164C5F52C47D7520055F093 /* MarketTopMoversTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketTopMoversTableViewCell.xib; sourceTree = "<group>"; };
+		3164C5FA2C47F13E0055F093 /* TradingSignalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradingSignalTableViewCell.swift; sourceTree = "<group>"; };
+		3164C5FB2C47F13E0055F093 /* TradingSignalTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalTableViewCell.xib; sourceTree = "<group>"; };
+		3164C5FE2C47F1620055F093 /* TradingSignalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradingSignalCollectionViewCell.swift; sourceTree = "<group>"; };
+		3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalCollectionViewCell.xib; sourceTree = "<group>"; };
+		3164C6022C47F1F20055F093 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		31B102DB2C4514B10006E8EB /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -142,6 +164,44 @@
 				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
 			);
 			path = SupportingFolder;
+			sourceTree = "<group>";
+		};
+		3164C5EE2C47D0860055F093 /* MarketsCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */,
+				3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */,
+			);
+			path = MarketsCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		3164C5F32C47D68D0055F093 /* MarketTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3164C5EE2C47D0860055F093 /* MarketsCollectionViewCell */,
+				3164C5F42C47D7520055F093 /* MarketTopMoversTableViewCell.swift */,
+				3164C5F52C47D7520055F093 /* MarketTopMoversTableViewCell.xib */,
+			);
+			path = MarketTableViewCell;
+			sourceTree = "<group>";
+		};
+		3164C5F82C47F0F90055F093 /* TradingSignalTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3164C5F92C47F11A0055F093 /* TradingSignalCollectionViewCell */,
+				3164C5FA2C47F13E0055F093 /* TradingSignalTableViewCell.swift */,
+				3164C5FB2C47F13E0055F093 /* TradingSignalTableViewCell.xib */,
+			);
+			path = TradingSignalTableViewCell;
+			sourceTree = "<group>";
+		};
+		3164C5F92C47F11A0055F093 /* TradingSignalCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				3164C5FE2C47F1620055F093 /* TradingSignalCollectionViewCell.swift */,
+				3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */,
+			);
+			path = TradingSignalCollectionViewCell;
 			sourceTree = "<group>";
 		};
 		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
@@ -379,6 +439,9 @@
 		31F3BAD42C3FAB2E009A2A12 /* Markets */ = {
 			isa = PBXGroup;
 			children = (
+				3164C5F82C47F0F90055F093 /* TradingSignalTableViewCell */,
+				3164C5F32C47D68D0055F093 /* MarketTableViewCell */,
+				3164C5EC2C47D0540055F093 /* MarketsViewController.swift */,
 			);
 			path = Markets;
 			sourceTree = "<group>";
@@ -386,6 +449,7 @@
 		31F3BAD52C3FAB37009A2A12 /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				3164C6042C47F2050055F093 /* ResultsViewController.swift */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -393,6 +457,7 @@
 		31F3BAD62C3FAB49009A2A12 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				3164C6022C47F1F20055F093 /* ProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -523,18 +588,22 @@
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				31B102E12C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib in Resources */,
 				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
+				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
+				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
 				C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */,
 				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
+				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
 				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
 				C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */,
+				3164C5FD2C47F13E0055F093 /* TradingSignalTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -598,26 +667,33 @@
 				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
+				3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */,
 				31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */,
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
 				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
 				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
+				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
 				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
+				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
+				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
 				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
+				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
 				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
+				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
 				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
+				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,
 			);
@@ -777,6 +853,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -809,6 +886,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

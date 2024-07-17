@@ -34,16 +34,6 @@
                                     <constraint firstAttribute="height" constant="10" id="7Dy-jK-dlb"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lS4-xP-r65">
-                                <rect key="frame" x="0.0" y="49" width="99" height="2"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="peh-Rm-39L"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -51,10 +41,7 @@
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerY" secondItem="dmD-cg-LXd" secondAttribute="centerY" id="Bb5-XN-cpO"/>
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerX" secondItem="dmD-cg-LXd" secondAttribute="centerX" id="WGi-lB-Rxf"/>
                             <constraint firstItem="IRM-45-srP" firstAttribute="top" secondItem="TX2-Zq-yJN" secondAttribute="bottom" constant="5" id="iBo-cu-xrB"/>
-                            <constraint firstItem="lS4-xP-r65" firstAttribute="leading" secondItem="dmD-cg-LXd" secondAttribute="leading" id="iao-hu-5En"/>
                             <constraint firstAttribute="trailing" secondItem="IRM-45-srP" secondAttribute="trailing" id="pBW-w1-y9X"/>
-                            <constraint firstAttribute="trailing" secondItem="lS4-xP-r65" secondAttribute="trailing" id="twm-FL-b8H"/>
-                            <constraint firstAttribute="bottom" secondItem="lS4-xP-r65" secondAttribute="bottom" constant="5" id="vQY-2H-Ry2"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -76,9 +63,6 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
