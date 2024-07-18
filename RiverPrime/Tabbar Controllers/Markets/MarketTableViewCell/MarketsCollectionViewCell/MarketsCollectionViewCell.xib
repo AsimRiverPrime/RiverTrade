@@ -56,7 +56,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4de-aX-cfJ">
-                                <rect key="frame" x="101.66666666666667" y="190.66666666666666" width="46.000000000000014" height="12"/>
+                                <rect key="frame" x="101.66666666666667" y="199" width="46.000000000000014" height="12"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Vft-P9-9zT">
                                         <rect key="frame" x="0.0" y="0.0" width="12" height="12"/>
@@ -79,8 +79,8 @@
                             <constraint firstItem="8Oj-XN-1HC" firstAttribute="top" secondItem="jKT-zT-Gje" secondAttribute="bottom" constant="5" id="0vE-WI-RUL"/>
                             <constraint firstItem="8Oj-XN-1HC" firstAttribute="leading" secondItem="efA-Uw-Zth" secondAttribute="leading" constant="20" id="8Rm-SO-m48"/>
                             <constraint firstItem="8Oj-XN-1HC" firstAttribute="centerX" secondItem="efA-Uw-Zth" secondAttribute="centerX" id="DIy-7h-mDs"/>
+                            <constraint firstAttribute="bottom" secondItem="4de-aX-cfJ" secondAttribute="bottom" constant="10" id="I1P-H6-y7Z"/>
                             <constraint firstAttribute="trailing" secondItem="8Oj-XN-1HC" secondAttribute="trailing" constant="20" id="SKb-8f-vG5"/>
-                            <constraint firstItem="4de-aX-cfJ" firstAttribute="top" secondItem="Ai0-9Z-Xfw" secondAttribute="bottom" constant="10" id="ZyW-lA-KZd"/>
                             <constraint firstItem="Ai0-9Z-Xfw" firstAttribute="centerX" secondItem="efA-Uw-Zth" secondAttribute="centerX" id="fKv-wW-GAY"/>
                             <constraint firstItem="jKT-zT-Gje" firstAttribute="centerX" secondItem="S7s-G4-EMy" secondAttribute="centerX" id="gHZ-Nd-tvc"/>
                             <constraint firstItem="4de-aX-cfJ" firstAttribute="centerX" secondItem="Ai0-9Z-Xfw" secondAttribute="centerX" id="jFi-VF-GyH"/>
@@ -139,7 +139,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

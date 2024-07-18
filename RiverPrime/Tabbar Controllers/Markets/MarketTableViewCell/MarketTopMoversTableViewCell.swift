@@ -15,10 +15,11 @@ class MarketTopMoversTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
         topMoverCollectionView.delegate = self
         topMoverCollectionView.dataSource = self
         topMoverCollectionView.register(UINib(nibName: "MarketsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MarketsCollectionViewCell")
-       
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -44,6 +45,10 @@ extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionVi
        
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: collectionView.frame.width, height: 200) // Fixed height
+        }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
