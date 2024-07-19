@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="255" id="KGk-i7-Jjw" customClass="TradingSignalTableViewCell" customModule="RiverPrime" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TradingSignalTableViewCell" rowHeight="255" id="KGk-i7-Jjw" customClass="TradingSignalTableViewCell" customModule="RiverPrime" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="222" height="255"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -19,19 +19,19 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VTG-Dc-Ufe">
-                        <rect key="frame" x="0.0" y="0.0" width="222" height="255"/>
+                        <rect key="frame" x="20" y="0.0" width="182" height="255"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TRADING SIGNALS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nHt-0m-Z4z">
-                                <rect key="frame" x="45.333333333333329" y="10" width="131.66666666666669" height="18"/>
+                                <rect key="frame" x="25.333333333333329" y="10" width="131.66666666666669" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1AA-1W-ZYP" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="10" y="38" width="210" height="173.66666666666666"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1AA-1W-ZYP">
+                                <rect key="frame" x="10" y="38" width="162" height="173.66666666666666"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="oKn-nG-Z27">
-                                        <rect key="frame" x="0.0" y="0.0" width="210" height="173.66666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="162" height="173.66666666666666"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xCZ-Nc-j03">
                                             <size key="itemSize" width="128" height="128"/>
@@ -50,15 +50,18 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSr-aN-vmQ">
-                                <rect key="frame" x="67.333333333333343" y="221.66666666666666" width="87.333333333333343" height="28.333333333333343"/>
-                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="47.333333333333336" y="221.66666666666666" width="87.333333333333314" height="28.333333333333343"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Show More">
                                     <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="showMoreAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="OvZ-gC-mvr"/>
+                                </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="qSr-aN-vmQ" firstAttribute="top" secondItem="1AA-1W-ZYP" secondAttribute="bottom" constant="10" id="2CL-xU-XUk"/>
                             <constraint firstItem="nHt-0m-Z4z" firstAttribute="top" secondItem="VTG-Dc-Ufe" secondAttribute="top" constant="10" id="LJF-ca-eWv"/>
@@ -66,25 +69,32 @@
                             <constraint firstItem="1AA-1W-ZYP" firstAttribute="top" secondItem="nHt-0m-Z4z" secondAttribute="bottom" constant="10" id="YdR-47-e0R"/>
                             <constraint firstItem="qSr-aN-vmQ" firstAttribute="centerX" secondItem="VTG-Dc-Ufe" secondAttribute="centerX" id="afk-PX-tOu"/>
                             <constraint firstAttribute="bottom" secondItem="qSr-aN-vmQ" secondAttribute="bottom" constant="5" id="afo-qg-BD2"/>
-                            <constraint firstAttribute="trailing" secondItem="1AA-1W-ZYP" secondAttribute="trailing" constant="2" id="jZE-Ih-MRG"/>
+                            <constraint firstAttribute="trailing" secondItem="1AA-1W-ZYP" secondAttribute="trailing" constant="10" id="jZE-Ih-MRG"/>
                             <constraint firstItem="1AA-1W-ZYP" firstAttribute="leading" secondItem="VTG-Dc-Ufe" secondAttribute="leading" constant="10" id="mAM-4c-lSw"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="VTG-Dc-Ufe" secondAttribute="trailing" id="4O8-Ow-HAh"/>
+                    <constraint firstAttribute="trailing" secondItem="VTG-Dc-Ufe" secondAttribute="trailing" constant="20" id="4O8-Ow-HAh"/>
                     <constraint firstAttribute="bottom" secondItem="VTG-Dc-Ufe" secondAttribute="bottom" id="ABX-SP-LzO"/>
                     <constraint firstItem="VTG-Dc-Ufe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="mxk-2s-Vcc"/>
-                    <constraint firstItem="VTG-Dc-Ufe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="swP-8B-6eQ"/>
+                    <constraint firstItem="VTG-Dc-Ufe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="swP-8B-6eQ"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="tradeSignalCollectionView" destination="oKn-nG-Z27" id="WzV-ia-EFI"/>
+            </connections>
             <point key="canvasLocation" x="-77.862595419847324" y="72.887323943661968"/>
         </tableViewCell>
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

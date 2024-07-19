@@ -14,7 +14,7 @@ class MarketsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tblView.registerCells([
-            AccountTableViewCell.self,MarketTopMoversTableViewCell.self, TradeTableViewCell.self
+            AccountTableViewCell.self,MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
             ])
         tblView.reloadData()
         tblView.dataSource = self
@@ -27,7 +27,7 @@ class MarketsViewController: UIViewController {
 extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 3
+            return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -35,8 +35,12 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         }else if section == 1 {
             return 1
+        }else if section == 2 {
+            return 1
+        }else if section == 3 {
+            return 1
         }else{
-            return 10
+            return 1
         }
     }
     
@@ -50,10 +54,25 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: MarketTopMoversTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
+          
+            self.view.setNeedsLayout()
+            return cell
+            
+        }else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
+            cell.backgroundColor = .clear
+            
+            self.view.setNeedsLayout()
+            return cell
+        }else if indexPath.section == 3 {
+            let cell = tableView.dequeueReusableCell(with: UpcomingEventsTableViewCell.self, for: indexPath)
+            cell.backgroundColor = .clear
+            
+            self.view.setNeedsLayout()
             return cell
             
         }else{
-            let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(with: TopNewsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             return cell
         }
@@ -65,11 +84,17 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 300.0
         }else if indexPath.section == 1 {
-            return 260
+            return 250
             
+        }else if indexPath.section == 2 {
+            return 300
+            
+        }else if indexPath.section == 3 {
+            return 350
         }else{
-            return 100.0
+            return 350
         }
     }
     
 }
+
