@@ -72,6 +72,18 @@
 		C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */; };
 		C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */; };
 		C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */; };
+		FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */; };
+		FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */; };
+		FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */; };
+		FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */; };
+		FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00C62C4BFD4E00BC57F1 /* AccountsVC.xib */; };
+		FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C72C4BFD4E00BC57F1 /* AccountsVC.swift */; };
+		FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */; };
+		FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */; };
+		FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */; };
+		FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */; };
+		FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */; };
+		FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -144,6 +156,18 @@
 		C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
 		D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
+		FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
+		FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
+		FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		FA9B00C62C4BFD4E00BC57F1 /* AccountsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountsVC.xib; sourceTree = "<group>"; };
+		FA9B00C72C4BFD4E00BC57F1 /* AccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsVC.swift; sourceTree = "<group>"; };
+		FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeVC.xib; sourceTree = "<group>"; };
+		FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
+		FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
+		FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
+		FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +249,7 @@
 				31F3BAD32C3FAB26009A2A12 /* Trade */,
 				31F3BAD22C3FAB08009A2A12 /* Accounts */,
 				31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */,
+				FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */,
 			);
 			path = "Tabbar Controllers";
 			sourceTree = "<group>";
@@ -393,6 +418,8 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				FA9B00BE2C4BFBE900BC57F1 /* BaseClasses */,
+				FA9B00BC2C4BFBE900BC57F1 /* GlobalVariable */,
 				C9EB4DCF2C434ACE0049C961 /* Xib File */,
 				31B90D0D2C3FC14700A7A0D2 /* PresentBottomController */,
 				31A4F0432C3E90A1006FDE6E /* Helper */,
@@ -444,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				31D2621C2C3BF5CE00FC6651 /* Extension.swift */,
+				FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */,
 				31B90D142C3FCA3D00A7A0D2 /* Utilities.swift */,
 			);
 			path = Extension;
@@ -460,6 +488,8 @@
 				31B90D192C3FCBC500A7A0D2 /* withDraw */,
 				31B90D162C3FCB7E00A7A0D2 /* Deposit */,
 				31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */,
+				FA9B00C72C4BFD4E00BC57F1 /* AccountsVC.swift */,
+				FA9B00C62C4BFD4E00BC57F1 /* AccountsVC.xib */,
 			);
 			path = Accounts;
 			sourceTree = "<group>";
@@ -467,8 +497,11 @@
 		31F3BAD32C3FAB26009A2A12 /* Trade */ = {
 			isa = PBXGroup;
 			children = (
+				FA9B00CB2C4BFDC000BC57F1 /* TableCollectionViewCell */,
 				3109C6CD2C413A9C00F2C69C /* TradeTableViewCell */,
 				C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */,
+				FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */,
+				FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */,
 			);
 			path = Trade;
 			sourceTree = "<group>";
@@ -561,6 +594,33 @@
 			path = TranscationCell;
 			sourceTree = "<group>";
 		};
+		FA9B00BC2C4BFBE900BC57F1 /* GlobalVariable */ = {
+			isa = PBXGroup;
+			children = (
+				FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */,
+			);
+			path = GlobalVariable;
+			sourceTree = "<group>";
+		};
+		FA9B00BE2C4BFBE900BC57F1 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+				FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */,
+			);
+			path = BaseClasses;
+			sourceTree = "<group>";
+		};
+		FA9B00CB2C4BFDC000BC57F1 /* TableCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */,
+				FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */,
+				FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */,
+				FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */,
+			);
+			path = TableCollectionViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -632,6 +692,8 @@
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
+				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
+				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
@@ -640,8 +702,10 @@
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */,
 				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
+				FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */,
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
 				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
+				FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
 				C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */,
 				3164C5FD2C47F13E0055F093 /* TradingSignalTableViewCell.xib in Resources */,
@@ -702,7 +766,10 @@
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
 				31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				31B90D212C3FCC3400A7A0D2 /* DetailsViewController.swift in Sources */,
+				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
+				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
+				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
 				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
 				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
@@ -712,6 +779,7 @@
 				31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */,
 				31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */,
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
+				FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */,
 				31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */,
 				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
@@ -721,8 +789,10 @@
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
+				FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
+				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
@@ -730,6 +800,7 @@
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
+				FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */,
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
 				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
@@ -739,6 +810,7 @@
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
+				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
 				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

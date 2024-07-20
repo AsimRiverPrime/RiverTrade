@@ -19,32 +19,32 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNo-Hg-WNw">
-                        <rect key="frame" x="20" y="5" width="516" height="102"/>
+                        <rect key="frame" x="20" y="15" width="516" height="82"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="currencyIcon" translatesAutoresizingMaskIntoConstraints="NO" id="dPz-QR-GwM">
-                                <rect key="frame" x="12" y="31" width="40" height="40"/>
+                                <rect key="frame" x="12" y="21" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="40" id="be0-NR-LE5"/>
                                     <constraint firstAttribute="height" constant="40" id="yDc-bi-UL5"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Qy-YG-T9g">
-                                <rect key="frame" x="62.000000000000007" y="30" width="79.666666666666686" height="19.333333333333329"/>
+                                <rect key="frame" x="62.000000000000007" y="22.333333333333336" width="79.666666666666686" height="19.333333333333336"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BitCoin vs US Dollar" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9oA-xv-qP9">
-                                <rect key="frame" x="62.000000000000007" y="59.333333333333321" width="79.666666666666686" height="9.6666666666666643"/>
+                                <rect key="frame" x="62.000000000000007" y="51.666666666666671" width="79.666666666666686" height="9.6666666666666643"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ye9-YH-LIJ">
-                                <rect key="frame" x="148.66666666666663" y="10" width="305" height="82"/>
+                                <rect key="frame" x="148.66666666666663" y="10" width="305" height="62"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="greenGraph" translatesAutoresizingMaskIntoConstraints="NO" id="CI9-UG-ooj">
-                                        <rect key="frame" x="0.0" y="0.0" width="305" height="82"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="62"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -56,19 +56,19 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6120.13" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cur-pu-luk">
-                                <rect key="frame" x="460.66666666666669" y="32.333333333333336" width="50.333333333333314" height="17"/>
+                                <rect key="frame" x="460.66666666666669" y="24.333333333333336" width="50.333333333333314" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.3%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtz-X5-afp">
-                                <rect key="frame" x="480.66666666666669" y="59.333333333333336" width="30.333333333333314" height="14.333333333333336"/>
+                                <rect key="frame" x="480.66666666666669" y="51.333333333333329" width="30.333333333333314" height="14.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upIcon" translatesAutoresizingMaskIntoConstraints="NO" id="m9n-dc-zfB">
-                                <rect key="frame" x="460.66666666666669" y="59" width="15" height="15"/>
+                                <rect key="frame" x="460.66666666666669" y="51" width="15" height="15"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="15" id="eQj-wW-EdV"/>
                                     <constraint firstAttribute="height" constant="15" id="gbx-Zq-2XY"/>
@@ -103,8 +103,8 @@
                 <constraints>
                     <constraint firstItem="dNo-Hg-WNw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="8bG-Sq-jYq"/>
                     <constraint firstAttribute="trailing" secondItem="dNo-Hg-WNw" secondAttribute="trailing" constant="20" id="BIa-hL-5gz"/>
-                    <constraint firstItem="dNo-Hg-WNw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="GIZ-aU-EAz"/>
-                    <constraint firstAttribute="bottom" secondItem="dNo-Hg-WNw" secondAttribute="bottom" constant="5" id="qJQ-D1-3p2"/>
+                    <constraint firstItem="dNo-Hg-WNw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="GIZ-aU-EAz"/>
+                    <constraint firstAttribute="bottom" secondItem="dNo-Hg-WNw" secondAttribute="bottom" constant="15" id="qJQ-D1-3p2"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
