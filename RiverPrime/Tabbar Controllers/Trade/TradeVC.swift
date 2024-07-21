@@ -17,6 +17,11 @@ struct TradeVCModel {
     var isPositive = Bool()
 }
 
+protocol TradeDetailTapDelegate: AnyObject {
+    func tradeDetailTap(indexPath: IndexPath)
+    
+}
+
 class TradeVC: UIView {
     
     @IBOutlet weak var tblView: UITableView!
@@ -27,6 +32,7 @@ class TradeVC: UIView {
     var model = [TradeVCModel]()
     
     weak var delegate: TradeInfoTapDelegate?
+    weak var delegateDetail: TradeDetailTapDelegate?
     
     public override func awakeFromNib() {
         
@@ -125,6 +131,17 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         }
        
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTableViewCell") as? TradeTableViewCell
+//            print("cell?.lblCurrencyName.text = \(cell?.lblCurrencyName.text ?? "")")
+            
+            delegateDetail?.tradeDetailTap(indexPath: indexPath)
+            
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

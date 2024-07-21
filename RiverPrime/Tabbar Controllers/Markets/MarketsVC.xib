@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="mMV-Ld-czQ" customClass="MarketsVC" customModule="RiverPrime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tzH-3j-7js">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="767"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="Xjf-Mb-2aH"/>
+            <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="tzH-3j-7js" firstAttribute="leading" secondItem="Xjf-Mb-2aH" secondAttribute="leading" id="Iwy-HI-cvY"/>
+                <constraint firstItem="tzH-3j-7js" firstAttribute="top" secondItem="mMV-Ld-czQ" secondAttribute="top" id="NnT-k0-amH"/>
+                <constraint firstAttribute="bottom" secondItem="tzH-3j-7js" secondAttribute="bottom" constant="85" id="eMm-pM-rOE"/>
+                <constraint firstItem="Xjf-Mb-2aH" firstAttribute="trailing" secondItem="tzH-3j-7js" secondAttribute="trailing" id="eO5-0i-olP"/>
+            </constraints>
+            <connections>
+                <outlet property="tableViewBottomConstraint" destination="eMm-pM-rOE" id="bwn-8b-gCf"/>
+                <outlet property="tblView" destination="tzH-3j-7js" id="MiV-aq-qUA"/>
+                <outlet property="tblViewTopConstraint" destination="NnT-k0-amH" id="Kxi-qa-3R7"/>
+            </connections>
+            <point key="canvasLocation" x="33" y="20"/>
+        </view>
+    </objects>
+</document>

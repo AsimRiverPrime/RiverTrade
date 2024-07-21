@@ -32,4 +32,5 @@ enum BottomSheetIdentifierType: String {
     case detailsViewController = "DetailsViewController"
     case historyViewController = "HistoryViewController"
     case notificationViewController = "NotificationViewController"
+    case tradeDetalVC = "TradeDetalVC"
 }

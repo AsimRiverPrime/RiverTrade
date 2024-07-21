@@ -67,6 +67,7 @@ class DashboardVC: BaseViewController {
     
     var accountsVC = AccountsVC()
     var tradeVC = TradeVC()
+    var marketsVC = MarketsVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,7 @@ class DashboardVC: BaseViewController {
     override func viewDidLayoutSubviews() {
         accountsVC.frame = self.view.bounds
         tradeVC.frame = self.view.bounds
+        marketsVC.frame = self.view.bounds
 //        bookFragment.frame = self.view.bounds
 //        homeAllReservationFragment.frame = self.view.bounds
 //        socialDistancePopupView.frame = self.view.bounds //MARK: - For Social distance popup.
@@ -191,12 +193,11 @@ extension DashboardVC {
     //
     //        navBarTitleButton(setTitle: session.dynamicMyReservationLabel ?? "My Reservations")
             
-            accountsVC.dismissView() //MARK: - Dismiss Home activity.
-            tradeVC.dismissView() //MARK: - Dismiss Book activity.
+            dismissViews()
     //        homeAllReservationFragment.dismissView() //MARK: - Dismiss HomeAllReservationFragment activity.
-            accountsVC = AccountsVC.getView()  //MARK: - Relaunch Home activity.
+            accountsVC = AccountsVC.getView()
             accountsVC.delegate = self
-            self.myViewFragment.addSubview(accountsVC)
+            addView(customTabBarType: .Accounts)
             
             break
         case .Trade:
@@ -221,11 +222,11 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-            accountsVC.dismissView() //MARK: - Dismiss Home activity.
-            tradeVC.dismissView() //MARK: - Dismiss Book activity.
-            tradeVC = TradeVC.getView()  //MARK: - Relaunch Home activity.
+            dismissViews()
+            tradeVC = TradeVC.getView()
 //            tradeVC.delegate = self
-            self.myViewFragment.addSubview(tradeVC)
+            tradeVC.delegateDetail = self
+            addView(customTabBarType: .Trade)
             
             break
         case .Markets:
@@ -250,6 +251,11 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
+            dismissViews()
+            marketsVC = MarketsVC.getView()
+//            tradeVC.delegate = self
+            addView(customTabBarType: .Markets)
+            
             break
         case .Results:
             
@@ -272,6 +278,11 @@ extension DashboardVC {
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
+            
+//            dismissViews()
+//            marketsVC = MarketsVC.getView()
+////            tradeVC.delegate = self
+//            addView(customTabBarType: .Results)
             
             break
         case .Profile:
@@ -296,6 +307,33 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.systemYellow
             ProfileView.backgroundColor = UIColor.black
             
+//            dismissViews()
+//            marketsVC = MarketsVC.getView()
+////            tradeVC.delegate = self
+//            addView(customTabBarType: .Profile)
+            
+            break
+        }
+    }
+    
+    private func dismissViews() {
+        accountsVC.dismissView()
+        tradeVC.dismissView()
+        marketsVC.dismissView()
+    }
+    
+    private func addView(customTabBarType: CustomTabBarType) {
+        switch customTabBarType {
+            
+        case .Accounts:
+            self.myViewFragment.addSubview(accountsVC)
+        case .Trade:
+            self.myViewFragment.addSubview(tradeVC)
+        case .Markets:
+            self.myViewFragment.addSubview(marketsVC)
+        case .Results:
+            break
+        case .Profile:
             break
         }
     }
@@ -334,6 +372,17 @@ extension DashboardVC: AccountInfoTapDelegate {
         
     }
     
+    
+}
+
+extension DashboardVC: TradeDetailTapDelegate {
+    
+    func tradeDetailTap(indexPath: IndexPath) {
+        
+        let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .dashboard) as! TradeDetalVC
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+
+    }
     
 }
 
