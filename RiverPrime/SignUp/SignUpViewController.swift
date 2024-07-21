@@ -100,7 +100,8 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
             self.navigate(to: dashboardVC)
         }
     }
