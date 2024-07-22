@@ -41,6 +41,7 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var viewOfBtnStack: UIView!
         
     @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
+    @IBOutlet weak var widthOfMainStackView: NSLayoutConstraint!
     
     @IBOutlet weak var Btn_view: UIView!
     @IBOutlet weak var btn_funds: UIButton!
@@ -57,6 +58,16 @@ class AccountTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        //MARK: - width constraint of main stack view.
+        if UIDevice.isPhone {
+//            viewOfAccount.spacing = 2
+            widthOfMainStackView.constant = 0
+        } else {
+//            viewOfAccount.spacing = -300
+            widthOfMainStackView.constant = -300
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
