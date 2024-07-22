@@ -21,6 +21,8 @@
 		3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */; };
 		3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6022C47F1F20055F093 /* ProfileViewController.swift */; };
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
+		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
+		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
 		31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DB2C4514B10006E8EB /* NotificationViewController.swift */; };
@@ -103,6 +105,8 @@
 		3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalCollectionViewCell.xib; sourceTree = "<group>"; };
 		3164C6022C47F1F20055F093 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
+		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		31B102DB2C4514B10006E8EB /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
@@ -528,6 +532,8 @@
 			isa = PBXGroup;
 			children = (
 				3164C6042C47F2050055F093 /* ResultsViewController.swift */,
+				318CBF8E2C4E77F900C9B34D /* ResultVC.xib */,
+				318CBF902C4E781500C9B34D /* ResultVC.swift */,
 			);
 			path = Results;
 			sourceTree = "<group>";
@@ -698,6 +704,7 @@
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
+				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
 				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
@@ -805,6 +812,7 @@
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
+				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
