@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-RiverPrime/Pods-RiverPrime-frameworks.sh
+${BUILT_PRODUCTS_DIR}/LightweightCharts/LightweightCharts.framework
 ${BUILT_PRODUCTS_DIR}/TPKeyboardAvoiding/TPKeyboardAvoiding.framework

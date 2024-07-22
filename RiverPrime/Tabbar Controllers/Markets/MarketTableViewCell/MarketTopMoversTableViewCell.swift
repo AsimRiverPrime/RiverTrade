@@ -10,7 +10,8 @@ import UIKit
 class MarketTopMoversTableViewCell: UITableViewCell {
 
     @IBOutlet weak var topMoverCollectionView: UICollectionView!
-    
+    var numberOfItemsPerRow: Int = 2
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,7 +34,7 @@ class MarketTopMoversTableViewCell: UITableViewCell {
     }
 }
 
-extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
       //  return 10 // Number of items in the collection view
         return 10
@@ -46,10 +47,7 @@ extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionVi
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: collectionView.frame.width, height: 200) // Fixed height
-        }
-    
+   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             
@@ -59,6 +57,15 @@ extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionVi
     if let cell = collectionView.cellForItem(at: indexPath){
 //        cell.backgroundColor = .clear
         
+        }
     }
-}
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+        let totalSpace = flowLayout.sectionInset.left + flowLayout.sectionInset.right + (flowLayout.minimumInteritemSpacing * CGFloat(numberOfItemsPerRow - 1))
+        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfItemsPerRow))
+        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 0
+        return CGSize(width: size, height: size) // Adjust height as needed
+    }
+    
 }
