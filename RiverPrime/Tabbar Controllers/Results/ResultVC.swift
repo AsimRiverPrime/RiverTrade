@@ -30,7 +30,7 @@ class ResultVC: UIView {
         //        ])
         
         tblView.registerCells([
-            AccountTableViewCell.self,MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+            ResultTopViewCell.self,ResultsFilterViewCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
         ])
         
         tblView.delegate = self
@@ -38,8 +38,8 @@ class ResultVC: UIView {
         tblView.reloadData()
     }
     
-    class func getView()->MarketsVC {
-        return Bundle.main.loadNibNamed("MarketsVC", owner: self, options: nil)?.first as! MarketsVC
+    class func getView()->ResultVC {
+        return Bundle.main.loadNibNamed("ResultVC", owner: self, options: nil)?.first as! ResultVC
     }
     
     func dismissView() {
@@ -59,7 +59,7 @@ class ResultVC: UIView {
 extension ResultVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 2 //5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,30 +67,43 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }else if section == 1 {
             return 1
-        }else if section == 2 {
+        }/*else if section == 2 {
             return 1
         }else if section == 3 {
             return 1
-        }else{
+        }*/else{
             return 1
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-            cell.setHeaderUI(.market)
-            //            cell.delegate = self
+            let cell = tableView.dequeueReusableCell(with: ResultTopViewCell.self, for: indexPath)
+//            cell.setHeaderUI(.market)
+            cell.setHeaderUI()
+            cell.delegate = self
             return cell
             
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(with: MarketTopMoversTableViewCell.self, for: indexPath)
+            let cell = tableView.dequeueReusableCell(with: ResultsFilterViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
+            
+            cell.onAllRealAccountsFilterButtonClick = {
+                [self] in
+                print("Click on onAllRealAccountsFilterButtonClick")
+                
+            }
+            
+            cell.onDaysFilterButton = {
+                [self] in
+                print("Click on onDaysFilterButton")
+                
+            }
             
             self.setNeedsLayout()
             return cell
             
-        }else if indexPath.section == 2 {
+        } /*else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             
@@ -103,12 +116,11 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
             self.setNeedsLayout()
             return cell
             
-        }else{
+        }*/else{
             let cell = tableView.dequeueReusableCell(with: TopNewsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             return cell
         }
-        
         
     }
     
@@ -116,16 +128,24 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 300.0
         }else if indexPath.section == 1 {
-            return 250
+            return 70
             
-        }else if indexPath.section == 2 {
+        } /*else if indexPath.section == 2 {
             return 300
             
         }else if indexPath.section == 3 {
             return 350
-        }else{
+        }*/else{
             return 350
         }
+    }
+    
+}
+
+extension ResultVC: ResultTopDelegate {
+    
+    func resultTopTap(_ resultTopButtonType: ResultTopButtonType) {
+        print("resultTopButtonType = \(resultTopButtonType)")
     }
     
 }

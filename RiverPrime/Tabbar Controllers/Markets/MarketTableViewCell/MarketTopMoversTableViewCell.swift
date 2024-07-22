@@ -65,7 +65,7 @@ extension MarketTopMoversTableViewCell: UICollectionViewDelegate, UICollectionVi
         let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfItemsPerRow))
         flowLayout.minimumLineSpacing = 0
         flowLayout.minimumInteritemSpacing = 0
-        return CGSize(width: size, height: size) // Adjust height as needed
+        return CGSize(width: size, height: size + 25) // Adjust height as needed
     }
     
 }

@@ -68,6 +68,7 @@ class DashboardVC: BaseViewController {
     var accountsVC = AccountsVC()
     var tradeVC = TradeVC()
     var marketsVC = MarketsVC()
+    var resultVC = ResultVC()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,7 @@ class DashboardVC: BaseViewController {
         accountsVC.frame = self.view.bounds
         tradeVC.frame = self.view.bounds
         marketsVC.frame = self.view.bounds
+        resultVC.frame = self.view.bounds
 //        bookFragment.frame = self.view.bounds
 //        homeAllReservationFragment.frame = self.view.bounds
 //        socialDistancePopupView.frame = self.view.bounds //MARK: - For Social distance popup.
@@ -279,10 +281,10 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-//            dismissViews()
-//            marketsVC = MarketsVC.getView()
-////            tradeVC.delegate = self
-//            addView(customTabBarType: .Results)
+            dismissViews()
+            resultVC = ResultVC.getView()
+//            tradeVC.delegate = self
+            addView(customTabBarType: .Results)
             
             break
         case .Profile:
@@ -320,6 +322,7 @@ extension DashboardVC {
         accountsVC.dismissView()
         tradeVC.dismissView()
         marketsVC.dismissView()
+        resultVC.dismissView()
     }
     
     private func addView(customTabBarType: CustomTabBarType) {
@@ -332,6 +335,7 @@ extension DashboardVC {
         case .Markets:
             self.myViewFragment.addSubview(marketsVC)
         case .Results:
+            self.myViewFragment.addSubview(resultVC)
             break
         case .Profile:
             break
