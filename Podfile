@@ -6,6 +6,7 @@ target 'RiverPrime' do
   use_frameworks!
 
 pod 'TPKeyboardAvoiding'
+pod 'LightweightCharts', '~> 3.8.0'
 
   # Pods for RiverPrime
 
