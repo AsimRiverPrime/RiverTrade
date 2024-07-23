@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ProfileVC" customModule="RiverPrime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7S-9C-JXm">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="733"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="T7S-9C-JXm" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="1NK-My-7Gn"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="T7S-9C-JXm" secondAttribute="bottom" constant="85" id="Avm-iF-wto"/>
+                <constraint firstItem="T7S-9C-JXm" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="hm3-as-u93"/>
+                <constraint firstItem="T7S-9C-JXm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="kzZ-Wh-V1R"/>
+            </constraints>
+            <connections>
+                <outlet property="tableViewBottomConstraint" destination="Avm-iF-wto" id="b8M-eA-DQe"/>
+                <outlet property="tblView" destination="T7S-9C-JXm" id="khy-ub-HN4"/>
+                <outlet property="tblViewTopConstraint" destination="kzZ-Wh-V1R" id="dpc-CF-x0V"/>
+            </connections>
+            <point key="canvasLocation" x="136.64122137404578" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
