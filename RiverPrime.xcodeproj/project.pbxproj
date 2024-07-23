@@ -62,6 +62,12 @@
 		31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262192C3BF58200FC6651 /* SignUpViewController.swift */; };
 		31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2621C2C3BF5CE00FC6651 /* Extension.swift */; };
 		31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */; };
+		31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19C32C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib */; };
+		31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C22C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift */; };
+		31DC19C92C4F76C0005BC2BB /* BenefitsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */; };
+		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
+		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
+		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
 		31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */; };
 		31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183A2C3C086400340CFC /* ForgotViewController.swift */; };
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
@@ -152,6 +158,12 @@
 		31D262192C3BF58200FC6651 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		31D2621C2C3BF5CE00FC6651 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		31DC19C22C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTopTableViewCell.swift; sourceTree = "<group>"; };
+		31DC19C32C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTopTableViewCell.xib; sourceTree = "<group>"; };
+		31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsTableViewCell.swift; sourceTree = "<group>"; };
+		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
+		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
+		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
 		31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
@@ -493,6 +505,33 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		31DC19C12C4F6DBE005BC2BB /* ProfileHeaderTBCell */ = {
+			isa = PBXGroup;
+			children = (
+				31DC19C22C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift */,
+				31DC19C32C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib */,
+			);
+			path = ProfileHeaderTBCell;
+			sourceTree = "<group>";
+		};
+		31DC19C62C4F7691005BC2BB /* BenefitsTBCell */ = {
+			isa = PBXGroup;
+			children = (
+				31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */,
+				31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */,
+			);
+			path = BenefitsTBCell;
+			sourceTree = "<group>";
+		};
+		31DC19CB2C4F7D70005BC2BB /* ReferralTBCell */ = {
+			isa = PBXGroup;
+			children = (
+				31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */,
+				31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */,
+			);
+			path = ReferralTBCell;
+			sourceTree = "<group>";
+		};
 		31F3BAD22C3FAB08009A2A12 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
@@ -551,6 +590,9 @@
 		31F3BAD62C3FAB49009A2A12 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				31DC19CB2C4F7D70005BC2BB /* ReferralTBCell */,
+				31DC19C62C4F7691005BC2BB /* BenefitsTBCell */,
+				31DC19C12C4F6DBE005BC2BB /* ProfileHeaderTBCell */,
 				3164C6022C47F1F20055F093 /* ProfileViewController.swift */,
 			);
 			path = Profile;
@@ -731,6 +773,7 @@
 				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
+				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
 				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
@@ -742,6 +785,7 @@
 				FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */,
 				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
 				C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */,
+				31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */,
 				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
@@ -752,6 +796,7 @@
 				FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
 				C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */,
+				31DC19C92C4F76C0005BC2BB /* BenefitsTableViewCell.xib in Resources */,
 				3164C5FD2C47F13E0055F093 /* TradingSignalTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -817,6 +862,7 @@
 				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
 				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
+				31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */,
 				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
@@ -827,6 +873,7 @@
 				FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */,
 				31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */,
 				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
+				31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */,
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
 				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
@@ -842,6 +889,7 @@
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
+				31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
