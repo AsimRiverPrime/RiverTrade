@@ -120,10 +120,10 @@ extension MarketsVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 300.0
         }else if indexPath.section == 1 {
-            return 250
+            return 260
             
         }else if indexPath.section == 2 {
-            return 300
+            return 310
             
         }else if indexPath.section == 3 {
             return 350

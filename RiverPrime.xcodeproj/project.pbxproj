@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
+		31193D922C4FD17A00197CD4 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 31193D912C4FD17A00197CD4 /* FirebaseAnalytics */; };
+		31193D942C4FD17A00197CD4 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 31193D932C4FD17A00197CD4 /* FirebaseAnalyticsOnDeviceConversion */; };
+		31193D962C4FD17A00197CD4 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31193D952C4FD17A00197CD4 /* FirebaseAnalyticsSwift */; };
+		31193D982C4FD17A00197CD4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 31193D972C4FD17A00197CD4 /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		31193D9A2C4FD17A00197CD4 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 31193D992C4FD17A00197CD4 /* FirebaseAppCheck */; };
+		31193D9C2C4FD1BD00197CD4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31193D9B2C4FD1BD00197CD4 /* GoogleService-Info.plist */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
 		315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */; };
@@ -111,6 +117,7 @@
 /* Begin PBXFileReference section */
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
+		31193D9B2C4FD1BD00197CD4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
 		315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuppotTableViewCell.xib; sourceTree = "<group>"; };
@@ -219,6 +226,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31193D962C4FD17A00197CD4 /* FirebaseAnalyticsSwift in Frameworks */,
+				31193D982C4FD17A00197CD4 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				31193D922C4FD17A00197CD4 /* FirebaseAnalytics in Frameworks */,
+				31193D942C4FD17A00197CD4 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				31193D9A2C4FD17A00197CD4 /* FirebaseAppCheck in Frameworks */,
 				4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -508,6 +520,7 @@
 				31D2620A2C3BECDE00FC6651 /* Assets.xcassets */,
 				31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */,
 				31D2620F2C3BECDE00FC6651 /* Info.plist */,
+				31193D9B2C4FD1BD00197CD4 /* GoogleService-Info.plist */,
 			);
 			path = RiverPrime;
 			sourceTree = "<group>";
@@ -769,6 +782,13 @@
 			dependencies = (
 			);
 			name = RiverPrime;
+			packageProductDependencies = (
+				31193D912C4FD17A00197CD4 /* FirebaseAnalytics */,
+				31193D932C4FD17A00197CD4 /* FirebaseAnalyticsOnDeviceConversion */,
+				31193D952C4FD17A00197CD4 /* FirebaseAnalyticsSwift */,
+				31193D972C4FD17A00197CD4 /* FirebaseAnalyticsWithoutAdIdSupport */,
+				31193D992C4FD17A00197CD4 /* FirebaseAppCheck */,
+			);
 			productName = RiverPrime;
 			productReference = 31D261FE2C3BECDE00FC6651 /* RiverPrime.app */;
 			productType = "com.apple.product-type.application";
@@ -799,6 +819,7 @@
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
 				31B124932C3D60F40058C9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -820,6 +841,7 @@
 				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
 				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
+				31193D9C2C4FD1BD00197CD4 /* GoogleService-Info.plist in Resources */,
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
@@ -1117,7 +1139,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J9K56G79V5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
@@ -1150,7 +1172,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = J9K56G79V5;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
@@ -1198,6 +1220,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.29.0;
+			};
+		};
 		31B124932C3D60F40058C9DD /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1207,6 +1237,34 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		31193D912C4FD17A00197CD4 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		31193D932C4FD17A00197CD4 /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		31193D952C4FD17A00197CD4 /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		31193D972C4FD17A00197CD4 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		31193D992C4FD17A00197CD4 /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31193D902C4FD17A00197CD4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 31D261F62C3BECDE00FC6651 /* Project object */;
 }

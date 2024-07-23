@@ -22,6 +22,7 @@ class VerifyCodeViewController: UIViewController {
     }
     
     @IBAction func confirmBtn(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true) 
     }
     
     @IBAction func resendCodeBtn(_ sender: Any) {

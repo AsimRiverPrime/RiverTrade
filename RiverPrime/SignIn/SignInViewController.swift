@@ -33,6 +33,10 @@ class SignInViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
     
     @IBAction func rememberMeBtn(_ sender: Any) {
         self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
