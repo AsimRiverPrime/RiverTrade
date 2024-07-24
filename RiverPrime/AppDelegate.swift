@@ -4,22 +4,28 @@
 //
 //  Created by Ross Rostane on 08/07/2024.
 //
-
 import UIKit
-import FirebaseCore
+import Firebase
+import GoogleSignIn
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        Thread.sleep(forTimeInterval: 1.0)
         FirebaseApp.configure()
+        GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "577733329042-4g9hik62c4lsbse2con3pv2hsqlftubl.apps.googleusercontent.com")
+
         return true
     }
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        return GIDSignIn.sharedInstance.handle(url)
+    }
     // MARK: UISceneSession Lifecycle
 
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {

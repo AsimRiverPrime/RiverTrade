@@ -7,7 +7,9 @@ target 'RiverPrime' do
 
 pod 'TPKeyboardAvoiding'
 pod 'LightweightCharts', '~> 3.8.0'
-
-  # Pods for RiverPrime
+pod 'GoogleSignIn'
+pod 'Firebase/Firestore'
+pod 'FirebaseAuth'
+pod 'Firebase/Core'
 
 end
