@@ -7,7 +7,8 @@
 
 import Foundation
 
-class SignViewModel {
+
+ class SignViewModel {
     
     
     func isValidEmail(_ email: String) -> Bool {
@@ -25,7 +26,7 @@ class SignViewModel {
         return false
     }
     
-    func isPasswordValid(password: String) -> Bool {
+    func isPasswordValid(_ password: String) -> Bool {
         if !password.isEmpty && password.count >= 6 {
             return true
         }
