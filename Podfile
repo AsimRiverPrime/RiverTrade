@@ -11,5 +11,7 @@ pod 'GoogleSignIn'
 pod 'Firebase/Firestore'
 pod 'FirebaseAuth'
 pod 'Firebase/Core'
+pod 'CountryPickerView'
+
 
 end

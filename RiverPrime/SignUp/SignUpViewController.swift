@@ -197,8 +197,11 @@ class SignUpViewController: UIViewController {
             let username = userName_tf.text, !username.isEmpty,
             let email = email_tf.text, !email.isEmpty,
             let password = password_tf.text, !password.isEmpty
+                
         else {
             print("Please fill in all fields.")
+            self.lbl_emailValid.isHidden = false
+            self.lbl_emailValid.text = "Please fill in all fields."
             return
         }
         
@@ -237,7 +240,7 @@ class SignUpViewController: UIViewController {
                         self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, username: username, email: email)
                         
                         // Navigate to the main screen or any other action
-                        self?.navigateToDashboardScreen()
+//                        self?.navigateToDashboardScreen()
                     }
                 }
             }

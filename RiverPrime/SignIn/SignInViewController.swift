@@ -7,9 +7,10 @@
 import Foundation
 import UIKit
 import TPKeyboardAvoiding
+import FirebaseAuth
 
 class SignInViewController: UIViewController {
-
+    
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
             username_tf.setIcon(UIImage(systemName: "person.fill")!)
@@ -23,6 +24,8 @@ class SignInViewController: UIViewController {
             password_tf.setIcon(UIImage(imageLiteralResourceName: "passwordIcon"))
         }
     }
+    @IBOutlet weak var lbl_emailCheck: UILabel!
+    @IBOutlet weak var lbl_passwordCheck: UILabel!
     
     @IBOutlet weak var btn_rememberMe: UIButton!
     
@@ -30,9 +33,10 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -50,6 +54,7 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func submitBtn(_ sender: Any) {
+        login()
     }
     
     
@@ -62,5 +67,69 @@ class SignInViewController: UIViewController {
     
     @IBAction func createAccountBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func login() {
+        // Check if all text fields are filled
+        guard
+            let email = username_tf.text, !email.isEmpty
+        else {
+            lbl_emailCheck.text = "Please enter email."
+            lbl_emailCheck.isHidden = false
+            return
+        }
+        guard
+            let password = password_tf.text, !password.isEmpty
+        else {
+            lbl_passwordCheck.text = "Please enter password."
+            lbl_passwordCheck.isHidden = false
+            return
+        }
+        
+        // Use Firebase Authentication to sign in
+        Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
+            
+            let authres = authResult?.user.email
+            
+            if let error = error as NSError? {
+                if let authError = AuthErrorCode.Code(rawValue: error.code) {
+                    print("Error code: \(authError)")
+                    switch authError {
+                        
+                    case .invalidEmail:
+                        self?.lbl_emailCheck.text = "Please enter correct email."
+                        self?.lbl_emailCheck.isHidden = false
+                    case .wrongPassword:
+                        self?.lbl_passwordCheck.text = "Please enter correct password."
+                        self?.lbl_passwordCheck.isHidden = false
+                    case .userNotFound:
+                        self?.lbl_emailCheck.text = "No account found for this email."
+                        self?.lbl_emailCheck.isHidden = false
+                    default:
+                        self?.lbl_emailCheck.text = "Please enter correct crediential."
+                        self?.lbl_emailCheck.isHidden = false
+                        print("Error signing in: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                }
+            }else{
+                self?.lbl_emailCheck.isHidden = true
+                self?.lbl_passwordCheck.isHidden = true
+                print(" signing in successfully: \(authres ?? " no data")")
+                // Successfully signed in
+                // self?.navigateToDashboardScreen()
+                print(" signing in successfully and move to Dashboard screen ")
+                
+            }
+        }
+        
+    }
+    
+    
+    private func navigateToDashboardScreen() {
+        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+            self.navigate(to: dashboardVC)
+        }
     }
 }
