@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
-		3112072B2C5111AE00F6E08B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3112072A2C5111AE00F6E08B /* GoogleService-Info.plist */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
 		315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */; };
@@ -33,6 +32,8 @@
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
+		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
+		31A5225F2C526301001DB906 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 31A5225E2C526301001DB906 /* GoogleService-Info.plist */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
 		31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DB2C4514B10006E8EB /* NotificationViewController.swift */; };
 		31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */; };
@@ -112,7 +113,6 @@
 /* Begin PBXFileReference section */
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
-		3112072A2C5111AE00F6E08B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
 		315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuppotTableViewCell.xib; sourceTree = "<group>"; };
@@ -136,6 +136,8 @@
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
+		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
+		31A5225E2C526301001DB906 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		31B102DB2C4514B10006E8EB /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -336,6 +338,14 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
+		31A5225B2C525AE3001DB906 /* verifyPhoneVC */ = {
+			isa = PBXGroup;
+			children = (
+				31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */,
+			);
+			path = verifyPhoneVC;
+			sourceTree = "<group>";
+		};
 		31B102DA2C45144E0006E8EB /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,7 +520,7 @@
 				31D2620A2C3BECDE00FC6651 /* Assets.xcassets */,
 				31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */,
 				31D2620F2C3BECDE00FC6651 /* Info.plist */,
-				3112072A2C5111AE00F6E08B /* GoogleService-Info.plist */,
+				31A5225E2C526301001DB906 /* GoogleService-Info.plist */,
 			);
 			path = RiverPrime;
 			sourceTree = "<group>";
@@ -518,6 +528,7 @@
 		31D262152C3BED0900FC6651 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				31A5225B2C525AE3001DB906 /* verifyPhoneVC */,
 				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
 			);
 			path = SignUp;
@@ -824,7 +835,7 @@
 				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
 				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
-				3112072B2C5111AE00F6E08B /* GoogleService-Info.plist in Resources */,
+				31A5225F2C526301001DB906 /* GoogleService-Info.plist in Resources */,
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
@@ -953,6 +964,7 @@
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
+				31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */,
 				FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
 				FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */,
