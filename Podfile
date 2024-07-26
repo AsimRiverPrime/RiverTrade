@@ -12,6 +12,6 @@ pod 'Firebase/Firestore'
 pod 'FirebaseAuth'
 pod 'Firebase/Core'
 pod 'CountryPickerView'
-
+pod 'PhoneNumberKit', '~> 3.7'
 
 end
