@@ -18,13 +18,15 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var lbl_emailValid: UILabel!
     @IBOutlet weak var lbl_passValid: UILabel!
+    @IBOutlet weak var lbl_reTypePassValid: UILabel!
     
-    @IBOutlet weak var userName_tf: UITextField! {
+    @IBOutlet weak var reTypePassword_tf: UITextField! {
         didSet{
-            userName_tf.setIcon(UIImage(systemName: "person.fill")!)
-            userName_tf.tintColor = UIColor.lightGray
+            reTypePassword_tf.setIcon(UIImage(imageLiteralResourceName: "passwordIcon"))
+            reTypePassword_tf.tintColor = UIColor.lightGray
         }
     }
+    
     @IBOutlet weak var email_tf: UITextField!{
         didSet{
             email_tf.setIcon(UIImage(imageLiteralResourceName: "emailIcon"))
@@ -41,7 +43,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var btn_termsCondition: UIButton!
     @IBOutlet weak var btn_passowrdIcon: UIButton!
-    
+    @IBOutlet weak var btn_reTpyePassowrdIcon: UIButton!
     @IBOutlet weak var btn_contiune: UIButton!
     
     var viewModel = SignViewModel()
@@ -61,6 +63,7 @@ class SignUpViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
+        self.reTypePassword_tf.addTarget(self, action: #selector(reTypePasswordTextChange), for: .editingChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -69,19 +72,19 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func emailTextChanged(_ textField: UITextField) {
-        if self.viewModel.isValidEmail(self.email_tf.text!) ?? false {
+        if self.viewModel.isValidEmail(self.email_tf.text!)  {
             self.lbl_emailValid.isHidden = true
         } else {
             self.lbl_emailValid.textColor = .red
             self.lbl_emailValid.text = "email is not correct"
             self.lbl_emailValid.isHidden = false
         }
-                self.enableLoginButton()
+        self.enableLoginButton()
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
         
-        if self.viewModel.isPasswordValid(self.password_tf.text!) ?? false {
+        if self.viewModel.isPasswordValid(self.password_tf.text!)  {
             self.lbl_passValid.isHidden = true
             
         } else {
@@ -89,11 +92,22 @@ class SignUpViewController: UIViewController {
             self.lbl_passValid.text = "Password must be 6 character"
             self.lbl_passValid.textColor = .red
         }
-                self.enableLoginButton()
+        
+        self.enableLoginButton()
+    }
+    @objc func reTypePasswordTextChange(_ textField: UITextField) {
+        if self.password_tf.text == self.reTypePassword_tf.text {
+            self.lbl_reTypePassValid.isHidden = true
+            enableLoginButton()
+        } else {
+            self.lbl_reTypePassValid.isHidden = false
+            self.btn_contiune.isEnabled = false
+            self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+        }
     }
     
     private func enableLoginButton() {
-        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.password_tf.text!) ?? false {
+        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!)  {
             self.btn_contiune.isEnabled = true
             self.btn_contiune.setTitleColor(UIColor(named: "white"), for: .normal)
         } else {
@@ -122,6 +136,11 @@ class SignUpViewController: UIViewController {
     @IBAction func passwordIconAction(_ sender: Any) {
         self.password_tf.isSecureTextEntry = !self.password_tf.isSecureTextEntry
         self.btn_passowrdIcon.setImage(!self.password_tf.isSecureTextEntry ? UIImage(systemName: "eye") : UIImage(systemName: "eye.slash"), for: .normal)
+    }
+    
+    @IBAction func reTypePasswordIconAction(_ sender: Any) {
+        self.reTypePassword_tf.isSecureTextEntry = !self.reTypePassword_tf.isSecureTextEntry
+        self.btn_reTpyePassowrdIcon.setImage(!self.reTypePassword_tf.isSecureTextEntry ? UIImage(systemName: "eye") : UIImage(systemName: "eye.slash"), for: .normal)
     }
     
     @IBAction func continueGoogleBtn(_ sender: Any) {
@@ -194,7 +213,7 @@ class SignUpViewController: UIViewController {
         guard
             let firstName = lbl_firstName.text, !firstName.isEmpty,
             let lastName = lbl_lastName.text, !lastName.isEmpty,
-            let username = userName_tf.text, !username.isEmpty,
+            let reTypePass = reTypePassword_tf.text, !reTypePass.isEmpty,
             let email = email_tf.text, !email.isEmpty,
             let password = password_tf.text, !password.isEmpty
                 
@@ -207,7 +226,7 @@ class SignUpViewController: UIViewController {
         
         // Check if user already exists in Firestore
         let db = Firestore.firestore()
-        db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
+        db.collection("usersModel").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
                 return
@@ -236,11 +255,11 @@ class SignUpViewController: UIViewController {
                     }
                     // Successfully created user
                     if let user = authResult?.user {
-                        // Optionally, you can save additional user data (first name, last name, username) to Firestore
-                        self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, username: username, email: email)
+                        UserDefaults.standard.set(user.uid, forKey: "userID")
                         
+                        self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, phone: "", email: email, password: password, emailVerified: false, phoneVerified: false, isLogin: false, isPushToCRM: false)
                         // Navigate to the main screen or any other action
-//                        self?.navigateToDashboardScreen()
+                        //                        self?.navigateToDashboardScreen()
                     }
                 }
             }
@@ -248,13 +267,17 @@ class SignUpViewController: UIViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, firstName: String, lastName: String, username: String, email: String) {
+    private func saveAdditionalUserData(userId: String, firstName: String, lastName: String, phone: String, email: String, password: String, emailVerified: Bool, phoneVerified:Bool, isLogin:Bool, isPushToCRM:Bool) {
         let db = Firestore.firestore()
         db.collection("users").document(userId).setData([
             "firstName": firstName,
             "lastName": lastName,
-            "username": username,
-            "email": email
+            "phone": phone,
+            "password": password,
+            "emailVerified": emailVerified,
+            "phoneVerified": phoneVerified,
+            "isLogin": isLogin,
+            "isPushToCRM": isPushToCRM
         ]) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")

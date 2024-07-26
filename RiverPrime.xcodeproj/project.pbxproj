@@ -27,6 +27,8 @@
 		3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */; };
 		3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6022C47F1F20055F093 /* ProfileViewController.swift */; };
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
+		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
+		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
@@ -131,6 +133,8 @@
 		3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalCollectionViewCell.xib; sourceTree = "<group>"; };
 		3164C6022C47F1F20055F093 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
@@ -302,6 +306,15 @@
 				3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */,
 			);
 			path = TradingSignalCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		3169F23C2C5387CE0032272A /* UserModel */ = {
+			isa = PBXGroup;
+			children = (
+				3169F23D2C5387F00032272A /* UserModel.swift */,
+				3169F23F2C53AC0C0032272A /* FireStoreServices.swift */,
+			);
+			path = UserModel;
 			sourceTree = "<group>";
 		};
 		3176F33E2C4F97E300FEF92A /* SocialTradeTBCell */ = {
@@ -528,6 +541,7 @@
 		31D262152C3BED0900FC6651 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				3169F23C2C5387CE0032272A /* UserModel */,
 				31A5225B2C525AE3001DB906 /* verifyPhoneVC */,
 				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
 			);
@@ -976,10 +990,12 @@
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
+				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
+				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

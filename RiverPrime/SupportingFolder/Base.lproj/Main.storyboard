@@ -2156,7 +2156,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                     </textField>
                                                 </subviews>
                                             </stackView>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GET-Ir-oEE">
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" E-mail Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GET-Ir-oEE">
                                                 <rect key="frame" x="12" y="70" width="309" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
@@ -2165,32 +2165,51 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" E-mail Address " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6WJ-R4-qKB">
-                                                <rect key="frame" x="12" y="125" width="309" height="45"/>
-                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email is not correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVI-hM-ElD">
-                                                <rect key="frame" x="12" y="170" width="309" height="14.333333333333343"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email is not correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tep-wG-CHW">
+                                                <rect key="frame" x="12" y="115" width="309" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aED-d9-JXz">
-                                                <rect key="frame" x="12" y="184.33333333333331" width="309" height="45"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6WJ-R4-qKB">
+                                                <rect key="frame" x="12" y="132" width="309" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
-                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password must 8 character" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxz-TH-SB6">
-                                                <rect key="frame" x="12" y="229.33333333333337" width="309" height="14.333333333333343"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XNC-Xh-5oT">
+                                                <rect key="frame" x="286" y="142" width="25" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="25" id="65d-PD-kf1"/>
+                                                    <constraint firstAttribute="height" constant="25" id="eJs-LK-5PU"/>
+                                                </constraints>
+                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="eye.slash" catalog="system"/>
+                                                <connections>
+                                                    <action selector="passwordIconAction:" destination="mGn-jd-fpH" eventType="touchUpInside" id="NcH-my-HJA"/>
+                                                </connections>
+                                            </button>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password must be 8 character" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fVI-hM-ElD">
+                                                <rect key="frame" x="12" y="177" width="309" height="14.333333333333343"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Re-type Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aED-d9-JXz">
+                                                <rect key="frame" x="12" y="191.33333333333331" width="309" height="45"/>
+                                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                            </textField>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password not match" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxz-TH-SB6">
+                                                <rect key="frame" x="12" y="236.33333333333337" width="309" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zch-Lp-VIa">
-                                                <rect key="frame" x="286" y="194.33333333333331" width="25" height="25"/>
+                                                <rect key="frame" x="286" y="201.33333333333331" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="Ta8-QQ-bg8"/>
                                                     <constraint firstAttribute="width" constant="25" id="jJR-6R-eHa"/>
@@ -2199,11 +2218,11 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" image="eye.slash" catalog="system"/>
                                                 <connections>
-                                                    <action selector="passwordIconAction:" destination="mGn-jd-fpH" eventType="touchUpInside" id="pUj-8k-WwC"/>
+                                                    <action selector="reTypePasswordIconAction:" destination="mGn-jd-fpH" eventType="touchUpInside" id="rnQ-1L-eO9"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qe-vP-Ppv">
-                                                <rect key="frame" x="12" y="248.66666666666663" width="25" height="25"/>
+                                                <rect key="frame" x="12" y="255.66666666666663" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="Bby-Tx-Fng"/>
                                                     <constraint firstAttribute="width" constant="25" id="fUm-Z0-xwy"/>
@@ -2216,13 +2235,13 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I agree with the Terms and Conditions and the Privacy Policy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2r-Mv-XGv">
-                                                <rect key="frame" x="45" y="255.66666666666666" width="276" height="11.333333333333343"/>
+                                                <rect key="frame" x="45" y="262.66666666666663" width="276" height="11.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="10"/>
                                                 <color key="textColor" name="basicTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xp9-Ip-DhV">
-                                                <rect key="frame" x="12" y="283.66666666666663" width="309" height="45"/>
+                                                <rect key="frame" x="12" y="290.66666666666663" width="309" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="ZUr-h3-M2N"/>
@@ -2242,13 +2261,13 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14y-9W-lho">
-                                                <rect key="frame" x="156" y="338.66666666666663" width="21.333333333333343" height="18"/>
+                                                <rect key="frame" x="156" y="345.66666666666663" width="21.333333333333343" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YZ-Fj-hLi">
-                                                <rect key="frame" x="35" y="366.66666666666663" width="263" height="45"/>
+                                                <rect key="frame" x="35" y="373.66666666666663" width="263" height="45"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="dTZ-KJ-W8q"/>
@@ -2268,7 +2287,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="JWb-aM-OLI">
-                                                <rect key="frame" x="40" y="376.66666666666663" width="30" height="25"/>
+                                                <rect key="frame" x="40" y="383.66666666666663" width="30" height="25"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="XOq-LR-LHB"/>
@@ -2283,8 +2302,9 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="A2r-Mv-XGv" firstAttribute="leading" secondItem="9qe-vP-Ppv" secondAttribute="trailing" constant="8" id="4V0-WE-WpH"/>
                                             <constraint firstItem="JWb-aM-OLI" firstAttribute="leading" secondItem="0YZ-Fj-hLi" secondAttribute="leading" constant="5" id="4hD-kM-q0D"/>
                                             <constraint firstItem="zch-Lp-VIa" firstAttribute="centerY" secondItem="aED-d9-JXz" secondAttribute="centerY" id="7yO-xa-Afx"/>
-                                            <constraint firstItem="6WJ-R4-qKB" firstAttribute="top" secondItem="GET-Ir-oEE" secondAttribute="bottom" constant="10" id="Avl-WC-Shr"/>
+                                            <constraint firstItem="6WJ-R4-qKB" firstAttribute="top" secondItem="GET-Ir-oEE" secondAttribute="bottom" constant="17" id="Avl-WC-Shr"/>
                                             <constraint firstItem="GET-Ir-oEE" firstAttribute="top" secondItem="C0s-9b-cJq" secondAttribute="bottom" constant="16" id="B1T-Oe-yZe"/>
+                                            <constraint firstItem="tep-wG-CHW" firstAttribute="leading" secondItem="GET-Ir-oEE" secondAttribute="leading" id="BSO-9W-tx8"/>
                                             <constraint firstItem="14y-9W-lho" firstAttribute="top" secondItem="Xp9-Ip-DhV" secondAttribute="bottom" constant="10.000000000000057" id="BUJ-5K-0rF"/>
                                             <constraint firstItem="aED-d9-JXz" firstAttribute="height" secondItem="6WJ-R4-qKB" secondAttribute="height" id="CCk-bI-5b8"/>
                                             <constraint firstAttribute="trailing" secondItem="C0s-9b-cJq" secondAttribute="trailing" constant="12" id="Drr-EJ-LPm"/>
@@ -2293,6 +2313,7 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="fVI-hM-ElD" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="JVp-Xu-AgR"/>
                                             <constraint firstItem="0YZ-Fj-hLi" firstAttribute="top" secondItem="14y-9W-lho" secondAttribute="bottom" constant="10.000000000000057" id="Ksm-X4-iGl"/>
                                             <constraint firstAttribute="trailing" secondItem="GET-Ir-oEE" secondAttribute="trailing" constant="12" id="L32-Ty-6lY"/>
+                                            <constraint firstItem="XNC-Xh-5oT" firstAttribute="centerY" secondItem="6WJ-R4-qKB" secondAttribute="centerY" id="L3N-WU-PSh"/>
                                             <constraint firstItem="6WJ-R4-qKB" firstAttribute="height" secondItem="GET-Ir-oEE" secondAttribute="height" id="MFW-Bg-ihi"/>
                                             <constraint firstItem="Xp9-Ip-DhV" firstAttribute="leading" secondItem="9qe-vP-Ppv" secondAttribute="leading" id="Nhg-sj-CM0"/>
                                             <constraint firstItem="aED-d9-JXz" firstAttribute="top" secondItem="fVI-hM-ElD" secondAttribute="bottom" id="Pxn-Xu-EPz"/>
@@ -2305,15 +2326,18 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="9qe-vP-Ppv" firstAttribute="top" secondItem="hxz-TH-SB6" secondAttribute="bottom" constant="5" id="iEB-eF-80a"/>
                                             <constraint firstItem="C0s-9b-cJq" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="iQ3-dj-lYV"/>
                                             <constraint firstItem="GET-Ir-oEE" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="iVj-ka-Lax"/>
+                                            <constraint firstItem="tep-wG-CHW" firstAttribute="trailing" secondItem="GET-Ir-oEE" secondAttribute="trailing" id="lKI-yf-f5j"/>
                                             <constraint firstItem="hxz-TH-SB6" firstAttribute="top" secondItem="aED-d9-JXz" secondAttribute="bottom" id="mgn-Gx-pOV"/>
                                             <constraint firstItem="aED-d9-JXz" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="owe-5F-0Iu"/>
                                             <constraint firstAttribute="trailing" secondItem="aED-d9-JXz" secondAttribute="trailing" constant="12" id="oyH-Ch-cEf"/>
                                             <constraint firstItem="14y-9W-lho" firstAttribute="centerX" secondItem="Xp9-Ip-DhV" secondAttribute="centerX" id="p6h-YC-tlV"/>
                                             <constraint firstItem="JWb-aM-OLI" firstAttribute="centerY" secondItem="0YZ-Fj-hLi" secondAttribute="centerY" id="pfU-Km-BpS"/>
+                                            <constraint firstItem="tep-wG-CHW" firstAttribute="top" secondItem="GET-Ir-oEE" secondAttribute="bottom" id="tBk-HT-LH6"/>
                                             <constraint firstItem="hxz-TH-SB6" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="tMF-qr-wYU"/>
                                             <constraint firstAttribute="trailing" secondItem="6WJ-R4-qKB" secondAttribute="trailing" constant="12" id="uks-Gf-UgX"/>
                                             <constraint firstItem="C0s-9b-cJq" firstAttribute="top" secondItem="2zK-6q-NFh" secondAttribute="top" constant="20" symbolic="YES" id="xqg-Z4-tmS"/>
                                             <constraint firstAttribute="trailing" secondItem="0YZ-Fj-hLi" secondAttribute="trailing" constant="35" id="ydr-iC-x8I"/>
+                                            <constraint firstItem="XNC-Xh-5oT" firstAttribute="trailing" secondItem="6WJ-R4-qKB" secondAttribute="trailing" constant="-10" id="yvc-PW-4qg"/>
                                             <constraint firstItem="Xp9-Ip-DhV" firstAttribute="top" secondItem="9qe-vP-Ppv" secondAttribute="bottom" constant="10.000000000000057" id="zGz-2R-Ln6"/>
                                             <constraint firstItem="0YZ-Fj-hLi" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="35" id="zqx-vg-wHe"/>
                                         </constraints>
@@ -2413,15 +2437,17 @@ Reach out for questions or concerns about your privacy.</string>
                     <navigationItem key="navigationItem" id="Akm-b3-xJI"/>
                     <connections>
                         <outlet property="btn_contiune" destination="Xp9-Ip-DhV" id="sFp-Cm-BKI"/>
-                        <outlet property="btn_passowrdIcon" destination="zch-Lp-VIa" id="Jfd-Ru-DtD"/>
+                        <outlet property="btn_passowrdIcon" destination="XNC-Xh-5oT" id="bLH-Vk-Hhu"/>
+                        <outlet property="btn_reTpyePassowrdIcon" destination="zch-Lp-VIa" id="HEM-gU-c1N"/>
                         <outlet property="btn_termsCondition" destination="9qe-vP-Ppv" id="Hrb-vT-5jA"/>
-                        <outlet property="email_tf" destination="6WJ-R4-qKB" id="H8R-Dz-Mpg"/>
-                        <outlet property="lbl_emailValid" destination="fVI-hM-ElD" id="r7b-vf-0dF"/>
+                        <outlet property="email_tf" destination="GET-Ir-oEE" id="8oJ-qJ-Luv"/>
+                        <outlet property="lbl_emailValid" destination="tep-wG-CHW" id="4m1-VQ-Nfm"/>
                         <outlet property="lbl_firstName" destination="2c2-sO-emp" id="PoV-pU-YUj"/>
                         <outlet property="lbl_lastName" destination="mcJ-c8-txC" id="WbE-t4-zwt"/>
-                        <outlet property="lbl_passValid" destination="hxz-TH-SB6" id="M62-aP-f8W"/>
-                        <outlet property="password_tf" destination="aED-d9-JXz" id="8TL-i5-NmF"/>
-                        <outlet property="userName_tf" destination="GET-Ir-oEE" id="3YN-m2-kjN"/>
+                        <outlet property="lbl_passValid" destination="fVI-hM-ElD" id="dmj-yW-Vnw"/>
+                        <outlet property="lbl_reTypePassValid" destination="hxz-TH-SB6" id="Z2V-A8-7Sf"/>
+                        <outlet property="password_tf" destination="6WJ-R4-qKB" id="AqI-yF-v8b"/>
+                        <outlet property="reTypePassword_tf" destination="aED-d9-JXz" id="crw-PP-zx8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="azT-uo-DHO" sceneMemberID="firstResponder"/>
