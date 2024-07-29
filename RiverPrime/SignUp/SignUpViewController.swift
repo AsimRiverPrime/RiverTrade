@@ -68,7 +68,7 @@ class SignUpViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
@@ -81,7 +81,7 @@ class SignUpViewController: BaseViewController {
             self.lbl_emailValid.text = "email is not correct"
             self.lbl_emailValid.isHidden = false
         }
-        self.enableLoginButton()
+        
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
@@ -95,12 +95,11 @@ class SignUpViewController: BaseViewController {
             self.lbl_passValid.textColor = .red
         }
         
-        self.enableLoginButton()
     }
     @objc func reTypePasswordTextChange(_ textField: UITextField) {
         if self.password_tf.text == self.reTypePassword_tf.text {
             self.lbl_reTypePassValid.isHidden = true
-            enableLoginButton()
+            
         } else {
             self.lbl_reTypePassValid.isHidden = false
             self.btn_contiune.isEnabled = false
@@ -109,7 +108,7 @@ class SignUpViewController: BaseViewController {
     }
     
     private func enableLoginButton() {
-        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!)  {
+        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!), self.btn_termsCondition.isSelected == true  {
             self.btn_contiune.isEnabled = true
             self.btn_contiune.setTitleColor(UIColor(named: "white"), for: .normal)
         } else {
@@ -128,11 +127,17 @@ class SignUpViewController: BaseViewController {
     @IBAction func termsConditionBtn(_ sender: Any) {
         self.btn_termsCondition.isSelected = !self.btn_termsCondition.isSelected
         self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "square") : UIImage(systemName: "checkmark.square"), for: .normal)
+        
+        if btn_termsCondition.isSelected == true {
+            enableLoginButton()
+        }else{
+            enableLoginButton()
+        }
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-//        signUp()
-        navigateToDashboardScreen()
+        signUp()
+        //        navigateToDashboardScreen()
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -151,8 +156,7 @@ class SignUpViewController: BaseViewController {
             print("ClientID not configured.")
             return
         }
-        
-        //        let config = GIDConfiguration(clientID: clientID)
+        print("ClientID configured. \(clientID)")
         
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             if let error = error {
@@ -166,7 +170,6 @@ class SignUpViewController: BaseViewController {
             print("User signed in: \(user1.profile?.name ?? "No name")")
             self?.authenticateWithFirebase(user: user1)
             
-            
         }
     }
     
@@ -177,7 +180,7 @@ class SignUpViewController: BaseViewController {
         
     }
     @IBAction func privacyPolicyBtn(_ sender: Any) {
-        if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController")  {
+        if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController") {
             self.navigate(to: privcyVC)
         }
     }
@@ -203,7 +206,7 @@ class SignUpViewController: BaseViewController {
                 let currentUser = Auth.auth().currentUser
                 
                 if currentUser != nil {
-                    print("Current User ID: \(currentUser?.uid)")
+                    print("Current User ID: \(currentUser?.uid ?? "")")
                     print("Current User Email: \(currentUser?.email ?? "No email")")
                     self.navigateToDashboardScreen()
                 }
@@ -228,7 +231,7 @@ class SignUpViewController: BaseViewController {
         
         // Check if user already exists in Firestore
         let db = Firestore.firestore()
-        db.collection("usersModel").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
                 return
@@ -259,9 +262,9 @@ class SignUpViewController: BaseViewController {
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
-                        self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, phone: "", email: email, password: password, emailVerified: false, phoneVerified: false, isLogin: false, isPushToCRM: false)
+                        self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, phone: "", email: email, password: password, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
                         // Navigate to the main screen or any other action
-                        //                        self?.navigateToDashboardScreen()
+                        // self?.navigateToDashboardScreen()
                     }
                 }
             }
@@ -269,17 +272,19 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, firstName: String, lastName: String, phone: String, email: String, password: String, emailVerified: Bool, phoneVerified:Bool, isLogin:Bool, isPushToCRM:Bool) {
+    private func saveAdditionalUserData(userId: String, firstName: String, lastName: String, phone: String, email: String, password: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool) {
         let db = Firestore.firestore()
         db.collection("users").document(userId).setData([
+            "userId": userId,
             "firstName": firstName,
             "lastName": lastName,
+            "email":email,
             "phone": phone,
             "password": password,
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
-            "isLogin": isLogin,
-            "isPushToCRM": isPushToCRM
+            "login": login,
+            "pushedToCRM": pushedToCRM
         ]) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")

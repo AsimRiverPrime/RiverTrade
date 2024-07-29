@@ -7,13 +7,18 @@
 
 import UIKit
 
-class PrivacyViewController: UIViewController {
+class PrivacyViewController: BaseViewController {
 
     @IBOutlet weak var lbl_policyText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
     
 

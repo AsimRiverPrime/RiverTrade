@@ -3,21 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>577733329042-4g9hik62c4lsbse2con3pv2hsqlftubl.apps.googleusercontent.com</string>
+	<string>1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.577733329042-4g9hik62c4lsbse2con3pv2hsqlftubl</string>
+	<string>com.googleusercontent.apps.1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>1059141438445-uvl0a3fd6rni2vr29imk8l30o6m7g1jj.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAsNAS9CQrM98CffnboZODGXf2cUYR-MN0</string>
+	<string>AIzaSyBmRW_PzFa7ucgzDs3OeKNvR-8WqwBmUko</string>
 	<key>GCM_SENDER_ID</key>
-	<string>577733329042</string>
+	<string>1059141438445</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.RiverTrade</string>
 	<key>PROJECT_ID</key>
-	<string>riverprime786</string>
+	<string>river-prime-trade-app</string>
 	<key>STORAGE_BUCKET</key>
-	<string>riverprime786.appspot.com</string>
+	<string>river-prime-trade-app.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +31,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:577733329042:ios:803fd48921984da6e7a64b</string>
+	<string>1:1059141438445:ios:0e65f812e5e929189175e4</string>
+	<key>DATABASE_URL</key>
+	<string>https://river-prime-trade-app-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

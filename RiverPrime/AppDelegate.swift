@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 //        Thread.sleep(forTimeInterval: 1.0)
         FirebaseApp.configure()
-        GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "577733329042-4g9hik62c4lsbse2con3pv2hsqlftubl.apps.googleusercontent.com")
+        GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
 
         return true
     }

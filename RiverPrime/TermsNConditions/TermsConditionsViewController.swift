@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TermsConditionsViewController: UIViewController {
+class TermsConditionsViewController: BaseViewController {
 
     
     @IBOutlet weak var lbl_TermsText: UILabel!
@@ -16,6 +16,11 @@ class TermsConditionsViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
     
 

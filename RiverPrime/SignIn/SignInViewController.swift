@@ -26,7 +26,7 @@ class SignInViewController: BaseViewController {
     }
     @IBOutlet weak var lbl_emailCheck: UILabel!
     @IBOutlet weak var lbl_passwordCheck: UILabel!
-    
+    @IBOutlet weak var lbl_credientailCheck: UILabel!
     @IBOutlet weak var btn_rememberMe: UIButton!
     
     @IBOutlet weak var hideShowPassBtn: UIButton!
@@ -59,8 +59,6 @@ class SignInViewController: BaseViewController {
     @IBAction func submitBtn(_ sender: Any) {
         login()
     }
-    
-    
     
     @IBAction func forgotBtn(_ sender: Any) {
         if let forgotVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotViewController"){
@@ -109,8 +107,8 @@ class SignInViewController: BaseViewController {
                         self?.lbl_emailCheck.text = "No account found for this email."
                         self?.lbl_emailCheck.isHidden = false
                     default:
-                        self?.lbl_emailCheck.text = "Please enter correct crediential."
-                        self?.lbl_emailCheck.isHidden = false
+                        self?.lbl_credientailCheck.text = "Please enter correct crediential."
+                        self?.lbl_credientailCheck.isHidden = false
                         print("Error signing in: \(error.localizedDescription)")
                         return
                     }
@@ -119,6 +117,7 @@ class SignInViewController: BaseViewController {
             }else{
                 self?.lbl_emailCheck.isHidden = true
                 self?.lbl_passwordCheck.isHidden = true
+                self?.lbl_credientailCheck.isHidden = true
                 print(" signing in successfully: \(authres ?? " no data")")
                 // Successfully signed in
                 // self?.navigateToDashboardScreen()

@@ -53,7 +53,10 @@ class PhoneVerifyVC: UIViewController {
                   showAlert(message: "Invalid phone number for the given country code")
               }
        
-        
+        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "VerifyCodeViewController"){
+//            verifyVC.isPhoneVerification
+            self.navigate(to: verifyVC)
+        }
     }
     
     func updateUser(){
