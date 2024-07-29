@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -89,14 +90,52 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0w-iS-v4G" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="92.666666666666671" y="21.666666666666671" width="134.66666666666663" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ACI-vK-XsW">
+                                        <rect key="frame" x="0.0" y="0.0" width="134.66666666666666" height="50"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="downArrow" title="All real accounts" imagePadding="5">
+                                            <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="BenefitsAllRealAccountsFilterButton:" destination="4Ii-xi-Vsb" eventType="touchUpInside" id="Ef4-gH-Fyh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="ACI-vK-XsW" firstAttribute="top" secondItem="T0w-iS-v4G" secondAttribute="top" id="8QW-o4-WX2"/>
+                                    <constraint firstAttribute="height" constant="50" id="IzM-Wb-D4u"/>
+                                    <constraint firstAttribute="trailing" secondItem="ACI-vK-XsW" secondAttribute="trailing" id="PB4-80-f1E"/>
+                                    <constraint firstItem="ACI-vK-XsW" firstAttribute="leading" secondItem="T0w-iS-v4G" secondAttribute="leading" id="ctL-Gp-Bwf"/>
+                                    <constraint firstAttribute="bottom" secondItem="ACI-vK-XsW" secondAttribute="bottom" id="jV5-S9-Wp5"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="T0w-iS-v4G" firstAttribute="centerY" secondItem="EeH-zS-y8K" secondAttribute="centerY" id="9ED-fG-Ftx"/>
                             <constraint firstItem="530-cd-lEe" firstAttribute="leading" secondItem="EeH-zS-y8K" secondAttribute="leading" constant="24" id="BRV-DC-TAY"/>
+                            <constraint firstItem="T0w-iS-v4G" firstAttribute="width" secondItem="530-cd-lEe" secondAttribute="width" id="DiS-CL-buR"/>
                             <constraint firstItem="Ffs-QW-ylm" firstAttribute="width" secondItem="530-cd-lEe" secondAttribute="width" id="GRo-1c-b63"/>
                             <constraint firstAttribute="trailing" secondItem="Ffs-QW-ylm" secondAttribute="trailing" constant="24" id="QYB-s2-AFd"/>
                             <constraint firstItem="530-cd-lEe" firstAttribute="centerY" secondItem="EeH-zS-y8K" secondAttribute="centerY" id="SVg-eo-5RN"/>
                             <constraint firstItem="Ffs-QW-ylm" firstAttribute="centerY" secondItem="530-cd-lEe" secondAttribute="centerY" id="X7s-Fr-2bN"/>
+                            <constraint firstItem="T0w-iS-v4G" firstAttribute="centerX" secondItem="EeH-zS-y8K" secondAttribute="centerX" id="f49-wT-mUD"/>
                             <constraint firstItem="530-cd-lEe" firstAttribute="width" secondItem="EeH-zS-y8K" secondAttribute="width" multiplier="0.42" id="hFi-K5-tMQ"/>
                         </constraints>
                     </view>
@@ -111,7 +150,10 @@
             <viewLayoutGuide key="safeArea" id="DMb-gT-YrW"/>
             <connections>
                 <outlet property="AllRealAccountsFilterButton" destination="F8R-h5-Sw5" id="boe-uZ-qVm"/>
+                <outlet property="BenefitsAccountsFilterView" destination="T0w-iS-v4G" id="oub-xv-bEB"/>
                 <outlet property="DaysFilterButton" destination="ig1-Kd-Jdn" id="VyO-6s-z0c"/>
+                <outlet property="SummaryAccountsFilterView" destination="530-cd-lEe" id="p9X-AN-5Lr"/>
+                <outlet property="SummaryDaysFilterView" destination="Ffs-QW-ylm" id="0BD-bw-sjl"/>
             </connections>
             <point key="canvasLocation" x="4.5801526717557248" y="97.535211267605632"/>
         </tableViewCell>

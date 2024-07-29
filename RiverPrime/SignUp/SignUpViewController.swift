@@ -11,7 +11,7 @@ import GoogleSignIn
 import FirebaseFirestore
 import FirebaseAuth
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: BaseViewController {
     
     @IBOutlet weak var lbl_firstName: UITextField!
     @IBOutlet weak var lbl_lastName: UITextField!
@@ -68,7 +68,9 @@ class SignUpViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
     
     @objc func emailTextChanged(_ textField: UITextField) {
@@ -129,8 +131,8 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-        signUp()
-        
+//        signUp()
+        navigateToDashboardScreen()
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {

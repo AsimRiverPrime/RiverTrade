@@ -9,6 +9,11 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Inter.ttc">
+            <string>Inter-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="wVT-VF-wDn">
@@ -25,27 +30,27 @@
                                         <rect key="frame" x="76.666666666666686" y="220.66666666666663" width="240" height="240"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start trading journey with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwC-bP-FtE">
-                                        <rect key="frame" x="30" y="475.66666666666669" width="333" height="29"/>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
+                                        <rect key="frame" x="30" y="475.66666666666669" width="333" height="29.333333333333314"/>
+                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="24"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="     RIVER PRIME   " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zo3-qq-gFM">
-                                        <rect key="frame" x="81.666666666666686" y="519.66666666666663" width="230" height="36"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                        <rect key="frame" x="70" y="520" width="253" height="36.333333333333371"/>
+                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5F-kX-ide">
-                                        <rect key="frame" x="81.666666666666686" y="580.66666666666663" width="230" height="45"/>
+                                        <rect key="frame" x="70" y="581.33333333333337" width="253" height="45"/>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Nck-Ij-SC0"/>
                                         </constraints>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Registration Now">
-                                            <fontDescription key="titleFontDescription" type="boldSystem" pointSize="20"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Register Now">
+                                            <fontDescription key="titleFontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="CornerRadius">
@@ -85,6 +90,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="e67-6Q-fIo"/>
+                    <connections>
+                        <outlet property="companyTitlelbl" destination="zo3-qq-gFM" id="80b-xq-PiS"/>
+                        <outlet property="registerNowBtn" destination="O5F-kX-ide" id="xO9-aP-xbT"/>
+                        <outlet property="titlelbl" destination="YwC-bP-FtE" id="A9n-aa-Z68"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZSR-Z3-P1h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1197,11 +1207,11 @@ Reach out for questions or concerns about your privacy.</string>
             <objects>
                 <viewController storyboardIdentifier="PhoneVerifyVC" id="Qj1-DA-0Fy" customClass="PhoneVerifyVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lWS-Y7-MWF">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cHE-Sx-RhS">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QVV-r6-kSz">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="250"/>
@@ -1245,7 +1255,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZsW-fK-g5n">
-                                        <rect key="frame" x="0.0" y="250" width="393" height="592"/>
+                                        <rect key="frame" x="0.0" y="250" width="393" height="602"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqP-lp-5b4" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
@@ -1394,7 +1404,7 @@ Reach out for questions or concerns about your privacy.</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiD-nj-Ign" customClass="TPKeyboardAvoidingCollectionView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiD-nj-Ign" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doR-qR-3Gh">
@@ -1404,7 +1414,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MbI-NZ-BgH">
-                                                        <rect key="frame" x="10" y="50" width="373" height="196"/>
+                                                        <rect key="frame" x="10" y="50.000000000000014" width="373" height="203.33333333333337"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signInIcon" translatesAutoresizingMaskIntoConstraints="NO" id="H7V-kT-oFW">
                                                                 <rect key="frame" x="116.66666666666669" y="0.0" width="140" height="140"/>
@@ -1415,7 +1425,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh7-D9-Pxd">
-                                                                <rect key="frame" x="10" y="150" width="353" height="36"/>
+                                                                <rect key="frame" x="10" y="150" width="353" height="43.333333333333343"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -1445,7 +1455,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <rect key="frame" x="0.0" y="360" width="393" height="492"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cv6-5L-KCT">
-                                                        <rect key="frame" x="50" y="320" width="293" height="38"/>
+                                                        <rect key="frame" x="50" y="327.33333333333337" width="293" height="38"/>
                                                         <color key="tintColor" name="basicTextColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Create Account">
@@ -1456,13 +1466,13 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't Have an Account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tT3-SA-bgH">
-                                                        <rect key="frame" x="50" y="296" width="293" height="24"/>
+                                                        <rect key="frame" x="50" y="303.33333333333337" width="293" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="65I-MG-tzc">
-                                                        <rect key="frame" x="131" y="242" width="162" height="35"/>
+                                                        <rect key="frame" x="131" y="242.00000000000003" width="162" height="42.333333333333343"/>
                                                         <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
@@ -1486,7 +1496,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8R-lr-qhH" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                <rect key="frame" x="30" y="266" width="333" height="320"/>
+                                                <rect key="frame" x="30" y="273.33333333333331" width="333" height="319.99999999999994"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6r-9p-80g">
                                                         <rect key="frame" x="20" y="20" width="293" height="40"/>
@@ -1542,7 +1552,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN0-cs-lXZ">
-                                                        <rect key="frame" x="55" y="145.33333333333331" width="205" height="14"/>
+                                                        <rect key="frame" x="55" y="145.33333333333337" width="205" height="14"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1568,7 +1578,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nge-5l-dva">
-                                                        <rect key="frame" x="20" y="249.66666666666663" width="293" height="33"/>
+                                                        <rect key="frame" x="20" y="249.66666666666669" width="293" height="33"/>
                                                         <color key="tintColor" name="basicTextColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Forget password?">
@@ -1670,7 +1680,7 @@ Reach out for questions or concerns about your privacy.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Iq-V9-BhF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3623.6641221374043" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="4550.3816793893129" y="3.5211267605633805"/>
         </scene>
         <!--Forgot View Controller-->
         <scene sceneID="scw-mR-tpG">
@@ -1825,7 +1835,7 @@ Reach out for questions or concerns about your privacy.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ED1-Lq-LkT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4603.8167938931292" y="-1.4084507042253522"/>
+            <point key="canvasLocation" x="5529.0076335877857" y="-1.4084507042253522"/>
         </scene>
         <!--Verify Code View Controller-->
         <scene sceneID="8Cy-qM-3UP">
@@ -2038,7 +2048,7 @@ Reach out for questions or concerns about your privacy.</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xyl-mT-njD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5475.5725190839694" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="6402.2900763358775" y="3.5211267605633805"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="huZ-FY-ONg">
@@ -2454,6 +2464,24 @@ Reach out for questions or concerns about your privacy.</string>
             </objects>
             <point key="canvasLocation" x="2806.8702290076335" y="3.5211267605633805"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="34Y-Yj-sGa">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ddc-Km-xtd" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="755-eJ-BA3">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Sue-mK-KG2" kind="relationship" relationship="rootViewController" id="6ML-rL-PEp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fVq-wP-DxC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3623.6641221374043" y="3.5211267605633805"/>
+        </scene>
     </scenes>
     <resources>
         <image name="VIcon" width="475" height="472"/>
@@ -2483,16 +2511,16 @@ Reach out for questions or concerns about your privacy.</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

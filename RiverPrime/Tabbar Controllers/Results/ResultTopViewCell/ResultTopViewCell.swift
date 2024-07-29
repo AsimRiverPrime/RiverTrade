@@ -13,7 +13,8 @@ enum ResultTopButtonType{
 }
 
 protocol ResultTopDelegate: AnyObject {
-    func resultTopTap(_ resultTopButtonType: ResultTopButtonType)
+//    func resultTopTap(_ resultTopButtonType: ResultTopButtonType, index: Int, completion: @escaping (String) -> Void)
+    func resultTopTap(_ resultTopButtonType: ResultTopButtonType, index: Int)
     
 }
 
@@ -53,6 +54,9 @@ class ResultTopViewCell: UITableViewCell {
             widthOfMainStackView.constant = -300
         }
         
+        btn_funds.tag = 100
+        btn_Settings.tag = 200
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -73,7 +77,7 @@ class ResultTopViewCell: UITableViewCell {
         
     }
     
-    private func changeResultTopButtonView(_ resultTopButtonType: ResultTopButtonType) {
+    func changeResultTopButtonView(_ resultTopButtonType: ResultTopButtonType) {
         
         switch resultTopButtonType {
         case .summary:
@@ -88,13 +92,24 @@ class ResultTopViewCell: UITableViewCell {
         
     }
     
+    func getResultTopButtonView(_ resultTopButtonType: ResultTopButtonType) -> String {
+        
+        switch resultTopButtonType {
+        case .summary:
+            return "summary"
+        case .exnessBenefits:
+            return "exnessBenefits"
+        }
+        
+    }
+    
     @IBAction func fundsBtnAction(_ sender: Any) {
         changeResultTopButtonView(.summary)
-        delegate?.resultTopTap(.summary)
+        delegate?.resultTopTap(.summary, index: (sender as AnyObject).tag)
     }
     @IBAction func settingsBtnAction(_ sender: Any) {
         changeResultTopButtonView(.exnessBenefits)
-        delegate?.resultTopTap(.exnessBenefits)
+        delegate?.resultTopTap(.exnessBenefits, index: (sender as AnyObject).tag)
     }
 
 }

@@ -145,7 +145,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ProfileVC: ResultTopDelegate {
     
-    func resultTopTap(_ resultTopButtonType: ResultTopButtonType) {
+    func resultTopTap(_ resultTopButtonType: ResultTopButtonType, index: Int) {
         print("resultTopButtonType = \(resultTopButtonType)")
     }
     

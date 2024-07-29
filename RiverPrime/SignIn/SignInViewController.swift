@@ -9,7 +9,7 @@ import UIKit
 import TPKeyboardAvoiding
 import FirebaseAuth
 
-class SignInViewController: UIViewController {
+class SignInViewController: BaseViewController {
     
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
@@ -39,7 +39,10 @@ class SignInViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //MARK: - Show Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
     }
     
     @IBAction func rememberMeBtn(_ sender: Any) {

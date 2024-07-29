@@ -96,6 +96,15 @@
 		FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */; };
 		FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */; };
 		FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */; };
+		FA532D762C5721E1003A26D6 /* FontController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D662C5721E1003A26D6 /* FontController.swift */; };
+		FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D682C5721E1003A26D6 /* NavigationBar.swift */; };
+		FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */; };
+		FA532D792C5721E1003A26D6 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D6D2C5721E1003A26D6 /* Alert.swift */; };
+		FA532D7A2C5721E1003A26D6 /* UIAlertController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D6F2C5721E1003A26D6 /* UIAlertController+Extensions.swift */; };
+		FA532D7B2C5721E1003A26D6 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D702C5721E1003A26D6 /* AlertModel.swift */; };
+		FA532D7C2C5721E1003A26D6 /* AlertCustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D712C5721E1003A26D6 /* AlertCustomController.swift */; };
+		FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D732C5721E1003A26D6 /* Toast.swift */; };
+		FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */; };
 		FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */; };
 		FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6D52702C4D7E0900362F5C /* MarketsVC.xib */; };
 		FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */; };
@@ -206,6 +215,15 @@
 		FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTopViewCell.xib; sourceTree = "<group>"; };
 		FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFilterViewCell.swift; sourceTree = "<group>"; };
 		FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultsFilterViewCell.xib; sourceTree = "<group>"; };
+		FA532D662C5721E1003A26D6 /* FontController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontController.swift; sourceTree = "<group>"; };
+		FA532D682C5721E1003A26D6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
+		FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTranslation.swift; sourceTree = "<group>"; };
+		FA532D6D2C5721E1003A26D6 /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		FA532D6F2C5721E1003A26D6 /* UIAlertController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extensions.swift"; sourceTree = "<group>"; };
+		FA532D702C5721E1003A26D6 /* AlertModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		FA532D712C5721E1003A26D6 /* AlertCustomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertCustomController.swift; sourceTree = "<group>"; };
+		FA532D732C5721E1003A26D6 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveScrollView.swift; sourceTree = "<group>"; };
 		FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsVC.swift; sourceTree = "<group>"; };
 		FA6D52702C4D7E0900362F5C /* MarketsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsVC.xib; sourceTree = "<group>"; };
 		FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
@@ -514,6 +532,8 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				FA532D6B2C5721E1003A26D6 /* Others */,
+				FA532D642C5721E1003A26D6 /* Utility */,
 				FA9B00BE2C4BFBE900BC57F1 /* BaseClasses */,
 				FA9B00BC2C4BFBE900BC57F1 /* GlobalVariable */,
 				C9EB4DCF2C434ACE0049C961 /* Xib File */,
@@ -752,6 +772,85 @@
 			path = ResultsFilterViewCell;
 			sourceTree = "<group>";
 		};
+		FA532D642C5721E1003A26D6 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D652C5721E1003A26D6 /* FontController */,
+				FA532D672C5721E1003A26D6 /* NavigationBar */,
+				FA532D692C5721E1003A26D6 /* LabelTranslation */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		FA532D652C5721E1003A26D6 /* FontController */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D662C5721E1003A26D6 /* FontController.swift */,
+			);
+			path = FontController;
+			sourceTree = "<group>";
+		};
+		FA532D672C5721E1003A26D6 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D682C5721E1003A26D6 /* NavigationBar.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		FA532D692C5721E1003A26D6 /* LabelTranslation */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */,
+			);
+			path = LabelTranslation;
+			sourceTree = "<group>";
+		};
+		FA532D6B2C5721E1003A26D6 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D6C2C5721E1003A26D6 /* Alert */,
+				FA532D722C5721E1003A26D6 /* ToastMessages */,
+				FA532D742C5721E1003A26D6 /* RemoveScrollView */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
+		FA532D6C2C5721E1003A26D6 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D6D2C5721E1003A26D6 /* Alert.swift */,
+				FA532D6E2C5721E1003A26D6 /* AlertModel+Extension */,
+				FA532D712C5721E1003A26D6 /* AlertCustomController.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		FA532D6E2C5721E1003A26D6 /* AlertModel+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D6F2C5721E1003A26D6 /* UIAlertController+Extensions.swift */,
+				FA532D702C5721E1003A26D6 /* AlertModel.swift */,
+			);
+			path = "AlertModel+Extension";
+			sourceTree = "<group>";
+		};
+		FA532D722C5721E1003A26D6 /* ToastMessages */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D732C5721E1003A26D6 /* Toast.swift */,
+			);
+			path = ToastMessages;
+			sourceTree = "<group>";
+		};
+		FA532D742C5721E1003A26D6 /* RemoveScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */,
+			);
+			path = RemoveScrollView;
+			sourceTree = "<group>";
+		};
 		FA9B00BC2C4BFBE900BC57F1 /* GlobalVariable */ = {
 			isa = PBXGroup;
 			children = (
@@ -935,13 +1034,16 @@
 				C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */,
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
+				FA532D792C5721E1003A26D6 /* Alert.swift in Sources */,
 				31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				31B90D212C3FCC3400A7A0D2 /* DetailsViewController.swift in Sources */,
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
+				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
+				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
 				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
@@ -951,6 +1053,7 @@
 				315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
 				3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */,
+				FA532D7C2C5721E1003A26D6 /* AlertCustomController.swift in Sources */,
 				31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */,
 				31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */,
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
@@ -961,6 +1064,7 @@
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
 				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
+				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
 				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
@@ -976,6 +1080,8 @@
 				31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
+				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,
+				FA532D7B2C5721E1003A26D6 /* AlertModel.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */,
@@ -989,11 +1095,13 @@
 				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
+				FA532D7A2C5721E1003A26D6 /* UIAlertController+Extensions.swift in Sources */,
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
 				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
+				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,

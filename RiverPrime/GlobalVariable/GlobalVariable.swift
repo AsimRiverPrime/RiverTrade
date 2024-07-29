@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
+let APP_DELEGATE = UIApplication.shared.delegate as! AppDelegate
+let SCENE_DELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+
 class GlobalVariable: NSObject {
     
     static var instance = GlobalVariable()
-    static var dashboardLogout = false
-    static var SiteIDLabel = ""
-    var dynamicLink = Bool()
-    static var qrCode = String()
-    static var isPushNotification = false
     
-    var _QuestionairByPass = Bool()
+    var resultTopButtonType = String()
     
     public func showBarBackButton(vc: UIViewController) {
        

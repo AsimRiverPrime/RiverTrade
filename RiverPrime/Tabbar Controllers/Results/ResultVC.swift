@@ -15,6 +15,9 @@ class ResultVC: UIView {
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
     
+//    typealias resultTopButtonType = ResultTopButtonType
+    /*var resultTopButtonType = String()*/ //ResultTopButtonType.self
+    
     //    weak var delegate: AccountInfoTapDelegate?
     
     //    var model: [String] = ["Open","Pending","Close","image"]
@@ -82,11 +85,17 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
 //            cell.setHeaderUI(.market)
             cell.setHeaderUI()
             cell.delegate = self
+////            cell.resultTopTap(.summary)
+//            let _resultTopButtonType = cell.getResultTopButtonView(.summary)
+////            resultTopButtonType = _resultTopButtonType
+//            resultTopButtonType = _resultTopButtonType
             return cell
             
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: ResultsFilterViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
+            
+//            cell.resultTopButtonType = GlobalVariable.instance.resultTopButtonType
             
             cell.onAllRealAccountsFilterButtonClick = {
                 [self] in
@@ -100,7 +109,13 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
                 
             }
             
-            self.setNeedsLayout()
+            cell.onBenefitsAllRealAccountsFilterButtonClick = {
+                [self] in
+                print("Click on onBenefitsAllRealAccountsFilterButtonClick")
+                
+            }
+            
+//            self.setNeedsLayout()
             return cell
             
         } /*else if indexPath.section == 2 {
@@ -144,8 +159,22 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
 
 extension ResultVC: ResultTopDelegate {
     
-    func resultTopTap(_ resultTopButtonType: ResultTopButtonType) {
-        print("resultTopButtonType = \(resultTopButtonType)")
+    func resultTopTap(_ resultTopButtonType: ResultTopButtonType, index: Int) {
+        print("resultTopButtonType delegate method = \(resultTopButtonType)")
+        if index == 100 {
+            GlobalVariable.instance.resultTopButtonType = "summary"
+        } else {
+            GlobalVariable.instance.resultTopButtonType = "exnessBenefits"
+        }
+//        tblView.registerCells([
+//            ResultTopViewCell.self,ResultsFilterViewCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+//        ])
+//        
+//        tblView.delegate = self
+//        tblView.dataSource = self
+//        tblView.reloadData()
+        tblView.reloadSections(IndexSet(integer: 1), with: .none)
+//        tblView.reloadSections([0,1], with: .none)
     }
     
 }
