@@ -78,4 +78,27 @@ class LabelTranslation: Codable {
         }
     }
     
+    //MARK: - SummaryTradingActivityCell Screen
+    enum SummaryTradingActivityCellScreen: String {
+        case title = "No trading activity found"
+        case selectedText = "Select different account or period."
+        case tradeButton = "Trade"
+        
+        var localized: String {
+            return rawValue
+        }
+    }
+    
+    //MARK: - BenefitsTradingActivityCell Screen
+    enum BenefitsTradingActivityCell: String {
+        case mainTitle = "Our benefits have saved you"
+        case title = "Yoy don’t have any savings data yet"
+        case selectedText = "Select start trading to see how our better-than-market condition reduce your trading costs and protect against stop outs."
+        case tradeButton = "Start Trading"
+        
+        var localized: String {
+            return rawValue
+        }
+    }
+    
 }

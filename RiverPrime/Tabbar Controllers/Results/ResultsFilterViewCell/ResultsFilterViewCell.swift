@@ -7,6 +7,12 @@
 
 import UIKit
 
+enum ResultFilterButtonType{
+    case summaryAccountFilter
+    case summaryDaysFilter
+    case benefitsAccountFilter
+}
+
 class ResultsFilterViewCell: UITableViewCell {
 
     @IBOutlet weak var AllRealAccountsFilterButton: UIButton!
@@ -33,10 +39,14 @@ class ResultsFilterViewCell: UITableViewCell {
             SummaryAccountsFilterView.isHidden = true
             SummaryDaysFilterView.isHidden = true
             BenefitsAccountsFilterView.isHidden = false
+            
+            self.changeResultTopButtonView(.benefitsAccountFilter)
         } else { //summary
             SummaryAccountsFilterView.isHidden = false
             SummaryDaysFilterView.isHidden = false
             BenefitsAccountsFilterView.isHidden = true
+            
+            self.changeResultTopButtonView(.summaryAccountFilter)
         }
         
     }
@@ -48,15 +58,40 @@ class ResultsFilterViewCell: UITableViewCell {
     }
     
     @IBAction func AllRealAccountsFilterButton(_ sender: UIButton) {
+        self.changeResultTopButtonView(.summaryAccountFilter)
         self.onAllRealAccountsFilterButtonClick?()
     }
     
     @IBAction func DaysFilterButton(_ sender: UIButton) {
+        self.changeResultTopButtonView(.summaryDaysFilter)
         self.onDaysFilterButton?()
     }
     
     @IBAction func BenefitsAllRealAccountsFilterButton(_ sender: UIButton) {
+        self.changeResultTopButtonView(.benefitsAccountFilter)
         self.onBenefitsAllRealAccountsFilterButtonClick?()
+    }
+    
+    func changeResultTopButtonView(_ resultFilterButtonType: ResultFilterButtonType) {
+        
+        switch resultFilterButtonType {
+        case .summaryAccountFilter:
+            SummaryAccountsFilterView.backgroundColor = .systemYellow
+            SummaryDaysFilterView.backgroundColor = .lightGray
+            BenefitsAccountsFilterView.backgroundColor = .lightGray
+            break
+        case .summaryDaysFilter:
+            SummaryAccountsFilterView.backgroundColor = .lightGray
+            SummaryDaysFilterView.backgroundColor = .systemYellow
+            BenefitsAccountsFilterView.backgroundColor = .lightGray
+            break
+        case .benefitsAccountFilter:
+            SummaryDaysFilterView.backgroundColor = .lightGray
+            SummaryAccountsFilterView.backgroundColor = .lightGray
+            BenefitsAccountsFilterView.backgroundColor = .systemYellow
+            break
+        }
+        
     }
     
 }

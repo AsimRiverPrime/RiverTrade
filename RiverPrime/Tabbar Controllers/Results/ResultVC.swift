@@ -33,7 +33,7 @@ class ResultVC: UIView {
         //        ])
         
         tblView.registerCells([
-            ResultTopViewCell.self,ResultsFilterViewCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+            ResultTopViewCell.self,ResultsFilterViewCell.self, SummaryTradingActivityCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
         ])
         
         tblView.delegate = self
@@ -62,7 +62,7 @@ class ResultVC: UIView {
 extension ResultVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 //5
+        return 3 //5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,9 +70,9 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }else if section == 1 {
             return 1
-        }/*else if section == 2 {
+        }else if section == 2 {
             return 1
-        }else if section == 3 {
+        }/*else if section == 3 {
             return 1
         }*/else{
             return 1
@@ -118,13 +118,43 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
 //            self.setNeedsLayout()
             return cell
             
-        } /*else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
-            cell.backgroundColor = .clear
+        } else if indexPath.section == 2 {
             
-            self.setNeedsLayout()
-            return cell
-        }else if indexPath.section == 3 {
+            if GlobalVariable.instance.resultTopButtonType == "exnessBenefits" {
+                let cell = tableView.dequeueReusableCell(with: BenefitsTradingActivityCell.self, for: indexPath)
+    //            cell.backgroundColor = .clear
+                
+                cell.onStartTradingButtonClick = {
+                    [self] in
+                    print("onStartTradingButtonClick")
+                }
+                
+                self.setNeedsLayout()
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(with: SummaryTradingActivityCell.self, for: indexPath)
+    //            cell.backgroundColor = .clear
+                
+                cell.onTradeButtonClick = {
+                    [self] in
+                    print("onTradeButtonClick")
+                }
+                
+                self.setNeedsLayout()
+                return cell
+            }
+            
+//            let cell = tableView.dequeueReusableCell(with: SummaryTradingActivityCell.self, for: indexPath)
+////            cell.backgroundColor = .clear
+//            
+//            cell.onTradeButtonClick = {
+//                [self] in
+//                print("onTradeButtonClick")
+//            }
+//            
+//            self.setNeedsLayout()
+//            return cell
+        } /*else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(with: UpcomingEventsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             
@@ -163,8 +193,22 @@ extension ResultVC: ResultTopDelegate {
         print("resultTopButtonType delegate method = \(resultTopButtonType)")
         if index == 100 {
             GlobalVariable.instance.resultTopButtonType = "summary"
+            
+            tblView.registerCells([
+                ResultTopViewCell.self,ResultsFilterViewCell.self, SummaryTradingActivityCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+            ])
+            
         } else {
             GlobalVariable.instance.resultTopButtonType = "exnessBenefits"
+            
+            tblView.registerCells([
+                ResultTopViewCell.self,ResultsFilterViewCell.self, BenefitsTradingActivityCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+            ])
+            
+//            tblView.delegate = self
+//            tblView.dataSource = self
+//            tblView.reloadData()
+            
         }
 //        tblView.registerCells([
 //            ResultTopViewCell.self,ResultsFilterViewCell.self//, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
@@ -173,8 +217,8 @@ extension ResultVC: ResultTopDelegate {
 //        tblView.delegate = self
 //        tblView.dataSource = self
 //        tblView.reloadData()
-        tblView.reloadSections(IndexSet(integer: 1), with: .none)
-//        tblView.reloadSections([0,1], with: .none)
+//        tblView.reloadSections(IndexSet(integer: 1), with: .none)
+        tblView.reloadSections([1,2], with: .none)
     }
     
 }

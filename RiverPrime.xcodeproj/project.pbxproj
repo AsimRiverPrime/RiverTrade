@@ -107,6 +107,10 @@
 		FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */; };
 		FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */; };
 		FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6D52702C4D7E0900362F5C /* MarketsVC.xib */; };
+		FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99B5B52C59A87E00DD4F6D /* SummaryTradingActivityCell.xib */; };
+		FA99B5BB2C59A87E00DD4F6D /* SummaryTradingActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99B5B62C59A87E00DD4F6D /* SummaryTradingActivityCell.swift */; };
+		FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99B5B82C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib */; };
+		FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA99B5B92C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift */; };
 		FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */; };
 		FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */; };
 		FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */; };
@@ -226,6 +230,10 @@
 		FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveScrollView.swift; sourceTree = "<group>"; };
 		FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsVC.swift; sourceTree = "<group>"; };
 		FA6D52702C4D7E0900362F5C /* MarketsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsVC.xib; sourceTree = "<group>"; };
+		FA99B5B52C59A87E00DD4F6D /* SummaryTradingActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryTradingActivityCell.xib; sourceTree = "<group>"; };
+		FA99B5B62C59A87E00DD4F6D /* SummaryTradingActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryTradingActivityCell.swift; sourceTree = "<group>"; };
+		FA99B5B82C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BenefitsTradingActivityCell.xib; sourceTree = "<group>"; };
+		FA99B5B92C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BenefitsTradingActivityCell.swift; sourceTree = "<group>"; };
 		FA9B00BD2C4BFBE900BC57F1 /* GlobalVariable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVariable.swift; sourceTree = "<group>"; };
 		FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Image+Extension.swift"; sourceTree = "<group>"; };
@@ -669,6 +677,8 @@
 		31F3BAD52C3FAB37009A2A12 /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				FA99B5B72C59A87E00DD4F6D /* BenefitsTradingActivityCell */,
+				FA99B5B42C59A87E00DD4F6D /* SummaryTradingActivityCell */,
 				FA12B5E12C4F10400054F8D8 /* ResultsFilterViewCell */,
 				FA12B5DC2C4F03720054F8D8 /* ResultTopViewCell */,
 				3164C6042C47F2050055F093 /* ResultsViewController.swift */,
@@ -851,6 +861,24 @@
 			path = RemoveScrollView;
 			sourceTree = "<group>";
 		};
+		FA99B5B42C59A87E00DD4F6D /* SummaryTradingActivityCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA99B5B52C59A87E00DD4F6D /* SummaryTradingActivityCell.xib */,
+				FA99B5B62C59A87E00DD4F6D /* SummaryTradingActivityCell.swift */,
+			);
+			path = SummaryTradingActivityCell;
+			sourceTree = "<group>";
+		};
+		FA99B5B72C59A87E00DD4F6D /* BenefitsTradingActivityCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA99B5B82C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib */,
+				FA99B5B92C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift */,
+			);
+			path = BenefitsTradingActivityCell;
+			sourceTree = "<group>";
+		};
 		FA9B00BC2C4BFBE900BC57F1 /* GlobalVariable */ = {
 			isa = PBXGroup;
 			children = (
@@ -944,6 +972,7 @@
 			files = (
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				31B102E12C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib in Resources */,
+				FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */,
 				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
 				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
@@ -959,6 +988,7 @@
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
+				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
 				FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */,
 				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
@@ -1041,6 +1071,7 @@
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
+				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
@@ -1081,6 +1112,7 @@
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,
+				FA99B5BB2C59A87E00DD4F6D /* SummaryTradingActivityCell.swift in Sources */,
 				FA532D7B2C5721E1003A26D6 /* AlertModel.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,

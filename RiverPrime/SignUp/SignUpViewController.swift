@@ -137,7 +137,9 @@ class SignUpViewController: BaseViewController {
     
     @IBAction func continueBtn(_ sender: Any) {
         signUp()
-        
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
