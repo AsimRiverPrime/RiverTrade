@@ -17,6 +17,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     var isEmailVerification: Bool?
     var isPhoneVerification: Bool?
+    let userId =  UserDefaults.standard.string(forKey: "userID")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,28 +33,69 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func confirmBtn(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        
-        if isEmailVerification == true {
-            
-        }else {
-            
-        }
-        if isPhoneVerification == true {
-            
-        }else {
-            if let phoneVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
-                self.navigate(to: forgotVC)
+        if ((getVerificationCode()?.isEmpty) == nil) {
+            print("please enter code")
+            return
+        }else{
+            if isEmailVerification == true {
+                 print("verify the code func sent through email and set that function")
+                updateUser()
+                navigateToVerifiyScreen()
+            }else if isPhoneVerification == true {
+                print("verify the code func sent through phone number and set that function")
+                updateUser()
+                if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+                    self.navigate(to: dashboardVC)
+                }
             }
         }
         
+      
+        
+        
+    }
+    
+    
+    func updateUser(){
+        guard let userId = userId else{
+            return
+        }
+        var fieldsToUpdate: [String: Any] = [:]
+        
+        let firestoreService = FirestoreServices()
+        
+        if isEmailVerification == true {
+            fieldsToUpdate = [
+                "emailVerified" : true
+            ]
+        }else if isPhoneVerification == true {
+            fieldsToUpdate = [
+                "phoneVerified" : true
+            ]
+        }
+        
+        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
+            if let error = error {
+                print("Error updating user fields: \(error.localizedDescription)")
+//                self.showAlert(message: "Failed to update phone number. Please try again.")
+                return
+            } else {
+                print("User fields updated successfully!")
+//                self.showAlert(message: "Phone number verified successfully!", completion: {
+//                    // Optionally, navigate to the next screen or dismiss this screen
+//                    self.dismiss(animated: true, completion: nil)
+//                })
+                
+                
+            }
+        }
     }
     
     @IBAction func resendCodeBtn(_ sender: Any) {
         
         if isEmailVerification == true {
             
-        }else {
+        }else if isPhoneVerification == true {
             
         }
     }
@@ -74,8 +116,16 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             tf_fivethNum.resignFirstResponder()
             dismissKeyboard()
             // Optionally, get the combined string when the user finishes input
+            
             let verificationCode = getVerificationCode()
-            print("Verification Code: \(verificationCode)")
+            print("Verification Code: \(verificationCode ?? "")")
+            
+            if isEmailVerification == true {
+                print("Call the email code verification method")
+            }else if isPhoneVerification == true {
+                print("Call the phone code verification method")
+            }
+            
         default:
             break
         }
@@ -109,12 +159,18 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     // Method to get the combined string from all text fields
-    func getVerificationCode() -> String {
-        let code1 = tf_firstNum.text ?? ""
-        let code2 = tf_SecondNum.text ?? ""
-        let code3 = tf_thirdNum.text ?? ""
-        let code4 = tf_fourthNum.text ?? ""
-        let code5 = tf_fivethNum.text ?? ""
+    func getVerificationCode() -> String? {
+        
+        guard
+            let code1 = tf_firstNum.text, !code1.isEmpty,
+            let code2 = tf_SecondNum.text, !code2.isEmpty,
+            let code3 = tf_thirdNum.text, !code3.isEmpty,
+            let code4 = tf_fourthNum.text, !code4.isEmpty,
+            let code5 = tf_fivethNum.text, !code5.isEmpty
+        else {
+            print("Please fill in all fields.")
+            return nil
+        }
         
         let code = code1 + code2 + code3 + code4 + code5
         return code
@@ -123,4 +179,16 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     func dismissKeyboard(){
         self.view.endEditing(true)
     }
+    
+    
+    private func navigateToVerifiyScreen() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
+//        self.navigationController?.pushViewController(verifyVC, animated: true)
+//        self.navigate(to: verifyVC)
+        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
+            self.navigate(to: verifyVC)
+        }
+    }
+    
 }

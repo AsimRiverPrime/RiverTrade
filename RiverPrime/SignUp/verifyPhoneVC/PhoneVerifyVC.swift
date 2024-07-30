@@ -31,6 +31,7 @@ class PhoneVerifyVC: UIViewController {
         view_countryCode.flagImageView.isHidden = false
         
         tf_numberField.text = view_countryCode.selectedCountry.phoneCode
+        selectedCountry = view_countryCode.selectedCountry
         tf_numberField.delegate = self
         
     }
@@ -39,24 +40,20 @@ class PhoneVerifyVC: UIViewController {
         
         print("\(userId ?? "")")
         print(self.tf_numberField.text ?? "0000")
-        guard let userId = userId,
+        guard let userId = userId, let selectedCountry = selectedCountry,
               let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
             print("Please enter your phone number")
             return
         }
         do {
-            let phoneNumber1 = try phoneNumberKit.parse(phoneNumber, withRegion: selectedCountry!.code, ignoreType: true)
+            let phoneNumber1 = try phoneNumberKit.parse(phoneNumber, withRegion: selectedCountry.code, ignoreType: true)
                   let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             updateUser()
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
-              }
+            }
        
-        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "VerifyCodeViewController"){
-//            verifyVC.isPhoneVerification
-            self.navigate(to: verifyVC)
-        }
     }
     
     func updateUser(){
@@ -89,13 +86,20 @@ class PhoneVerifyVC: UIViewController {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             completion?()
-//            self.navigationController?.popViewController(animated: true)
+            self.navigateToVerifiyScreen()
         }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
     
-    
+    private func navigateToVerifiyScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+       
+        verifyVC.isEmailVerification = false
+        verifyVC.isPhoneVerification = true
+        self.navigate(to: verifyVC)
+    }
     
 }
 extension PhoneVerifyVC: CountryPickerViewDelegate, UITextFieldDelegate {

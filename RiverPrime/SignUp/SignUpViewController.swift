@@ -137,7 +137,7 @@ class SignUpViewController: BaseViewController {
     
     @IBAction func continueBtn(_ sender: Any) {
         signUp()
-        //        navigateToDashboardScreen()
+        
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -152,11 +152,11 @@ class SignUpViewController: BaseViewController {
     
     @IBAction func continueGoogleBtn(_ sender: Any) {
         
-        guard let clientID = GIDSignIn.sharedInstance.configuration?.clientID else {
-            print("ClientID not configured.")
-            return
-        }
-        print("ClientID configured. \(clientID)")
+//        guard let clientID = GIDSignIn.sharedInstance.configuration?.clientID else {
+//            print("ClientID not configured.")
+//            return
+//        }
+//        print("ClientID configured. \(clientID)")
         
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             if let error = error {
@@ -166,8 +166,6 @@ class SignUpViewController: BaseViewController {
             
             guard let user1 = result?.user else { return }
             
-            // Perform any operations on signed in user here.
-            print("User signed in: \(user1.profile?.name ?? "No name")")
             self?.authenticateWithFirebase(user: user1)
             
         }
@@ -199,19 +197,18 @@ class SignUpViewController: BaseViewController {
                 return
             }
             
-            // User is signed in with Firebase
+            // User is signed in with Firebase successfuly
             if let user = authResult?.user {
                 print("User signed in with Firebase: \(user.email ?? "No email")")
-                
-                let currentUser = Auth.auth().currentUser
-                
-                if currentUser != nil {
-                    print("Current User ID: \(currentUser?.uid ?? "")")
-                    print("Current User Email: \(currentUser?.email ?? "No email")")
-                    self.navigateToDashboardScreen()
+                print("Current User ID: \(user.uid)")
+                print("Current User user photo url: \(String(describing: user.photoURL))")
+                print("Current User DisplayName: \(user.displayName ?? "No name")")
+                print("Current User phone number: \(user.phoneNumber ?? "No number")")
+       
+                    self.saveAdditionalUserData(userId: user.uid, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
+                    self.navigateToVerifiyScreen()
                 }
             }
-        }
     }
     
     private func signUp() {
@@ -243,7 +240,7 @@ class SignUpViewController: BaseViewController {
                 self.lbl_emailValid.text = "The email address is already in use by another account"
                 return
             } else {
-                // Use Firebase Authentication to create a new user
+                //if user is not exist then Use Firebase Authentication to create a new user
                 Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
                     if let error = error as NSError? {
                         if let authError = AuthErrorCode.Code(rawValue: error.code){
@@ -258,13 +255,15 @@ class SignUpViewController: BaseViewController {
                         }
                         return
                     }
-                    // Successfully created user
+                    // Successfully add user to firebase
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
-                        self?.saveAdditionalUserData(userId: user.uid, firstName: firstName, lastName: lastName, phone: "", email: email, password: password, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
+                        let name = firstName + " " + lastName
+                        
+                        self?.saveAdditionalUserData(userId: user.uid, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
                         // Navigate to the main screen or any other action
-                        // self?.navigateToDashboardScreen()
+                        self?.navigateToVerifiyScreen()
                     }
                 }
             }
@@ -272,15 +271,13 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, firstName: String, lastName: String, phone: String, email: String, password: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool) {
+    private func saveAdditionalUserData(userId: String, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool) {
         let db = Firestore.firestore()
         db.collection("users").document(userId).setData([
-            "userId": userId,
-            "firstName": firstName,
-            "lastName": lastName,
+            "uid": userId,
+            "name": name,
             "email":email,
             "phone": phone,
-            "password": password,
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
             "login": login,
@@ -294,10 +291,14 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-    private func navigateToDashboardScreen() {
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+    private func navigateToVerifiyScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+       
+        verifyVC.isEmailVerification = true
+        verifyVC.isPhoneVerification = false
+        self.navigate(to: verifyVC)
     }
+    
     
 }

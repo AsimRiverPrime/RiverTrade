@@ -44,7 +44,7 @@ class LabelTranslation: Codable {
     
     static var translationKV: [String: String] = [:]
     
-    func getLocalizedString(value: String) -> String {
+     func getLocalizedString(value: String) -> String {
         let targetLanguage = "en"
         print("targetLanguage = \(targetLanguage)")
         return NSLocalizedString(LabelTranslation.translationKV[value] ?? value, tableName: nil, bundle: Bundle.main, value: "", comment: "")
