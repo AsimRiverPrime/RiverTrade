@@ -63,6 +63,7 @@ class PhoneVerifyVC: UIViewController {
             return
         }
         let firestoreService = FirestoreServices()
+        
         let fieldsToUpdate: [String: Any] = [
             "phone": phoneNumber,
             "phoneVerified": true
@@ -77,6 +78,7 @@ class PhoneVerifyVC: UIViewController {
                 self.showAlert(message: "Phone number verified successfully!", completion: {
                     // Optionally, navigate to the next screen or dismiss this screen
                     self.dismiss(animated: true, completion: nil)
+                    self.navigateToVerifiyScreen()
                 })
             }
         }
@@ -86,7 +88,7 @@ class PhoneVerifyVC: UIViewController {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             completion?()
-            self.navigateToVerifiyScreen()
+           
         }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
