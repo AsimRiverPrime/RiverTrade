@@ -278,6 +278,14 @@
 			path = SupportingFolder;
 			sourceTree = "<group>";
 		};
+		315C8BDA2C5CA49B00A3F0DB /* Firebase Services */ = {
+			isa = PBXGroup;
+			children = (
+				3169F23F2C53AC0C0032272A /* FireStoreServices.swift */,
+			);
+			path = "Firebase Services";
+			sourceTree = "<group>";
+		};
 		315DDAFF2C4F9A1100C4F8C0 /* SupportTBCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -338,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				3169F23D2C5387F00032272A /* UserModel.swift */,
-				3169F23F2C53AC0C0032272A /* FireStoreServices.swift */,
 			);
 			path = UserModel;
 			sourceTree = "<group>";
@@ -540,6 +547,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				315C8BDA2C5CA49B00A3F0DB /* Firebase Services */,
 				FA532D6B2C5721E1003A26D6 /* Others */,
 				FA532D642C5721E1003A26D6 /* Utility */,
 				FA9B00BE2C4BFBE900BC57F1 /* BaseClasses */,

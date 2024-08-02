@@ -136,10 +136,10 @@ class SignUpViewController: BaseViewController {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-//        signUp()
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+        signUp()
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -233,14 +233,14 @@ class SignUpViewController: BaseViewController {
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
-                return
+                
             }
             
             if let snapshot = querySnapshot, !snapshot.isEmpty {
                 print("User with this email already exists.")
                 self.lbl_emailValid.isHidden = false
                 self.lbl_emailValid.text = "The email address is already in use by another account"
-                return
+                
             } else {
                 //if user is not exist then Use Firebase Authentication to create a new user
                 Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in

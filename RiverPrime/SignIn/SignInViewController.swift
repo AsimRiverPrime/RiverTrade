@@ -8,6 +8,7 @@ import Foundation
 import UIKit
 import TPKeyboardAvoiding
 import FirebaseAuth
+import FirebaseFirestore
 
 class SignInViewController: BaseViewController {
     
@@ -30,6 +31,8 @@ class SignInViewController: BaseViewController {
     @IBOutlet weak var btn_rememberMe: UIButton!
     
     @IBOutlet weak var hideShowPassBtn: UIButton!
+    
+    let firebase = FirestoreServices()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,6 +90,28 @@ class SignInViewController: BaseViewController {
             return
         }
         
+        
+        firebase.getUserDataByEmail(email: email) { result in
+            switch result {
+            case .success(let data):
+                print("User data: \(data)")
+                if let isEmailVerified = data["emailVerified"] as? Bool, isEmailVerified {
+                          print("User email is active: \(isEmailVerified)")
+                      } else {
+                          print("User email is not active ")
+                          print("User move to the email verification screen")
+                      }
+                      
+                      // Additional conditions can be checked here
+                      if let isPhoneVerified = data["phoneVerified"] as? String {
+                          print("User phone is verify: \(isPhoneVerified)")
+                      } else {
+                          print("User move to the phone verification screen")
+                      }
+            case .failure(let error):
+                print("Error getting user data: \(error.localizedDescription)")
+            }
+        }
         // Use Firebase Authentication to sign in
         Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
             
@@ -121,6 +146,8 @@ class SignInViewController: BaseViewController {
                 print(" signing in successfully: \(authres ?? " no data")")
                 // Successfully signed in
                 // self?.navigateToDashboardScreen()
+                // check for the email verification and phone number verification
+                
                 print(" signing in successfully and move to Dashboard screen ")
                 
             }
@@ -128,7 +155,7 @@ class SignInViewController: BaseViewController {
         
     }
     
-    
+   
     private func navigateToDashboardScreen() {
         if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
             self.navigate(to: dashboardVC)
