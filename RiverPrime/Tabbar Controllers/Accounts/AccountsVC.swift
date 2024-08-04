@@ -12,6 +12,10 @@ protocol AccountInfoTapDelegate: AnyObject {
     
 }
 
+protocol CreateAccountInfoTapDelegate: AnyObject {
+    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo)
+}
+
 class AccountsVC: UIView {
     
     @IBOutlet weak var tblView: UITableView!
@@ -19,7 +23,8 @@ class AccountsVC: UIView {
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
     
-    weak var delegate: AccountInfoTapDelegate?
+    weak var delegate: AccountInfoTapDelegate?    
+    weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     
     var model: [String] = ["Open","Pending","Close","image"]
     
@@ -29,9 +34,23 @@ class AccountsVC: UIView {
 //        setTableViewLayoutConstraints()
         setTableViewLayoutTopConstraints()
         
-        tblView.registerCells([
-            AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self
-        ])
+        /*
+        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+            
+        } else { //MARK: - if no account exist.
+            
+        }
+        */
+        
+        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+            tblView.registerCells([
+                AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self
+            ])
+        } else { //MARK: - if no account exist.
+            tblView.registerCells([
+                CreateAccountTVCell.self, TradeTypeTableViewCell.self, TransactionCell.self
+            ])
+        }
       
         tblView.delegate = self
         tblView.dataSource = self
@@ -75,10 +94,17 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-            cell.setHeaderUI(.account)
-            cell.delegate = self
-            return cell
+            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+                let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
+                cell.setHeaderUI(.account)
+                cell.delegate = self
+                return cell
+            } else { //MARK: - if no account exist.
+                let cell = tableView.dequeueReusableCell(with: CreateAccountTVCell.self, for: indexPath)
+//            cell.setHeaderUI(.account)
+                cell.delegate = self
+                return cell
+            }
             
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradeTypeTableViewCell.self, for: indexPath)
@@ -93,7 +119,11 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 397.0
+            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+                return 397.0
+            } else { //MARK: - if no account exist.
+                return 300.0
+            }
         }else if indexPath.section == 1{
             return 40
             
@@ -147,6 +177,26 @@ extension AccountsVC: AccountInfoDelegate {
         
     }
     
+    
+}
+
+extension AccountsVC: CreateAccountInfoDelegate {
+    
+    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
+        print("delegte called  \(createAccountInfo)" )
+        
+        switch createAccountInfo {
+        case .createNew:
+            delegateCreateAccount?.createAccountInfoTap(.createNew)
+            break
+        case .unarchive:
+            delegateCreateAccount?.createAccountInfoTap(.unarchive)
+            break
+        case .notification:
+            delegateCreateAccount?.createAccountInfoTap(.notification)
+            break
+        }
+    }
     
 }
 

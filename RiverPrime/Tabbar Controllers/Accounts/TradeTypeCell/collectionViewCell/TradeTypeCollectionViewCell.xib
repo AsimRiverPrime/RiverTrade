@@ -41,6 +41,14 @@
                                     <constraint firstAttribute="height" constant="25" id="nwH-V4-FNw"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dMr-mO-saJ">
+                                <rect key="frame" x="37" y="15.666666666666664" width="25" height="25"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="refreshImageButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="lcP-l4-zUf"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lz-1t-BGh">
                                 <rect key="frame" x="37" y="15.666666666666664" width="25" height="25"/>
                                 <state key="normal" title="Button"/>
@@ -69,13 +77,17 @@
                             <constraint firstItem="3Lz-1t-BGh" firstAttribute="centerY" secondItem="LCi-Ln-kUd" secondAttribute="centerY" id="0Wm-dY-Jcr"/>
                             <constraint firstItem="IRM-45-srP" firstAttribute="leading" secondItem="dmD-cg-LXd" secondAttribute="leading" id="0gw-WN-T0E"/>
                             <constraint firstAttribute="trailing" secondItem="bYU-bv-2QS" secondAttribute="trailing" constant="-5" id="4gW-k7-C3F"/>
+                            <constraint firstItem="dMr-mO-saJ" firstAttribute="height" secondItem="LCi-Ln-kUd" secondAttribute="height" id="BAF-Kj-hf2"/>
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerY" secondItem="dmD-cg-LXd" secondAttribute="centerY" id="Bb5-XN-cpO"/>
+                            <constraint firstItem="dMr-mO-saJ" firstAttribute="centerY" secondItem="LCi-Ln-kUd" secondAttribute="centerY" id="C52-QR-aL4"/>
                             <constraint firstItem="3Lz-1t-BGh" firstAttribute="height" secondItem="LCi-Ln-kUd" secondAttribute="height" id="L2Z-5U-Hcm"/>
                             <constraint firstItem="LCi-Ln-kUd" firstAttribute="centerY" secondItem="dmD-cg-LXd" secondAttribute="centerY" id="Qe2-uj-pOQ"/>
+                            <constraint firstItem="dMr-mO-saJ" firstAttribute="width" secondItem="LCi-Ln-kUd" secondAttribute="width" id="R6C-Qi-9xe"/>
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerX" secondItem="dmD-cg-LXd" secondAttribute="centerX" id="WGi-lB-Rxf"/>
                             <constraint firstItem="3Lz-1t-BGh" firstAttribute="width" secondItem="LCi-Ln-kUd" secondAttribute="width" id="eqA-Un-lSK"/>
                             <constraint firstAttribute="bottom" secondItem="bYU-bv-2QS" secondAttribute="bottom" id="fqo-d0-Yqd"/>
                             <constraint firstItem="bYU-bv-2QS" firstAttribute="top" secondItem="dmD-cg-LXd" secondAttribute="top" id="hei-C5-Fbi"/>
+                            <constraint firstItem="dMr-mO-saJ" firstAttribute="centerX" secondItem="LCi-Ln-kUd" secondAttribute="centerX" id="hmY-k0-VlL"/>
                             <constraint firstItem="IRM-45-srP" firstAttribute="top" secondItem="TX2-Zq-yJN" secondAttribute="bottom" constant="5" id="iBo-cu-xrB"/>
                             <constraint firstItem="lS4-xP-r65" firstAttribute="leading" secondItem="dmD-cg-LXd" secondAttribute="leading" id="iao-hu-5En"/>
                             <constraint firstItem="LCi-Ln-kUd" firstAttribute="centerY" secondItem="TX2-Zq-yJN" secondAttribute="centerY" id="mUe-Sl-jpV"/>
@@ -106,6 +118,7 @@
             <connections>
                 <outlet property="lbl_tradetype" destination="TX2-Zq-yJN" id="eP5-js-LnK"/>
                 <outlet property="refreshImage" destination="LCi-Ln-kUd" id="yjj-Pa-ZhN"/>
+                <outlet property="refreshImageButton" destination="dMr-mO-saJ" id="Ol4-iK-B9O"/>
                 <outlet property="selectedColorView" destination="IRM-45-srP" id="DVw-QZ-KtR"/>
                 <outlet property="sepratorView" destination="bYU-bv-2QS" id="rx8-So-H7d"/>
             </connections>

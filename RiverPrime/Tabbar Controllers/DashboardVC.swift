@@ -44,7 +44,7 @@ class DashboardVC: BaseViewController {
     @IBOutlet weak var ResultsView: CardView!
     @IBOutlet weak var ProfileView: CardView!
     
-    
+    var createAccountVC = CreateAccountVC()
     var accountsVC = AccountsVC()
     var tradeVC = TradeVC()
     var marketsVC = MarketsVC()
@@ -64,6 +64,7 @@ class DashboardVC: BaseViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        createAccountVC.frame = self.view.bounds
         accountsVC.frame = self.view.bounds
         tradeVC.frame = self.view.bounds
         marketsVC.frame = self.view.bounds
@@ -149,11 +150,24 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-   
+            
             dismissViews()
             accountsVC = AccountsVC.getView()
             accountsVC.delegate = self
+            accountsVC.delegateCreateAccount = self
             addView(customTabBarType: .Accounts)
+            
+            
+            /*if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+                accountsVC = AccountsVC.getView()
+                accountsVC.delegate = self
+                addView(customTabBarType: .Accounts)
+            } else { //MARK: - if no account exist.
+                createAccountVC = CreateAccountVC.getView()
+                createAccountVC.delegate = self
+                self.myViewFragment.addSubview(createAccountVC)
+            }*/
+            
             
             break
         case .Trade:
@@ -273,6 +287,7 @@ extension DashboardVC {
     }
     
     private func dismissViews() {
+        createAccountVC.dismissView()
         accountsVC.dismissView()
         tradeVC.dismissView()
         marketsVC.dismissView()
@@ -333,6 +348,32 @@ extension DashboardVC: AccountInfoTapDelegate {
     
     
 }
+
+extension DashboardVC: CreateAccountInfoTapDelegate {
+    
+    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
+        print("delegte called  \(createAccountInfo)" )
+        
+        switch createAccountInfo {
+        case .createNew:
+            print("Create new")
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            break
+        case .unarchive:
+            print("Unarchive")
+//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .notification:
+            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        }
+    }
+    
+}
+
 //MARK: - TradeVC cell Taps is handle here.
 extension DashboardVC: TradeDetailTapDelegate {
     

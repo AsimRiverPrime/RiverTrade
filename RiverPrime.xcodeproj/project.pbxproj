@@ -96,6 +96,27 @@
 		FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */; };
 		FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */; };
 		FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */; };
+		FA46137C2C602CD400B472D6 /* CreateAccountTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46136E2C602CD400B472D6 /* CreateAccountTVCell.swift */; };
+		FA46137D2C602CD400B472D6 /* CreateAccountTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA46136F2C602CD400B472D6 /* CreateAccountTVCell.xib */; };
+		FA46137E2C602CD400B472D6 /* SelectAccountTypeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4613712C602CD400B472D6 /* SelectAccountTypeVC.xib */; };
+		FA46137F2C602CD400B472D6 /* SelectAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4613722C602CD400B472D6 /* SelectAccountTypeCell.xib */; };
+		FA4613802C602CD400B472D6 /* SelectAccountTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613732C602CD400B472D6 /* SelectAccountTypeCell.swift */; };
+		FA4613812C602CD400B472D6 /* SelectAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613742C602CD400B472D6 /* SelectAccountTypeVC.swift */; };
+		FA4613822C602CD400B472D6 /* CreateAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA4613752C602CD400B472D6 /* CreateAccountVC.xib */; };
+		FA4613832C602CD400B472D6 /* CreateDemoAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613772C602CD400B472D6 /* CreateDemoAccountVC.swift */; };
+		FA4613842C602CD400B472D6 /* CreateAccountSlideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613792C602CD400B472D6 /* CreateAccountSlideCell.swift */; };
+		FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA46137A2C602CD400B472D6 /* CreateAccountSlideCell.xib */; };
+		FA4613862C602CD400B472D6 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46137B2C602CD400B472D6 /* CreateAccountVC.swift */; };
+		FA4613892C602D1300B472D6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */; };
+		FA46138A2C602D1300B472D6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */; };
+		FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA46138D2C602D5500B472D6 /* DropDownCell.xib */; };
+		FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA46138F2C602D5500B472D6 /* DPDKeyboardListener.swift */; };
+		FA46139A2C602D5600B472D6 /* DPDConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613902C602D5500B472D6 /* DPDConstants.swift */; };
+		FA46139B2C602D5600B472D6 /* DPDUIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613912C602D5500B472D6 /* DPDUIView+Extension.swift */; };
+		FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613932C602D5500B472D6 /* CustomDropDown.swift */; };
+		FA46139D2C602D5600B472D6 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613952C602D5500B472D6 /* DropDown.swift */; };
+		FA46139E2C602D5600B472D6 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613962C602D5500B472D6 /* DropDownCell.swift */; };
+		FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */; };
 		FA532D762C5721E1003A26D6 /* FontController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D662C5721E1003A26D6 /* FontController.swift */; };
 		FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D682C5721E1003A26D6 /* NavigationBar.swift */; };
 		FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */; };
@@ -219,6 +240,27 @@
 		FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTopViewCell.xib; sourceTree = "<group>"; };
 		FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFilterViewCell.swift; sourceTree = "<group>"; };
 		FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultsFilterViewCell.xib; sourceTree = "<group>"; };
+		FA46136E2C602CD400B472D6 /* CreateAccountTVCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountTVCell.swift; sourceTree = "<group>"; };
+		FA46136F2C602CD400B472D6 /* CreateAccountTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountTVCell.xib; sourceTree = "<group>"; };
+		FA4613712C602CD400B472D6 /* SelectAccountTypeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAccountTypeVC.xib; sourceTree = "<group>"; };
+		FA4613722C602CD400B472D6 /* SelectAccountTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectAccountTypeCell.xib; sourceTree = "<group>"; };
+		FA4613732C602CD400B472D6 /* SelectAccountTypeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeCell.swift; sourceTree = "<group>"; };
+		FA4613742C602CD400B472D6 /* SelectAccountTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeVC.swift; sourceTree = "<group>"; };
+		FA4613752C602CD400B472D6 /* CreateAccountVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountVC.xib; sourceTree = "<group>"; };
+		FA4613772C602CD400B472D6 /* CreateDemoAccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateDemoAccountVC.swift; sourceTree = "<group>"; };
+		FA4613792C602CD400B472D6 /* CreateAccountSlideCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountSlideCell.swift; sourceTree = "<group>"; };
+		FA46137A2C602CD400B472D6 /* CreateAccountSlideCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAccountSlideCell.xib; sourceTree = "<group>"; };
+		FA46137B2C602CD400B472D6 /* CreateAccountVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
+		FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		FA46138D2C602D5500B472D6 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
+		FA46138F2C602D5500B472D6 /* DPDKeyboardListener.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDKeyboardListener.swift; sourceTree = "<group>"; };
+		FA4613902C602D5500B472D6 /* DPDConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DPDConstants.swift; sourceTree = "<group>"; };
+		FA4613912C602D5500B472D6 /* DPDUIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DPDUIView+Extension.swift"; sourceTree = "<group>"; };
+		FA4613932C602D5500B472D6 /* CustomDropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDropDown.swift; sourceTree = "<group>"; };
+		FA4613952C602D5500B472D6 /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
+		FA4613962C602D5500B472D6 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
+		FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
 		FA532D662C5721E1003A26D6 /* FontController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontController.swift; sourceTree = "<group>"; };
 		FA532D682C5721E1003A26D6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTranslation.swift; sourceTree = "<group>"; };
@@ -642,6 +684,7 @@
 		31F3BAD22C3FAB08009A2A12 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				FA46136C2C602CD400B472D6 /* CreateAccountVC */,
 				31B102E22C452E190006E8EB /* TradeTypeCell */,
 				C9FD2E2C2C42FE28002F9D06 /* TranscationCell */,
 				C944B1132C41C61B00C180FA /* AccountTableViewCells */,
@@ -790,9 +833,107 @@
 			path = ResultsFilterViewCell;
 			sourceTree = "<group>";
 		};
+		FA46136C2C602CD400B472D6 /* CreateAccountVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA46136D2C602CD400B472D6 /* CreateAccountTVCell */,
+				FA4613702C602CD400B472D6 /* SelectAccountTypeVC */,
+				FA4613752C602CD400B472D6 /* CreateAccountVC.xib */,
+				FA4613762C602CD400B472D6 /* CreateDemoAccountVC */,
+				FA46137B2C602CD400B472D6 /* CreateAccountVC.swift */,
+			);
+			path = CreateAccountVC;
+			sourceTree = "<group>";
+		};
+		FA46136D2C602CD400B472D6 /* CreateAccountTVCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA46136E2C602CD400B472D6 /* CreateAccountTVCell.swift */,
+				FA46136F2C602CD400B472D6 /* CreateAccountTVCell.xib */,
+			);
+			path = CreateAccountTVCell;
+			sourceTree = "<group>";
+		};
+		FA4613702C602CD400B472D6 /* SelectAccountTypeVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA4613712C602CD400B472D6 /* SelectAccountTypeVC.xib */,
+				FA4613722C602CD400B472D6 /* SelectAccountTypeCell.xib */,
+				FA4613732C602CD400B472D6 /* SelectAccountTypeCell.swift */,
+				FA4613742C602CD400B472D6 /* SelectAccountTypeVC.swift */,
+			);
+			path = SelectAccountTypeVC;
+			sourceTree = "<group>";
+		};
+		FA4613762C602CD400B472D6 /* CreateDemoAccountVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA4613772C602CD400B472D6 /* CreateDemoAccountVC.swift */,
+				FA4613782C602CD400B472D6 /* CreateAccountSlideCell */,
+			);
+			path = CreateDemoAccountVC;
+			sourceTree = "<group>";
+		};
+		FA4613782C602CD400B472D6 /* CreateAccountSlideCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA4613792C602CD400B472D6 /* CreateAccountSlideCell.swift */,
+				FA46137A2C602CD400B472D6 /* CreateAccountSlideCell.xib */,
+			);
+			path = CreateAccountSlideCell;
+			sourceTree = "<group>";
+		};
+		FA46138B2C602D5500B472D6 /* DropDown */ = {
+			isa = PBXGroup;
+			children = (
+				FA46138C2C602D5500B472D6 /* resources */,
+				FA46138E2C602D5500B472D6 /* helpers */,
+				FA4613922C602D5500B472D6 /* CustomDropDown */,
+				FA4613942C602D5500B472D6 /* src */,
+			);
+			path = DropDown;
+			sourceTree = "<group>";
+		};
+		FA46138C2C602D5500B472D6 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				FA46138D2C602D5500B472D6 /* DropDownCell.xib */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		FA46138E2C602D5500B472D6 /* helpers */ = {
+			isa = PBXGroup;
+			children = (
+				FA46138F2C602D5500B472D6 /* DPDKeyboardListener.swift */,
+				FA4613902C602D5500B472D6 /* DPDConstants.swift */,
+				FA4613912C602D5500B472D6 /* DPDUIView+Extension.swift */,
+			);
+			path = helpers;
+			sourceTree = "<group>";
+		};
+		FA4613922C602D5500B472D6 /* CustomDropDown */ = {
+			isa = PBXGroup;
+			children = (
+				FA4613932C602D5500B472D6 /* CustomDropDown.swift */,
+			);
+			path = CustomDropDown;
+			sourceTree = "<group>";
+		};
+		FA4613942C602D5500B472D6 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				FA4613952C602D5500B472D6 /* DropDown.swift */,
+				FA4613962C602D5500B472D6 /* DropDownCell.swift */,
+				FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		FA532D642C5721E1003A26D6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FA46138B2C602D5500B472D6 /* DropDown */,
 				FA532D652C5721E1003A26D6 /* FontController */,
 				FA532D672C5721E1003A26D6 /* NavigationBar */,
 				FA532D692C5721E1003A26D6 /* LabelTranslation */,
@@ -898,6 +1039,8 @@
 		FA9B00BE2C4BFBE900BC57F1 /* BaseClasses */ = {
 			isa = PBXGroup;
 			children = (
+				FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */,
+				FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */,
 				FA9B00BF2C4BFBE900BC57F1 /* BaseViewController.swift */,
 			);
 			path = BaseClasses;
@@ -989,10 +1132,13 @@
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
+				FA46137F2C602CD400B472D6 /* SelectAccountTypeCell.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
 				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
+				FA4613822C602CD400B472D6 /* CreateAccountVC.xib in Resources */,
 				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
+				FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */,
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
@@ -1005,14 +1151,17 @@
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				31B102E62C452E390006E8EB /* TradeTypeTableViewCell.xib in Resources */,
+				FA46137E2C602CD400B472D6 /* SelectAccountTypeVC.xib in Resources */,
 				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
 				FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */,
+				FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */,
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
 				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
 				315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */,
 				FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */,
 				FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
+				FA46137D2C602CD400B472D6 /* CreateAccountTVCell.xib in Resources */,
 				C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */,
 				31DC19C92C4F76C0005BC2BB /* BenefitsTableViewCell.xib in Resources */,
 				315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */,
@@ -1072,7 +1221,9 @@
 				C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */,
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
+				FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */,
 				FA532D792C5721E1003A26D6 /* Alert.swift in Sources */,
+				FA46138A2C602D1300B472D6 /* BaseTableViewCell.swift in Sources */,
 				31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */,
 				31B90D212C3FCC3400A7A0D2 /* DetailsViewController.swift in Sources */,
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
@@ -1083,6 +1234,7 @@
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
+				FA46139B2C602D5600B472D6 /* DPDUIView+Extension.swift in Sources */,
 				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
 				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
@@ -1091,6 +1243,7 @@
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
 				315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
+				FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */,
 				3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */,
 				FA532D7C2C5721E1003A26D6 /* AlertCustomController.swift in Sources */,
 				31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */,
@@ -1104,7 +1257,9 @@
 				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
 				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
+				FA4613832C602CD400B472D6 /* CreateDemoAccountVC.swift in Sources */,
 				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
+				FA46139E2C602D5600B472D6 /* DropDownCell.swift in Sources */,
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
@@ -1112,12 +1267,14 @@
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
+				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,
 				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
 				31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
+				FA46137C2C602CD400B472D6 /* CreateAccountTVCell.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,
 				FA99B5BB2C59A87E00DD4F6D /* SummaryTradingActivityCell.swift in Sources */,
@@ -1131,7 +1288,9 @@
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
 				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
+				FA4613842C602CD400B472D6 /* CreateAccountSlideCell.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
+				FA46139A2C602D5600B472D6 /* DPDConstants.swift in Sources */,
 				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
@@ -1139,12 +1298,17 @@
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
 				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,
+				FA4613812C602CD400B472D6 /* SelectAccountTypeVC.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
+				FA4613862C602CD400B472D6 /* CreateAccountVC.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
+				FA46139D2C602D5600B472D6 /* DropDown.swift in Sources */,
 				31B102E02C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift in Sources */,
+				FA4613802C602CD400B472D6 /* SelectAccountTypeCell.swift in Sources */,
+				FA4613892C602D1300B472D6 /* BaseCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

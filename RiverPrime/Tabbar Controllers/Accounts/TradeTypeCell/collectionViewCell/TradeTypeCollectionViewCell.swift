@@ -14,10 +14,17 @@ class TradeTypeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var selectedColorView: UIView!
     @IBOutlet weak var sepratorView: UIView!
     @IBOutlet weak var refreshImage: UIImageView!
+    @IBOutlet weak var refreshImageButton: UIButton!
+    
+    var onRefreshImageButtonClick: ((UIButton)->Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        refreshImageButton.setTitle("", for: .normal)
+    }
+    
+    @IBAction func refreshImageButton(_ sender: UIButton) {
+        self.onRefreshImageButtonClick?(sender)
     }
     
 //    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {

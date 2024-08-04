@@ -15,6 +15,8 @@ class GlobalVariable: NSObject {
     
     static var instance = GlobalVariable()
     
+    var isAccountCreated = Bool()
+    
     var resultTopButtonType = String()
     
     public func showBarBackButton(vc: UIViewController) {

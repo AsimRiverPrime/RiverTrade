@@ -7,10 +7,11 @@
 
 import UIKit
 
-class TradeTypeTableViewCell: UITableViewCell {
+class TradeTypeTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
     var model: [String] = ["Open","Pending","Close","image"/*,"test","test1","test2","test3"*/]
+    var refreshList = ["by instrument", "by volume", "by open time"]
     var selectedIndex = 0
     
     override func awakeFromNib() {
@@ -47,6 +48,15 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
        
+        cell.onRefreshImageButtonClick = {
+            [self] sender in
+            print("onRefreshImageButtonClick")
+            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+                print("drop down index = \(index)")
+                print("drop down item = \(item)")
+            }
+        }
+        
         cell.lbl_tradetype.text = model[indexPath.row]
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
@@ -71,7 +81,9 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
-            collectionView.reloadData()
+            if indexPath.row != model.count-1 {
+                collectionView.reloadData()
+            }
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
@@ -92,3 +104,20 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         
     }
 }
+
+/*
+extension TradeTypeTableViewCell {
+    
+    private func dynamicDropDownButton(_ sender: UIButton, list: [String]) {
+        
+        CustomDropDown.instance.dropDownButton(list: list, sender: sender) { [weak self] (index: Int, item: String) in
+            print("this is the selected index value:\(index)")
+            print("this is the selected item name :\(item)")
+//            guard let self = self else { return }
+            sender.setTitle(item, for: .normal)
+        }
+        
+    }
+    
+}
+*/

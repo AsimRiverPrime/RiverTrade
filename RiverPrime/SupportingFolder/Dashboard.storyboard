@@ -191,6 +191,64 @@
             </objects>
             <point key="canvasLocation" x="-1347.3282442748091" y="300"/>
         </scene>
+        <!--Select Account TypeVC-->
+        <scene sceneID="O5j-ly-w26">
+            <objects>
+                <viewController storyboardIdentifier="SelectAccountTypeVC" id="dzn-IW-5r1" customClass="SelectAccountTypeVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2y9-Yb-v3V">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHL-Hu-fec" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="171.66666666666666" y="64" width="50" height="5"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Ck0-ed-DsF"/>
+                                    <constraint firstAttribute="height" constant="5" id="kfx-A0-HXk"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select account type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yJ7-HI-nbF">
+                                <rect key="frame" x="10" y="89" width="373" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8QX-OJ-rfY">
+                                <rect key="frame" x="0.0" y="119" width="393" height="699"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="uQl-ei-RbT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uQl-ei-RbT" firstAttribute="trailing" secondItem="8QX-OJ-rfY" secondAttribute="trailing" id="1xL-3u-xP4"/>
+                            <constraint firstItem="oHL-Hu-fec" firstAttribute="centerX" secondItem="uQl-ei-RbT" secondAttribute="centerX" id="HlL-nS-i5o"/>
+                            <constraint firstItem="yJ7-HI-nbF" firstAttribute="top" secondItem="oHL-Hu-fec" secondAttribute="bottom" constant="20" id="Trf-bU-uJz"/>
+                            <constraint firstItem="8QX-OJ-rfY" firstAttribute="top" secondItem="yJ7-HI-nbF" secondAttribute="bottom" constant="10" id="V7K-2P-PPL"/>
+                            <constraint firstItem="8QX-OJ-rfY" firstAttribute="leading" secondItem="uQl-ei-RbT" secondAttribute="leading" id="Y8g-AW-a77"/>
+                            <constraint firstItem="oHL-Hu-fec" firstAttribute="top" secondItem="uQl-ei-RbT" secondAttribute="top" constant="5" id="cWf-Cc-WGM"/>
+                            <constraint firstItem="uQl-ei-RbT" firstAttribute="bottom" secondItem="8QX-OJ-rfY" secondAttribute="bottom" id="dBx-7b-4Hu"/>
+                            <constraint firstItem="yJ7-HI-nbF" firstAttribute="leading" secondItem="uQl-ei-RbT" secondAttribute="leading" constant="10" id="mmg-Hr-Mje"/>
+                            <constraint firstAttribute="trailing" secondItem="yJ7-HI-nbF" secondAttribute="trailing" constant="10" id="xgN-V5-toU"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="8QX-OJ-rfY" id="gs5-hr-C61"/>
+                        <outlet property="titleLabel" destination="yJ7-HI-nbF" id="CrL-Nr-31e"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CUj-5N-F5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-695.41984732824426" y="-338.02816901408454"/>
+        </scene>
         <!--Accounts-->
         <scene sceneID="fw2-4k-mdw">
             <objects>
@@ -1169,6 +1227,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="ngY-ql-zzu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="PZf-9H-4lf" secondAttribute="trailing" id="3mC-zA-CFD"/>
@@ -2760,6 +2819,87 @@
             </objects>
             <point key="canvasLocation" x="352" y="-506"/>
         </scene>
+        <!--Create Demo AccountVC-->
+        <scene sceneID="bXa-2b-RPQ">
+            <objects>
+                <viewController storyboardIdentifier="CreateDemoAccountVC" id="HXU-ML-qlA" customClass="CreateDemoAccountVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yNN-iU-YGf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kqr-7X-fRA" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="171.66666666666666" y="64" width="50" height="5"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="2W7-en-8iy"/>
+                                    <constraint firstAttribute="height" constant="5" id="LuQ-R3-X1z"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Demo MT5 account" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dyz-0u-uKl">
+                                <rect key="frame" x="10" y="89" width="373" height="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFH-Wr-7Vv">
+                                <rect key="frame" x="348" y="81.666666666666671" width="35" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="OXr-va-tQm"/>
+                                    <constraint firstAttribute="height" constant="35" id="zv8-2f-tuu"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="gearshape" catalog="system" renderingMode="hierarchical-single">
+                                        <hierarchicalColors>
+                                            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color systemColor="secondaryLabelColor"/>
+                                            <color systemColor="tertiaryLabelColor"/>
+                                        </hierarchicalColors>
+                                    </imageReference>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="settingButton:" destination="HXU-ML-qlA" eventType="touchUpInside" id="llt-Z6-M4O"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4Sp-Ax-xnc">
+                                <rect key="frame" x="0.0" y="119" width="393" height="699"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JqO-26-Ybv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="dyz-0u-uKl" firstAttribute="leading" secondItem="JqO-26-Ybv" secondAttribute="leading" constant="10" id="4vc-ZS-UWY"/>
+                            <constraint firstAttribute="trailing" secondItem="dyz-0u-uKl" secondAttribute="trailing" constant="10" id="BoA-SD-Y5T"/>
+                            <constraint firstItem="EFH-Wr-7Vv" firstAttribute="centerY" secondItem="dyz-0u-uKl" secondAttribute="centerY" id="UWe-19-6VQ"/>
+                            <constraint firstItem="dyz-0u-uKl" firstAttribute="top" secondItem="kqr-7X-fRA" secondAttribute="bottom" constant="20" id="W3Q-ly-r2n"/>
+                            <constraint firstItem="JqO-26-Ybv" firstAttribute="trailing" secondItem="4Sp-Ax-xnc" secondAttribute="trailing" id="W4I-Hb-qao"/>
+                            <constraint firstItem="kqr-7X-fRA" firstAttribute="centerX" secondItem="JqO-26-Ybv" secondAttribute="centerX" id="b2b-qr-S6I"/>
+                            <constraint firstItem="4Sp-Ax-xnc" firstAttribute="leading" secondItem="JqO-26-Ybv" secondAttribute="leading" id="bTZ-Ar-TDC"/>
+                            <constraint firstItem="kqr-7X-fRA" firstAttribute="top" secondItem="JqO-26-Ybv" secondAttribute="top" constant="5" id="bgn-he-1Us"/>
+                            <constraint firstItem="4Sp-Ax-xnc" firstAttribute="top" secondItem="dyz-0u-uKl" secondAttribute="bottom" constant="10" id="ld2-Ud-bgU"/>
+                            <constraint firstItem="JqO-26-Ybv" firstAttribute="bottom" secondItem="4Sp-Ax-xnc" secondAttribute="bottom" id="yk3-JB-ord"/>
+                            <constraint firstItem="JqO-26-Ybv" firstAttribute="trailing" secondItem="EFH-Wr-7Vv" secondAttribute="trailing" constant="10" id="yrX-c3-B2g"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="settingButton" destination="EFH-Wr-7Vv" id="OtP-Js-6FD"/>
+                        <outlet property="tableView" destination="4Sp-Ax-xnc" id="QVy-aD-S6v"/>
+                        <outlet property="titleLabel" destination="dyz-0u-uKl" id="GUr-rq-zW8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C91-Qn-2wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1376" y="-338"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Growth" width="17.333333969116211" height="17.333333969116211"/>
@@ -2773,6 +2913,7 @@
         <image name="deskclock" catalog="system" width="128" height="125"/>
         <image name="detailIcon" width="64" height="64"/>
         <image name="downArrow" width="37" height="21"/>
+        <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="historyIcon" width="63" height="56"/>
         <image name="info.circle.fill" catalog="system" width="128" height="123"/>
         <image name="mail" catalog="system" width="128" height="93"/>
@@ -2803,6 +2944,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
