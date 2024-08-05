@@ -16,9 +16,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        Thread.sleep(forTimeInterval: 1.0)
+      
         FirebaseApp.configure()
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
-
+//       
+//        let fireStoreInstance = FirestoreServices()
+//        
+//        if let user = Auth.auth().currentUser {
+//                   // User is signed in.
+////                   navigateToMainScreen()
+//            print("user is already register")
+//            fireStoreInstance.fetchUserData(userId: user.uid)
+//               } else {
+//                   // No user is signed in.
+////                   navigateToLoginScreen()
+//                   print("user is not register")
+//               }
+//        
         return true
     }
     

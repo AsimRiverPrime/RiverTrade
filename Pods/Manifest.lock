@@ -946,6 +946,8 @@ PODS:
     - abseil/meta/type_traits
     - abseil/xcprivacy
   - abseil/xcprivacy (1.20240116.2)
+  - AEXML (4.7.0)
+  - Alamofire (5.9.1)
   - AppAuth (1.7.5):
     - AppAuth/Core (= 1.7.5)
     - AppAuth/ExternalUserAgent (= 1.7.5)
@@ -1179,6 +1181,8 @@ PODS:
   - TPKeyboardAvoiding (1.3.5)
 
 DEPENDENCIES:
+  - AEXML (~> 4.2)
+  - Alamofire (~> 5.6)
   - CountryPickerView
   - Firebase/Core
   - Firebase/Firestore
@@ -1191,6 +1195,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AEXML
+    - Alamofire
     - AppAuth
     - BoringSSL-GRPC
     - CountryPickerView
@@ -1222,6 +1228,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: d121da9ef7e2ff4cab7666e76c5a3e0915ae08c3
+  AEXML: 5ff2a4695529348cda96b8b872cf73212ad050d7
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
   CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
@@ -1251,6 +1259,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: 8c80fbc4d76bd2495778b1345703f40d067b3704
+PODFILE CHECKSUM: cc7e2854501e72b38dc9037e78dfd10e3c2b22db
 
 COCOAPODS: 1.15.2

@@ -8,7 +8,10 @@
 import Foundation
 import FirebaseFirestore
 
-class FirestoreServices {
+class FirestoreServices: BaseViewController {
+    
+    var window: UIWindow?
+    
     private let db = Firestore.firestore()
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
@@ -28,6 +31,22 @@ class FirestoreServices {
             }
         }
     }
+    
+     func fetchUserData(userId: String) {
+          let db = Firestore.firestore()
+          let docRef = db.collection("users").document(userId)
+          
+          docRef.getDocument { (document, error) in
+              if let document = document, document.exists {
+                  if let data = document.data() {
+                      self.handleUserData(data: data)
+                  }
+              } else {
+                  print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
+                  self.navigateToLoginScreen()
+              }
+          }
+      }
     
     func checkUserExists(withID id: String, completion: @escaping (Bool) -> Void) {
         let userRef = db.collection("users").document(id)
@@ -96,4 +115,58 @@ class FirestoreServices {
             }
         }
     }
+    
+    private func handleUserData(data: [String: Any]) {
+           if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+               navigateToEmailVerificationScreen()
+           } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
+               navigateToPhoneVerificationScreen()
+           } else if let realAccountCreated = data["realAccountCreated"] as? Bool, !realAccountCreated {
+//               navigateToRealAccountCreationScreen()
+               
+           } else {
+               navigateToMainScreen()
+           }
+       }
+       
+       private func navigateToMainScreen() {
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+           window?.rootViewController = mainVC
+           window?.makeKeyAndVisible()
+       }
+
+       private func navigateToLoginScreen() {
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+//           self.navigationController?.pushViewController(loginVC, animated: true)
+           window?.rootViewController = loginVC
+           window?.makeKeyAndVisible()
+       }
+       
+       private func navigateToEmailVerificationScreen() {
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let emailVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+           emailVerificationVC.isEmailVerification = true
+           self.navigationController?.pushViewController(emailVerificationVC, animated: true)
+//           window?.rootViewController = emailVerificationVC
+//           window?.makeKeyAndVisible()
+       }
+       
+       private func navigateToPhoneVerificationScreen() {
+           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let phoneVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+           phoneVerificationVC.isPhoneVerification = true
+           self.navigationController?.pushViewController(phoneVerificationVC, animated: true)
+//           window?.rootViewController = phoneVerificationVC
+//           window?.makeKeyAndVisible()
+       }
+       
+//       private func navigateToRealAccountCreationScreen() {
+//           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//           let realAccountCreationVC = storyboard.instantiateViewController(withIdentifier: "RealAccountCreationViewController") as! RealAccountCreationViewController
+//           window?.rootViewController = realAccountCreationVC
+//           window?.makeKeyAndVisible()
+//       }
+   
 }

@@ -153,13 +153,7 @@ class SignUpViewController: BaseViewController {
     }
     
     @IBAction func continueGoogleBtn(_ sender: Any) {
-        
-//        guard let clientID = GIDSignIn.sharedInstance.configuration?.clientID else {
-//            print("ClientID not configured.")
-//            return
-//        }
-//        print("ClientID configured. \(clientID)")
-        
+ 
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             if let error = error {
                 print("Sign in failed: \(error.localizedDescription)")
@@ -206,7 +200,9 @@ class SignUpViewController: BaseViewController {
                 print("Current User user photo url: \(String(describing: user.photoURL))")
                 print("Current User DisplayName: \(user.displayName ?? "No name")")
                 print("Current User phone number: \(user.phoneNumber ?? "No number")")
-       
+                
+                UserDefaults.standard.set(user.uid, forKey: "userID")
+                
                     self.saveAdditionalUserData(userId: user.uid, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
                     self.navigateToVerifiyScreen()
                 }

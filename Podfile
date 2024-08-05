@@ -14,4 +14,7 @@ pod 'Firebase/Core'
 pod 'CountryPickerView'
 pod 'PhoneNumberKit', '~> 3.7'
 
+pod 'Alamofire', '~> 5.6'
+pod 'AEXML', '~> 4.2'
+
 end

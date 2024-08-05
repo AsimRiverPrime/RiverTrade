@@ -19,8 +19,14 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     var isPhoneVerification: Bool?
     let userId =  UserDefaults.standard.string(forKey: "userID")
     
+    let odooServices = OdooClient()
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        odooServices.authenticate()
+        
         let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum]
         
         for textField in textFields {
@@ -40,13 +46,11 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             if isEmailVerification == true {
                  print("verify the code func sent through email and set that function")
                 updateUser()
-                navigateToVerifiyScreen()
+               
             }else if isPhoneVerification == true {
                 print("verify the code func sent through phone number and set that function")
                 updateUser()
-                if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-                    self.navigate(to: dashboardVC)
-                }
+               
             }
         }
         
@@ -86,6 +90,17 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
 //                    self.dismiss(animated: true, completion: nil)
 //                })
                 
+                if self.isEmailVerification == true {
+                    self.isEmailVerification = false
+                    self.navigateToPhoneVerifiyScreen()
+                }else if self.isPhoneVerification == true {
+                    self.isPhoneVerification = false
+                    
+                   
+                    if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+                        self.navigate(to: dashboardVC)
+                    }
+                }
                 
             }
         }
@@ -181,7 +196,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     
-    private func navigateToVerifiyScreen() {
+    private func navigateToPhoneVerifiyScreen() {
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
 //        self.navigationController?.pushViewController(verifyVC, animated: true)
