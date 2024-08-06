@@ -47,19 +47,11 @@ class SignUpViewController: BaseViewController {
     @IBOutlet weak var btn_contiune: UIButton!
     
     var viewModel = SignViewModel()
-    
-    init(SignInViewModel: SignViewModel) {
-        self.viewModel = SignInViewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+    var odooClientService = OdooClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        odooClientService.authenticate()
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
@@ -136,10 +128,10 @@ class SignUpViewController: BaseViewController {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-        signUp()
-//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//            self.navigate(to: dashboardVC)
-//        }
+//        signUp()
+        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+            self.navigate(to: dashboardVC)
+        }
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -258,7 +250,7 @@ class SignUpViewController: BaseViewController {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
                         let name = firstName + " " + lastName
-                        
+                        self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, number: "", name: name)
                         self?.saveAdditionalUserData(userId: user.uid, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
                         // Navigate to the main screen or any other action
                         self?.navigateToVerifiyScreen()

@@ -24,6 +24,7 @@ class OdooClient {
     
     var uid: Int = UserDefaults.standard.integer(forKey: "uid")
     var recordedId: Int = UserDefaults.standard.integer(forKey: "recordId")
+    
     var createRequestBool : Bool = false
     
     var dataBaseName: String = "localhost"
@@ -110,8 +111,9 @@ class OdooClient {
     }
     
     //MARK: - Create request Method for records
-    func createRecords(email: String, number: String, name: String) {
+    func createRecords(firebase_uid: String, email: String, number: String, name: String) {
         self.createRequestBool = true
+        
         let methodName = "execute_kw"
         let params: [Any] = [
             dataBaseName,      // Database name
@@ -121,6 +123,7 @@ class OdooClient {
             "create",         // Method name
             [[                // vals_list
                 "name": name,
+                "firebase_uid": firebase_uid,
                 "type": "opportunity",
                 "email_from": email,
                 "number_ids": [
@@ -152,13 +155,14 @@ class OdooClient {
                     if let responseString = String(data: data, encoding: .utf8) {
                         print("Response XML: \(responseString)")
                     }
+                    self.saveUserIdFromXMLData(data)
                 case .failure(let error):
                     print("Error: \(error)")
                 }
             }
     }
-    
-    func writeRecords() {
+    //MARK: - Method write/update data to OdooServer
+    func writeRecords(number: String) {
         let methodName = "execute_kw"
         let params: [Any] = [
             dataBaseName,      // Database name
@@ -169,7 +173,7 @@ class OdooClient {
             [[recordedId],[                // vals_list // need record id
                 "number_ids": [
                     [0, 0, [
-                        "number": "0544664455",
+                        "number": number,
                         "type": "work"
                     ]]
                 ]

@@ -8,6 +8,7 @@
 import UIKit
 import CountryPickerView
 import PhoneNumberKit
+import Firebase
 
 class PhoneVerifyVC: UIViewController {
     
@@ -20,6 +21,9 @@ class PhoneVerifyVC: UIViewController {
     let phoneNumberKit = PhoneNumberKit()
     
     let userId =  UserDefaults.standard.string(forKey: "userID")
+    var userEmail: String = ""
+    let firestoreService = FirestoreServices()
+    let oodoService = OdooClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +43,7 @@ class PhoneVerifyVC: UIViewController {
     @IBAction func confirmBtnAction(_ sender: Any) {
         
         print("\(userId ?? "")")
-        print(self.tf_numberField.text ?? "0000")
+        print(self.tf_numberField.text ?? "")
         guard let userId = userId, let selectedCountry = selectedCountry,
               let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
             print("Please enter your phone number")
@@ -49,40 +53,43 @@ class PhoneVerifyVC: UIViewController {
             let phoneNumber1 = try phoneNumberKit.parse(phoneNumber, withRegion: selectedCountry.code, ignoreType: true)
                   let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
-            updateUser()
+            self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
+//            updateUser()
+            self.navigateToVerifiyScreen()
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
             }
        
     }
     
-    func updateUser(){
-        guard let userId = userId,
-              let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
-            print("Please enter your phone number")
-            return
-        }
-        let firestoreService = FirestoreServices()
-        
-        let fieldsToUpdate: [String: Any] = [
-            "phone": phoneNumber,
-            "phoneVerified": true
-        ]
-        
-        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
-            if let error = error {
-                print("Error updating user fields: \(error.localizedDescription)")
-                self.showAlert(message: "Failed to update phone number. Please try again.")
-            } else {
-                print("User fields updated successfully!")
-                self.showAlert(message: "Phone number verified successfully!", completion: {
-                    // Optionally, navigate to the next screen or dismiss this screen
-                    self.dismiss(animated: true, completion: nil)
-                    self.navigateToVerifiyScreen()
-                })
-            }
-        }
-    }
+//    func updateUser(){
+//        guard let userId = userId,
+//              let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
+//            print("Please enter your phone number")
+//            return
+//        }
+//       
+//        
+//        let fieldsToUpdate: [String: Any] = [
+//            "phone": phoneNumber,
+//            "phoneVerified": true
+//        ]
+//        
+//        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
+//            if let error = error {
+//                print("Error updating user fields: \(error.localizedDescription)")
+//                self.showAlert(message: "Failed to update phone number. Please try again.")
+//            } else {
+//                print("User phone number fields updated successfully!")
+//                self.showAlert(message: "Phone number verified successfully!", completion: {
+//                    // Optionally, navigate to the next screen or dismiss this screen
+//                    self.dismiss(animated: true, completion: nil)
+//                        
+//                    self.navigateToVerifiyScreen()
+//                })
+//            }
+//        }
+//    }
     
     func showAlert(message: String, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -100,6 +107,7 @@ class PhoneVerifyVC: UIViewController {
        
         verifyVC.isEmailVerification = false
         verifyVC.isPhoneVerification = true
+        verifyVC.userPhone = self.tf_numberField.text ?? "0000"
         self.navigate(to: verifyVC)
     }
     

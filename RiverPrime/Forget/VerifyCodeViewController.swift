@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
@@ -15,17 +16,16 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     @IBOutlet weak var tf_fourthNum: UITextField!
     @IBOutlet weak var tf_fivethNum: UITextField!
     
-    var isEmailVerification: Bool?
+    var isEmailVerification: Bool? 
     var isPhoneVerification: Bool?
     let userId =  UserDefaults.standard.string(forKey: "userID")
-    
-    let odooServices = OdooClient()
    
+    var userPhone: String = ""
+    
+    let fireStoreInstance = FirestoreServices()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        odooServices.authenticate()
         
         let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum]
         
@@ -53,10 +53,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                
             }
         }
-        
-      
-        
-        
     }
     
     
@@ -66,19 +62,20 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
         var fieldsToUpdate: [String: Any] = [:]
         
-        let firestoreService = FirestoreServices()
-        
         if isEmailVerification == true {
             fieldsToUpdate = [
                 "emailVerified" : true
             ]
         }else if isPhoneVerification == true {
             fieldsToUpdate = [
-                "phoneVerified" : true
+                "phone": self.userPhone,
+                "phoneVerified" : true,
+                "login" : true,
+                "pushedToCRM": true
             ]
         }
         
-        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
+        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
             if let error = error {
                 print("Error updating user fields: \(error.localizedDescription)")
 //                self.showAlert(message: "Failed to update phone number. Please try again.")
@@ -95,8 +92,9 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.navigateToPhoneVerifiyScreen()
                 }else if self.isPhoneVerification == true {
                     self.isPhoneVerification = false
-                    
+                    print("User isPhone fields updated successfully!")
                    
+                    
                     if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
                         self.navigate(to: dashboardVC)
                     }
