@@ -11,7 +11,8 @@ import GoogleSignIn
 import FirebaseFirestore
 import FirebaseAuth
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController{
+    
     
     @IBOutlet weak var lbl_firstName: UITextField!
     @IBOutlet weak var lbl_lastName: UITextField!
@@ -51,7 +52,9 @@ class SignUpViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("odoo client auth call")
         odooClientService.authenticate()
+        odooClientService.createLeadDelegate = self
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
@@ -128,10 +131,10 @@ class SignUpViewController: BaseViewController {
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-//        signUp()
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+        signUp()
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -187,15 +190,11 @@ class SignUpViewController: BaseViewController {
             
             // User is signed in with Firebase successfuly
             if let user = authResult?.user {
-                print("User signed in with Firebase: \(user.email ?? "No email")")
-                print("Current User ID: \(user.uid)")
-                print("Current User user photo url: \(String(describing: user.photoURL))")
-                print("Current User DisplayName: \(user.displayName ?? "No name")")
-                print("Current User phone number: \(user.phoneNumber ?? "No number")")
+              
                 
                 UserDefaults.standard.set(user.uid, forKey: "userID")
                 
-                    self.saveAdditionalUserData(userId: user.uid, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
+                    self.saveAdditionalUserData(userId: user.uid, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
                     self.navigateToVerifiyScreen()
                 }
             }
@@ -250,9 +249,11 @@ class SignUpViewController: BaseViewController {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
                         let name = firstName + " " + lastName
-                        self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, number: "", name: name)
-                        self?.saveAdditionalUserData(userId: user.uid, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false)
+                        self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
+                       
+                        self?.saveAdditionalUserData(userId: user.uid, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
+                        
                         self?.navigateToVerifiyScreen()
                     }
                 }
@@ -261,7 +262,7 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool) {
+    private func saveAdditionalUserData(userId: String, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool, realAccountCreated: Bool, demoAccountCreated: Bool) {
         let db = Firestore.firestore()
         db.collection("users").document(userId).setData([
             "uid": userId,
@@ -271,7 +272,9 @@ class SignUpViewController: BaseViewController {
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
             "login": login,
-            "pushedToCRM": pushedToCRM
+            "pushedToCRM": pushedToCRM,
+            "realAccountCreated": realAccountCreated,
+            "demoAccountCreated": demoAccountCreated
         ]) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")
@@ -284,11 +287,22 @@ class SignUpViewController: BaseViewController {
     private func navigateToVerifiyScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-       
+        verifyVC.userEmail = self.email_tf.text ?? ""
         verifyVC.isEmailVerification = true
         verifyVC.isPhoneVerification = false
         self.navigate(to: verifyVC)
     }
     
-    
 }
+
+extension SignUpViewController:  CreateLeadOdooDelegate {
+    func leadCreatSuccess(response: Any) {
+        print("this is success response from create Lead :\(response)")
+        odooClientService.sendOTP(type: "email", email: email_tf.text ?? "", phone: "")
+    }
+    
+    func leadCreatFailure(error: any Error) {
+        print("this is error response:\(error)")
+    }
+}
+

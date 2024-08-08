@@ -101,7 +101,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else { //MARK: - if no account exist.
                 let cell = tableView.dequeueReusableCell(with: CreateAccountTVCell.self, for: indexPath)
-//            cell.setHeaderUI(.account)
+                //            cell.setHeaderUI(.account)
                 cell.delegate = self
                 return cell
             }
@@ -113,8 +113,15 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             
         }else{
             let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
+            if GlobalVariable.instance.isAccountCreated {
+                cell.isHidden = false
+            }else{
+                cell.isHidden = true
+            }
             return cell
         }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -171,6 +178,9 @@ extension AccountsVC: AccountInfoDelegate {
 //            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
 //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.notification)
+            break
+        case .createAccount:
+            delegate?.accountInfoTap(.createAccount)
             break
         }
 

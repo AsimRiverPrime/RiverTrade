@@ -35,6 +35,10 @@
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
+		3191F6A72C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6A52C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift */; };
+		3191F6A82C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3191F6A62C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib */; };
+		3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */; };
+		3191F6AD2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
@@ -176,6 +180,10 @@
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
+		3191F6A52C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeButtonCollectionViewCell.swift; sourceTree = "<group>"; };
+		3191F6A62C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTypeButtonCollectionViewCell.xib; sourceTree = "<group>"; };
+		3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
+		3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSelectTradeType.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
@@ -411,6 +419,14 @@
 			path = "OdooClient Services";
 			sourceTree = "<group>";
 		};
+		3191F6A92C64EB0A00F623C6 /* CreateAccountSetPasswordScreen */ = {
+			isa = PBXGroup;
+			children = (
+				3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */,
+			);
+			path = CreateAccountSetPasswordScreen;
+			sourceTree = "<group>";
+		};
 		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +473,8 @@
 			children = (
 				31B102DE2C452D3C0006E8EB /* TradeTypeCollectionViewCell.swift */,
 				31B102DF2C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib */,
+				3191F6A52C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift */,
+				3191F6A62C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib */,
 			);
 			path = collectionViewCell;
 			sourceTree = "<group>";
@@ -879,6 +897,7 @@
 		FA4613762C602CD400B472D6 /* CreateDemoAccountVC */ = {
 			isa = PBXGroup;
 			children = (
+				3191F6A92C64EB0A00F623C6 /* CreateAccountSetPasswordScreen */,
 				FA4613772C602CD400B472D6 /* CreateDemoAccountVC.swift */,
 				FA4613782C602CD400B472D6 /* CreateAccountSlideCell */,
 			);
@@ -890,6 +909,7 @@
 			children = (
 				FA4613792C602CD400B472D6 /* CreateAccountSlideCell.swift */,
 				FA46137A2C602CD400B472D6 /* CreateAccountSlideCell.xib */,
+				3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */,
 			);
 			path = CreateAccountSlideCell;
 			sourceTree = "<group>";
@@ -1149,6 +1169,7 @@
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
 				FA4613822C602CD400B472D6 /* CreateAccountVC.xib in Resources */,
 				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
+				3191F6A82C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib in Resources */,
 				FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */,
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
@@ -1240,6 +1261,7 @@
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
+				3191F6A72C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
@@ -1257,6 +1279,7 @@
 				FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */,
 				3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */,
 				FA532D7C2C5721E1003A26D6 /* AlertCustomController.swift in Sources */,
+				3191F6AD2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift in Sources */,
 				31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */,
 				31D2621F2C3BFA5A00FC6651 /* SignInViewController.swift in Sources */,
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
@@ -1277,6 +1300,7 @@
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
 				FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
+				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,

@@ -90,28 +90,29 @@ class SignInViewController: BaseViewController {
             return
         }
         
+        // MARK: - check user verified email and number
+//        firebase.getUserDataByEmail(email: email) { result in
+//            switch result {
+//            case .success(let data):
+//                print("User data: \(data)")
+//                if let isEmailVerified = data["emailVerified"] as? Bool, isEmailVerified {
+//                          print("User email is active: \(isEmailVerified)")
+//                      } else {
+//                          print("User email is not active ")
+//                          print("User move to the email verification screen")
+//                      }
+//                      
+//                      // Additional conditions can be checked here
+//                      if let isPhoneVerified = data["phoneVerified"] as? String {
+//                          print("User phone is verify: \(isPhoneVerified)")
+//                      } else {
+//                          print("User move to the phone verification screen")
+//                      }
+//            case .failure(let error):
+//                print("Error getting user data: \(error.localizedDescription)")
+//            }
+//        }
         
-        firebase.getUserDataByEmail(email: email) { result in
-            switch result {
-            case .success(let data):
-                print("User data: \(data)")
-                if let isEmailVerified = data["emailVerified"] as? Bool, isEmailVerified {
-                          print("User email is active: \(isEmailVerified)")
-                      } else {
-                          print("User email is not active ")
-                          print("User move to the email verification screen")
-                      }
-                      
-                      // Additional conditions can be checked here
-                      if let isPhoneVerified = data["phoneVerified"] as? String {
-                          print("User phone is verify: \(isPhoneVerified)")
-                      } else {
-                          print("User move to the phone verification screen")
-                      }
-            case .failure(let error):
-                print("Error getting user data: \(error.localizedDescription)")
-            }
-        }
         // Use Firebase Authentication to sign in
         Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
             
@@ -149,7 +150,7 @@ class SignInViewController: BaseViewController {
                 // check for the email verification and phone number verification
                 
                 print(" signing in successfully and move to Dashboard screen ")
-                
+                self?.navigateToDashboardScreen()
             }
         }
         

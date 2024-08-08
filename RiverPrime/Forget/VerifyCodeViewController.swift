@@ -10,24 +10,31 @@ import Firebase
 
 class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
+        
     @IBOutlet weak var tf_firstNum: UITextField!
     @IBOutlet weak var tf_SecondNum: UITextField!
     @IBOutlet weak var tf_thirdNum: UITextField!
     @IBOutlet weak var tf_fourthNum: UITextField!
     @IBOutlet weak var tf_fivethNum: UITextField!
+    @IBOutlet weak var tf_sixthNum: UITextField!
     
-    var isEmailVerification: Bool? 
+    var isEmailVerification: Bool?
     var isPhoneVerification: Bool?
     let userId =  UserDefaults.standard.string(forKey: "userID")
    
     var userPhone: String = ""
+    var userEmail: String = ""
     
     let fireStoreInstance = FirestoreServices()
+    let odooClientService = OdooClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum]
+        odooClientService.delegate = self
+        odooClientService.verifyDelegate = self
+        
+        let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum, tf_sixthNum]
         
         for textField in textFields {
             textField?.delegate = self
@@ -44,12 +51,13 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             return
         }else{
             if isEmailVerification == true {
-                 print("verify the code func sent through email and set that function")
-                updateUser()
+                 //"verify the otp code func sent through email and set that function"
+                odooClientService.verifyOTP(type: "email", email: userEmail, phone: "", otp: getVerificationCode() ?? "" )
+               
                
             }else if isPhoneVerification == true {
-                print("verify the code func sent through phone number and set that function")
-                updateUser()
+                //print("verify the number otp code func sent through phone number and set that function")
+                odooClientService.verifyOTP(type: "phone", email: "", phone: userPhone, otp: getVerificationCode() ?? "" )
                
             }
         }
@@ -78,18 +86,13 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
             if let error = error {
                 print("Error updating user fields: \(error.localizedDescription)")
-//                self.showAlert(message: "Failed to update phone number. Please try again.")
                 return
             } else {
-                print("User fields updated successfully!")
-//                self.showAlert(message: "Phone number verified successfully!", completion: {
-//                    // Optionally, navigate to the next screen or dismiss this screen
-//                    self.dismiss(animated: true, completion: nil)
-//                })
-                
+               
                 if self.isEmailVerification == true {
                     self.isEmailVerification = false
-                    self.navigateToPhoneVerifiyScreen()
+//                    self.navigateToPhoneVerifiyScreen()
+                    print("User emailVerify fields updated successfully!")
                 }else if self.isPhoneVerification == true {
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
@@ -126,47 +129,47 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         case tf_fourthNum:
             tf_fivethNum.becomeFirstResponder()
         case tf_fivethNum:
-            tf_fivethNum.resignFirstResponder()
+            tf_sixthNum.becomeFirstResponder()
+        case tf_sixthNum:
+            tf_sixthNum.resignFirstResponder()
             dismissKeyboard()
             // Optionally, get the combined string when the user finishes input
             
             let verificationCode = getVerificationCode()
             print("Verification Code: \(verificationCode ?? "")")
             
-            if isEmailVerification == true {
-                print("Call the email code verification method")
-            }else if isPhoneVerification == true {
-                print("Call the phone code verification method")
-            }
-            
         default:
             break
-        }
-        
-        if text.count == 0 {
-            switch textField {
-            case tf_firstNum:
-                tf_firstNum.becomeFirstResponder()
-            case tf_SecondNum:
-                tf_firstNum.becomeFirstResponder()
-            case tf_thirdNum:
-                tf_SecondNum.becomeFirstResponder()
-            case tf_fourthNum:
-                tf_thirdNum.becomeFirstResponder()
-            case tf_fivethNum:
-                tf_fourthNum.becomeFirstResponder()
-                
-            default:
-                break
-            }
-        }else{
-            
         }
     }
     
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
+        
+        if string.isEmpty { // Check for backspace
+            if text.isEmpty {
+                switch textField {
+                case tf_firstNum:
+                    tf_firstNum.becomeFirstResponder()
+                case tf_SecondNum:
+                    tf_firstNum.becomeFirstResponder()
+                case tf_thirdNum:
+                    tf_SecondNum.becomeFirstResponder()
+                case tf_fourthNum:
+                    tf_thirdNum.becomeFirstResponder()
+                case tf_fivethNum:
+                    tf_fourthNum.becomeFirstResponder()
+                case tf_sixthNum:
+                    tf_fivethNum.becomeFirstResponder()
+                    
+                default:
+                    break
+                }
+            }
+            return true
+        }
+
         let newLength = text.count + string.count - range.length
         return newLength <= 1
     }
@@ -179,13 +182,14 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             let code2 = tf_SecondNum.text, !code2.isEmpty,
             let code3 = tf_thirdNum.text, !code3.isEmpty,
             let code4 = tf_fourthNum.text, !code4.isEmpty,
-            let code5 = tf_fivethNum.text, !code5.isEmpty
+            let code5 = tf_fivethNum.text, !code5.isEmpty,
+            let code6 = tf_sixthNum.text, !code6.isEmpty
         else {
             print("Please fill in all fields.")
             return nil
         }
         
-        let code = code1 + code2 + code3 + code4 + code5
+        let code = code1 + code2 + code3 + code4 + code5 + code6
         return code
     }
     
@@ -204,4 +208,44 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     
+}
+
+extension VerifyCodeViewController: SendOTPDelegate{
+    func otpSuccess(response: Any) {
+        print("this is the send otp response: \(response)")
+        
+    }
+    
+    func otpFailure(error: Error) {
+        print("this is the error  otp response: \(error)")
+//        if self.isEmailVerification == false {
+//            self.isEmailVerification = true
+//        } else if self.isPhoneVerification == false {
+//            self.isPhoneVerification = true
+//        }
+    }
+}
+
+extension VerifyCodeViewController:  VerifyOTPDelegate {
+    func otpVerifySuccess(response: Any) {
+        print("/n\nthis is the verify otp response: \(response)")
+       
+        if isEmailVerification == true {
+            updateUser()
+            navigateToPhoneVerifiyScreen()
+        }else{
+            updateUser()
+        }
+        
+        
+    }
+    
+    func otpVerifyFailure(error: Error) {
+//        if self.isEmailVerification == false {
+//            self.isEmailVerification = true
+//        } else if self.isPhoneVerification == false {
+//            self.isPhoneVerification = true
+//        }
+        print("this is the error from verify otp response: \(error)")
+    }
 }

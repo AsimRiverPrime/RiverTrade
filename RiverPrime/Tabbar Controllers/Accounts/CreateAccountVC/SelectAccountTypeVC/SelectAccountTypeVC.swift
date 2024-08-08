@@ -37,7 +37,7 @@ class SelectAccountTypeVC: BaseViewController {
     private func setModel() {
         selectAccountType.removeAll()
         
-        selectAccountType.append(SelectAccountType(title: "Demo account", detail: "Risk-free account. Trade with money."))
+        selectAccountType.append(SelectAccountType(title: "Demo account", detail: "Risk-free account. Trade with Virtual money."))
         selectAccountType.append(SelectAccountType(title: "Real account", detail: "Trade with real money and withdraw any profit you make."))
     }
     

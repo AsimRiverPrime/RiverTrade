@@ -12,6 +12,7 @@ enum AccountInfo {
     case withDraw
     case history
     case detail
+    case createAccount
     case notification
 }
 
@@ -166,6 +167,9 @@ class AccountTableViewCell: UITableViewCell {
     @IBAction func notificationBtnAction(_ sender: Any) {
         delegate?.accountInfoTap(.notification)
     }
-
+    
+    @IBAction func createAcoountBtnAction(_ sender: Any) {
+        delegate?.accountInfoTap(.createAccount)
+    }
     
 }

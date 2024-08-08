@@ -16,13 +16,24 @@ class CreateAccountSlideCell: UITableViewCell {
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var seperator: UIView!
     @IBOutlet weak var ListStack: UIStackView!
+    
     @IBOutlet weak var minimumDepositTitleLabel: UILabel!
     @IBOutlet weak var minimumDepositDetailLabel: UILabel!
     @IBOutlet weak var spreadTitleLabel: UILabel!
     @IBOutlet weak var spreadDetailLabel: UILabel!
     @IBOutlet weak var commissionTitleLabel: UILabel!
     @IBOutlet weak var commissionDetailLabel: UILabel!
+    
+    @IBOutlet weak var swapTitleLabel: UILabel!
+    @IBOutlet weak var swapDetailLabel: UILabel!
+    
+    @IBOutlet weak var stopOutTitleLabel: UILabel!
+    @IBOutlet weak var stopOutDetailLabel: UILabel!
+    
     @IBOutlet weak var pageControler: UIPageControl!
+    
+    var onContinusButtonClick: ((UIButton)->Void)?
+  
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -41,6 +52,10 @@ class CreateAccountSlideCell: UITableViewCell {
         let cell = tableView.dequeueReusableCell(with: CreateAccountSlideCell.self, for: indexPath)
         
         return cell
+    }
+    
+    @IBAction func continusBtnAction(_ sender: UIButton) {
+        self.onContinusButtonClick?(sender)
     }
     
 }

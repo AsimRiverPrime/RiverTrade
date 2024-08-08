@@ -129,8 +129,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblCurrencySymbl.text = model[indexPath.row].title
             return cell
         }
-       
-        
+               
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -46,7 +46,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
-                                    <action selector="refreshImageButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="lcP-l4-zUf"/>
+                                    <action selector="refreshImageButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="AtE-ZM-Fww"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lz-1t-BGh">
@@ -118,7 +118,7 @@
             <connections>
                 <outlet property="lbl_tradetype" destination="TX2-Zq-yJN" id="eP5-js-LnK"/>
                 <outlet property="refreshImage" destination="LCi-Ln-kUd" id="yjj-Pa-ZhN"/>
-                <outlet property="refreshImageButton" destination="dMr-mO-saJ" id="Ol4-iK-B9O"/>
+                <outlet property="refreshImageButton" destination="dMr-mO-saJ" id="nBr-J2-Qzk"/>
                 <outlet property="selectedColorView" destination="IRM-45-srP" id="DVw-QZ-KtR"/>
                 <outlet property="sepratorView" destination="bYU-bv-2QS" id="rx8-So-H7d"/>
             </connections>

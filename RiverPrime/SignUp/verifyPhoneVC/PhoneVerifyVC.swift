@@ -11,7 +11,6 @@ import PhoneNumberKit
 import Firebase
 
 class PhoneVerifyVC: UIViewController {
-    
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
     @IBOutlet weak var tf_numberField: UITextField!
@@ -27,6 +26,8 @@ class PhoneVerifyVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        oodoService.delegate = self
+        oodoService.updateNumberDelegate = self
         
         view_countryCode.delegate = self
         view_countryCode.showPhoneCodeInView = false
@@ -55,7 +56,7 @@ class PhoneVerifyVC: UIViewController {
             tf_numberField.text = formattedNumber
             self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
 //            updateUser()
-            self.navigateToVerifiyScreen()
+            
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
             }
@@ -110,6 +111,31 @@ class PhoneVerifyVC: UIViewController {
         verifyVC.userPhone = self.tf_numberField.text ?? "0000"
         self.navigate(to: verifyVC)
     }
+    
+}
+// MARK: - delegate from phone number OTP
+extension PhoneVerifyVC:  SendOTPDelegate {
+    
+    func otpSuccess(response: Any) {
+        print("this is the send otp response: \(response)")
+        navigateToVerifiyScreen()
+    }
+    
+    func otpFailure(error: any Error) {
+        print("this is the send otp error response: \(error)")
+    }
+}
+// MARK: - delegate from update number Method
+extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
+    func updateNumberSuccess(response: Any) {
+        print("this is the update phone number success response: \(response)")
+        oodoService.sendOTP(type: "phone", email: "", phone: self.tf_numberField.text ?? "")
+    }
+    
+    func updateNumberFailure(error: any Error) {
+        print("this is the update phone number error response: \(error)")
+    }
+    
     
 }
 extension PhoneVerifyVC: CountryPickerViewDelegate, UITextFieldDelegate {

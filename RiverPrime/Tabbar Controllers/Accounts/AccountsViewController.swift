@@ -82,24 +82,24 @@ extension AccountsViewController: AccountInfoDelegate {
     func accountInfoTap(_ accountInfo: AccountInfo) {
         print("delegte called  \(accountInfo)" )
         
-        switch accountInfo {
-       
-        case .deposit:
-            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        case .withDraw:
-            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        case .history:
-            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        case .detail:
-            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        case .notification:
-            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        }
+//        switch accountInfo {
+//       
+//        case .deposit:
+//            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        case .withDraw:
+//            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        case .history:
+//            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        case .detail:
+//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        case .notification:
+//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        }
 
         
     }

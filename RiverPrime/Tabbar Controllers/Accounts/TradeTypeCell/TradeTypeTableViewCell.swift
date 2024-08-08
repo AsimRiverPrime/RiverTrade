@@ -20,14 +20,7 @@ class TradeTypeTableViewCell: BaseTableViewCell {
         tradeTypeCollectionView.delegate = self
         tradeTypeCollectionView.dataSource = self
         tradeTypeCollectionView.register(UINib(nibName: "TradeTypeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeTypeCollectionViewCell")
-        
-//        let layout = UICollectionViewFlowLayout()
-//        layout.scrollDirection = .horizontal
-//        layout.minimumInteritemSpacing = 0
-//        layout.minimumLineSpacing = 0
-////        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
-//        layout.itemSize = CGSize(width: self.tradeTypeCollectionView.frame.size.width / 1.1, height: 80)
-//        self.tradeTypeCollectionView.collectionViewLayout = layout
+ 
         
     }
 
@@ -48,15 +41,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
        
-        cell.onRefreshImageButtonClick = {
-            [self] sender in
-            print("onRefreshImageButtonClick")
-            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-                print("drop down index = \(index)")
-                print("drop down item = \(item)")
-            }
-        }
-        
+       
         cell.lbl_tradetype.text = model[indexPath.row]
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
@@ -67,6 +52,17 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             cell.sepratorView.isHidden = true
             cell.refreshImage.isHidden = false
             cell.lbl_tradetype.isHidden = true
+            
+            if selectedIndex == model.count - 1 {
+                cell.onRefreshImageButtonClick = {
+                    [self] sender in
+                    print("onRefreshImageButtonClick")
+                    self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+                        print("drop down index = \(index)")
+                        print("drop down item = \(item)")
+                    }
+                }
+            }
 //            let image = UIImageView()
 //            image.image = UIImage(named: "currencyIcon")
 //            image.frame = CGRect(x: cell.sepratorView.frame.origin.x, y: 0, width: 40, height: 40)
@@ -81,9 +77,10 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
-            if indexPath.row != model.count-1 {
-                collectionView.reloadData()
-            }
+//            if indexPath.row != model.count-1 {
+//                collectionView.reloadData()
+//            }
+            collectionView.reloadData()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
