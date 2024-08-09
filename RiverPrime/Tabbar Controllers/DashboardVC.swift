@@ -61,7 +61,7 @@ class DashboardVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
 //        self.setNavBar(vc: self, isBackButton: true, isBar: true)
 //        navigationController?.setNavigationBarHidden(true, animated: animated)
-        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -362,10 +362,10 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
         switch createAccountInfo {
         case .createNew:
             print("Create new")
-//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+//            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             
             break
         case .unarchive:

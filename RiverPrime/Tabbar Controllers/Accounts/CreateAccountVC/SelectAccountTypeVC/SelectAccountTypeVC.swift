@@ -92,8 +92,12 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             //MARK: - Create demo account
             
-            let vc = Utilities.shared.getViewController(identifier: .createDemoAccountVC, storyboardType: .dashboard) as! CreateDemoAccountVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            let vc = Utilities.shared.getViewController(identifier: .createDemoAccountVC, storyboardType: .dashboard) as! CreateDemoAccountVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
+            vc.preferredSheetSizing = .large
+//            PresentModalController.instance.presentBottomSheet(self, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
             
         } else if indexPath.row == 1 {
             //MARK: - Create real account

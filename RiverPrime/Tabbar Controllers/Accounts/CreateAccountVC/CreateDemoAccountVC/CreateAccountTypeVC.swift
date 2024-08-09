@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class CreateAccountTypeVC: UIViewController, CountryCurrencySelectionDelegate {
+class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelegate {
     
     
     @IBOutlet weak var lbl_accountTitle: UILabel!

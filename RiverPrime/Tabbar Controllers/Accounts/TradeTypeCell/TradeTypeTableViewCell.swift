@@ -41,6 +41,14 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
        
+        cell.onRefreshImageButtonClick = {
+            [self] sender in
+            print("onRefreshImageButtonClick")
+            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+                print("drop down index = \(index)")
+                print("drop down item = \(item)")
+            }
+        }
        
         cell.lbl_tradetype.text = model[indexPath.row]
         if indexPath.row == selectedIndex {
@@ -51,17 +59,18 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         if indexPath.row == model.count-1 {
             cell.sepratorView.isHidden = true
             cell.refreshImage.isHidden = false
+            cell.refreshImageButton.isHidden = false
             cell.lbl_tradetype.isHidden = true
             
             if selectedIndex == model.count - 1 {
-                cell.onRefreshImageButtonClick = {
+                /*cell.onRefreshImageButtonClick = {
                     [self] sender in
                     print("onRefreshImageButtonClick")
                     self.dynamicDropDownButton(sender, list: refreshList) { index, item in
                         print("drop down index = \(index)")
                         print("drop down item = \(item)")
                     }
-                }
+                }*/
             }
 //            let image = UIImageView()
 //            image.image = UIImage(named: "currencyIcon")
@@ -70,6 +79,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         } else {
             cell.sepratorView.isHidden = false
             cell.refreshImage.isHidden = true
+            cell.refreshImageButton.isHidden = true
             cell.lbl_tradetype.isHidden = false
         }
         return cell
