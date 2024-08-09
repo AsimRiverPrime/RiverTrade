@@ -28,6 +28,11 @@ protocol UpdatePhoneNumebrDelegate: AnyObject {
     func updateNumberFailure(error: Error)
 }
 
+protocol CreateUserAccountTypeDelegate: AnyObject {
+    func createAccountSuccess(response: Any)
+    func createAccountFailure(error: Error)
+}
+
 class OdooClient {
     
     private let baseURL = "http://192.168.3.107:8069/xmlrpc/2/"
@@ -48,6 +53,10 @@ class OdooClient {
         return baseURLOTP + "/web/session/verify_otp"
     }()
     
+    private lazy var createAccountURL: String = {
+        return baseURLOTP + "/web/mt/account/create"
+    }()
+    
     var uid: Int = UserDefaults.standard.integer(forKey: "uid")
     var recordedId: Int = UserDefaults.standard.integer(forKey: "recordId")
     
@@ -57,15 +66,17 @@ class OdooClient {
     var dbUserName: String =  "ios"
     var dbPassword: String =  "ios"
     var userEmail: String = ""
+    
     weak var delegate: SendOTPDelegate?
     weak var createLeadDelegate: CreateLeadOdooDelegate?
     weak var verifyDelegate: VerifyOTPDelegate?
     weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
-   
+    weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
+    
     //MARK: - Verify OTP Method
     
     func verifyOTP(type: String, email: String, phone: String, otp: String) {
-    
+        
         let parametersValue: [String: Any] = [
             "type": type,
             "email": email,
@@ -78,34 +89,34 @@ class OdooClient {
                    parameters: parametersValue,
                    encoding: JSONEncoding.default,
                    headers: ["Content-Type": "application/json"])
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? [String: Any],
-                       let status = result["status"] as? String {
-                        if status == "success" {
-                            print("\n this is the verify response of type: \(type) and response is \(json)\n")
-                            self.verifyDelegate?.otpVerifySuccess(response: result)
-                        } else {
-                            let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
-                            self.verifyDelegate?.otpVerifyFailure(error: error)
-                        }
+        .validate()
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                   let result = json["result"] as? [String: Any],
+                   let status = result["status"] as? String {
+                    if status == "success" {
+                        print("\n this is the verify response of type: \(type) and response is \(json)\n")
+                        self.verifyDelegate?.otpVerifySuccess(response: result)
                     } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
                         self.verifyDelegate?.otpVerifyFailure(error: error)
                     }
-                case .failure(let error):
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
                     self.verifyDelegate?.otpVerifyFailure(error: error)
                 }
+            case .failure(let error):
+                self.verifyDelegate?.otpVerifyFailure(error: error)
             }
+        }
     }
     
     //MARK: - send OTP Method
     
     func sendOTP(type: String, email: String, phone: String) {
-    
+        
         let parametersValue: [String: Any] = [
             "type": type,
             "email": email,
@@ -117,33 +128,79 @@ class OdooClient {
                    parameters: parametersValue,
                    encoding: JSONEncoding.default,
                    headers: ["Content-Type": "application/json"])
-            .validate()
-            .responseJSON { response in
-                switch response.result {
-                case .success(let value):
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? [String: Any],
-                       let status = result["status"] as? String {
-                        if status == "success" {
-                            print("\n this is the response of type: \(type) and response is \(json)\n")
-                            self.delegate?.otpSuccess(response: result)
-                        } else {
-                            let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
-                            self.delegate?.otpFailure(error: error)
-                            print("this is send otp error response of type \(type) : \(error)")
-                        }
+        .validate()
+        .responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                   let result = json["result"] as? [String: Any],
+                   let status = result["status"] as? String {
+                    if status == "success" {
+                        print("\n this is the response of type: \(type) and response is \(json)\n")
+                        self.delegate?.otpSuccess(response: result)
                     } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
                         self.delegate?.otpFailure(error: error)
                         print("this is send otp error response of type \(type) : \(error)")
                     }
-                case .failure(let error):
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
                     self.delegate?.otpFailure(error: error)
-                    print("this is send otp error response: \(error)")
+                    print("this is send otp error response of type \(type) : \(error)")
                 }
+            case .failure(let error):
+                self.delegate?.otpFailure(error: error)
+                print("this is send otp error response: \(error)")
             }
+        }
     }
     
+    //MARK: - create trade Account Method
+
+    func createAccount(isDemo: Bool, group: String, email: String, currency: String, name: String, password: String) {
+        
+        let parameters: [String: Any] = [
+            "isDemo": isDemo,
+            "group": group,
+            "currency": currency,
+            "email": email,
+            "name": name,
+            "password": password
+        ]
+        
+        // Make the request
+        AF.request(createAccountURL,
+                   method: .post,
+                   parameters: parameters,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type": "application/json"])
+        .validate()
+        .responseJSON { (response: AFDataResponse<Any>) in
+            switch response.result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                   let result = json["result"] as? [String: Any],
+                   let status = result["status"] as? String {
+                    if status == "success" {
+                        print("This is the response: \(json)")
+                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        self.createUserAcctDelegate?.createAccountFailure(error: error)
+                        print("Error response: \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    self.createUserAcctDelegate?.createAccountFailure(error: error)
+                    print("Error response: \(error)")
+                }
+            case .failure(let error):
+                self.createUserAcctDelegate?.createAccountFailure(error: error)
+                print("Request failed: \(error)")
+            }
+        }
+    }
+
     //MARK: - Authentication Method
     
     func authenticate() {
@@ -225,45 +282,23 @@ class OdooClient {
     //MARK: - Create request Method for records
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true
-              
+        
         let methodName = "execute_kw"
-     
-//        if number != "" {
-//           params = [
-//                dataBaseName,      // Database name
-//                uid,               // uid
-//                dbPassword,        // password
-//                "crm.lead",       // Model name
-//                "create",         // Method name
-//                [[                // vals_list
-//                    "name": name,
-//                    "firebase_uid": firebase_uid,
-//                    "type": "opportunity",
-//                    "email_from": email,
-//                    "number_ids": [
-//                        [0, 0, [
-//                            "number": number,
-//                            "type": "work"
-//                        ]]
-//                    ]
-//                 ]]
-//            ]
-//        }else{
         
         let params: [Any] = [
-                 dataBaseName,      // Database name
-                 uid,               // uid
-                 dbPassword,        // password
-                 "crm.lead",       // Model name
-                 "create",         // Method name
-                 [[                // vals_list
-                     "name": name,
-                     "firebase_uid": firebase_uid,
-                     "type": "opportunity",
-                     "email_from": email
-                    
-                  ]]
-             ]
+            dataBaseName,      // Database name
+            uid,               // uid
+            dbPassword,        // password
+            "crm.lead",       // Model name
+            "create",         // Method name
+            [[                // vals_list
+                "name": name,
+                "firebase_uid": firebase_uid,
+                "type": "opportunity",
+                "email_from": email
+                
+             ]]
+        ]
         
         guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
             print("Error creating XML payload")
@@ -285,7 +320,7 @@ class OdooClient {
                     if let responseString = String(data: data, encoding: .utf8) {
                         print("createR Lead ecords Response XML: \(responseString)")
                         createLeadDelegate?.leadCreatSuccess(response: responseString)
-                       // sendOTP(email: userEmail, phone: "")
+                        // sendOTP(email: userEmail, phone: "")
                     }
                     self.saveUserIdFromXMLData(data)
                 case .failure(let error):
@@ -310,7 +345,7 @@ class OdooClient {
                         "type": "work"
                     ]]
                 ]
-                  ]]
+                          ]]
         ]
         
         guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
@@ -350,7 +385,7 @@ class OdooClient {
             print("Error creating XML payload")
             return
         }
-                
+        
         AF.request(commonURL, method: .post, headers: [.contentType("text/xml")]) { urlRequest in
             urlRequest.httpBody = xmlData2
         }
@@ -438,16 +473,16 @@ class OdooClient {
                     print("Int value not found in the XML.")
                 }
             }
-           else {
+            else {
                 if let intValueString = xmlDoc1.root["params"]["param"]["value"]["int"].value,
-                           let intValue = Int(intValueString) {
-                            // Save the recorded id value to UserDefaults
-                            UserDefaults.standard.set(intValue, forKey: "recordId")
-                            print(" recorded Id Int value saved: \(intValue)")
-                        } else {
-                            print("recorded Id Int value not found in the XML.")
-                        }
-               createRequestBool = false
+                   let intValue = Int(intValueString) {
+                    // Save the recorded id value to UserDefaults
+                    UserDefaults.standard.set(intValue, forKey: "recordId")
+                    print(" recorded Id Int value saved: \(intValue)")
+                } else {
+                    print("recorded Id Int value not found in the XML.")
+                }
+                createRequestBool = false
             }
         } catch {
             print("XML Parsing Error: \(error)")

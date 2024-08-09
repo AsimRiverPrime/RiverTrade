@@ -34,6 +34,7 @@ class PhoneVerifyVC: UIViewController {
         view_countryCode.showCountryCodeInView = false
         view_countryCode.showCountryNameInView = false
         view_countryCode.flagImageView.isHidden = false
+       
         
         tf_numberField.text = view_countryCode.selectedCountry.phoneCode
         selectedCountry = view_countryCode.selectedCountry

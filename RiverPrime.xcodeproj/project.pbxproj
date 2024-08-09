@@ -35,6 +35,8 @@
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
+		3191E8892C65D1FD00BB4F08 /* CreateAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E8882C65D1FD00BB4F08 /* CreateAccountTypeVC.swift */; };
+		3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */; };
 		3191F6A72C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6A52C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift */; };
 		3191F6A82C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3191F6A62C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib */; };
 		3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */; };
@@ -180,6 +182,8 @@
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
+		3191E8882C65D1FD00BB4F08 /* CreateAccountTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountTypeVC.swift; sourceTree = "<group>"; };
+		3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCurrencyListViewController.swift; sourceTree = "<group>"; };
 		3191F6A52C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeButtonCollectionViewCell.swift; sourceTree = "<group>"; };
 		3191F6A62C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTypeButtonCollectionViewCell.xib; sourceTree = "<group>"; };
 		3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
@@ -870,6 +874,7 @@
 				FA4613752C602CD400B472D6 /* CreateAccountVC.xib */,
 				FA4613762C602CD400B472D6 /* CreateDemoAccountVC */,
 				FA46137B2C602CD400B472D6 /* CreateAccountVC.swift */,
+				3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */,
 			);
 			path = CreateAccountVC;
 			sourceTree = "<group>";
@@ -900,6 +905,7 @@
 				3191F6A92C64EB0A00F623C6 /* CreateAccountSetPasswordScreen */,
 				FA4613772C602CD400B472D6 /* CreateDemoAccountVC.swift */,
 				FA4613782C602CD400B472D6 /* CreateAccountSlideCell */,
+				3191E8882C65D1FD00BB4F08 /* CreateAccountTypeVC.swift */,
 			);
 			path = CreateDemoAccountVC;
 			sourceTree = "<group>";
@@ -1266,6 +1272,7 @@
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
+				3191E8892C65D1FD00BB4F08 /* CreateAccountTypeVC.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				FA46139B2C602D5600B472D6 /* DPDUIView+Extension.swift in Sources */,
 				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
@@ -1304,6 +1311,7 @@
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,
+				3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */,
 				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
