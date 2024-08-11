@@ -32,8 +32,13 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClient()
     
+    var getSelectedAccountType = GetSelectedAccountType()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setSelectedAccountValues()
+        
         odooClientService.createUserAcctDelegate = self
         
         selectCurrencyBtn.addTarget(self, action: #selector(showCurrencies), for: .touchUpInside)
@@ -163,6 +168,18 @@ func showAlert(message: String, completion: ((_ textFieldInput: String?) -> Void
 
 
 }
+
+//MARK: - Set the selected account values here.
+extension CreateAccountTypeVC {
+    
+    private func setSelectedAccountValues() {
+        
+        lbl_accountTitle.text = getSelectedAccountType.title
+        
+    }
+    
+}
+
 extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     func createAccountSuccess(response: Any) {
         print("\n this is create user success response: \(response)")

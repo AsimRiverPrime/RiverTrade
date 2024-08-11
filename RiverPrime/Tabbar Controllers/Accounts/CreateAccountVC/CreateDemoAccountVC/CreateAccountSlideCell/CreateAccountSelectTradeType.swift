@@ -7,6 +7,10 @@
 
 import UIKit
 
+struct GetSelectedAccountType {
+    var title = String()
+}
+
 class CreateAccountSelectTradeType: BottomSheetController {
 
     @IBOutlet weak var bgView: CardView!
@@ -14,6 +18,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var pageControl: UIPageControl!
     
     var counter = 0
+    var getSelectedAccountType = GetSelectedAccountType()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,12 +28,15 @@ class CreateAccountSelectTradeType: BottomSheetController {
         counter = 0
         pageControl.currentPage = counter
         
+        getIndexValues(counter: counter)
+        
     }
     
     @IBAction func continusBtnAction(_ sender: UIButton) {
         let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .dashboard) as! CreateAccountTypeVC
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
         vc.preferredSheetSizing = .large
+        vc.getSelectedAccountType = getSelectedAccountType
         PresentModalController.instance.presentBottomSheet(self, VC: vc)
     }
 }
@@ -46,28 +54,23 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         rightSwipe.direction = .right
         self.view.addGestureRecognizer(rightSwipe)
         
-//        // Create left & right swipe gesture recognizer
-//        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-//        swipeGesture.delegate = self
-//        swipeGesture.direction = [.left, .right]
-//        self.view.addGestureRecognizer(swipeGesture)
     }
     
     @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
         if gestureRecognizer.direction == .left {
             // Handle left swipe
             print("left")
-//            mainTitle.text = "Standard Account"
             if counter < 2 {
                 counter += 1
+                self.view.inoutAnimation(to: -self.view.frame.width, sView: self.bgView)
             }
             getIndexValues(counter: counter)
         } else if gestureRecognizer.direction == .right {
             // Handle right swipe
             print("right")
-//            mainTitle.text = "Pro Account"
             if counter > 0 {
                 counter -= 1
+                self.view.inoutAnimation(to: self.view.frame.width, sView: self.bgView)
             }
             getIndexValues(counter: counter)
         } else {
@@ -87,10 +90,9 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
             mainTitle.text = "Prime Account"
         }
         
+        //MARK: - get selected account values here.
+        getSelectedAccountType.title = mainTitle.text ?? ""
+        
     }
-    
-//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-//        return true
-//    }
     
 }

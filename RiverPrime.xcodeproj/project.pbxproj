@@ -124,6 +124,14 @@
 		FA46139D2C602D5600B472D6 /* DropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613952C602D5500B472D6 /* DropDown.swift */; };
 		FA46139E2C602D5600B472D6 /* DropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613962C602D5500B472D6 /* DropDownCell.swift */; };
 		FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */; };
+		FA467DC92C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA467DC02C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift */; };
+		FA467DCA2C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA467DC12C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib */; };
+		FA467DCB2C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA467DC32C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift */; };
+		FA467DCC2C695B9B00248A62 /* UnarchiveAccountTypeCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA467DC42C695B9B00248A62 /* UnarchiveAccountTypeCVC.xib */; };
+		FA467DCD2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA467DC62C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.swift */; };
+		FA467DCE2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA467DC72C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib */; };
+		FA467DCF2C695B9B00248A62 /* UnarchiveAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA467DC82C695B9B00248A62 /* UnarchiveAccountTypeVC.swift */; };
+		FA467DD12C695BDF00248A62 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA467DD02C695BDF00248A62 /* UIView+Extension.swift */; };
 		FA532D762C5721E1003A26D6 /* FontController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D662C5721E1003A26D6 /* FontController.swift */; };
 		FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D682C5721E1003A26D6 /* NavigationBar.swift */; };
 		FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */; };
@@ -275,6 +283,14 @@
 		FA4613952C602D5500B472D6 /* DropDown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDown.swift; sourceTree = "<group>"; };
 		FA4613962C602D5500B472D6 /* DropDownCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropDownCell.swift; sourceTree = "<group>"; };
 		FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropDown+Appearance.swift"; sourceTree = "<group>"; };
+		FA467DC02C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeTVC.swift; sourceTree = "<group>"; };
+		FA467DC12C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnarchiveAccountTypeTVC.xib; sourceTree = "<group>"; };
+		FA467DC32C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeCVC.swift; sourceTree = "<group>"; };
+		FA467DC42C695B9B00248A62 /* UnarchiveAccountTypeCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnarchiveAccountTypeCVC.xib; sourceTree = "<group>"; };
+		FA467DC62C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeDetailTVC.swift; sourceTree = "<group>"; };
+		FA467DC72C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnarchiveAccountTypeDetailTVC.xib; sourceTree = "<group>"; };
+		FA467DC82C695B9B00248A62 /* UnarchiveAccountTypeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeVC.swift; sourceTree = "<group>"; };
+		FA467DD02C695BDF00248A62 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		FA532D662C5721E1003A26D6 /* FontController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontController.swift; sourceTree = "<group>"; };
 		FA532D682C5721E1003A26D6 /* NavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBar.swift; sourceTree = "<group>"; };
 		FA532D6A2C5721E1003A26D6 /* LabelTranslation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelTranslation.swift; sourceTree = "<group>"; };
@@ -680,6 +696,7 @@
 		31D2621B2C3BF5BC00FC6651 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FA467DD02C695BDF00248A62 /* UIView+Extension.swift */,
 				31D2621C2C3BF5CE00FC6651 /* Extension.swift */,
 				FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */,
 				31B90D142C3FCA3D00A7A0D2 /* Utilities.swift */,
@@ -869,6 +886,7 @@
 		FA46136C2C602CD400B472D6 /* CreateAccountVC */ = {
 			isa = PBXGroup;
 			children = (
+				FA467DBD2C695B9B00248A62 /* UnarchiveAccountTypeVC */,
 				FA46136D2C602CD400B472D6 /* CreateAccountTVCell */,
 				FA4613702C602CD400B472D6 /* SelectAccountTypeVC */,
 				FA4613752C602CD400B472D6 /* CreateAccountVC.xib */,
@@ -965,6 +983,52 @@
 				FA4613972C602D5500B472D6 /* DropDown+Appearance.swift */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		FA467DBD2C695B9B00248A62 /* UnarchiveAccountTypeVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA467DBE2C695B9B00248A62 /* Cells */,
+				FA467DC82C695B9B00248A62 /* UnarchiveAccountTypeVC.swift */,
+			);
+			path = UnarchiveAccountTypeVC;
+			sourceTree = "<group>";
+		};
+		FA467DBE2C695B9B00248A62 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA467DBF2C695B9B00248A62 /* UnarchiveAccountTypeTVC */,
+				FA467DC52C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		FA467DBF2C695B9B00248A62 /* UnarchiveAccountTypeTVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA467DC02C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift */,
+				FA467DC12C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib */,
+				FA467DC22C695B9B00248A62 /* UnarchiveAccountTypeCVC */,
+			);
+			path = UnarchiveAccountTypeTVC;
+			sourceTree = "<group>";
+		};
+		FA467DC22C695B9B00248A62 /* UnarchiveAccountTypeCVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA467DC32C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift */,
+				FA467DC42C695B9B00248A62 /* UnarchiveAccountTypeCVC.xib */,
+			);
+			path = UnarchiveAccountTypeCVC;
+			sourceTree = "<group>";
+		};
+		FA467DC52C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC */ = {
+			isa = PBXGroup;
+			children = (
+				FA467DC62C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.swift */,
+				FA467DC72C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib */,
+			);
+			path = UnarchiveAccountTypeDetailTVC;
 			sourceTree = "<group>";
 		};
 		FA532D642C5721E1003A26D6 /* Utility */ = {
@@ -1170,6 +1234,7 @@
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
 				FA46137F2C602CD400B472D6 /* SelectAccountTypeCell.xib in Resources */,
+				FA467DCC2C695B9B00248A62 /* UnarchiveAccountTypeCVC.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
 				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
@@ -1177,6 +1242,7 @@
 				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
 				3191F6A82C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.xib in Resources */,
 				FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */,
+				FA467DCE2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
@@ -1196,6 +1262,7 @@
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
 				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
 				315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */,
+				FA467DCA2C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib in Resources */,
 				FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */,
 				FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
@@ -1280,7 +1347,9 @@
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
 				31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */,
 				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
+				FA467DD12C695BDF00248A62 /* UIView+Extension.swift in Sources */,
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
+				FA467DC92C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift in Sources */,
 				315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
 				FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */,
@@ -1308,7 +1377,9 @@
 				FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
 				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
+				FA467DCB2C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
+				FA467DCF2C695B9B00248A62 /* UnarchiveAccountTypeVC.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,
 				3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */,
@@ -1316,6 +1387,7 @@
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31B90D1E2C3FCC0A00A7A0D2 /* HistoryViewController.swift in Sources */,
+				FA467DCD2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.swift in Sources */,
 				31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
 				FA46137C2C602CD400B472D6 /* CreateAccountTVCell.swift in Sources */,

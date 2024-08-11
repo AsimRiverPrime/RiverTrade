@@ -37,4 +37,5 @@ enum BottomSheetIdentifierType: String {
     case createDemoAccountVC = "CreateDemoAccountVC"
     case createAccountSelectTradeType = "CreateAccountSelectTradeType"
     case createAccountTypeVC = "CreateAccountTypeVC"
+    case unarchiveAccountTypeVC = "UnarchiveAccountTypeVC"
 }

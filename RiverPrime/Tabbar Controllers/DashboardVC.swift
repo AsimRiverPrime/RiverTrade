@@ -370,8 +370,8 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
             break
         case .unarchive:
             print("Unarchive")
-//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .dashboard) as! UnarchiveAccountTypeVC
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         case .notification:
             let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
