@@ -159,6 +159,11 @@
 		FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */; };
 		FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */; };
 		FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */; };
+		FAC3219A2C6AC6300019073C /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAC321992C6AC6300019073C /* BottomSheetPopups.storyboard */; };
+		FAC321A22C6AC6B80019073C /* AccountDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3219E2C6AC6B80019073C /* AccountDetailTVC.swift */; };
+		FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */; };
+		FAC321A42C6AC6B80019073C /* AllRealAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */; };
+		FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -318,6 +323,11 @@
 		FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
 		FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeVC.swift; sourceTree = "<group>"; };
+		FAC321992C6AC6300019073C /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
+		FAC3219E2C6AC6B80019073C /* AccountDetailTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTVC.swift; sourceTree = "<group>"; };
+		FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDetailTVC.xib; sourceTree = "<group>"; };
+		FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRealAccountsVC.swift; sourceTree = "<group>"; };
+		FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +354,7 @@
 		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
 			isa = PBXGroup;
 			children = (
+				FAC321992C6AC6300019073C /* BottomSheetPopups.storyboard */,
 				31D262072C3BECDE00FC6651 /* Main.storyboard */,
 				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
 			);
@@ -778,6 +789,7 @@
 		31F3BAD52C3FAB37009A2A12 /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				FAC3219B2C6AC6B80019073C /* DropDownScreens */,
 				FA99B5B72C59A87E00DD4F6D /* BenefitsTradingActivityCell */,
 				FA99B5B42C59A87E00DD4F6D /* SummaryTradingActivityCell */,
 				FA12B5E12C4F10400054F8D8 /* ResultsFilterViewCell */,
@@ -1034,6 +1046,7 @@
 		FA532D642C5721E1003A26D6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FAC321A52C6AC72C0019073C /* CustomSegmentControl */,
 				FA46138B2C602D5500B472D6 /* DropDown */,
 				FA532D652C5721E1003A26D6 /* FontController */,
 				FA532D672C5721E1003A26D6 /* NavigationBar */,
@@ -1158,6 +1171,48 @@
 			path = TableCollectionViewCell;
 			sourceTree = "<group>";
 		};
+		FAC3219B2C6AC6B80019073C /* DropDownScreens */ = {
+			isa = PBXGroup;
+			children = (
+				FAC3219C2C6AC6B80019073C /* Cell */,
+				FAC321A02C6AC6B80019073C /* AllRealAccountsVC */,
+			);
+			path = DropDownScreens;
+			sourceTree = "<group>";
+		};
+		FAC3219C2C6AC6B80019073C /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FAC3219D2C6AC6B80019073C /* AccountDetailTVC */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		FAC3219D2C6AC6B80019073C /* AccountDetailTVC */ = {
+			isa = PBXGroup;
+			children = (
+				FAC3219E2C6AC6B80019073C /* AccountDetailTVC.swift */,
+				FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */,
+			);
+			path = AccountDetailTVC;
+			sourceTree = "<group>";
+		};
+		FAC321A02C6AC6B80019073C /* AllRealAccountsVC */ = {
+			isa = PBXGroup;
+			children = (
+				FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */,
+			);
+			path = AllRealAccountsVC;
+			sourceTree = "<group>";
+		};
+		FAC321A52C6AC72C0019073C /* CustomSegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */,
+			);
+			path = CustomSegmentControl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1225,6 +1280,7 @@
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				31B102E12C452D3C0006E8EB /* TradeTypeCollectionViewCell.xib in Resources */,
 				FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */,
+				FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */,
 				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
 				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
@@ -1244,6 +1300,7 @@
 				FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */,
 				FA467DCE2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
+				FAC3219A2C6AC6300019073C /* BottomSheetPopups.storyboard in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
@@ -1323,6 +1380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAC321A42C6AC6B80019073C /* AllRealAccountsVC.swift in Sources */,
 				C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */,
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
@@ -1417,8 +1475,10 @@
 				FA4613812C602CD400B472D6 /* SelectAccountTypeVC.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
+				FAC321A22C6AC6B80019073C /* AccountDetailTVC.swift in Sources */,
 				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
+				FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */,
 				FA4613862C602CD400B472D6 /* CreateAccountVC.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				FA46139D2C602D5600B472D6 /* DropDown.swift in Sources */,

@@ -7,6 +7,18 @@
 
 import UIKit
 
+enum iResultVCType {
+    case SummaryAllRealAccountFilter
+    case DaysFilter
+    case BenifitAllRealAccountFilter
+    case ExnessStartTrading
+    case ExnessTrading
+}
+
+protocol iResultVCDelegate: AnyObject {
+    func resultClicks(resultVCType: iResultVCType)
+}
+
 class ResultVC: UIView {
     
     
@@ -14,6 +26,8 @@ class ResultVC: UIView {
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
+    
+    weak var delegate: iResultVCDelegate?
     
 //    typealias resultTopButtonType = ResultTopButtonType
     /*var resultTopButtonType = String()*/ //ResultTopButtonType.self
@@ -100,19 +114,19 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
             cell.onAllRealAccountsFilterButtonClick = {
                 [self] in
                 print("Click on onAllRealAccountsFilterButtonClick")
-                
+                self.delegate?.resultClicks(resultVCType: .SummaryAllRealAccountFilter)                
             }
             
             cell.onDaysFilterButton = {
                 [self] in
                 print("Click on onDaysFilterButton")
-                
+                self.delegate?.resultClicks(resultVCType: .DaysFilter)
             }
             
             cell.onBenefitsAllRealAccountsFilterButtonClick = {
                 [self] in
                 print("Click on onBenefitsAllRealAccountsFilterButtonClick")
-                
+                self.delegate?.resultClicks(resultVCType: .BenifitAllRealAccountFilter)
             }
             
 //            self.setNeedsLayout()
@@ -127,6 +141,7 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
                 cell.onStartTradingButtonClick = {
                     [self] in
                     print("onStartTradingButtonClick")
+                    self.delegate?.resultClicks(resultVCType: .ExnessStartTrading)                    
                 }
                 
                 self.setNeedsLayout()
@@ -138,6 +153,7 @@ extension ResultVC: UITableViewDelegate, UITableViewDataSource {
                 cell.onTradeButtonClick = {
                     [self] in
                     print("onTradeButtonClick")
+                    self.delegate?.resultClicks(resultVCType: .ExnessTrading)                    
                 }
                 
                 self.setNeedsLayout()

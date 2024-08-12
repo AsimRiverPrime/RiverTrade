@@ -23,6 +23,7 @@ class Utilities {
 enum StoryboardType: String {
     case main = "Main"
     case dashboard = "Dashboard"
+    case bottomSheetPopups = "BottomSheetPopups"
 }
 
 enum BottomSheetIdentifierType: String {
@@ -38,4 +39,5 @@ enum BottomSheetIdentifierType: String {
     case createAccountSelectTradeType = "CreateAccountSelectTradeType"
     case createAccountTypeVC = "CreateAccountTypeVC"
     case unarchiveAccountTypeVC = "UnarchiveAccountTypeVC"
+    case allRealAccountsVC = "AllRealAccountsVC"
 }
