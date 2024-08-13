@@ -9,9 +9,18 @@ import UIKit
 import LightweightCharts
 
 class TradeDetalVC: UIViewController {
-
-    @IBOutlet weak var chartView: LightweightCharts!
     
+    
+    @IBOutlet weak var lbl_lots: UILabel!
+    @IBOutlet weak var lbl_margin: UILabel!
+    
+    @IBOutlet weak var tf_volume: UITextField!
+    
+    
+    
+    
+    @IBOutlet weak var chartView: LightweightCharts!
+    var trade: TradeDetails?
     private var series: CandlestickSeries!
     
     private var data = [
@@ -179,16 +188,24 @@ class TradeDetalVC: UIViewController {
         10 + .random(in: 0...1) * 10000 / 100
     }
     
+    // Timers for continuous update
+    var plusTimer: Timer?
+    var minusTimer: Timer?
     private var timer: Timer?
     
     deinit {
         timer?.invalidate()
     }
     
+    var currentValue: Double = 0.01 {
+        didSet {
+            tf_volume.text = "\(currentValue)"
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        setupChart()
+        self.tf_volume.text = "\(currentValue)"
+        
         setupSeries()
         startSimulation()
     }
@@ -196,22 +213,30 @@ class TradeDetalVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-//    private func setupChart() {
-//        let options = ChartOptions(
-//            layout: LayoutOptions(background: .solid(color: "#000000"), textColor: "rgba(255, 255, 255, 0.9)"),
-//            rightPriceScale: VisiblePriceScaleOptions(borderColor: "rgba(197, 203, 206, 0.8)"),
-//            timeScale: TimeScaleOptions(borderColor: "rgba(197, 203, 206, 0.8)"),
-//            crosshair: CrosshairOptions(mode: .normal),
-//            grid: GridOptions(
-//                verticalLines: GridLineOptions(color: "rgba(197, 203, 206, 0.5)"),
-//                horizontalLines: GridLineOptions(color: "rgba(197, 203, 206, 0.5)")
-//            )
-//        )
-//        let chart = LightweightCharts(options: options)
-//        chartView.addSubview(chart)
-//        chartView.translatesAutoresizingMaskIntoConstraints = false
-//    }
-
+    
+    @IBAction func volumeMinus_btnAction(_ sender: Any) {
+        minusTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decrementValue), userInfo: nil, repeats: false)
+        
+    }
+    @IBAction func volumePlus_btnAction(_ sender: Any) {
+        plusTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(incrementValue), userInfo: nil, repeats: false)
+        
+    }
+    @IBAction func minusTapOutside_action(_ sender: Any) {
+        minusTimer?.invalidate()
+        minusTimer = nil
+    }
+    @IBAction func plusTapOutside_action(_ sender: Any) {
+        plusTimer?.invalidate()
+        plusTimer = nil
+    }
+    @objc func incrementValue() {
+        currentValue += 1
+    }
+    
+    @objc func decrementValue() {
+        currentValue -= 1
+    }
     
     private func setupSeries() {
         let options = CandlestickSeriesOptions(
@@ -227,7 +252,7 @@ class TradeDetalVC: UIViewController {
         self.series = series
         
     }
-
+    
     private func startSimulation() {
         series.setData(data: data)
         
@@ -271,7 +296,7 @@ class TradeDetalVC: UIViewController {
     }
     
     private func mergeTickToBar(_ price: BarPrice) {
-      
+        
         if currentBar.open == nil {
             currentBar.open = price
             currentBar.high = price
@@ -281,7 +306,7 @@ class TradeDetalVC: UIViewController {
             currentBar.close = price
             currentBar.high = max(currentBar.high ?? price, price)
             currentBar.low = min(currentBar.low ?? price, price)
-//            currentBar.color = ChartColor.init(UIColor.gray)
+            //            currentBar.color = ChartColor.init(UIColor.gray)
         }
         series.update(bar: currentBar)
     }

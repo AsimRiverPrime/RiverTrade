@@ -1178,6 +1178,7 @@ PODS:
     - PhoneNumberKit/PhoneNumberKitCore
   - PromisesObjC (2.4.0)
   - RecaptchaInterop (100.0.0)
+  - Starscream (4.0.8)
   - TPKeyboardAvoiding (1.3.5)
 
 DEPENDENCIES:
@@ -1190,6 +1191,7 @@ DEPENDENCIES:
   - GoogleSignIn
   - LightweightCharts (~> 3.8.0)
   - PhoneNumberKit (~> 3.7)
+  - Starscream (~> 4.0.4)
   - TPKeyboardAvoiding
 
 SPEC REPOS:
@@ -1224,6 +1226,7 @@ SPEC REPOS:
     - PhoneNumberKit
     - PromisesObjC
     - RecaptchaInterop
+    - Starscream
     - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
@@ -1257,8 +1260,9 @@ SPEC CHECKSUMS:
   PhoneNumberKit: ced55861269312a5e3bc2ef82a58d6255b1c976a
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: cc7e2854501e72b38dc9037e78dfd10e3c2b22db
+PODFILE CHECKSUM: f2744a098c1b982928a6fefcea80132cac88fecc
 
 COCOAPODS: 1.15.2

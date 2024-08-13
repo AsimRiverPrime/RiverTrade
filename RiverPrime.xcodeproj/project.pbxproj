@@ -27,6 +27,7 @@
 		3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */; };
 		3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6022C47F1F20055F093 /* ProfileViewController.swift */; };
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
+		316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316873D92C6B4321001BEC1B /* WebSocketResponse.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
 		316A17572C57AAD500A1A43E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316A17562C57AAD500A1A43E /* GoogleService-Info.plist */; };
@@ -187,6 +188,7 @@
 		3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalCollectionViewCell.xib; sourceTree = "<group>"; };
 		3164C6022C47F1F20055F093 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		316873D92C6B4321001BEC1B /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
 		316A17562C57AAD500A1A43E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -768,6 +770,7 @@
 				C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */,
 				FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */,
 				FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */,
+				316873D92C6B4321001BEC1B /* WebSocketResponse.swift */,
 			);
 			path = Trade;
 			sourceTree = "<group>";
@@ -1392,6 +1395,7 @@
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
+				316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */,
 				3191F6A72C64CAE200F623C6 /* TradeTypeButtonCollectionViewCell.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
