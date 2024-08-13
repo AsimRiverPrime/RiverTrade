@@ -56,6 +56,22 @@ public class Alert {
     }
     
     
+   public static func showTextFieldAlert(message: String, placeholder: String, completion: ((_ textFieldInput: String?) -> Void)? = nil , on vc: UIViewController?) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        // Add a text field to the alert
+        alertController.addTextField { textField in
+            textField.placeholder = placeholder
+        }
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            let textFieldInput = alertController.textFields?.first?.text
+            completion?(textFieldInput)
+        }
+        
+        alertController.addAction(okAction)
+        vc?.present(alertController, animated: true, completion: nil)
+    }
     //============ Alerts ============
     // Present the alert view controller
     public static func showAlert(withMessage Message: String?, andTitle Title: String?, OKButtonText: String? = "OK", on vc: UIViewController?) {

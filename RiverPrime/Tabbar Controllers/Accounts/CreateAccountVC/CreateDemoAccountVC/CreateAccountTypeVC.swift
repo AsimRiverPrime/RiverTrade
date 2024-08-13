@@ -31,6 +31,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClient()
+//    let signViewModel = SignViewModel()
     
     var getSelectedAccountType = GetSelectedAccountType()
     
@@ -69,7 +70,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         print("this is given email: \(userEmail)")
         print("this is given password: \(self.tf_password.text ?? "")")
         
-        odooClientService.createAccount(isDemo: true, group: "Pro Account", email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {
@@ -78,19 +79,25 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     }
     
     @IBAction func customNameBtnAction(_ sender: Any) {
-        showAlert(message: "Please enter your name") { textFieldInput in
+    
+        Alert.showTextFieldAlert(message: "Please enter your name", placeholder: "enter custom name", completion: { textFieldInput in
             if let name = textFieldInput {
                 self.userName = name
                 print("User entered: \(name)")
-                // Proceed with the next steps
                 self.customNameBtn.setTitle(name, for: .normal)
             } else {
                 print("No input provided")
             }
-        }
+        }, on: self)
+        
     }
     
     @objc func passwordDidChange(_ textField: UITextField) {
+//        if self.signViewModel.isValidatePassword(password: textField.text ?? ""){
+//            
+//        }else{
+//            
+//        }
         validatePassword(password: textField.text ?? "")
     }
     
@@ -147,25 +154,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                 })
             }
         }
-}
-
-func showAlert(message: String, completion: ((_ textFieldInput: String?) -> Void)? = nil) {
-    let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-    
-    // Add a text field to the alert
-    alertController.addTextField { textField in
-        textField.placeholder = "Enter Custom Name"
     }
-    
-    let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-        let textFieldInput = alertController.textFields?.first?.text
-        completion?(textFieldInput)
-    }
-    
-    alertController.addAction(okAction)
-    present(alertController, animated: true, completion: nil)
-}
-
 
 }
 
@@ -190,6 +179,4 @@ extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
         print("\n this is create user error response: \(error)")
         
     }
-    
-    
 }

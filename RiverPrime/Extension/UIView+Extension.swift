@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
     
-    func inoutAnimation(to offset: CGFloat, sView: UIView, timeDuration: CGFloat = 0.1) {
+    func inoutAnimation(to offset: CGFloat, sView: UIView, timeDuration: CGFloat = 0.25) {
         UIView.animate(withDuration: timeDuration, animations: {
             sView.transform = CGAffineTransform(translationX: offset, y: 0)
         }) { _ in
