@@ -252,6 +252,7 @@ extension DashboardVC {
             
             dismissViews()
             resultVC = ResultVC.getView()
+            resultVC.delegate = self
 //            tradeVC.delegate = self
             addView(customTabBarType: .Results)
             
@@ -390,6 +391,31 @@ extension DashboardVC: TradeDetailTapDelegate {
         let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .dashboard) as! TradeDetalVC
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 
+    }
+    
+}
+
+extension DashboardVC: iResultVCDelegate {
+    
+    func resultClicks(resultVCType: iResultVCType) {
+        switch resultVCType {
+        case .SummaryAllRealAccountFilter:
+            let vc = Utilities.shared.getViewController(identifier: .allRealAccountsVC, storyboardType: .bottomSheetPopups) as! AllRealAccountsVC
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            break
+        case .DaysFilter:
+            break
+        case .BenifitAllRealAccountFilter:
+            break
+        case .ExnessStartTrading:
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            break
+        case .ExnessTrading:
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            break
+        }
     }
     
 }
