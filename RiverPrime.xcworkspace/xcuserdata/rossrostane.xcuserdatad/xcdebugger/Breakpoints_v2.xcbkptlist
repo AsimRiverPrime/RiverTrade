@@ -263,16 +263,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A346C42D-1C2A-40E8-BA45-319CFAFBA9DE"
+            uuid = "439F43D7-F90A-4A8A-9BB1-0A6F34FB5DE5"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Tabbar Controllers/Trade/TradeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
-            landmarkName = "setModel(_:)"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
+            landmarkName = "handleWebSocketMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

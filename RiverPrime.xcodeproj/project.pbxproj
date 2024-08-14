@@ -10,6 +10,7 @@
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
+		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
 		315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */; };
 		315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */; };
@@ -171,6 +172,7 @@
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
+		315DB98B2C6C77BD00FF967C /* TicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketVC.swift; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
 		315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuppotTableViewCell.xib; sourceTree = "<group>"; };
 		315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutTableViewCell.swift; sourceTree = "<group>"; };
@@ -369,6 +371,14 @@
 				3169F23F2C53AC0C0032272A /* FireStoreServices.swift */,
 			);
 			path = "Firebase Services";
+			sourceTree = "<group>";
+		};
+		315DB98A2C6C778A00FF967C /* BottomSheetVCs */ = {
+			isa = PBXGroup;
+			children = (
+				315DB98B2C6C77BD00FF967C /* TicketVC.swift */,
+			);
+			path = BottomSheetVCs;
 			sourceTree = "<group>";
 		};
 		315DDAFF2C4F9A1100C4F8C0 /* SupportTBCell */ = {
@@ -650,6 +660,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				315DB98A2C6C778A00FF967C /* BottomSheetVCs */,
 				31806D172C609C9F00E48730 /* OdooClient Services */,
 				315C8BDA2C5CA49B00A3F0DB /* Firebase Services */,
 				FA532D6B2C5721E1003A26D6 /* Others */,
@@ -1469,6 +1480,7 @@
 				FA4613842C602CD400B472D6 /* CreateAccountSlideCell.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
 				FA46139A2C602D5600B472D6 /* DPDConstants.swift in Sources */,
+				315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */,
 				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,

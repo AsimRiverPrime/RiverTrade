@@ -21,7 +21,6 @@ protocol iResultVCDelegate: AnyObject {
 
 class ResultVC: UIView {
     
-    
     @IBOutlet weak var tblView: UITableView!
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!

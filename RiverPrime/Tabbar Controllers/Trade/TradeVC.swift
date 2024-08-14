@@ -7,6 +7,7 @@
 
 import UIKit
 import Starscream
+import Alamofire
 
 struct TradeVCModel {
     var id = Int()
@@ -35,8 +36,9 @@ class TradeVC: UIView {
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
     
-    var socket: WebSocket!
-    var trades: [String: TradeDetails] = [:] 
+    var webSocket: WebSocket!
+    
+    var trades: [String: TradeDetails] = [:]
     
     public override func awakeFromNib() {
         setupWebSocket()
@@ -174,32 +176,62 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
 }
 //MARK: - Set websocket congituration with binanceAPI.
 extension TradeVC: WebSocketDelegate {
+//    func setupWebSocket() {
+//        let url = URL(string: "wss://stream.binance.com:9443/stream?streams=btcusdt@trade/ethusdt@trade/xrpusdt@trade")!
+////        let url = URL(string: "ws://192.168.3.107:8069/websocket")!
+//        var request = URLRequest(url: url)
+//        request.timeoutInterval = 5
+//
+//        socket = WebSocket(request: request)
+//        socket.delegate = self
+//        socket.connect()
+//    }
+    
+    
     func setupWebSocket() {
-        let url = URL(string: "wss://stream.binance.com:9443/stream?streams=btcusdt@trade/ethusdt@trade/xrpusdt@trade")!
-//        let url = URL(string: "ws://192.168.3.107:8069/websocket")!
+        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
         var request = URLRequest(url: url)
-        request.timeoutInterval = 5
+             request.timeoutInterval = 5
+     
+        webSocket = WebSocket(request: request)
+        webSocket.delegate = self
+        webSocket.connect()
+    }
+    
+    func sendSubscriptionMessage() {
+        // Define the message dictionary
+        let message: [String: Any] = [
+            "event_name": "subscribe",
+            "data": [
+                "last": 0,
+                "channels": ["price_feed"]
+            ]
+        ]
 
-        socket = WebSocket(request: request)
-        socket.delegate = self
-        socket.connect()
+        // Convert the dictionary to JSON string
+        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+//            socket write(string: jsonString)
+            webSocket.write(string: jsonString)
+        }
     }
     
     func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
         switch event {
-        case .connected(let headers):
-            print("WebSocket is connected: \(headers)")
-        case .disconnected(let reason, let code):
-            print("WebSocket is disconnected: \(reason) with code: \(code)")
-        case .text(let string):
-            handleWebSocketMessage(string)
-        case .binary(let data):
-            print("Received data: \(data.count)")
-        case .error(let error):
-            handleError(error)
-        default:
-            break
-        }
+                case .connected(let headers):
+                    print("WebSocket is connected: \(headers)")
+                    sendSubscriptionMessage() // Send the message once connected
+                case .disconnected(let reason, let code):
+                    print("WebSocket is disconnected: \(reason) with code: \(code)")
+                case .text(let string):
+                    handleWebSocketMessage(string)
+                case .binary(let data):
+                    print("Received data: \(data.count)")
+                case .error(let error):
+                    handleError(error)
+                default:
+                    break
+                }
     }
 
     func handleWebSocketMessage(_ string: String) {
@@ -217,6 +249,7 @@ extension TradeVC: WebSocketDelegate {
                 print("Error parsing JSON: \(error)")
             }
         }
+        
     }
 
     func handleError(_ error: Error?) {
@@ -224,6 +257,10 @@ extension TradeVC: WebSocketDelegate {
             print("WebSocket encountered an error: \(error)")
         }
     }
+    
+    func closeWebSocket() {
+            webSocket.disconnect()
+        }
 }
 //MARK: - Set TableViewTopConstraint.
 extension TradeVC {

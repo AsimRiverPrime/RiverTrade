@@ -16,9 +16,6 @@ class TradeDetalVC: UIViewController {
     
     @IBOutlet weak var tf_volume: UITextField!
     
-    
-    
-    
     @IBOutlet weak var chartView: LightweightCharts!
     var trade: TradeDetails?
     private var series: CandlestickSeries!
@@ -189,22 +186,21 @@ class TradeDetalVC: UIViewController {
     }
     
     // Timers for continuous update
-    var plusTimer: Timer?
-    var minusTimer: Timer?
+  
     private var timer: Timer?
     
     deinit {
         timer?.invalidate()
     }
     
-    var currentValue: Double = 0.01 {
-        didSet {
-            tf_volume.text = "\(currentValue)"
-        }
-    }
+//    var currentValue: Double = 0.01 {
+//        didSet {
+//            tf_volume.text = "\(currentValue)"
+//        }
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tf_volume.text = "\(currentValue)"
+//        self.tf_volume.text = "\(currentValue)"
         
         setupSeries()
         startSimulation()
@@ -213,30 +209,18 @@ class TradeDetalVC: UIViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
-    
-    @IBAction func volumeMinus_btnAction(_ sender: Any) {
-        minusTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(decrementValue), userInfo: nil, repeats: false)
-        
+
+    @IBAction func buyBtn_action(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+//        vc.lbl_title.text = "BUY"
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
-    @IBAction func volumePlus_btnAction(_ sender: Any) {
-        plusTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(incrementValue), userInfo: nil, repeats: false)
-        
-    }
-    @IBAction func minusTapOutside_action(_ sender: Any) {
-        minusTimer?.invalidate()
-        minusTimer = nil
-    }
-    @IBAction func plusTapOutside_action(_ sender: Any) {
-        plusTimer?.invalidate()
-        plusTimer = nil
-    }
-    @objc func incrementValue() {
-        currentValue += 1
+    @IBAction func sellBtn_action(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+//        vc.lbl_title.text = "SELL"
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     
-    @objc func decrementValue() {
-        currentValue -= 1
-    }
     
     private func setupSeries() {
         let options = CandlestickSeriesOptions(
