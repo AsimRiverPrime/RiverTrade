@@ -93,16 +93,23 @@ class TradeTableViewCell: UITableViewCell {
 //        }
         
         lblCurrencySymbl.text = trade.symbol
-        lblAmount.text = trade.price.trimmedTrailingZeros() //trade.price
-        
+        lblAmount.text = String(trade.bid)
+        lblPercent.text = "+ " + String(trade.ask) //trimmedTrailingZeros()
         // Update the chart with new data
-        var price = Double(trade.price) ?? 0.0
+        if (trade.ask) < 1 {
+            lblPercent.textColor = .systemRed
+            lblPercent.text = "- " + String(trade.ask)
+        }else{
+            lblPercent.textColor = .systemGreen
+        }
+        var price =  (trade.bid) //Double(trade.price) ?? 0.0
         
         areaSeries.setData(data: [AreaSeries.TickValue(time: .string(Date().ISO8601Format()), value: price)])
     }
     
    
 }
+
 extension String {
     func trimmedTrailingZeros() -> String {
         if let doubleValue = Double(self) {
@@ -112,3 +119,23 @@ extension String {
     }
 }
 
+extension Double {
+    func trimmedTrailingZeros() -> String {
+        // Convert the Double to a String with a specified maximum precision
+        let formattedString = String(format: "%.3f", self)
+        
+        // Use a NumberFormatter to automatically trim trailing zeros
+        let numberFormatter = NumberFormatter()
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 3 // Set your maximum precision
+        numberFormatter.numberStyle = .decimal
+        
+        // Convert the formatted string back to a Double
+        if let number = Double(formattedString) {
+            // Use the formatter to convert the number back to a string
+            return numberFormatter.string(from: NSNumber(value: number)) ?? formattedString
+        }
+        
+        return formattedString
+    }
+}

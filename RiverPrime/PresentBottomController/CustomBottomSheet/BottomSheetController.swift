@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class BottomSheetController: UIViewController {
+class BottomSheetController: BaseViewController {
 
     enum PreferredSheetSizing: CGFloat {
         case fit = 0 // Fit, based on the view's constraints
@@ -91,7 +91,7 @@ class BottomSheetController: UIViewController {
     }
     
     //MARK: - Hide Back button in the Nav bar.
-    func setNavBar(isLogin: Bool? = nil, vc: UIViewController, isBackButton: Bool, isBar: Bool) {
+    override  func setNavBar(isLogin: Bool? = nil, vc: UIViewController, isBackButton: Bool, isBar: Bool) {
 //        GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
         if isLogin != nil {
 //            if Session.instance.IsSimpleLogout == true {

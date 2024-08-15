@@ -201,7 +201,7 @@ class TradeDetalVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        self.tf_volume.text = "\(currentValue)"
-        
+        print("this is the trade data: \(trade!)")
         setupSeries()
         startSimulation()
     }
@@ -212,12 +212,12 @@ class TradeDetalVC: UIViewController {
 
     @IBAction func buyBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
-//        vc.lbl_title.text = "BUY"
+        vc.titleString = "BUY"
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     @IBAction func sellBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
-//        vc.lbl_title.text = "SELL"
+        vc.titleString = "SELL"
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     

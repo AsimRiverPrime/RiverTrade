@@ -31,7 +31,7 @@ extension BaseTableViewCell {
             print("this is the selected index value:\(index)")
             print("this is the selected item name :\(item)")
 //            guard let self = self else { return }
-            sender.setTitle(item, for: .normal)
+//            sender.setTitle(item, for: .normal)
             completion((index,item))
         }
         

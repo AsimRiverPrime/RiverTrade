@@ -45,7 +45,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2I-uB-0Sq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1053" y="-505"/>
+            <point key="canvasLocation" x="4140" y="-406"/>
         </scene>
         <!--Trade-->
         <scene sceneID="9pr-bl-mRt">
@@ -80,7 +80,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9aN-jc-kmL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="460.30534351145036" y="324.64788732394368"/>
+            <point key="canvasLocation" x="3376" y="494"/>
         </scene>
         <!--Create Account Select Trade Type-->
         <scene sceneID="waN-dC-VAK">
@@ -622,7 +622,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ry-vU-Yaq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2648.0916030534349" y="31.690140845070424"/>
+            <point key="canvasLocation" x="-2808" y="32"/>
         </scene>
         <!--Notification View Controller-->
         <scene sceneID="nz4-1V-wo4">
@@ -791,7 +791,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CUj-5N-F5L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-695.41984732824426" y="-338.02816901408454"/>
+            <point key="canvasLocation" x="-668" y="-424"/>
         </scene>
         <!--Accounts-->
         <scene sceneID="fw2-4k-mdw">
@@ -848,7 +848,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KXb-VB-Vp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-382.44274809160305" y="324.64788732394368"/>
+            <point key="canvasLocation" x="2535" y="494"/>
         </scene>
         <!--Results-->
         <scene sceneID="pxO-9W-0ve">
@@ -864,7 +864,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="quw-D5-mYk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2020.6106870229007" y="324.64788732394368"/>
+            <point key="canvasLocation" x="4938" y="494"/>
         </scene>
         <!--Profile-->
         <scene sceneID="CeN-Of-NGQ">
@@ -882,7 +882,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nwN-zl-r0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2775" y="325"/>
+            <point key="canvasLocation" x="5692" y="494"/>
         </scene>
         <!--Markets-->
         <scene sceneID="s0d-6b-0kx">
@@ -913,7 +913,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225.1908396946565" y="324.64788732394368"/>
+            <point key="canvasLocation" x="4141" y="494"/>
         </scene>
         <!--Deposit View Controller-->
         <scene sceneID="jUi-bZ-kyl">
@@ -2696,7 +2696,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ufy-iT-FQW">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="772"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="770"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhM-FP-CDE">
@@ -2707,20 +2707,20 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKL-FM-g4k">
-                                <rect key="frame" x="0.0" y="772" width="393" height="80"/>
+                                <rect key="frame" x="0.0" y="770" width="393" height="82"/>
                                 <color key="backgroundColor" red="0.97565500719999998" green="0.97565500719999998" blue="0.97565500719999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCb-bx-eyW">
-                                <rect key="frame" x="0.0" y="782" width="393" height="50"/>
+                                <rect key="frame" x="5" y="780" width="383" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="qMb-2G-1a8">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="50"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhc-dg-7Ro">
-                                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0z6-hJ-4s1" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-10" width="64.666666666666671" height="65"/>
+                                                        <rect key="frame" x="14.999999999999996" y="-10" width="62.666666666666657" height="65"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2729,13 +2729,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="i7g-tV-GPi">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PvL-gt-NPT">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="25"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Teamwork" translatesAutoresizingMaskIntoConstraints="NO" id="aG8-6v-00e">
-                                                                        <rect key="frame" x="-21.666666666666671" y="-1" width="138" height="27"/>
+                                                                        <rect key="frame" x="-22.666666666666671" y="-1" width="138" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="138" id="Q5Z-nq-VkO"/>
                                                                             <constraint firstAttribute="height" constant="27" id="jrL-eg-DTO"/>
@@ -2749,7 +2749,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fa9-Yl-3e0">
-                                                                <rect key="frame" x="0.0" y="25" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="25" width="92.666666666666671" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                 <color key="textColor" red="0.098039215690000001" green="0.1764705882" blue="0.29803921570000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -2757,7 +2757,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qp7-6I-9bO">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
@@ -2782,10 +2782,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NFn-Vs-7cI">
-                                                <rect key="frame" x="74.666666666666657" y="0.0" width="94.666666666666657" height="50"/>
+                                                <rect key="frame" x="72.666666666666657" y="0.0" width="92.666666666666657" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Irs-qf-1pz" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-10" width="64.666666666666671" height="65"/>
+                                                        <rect key="frame" x="14.999999999999996" y="-10" width="62.666666666666657" height="65"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2794,13 +2794,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="mX1-qm-mXY">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mVX-Lm-TiM">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="25"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s5E-6d-ptp">
-                                                                        <rect key="frame" x="-21.666666666666671" y="-1" width="138" height="27"/>
+                                                                        <rect key="frame" x="-22.666666666666671" y="-1" width="138" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="138" id="GhU-Ty-ZUc"/>
                                                                             <constraint firstAttribute="height" constant="27" id="dtz-bQ-wwj"/>
@@ -2821,7 +2821,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trade" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dms-Cp-Mkh">
-                                                                <rect key="frame" x="0.0" y="25" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="25" width="92.666666666666671" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -2829,7 +2829,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJE-sU-if8">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
@@ -2854,10 +2854,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uc8-Rf-unY">
-                                                <rect key="frame" x="149.33333333333334" y="0.0" width="94.333333333333343" height="50"/>
+                                                <rect key="frame" x="145.33333333333334" y="0.0" width="92.333333333333343" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMa-WD-VIm" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-10" width="64.333333333333329" height="65"/>
+                                                        <rect key="frame" x="15.000000000000004" y="-10" width="62.333333333333343" height="65"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2866,13 +2866,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ywo-gi-Qp6">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.333333333333329" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Xf-dI-3fq">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="25"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92.333333333333329" height="25"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t3C-uk-6rm">
-                                                                        <rect key="frame" x="-21.666666666666671" y="-1" width="138" height="27"/>
+                                                                        <rect key="frame" x="-22.666666666666671" y="-1" width="138" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="27" id="H0Z-EH-5cb"/>
                                                                             <constraint firstAttribute="width" constant="138" id="VrU-r0-XOB"/>
@@ -2893,7 +2893,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Markets" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ik-aX-kJu">
-                                                                <rect key="frame" x="0.0" y="25" width="94.333333333333329" height="25"/>
+                                                                <rect key="frame" x="0.0" y="25" width="92.333333333333329" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -2901,7 +2901,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-uq-fza">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.333333333333329" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.333333333333329" height="50"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
@@ -2926,10 +2926,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="At8-y8-wuJ">
-                                                <rect key="frame" x="223.66666666666666" y="0.0" width="94.666666666666657" height="50"/>
+                                                <rect key="frame" x="217.66666666666666" y="0.0" width="92.666666666666657" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G0t-1h-BA3" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-10" width="64.666666666666671" height="65"/>
+                                                        <rect key="frame" x="14.999999999999996" y="-10" width="62.666666666666657" height="65"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -2938,13 +2938,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="faD-qO-jNb">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z1c-Ce-Jgh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="25"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kwa-az-COO">
-                                                                        <rect key="frame" x="-21.666666666666657" y="-1" width="138" height="27"/>
+                                                                        <rect key="frame" x="-22.666666666666657" y="-1" width="138" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="27" id="mTW-9c-od3"/>
                                                                             <constraint firstAttribute="width" constant="138" id="xpL-6d-WnF"/>
@@ -2965,7 +2965,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Results" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CL9-3i-5bS">
-                                                                <rect key="frame" x="0.0" y="25" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="25" width="92.666666666666671" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -2973,7 +2973,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMq-MZ-5lF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
@@ -2998,10 +2998,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lsn-SY-ADD">
-                                                <rect key="frame" x="298.33333333333331" y="0.0" width="94.666666666666686" height="50"/>
+                                                <rect key="frame" x="290.33333333333331" y="0.0" width="92.666666666666686" height="50"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDa-Ms-AyL" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="15" y="-10" width="64.666666666666671" height="65"/>
+                                                        <rect key="frame" x="14.999999999999996" y="-10" width="62.666666666666657" height="65"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -3010,13 +3010,13 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="k9G-Bw-UmX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SoZ-s1-xa2">
-                                                                <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="25"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lSb-5Z-o5Z">
-                                                                        <rect key="frame" x="-21.666666666666629" y="-1" width="138" height="27"/>
+                                                                        <rect key="frame" x="-22.666666666666629" y="-1" width="138" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="138" id="AR1-fS-N0o"/>
                                                                             <constraint firstAttribute="height" constant="27" id="ixy-g4-RSO"/>
@@ -3037,7 +3037,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztR-k8-Nun">
-                                                                <rect key="frame" x="0.0" y="25" width="94.666666666666671" height="25"/>
+                                                                <rect key="frame" x="0.0" y="25" width="92.666666666666671" height="25"/>
                                                                 <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="10"/>
                                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
@@ -3045,7 +3045,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6b-IC-n3A">
-                                                        <rect key="frame" x="0.0" y="0.0" width="94.666666666666671" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="92.666666666666671" height="50"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
@@ -3090,14 +3090,14 @@
                             <constraint firstItem="DKL-FM-g4k" firstAttribute="centerX" secondItem="r8j-Qs-IpW" secondAttribute="centerX" id="9lS-yQ-gt1"/>
                             <constraint firstAttribute="bottom" secondItem="DKL-FM-g4k" secondAttribute="bottom" id="AJ7-s1-Wq8"/>
                             <constraint firstItem="DKL-FM-g4k" firstAttribute="leading" secondItem="r8j-Qs-IpW" secondAttribute="leading" id="Aj6-l1-VTy"/>
-                            <constraint firstAttribute="bottom" secondItem="UCb-bx-eyW" secondAttribute="bottom" constant="20" id="NVW-JX-0dx"/>
+                            <constraint firstAttribute="bottom" secondItem="UCb-bx-eyW" secondAttribute="bottom" constant="22" id="NVW-JX-0dx"/>
                             <constraint firstItem="UCb-bx-eyW" firstAttribute="top" secondItem="DKL-FM-g4k" secondAttribute="top" constant="10" id="RCS-bZ-gnZ"/>
-                            <constraint firstItem="UCb-bx-eyW" firstAttribute="leading" secondItem="r8j-Qs-IpW" secondAttribute="leading" id="ScJ-w6-uiY"/>
+                            <constraint firstItem="UCb-bx-eyW" firstAttribute="leading" secondItem="r8j-Qs-IpW" secondAttribute="leading" constant="5" id="ScJ-w6-uiY"/>
                             <constraint firstItem="Ufy-iT-FQW" firstAttribute="top" secondItem="aWH-3I-QTC" secondAttribute="top" id="Vcw-zm-phI"/>
                             <constraint firstItem="DKL-FM-g4k" firstAttribute="top" secondItem="Ufy-iT-FQW" secondAttribute="bottom" id="aoK-gc-RVL"/>
                             <constraint firstAttribute="bottom" secondItem="nhM-FP-CDE" secondAttribute="bottom" id="bDM-Da-K0S"/>
                             <constraint firstAttribute="trailing" secondItem="Ufy-iT-FQW" secondAttribute="trailing" id="d1E-t0-XHX"/>
-                            <constraint firstItem="r8j-Qs-IpW" firstAttribute="trailing" secondItem="UCb-bx-eyW" secondAttribute="trailing" id="hA0-er-fOW"/>
+                            <constraint firstItem="r8j-Qs-IpW" firstAttribute="trailing" secondItem="UCb-bx-eyW" secondAttribute="trailing" constant="5" id="hA0-er-fOW"/>
                             <constraint firstItem="nhM-FP-CDE" firstAttribute="leading" secondItem="r8j-Qs-IpW" secondAttribute="leading" id="icO-wm-yPJ"/>
                             <constraint firstItem="r8j-Qs-IpW" firstAttribute="trailing" secondItem="DKL-FM-g4k" secondAttribute="trailing" id="k38-Sx-rCg"/>
                             <constraint firstItem="r8j-Qs-IpW" firstAttribute="trailing" secondItem="nhM-FP-CDE" secondAttribute="trailing" id="zpr-ZS-9Xk"/>
@@ -3136,7 +3136,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="edR-qO-Efb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="352" y="-506"/>
+            <point key="canvasLocation" x="351.90839694656489" y="-506.33802816901414"/>
         </scene>
         <!--Create Demo AccountVC-->
         <scene sceneID="bXa-2b-RPQ">
@@ -3217,7 +3217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C91-Qn-2wy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1376" y="-338"/>
+            <point key="canvasLocation" x="-1349" y="-424"/>
         </scene>
         <!--Unarchive Account TypeVC-->
         <scene sceneID="gc5-HC-nGW">
@@ -3297,7 +3297,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="56J-G3-n28" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2079" y="-338"/>
+            <point key="canvasLocation" x="-2053" y="-424"/>
         </scene>
     </scenes>
     <resources>

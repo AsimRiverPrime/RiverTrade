@@ -50,8 +50,15 @@ class TicketVC: BottomSheetController {
     @IBOutlet weak var lbl_TP: UILabel!
     @IBOutlet weak var lbl_limit: UILabel!
     
+    var titleString: String = ""
+    var volumeList = ["Lots", "USD", "BTC"]
+    var priceList = ["Market", "Limit", "Stop"]
+    var takeProfitList = ["Profit in %", "Profit in USD", "Profit in Pips","Profit in Price"]
+    var stopLossList = ["Loss in %", "Loss in USD", "Loss in Pips","Loss in Price"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_title.text = titleString
         updateStopLossView()
         updateProfitView()
         

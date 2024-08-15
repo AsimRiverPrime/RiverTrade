@@ -11,11 +11,15 @@ pod 'GoogleSignIn'
 pod 'Firebase/Firestore'
 pod 'FirebaseAuth'
 pod 'Firebase/Core'
+pod 'Firebase/Crashlytics'
+
 pod 'CountryPickerView'
 pod 'PhoneNumberKit', '~> 3.7'
 
 pod 'Alamofire', '~> 5.6'
 pod 'AEXML', '~> 4.2'
 pod 'Starscream', '~> 4.0.4'
+
+pod 'DGCharts'
 
 end

@@ -62,16 +62,16 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             cell.refreshImageButton.isHidden = false
             cell.lbl_tradetype.isHidden = true
             
-            if selectedIndex == model.count - 1 {
-                /*cell.onRefreshImageButtonClick = {
+            /* if selectedIndex == model.count - 1 {
+               cell.onRefreshImageButtonClick = {
                     [self] sender in
                     print("onRefreshImageButtonClick")
                     self.dynamicDropDownButton(sender, list: refreshList) { index, item in
                         print("drop down index = \(index)")
                         print("drop down item = \(item)")
                     }
-                }*/
-            }
+                }
+            }*/
 //            let image = UIImageView()
 //            image.image = UIImage(named: "currencyIcon")
 //            image.frame = CGRect(x: cell.sepratorView.frame.origin.x, y: 0, width: 40, height: 40)

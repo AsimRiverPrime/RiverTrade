@@ -204,7 +204,7 @@ extension TradeVC: WebSocketDelegate {
             "event_name": "subscribe",
             "data": [
                 "last": 0,
-                "channels": ["price_feed"]
+                "channels": ["price_tick"]
             ]
         ]
 
@@ -235,12 +235,35 @@ extension TradeVC: WebSocketDelegate {
     }
 
     func handleWebSocketMessage(_ string: String) {
+        print("Received JSON string: \(string)")
+
         if let jsonData = string.data(using: .utf8) {
-            do {
-                let response = try JSONDecoder().decode(WebSocketResponse.self, from: jsonData)
-                let tradeData = response.data
-                trades[tradeData.symbol] = tradeData
-                print("response parsing JSON: \(tradeData)")
+            do { 
+                // Decode the JSON into an array of WebSocketResponse
+                let responses = try JSONDecoder().decode([WebSocketResponse].self, from: jsonData)
+
+                // Process each response
+                for response in responses {
+                    // Ensure the message type is what you're expecting (e.g., "tick")
+                    guard response.message.type == "tick" else {
+                        continue
+                    }
+
+                    // Decode each payload string into TradeDetails
+                    for payloadString in response.message.payload {
+                        if let payloadData = payloadString.data(using: .utf8) {
+                            do {
+                                let tradeDetails = try JSONDecoder().decode(TradeDetails.self, from: payloadData)
+                                // Store the trade details or update your data model
+                                trades[tradeDetails.symbol] = tradeDetails
+                                print("Trade details: \(tradeDetails)")
+                            } catch {
+                                print("Error parsing TradeDetails: \(error)")
+                            }
+                        }
+                    }
+                }
+
                 DispatchQueue.main.async {
                     self.tblView.reloadData()
 //                    self.refreshSection(at: 2)
