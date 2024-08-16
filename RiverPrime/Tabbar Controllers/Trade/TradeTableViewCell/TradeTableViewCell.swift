@@ -81,20 +81,10 @@ class TradeTableViewCell: UITableViewCell {
     
     
     func configure(with trade: TradeDetails) {
-      
-        
-//
-//        if trade.symbol == "XRPUSDT" && trade.quantity > "1000.00" {
-//            self.price_lbl.textColor = .red
-//        }else if trade.symbol == "BTCUSDT" && trade.quantity > "0.03" {
-//            self.price_lbl.textColor = .red
-//        }else if trade.symbol == "ETHUSDT" && trade.quantity > "0.002" {
-//            self.price_lbl.textColor = .red
-//        }
         
         lblCurrencySymbl.text = trade.symbol
-        lblAmount.text = String(trade.bid)
-        lblPercent.text = "+ " + String(trade.ask) //trimmedTrailingZeros()
+        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
+        lblPercent.text = "+ " + String(trade.ask).trimmedTrailingZeros() //trimmedTrailingZeros()
         // Update the chart with new data
         if (trade.ask) < 1 {
             lblPercent.textColor = .systemRed
@@ -122,7 +112,7 @@ extension String {
 extension Double {
     func trimmedTrailingZeros() -> String {
         // Convert the Double to a String with a specified maximum precision
-        let formattedString = String(format: "%.3f", self)
+        let formattedString = String(format: "%.5f", self)
         
         // Use a NumberFormatter to automatically trim trailing zeros
         let numberFormatter = NumberFormatter()

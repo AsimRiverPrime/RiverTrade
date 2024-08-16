@@ -152,7 +152,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
 //            print("cell?.lblCurrencyName.text = \(cell?.lblCurrencyName.text ?? "")")
             
             delegateDetail?.tradeDetailTap(indexPath: indexPath)
-            
+           
+            closeWebSocket()
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -205,6 +206,7 @@ extension TradeVC: WebSocketDelegate {
             "data": [
                 "last": 0,
                 "channels": ["price_tick"]
+//                "channels": ["price_chart"]
             ]
         ]
 
@@ -235,45 +237,59 @@ extension TradeVC: WebSocketDelegate {
     }
 
     func handleWebSocketMessage(_ string: String) {
-        print("Received JSON string: \(string)")
-
+        print("Received JSON string: \(string) \n")
+        
         if let jsonData = string.data(using: .utf8) {
-            do { 
-                // Decode the JSON into an array of WebSocketResponse
-                let responses = try JSONDecoder().decode([WebSocketResponse].self, from: jsonData)
-
-                // Process each response
-                for response in responses {
-                    // Ensure the message type is what you're expecting (e.g., "tick")
-                    guard response.message.type == "tick" else {
-                        continue
-                    }
-
-                    // Decode each payload string into TradeDetails
-                    for payloadString in response.message.payload {
-                        if let payloadData = payloadString.data(using: .utf8) {
-                            do {
-                                let tradeDetails = try JSONDecoder().decode(TradeDetails.self, from: payloadData)
-                                // Store the trade details or update your data model
-                                trades[tradeDetails.symbol] = tradeDetails
-                                print("Trade details: \(tradeDetails)")
-                            } catch {
-                                print("Error parsing TradeDetails: \(error)")
-                            }
-                        }
-                    }
+            do {
+                // Decode the JSON into a WebSocketResponse
+                let response = try JSONDecoder().decode(WebSocketResponse.self, from: jsonData)
+                
+                // Ensure the message type is what you're expecting (e.g., "tick")
+                guard response.message.type == "tick" else {
+                    print("Unexpected message type: \(response.message.type)")
+                    return
                 }
-
+                
+                // Process each trade detail
+                for tradeDetail in response.message.payload {
+                    // Store the trade details or update your data model
+                    trades[tradeDetail.symbol] = tradeDetail
+                    
+                    print("Trade details: \(tradeDetail)")
+                }
+               
+                
                 DispatchQueue.main.async {
                     self.tblView.reloadData()
-//                    self.refreshSection(at: 2)
+                    //                    self.refreshSection(at: 2)
+                }
+            } catch let error as DecodingError {
+                switch error {
+                case .typeMismatch(let type, let context):
+                    print("Type mismatch error for type \(type): \(context.debugDescription), codingPath: \(context.codingPath)")
+                case .valueNotFound(let type, let context):
+                    print("Value not found error for type \(type): \(context.debugDescription), codingPath: \(context.codingPath)")
+                case .keyNotFound(let key, let context):
+                    print("Key not found error for key \(key): \(context.debugDescription), codingPath: \(context.codingPath)")
+                case .dataCorrupted(let context):
+                    print("Data corrupted error: \(context.debugDescription), codingPath: \(context.codingPath)")
+                default:
+                    print("Decoding error: \(error.localizedDescription)")
                 }
             } catch {
-                print("Error parsing JSON: \(error)")
+                print("Error parsing JSON: \(error.localizedDescription)")
             }
+        } else {
+            print("Error converting string to Data")
         }
-        
     }
+//                catch {
+//                print("Error parsing JSON: \(error.localizedDescription)\n")
+//                print("Error parsing JSON: \(error)\n")
+//            }
+        
+        
+    
 
     func handleError(_ error: Error?) {
         if let error = error {

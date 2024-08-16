@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        Thread.sleep(forTimeInterval: 1.0)
       
         FirebaseApp.configure()
+        
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
         
         GlobalVariable.instance.isAccountCreated = false
@@ -34,7 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 ////                   navigateToLoginScreen()
 //                   print("user is not register")
 //               }
-//        
+        
+        
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
         return true
     }
     
