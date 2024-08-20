@@ -94,7 +94,9 @@ class TradeTableViewCell: UITableViewCell {
         }
         var price =  (trade.bid) //Double(trade.price) ?? 0.0
         
-        areaSeries.setData(data: [AreaSeries.TickValue(time: .string(Date().ISO8601Format()), value: price)])
+        let times = Time.utc(timestamp: Double(trade.datetime))
+        
+        areaSeries.setData(data: [AreaSeries.TickValue(time: times, value: price)])
     }
     
    

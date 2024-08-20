@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "B5C46CEA-038A-4F96-AA84-DB5024899870"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/SignIn/SignInViewController.swift"
@@ -40,7 +40,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D80157E1-6525-4AF5-AE13-4A21DFF8C6AE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Firebase Services/FireStoreServices.swift"
@@ -56,7 +56,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D5D84A27-8A88-438D-A4DC-2B3C469E5F35"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Firebase Services/FireStoreServices.swift"
@@ -247,15 +247,31 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "498C624E-58F9-401A-9D2A-5C1892003F60"
+            uuid = "5CCE1D34-CE30-43A0-A0C5-48457ED50F02"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/TradeDetailsPage/TradeDetalVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "setupSeries()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B19959AD-CB81-49B2-BF1E-8608EDCFCCE0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Trade/TradeVC.swift"
+            filePath = "RiverPrime/Tabbar Controllers/TradeDetailsPage/TradeDetalVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
+            startingLineNumber = "262"
+            endingLineNumber = "262"
             landmarkName = "handleWebSocketMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -263,16 +279,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3F99F019-4DD0-4278-BFCC-F532D0334B4C"
+            uuid = "E4C88F5F-D6D0-4B00-953B-0C661F349F14"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Trade/TradeVC.swift"
+            filePath = "RiverPrime/Tabbar Controllers/TradeDetailsPage/TradeDetalVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "sendSubscriptionMessage()"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
+            landmarkName = "handleWebSocketMessage(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

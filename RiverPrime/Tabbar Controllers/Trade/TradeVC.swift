@@ -152,8 +152,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
 //            print("cell?.lblCurrencyName.text = \(cell?.lblCurrencyName.text ?? "")")
             
             delegateDetail?.tradeDetailTap(indexPath: indexPath)
-           
-            closeWebSocket()
+            
+//            closeWebSocket()
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -213,7 +213,7 @@ extension TradeVC: WebSocketDelegate {
         // Convert the dictionary to JSON string
         if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
            let jsonString = String(data: jsonData, encoding: .utf8) {
-//            socket write(string: jsonString)
+            print("the message is \(jsonString)")
             webSocket.write(string: jsonString)
         }
     }

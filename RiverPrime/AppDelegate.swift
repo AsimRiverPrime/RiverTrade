@@ -37,8 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //               }
         
         
-        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
-        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(false)
         return true
     }
     

@@ -389,6 +389,7 @@ extension DashboardVC: TradeDetailTapDelegate {
     func tradeDetailTap(indexPath: IndexPath) {
         
         let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .dashboard) as! TradeDetalVC
+       
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 
     }
