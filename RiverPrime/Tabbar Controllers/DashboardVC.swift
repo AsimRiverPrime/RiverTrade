@@ -385,13 +385,11 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
 
 //MARK: - TradeVC cell Taps is handle here.
 extension DashboardVC: TradeDetailTapDelegate {
-    
-    func tradeDetailTap(indexPath: IndexPath) {
-        
+    func tradeDetailTap(indexPath: IndexPath, details: TradeDetails) {
         let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .dashboard) as! TradeDetalVC
        
+        vc.tradeDetails = details
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-
     }
     
 }

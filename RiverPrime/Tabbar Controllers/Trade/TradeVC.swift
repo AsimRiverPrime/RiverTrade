@@ -20,8 +20,7 @@ struct TradeVCModel {
 }
 
 protocol TradeDetailTapDelegate: AnyObject {
-    func tradeDetailTap(indexPath: IndexPath)
-    
+    func tradeDetailTap(indexPath: IndexPath, details: TradeDetails)
 }
 
 class TradeVC: UIView {
@@ -36,12 +35,12 @@ class TradeVC: UIView {
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
     
-    var webSocket: WebSocket!
+//    var webSocket: WebSocket!
     
-    var trades: [String: TradeDetails] = [:]
+//    var trades: [String: TradeDetails] = [:]
     
     public override func awakeFromNib() {
-        setupWebSocket()
+        WebSocketManager.shared.connect()
         setModel(.init(name: "Favorites"))
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -55,9 +54,23 @@ class TradeVC: UIView {
         tblView.delegate = self
         tblView.dataSource = self
 //        tblView.reloadData()
-        //MARK: - connet websocket service and get data
+        
+        // Register for notifications
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
+        
     }
     
+    @objc func handleTradesUpdated() {
+           DispatchQueue.main.async {
+               self.tblView.reloadData()
+           }
+       }
+       
+       deinit {
+           // Remove observer
+           NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
+       }
+   
     class func getView()->TradeVC {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
     }
@@ -112,7 +125,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         }else if section == 1 {
             return 1
         }else{
-            return  trades.count //model.count //10
+            return WebSocketManager.shared.trades.count
         }
     }
     
@@ -133,13 +146,13 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         }else  {
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-//            cell.lblCurrencyName.text = model[indexPath.row].detail
-//            cell.lblCurrencySymbl.text = model[indexPath.row].title
-            print("\nIndexPath section: \(indexPath.section), chartData count: \(Array(trades.keys))")
+            
+//            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
 
-            let symbol = Array(trades.keys)[indexPath.row]
-                   if let trade = trades[symbol] {
-                       cell.configure(with: trade)
+            let symbols = Array(WebSocketManager.shared.trades.keys)
+                      let symbol = symbols[indexPath.row]
+                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
+                       cell.configure(with: tradeDetail)
                    }
             return cell
         }
@@ -148,12 +161,11 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTableViewCell") as? TradeTableViewCell
-//            print("cell?.lblCurrencyName.text = \(cell?.lblCurrencyName.text ?? "")")
-            
-            delegateDetail?.tradeDetailTap(indexPath: indexPath)
-            
-//            closeWebSocket()
+         
+            let selectedSymbol = Array(WebSocketManager.shared.trades.keys)[indexPath.row]
+                   if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
+                       delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
+                   }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -176,7 +188,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
        }
 }
 //MARK: - Set websocket congituration with binanceAPI.
-extension TradeVC: WebSocketDelegate {
+/*extension TradeVC: WebSocketDelegate {
 //    func setupWebSocket() {
 //        let url = URL(string: "wss://stream.binance.com:9443/stream?streams=btcusdt@trade/ethusdt@trade/xrpusdt@trade")!
 ////        let url = URL(string: "ws://192.168.3.107:8069/websocket")!
@@ -261,7 +273,7 @@ extension TradeVC: WebSocketDelegate {
                 
                 DispatchQueue.main.async {
                     self.tblView.reloadData()
-                    //                    self.refreshSection(at: 2)
+                    // self.refreshSection(at: 2)
                 }
             } catch let error as DecodingError {
                 switch error {
@@ -278,18 +290,12 @@ extension TradeVC: WebSocketDelegate {
                 }
             } catch {
                 print("Error parsing JSON: \(error.localizedDescription)")
+                print("Error parsing JSON: \(error)\n")
             }
         } else {
             print("Error converting string to Data")
         }
     }
-//                catch {
-//                print("Error parsing JSON: \(error.localizedDescription)\n")
-//                print("Error parsing JSON: \(error)\n")
-//            }
-        
-        
-    
 
     func handleError(_ error: Error?) {
         if let error = error {
@@ -300,7 +306,7 @@ extension TradeVC: WebSocketDelegate {
     func closeWebSocket() {
             webSocket.disconnect()
         }
-}
+}*/
 //MARK: - Set TableViewTopConstraint.
 extension TradeVC {
     
@@ -337,11 +343,16 @@ extension TradeVC {
 extension TradeVC: TradeInfoTapDelegate {
     
     func tradeInfoTap(_ tradeInfo: TradeInfo) {
-//        delegate?.tradeInfoTap(tradeInfo)
-//        setupWebSocket()
+
         setModel(tradeInfo)
         
         tblView.reloadData()
     }
-    
 }
+
+extension Notification.Name {
+    static let tradesUpdated = Notification.Name("tradesUpdated")
+}
+
+    
+

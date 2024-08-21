@@ -228,7 +228,7 @@ extension VerifyCodeViewController: SendOTPDelegate{
 
 extension VerifyCodeViewController:  VerifyOTPDelegate {
     func otpVerifySuccess(response: Any) {
-        print("/n\nthis is the verify otp response: \(response)")
+        print("\nthis is the verify otp response: \(response)")
        
         if isEmailVerification == true {
             updateUser()

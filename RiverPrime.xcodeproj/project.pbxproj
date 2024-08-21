@@ -35,6 +35,8 @@
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
+		318257482C75C7F000723A50 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257472C75C7F000723A50 /* WebSocketManager.swift */; };
+		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
 		3191E8892C65D1FD00BB4F08 /* CreateAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E8882C65D1FD00BB4F08 /* CreateAccountTypeVC.swift */; };
@@ -195,6 +197,8 @@
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
+		318257472C75C7F000723A50 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
 		3191E8882C65D1FD00BB4F08 /* CreateAccountTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountTypeVC.swift; sourceTree = "<group>"; };
@@ -458,6 +462,14 @@
 			path = "OdooClient Services";
 			sourceTree = "<group>";
 		};
+		318257462C75C7B200723A50 /* WebStockManager */ = {
+			isa = PBXGroup;
+			children = (
+				318257472C75C7F000723A50 /* WebSocketManager.swift */,
+			);
+			path = WebStockManager;
+			sourceTree = "<group>";
+		};
 		3191F6A92C64EB0A00F623C6 /* CreateAccountSetPasswordScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,6 +641,7 @@
 			isa = PBXGroup;
 			children = (
 				31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */,
+				318257492C76066400723A50 /* OhlcCalculator.swift */,
 			);
 			path = TradeDetailsPage;
 			sourceTree = "<group>";
@@ -654,6 +667,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				318257462C75C7B200723A50 /* WebStockManager */,
 				315DB98A2C6C778A00FF967C /* BottomSheetVCs */,
 				31806D172C609C9F00E48730 /* OdooClient Services */,
 				315C8BDA2C5CA49B00A3F0DB /* Firebase Services */,
@@ -1444,6 +1458,7 @@
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
 				FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */,
 				31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */,
+				3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */,
 				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
 				31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */,
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
@@ -1495,6 +1510,7 @@
 				C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */,
 				31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */,
 				FA532D7A2C5721E1003A26D6 /* UIAlertController+Extensions.swift in Sources */,
+				318257482C75C7F000723A50 /* WebSocketManager.swift in Sources */,
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
 				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,

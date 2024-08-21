@@ -35,8 +35,11 @@ protocol CreateUserAccountTypeDelegate: AnyObject {
 
 class OdooClient {
     
-    private let baseURL = "http://192.168.3.107:8069/xmlrpc/2/"
-    private let baseURLOTP = "http://192.168.3.107:8069"
+//    private let baseURL = "http://192.168.3.107:8069/xmlrpc/2/"
+//    private let baseURLOTP = "http://192.168.3.107:8069"
+    private let baseURLOTP = "https://mbe.riverprime.com"
+    private let baseURL = "https://mbe.riverprime.com/xmlrpc/2/"
+    
     private lazy var commonURL: String = {
         return baseURL + "common"
     }()
@@ -62,9 +65,9 @@ class OdooClient {
     
     var createRequestBool : Bool = false
     
-    var dataBaseName: String = "localhost"
+    var dataBaseName: String = "mbe.riverprime.com"
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "ios"
+    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
     var userEmail: String = ""
     
     weak var delegate: SendOTPDelegate?
@@ -279,7 +282,7 @@ class OdooClient {
             }
     }
     
-    //MARK: - Create request Method for records
+    //MARK: - Create request (Leads) Method for records
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true
         
