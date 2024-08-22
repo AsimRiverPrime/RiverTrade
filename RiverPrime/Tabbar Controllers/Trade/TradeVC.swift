@@ -34,7 +34,7 @@ class TradeVC: UIView {
     
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
-    
+    var tradeDetailVC = TradeDetalVC()
 //    var webSocket: WebSocket!
     
 //    var trades: [String: TradeDetails] = [:]
@@ -153,6 +153,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
                       let symbol = symbols[indexPath.row]
                       if let tradeDetail = WebSocketManager.shared.trades[symbol] {
                        cell.configure(with: tradeDetail)
+//                          tradeDetailVC.tradeDetails = tradeDetail
+//                          tradeDetailVC.connectHistoryWebSocket()
                    }
             return cell
         }

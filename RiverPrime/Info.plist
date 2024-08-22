@@ -16,19 +16,7 @@
 		</dict>
 	</array>
 	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSExceptionDomains</key>
-		<dict>
-			<key>192.168.3.107</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<dict>
-					<key>NSExceptionAllowsInsecureHTTPLoads</key>
-					<true/>
-				</dict>
-			</dict>
-		</dict>
-	</dict>
+	<dict/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>InterVariable.ttf</string>
@@ -54,5 +42,7 @@
 			</array>
 		</dict>
 	</dict>
+    <key>NSFaceIDUsageDescription</key>
+    <string>We use Face ID to authenticate your account securely.</string>
 </dict>
 </plist>

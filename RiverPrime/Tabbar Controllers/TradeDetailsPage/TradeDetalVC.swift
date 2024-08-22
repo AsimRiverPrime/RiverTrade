@@ -10,17 +10,17 @@ import LightweightCharts
 import Starscream
 
 class TradeDetalVC: UIViewController {
-  
+    
     @IBOutlet weak var chartView: LightweightCharts!
-   
+    
     var webSocket : WebSocket!
     
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
-   
+    
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
-       
+    
     var tradeDetails: TradeDetails?
     var getLiveCandelStick = OhlcCalculator()
     
@@ -30,7 +30,7 @@ class TradeDetalVC: UIViewController {
         setupSeries()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
-       
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -39,19 +39,16 @@ class TradeDetalVC: UIViewController {
     }
     @objc func handleTradesUpdated() {
         updateUI()
-            // Update the UI with the latest data for the selected symbol
+        // Update the UI with the latest data for the selected symbol
         if let symbol = self.tradeDetails?.symbol, let tradeDetail = WebSocketManager.shared.trades[symbol] {
-                self.tradeDetails = tradeDetail
+            self.tradeDetails = tradeDetail
             
-            
-          getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-          let data =  getLiveCandelStick.getLatestOhlcData()
+            getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+            let data =  getLiveCandelStick.getLatestOhlcData()
             print("latest data: \(data)")
             
             let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
-            // Debugging output to check timestamps
-            print("\n Candlestick new time: \(times)")
-           
+            
             let open = data?.open
             let close = data?.close
             let high = data?.high
@@ -67,51 +64,51 @@ class TradeDetalVC: UIViewController {
             
             // Use update to add this candlestick incrementally
             series?.update(bar: dataPoint)
-//            candlestickData.append(dataPoint)
-//            series.setData(data: [dataPoint])
+            //            candlestickData.append(dataPoint)
+            //            series.setData(data: [dataPoint])
             
-            }
+        }
+    }
+    
+    private func updateUI() {
+        if let symbol = self.tradeDetails?.symbol {
+            symbolLabel.text = "Symbol: \(symbol)"
         }
         
-        private func updateUI() {
-            if let symbol = self.tradeDetails?.symbol {
-                symbolLabel.text = "Symbol: \(symbol)"
-            }
-            
-            if let tradeDetails = tradeDetails {
-                // Assuming TradeDetail has properties you want to display
-                detailsLabel.text = "Ask: \(tradeDetails.ask), Bid :\(tradeDetails.bid), \n Time: \(tradeDetails.datetime)"
-            }
-           
+        if let tradeDetails = tradeDetails {
+            // Assuming TradeDetail has properties you want to display
+            detailsLabel.text = "Ask: \(tradeDetails.ask), Bid :\(tradeDetails.bid), \n Time: \(tradeDetails.datetime)"
         }
         
-        deinit {
-            NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
-        }
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
+    }
     
     @IBAction func buyBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
         vc.titleString = "BUY"
-    
+        
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     @IBAction func sellBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
         vc.titleString = "SELL"
-       
+        
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     
     private func setupSeries() {
-      //  chartView.timeScale().subscribeVisibleTimeRangeChange()
-
+        //  chartView.timeScale().subscribeVisibleTimeRangeChange()
+        
         let timeScale = chartView.timeScale()
         timeScale.applyOptions(options: TimeScaleOptions(
             borderColor: "#D1D4DC",
             timeVisible: true,
             secondsVisible: false
         ))
-       
+        
         let options = CandlestickSeriesOptions(
             upColor: "rgba(8, 153, 52, 1)",
             downColor: "rgba(204, 13, 13, 1)",
@@ -120,77 +117,19 @@ class TradeDetalVC: UIViewController {
             wickUpColor: "rgba(8, 153, 52, 1)",
             wickDownColor: "rgba(204, 13, 13, 1)"
         )
-
-
+        
+        
         let series = chartView.addCandlestickSeries(options: options)
         series.setData(data: candlestickData)
         self.series = series
         
     }
- /*   func handleVisibleTimeRangeChange(_ timeRange: TimeRange?) {
-        guard let timeRange = timeRange else { return }
-        
-        // Extract the start and end time of the visible range
-        let fromTime = timeRange.from
-        let toTime = timeRange.to
-
-        // Convert Time to Int (e.g., Unix timestamp) if needed
-        if let fromTimestamp = timeToInt(fromTime), let toTimestamp = timeToInt(toTime) {
-            // Now you have the visible time range as Int values (e.g., Unix timestamps)
-            print("Visible time range: from \(fromTimestamp) to \(toTimestamp)")
-            
-            // You can now check if you need to load new data based on this range
-            self.checkAndLoadNewDataIfNeeded(from: fromTimestamp, to: toTimestamp)
-        }
-    }
-    struct Time {
-        let timeString: String?
-        let timestamp: Int?
-    }
-
-    func timeToInt(_ time: Time) -> Int? {
-        if let timestamp = time.timestamp {
-            return timestamp
-        } else if let timeString = time.timeString {
-            // Convert timeString to Int (e.g., by converting it to a Unix timestamp)
-            let dateFormatter = ISO8601DateFormatter()
-            if let date = dateFormatter.date(from: timeString) {
-                return Int(date.timeIntervalSince1970)
-            }
-        }
-        return nil
-    }
-    func checkAndLoadNewDataIfNeeded(from startTime: Int, to endTime: Int) {
-        // Example logic: If the start time is within 10 minutes of the earliest data point, load more data
-        let threshold = 60 * 10 // 10 minutes in Unix timestamp
-        let earliestLoadedTime = 60 // Get this value from your data source
-        
-        if startTime < earliestLoadedTime + threshold {
-            loadNewData(from: startTime, to: endTime)
-        }
-    }
-    func loadNewData(from startTime: Int, to endTime: Int) {
-        let message: [String: Any] = [
-            "event_name": "get_chart_history",
-            "data": [
-                "symbol":  "Gold",
-                "from": startTime,
-                "to":  endTime
-            ]
-        ]
-        
-        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            webSocket.write(string: jsonString)
-        }
-    }
-   */
- 
-  
+    
+    
 }
 extension TradeDetalVC: WebSocketDelegate {
     func connectHistoryWebSocket() {
-//        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
+        //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
         let url =  URL(string:"wss://mbe.riverprime.com/websocket")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
@@ -203,16 +142,16 @@ extension TradeDetalVC: WebSocketDelegate {
     func sendSubscriptionHistoryMessage() {
         // Define the message dictionary
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-
+        
         let message: [String: Any] = [
-                   "event_name": "get_chart_history",
-                   "data": [
-                    "symbol":  tradeDetails?.symbol ?? "",
-                    "from": hourBeforeTimestamp,
-                    "to":  currentTimestamp
-                   ]
-               ]
-      
+            "event_name": "get_chart_history",
+            "data": [
+                "symbol":  tradeDetails?.symbol ?? "",
+                "from": hourBeforeTimestamp,
+                "to":  currentTimestamp
+            ]
+        ]
+        
         // Convert the dictionary to JSON string
         if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
            let jsonString = String(data: jsonData, encoding: .utf8) {
@@ -239,58 +178,58 @@ extension TradeDetalVC: WebSocketDelegate {
             break
         }
     }
-
+    
     func handleHistoryWebSocketMessage(_ string: String) {
-    if let jsonData = string.data(using: .utf8) {
-        do {
-            let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-            
-            for payload in response.chartData {
-          
-                let times = Time.utc(timestamp: Double(payload.datetime))
-                // Debugging output to check timestamps
-               
-                print("\n Candlestick each array object data: \(payload)")
+        if let jsonData = string.data(using: .utf8) {
+            do {
+                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                 
-                let open = payload.open
-                let close = payload.close
-                let high = payload.high
-                let low = payload.low
-                
-                let dataPoint = CandlestickData(
-                    time: times,
-                    open: open,
-                    high: high,
-                    low: low,
-                    close: close
-                )
-                
-                // Use update to add this candlestick incrementally
-                series?.update(bar: dataPoint)
-                candlestickData.append(dataPoint)
+                for payload in response.chartData {
+                    
+                    let times = Time.utc(timestamp: Double(payload.datetime))
+                    // Debugging output to check timestamps
+                    
+                    print("\n Candlestick each array object data: \(payload)")
+                    
+                    let open = payload.open
+                    let close = payload.close
+                    let high = payload.high
+                    let low = payload.low
+                    
+                    let dataPoint = CandlestickData(
+                        time: times,
+                        open: open,
+                        high: high,
+                        low: low,
+                        close: close
+                    )
+                    
+                    // Use update to add this candlestick incrementally
+                    series?.update(bar: dataPoint)
+                    candlestickData.append(dataPoint)
+                }
+                series.setData(data: candlestickData)
+            } catch {
+                print("Error parsing JSON: \(error)")
             }
-            series.setData(data: candlestickData)
-        } catch {
-            print("Error parsing JSON: \(error)")
         }
     }
-}
     func handleHistoryError(_ error: Error?) {
         if let error = error {
             print("History chart WebSocket encountered an error: \(error)")
         }
     }
-   
+    
     
     func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
         let now = Date()
-//        let calendar = Calendar.current
+        //        let calendar = Calendar.current
         
         // Get current timestamp in milliseconds
         let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
         let beforeHourTimestamp = currentTimestamp -  (1 * 60 * 60)
-      
-            return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
+        
+        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
         
     }
     
