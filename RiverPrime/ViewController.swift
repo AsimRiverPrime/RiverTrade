@@ -38,10 +38,10 @@ class ViewController: BaseViewController {
     }
     
     @IBAction func registerBtn(_ sender: Any) {
-        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") {
             self.navigate(to: signUp)
         }
-//        if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TradeDetalVC"){
+//        if let vc = instantiateViewController(fromStoryboard: "BottomSheetPopups", withIdentifier: "TradeDetalVC"){
 //            self.navigate(to: vc)
 //        }
     }

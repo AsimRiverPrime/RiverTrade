@@ -27,7 +27,7 @@ final class CustomDropDown: UIButton, iCustomDropDown {
 //        dropDown.cornerRadius = 10.0
 //        dropDown.layer.cornerRadius = 10.0
         dropDown.setupCornerRadius(10.0)
-        dropDown.textFont = FontController.Fonts.Inter_Regular.font
+        dropDown.textFont = FontController.Fonts.ListInter_Regular.font
         dropDown.show()
         if #available(iOS 13.0, *) {
             dropDown.backgroundColor = UIColor.white //.secondarySystemBackground

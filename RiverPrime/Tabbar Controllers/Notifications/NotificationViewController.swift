@@ -19,7 +19,9 @@ class NotificationViewController: UIViewController {
     }
     
     @IBAction func closeBtnAction(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: {
+            print("Bottom sheet dismissed after cross btn click")
+        })
     }
     
     @IBAction func readAllBtnAction(_ sender: Any) {

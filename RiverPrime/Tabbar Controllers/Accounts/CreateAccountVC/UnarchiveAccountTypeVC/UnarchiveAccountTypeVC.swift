@@ -31,7 +31,7 @@ class UnarchiveAccountTypeVC: BaseViewController {
     
     @IBAction func addButton(_ sender: UIButton) {
         print(#function)
-        let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+        let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
     }
     

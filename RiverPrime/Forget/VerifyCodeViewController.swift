@@ -98,7 +98,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     print("User isPhone fields updated successfully!")
                    
                     
-                    if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+                    if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "PasscodeFaceIDVC"){
                         self.navigate(to: dashboardVC)
                     }
                 }

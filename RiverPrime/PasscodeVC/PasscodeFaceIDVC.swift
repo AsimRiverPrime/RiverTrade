@@ -11,17 +11,21 @@ import LocalAuthentication
 
 class PasscodeFaceIDVC: UIViewController {
     
+    @IBOutlet weak var lbl_enterCode: UILabel!
+    
     @IBOutlet var view_dots: [UIView]!
     
     @IBOutlet var numbers_btn: [UIButton]!
     @IBOutlet weak var btn_faceID: UIButton!
-   
+    @IBOutlet weak var btn_forgot: UIButton!
+    
     var enteredPasscode = ""
-    var iscodeSelected : Bool = false
+  //  var iscodeSelected : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         authenticateWithFaceID()
+        updateFaceIDButtonAction()
         // Do any additional setup after loading the view.
     }
     
@@ -33,26 +37,20 @@ class PasscodeFaceIDVC: UIViewController {
     }
     
     @IBAction func faceID_action(_ sender: Any) {
-        if iscodeSelected {
+        if !enteredPasscode.isEmpty  {
             // code for backspace
-            
-             } else {
-                 enableFaceID()
-            }
+            backspaceAction()
+        } else {
+            enableFaceID()
+        }
     }
     
     func handleNumberInput(_ tag: Int) {
-//        if enteredPasscode == "" {
-//            self.btn_faceID.setImage(UIImage(systemName: "faceid"), for: .normal)
-//        }else{
-//            iscodeSelected = true
-//            self.btn_faceID.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-//        }
+        
         // Append the number to the enteredPasscode string
         enteredPasscode += "\(tag)"
         
-        self.btn_faceID.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        iscodeSelected = true
+        updateFaceIDButtonAction()
         // Update the dot color for the entered digit
         updateDots()
         
@@ -69,6 +67,23 @@ class PasscodeFaceIDVC: UIViewController {
                 // Verify the entered passcode
                 verifyPasscode()
             }
+        }
+    }
+    
+    func backspaceAction() {
+        if !enteredPasscode.isEmpty {
+            enteredPasscode.removeLast()
+            updateDots()
+            updateFaceIDButtonAction()
+        }
+    }
+    
+    func updateFaceIDButtonAction() {
+        if enteredPasscode.isEmpty {
+            self.btn_faceID.setImage(UIImage(systemName: "faceid"), for: .normal)
+        } else {
+         
+            self.btn_faceID.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         }
     }
     
@@ -94,7 +109,8 @@ class PasscodeFaceIDVC: UIViewController {
                 // Reset enteredPasscode and dot colors
                 enteredPasscode = ""
                 resetDots()
-//                showAlert("Passcode is inncorrect")
+                updateFaceIDButtonAction()
+                //                showAlert("Passcode is inncorrect")
                 Alert.showAlert(withMessage: "Passcode is incorrect", andTitle: "Invalid", on: self)
             }
         } else {
@@ -181,6 +197,9 @@ extension PasscodeFaceIDVC {
     func navigateToMainScreen() {
         // Implement the navigation to the main screen
         print("Go to the desire screen")
+        if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+            self.navigate(to: dashboardVC)
+        }
     }
     
     func showAlert(_ message: String) {

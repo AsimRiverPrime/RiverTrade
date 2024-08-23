@@ -69,9 +69,20 @@ class TicketVC: BottomSheetController {
     @IBAction func volumePlus_action(_ sender: Any) {
     }
     @IBAction func volume_dropDownAction(_ sender: Any) {
+        self.dynamicDropDownButton(sender as! UIButton, list: volumeList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            self.lbl_volumeDropdown.text = item
+//            sender.buttonOulate Name = ""
+        }
     }
     //MARK: - price actions
     @IBAction func price_dropDownAction(_ sender: Any) {
+        self.dynamicDropDownButton(sender as! UIButton, list: priceList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            self.lbl_PriceDropdown.text = item
+        }
     }
     
     @IBAction func priceMinus_action(_ sender: Any) {
@@ -85,6 +96,11 @@ class TicketVC: BottomSheetController {
     }
     
     @IBAction func takeProfit_dropDownAction(_ sender: Any) {
+        self.dynamicDropDownButton(sender as! UIButton, list: takeProfitList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+//            self.lbl_takeProfitDropDown.text = item
+        }
     }
     
     
@@ -108,6 +124,11 @@ class TicketVC: BottomSheetController {
     }
     
     @IBAction func stopLoss_dropDownAction(_ sender: Any) {
+        self.dynamicDropDownButton(sender as! UIButton, list: stopLossList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+//            self.lbl_stopLossDropDown.text = item
+        }
         
     }
     
@@ -120,6 +141,9 @@ class TicketVC: BottomSheetController {
     }
     
     @IBAction func cancel_btnAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            print("Bottom sheet dismissed on cancel btn press")
+        })
     }
     
     @IBAction func submit_btnAction(_ sender: Any) {

@@ -18,7 +18,9 @@ class PrivacyViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //MARK: - Hide Navigation Bar
-        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+       
     }
     
 

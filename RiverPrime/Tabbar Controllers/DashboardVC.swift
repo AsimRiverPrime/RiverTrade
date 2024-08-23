@@ -363,7 +363,7 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
         switch createAccountInfo {
         case .createNew:
             print("Create new")
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
 //            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
 //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
@@ -371,11 +371,11 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
             break
         case .unarchive:
             print("Unarchive")
-            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .dashboard) as! UnarchiveAccountTypeVC
+            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         case .notification:
-            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
+            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         }
@@ -386,7 +386,7 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
 //MARK: - TradeVC cell Taps is handle here.
 extension DashboardVC: TradeDetailTapDelegate {
     func tradeDetailTap(indexPath: IndexPath, details: TradeDetails) {
-        let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .dashboard) as! TradeDetalVC
+        let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
        
         vc.tradeDetails = details
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)

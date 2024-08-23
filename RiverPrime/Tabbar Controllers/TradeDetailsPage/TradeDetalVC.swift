@@ -21,6 +21,9 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     
+    @IBOutlet weak var lbl_sellBtn: UILabel!
+    @IBOutlet weak var lbl_BuyBtn: UILabel!
+    
     var tradeDetails: TradeDetails?
     var getLiveCandelStick = OhlcCalculator()
     
@@ -37,6 +40,14 @@ class TradeDetalVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
+    
+//    func buttonUnderline () {
+//        let frame = CGRect(x: 0, y: button.frame.size.height, width: button.frame.size.width, height: 2)
+//        let borderBottom = UIView(frame: frame)
+//        borderBottom.backgroundColor= UIColor.white
+//        button.addSubview(borderBottom)
+//    }
+    
     @objc func handleTradesUpdated() {
         updateUI()
         // Update the UI with the latest data for the selected symbol
@@ -64,8 +75,6 @@ class TradeDetalVC: UIViewController {
             
             // Use update to add this candlestick incrementally
             series?.update(bar: dataPoint)
-            //            candlestickData.append(dataPoint)
-            //            series.setData(data: [dataPoint])
             
         }
     }
@@ -78,6 +87,9 @@ class TradeDetalVC: UIViewController {
         if let tradeDetails = tradeDetails {
             // Assuming TradeDetail has properties you want to display
             detailsLabel.text = "Ask: \(tradeDetails.ask), Bid :\(tradeDetails.bid), \n Time: \(tradeDetails.datetime)"
+            
+            self.lbl_BuyBtn.text = "\(tradeDetails.bid)"
+            self.lbl_sellBtn.text = "\(tradeDetails.ask)"
         }
         
     }
@@ -118,13 +130,10 @@ class TradeDetalVC: UIViewController {
             wickDownColor: "rgba(204, 13, 13, 1)"
         )
         
-        
         let series = chartView.addCandlestickSeries(options: options)
         series.setData(data: candlestickData)
         self.series = series
-        
     }
-    
     
 }
 extension TradeDetalVC: WebSocketDelegate {

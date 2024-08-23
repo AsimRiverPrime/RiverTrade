@@ -130,7 +130,13 @@ extension PhoneVerifyVC:  SendOTPDelegate {
 extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
     func updateNumberSuccess(response: Any) {
         print("this is the update phone number success response: \(response)")
-        oodoService.sendOTP(type: "phone", email: "", phone: self.tf_numberField.text ?? "")
+        
+        var number = self.tf_numberField.text!
+//        number = number.trimmingCharacters(in: .whitespaces)
+//        print("\n number is: \(number)")
+        number = number.replacingOccurrences(of: " ", with: "")
+        print("number is: \(number)")
+        oodoService.sendOTP(type: "phone", email: "", phone: number)
     }
     
     func updateNumberFailure(error: any Error) {

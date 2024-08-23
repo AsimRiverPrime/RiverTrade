@@ -33,7 +33,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     }
     
     @IBAction func continusBtnAction(_ sender: UIButton) {
-        let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .dashboard) as! CreateAccountTypeVC
+        let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .bottomSheetPopups) as! CreateAccountTypeVC
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
         vc.preferredSheetSizing = .large
         vc.getSelectedAccountType = getSelectedAccountType
