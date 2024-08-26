@@ -12,7 +12,7 @@ import GoogleSignIn
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 //        Thread.sleep(forTimeInterval: 1.0)
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                   print("user is not register")
 //               }
         
-        
+//        gotoSplashVC()
         return true
     }
     
@@ -57,7 +57,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
-
+    func gotoSplashVC() {
+        print("this is splash screen")
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let splashVC = SplashVC()
+        
+        let splashNav = UINavigationController(rootViewController: splashVC)
+        splashNav.isNavigationBarHidden = true
+        self.window?.rootViewController = splashVC
+        self.window?.makeKeyAndVisible()
+        
+    }
+    func decideRootViewController() {
+    }
 }
 

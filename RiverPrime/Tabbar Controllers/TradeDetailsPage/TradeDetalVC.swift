@@ -189,6 +189,7 @@ extension TradeDetalVC: WebSocketDelegate {
     }
     
     func handleHistoryWebSocketMessage(_ string: String) {
+        print("\n this is history json: \(string)")
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)

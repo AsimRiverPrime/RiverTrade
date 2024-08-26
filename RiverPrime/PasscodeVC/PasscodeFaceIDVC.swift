@@ -20,7 +20,7 @@ class PasscodeFaceIDVC: UIViewController {
     @IBOutlet weak var btn_forgot: UIButton!
     
     var enteredPasscode = ""
-  //  var iscodeSelected : Bool = false
+    //  var iscodeSelected : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,9 @@ class PasscodeFaceIDVC: UIViewController {
     }
     
     @IBAction func forgot_btnAction(_ sender: Any) {
+        if let vc = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotPasscodeVC") {
+            self.navigate(to: vc)
+        }
     }
     
     @IBAction func faceID_action(_ sender: Any) {
@@ -53,19 +56,21 @@ class PasscodeFaceIDVC: UIViewController {
         updateFaceIDButtonAction()
         // Update the dot color for the entered digit
         updateDots()
-        
+        print("/nPasscode number is.\(enteredPasscode)")
         // Check if the passcode length is 4 digits
-        if enteredPasscode.count == 4 {
-            // Check if a passcode is already saved in UserDefaults
-            if UserDefaults.standard.string(forKey: "correctPasscode") == nil {
-                // Save the new passcode
-                savePasscode(enteredPasscode)
-                print("Passcode saved successfully.")
-                // Optionally, navigate to the main screen or provide feedback
-                self.navigateToMainScreen()
-            } else {
-                // Verify the entered passcode
-                verifyPasscode()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if self.enteredPasscode.count == 4 {
+                // Check if a passcode is already saved in UserDefaults
+                if UserDefaults.standard.string(forKey: "correctPasscode") == nil {
+                    // Save the new passcode
+                    self.savePasscode(self.enteredPasscode)
+                    print("Passcode saved successfully.")
+                    // Optionally, navigate to the main screen or provide feedback
+                    // self.navigateToMainScreen()
+                } else {
+                    // Verify the entered passcode
+                    self.verifyPasscode()
+                }
             }
         }
     }
@@ -82,7 +87,7 @@ class PasscodeFaceIDVC: UIViewController {
         if enteredPasscode.isEmpty {
             self.btn_faceID.setImage(UIImage(systemName: "faceid"), for: .normal)
         } else {
-         
+            
             self.btn_faceID.setImage(UIImage(systemName: "arrow.left"), for: .normal)
         }
     }
@@ -110,7 +115,7 @@ class PasscodeFaceIDVC: UIViewController {
                 enteredPasscode = ""
                 resetDots()
                 updateFaceIDButtonAction()
-                //                showAlert("Passcode is inncorrect")
+                
                 Alert.showAlert(withMessage: "Passcode is incorrect", andTitle: "Invalid", on: self)
             }
         } else {
@@ -153,13 +158,13 @@ extension PasscodeFaceIDVC {
                         self.navigateToMainScreen()
                     } else {
                         // Handle the error, maybe show an alert
-                        self.showAlert("Face ID authentication failed.")
+                        Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
                     }
                 }
             }
         } else {
             // Face ID not available, handle accordingly
-            self.showAlert("Face ID is not available on this device.")
+            Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
         }
     }
     
@@ -184,27 +189,31 @@ extension PasscodeFaceIDVC {
                             self.navigateToMainScreen()
                         } else {
                             // Handle the error, maybe show an alert
-                            self.showAlert("Face ID authentication failed.")
+                            
+                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
                         }
                     }
                 }
             } else {
                 // Face ID not available, handle accordingly
-                self.showAlert("Face ID is not available on this device.")
+                
+                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
             }
         }
     }
+    
     func navigateToMainScreen() {
         // Implement the navigation to the main screen
         print("Go to the desire screen")
-        if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+                self.navigate(to: dashboardVC)
+            }
         }
     }
-    
-    func showAlert(_ message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
+    //    func showAlert(_ message: String) {
+    //        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    //        alert.addAction(UIAlertAction(title: "OK", style: .default))
+    //        present(alert, animated: true)
+    //    }
 }

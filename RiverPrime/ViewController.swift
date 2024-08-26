@@ -41,6 +41,11 @@ class ViewController: BaseViewController {
         if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") {
             self.navigate(to: signUp)
         }
+        
+//        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC") {
+//            self.navigate(to: signUp)
+//        }
+        
 //        if let vc = instantiateViewController(fromStoryboard: "BottomSheetPopups", withIdentifier: "TradeDetalVC"){
 //            self.navigate(to: vc)
 //        }

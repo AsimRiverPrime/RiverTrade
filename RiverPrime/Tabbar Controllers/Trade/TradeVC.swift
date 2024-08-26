@@ -34,7 +34,7 @@ class TradeVC: UIView {
     
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
-    var tradeDetailVC = TradeDetalVC()
+    var tradeDetailApi = WebStockTradeDetail()
 //    var webSocket: WebSocket!
     
 //    var trades: [String: TradeDetails] = [:]
@@ -61,6 +61,7 @@ class TradeVC: UIView {
     }
     
     @objc func handleTradesUpdated() {
+       
            DispatchQueue.main.async {
                self.tblView.reloadData()
            }
@@ -153,8 +154,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
                       let symbol = symbols[indexPath.row]
                       if let tradeDetail = WebSocketManager.shared.trades[symbol] {
                        cell.configure(with: tradeDetail)
-//                          tradeDetailVC.tradeDetails = tradeDetail
-//                          tradeDetailVC.connectHistoryWebSocket()
+                          tradeDetailApi.tradeDetails = tradeDetail
+                          tradeDetailApi.connectHistoryWebSocket()
                    }
             return cell
         }
