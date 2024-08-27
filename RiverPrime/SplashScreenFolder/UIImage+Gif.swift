@@ -41,6 +41,7 @@ extension UIImage {
         
         return UIImage.animatedImageWithSource(source)
     }
+
     
     public class func gif(url: String) -> UIImage? {
         // Validate URL

@@ -55,13 +55,14 @@ class DashboardVC: BaseViewController {
         super.viewDidLoad()
         
         setAccountsButton()
-        
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
 //        self.setNavBar(vc: self, isBackButton: true, isBar: true)
 //        navigationController?.setNavigationBarHidden(true, animated: animated)
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
+       
     }
     
     override func viewDidLayoutSubviews() {

@@ -34,13 +34,15 @@ class TradeVC: UIView {
     
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
-    var tradeDetailApi = WebStockTradeDetail()
+    
+//    var tradeDetailApi = WebSocketDetail()
 //    var webSocket: WebSocket!
     
 //    var trades: [String: TradeDetails] = [:]
+    private let viewModel = TradesViewModel()
     
     public override func awakeFromNib() {
-        WebSocketManager.shared.connect()
+//        WebSocketManager.shared.connect()
         setModel(.init(name: "Favorites"))
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -55,22 +57,27 @@ class TradeVC: UIView {
         tblView.dataSource = self
 //        tblView.reloadData()
         
+        // Bind the ViewModel's data update closure to reload the table view
+                viewModel.onTradesUpdated = { [weak self] in
+                    self?.tblView.reloadData()
+                }
+        
         // Register for notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
         
     }
     
-    @objc func handleTradesUpdated() {
-       
-           DispatchQueue.main.async {
-               self.tblView.reloadData()
-           }
-       }
-       
-       deinit {
-           // Remove observer
-           NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
-       }
+//    @objc func handleTradesUpdated() {
+//       
+//           DispatchQueue.main.async {
+//               self.tblView.reloadData()
+//           }
+//       }
+//       
+//       deinit {
+//           // Remove observer
+//           NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
+//       }
    
     class func getView()->TradeVC {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
@@ -126,7 +133,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         }else if section == 1 {
             return 1
         }else{
-            return WebSocketManager.shared.trades.count
+            return viewModel.numberOfRows() //WebSocketManager.shared.trades.count
         }
     }
     
@@ -150,13 +157,23 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
 //            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
 
-            let symbols = Array(WebSocketManager.shared.trades.keys)
-                      let symbol = symbols[indexPath.row]
-                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
-                       cell.configure(with: tradeDetail)
-                          tradeDetailApi.tradeDetails = tradeDetail
-                          tradeDetailApi.connectHistoryWebSocket()
-                   }
+            let trade = viewModel.trade(at: indexPath)
+            if let chartData = viewModel.symbolData(for: trade.symbol) {
+                   // Update the cell with the symbol's chart data
+                  // cell.detailTextLabel?.text = 
+                print("\n \(trade.bid) - \(chartData.symbol)")
+                print("\n this is chart history data: \t \(chartData)")
+               }
+            
+//            let symbols = Array(WebSocketManager.shared.trades.keys)
+//                      let symbol = symbols[indexPath.row]
+//                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
+//                       cell.configure(with: tradeDetail)
+//                        
+//                   }
+            
+           
+            cell.configure(with: trade)
             return cell
         }
                
@@ -190,126 +207,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         
        }
 }
-//MARK: - Set websocket congituration with binanceAPI.
-/*extension TradeVC: WebSocketDelegate {
-//    func setupWebSocket() {
-//        let url = URL(string: "wss://stream.binance.com:9443/stream?streams=btcusdt@trade/ethusdt@trade/xrpusdt@trade")!
-////        let url = URL(string: "ws://192.168.3.107:8069/websocket")!
-//        var request = URLRequest(url: url)
-//        request.timeoutInterval = 5
-//
-//        socket = WebSocket(request: request)
-//        socket.delegate = self
-//        socket.connect()
-//    }
-    
-    
-    func setupWebSocket() {
-        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
-        var request = URLRequest(url: url)
-             request.timeoutInterval = 5
-     
-        webSocket = WebSocket(request: request)
-        webSocket.delegate = self
-        webSocket.connect()
-    }
-    
-    func sendSubscriptionMessage() {
-        // Define the message dictionary
-        let message: [String: Any] = [
-            "event_name": "subscribe",
-            "data": [
-                "last": 0,
-                "channels": ["price_tick"]
-//                "channels": ["price_chart"]
-            ]
-        ]
 
-        // Convert the dictionary to JSON string
-        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            print("the message is \(jsonString)")
-            webSocket.write(string: jsonString)
-        }
-    }
-    
-    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
-        switch event {
-                case .connected(let headers):
-                    print("WebSocket is connected: \(headers)")
-                    sendSubscriptionMessage() // Send the message once connected
-                case .disconnected(let reason, let code):
-                    print("WebSocket is disconnected: \(reason) with code: \(code)")
-                case .text(let string):
-                    handleWebSocketMessage(string)
-                case .binary(let data):
-                    print("Received data: \(data.count)")
-                case .error(let error):
-                    handleError(error)
-                default:
-                    break
-                }
-    }
-
-    func handleWebSocketMessage(_ string: String) {
-        print("Received JSON string: \(string) \n")
-        
-        if let jsonData = string.data(using: .utf8) {
-            do {
-                // Decode the JSON into a WebSocketResponse
-                let response = try JSONDecoder().decode(WebSocketResponse.self, from: jsonData)
-                
-                // Ensure the message type is what you're expecting (e.g., "tick")
-                guard response.message.type == "tick" else {
-                    print("Unexpected message type: \(response.message.type)")
-                    return
-                }
-                
-                // Process each trade detail
-                for tradeDetail in response.message.payload {
-                    // Store the trade details or update your data model
-                    trades[tradeDetail.symbol] = tradeDetail
-                    
-                    print("Trade details: \(tradeDetail)")
-                }
-               
-                
-                DispatchQueue.main.async {
-                    self.tblView.reloadData()
-                    // self.refreshSection(at: 2)
-                }
-            } catch let error as DecodingError {
-                switch error {
-                case .typeMismatch(let type, let context):
-                    print("Type mismatch error for type \(type): \(context.debugDescription), codingPath: \(context.codingPath)")
-                case .valueNotFound(let type, let context):
-                    print("Value not found error for type \(type): \(context.debugDescription), codingPath: \(context.codingPath)")
-                case .keyNotFound(let key, let context):
-                    print("Key not found error for key \(key): \(context.debugDescription), codingPath: \(context.codingPath)")
-                case .dataCorrupted(let context):
-                    print("Data corrupted error: \(context.debugDescription), codingPath: \(context.codingPath)")
-                default:
-                    print("Decoding error: \(error.localizedDescription)")
-                }
-            } catch {
-                print("Error parsing JSON: \(error.localizedDescription)")
-                print("Error parsing JSON: \(error)\n")
-            }
-        } else {
-            print("Error converting string to Data")
-        }
-    }
-
-    func handleError(_ error: Error?) {
-        if let error = error {
-            print("WebSocket encountered an error: \(error)")
-        }
-    }
-    
-    func closeWebSocket() {
-            webSocket.disconnect()
-        }
-}*/
 //MARK: - Set TableViewTopConstraint.
 extension TradeVC {
     
@@ -351,10 +249,6 @@ extension TradeVC: TradeInfoTapDelegate {
         
         tblView.reloadData()
     }
-}
-
-extension Notification.Name {
-    static let tradesUpdated = Notification.Name("tradesUpdated")
 }
 
     

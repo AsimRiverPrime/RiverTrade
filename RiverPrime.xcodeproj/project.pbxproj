@@ -76,6 +76,7 @@
 		31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */; };
 		31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */; };
 		31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */; };
+		31CB9D532C7D913800B293ED /* TradesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CB9D522C7D913800B293ED /* TradesViewModel.swift */; };
 		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
 		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
 		31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262052C3BECDE00FC6651 /* ViewController.swift */; };
@@ -245,6 +246,7 @@
 		31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsTableViewCell.swift; sourceTree = "<group>"; };
 		31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopNewsTableViewCell.xib; sourceTree = "<group>"; };
 		31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeDetalVC.swift; sourceTree = "<group>"; };
+		31CB9D522C7D913800B293ED /* TradesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesViewModel.swift; sourceTree = "<group>"; };
 		31D261FE2C3BECDE00FC6651 /* RiverPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiverPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31D262032C3BECDE00FC6651 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 			children = (
 				318257472C75C7F000723A50 /* WebSocketManager.swift */,
 				31F29B392C7CB5D800BBB126 /* WebStockTradeDetail.swift */,
+				31CB9D522C7D913800B293ED /* TradesViewModel.swift */,
 			);
 			path = WebStockManager;
 			sourceTree = "<group>";
@@ -1543,6 +1546,7 @@
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */,
 				FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */,
+				31CB9D532C7D913800B293ED /* TradesViewModel.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
 				FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */,
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
