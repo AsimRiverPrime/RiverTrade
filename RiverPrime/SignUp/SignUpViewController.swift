@@ -49,6 +49,7 @@ class SignUpViewController: BaseViewController{
     
     var viewModel = SignViewModel()
     var odooClientService = OdooClient()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()

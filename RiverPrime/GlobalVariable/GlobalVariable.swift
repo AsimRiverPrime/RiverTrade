@@ -18,6 +18,7 @@ class GlobalVariable: NSObject {
     var isAccountCreated = Bool()
     
     var resultTopButtonType = String()
+    var isProcessingSymbol: Bool = false
     
     public func showBarBackButton(vc: UIViewController) {
        

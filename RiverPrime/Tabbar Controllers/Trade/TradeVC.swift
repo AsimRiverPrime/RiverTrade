@@ -25,6 +25,7 @@ protocol TradeDetailTapDelegate: AnyObject {
 
 class TradeVC: UIView {
     
+    
     @IBOutlet weak var tblView: UITableView!
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
@@ -35,50 +36,36 @@ class TradeVC: UIView {
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
     
-//    var tradeDetailApi = WebSocketDetail()
-//    var webSocket: WebSocket!
+     let viewModel = TradesViewModel()
     
-//    var trades: [String: TradeDetails] = [:]
-    private let viewModel = TradesViewModel()
+    var processedSymbols: [String] = [] // Your symbols array
+       var loadedSymbols: Set<String> = []
     
     public override func awakeFromNib() {
-//        WebSocketManager.shared.connect()
+        //        WebSocketManager.shared.connect()
+        //        viewModel.webSocketManager.connecttradeWebSocket()
+        //      viewModel.webSocketManager.connectHistoryWebSocket()
+        viewModel.webSocketManager.connectAllWebSockets()
         setModel(.init(name: "Favorites"))
         
         //MARK: - Handle tableview constraints according to the device logical height.
-//        setTableViewLayoutConstraints()
+        //        setTableViewLayoutConstraints()
         setTableViewLayoutTopConstraints()
         
         tblView.registerCells([
             AccountTableViewCell.self,TradeTVC.self, TradeTableViewCell.self
-            ])
-      
+        ])
+        
         tblView.delegate = self
         tblView.dataSource = self
-//        tblView.reloadData()
+        //        tblView.reloadData()
         
         // Bind the ViewModel's data update closure to reload the table view
-                viewModel.onTradesUpdated = { [weak self] in
-                    self?.tblView.reloadData()
-                }
-        
-        // Register for notifications
-//        NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
-        
+        viewModel.onTradesUpdated = { [weak self] in
+            self?.tblView.reloadData()
+        }
     }
     
-//    @objc func handleTradesUpdated() {
-//       
-//           DispatchQueue.main.async {
-//               self.tblView.reloadData()
-//           }
-//       }
-//       
-//       deinit {
-//           // Remove observer
-//           NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
-//       }
-   
     class func getView()->TradeVC {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
     }
@@ -89,9 +76,10 @@ class TradeVC: UIView {
             delay: 0.04,
             animations: {
                 self.alpha = 0
-        }, completion: { (complete) in
-            self.removeFromSuperview()
-        })
+            }, completion: { (complete) in
+                self.removeFromSuperview()
+                self.viewModel.webSocketManager.closeAllWebSockets()
+            })
     }
     
 }
@@ -103,11 +91,11 @@ extension TradeVC {
         model.removeAll()
         
         if tradeInfo.name == "Favorites" {
-//            model.append(TradeVCModel(id: 0, title: "BTC", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-//            model.append(TradeVCModel(id: 1, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-//            model.append(TradeVCModel(id: 2, title: "APPL", detail: "Apple Inc.", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-//            model.append(TradeVCModel(id: 3, title: "EUR/USD", detail: "Euro vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-//            model.append(TradeVCModel(id: 4, title: "GBP/USD", detail: "Great Britain vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+            //            model.append(TradeVCModel(id: 0, title: "BTC", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+            //            model.append(TradeVCModel(id: 1, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+            //            model.append(TradeVCModel(id: 2, title: "APPL", detail: "Apple Inc.", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+            //            model.append(TradeVCModel(id: 3, title: "EUR/USD", detail: "Euro vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+            //            model.append(TradeVCModel(id: 4, title: "GBP/USD", detail: "Great Britain vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
             
         } else {
             model.append(TradeVCModel(id: 0, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
@@ -124,7 +112,7 @@ extension TradeVC {
 extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 3
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -141,7 +129,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
             cell.setHeaderUI(.trade)
-//            cell.delegate = self
+            //            cell.delegate = self
             return cell
             
         } else if indexPath.section == 1 {
@@ -155,37 +143,70 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             
-//            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
-
+            //            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
+            
             let trade = viewModel.trade(at: indexPath)
-            if let chartData = viewModel.symbolData(for: trade.symbol) {
-                   // Update the cell with the symbol's chart data
-                  // cell.detailTextLabel?.text = 
-                print("\n \(trade.bid) - \(chartData.symbol)")
-                print("\n this is chart history data: \t \(chartData)")
-               }
             
-//            let symbols = Array(WebSocketManager.shared.trades.keys)
-//                      let symbol = symbols[indexPath.row]
-//                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
-//                       cell.configure(with: tradeDetail)
-//                        
-//                   }
+           // if let chartData = viewModel.symbolData(for: trade.symbol) {
+                // Update the cell with the symbol's chart data
+                // cell.detailTextLabel?.text =
+             //   print("\n symbol: \(chartData.symbol) \t count: \(chartData.chartData.count) \t close: \(chartData.chartData[indexPath.row].close)")
+                
             
-           
+            
+            //            let symbols = Array(WebSocketManager.shared.trades.keys)
+            //                      let symbol = symbols[indexPath.row]
+            //                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
+            //                       cell.configure(with: tradeDetail)
+            //
+            //                   }
+            
+            
             cell.configure(with: trade)
             return cell
         }
-               
     }
     
+        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+           
+         
+           
+        
+    }
+    func processSymbolsSequentially(symbols: [String], currentIndex: Int = 0) {
+        // Base case: If the index exceeds the symbols array, stop processing
+        guard currentIndex < symbols.count else {
+            print("All symbols processed.")
+            return
+        }
+        
+        let currentSymbol = symbols[currentIndex]
+        print("Processing symbol: \(currentSymbol)")
+
+        // Send WebSocket request for the current symbol
+        WebSocketManager.shared.sendSubscriptionHistoryMessage(for: currentSymbol)
+        
+        // Handle the response and then recursively call the next symbol
+        NotificationCenter.default.addObserver(forName: .symbolDataUpdated, object: nil, queue: .main) { [weak self] notification in
+            guard let strongSelf = self, let response = notification.object as? SymbolChartData else { return }
+
+            // Check if the response is for the current symbol
+            if response.symbol == currentSymbol {
+                // Update the UI or data structure
+          //      strongSelf.updateChart(with: response)
+                print("\n symbol: \(response.symbol) \t and chart response: \(response.chartData)")
+                // Process the next symbol in the list
+                strongSelf.processSymbolsSequentially(symbols: symbols, currentIndex: currentIndex + 1)
+            }
+        }
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
-         
+            
             let selectedSymbol = Array(WebSocketManager.shared.trades.keys)[indexPath.row]
-                   if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
-                       delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
-                   }
+            if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
+                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
+            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -202,10 +223,10 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func refreshSection(at section: Int) {
-           let indexSet = IndexSet(integer: section)
-           tblView.reloadSections(indexSet, with: .automatic)
+        let indexSet = IndexSet(integer: section)
+        tblView.reloadSections(indexSet, with: .automatic)
         
-       }
+    }
 }
 
 //MARK: - Set TableViewTopConstraint.
@@ -244,12 +265,12 @@ extension TradeVC {
 extension TradeVC: TradeInfoTapDelegate {
     
     func tradeInfoTap(_ tradeInfo: TradeInfo) {
-
+        
         setModel(tradeInfo)
         
         tblView.reloadData()
     }
 }
 
-    
+
 
