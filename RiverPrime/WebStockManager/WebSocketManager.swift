@@ -43,11 +43,15 @@ class WebSocketManager: WebSocketDelegate {
     private let tradeQueue = DispatchQueue(label: "com.riverPrime.tradeWebSocketQueue", qos: .background)
 
     func connectAllWebSockets() {
-       
-        tradeQueue.async {
+//        DispatchQueue.main
+        tradeQueue.async { [weak self] in
+            guard let self = self else {return}
             self.connecttradeWebSocket()
+            
         }
-        historyQueue.async {
+//        DispatchQueue.main.async
+         historyQueue.async { [weak self] in
+            guard let self = self else {return}
             self.connectHistoryWebSocket()
         }
 
@@ -88,14 +92,14 @@ class WebSocketManager: WebSocketDelegate {
         if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
            let jsonString = String(data: jsonData, encoding: .utf8) {
             print("\n json String sent to history WebSocket. \(jsonString) ")
-            historyQueue.async {
+//            historyQueue.async {
                 if let historyWebSocket = self.historyWebSocket {
                     historyWebSocket.write(string: jsonString)
                     print("Message sent to history WebSocket.")
                 } else {
                     print("History WebSocket is not connected.")
                 }
-            }
+//            }
         }
     }
    
@@ -126,7 +130,7 @@ class WebSocketManager: WebSocketDelegate {
 
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
         if client === historyWebSocket {
-            handleHistoryWebSocketEvent(event)
+             handleHistoryWebSocketEvent(event)
         } else if client === tradeWebSocket {
             handletradeWebSocketEvent(event)
         }
@@ -210,7 +214,9 @@ class WebSocketManager: WebSocketDelegate {
                     print("Unexpected message type: \(response.message.type)")
                     return
                 }
+                
                 for tradeDetail in response.message.payload {
+//                    self.getSymbolHistory(tradeDetail)
                     WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
                     print("Trade price tick details: \(trades[tradeDetail.symbol])")
                 }
@@ -222,6 +228,10 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
 
+    func getSymbolHistory(_ trade: TradeDetails){
+        self.sendSubscriptionHistoryMessage(for: trade.symbol)
+    }
+    
     func handleError(_ error: Error?) {
         if let error = error {
             print("WebSocket encountered an error: \(error)")

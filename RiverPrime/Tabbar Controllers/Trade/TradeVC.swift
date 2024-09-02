@@ -8,6 +8,8 @@
 import UIKit
 import Starscream
 import Alamofire
+import AEXML
+
 
 struct TradeVCModel {
     var id = Int()
@@ -35,6 +37,8 @@ class TradeVC: UIView {
     
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
+   
+    var odooClientService = OdooClient()
     
      let viewModel = TradesViewModel()
     
@@ -42,10 +46,12 @@ class TradeVC: UIView {
        var loadedSymbols: Set<String> = []
     
     public override func awakeFromNib() {
-        //        WebSocketManager.shared.connect()
-        //        viewModel.webSocketManager.connecttradeWebSocket()
-        //      viewModel.webSocketManager.connectHistoryWebSocket()
+        odooClientService.sendSymbolDetailRequest()
+        odooClientService.tradeSymbolDetailDelegate = self
+        
+        
         viewModel.webSocketManager.connectAllWebSockets()
+        
         setModel(.init(name: "Favorites"))
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -167,39 +173,6 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-        func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-           
-         
-           
-        
-    }
-    func processSymbolsSequentially(symbols: [String], currentIndex: Int = 0) {
-        // Base case: If the index exceeds the symbols array, stop processing
-        guard currentIndex < symbols.count else {
-            print("All symbols processed.")
-            return
-        }
-        
-        let currentSymbol = symbols[currentIndex]
-        print("Processing symbol: \(currentSymbol)")
-
-        // Send WebSocket request for the current symbol
-        WebSocketManager.shared.sendSubscriptionHistoryMessage(for: currentSymbol)
-        
-        // Handle the response and then recursively call the next symbol
-        NotificationCenter.default.addObserver(forName: .symbolDataUpdated, object: nil, queue: .main) { [weak self] notification in
-            guard let strongSelf = self, let response = notification.object as? SymbolChartData else { return }
-
-            // Check if the response is for the current symbol
-            if response.symbol == currentSymbol {
-                // Update the UI or data structure
-          //      strongSelf.updateChart(with: response)
-                print("\n symbol: \(response.symbol) \t and chart response: \(response.chartData)")
-                // Process the next symbol in the list
-                strongSelf.processSymbolsSequentially(symbols: symbols, currentIndex: currentIndex + 1)
-            }
-        }
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
             
@@ -228,6 +201,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         
     }
 }
+
 
 //MARK: - Set TableViewTopConstraint.
 extension TradeVC {
@@ -272,5 +246,33 @@ extension TradeVC: TradeInfoTapDelegate {
     }
 }
 
+extension TradeVC: TradeSymbolDetailDelegate {
+    func tradeSymbolDetailSuccess(response: Any) {
+        print("\n this is the trade symbol detail response: \(response) ")
+//        let parsedSymbols = parseXMLData(xmlString: response as! String)
+//        print("model value : \(parsedSymbols)")
+      
+    }
+    
+    func tradeSymbolDetailFailure(error: any Error) {
+        print("\n the trade symbol detail Error response: \(error) ")
+    }
+    
+    
+}
+
+struct SymbolData {
+    let id: Int
+    let name: String
+    let description: String
+    let icon_url: String
+    let volumeMin: Int
+    let volumeMax: Int
+    let volumeStep: Int
+    let contractSize: Int
+    let displayName: String
+    let sector: String
+    let digits: Int
+}
 
 

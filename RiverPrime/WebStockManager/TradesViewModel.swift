@@ -86,14 +86,7 @@ class TradesViewModel {
         }else{
             print("the count is finished")
         }
-//        let symbol = symbolQueue.removeFirst()
-//        
-//        print("\n the symbol for call history api: \(symbol)")
-//        // Process the symbol via WebSocket
-//        
-//        webSocketManager.sendSubscriptionHistoryMessage(for: symbol)
 
-        // Flag the symbol as processed
       
     }
     

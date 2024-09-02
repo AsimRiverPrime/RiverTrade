@@ -33,6 +33,10 @@ protocol CreateUserAccountTypeDelegate: AnyObject {
     func createAccountFailure(error: Error)
 }
 
+protocol TradeSymbolDetailDelegate: AnyObject {
+    func tradeSymbolDetailSuccess(response: Any)
+    func tradeSymbolDetailFailure(error: Error)
+}
 class OdooClient {
     
 //    private let baseURL = "http://192.168.3.107:8069/xmlrpc/2/"
@@ -75,6 +79,7 @@ class OdooClient {
     weak var verifyDelegate: VerifyOTPDelegate?
     weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
     weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
+    weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
     
     //MARK: - Verify OTP Method
     
@@ -282,6 +287,56 @@ class OdooClient {
             }
     }
     
+    //MARK: - information for trade Symbol detail
+    
+    func sendSymbolDetailRequest() {
+        let methodName = "execute_kw"
+       
+      
+        // Define the domain filter and parameters
+        let domainFilter: [[Any]] = [[
+            "mobile_available", "=" , true
+        ]]
+        
+        let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits"]]
+        
+        let params: [Any] = [
+            dataBaseName,      // Database name
+            uid,               // UID
+            dbPassword,        // Password
+            "mt.symbol",       // Model name
+            "search_read",    // Method name
+            [domainFilter],   // Domain (search criteria)
+            fieldRetrieve             // Fields to retrieve
+        ]
+        
+        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+            print("Error creating XML payload")
+            return
+        }
+        
+        print(String(data: payload, encoding: .utf8)!)
+        
+        var urlRequest = URLRequest(url: URL(string: objectURL)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = payload
+        
+        AF.request(urlRequest)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        print("Response for symbol detail XML: \(responseString)")
+                        self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: responseString)
+                    }
+                case .failure(let error):
+                    print("Trade symbol detail response Error: \(error)")
+                    self.tradeSymbolDetailDelegate?.tradeSymbolDetailFailure(error: error)
+                }
+            }
+    }
     //MARK: - Create request (Leads) Method for records
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true

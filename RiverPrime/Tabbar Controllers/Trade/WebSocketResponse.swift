@@ -25,6 +25,14 @@ struct TradeDetails: Codable {
 }
 
 
+//MARKS: - history chart data
+struct ChartHistoryProgress: Codable {
+    let close: Double?
+    let datetime: Int?
+}
+
+
+
 struct ChartData: Codable {
     let close: Double
     let datetime: Int
