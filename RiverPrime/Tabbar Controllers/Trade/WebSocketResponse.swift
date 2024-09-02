@@ -36,7 +36,7 @@ struct ChartData: Codable {
 // Model for the main structure
 struct SymbolChartData: Codable {
     let symbol: String
-    let chartData: [ChartData]
+    var chartData: [ChartData]
 
     // Custom coding keys to match the JSON keys
     enum CodingKeys: String, CodingKey {
