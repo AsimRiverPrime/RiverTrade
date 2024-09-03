@@ -34,7 +34,7 @@ protocol CreateUserAccountTypeDelegate: AnyObject {
 }
 
 protocol TradeSymbolDetailDelegate: AnyObject {
-    func tradeSymbolDetailSuccess(response: Any)
+    func tradeSymbolDetailSuccess(response: String)
     func tradeSymbolDetailFailure(error: Error)
 }
 class OdooClient {
@@ -295,10 +295,10 @@ class OdooClient {
       
         // Define the domain filter and parameters
         let domainFilter: [[Any]] = [[
-            "mobile_available", "=" , true
+            "mobile_available", "=" , "True"
         ]]
         
-        let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits"]]
+        let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available"]]
         
         let params: [Any] = [
             dataBaseName,      // Database name

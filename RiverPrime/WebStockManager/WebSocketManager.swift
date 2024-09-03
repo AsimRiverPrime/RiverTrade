@@ -58,7 +58,8 @@ class WebSocketManager: WebSocketDelegate {
     }
 
     private func connectHistoryWebSocket() {
-        let url = URL(string: "wss://mbe.riverprime.com/websocket")!
+//        let url = URL(string: "wss://mbe.riverprime.com/websocket")!
+        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -68,7 +69,8 @@ class WebSocketManager: WebSocketDelegate {
     }
 
     private func connecttradeWebSocket() {
-        let url = URL(string: "wss://mbe.riverprime.com/websocket")!
+//        let url = URL(string: "wss://mbe.riverprime.com/websocket")!
+        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -110,7 +112,7 @@ class WebSocketManager: WebSocketDelegate {
                 "event_name": "subscribe",
                 "data": [
                     "last": 0,
-                    "channels": ["price_tick"]
+                    "channels": ["price_feed"]
                 ]
             ]
            

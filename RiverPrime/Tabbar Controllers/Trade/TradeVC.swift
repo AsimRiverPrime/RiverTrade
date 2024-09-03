@@ -9,6 +9,7 @@ import UIKit
 import Starscream
 import Alamofire
 import AEXML
+import Foundation
 
 
 struct TradeVCModel {
@@ -43,7 +44,7 @@ class TradeVC: UIView {
      let viewModel = TradesViewModel()
     
     var processedSymbols: [String] = [] // Your symbols array
-       var loadedSymbols: Set<String> = []
+    var symbolDataArray: [SymbolData] = []
     
     public override func awakeFromNib() {
         odooClientService.sendSymbolDetailRequest()
@@ -52,7 +53,7 @@ class TradeVC: UIView {
         
         viewModel.webSocketManager.connectAllWebSockets()
         
-        setModel(.init(name: "Favorites"))
+//        setModel(.init(name: "Favorites"))
         
         //MARK: - Handle tableview constraints according to the device logical height.
         //        setTableViewLayoutConstraints()
@@ -92,24 +93,24 @@ class TradeVC: UIView {
 
 extension TradeVC {
     
-    private func setModel(_ tradeInfo: TradeInfo) {
+    private func setModel(_ tradeInfo: SymbolData) {
         
-        model.removeAll()
+//        model.removeAll()
         
-        if tradeInfo.name == "Favorites" {
-            //            model.append(TradeVCModel(id: 0, title: "BTC", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-            //            model.append(TradeVCModel(id: 1, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-            //            model.append(TradeVCModel(id: 2, title: "APPL", detail: "Apple Inc.", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-            //            model.append(TradeVCModel(id: 3, title: "EUR/USD", detail: "Euro vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-            //            model.append(TradeVCModel(id: 4, title: "GBP/USD", detail: "Great Britain vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-            
-        } else {
-            model.append(TradeVCModel(id: 0, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-            model.append(TradeVCModel(id: 1, title: "EUR/USD", detail: "Euro vs US Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-            model.append(TradeVCModel(id: 2, title: "GBP/USD", detail: "Great Britain vs US Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-            model.append(TradeVCModel(id: 3, title: "EUR/AUD", detail: "Euro vs Australian Dolar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
-            model.append(TradeVCModel(id: 4, title: "EUR/CAD", detail: "Euro vs US Canadian Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
-        }
+//        if tradeInfo.sector == "Favorites" {
+//            //            model.append(TradeVCModel(id: 0, title: "BTC", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//            //            model.append(TradeVCModel(id: 1, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+//            //            model.append(TradeVCModel(id: 2, title: "APPL", detail: "Apple Inc.", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//            //            model.append(TradeVCModel(id: 3, title: "EUR/USD", detail: "Euro vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+//            //            model.append(TradeVCModel(id: 4, title: "GBP/USD", detail: "Great Britain vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//            
+//        } else {
+//            model.append(TradeVCModel(id: 0, title: "XAU/USD", detail: "Bitcoin vs Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//            model.append(TradeVCModel(id: 1, title: "EUR/USD", detail: "Euro vs US Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+//            model.append(TradeVCModel(id: 2, title: "GBP/USD", detail: "Great Britain vs US Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//            model.append(TradeVCModel(id: 3, title: "EUR/AUD", detail: "Euro vs Australian Dolar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: false))
+//            model.append(TradeVCModel(id: 4, title: "EUR/CAD", detail: "Euro vs US Canadian Dollar", image: "", totalNumber: 1234.12, percentage: 2.3, isPositive: true))
+//        }
         
     }
     
@@ -141,6 +142,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradeTVC.self, for: indexPath)
             cell.delegate = self
+            cell.config(symbolDataArray)
             cell.backgroundColor = .clear
             
             return cell
@@ -152,23 +154,15 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             //            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
             
             let trade = viewModel.trade(at: indexPath)
+      
+            var symbolDataObj: SymbolData?
             
-           // if let chartData = viewModel.symbolData(for: trade.symbol) {
-                // Update the cell with the symbol's chart data
-                // cell.detailTextLabel?.text =
-             //   print("\n symbol: \(chartData.symbol) \t count: \(chartData.chartData.count) \t close: \(chartData.chartData[indexPath.row].close)")
-                
+            if let obj = symbolDataArray.first(where: {$0.name == trade.symbol}) {
+                symbolDataObj = obj
+                print("\(obj.icon_url)")
+            }
             
-            
-            //            let symbols = Array(WebSocketManager.shared.trades.keys)
-            //                      let symbol = symbols[indexPath.row]
-            //                      if let tradeDetail = WebSocketManager.shared.trades[symbol] {
-            //                       cell.configure(with: tradeDetail)
-            //
-            //                   }
-            
-            
-            cell.configure(with: trade)
+            cell.configure(with: trade , symbolDataObj: symbolDataObj)
             return cell
         }
     }
@@ -238,7 +232,7 @@ extension TradeVC {
 
 extension TradeVC: TradeInfoTapDelegate {
     
-    func tradeInfoTap(_ tradeInfo: TradeInfo) {
+    func tradeInfoTap(_ tradeInfo: SymbolData) {
         
         setModel(tradeInfo)
         
@@ -247,32 +241,86 @@ extension TradeVC: TradeInfoTapDelegate {
 }
 
 extension TradeVC: TradeSymbolDetailDelegate {
-    func tradeSymbolDetailSuccess(response: Any) {
+    func tradeSymbolDetailSuccess(response: String) {
         print("\n this is the trade symbol detail response: \(response) ")
-//        let parsedSymbols = parseXMLData(xmlString: response as! String)
-//        print("model value : \(parsedSymbols)")
-      
+        convertXMLIntoJson(response)
     }
     
     func tradeSymbolDetailFailure(error: any Error) {
         print("\n the trade symbol detail Error response: \(error) ")
     }
     
-    
+    func convertXMLIntoJson(_ xmlString: String) {
+        
+        do {
+            let xmlDoc = try AEXMLDocument(xml: xmlString)
+
+            if let xmlDocFile = xmlDoc.root["params"]["param"]["value"]["array"]["data"]["value"].all {
+                
+                
+                for param in xmlDocFile {
+                    if let structElement = param["struct"].first {
+                        var parsedData: [String: Any] = [:]
+                        for member in structElement["member"].all ?? [] {
+                            let name = member["name"].value ?? ""
+                            let value = member["value"].children.first?.value ?? ""
+                            parsedData[name] = value
+                        }
+                        
+                        if let symbolId = parsedData["id"] as? String, let symbolName = parsedData["name"] as? String,
+                            let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
+                            let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
+                            let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
+                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
+                         
+                            self.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: symbolIcon , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
+                        }
+                           
+                        print("symbol data array : \(self.symbolDataArray.count)")
+                       
+                        print("\n the parsed value is :\(parsedData)")
+                    }
+                }
+                self.tblView.reloadData()
+            }
+        } catch {
+            print("Failed to parse XML: \(error.localizedDescription)")
+        }
+
+    }
+
 }
 
 struct SymbolData {
-    let id: Int
+    let id: String
     let name: String
     let description: String
     let icon_url: String
-    let volumeMin: Int
-    let volumeMax: Int
-    let volumeStep: Int
-    let contractSize: Int
+    let volumeMin: String
+    let volumeMax: String
+    let volumeStep: String
+    let contractSize: String
     let displayName: String
     let sector: String
-    let digits: Int
+    let digits: String
+    let mobile_available: String
+    
+    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, mobile_available: String) {
+        self.id = id
+        self.name = name
+        self.description = description
+        self.icon_url = icon_url
+        self.volumeMin = volumeMin
+        self.volumeMax = volumeMax
+        self.volumeStep = volumeStep
+        self.contractSize = contractSize
+        self.displayName = displayName
+        self.sector = sector
+        self.digits = digits
+        self.mobile_available = mobile_available
+        
+    }
+    
 }
 
 
