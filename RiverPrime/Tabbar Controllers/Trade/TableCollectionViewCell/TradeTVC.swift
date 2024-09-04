@@ -77,7 +77,7 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         }else{
             cell.selectedColorView.isHidden = true
         }
-        if indexPath.row == model.count-1 {
+        if indexPath.row == symbolDataSector.count-1 {
             cell.sepratorView.isHidden = true
         } else {
             cell.sepratorView.isHidden = false
@@ -101,9 +101,7 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        // get the Collection View width and height
         
-//        let data =
-        
-        return CGSize(width: symbolDataSector.count + 30 , height: 40)
+        return CGSize(width: symbolDataSector.count + 65 , height: 40)
         
     }
 }

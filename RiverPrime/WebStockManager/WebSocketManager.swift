@@ -52,7 +52,7 @@ class WebSocketManager: WebSocketDelegate {
 //        DispatchQueue.main.async
          historyQueue.async { [weak self] in
             guard let self = self else {return}
-            self.connectHistoryWebSocket()
+//            self.connectHistoryWebSocket()
         }
 
     }
@@ -94,14 +94,14 @@ class WebSocketManager: WebSocketDelegate {
         if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
            let jsonString = String(data: jsonData, encoding: .utf8) {
             print("\n json String sent to history WebSocket. \(jsonString) ")
-//            historyQueue.async {
+
                 if let historyWebSocket = self.historyWebSocket {
                     historyWebSocket.write(string: jsonString)
                     print("Message sent to history WebSocket.")
                 } else {
                     print("History WebSocket is not connected.")
                 }
-//            }
+
         }
     }
    
@@ -170,7 +170,7 @@ class WebSocketManager: WebSocketDelegate {
            //     print("\n [DEBUG] Parsed response: \(response)")
                 NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
                 
-                for payload in response.chartData {
+                for payload in response.message.payload.chartData {
                     print("[DEBUG] Chart history payload: \(payload)")
                   
                 }

@@ -42,8 +42,7 @@ class TradeVC: UIView {
     var odooClientService = OdooClient()
     
      let viewModel = TradesViewModel()
-    
-    var processedSymbols: [String] = [] // Your symbols array
+     
     var symbolDataArray: [SymbolData] = []
     
     public override func awakeFromNib() {
@@ -185,7 +184,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             return 40
             
         }else{
-            return 100.0
+            return 90.0
         }
     }
     

@@ -1,9 +1,3 @@
-//
-//  TradesViewModel.swift
-//  RiverPrime
-//
-//  Created by Ross Rostane on 27/08/2024.
-//
 
 //
 //  TradesViewModel.swift
@@ -92,8 +86,8 @@ class TradesViewModel {
     
     @objc private func symbolDataUpdated(_ notification: Notification) {
         if let symbolChartData = notification.object as? SymbolChartData {
-            self.symbolData[symbolChartData.symbol] = symbolChartData
-            print("\n the symbol data is: \(self.symbolData[symbolChartData.symbol])")
+            self.symbolData[symbolChartData.message.payload.symbol] = symbolChartData
+ 
             self.onSymbolDataUpdated?()
         }
     }

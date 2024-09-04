@@ -40,14 +40,7 @@ class TradeDetalVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
     }
-    
-//    func buttonUnderline () {
-//        let frame = CGRect(x: 0, y: button.frame.size.height, width: button.frame.size.width, height: 2)
-//        let borderBottom = UIView(frame: frame)
-//        borderBottom.backgroundColor= UIColor.white
-//        button.addSubview(borderBottom)
-//    }
-    
+   
     @objc func handleTradesUpdated() {
         updateUI()
         // Update the UI with the latest data for the selected symbol
@@ -139,7 +132,7 @@ class TradeDetalVC: UIViewController {
 extension TradeDetalVC: WebSocketDelegate {
     func connectHistoryWebSocket() {
         //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
-        let url =  URL(string:"wss://mbe.riverprime.com/websocket")!
+        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
         
@@ -194,7 +187,7 @@ extension TradeDetalVC: WebSocketDelegate {
             do {
                 let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                 
-                for payload in response.chartData {
+                for payload in response.message.payload.chartData {
                     
                     let times = Time.utc(timestamp: Double(payload.datetime))
                     // Debugging output to check timestamps

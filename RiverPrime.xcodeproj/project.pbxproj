@@ -97,7 +97,6 @@
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B372C7CA72000BBB126 /* SplashVC.xib */; };
-		31F29B3A2C7CB5D800BBB126 /* WebStockTradeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B392C7CB5D800BBB126 /* WebStockTradeDetail.swift */; };
 		31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */; };
 		31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183A2C3C086400340CFC /* ForgotViewController.swift */; };
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
@@ -271,7 +270,6 @@
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
 		31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		31F29B372C7CA72000BBB126 /* SplashVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashVC.xib; sourceTree = "<group>"; };
-		31F29B392C7CB5D800BBB126 /* WebStockTradeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebStockTradeDetail.swift; sourceTree = "<group>"; };
 		31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 			isa = PBXGroup;
 			children = (
 				318257472C75C7F000723A50 /* WebSocketManager.swift */,
-				31F29B392C7CB5D800BBB126 /* WebStockTradeDetail.swift */,
 				31CB9D522C7D913800B293ED /* TradesViewModel.swift */,
 			);
 			path = WebStockManager;
@@ -1480,7 +1477,6 @@
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
-				31F29B3A2C7CB5D800BBB126 /* WebStockTradeDetail.swift in Sources */,
 				316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,

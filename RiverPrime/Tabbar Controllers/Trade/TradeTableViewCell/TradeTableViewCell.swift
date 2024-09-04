@@ -61,7 +61,7 @@ class TradeTableViewCell: UITableViewCell {
     }
     func saveChartData(for newSymbolChartData: SymbolChartData) {
       
-        let symbol = newSymbolChartData.symbol
+        let symbol = newSymbolChartData.message.payload.symbol
             
             // Check if data for the symbol already exists in historyChartData
             if historyChartData[symbol] == nil {
@@ -146,7 +146,7 @@ class TradeTableViewCell: UITableViewCell {
     func updateChart(with chartData: SymbolChartData) {
 
        
-        for (index, dataPoint) in chartData.chartData.enumerated() {
+        for (index, dataPoint) in chartData.message.payload.chartData.enumerated() {
             let entry = ChartDataEntry(x: Double(index), y: dataPoint.close)
             dataEntries.append(entry)
         }
@@ -202,10 +202,10 @@ class TradeTableViewCell: UITableViewCell {
            
 //            imageView.sd_setImage(with: url)
             // this arg is optional, if don't provide, use the viewport size instead
-            let svgImageSize = CGSize(width: 100, height: 100)
-//            imageView.sd_setImage(with: url, placeholderImage: nil, options: [], context: [.imageThumbnailPixelSize : svgImageSize])
+            let svgImageSize = CGSize(width: 30, height: 30)
+            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: [.imageThumbnailPixelSize : svgImageSize])
             
-            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "person"), context: nil)
+           // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "arrow"), context: nil)
         }
     }
     
