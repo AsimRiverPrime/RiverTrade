@@ -52,7 +52,7 @@ class WebSocketManager: WebSocketDelegate {
 //        DispatchQueue.main.async
          historyQueue.async { [weak self] in
             guard let self = self else {return}
-//            self.connectHistoryWebSocket()
+            self.connectHistoryWebSocket()
         }
 
     }

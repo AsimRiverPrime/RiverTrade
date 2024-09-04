@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import LightweightCharts
+//import LightweightCharts
 import Starscream
 
 class TradeDetalVC: UIViewController {

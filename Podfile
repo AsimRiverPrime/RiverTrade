@@ -6,7 +6,7 @@ target 'RiverPrime' do
   use_frameworks!
 
 pod 'TPKeyboardAvoiding'
-pod 'LightweightCharts', '~> 3.8.0'
+#pod 'LightweightCharts', '~> 3.8.0'
 pod 'GoogleSignIn'
 pod 'Firebase/Firestore'
 pod 'FirebaseAuth'
@@ -22,6 +22,6 @@ pod 'Starscream', '~> 4.0.4'
 pod 'SDWebImage', '~> 5.0'
 pod 'SDWebImageSVGKitPlugin'
 
-pod 'DGCharts'
+#pod 'DGCharts'
 
 end
