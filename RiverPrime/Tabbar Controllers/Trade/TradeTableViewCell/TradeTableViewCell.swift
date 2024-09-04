@@ -34,8 +34,6 @@ class TradeTableViewCell: UITableViewCell {
     var dataEntries: [ChartDataEntry] = []
     var lineChartView = LineChartView()
     
-//    var historyChartData = [[SymbolChartData]]()
-//    var historyChartData = [SymbolChartData]()
     var historyChartData = [String: SymbolChartData]()
     
     override func awakeFromNib() {
