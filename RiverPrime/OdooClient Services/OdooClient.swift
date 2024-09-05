@@ -328,7 +328,7 @@ class OdooClient {
                 switch response.result {
                 case .success(let data):
                     if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response for symbol detail XML: \(responseString)")
+                       
                         self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: responseString)
                     }
                 case .failure(let error):

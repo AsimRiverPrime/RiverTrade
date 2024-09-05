@@ -2,7 +2,7 @@
 //  TradeVC.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 17/07/2024.
+//  Created by Ross Rostane on 17/07/2024.
 //
 
 import UIKit
@@ -43,14 +43,17 @@ class TradeVC: UIView {
     
      let viewModel = TradesViewModel()
      
-    var symbolDataArray: [SymbolData] = []
+//    var symbolDataArray: [SymbolData] = []
     
     public override func awakeFromNib() {
+        ActivityIndicator.shared.show(in: self)
+        
         odooClientService.sendSymbolDetailRequest()
         odooClientService.tradeSymbolDetailDelegate = self
         
         
-        viewModel.webSocketManager.connectAllWebSockets()
+        viewModel.webSocketManager.connectWebSocket()
+//        viewModel.webSocketManager.connectAllWebSockets()
         
 //        setModel(.init(name: "Favorites"))
         
@@ -64,7 +67,7 @@ class TradeVC: UIView {
         
         tblView.delegate = self
         tblView.dataSource = self
-        //        tblView.reloadData()
+      
         
         // Bind the ViewModel's data update closure to reload the table view
         viewModel.onTradesUpdated = { [weak self] in
@@ -84,7 +87,7 @@ class TradeVC: UIView {
                 self.alpha = 0
             }, completion: { (complete) in
                 self.removeFromSuperview()
-                self.viewModel.webSocketManager.closeAllWebSockets()
+//                self.viewModel.webSocketManager.closeWebSockets() // or send unsubcribe call for socket stop
             })
     }
     
@@ -141,7 +144,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradeTVC.self, for: indexPath)
             cell.delegate = self
-            cell.config(symbolDataArray)
+            cell.config(GlobalVariable.instance.symbolDataArray)
             cell.backgroundColor = .clear
             
             return cell
@@ -150,15 +153,13 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             
-            //            print("\nIndexPath section: \(indexPath.section),\n chartData count: \(Array(trades.values))")
-            
             let trade = viewModel.trade(at: indexPath)
       
             var symbolDataObj: SymbolData?
             
-            if let obj = symbolDataArray.first(where: {$0.name == trade.symbol}) {
+            if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade.symbol}) {
                 symbolDataObj = obj
-                print("\(obj.icon_url)")
+             //   print("\(obj.icon_url)")
             }
             
             cell.configure(with: trade , symbolDataObj: symbolDataObj)
@@ -234,15 +235,16 @@ extension TradeVC: TradeInfoTapDelegate {
     func tradeInfoTap(_ tradeInfo: SymbolData) {
         
         setModel(tradeInfo)
-        
+       
         tblView.reloadData()
     }
 }
 
 extension TradeVC: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: String) {
-        print("\n this is the trade symbol detail response: \(response) ")
+//        print("\n \(response) ")
         convertXMLIntoJson(response)
+        ActivityIndicator.shared.hide(from: self)
     }
     
     func tradeSymbolDetailFailure(error: any Error) {
@@ -272,10 +274,10 @@ extension TradeVC: TradeSymbolDetailDelegate {
                             let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
                            let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
                          
-                            self.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: symbolIcon , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
+                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: symbolIcon , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
                         }
                            
-                        print("symbol data array : \(self.symbolDataArray.count)")
+                        print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
                        
                         print("\n the parsed value is :\(parsedData)")
                     }

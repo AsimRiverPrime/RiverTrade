@@ -8,6 +8,179 @@
 import Foundation
 import Starscream
 
+class WebSocketManager: WebSocketDelegate {
+
+    var webSocket: WebSocket?
+    static let shared = WebSocketManager() // Shared instance
+
+    private init() {}
+
+    private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
+  
+    var trades: [String: TradeDetails] = [:] {
+        didSet {
+            NotificationCenter.default.post(name: .tradesUpdated, object: nil)
+        }
+    }
+    var symbolData: [String: SymbolChartData] = [:] {
+        didSet {
+            NotificationCenter.default.post(name: .symbolDataUpdated, object: nil)
+        }
+    }
+    
+    func connectWebSocket() {
+        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
+        var request = URLRequest(url: url)
+        request.timeoutInterval = 5
+
+        webSocket = WebSocket(request: request)
+        webSocket?.delegate = self
+        webSocket?.connect()
+    }
+
+    func sendWebSocketMessage(for event: String, symbol: String? = nil) {
+        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
+        
+        var message: [String: Any] = [:]
+
+        // Prepare message based on event type (trade or history)
+        if event == "subscribeTrade" {
+            message = [
+                "event_name": "subscribe",
+                "data": [
+                    "last": 0,
+                    "channels": ["price_feed"]
+                ]
+            ]
+        } else if event == "subscribeHistory" {
+            
+            let message: [String: Any] = [
+                "event_name": "get_chart_history",
+                "data": [
+                    "symbol": symbol ?? "",
+                    "from": hourBeforeTimestamp,
+                    "to": currentTimestamp
+                ]
+            ]
+            
+        }
+
+        // Send the prepared message to the WebSocket
+        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            webSocketQueue.async {
+                if let webSocket = self.webSocket {
+                    webSocket.write(string: jsonString)
+                    print("Message sent to WebSocket: \(event)")
+                } else {
+                    print("WebSocket is not connected.")
+                }
+            }
+        }
+    }
+
+    // WebSocket delegate method
+    func didReceive(event: WebSocketEvent, client: WebSocketClient) {
+        switch event {
+        case .connected(let headers):
+            print("WebSocket is connected: \(headers)")
+
+            // Subscribe to both trade and history once connected
+            sendWebSocketMessage(for: "subscribeTrade")
+//            sendWebSocketMessage(for: "subscribeHistory")
+
+        case .text(let string):
+            handleWebSocketMessage(string)
+
+        case .disconnected(let reason, let code):
+            print("WebSocket is disconnected: \(reason) with code: \(code)")
+
+        case .error(let error):
+            handleError(error)
+
+        default:
+            print("WebSocket received an unhandled event: \(event)")
+        }
+    }
+
+    // Handle the WebSocket message
+    func handleWebSocketMessage(_ string: String) {
+        if let jsonData = string.data(using: .utf8) {
+            do {
+                // Determine the message type and decode based on that
+                let genericResponse = try JSONDecoder().decode(WebSocketResponse<[TradeDetails]>.self, from: jsonData)
+                
+                if genericResponse.message.type == "tick" {
+                    handleTradeData(genericResponse.message.payload)
+                   
+                } else if genericResponse.message.type == "ChartHistory" {
+                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
+                    handleHistoryData(historyResponse.message.payload)
+                } else {
+                    print("Unexpected message type: \(genericResponse.message.type)")
+                }
+            } catch {
+                print("Error parsing JSON: \(error.localizedDescription)")
+            }
+        } else {
+            print("Error converting string to Data")
+        }
+    }
+
+
+    // Handle trade data
+    func handleTradeData(_ response: [TradeDetails]) {
+        for tradeDetail in response {
+            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
+            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
+        }
+        
+    }
+
+    // Handle history data
+    func handleHistoryData(_ response: SymbolChartData) {
+        // Handle history data here
+        print("Received history data: \(response)")
+      
+        NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
+                
+        for payload in response.chartData {
+                    print("[DEBUG] Chart history payload: \(payload)")
+                  
+            }
+            
+    
+    }
+
+    // Handle errors
+    func handleError(_ error: Error?) {
+        if let error = error {
+            print("WebSocket encountered an error: \(error.localizedDescription)")
+        }
+    }
+    
+    func closeWebSockets() {
+        webSocketQueue.async {
+            self.webSocket?.disconnect()
+        }
+    }
+    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
+        let now = Date()
+        //        let calendar = Calendar.current
+        
+        // Get current timestamp in milliseconds
+        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
+        let beforeHourTimestamp = currentTimestamp -  (1 * 60 * 60)
+        
+        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
+        
+    }
+}
+/*
+
+import Foundation
+import Starscream
+
 
 class WebSocketManager: WebSocketDelegate {
 
@@ -39,18 +212,18 @@ class WebSocketManager: WebSocketDelegate {
     }
     
     // DispatchQueues for concurrent execution
-    private let historyQueue = DispatchQueue(label: "com.riverPrime.historyWebSocketQueue", qos: .background)
-    private let tradeQueue = DispatchQueue(label: "com.riverPrime.tradeWebSocketQueue", qos: .background)
+    private let historyQueue = DispatchQueue(label: "historyQueue", qos: .background)
+    private let tradeQueue = DispatchQueue(label: "tradeQueue", qos: .background)
 
     func connectAllWebSockets() {
 //        DispatchQueue.main
-        tradeQueue.async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             self.connecttradeWebSocket()
             
         }
 //        DispatchQueue.main.async
-         historyQueue.async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
             self.connectHistoryWebSocket()
         }
@@ -69,7 +242,6 @@ class WebSocketManager: WebSocketDelegate {
     }
 
     private func connecttradeWebSocket() {
-//        let url = URL(string: "wss://mbe.riverprime.com/websocket")!
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
@@ -119,7 +291,7 @@ class WebSocketManager: WebSocketDelegate {
 
         if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
            let jsonString = String(data: jsonData, encoding: .utf8) {
-            tradeQueue.async {
+//            tradeQueue.async {
                 if let tradeWebSocket = self.tradeWebSocket {
                     tradeWebSocket.write(string: jsonString)
                     print("Message sent to trade WebSocket.")
@@ -127,7 +299,7 @@ class WebSocketManager: WebSocketDelegate {
                     print("Trade WebSocket is not connected.")
                 }
             }
-        }
+        
     }
 
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
@@ -262,3 +434,5 @@ class WebSocketManager: WebSocketDelegate {
     }
 }
 
+
+ */

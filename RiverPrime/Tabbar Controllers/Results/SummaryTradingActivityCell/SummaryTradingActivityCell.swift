@@ -2,7 +2,7 @@
 //  SummaryTradingActivityCell.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 31/07/2024.
+//  Created by Ross Rostane on 31/07/2024.
 //
 
 import UIKit

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
+		31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31339D4E2C8884430059B7C8 /* StaticResponses.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
@@ -277,6 +278,7 @@
 /* Begin PBXFileReference section */
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
+		31339D4E2C8884430059B7C8 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
@@ -689,6 +691,7 @@
 			children = (
 				318257472C75C7F000723A50 /* WebSocketManager.swift */,
 				31CB9D522C7D913800B293ED /* TradesViewModel.swift */,
+				31339D4E2C8884430059B7C8 /* StaticResponses.swift */,
 			);
 			path = WebStockManager;
 			sourceTree = "<group>";
@@ -2021,6 +2024,7 @@
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				31D2AEEC2C8840B800E0CF2E /* NSRegularExpression+Color.swift in Sources */,
+				31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */,
 				3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */,
 				31D2AF232C8840B800E0CF2E /* KineticScrollOptions.swift in Sources */,
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,

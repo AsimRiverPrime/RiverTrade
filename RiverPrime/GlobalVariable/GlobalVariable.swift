@@ -2,7 +2,7 @@
 //  GlobalVariable.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 16/07/2024.
+//  Created by Ross Rostane on 16/07/2024.
 //
 
 import Foundation
@@ -16,6 +16,8 @@ class GlobalVariable: NSObject {
     static var instance = GlobalVariable()
     
     var isAccountCreated = Bool()
+    
+    var symbolDataArray: [SymbolData] = []
     
     var resultTopButtonType = String()
     var isProcessingSymbol: Bool = false

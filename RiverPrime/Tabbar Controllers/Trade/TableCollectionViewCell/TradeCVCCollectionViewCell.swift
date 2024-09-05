@@ -2,7 +2,7 @@
 //  TradeCVCCollectionViewCell.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 17/07/2024.
+//  Created by Ross Rostane on 17/07/2024.
 //
 
 import UIKit

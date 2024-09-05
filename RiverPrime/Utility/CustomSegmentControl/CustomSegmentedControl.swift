@@ -2,7 +2,7 @@
 //  AllRealAccountsVC.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 13/08/2024.
+//  Created by Ross Rostane on 13/08/2024.
 //
 
 import UIKit

@@ -21,9 +21,7 @@ class TradeTableViewCell: UITableViewCell {
     
 
     var historyChartData = [SymbolChartData]()
-    
-//    var areaData: [AreaData] = []
-    
+  
     private var chart: LightweightCharts!
     private var series: AreaSeries!
     
@@ -34,7 +32,9 @@ class TradeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
+       
+        SDImageCache.shared.clearMemory()
+        SDImageCache.shared.clearDisk(onCompletion: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(chartDataUpdated(_:)), name: .symbolDataUpdated, object: nil)
     }
    
@@ -45,7 +45,8 @@ class TradeTableViewCell: UITableViewCell {
             historyChartData.append(response)
                 print("\n history chart Data: \(historyChartData)\n")
        
-            setupChart(for: response.message.payload.symbol, with: response)
+            setupChart(for: response.symbol, with: response)
+//            setupChart(for: response.message.payload.symbol, with: response)
             }
     }
    
@@ -82,7 +83,7 @@ class TradeTableViewCell: UITableViewCell {
                    priceLineVisible: false,
                    topColor: "rgba(76, 175, 80, 0.5)",
                    bottomColor: "rgba(76, 175, 80, 0)",
-                   lineColor: "rgba(0,0,0,0)",//"rgba(76, 175, 80, 1)",
+                   lineColor: "rgba(76, 175, 80, 1)",
                    lineWidth: .one
                )
         
@@ -94,8 +95,9 @@ class TradeTableViewCell: UITableViewCell {
     func updateChart(with chartData: SymbolChartData, areaSeries: AreaSeries) {
         var areaData = [AreaData]()
         
-        let chartData1 = chartData.message.payload.chartData
-        for data in chartData1 {
+        let chartData = chartData.chartData
+//        let chartData = chartData.message.payload.chartData
+        for data in chartData {
             print("/n Datetime1: \(data.datetime), Close: \(data.close)")
             let _areaData = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
             areaData.append(_areaData)
@@ -117,13 +119,13 @@ class TradeTableViewCell: UITableViewCell {
             
             let svgCoder = SDImageSVGKCoder.shared
             SDImageCodersManager.shared.addCoder(svgCoder)
-           
-//            imageView.sd_setImage(with: url)
-            // this arg is optional, if don't provide, use the viewport size instead
-            let svgImageSize = CGSize(width: 30, height: 30)
-            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: [.imageThumbnailPixelSize : svgImageSize])
+            print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
+
+           // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: nil)
+            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
             
-           // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "arrow"), context: nil)
+        } else {
+            print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
         }
     }
     

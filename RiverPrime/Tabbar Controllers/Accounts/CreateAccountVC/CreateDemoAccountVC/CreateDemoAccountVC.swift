@@ -2,7 +2,7 @@
 //  CreateDemoAccountVC.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 04/08/2024.
+//  Created by Ross Rostane on 04/08/2024.
 //
 
 import UIKit
