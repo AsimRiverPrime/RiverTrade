@@ -75,8 +75,8 @@ class TradesViewModel {
      
         if symbolQueue.count != 0 {
             
-//            webSocketManager.sendSubscriptionHistoryMessage(for: symbolQueue[0])
-            webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: symbolQueue[0])
+            webSocketManager.sendSubscriptionHistoryMessage(for: symbolQueue[0])
+//            webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: symbolQueue[0])
             symbolQueue.remove(at: 0)
         }else{
             print("the count is finished")

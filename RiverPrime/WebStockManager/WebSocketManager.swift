@@ -5,6 +5,7 @@
 //  Created by Ross Rostane on 21/08/2024.
 //
 
+/*
 import Foundation
 import Starscream
 
@@ -108,7 +109,7 @@ class WebSocketManager: WebSocketDelegate {
         if let jsonData = string.data(using: .utf8) {
             do {
                 // Determine the message type and decode based on that
-                let genericResponse = try JSONDecoder().decode(WebSocketResponse<[TradeDetails]>.self, from: jsonData)
+                let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                 
                 if genericResponse.message.type == "tick" {
                     handleTradeData(genericResponse.message.payload)
@@ -129,11 +130,13 @@ class WebSocketManager: WebSocketDelegate {
 
 
     // Handle trade data
-    func handleTradeData(_ response: [TradeDetails]) {
-        for tradeDetail in response {
-            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
-            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
-        }
+    func handleTradeData(_ response: TradeDetails) {
+        WebSocketManager.shared.trades[response.symbol] = response
+        print("Trade price tick details: \(WebSocketManager.shared.trades[response.symbol] ?? nil)")
+//        for tradeDetail in response {
+//            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
+//            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
+//        }
         
     }
 
@@ -176,7 +179,8 @@ class WebSocketManager: WebSocketDelegate {
         
     }
 }
-/*
+*/
+
 
 import Foundation
 import Starscream
@@ -225,7 +229,7 @@ class WebSocketManager: WebSocketDelegate {
 //        DispatchQueue.main.async
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
-            self.connectHistoryWebSocket()
+//            self.connectHistoryWebSocket()
         }
 
     }
@@ -384,16 +388,21 @@ class WebSocketManager: WebSocketDelegate {
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse.self, from: jsonData)
+                print("Trade price tick details: \(response)")
                 guard response.message.type == "tick" else {
                     print("Unexpected message type: \(response.message.type)")
                     return
                 }
-                
-                for tradeDetail in response.message.payload {
-//                    self.getSymbolHistory(tradeDetail)
-                    WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
-                    print("Trade price tick details: \(trades[tradeDetail.symbol])")
-                }
+                let tradeDetails = response.message.payload
+                   WebSocketManager.shared.trades[tradeDetails.symbol] = tradeDetails
+                   
+                   // Print the updated trade details for the symbol
+                   print("\n Updated trade details: \(WebSocketManager.shared.trades[tradeDetails.symbol] ?? nil)")
+//                for tradeDetail in response.message.payload {
+////                    self.getSymbolHistory(tradeDetail)
+//                    WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
+//                    print("Trade price tick details: \(trades[tradeDetail.symbol])")
+//                }
             } catch {
                 print("Error parsing JSON: \(error.localizedDescription)")
             }
@@ -434,5 +443,3 @@ class WebSocketManager: WebSocketDelegate {
     }
 }
 
-
- */

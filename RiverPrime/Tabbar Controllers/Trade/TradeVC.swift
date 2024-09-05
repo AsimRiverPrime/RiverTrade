@@ -52,8 +52,8 @@ class TradeVC: UIView {
         odooClientService.tradeSymbolDetailDelegate = self
         
         
-        viewModel.webSocketManager.connectWebSocket()
-//        viewModel.webSocketManager.connectAllWebSockets()
+//        viewModel.webSocketManager.connectWebSocket()
+        viewModel.webSocketManager.connectAllWebSockets()
         
 //        setModel(.init(name: "Favorites"))
         
@@ -278,8 +278,8 @@ extension TradeVC: TradeSymbolDetailDelegate {
                         }
                            
                         print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
-                       
-                        print("\n the parsed value is :\(parsedData)")
+//                       
+//                        print("\n the parsed value is :\(parsedData)")
                     }
                 }
                 self.tblView.reloadData()

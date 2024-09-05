@@ -233,8 +233,8 @@ extension TradeDetalVC: WebSocketDelegate {
                     
         if let jsonData = string.data(using: .utf8) {
             do {
-                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-//                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
+//                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
+                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                 for payload in response.message.payload.chartData {
                     
                     let times = Time.utc(timestamp: Double(payload.datetime))
@@ -290,8 +290,8 @@ extension TradeDetalVC: WebSocketDelegate {
 
 
 
-
-/*class TradeDetalVC: UIViewController {
+/*
+class TradeDetalVC: UIViewController {
     
     @IBOutlet weak var chartView: LightweightCharts!
     

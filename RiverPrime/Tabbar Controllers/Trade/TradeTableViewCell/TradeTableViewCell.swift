@@ -45,8 +45,8 @@ class TradeTableViewCell: UITableViewCell {
             historyChartData.append(response)
                 print("\n history chart Data: \(historyChartData)\n")
        
-            setupChart(for: response.symbol, with: response)
-//            setupChart(for: response.message.payload.symbol, with: response)
+//            setupChart(for: response.symbol, with: response)
+            setupChart(for: response.message.payload.symbol, with: response)
             }
     }
    
@@ -95,8 +95,8 @@ class TradeTableViewCell: UITableViewCell {
     func updateChart(with chartData: SymbolChartData, areaSeries: AreaSeries) {
         var areaData = [AreaData]()
         
-        let chartData = chartData.chartData
-//        let chartData = chartData.message.payload.chartData
+//        let chartData = chartData.chartData
+        let chartData = chartData.message.payload.chartData
         for data in chartData {
             print("/n Datetime1: \(data.datetime), Close: \(data.close)")
             let _areaData = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
@@ -119,7 +119,7 @@ class TradeTableViewCell: UITableViewCell {
             
             let svgCoder = SDImageSVGKCoder.shared
             SDImageCodersManager.shared.addCoder(svgCoder)
-            print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
+          //  print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
 
            // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: nil)
             currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
