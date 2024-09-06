@@ -16,7 +16,7 @@ class ProfileVC: UIView {
     @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
     
     //    weak var delegate: AccountInfoTapDelegate?
-    
+    weak var delegateCompeleteProfile: DashboardVCDelegate?
     //    var model: [String] = ["Open","Pending","Close","image"]
     
     public override func awakeFromNib() {
@@ -76,7 +76,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: ProfileTopTableViewCell.self, for: indexPath)
             
-//            cell.delegate = self
+            cell.delegate = self
             return cell
             
         } else if indexPath.section == 1 {
@@ -152,6 +152,13 @@ extension ProfileVC: ResultTopDelegate {
 }
 
 
+extension ProfileVC: CompleteProfileButtonDelegate {
+    
+    func didTapCompleteProfileButtonInCell() {
+        delegateCompeleteProfile?.navigateToCompeletProfile()
+    }
+    
+}
 extension ProfileVC {
     
     //MARK: - Set TableViewTopConstraint.

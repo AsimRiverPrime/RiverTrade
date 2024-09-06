@@ -72,6 +72,9 @@
                                         <buttonConfiguration key="configuration" style="plain" title="Complete Profile">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="15"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <action selector="completeBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="amP-NT-0hx"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello. Fill in your account details to make your first deposit" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-Pq-J4V">
                                         <rect key="frame" x="61" y="15.666666666666654" width="215" height="33.666666666666657"/>
@@ -128,6 +131,10 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imageIcon" destination="TZp-2y-AMB" id="BJa-Ja-pew"/>
+                <outlet property="lbl_profile" destination="fUb-Pq-J4V" id="BI3-Gn-3fo"/>
+            </connections>
             <point key="canvasLocation" x="157.25190839694656" y="96.126760563380287"/>
         </tableViewCell>
     </objects>

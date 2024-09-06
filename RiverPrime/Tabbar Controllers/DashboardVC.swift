@@ -15,6 +15,10 @@ enum CustomTabBarType {
     case Profile
 }
 
+protocol DashboardVCDelegate: AnyObject {
+    func navigateToCompeletProfile()
+}
+
 class DashboardVC: BaseViewController {
 
     @IBOutlet weak var myViewFragment: UIView!
@@ -282,7 +286,7 @@ extension DashboardVC {
             
             dismissViews()
             profileVC = ProfileVC.getView()
-////            tradeVC.delegate = self
+            profileVC.delegateCompeleteProfile = self
             addView(customTabBarType: .Profile)
             
             break
@@ -316,7 +320,15 @@ extension DashboardVC {
     }
     
 }
-
+//MARK: - compelet profile Button Taps is here.
+extension DashboardVC: DashboardVCDelegate {
+    func navigateToCompeletProfile() {
+        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+            self.navigate(to: kycVc)
+        }
+    }
+        
+}
 //MARK: - AccountInfo Button Taps is here.
 extension DashboardVC: AccountInfoTapDelegate {
     func accountInfoTap(_ accountInfo: AccountInfo) {

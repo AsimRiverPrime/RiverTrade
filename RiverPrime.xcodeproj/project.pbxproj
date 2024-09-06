@@ -12,6 +12,8 @@
 		31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31339D4E2C8884430059B7C8 /* StaticResponses.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
+		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
+		314B3BC52C8B2D8500C009A0 /* ScanDocumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
@@ -281,6 +283,8 @@
 		31339D4E2C8884430059B7C8 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
+		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
+		314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDocumentVC.swift; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DB98B2C6C77BD00FF967C /* TicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketVC.swift; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
@@ -577,6 +581,15 @@
 				3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */,
 			);
 			path = PasscodeVC;
+			sourceTree = "<group>";
+		};
+		314B3BC12C8B2D4C00C009A0 /* KYC */ = {
+			isa = PBXGroup;
+			children = (
+				314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */,
+				314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */,
+			);
+			path = KYC;
 			sourceTree = "<group>";
 		};
 		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
@@ -1324,6 +1337,7 @@
 		31F3BAD62C3FAB49009A2A12 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				314B3BC12C8B2D4C00C009A0 /* KYC */,
 				315DDB042C4F9C6900C4F8C0 /* LogoutTBCell */,
 				315DDAFF2C4F9A1100C4F8C0 /* SupportTBCell */,
 				3176F33E2C4F97E300FEF92A /* SocialTradeTBCell */,
@@ -1973,6 +1987,7 @@
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
 				31D2AEFE2C8840B800E0CF2E /* Subscription.swift in Sources */,
 				FA467DC92C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift in Sources */,
+				314B3BC52C8B2D8500C009A0 /* ScanDocumentVC.swift in Sources */,
 				31D2AF2E2C8840B800E0CF2E /* SeriesOptionsCommon.swift in Sources */,
 				31D2AF342C8840B800E0CF2E /* BarsInfo.swift in Sources */,
 				31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */,
@@ -2094,6 +2109,7 @@
 				FA4613842C602CD400B472D6 /* CreateAccountSlideCell.swift in Sources */,
 				31D2AF402C8840B800E0CF2E /* Time.swift in Sources */,
 				31D2AEEE2C8840B800E0CF2E /* UIColor+ColorComponents.swift in Sources */,
+				314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
 				FA46139A2C602D5600B472D6 /* DPDConstants.swift in Sources */,
 				31D2AF362C8840B800E0CF2E /* ChartColor.swift in Sources */,
