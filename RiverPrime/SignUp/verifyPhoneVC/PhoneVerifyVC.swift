@@ -55,6 +55,7 @@ class PhoneVerifyVC: UIViewController {
             let phoneNumber1 = try phoneNumberKit.parse(phoneNumber, withRegion: selectedCountry.code, ignoreType: true)
                   let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
+            UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
             self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
 //            updateUser()
             

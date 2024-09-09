@@ -69,8 +69,12 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         print("this is select Currency: \(currencyCode)")
         print("this is given email: \(userEmail)")
         print("this is given password: \(self.tf_password.text ?? "")")
+        let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
+        let Firstname = UserDefaults.standard.string(forKey: "firstName")
+        let LastName = UserDefaults.standard.string(forKey: "lastName")
         
-        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
+//        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(phone: phone ?? "", group: self.lbl_accountTitle.text ?? "", email: userEmail, currency: currencyCode, leverage: 4000, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {

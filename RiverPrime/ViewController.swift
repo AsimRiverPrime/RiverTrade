@@ -19,6 +19,7 @@ class ViewController: BaseViewController {
         
         styling()
     }
+    // for crash laytics
 //        let button = UIButton(type: .roundedRect)
 //           button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)
 //           button.setTitle("Test Crash", for: [])

@@ -132,10 +132,10 @@ class SignUpViewController: BaseViewController{
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-//        signUp()
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+        signUp()
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -215,7 +215,8 @@ class SignUpViewController: BaseViewController{
             self.lbl_emailValid.text = "Please fill in all fields."
             return
         }
-        
+        UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
+        UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
         // Check if user already exists in Firestore
         let db = Firestore.firestore()
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in

@@ -144,17 +144,17 @@ class OdooClient {
                    let result = json["result"] as? [String: Any],
                    let status = result["status"] as? String {
                     if status == "success" {
-                        print("\n this is the response of type: \(type) and response is \(json)\n")
+                        print("\n this is the SUCESS response of type: \(type) and response is \(json)\n")
                         self.delegate?.otpSuccess(response: result)
                     } else {
                         let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
                         self.delegate?.otpFailure(error: error)
-                        print("this is send otp error response of type \(type) : \(error)")
+                        print("this is send otp (success) error response of type \(type) : \(error)")
                     }
                 } else {
                     let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
                     self.delegate?.otpFailure(error: error)
-                    print("this is send otp error response of type \(type) : \(error)")
+                    print("this is send otp Error response of type \(type) : \(error)")
                 }
             case .failure(let error):
                 self.delegate?.otpFailure(error: error)
@@ -165,14 +165,15 @@ class OdooClient {
     
     //MARK: - create trade Account Method
 
-    func createAccount(isDemo: Bool, group: String, email: String, currency: String, name: String, password: String) {
-        
+    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+       
         let parameters: [String: Any] = [
-            "isDemo": isDemo,
+            "phone": phone,
             "group": group,
             "currency": currency,
             "email": email,
-            "name": name,
+            "first_name": first_name,
+            "last_name" : last_name,
             "password": password
         ]
         

@@ -50,29 +50,52 @@ class KYCViewController: UIViewController, iPassSDKDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func handleDocumentUpload() async {
+        if !userToken.isEmpty && !appToken.isEmpty {
+            
+                // Ensure the async SDK method is called on the main thread
+              await  iPassSDKManger.startScanningProcess(
+                    userEmail: "it@salaminv.com",
+                    flowId: 10031,
+                    socialMediaEmail: "Aasimali11991@gmail.com",
+                    phoneNumber: "971561606314",
+                    controller: MainActor.run {
+                        self
+                    },
+                    userToken: self.userToken,
+                    appToken: self.appToken
+                )
+            
+        } else {
+            print("Error: Tokens are not set.")
+        }
+    }
+    
     @IBAction func uploadDocBtn(_ sender: Any) {
-        
         Task {
-              if !userToken.isEmpty && !appToken.isEmpty {
-                  // Ensure the controller (UI related) is accessed on the main thread
-                  let controller = await MainActor.run {
-                      return self  // Access 'self' (UIViewController) on the main thread
-                  }
-                  
-                  // Call the SDK method with the UI controller obtained on the main thread
-                  await iPassSDKManger.startScanningProcess(
-                      userEmail: "it@salaminv.com",
-                      flowId: 10031,
-                      socialMediaEmail: "Aasimali11991@gmail.com",
-                      phoneNumber: "971561606314",
-                      controller: self,  // Pass the controller obtained on the main thread
-                      userToken: self.userToken,
-                      appToken: self.appToken
-                  )
-              } else {
-                  print("Error: Tokens are not set.")
-              }
-          }
+                await handleDocumentUpload()
+            }
+//        Task {
+//              if !userToken.isEmpty && !appToken.isEmpty {
+//                  // Ensure the controller (UI related) is accessed on the main thread
+//                  let controller = await MainActor.run {
+//                      return self  // Access 'self' (UIViewController) on the main thread
+//                  }
+//                  
+//                  // Call the SDK method with the UI controller obtained on the main thread
+//                  await iPassSDKManger.startScanningProcess(
+//                      userEmail: "it@salaminv.com",
+//                      flowId: 10031,
+//                      socialMediaEmail: "Aasimali11991@gmail.com",
+//                      phoneNumber: "971561606314",
+//                      controller: controller,  // Pass the controller obtained on the main thread
+//                      userToken: self.userToken,
+//                      appToken: self.appToken
+//                  )
+//              } else {
+//                  print("Error: Tokens are not set.")
+//              }
+//          }
     }
     
     
@@ -94,6 +117,8 @@ extension KYCViewController: iPassSDKManagerDelegate {
             if error.isEmpty {
                 print("Scan successful. Result: \(result), Transaction ID: \(transactionId)")
                 // You can perform further actions here, such as notifying the user
+                
+                // if result sucess  then move to the CompleteVerificationProfileScreen1 for futher details 
             } else {
                 print("Scan failed. Error: \(error)")
                 // Handle the error, maybe show an alert to the user
