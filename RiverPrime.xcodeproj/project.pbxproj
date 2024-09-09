@@ -14,6 +14,7 @@
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
 		314B3BC52C8B2D8500C009A0 /* ScanDocumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */; };
+		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
@@ -559,6 +560,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */,
+				314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1768,6 +1770,7 @@
 			);
 			name = RiverPrime;
 			packageProductDependencies = (
+				314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */,
 			);
 			productName = RiverPrime;
 			productReference = 31D261FE2C3BECDE00FC6651 /* RiverPrime.app */;
@@ -1798,6 +1801,7 @@
 			);
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
+				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -2385,6 +2389,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yazanalqasem/iPass2.0NativeiOS";
+			requirement = {
+				kind = exactVersion;
+				version = 1.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */;
+			productName = iPass2.0NativeiOS;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 31D261F62C3BECDE00FC6651 /* Project object */;
 }
