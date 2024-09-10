@@ -8,13 +8,7 @@
 import UIKit
 import iPass2_0NativeiOS
 
-class KYCViewController: UIViewController, iPassSDKDelegate {
-    func getScanCompletionResult(result: String, error: String) {
-        print("\n the result is: \(result)")
-        print("\n the result error is: \(error)")
-    }
-    
-    
+class KYCViewController: UIViewController {
     
     var appToken = "eyJhbGciOiJIUzI1NiJ9.aXRAc2FsYW1pbnYuY29tWmFpZCAgT2RlaCAgIGQ3NDU5ZjBlLTdmNWItNDhlNC04ZDAzLWE0YmJjNzMyNzE3Mg.QzQR-QHQM2kyYkdqUF9x0Te2L4m8aCQvU4E6bL_9KrY"
     var userToken = ""
@@ -22,12 +16,16 @@ class KYCViewController: UIViewController, iPassSDKDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        ActivityIndicator.shared.show(in: self.view)
         DataBaseDownloading.initialization(completion:{progres, status, error in
-                            print(progres, status, error)
-                        })
+            print(progres, status, error)
+            if progres == "100%" {
+                ActivityIndicator.shared.hide(from: self.view)
+            }
+        })
         
         iPassSDKManger.delegate = self
-        iPassSDK.delegate = self
+       
         login()
         
     }
@@ -72,9 +70,13 @@ class KYCViewController: UIViewController, iPassSDKDelegate {
     }
     
     @IBAction func uploadDocBtn(_ sender: Any) {
-        Task {
-                await handleDocumentUpload()
-            }
+      
+        DispatchQueue.main.async {
+            Task {
+                await self.handleDocumentUpload()
+                }
+        }
+       
 //        Task {
 //              if !userToken.isEmpty && !appToken.isEmpty {
 //                  // Ensure the controller (UI related) is accessed on the main thread
