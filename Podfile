@@ -8,6 +8,7 @@ target 'RiverPrime' do
 pod 'TPKeyboardAvoiding'
 #pod 'LightweightCharts', '~> 3.8.0'
 pod 'GoogleSignIn'
+pod 'GTMSessionFetcher'
 pod 'Firebase/Firestore'
 pod 'FirebaseAuth'
 pod 'Firebase/Core'

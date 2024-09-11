@@ -133,9 +133,11 @@ class SignUpViewController: BaseViewController{
     
     @IBAction func continueBtn(_ sender: Any) {
 //        signUp()
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
+        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {

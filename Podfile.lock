@@ -1191,7 +1191,11 @@ PODS:
   - GTMAppAuth (4.1.1):
     - AppAuth/Core (~> 1.7)
     - GTMSessionFetcher/Core (< 4.0, >= 3.3)
+  - GTMSessionFetcher (3.5.0):
+    - GTMSessionFetcher/Full (= 3.5.0)
   - GTMSessionFetcher/Core (3.5.0)
+  - GTMSessionFetcher/Full (3.5.0):
+    - GTMSessionFetcher/Core
   - leveldb-library (1.22.5)
   - nanopb (2.30910.0):
     - nanopb/decode (= 2.30910.0)
@@ -1228,6 +1232,7 @@ DEPENDENCIES:
   - Firebase/Firestore
   - FirebaseAuth
   - GoogleSignIn
+  - GTMSessionFetcher
   - PhoneNumberKit (~> 3.7)
   - SDWebImage (~> 5.0)
   - SDWebImageSVGKitPlugin
@@ -1319,6 +1324,6 @@ SPEC CHECKSUMS:
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: b703878fd9b8913b8b418a0783c33025b7d734d2
+PODFILE CHECKSUM: a4560b63c1505f257ae99d97bf218be3c744e14c
 
 COCOAPODS: 1.15.2

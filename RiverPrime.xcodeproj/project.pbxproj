@@ -13,7 +13,6 @@
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
-		314B3BC52C8B2D8500C009A0 /* ScanDocumentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */; };
 		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
@@ -40,6 +39,12 @@
 		316A17572C57AAD500A1A43E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316A17562C57AAD500A1A43E /* GoogleService-Info.plist */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
+		317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */; };
+		317D7DF92C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF82C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift */; };
+		317D7DFB2C91550800902B4A /* CompleteVerificationProfileScreen3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFA2C91550800902B4A /* CompleteVerificationProfileScreen3.swift */; };
+		317D7DFD2C91551200902B4A /* CompleteVerificationProfileScreen4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */; };
+		317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */; };
+		317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */; };
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
 		318257482C75C7F000723A50 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257472C75C7F000723A50 /* WebSocketManager.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
@@ -201,11 +206,11 @@
 		31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B372C7CA72000BBB126 /* SplashVC.xib */; };
 		31F3BAD82C3FAB6E009A2A12 /* AccountsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */; };
 		31F3D27A2C8EF90F004E120F /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31F3D2792C8EF90F004E120F /* BottomSheetPopups.storyboard */; };
-		31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen1.swift */; };
+		31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */; };
 		31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183A2C3C086400340CFC /* ForgotViewController.swift */; };
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
 		31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */; };
-		4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */; };
+		42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */; };
 		C9EB4DCD2C4340B80049C961 /* AccountDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9EB4DCB2C4340B80049C961 /* AccountDetailTableViewCell.swift */; };
 		C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */; };
 		C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */; };
@@ -280,13 +285,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		31339D4E2C8884430059B7C8 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
-		314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanDocumentVC.swift; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DB98B2C6C77BD00FF967C /* TicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketVC.swift; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
@@ -312,6 +317,12 @@
 		316A17562C57AAD500A1A43E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
+		317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
+		317D7DF82C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen2.swift; sourceTree = "<group>"; };
+		317D7DFA2C91550800902B4A /* CompleteVerificationProfileScreen3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen3.swift; sourceTree = "<group>"; };
+		317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen4.swift; sourceTree = "<group>"; };
+		317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen5.swift; sourceTree = "<group>"; };
+		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
 		318257472C75C7F000723A50 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
@@ -476,12 +487,11 @@
 		31F29B372C7CA72000BBB126 /* SplashVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashVC.xib; sourceTree = "<group>"; };
 		31F3BAD72C3FAB6E009A2A12 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		31F3D2792C8EF90F004E120F /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
-		31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
+		31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen7.swift; sourceTree = "<group>"; };
 		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
 		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
-		441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
-		72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
 		C9EB4DCB2C4340B80049C961 /* AccountDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewCell.swift; sourceTree = "<group>"; };
 		C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
@@ -489,7 +499,6 @@
 		C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
 		C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
-		D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
 		FA12B5DD2C4F03AB0054F8D8 /* ResultTopViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTopViewCell.swift; sourceTree = "<group>"; };
 		FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTopViewCell.xib; sourceTree = "<group>"; };
 		FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFilterViewCell.swift; sourceTree = "<group>"; };
@@ -554,6 +563,7 @@
 		FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDetailTVC.xib; sourceTree = "<group>"; };
 		FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRealAccountsVC.swift; sourceTree = "<group>"; };
 		FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -561,8 +571,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A4A5A92378F3630716D3131 /* Pods_RiverPrime.framework in Frameworks */,
 				314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */,
+				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,7 +602,6 @@
 			children = (
 				31F3D27B2C8EF9A4004E120F /* Compelet_verification */,
 				314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */,
-				314B3BC42C8B2D8500C009A0 /* ScanDocumentVC.swift */,
 			);
 			path = KYC;
 			sourceTree = "<group>";
@@ -896,7 +905,7 @@
 				31D262002C3BECDE00FC6651 /* RiverPrime */,
 				31D261FF2C3BECDE00FC6651 /* Products */,
 				96823B198E4329FFFFDD0F79 /* Pods */,
-				C926E638BC7FD00EC8B3D3E3 /* Frameworks */,
+				6593950C2FA3CFCDC874F49E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1359,7 +1368,13 @@
 		31F3D27B2C8EF9A4004E120F /* Compelet_verification */ = {
 			isa = PBXGroup;
 			children = (
-				31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen1.swift */,
+				31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */,
+				317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */,
+				317D7DF82C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift */,
+				317D7DFA2C91550800902B4A /* CompleteVerificationProfileScreen3.swift */,
+				317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */,
+				317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */,
+				317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */,
 			);
 			path = Compelet_verification;
 			sourceTree = "<group>";
@@ -1373,21 +1388,21 @@
 			path = TermsNConditions;
 			sourceTree = "<group>";
 		};
+		6593950C2FA3CFCDC874F49E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		96823B198E4329FFFFDD0F79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */,
-				D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */,
+				FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */,
+				9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		C926E638BC7FD00EC8B3D3E3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				72350A02AC63E5DAE9454CC4 /* Pods_RiverPrime.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		C944B1132C41C61B00C180FA /* AccountTableViewCells */ = {
@@ -1768,12 +1783,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 31D262122C3BECDE00FC6651 /* Build configuration list for PBXNativeTarget "RiverPrime" */;
 			buildPhases = (
-				301B32FD9870697A7F458E43 /* [CP] Check Pods Manifest.lock */,
+				20FC8A861494F1FA21198F9A /* [CP] Check Pods Manifest.lock */,
 				31D261FA2C3BECDE00FC6651 /* Sources */,
 				31D261FB2C3BECDE00FC6651 /* Frameworks */,
 				31D261FC2C3BECDE00FC6651 /* Resources */,
-				F117F4D620DA4251DF41A1EA /* [CP] Embed Pods Frameworks */,
 				316DBC522C6E223B0009E953 /* ShellScript */,
+				8671EC17E52849F6B8015A9F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1812,7 +1827,7 @@
 			);
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
-				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */,
+				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -1890,7 +1905,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		301B32FD9870697A7F458E43 /* [CP] Check Pods Manifest.lock */ = {
+		20FC8A861494F1FA21198F9A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1929,7 +1944,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		F117F4D620DA4251DF41A1EA /* [CP] Embed Pods Frameworks */ = {
+		8671EC17E52849F6B8015A9F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1961,6 +1976,7 @@
 				FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */,
 				31D2AEFA2C8840B800E0CF2E /* PriceLine.swift in Sources */,
 				31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */,
+				317D7DFB2C91550800902B4A /* CompleteVerificationProfileScreen3.swift in Sources */,
 				FA532D792C5721E1003A26D6 /* Alert.swift in Sources */,
 				31D2AF262C8840B800E0CF2E /* TrackingModeOptions.swift in Sources */,
 				FA46138A2C602D1300B472D6 /* BaseTableViewCell.swift in Sources */,
@@ -1996,19 +2012,20 @@
 				31D2AF272C8840B800E0CF2E /* WatermarkOptions.swift in Sources */,
 				FA467DD12C695BDF00248A62 /* UIView+Extension.swift in Sources */,
 				31D2AF412C8840B800E0CF2E /* TogglableOptions.swift in Sources */,
+				317D7DFD2C91551200902B4A /* CompleteVerificationProfileScreen4.swift in Sources */,
 				31D2AEED2C8840B800E0CF2E /* String+UniqueString.swift in Sources */,
 				31D2AF292C8840B800E0CF2E /* BarSeriesOptions.swift in Sources */,
 				31D2AF0F2C8840B800E0CF2E /* SingleValueSeriesData.swift in Sources */,
 				31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */,
 				31D2AEFE2C8840B800E0CF2E /* Subscription.swift in Sources */,
 				FA467DC92C695B9B00248A62 /* UnarchiveAccountTypeTVC.swift in Sources */,
-				314B3BC52C8B2D8500C009A0 /* ScanDocumentVC.swift in Sources */,
 				31D2AF2E2C8840B800E0CF2E /* SeriesOptionsCommon.swift in Sources */,
 				31D2AF342C8840B800E0CF2E /* BarsInfo.swift in Sources */,
 				31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */,
 				315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
 				31D2AF1D2C8840B800E0CF2E /* CrosshairLineOptions.swift in Sources */,
+				317D7DF92C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift in Sources */,
 				FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */,
 				31D2AEF52C8840B800E0CF2E /* SeriesApi+Extension.swift in Sources */,
 				3164C5F62C47D7520055F093 /* MarketTopMoversTableViewCell.swift in Sources */,
@@ -2066,11 +2083,12 @@
 				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
 				FA467DCB2C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
+				317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */,
 				31D2AF372C8840B800E0CF2E /* ColorType.swift in Sources */,
 				31D2AF432C8840B800E0CF2E /* PriceFormatterApi.swift in Sources */,
 				FA467DCF2C695B9B00248A62 /* UnarchiveAccountTypeVC.swift in Sources */,
 				31D2AF112C8840B800E0CF2E /* BaseValueType.swift in Sources */,
-				31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen1.swift in Sources */,
+				31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,
 				31D2AEFC2C8840B800E0CF2E /* TimeScale.swift in Sources */,
@@ -2093,6 +2111,7 @@
 				31D2AF0D2C8840B800E0CF2E /* SeriesData.swift in Sources */,
 				31D2AF072C8840B800E0CF2E /* BarData.swift in Sources */,
 				31D2AEEA2C8840B800E0CF2E /* Encodable+JSONString.swift in Sources */,
+				317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */,
 				FA46137C2C602CD400B472D6 /* CreateAccountTVCell.swift in Sources */,
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,
 				31D2AEFB2C8840B800E0CF2E /* PriceScale.swift in Sources */,
@@ -2127,6 +2146,7 @@
 				31D2AEEE2C8840B800E0CF2E /* UIColor+ColorComponents.swift in Sources */,
 				314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
+				317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */,
 				FA46139A2C602D5600B472D6 /* DPDConstants.swift in Sources */,
 				31D2AF362C8840B800E0CF2E /* ChartColor.swift in Sources */,
 				315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */,
@@ -2311,7 +2331,7 @@
 		};
 		31D262132C3BECDE00FC6651 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 441A5FEADE1298344ABCA495 /* Pods-RiverPrime.debug.xcconfig */;
+			baseConfigurationReference = FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2329,7 +2349,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = SplashVC.xib;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2346,7 +2366,7 @@
 		};
 		31D262142C3BECDE00FC6651 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D8DB675316190945E9FC296C /* Pods-RiverPrime.release.xcconfig */;
+			baseConfigurationReference = 9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -2364,7 +2384,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = SplashVC.xib;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2403,7 +2423,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */ = {
+		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yazanalqasem/iPass2.0NativeiOS";
 			requirement = {
@@ -2416,7 +2436,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */;
+			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */;
 			productName = iPass2.0NativeiOS;
 		};
 /* End XCSwiftPackageProductDependency section */

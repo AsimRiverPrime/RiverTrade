@@ -442,8 +442,8 @@
             filePath = "RiverPrime/SignUp/SignUpViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "leadCreatSuccess(response:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -515,16 +515,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F6B777F-35E7-452C-9809-CCCED0B37055"
+            uuid = "2C8902F3-7165-4CBD-B5CB-DC762FEEF4C4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Tabbar Controllers/Profile/KYC/KYCViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "120"
-            endingLineNumber = "120"
-            landmarkName = "getScanCompletionResult(result:transactionId:error:)"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "handleDocumentUpload()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

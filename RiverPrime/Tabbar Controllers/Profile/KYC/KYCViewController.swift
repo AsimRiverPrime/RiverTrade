@@ -16,12 +16,13 @@ class KYCViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        ActivityIndicator.shared.show(in: self.view)
+      //  ActivityIndicator.shared.show(in: self.view)
         DataBaseDownloading.initialization(completion:{progres, status, error in
             print(progres, status, error)
-            if progres == "100%" {
-                ActivityIndicator.shared.hide(from: self.view)
-            }
+           
+//            if progres == "100%" {
+//                ActivityIndicator.shared.hide(from: self.view)
+//            }
         })
         
         iPassSDKManger.delegate = self
@@ -57,9 +58,7 @@ class KYCViewController: UIViewController {
                     flowId: 10031,
                     socialMediaEmail: "Aasimali11991@gmail.com",
                     phoneNumber: "971561606314",
-                    controller: MainActor.run {
-                        self
-                    },
+                    controller: self,
                     userToken: self.userToken,
                     appToken: self.appToken
                 )
@@ -77,27 +76,7 @@ class KYCViewController: UIViewController {
                 }
         }
        
-//        Task {
-//              if !userToken.isEmpty && !appToken.isEmpty {
-//                  // Ensure the controller (UI related) is accessed on the main thread
-//                  let controller = await MainActor.run {
-//                      return self  // Access 'self' (UIViewController) on the main thread
-//                  }
-//                  
-//                  // Call the SDK method with the UI controller obtained on the main thread
-//                  await iPassSDKManger.startScanningProcess(
-//                      userEmail: "it@salaminv.com",
-//                      flowId: 10031,
-//                      socialMediaEmail: "Aasimali11991@gmail.com",
-//                      phoneNumber: "971561606314",
-//                      controller: controller,  // Pass the controller obtained on the main thread
-//                      userToken: self.userToken,
-//                      appToken: self.appToken
-//                  )
-//              } else {
-//                  print("Error: Tokens are not set.")
-//              }
-//          }
+
     }
     
     
