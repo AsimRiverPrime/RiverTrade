@@ -2450,10 +2450,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DsH-FF-fjF">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="F3Z-rp-7vm"/>
-                                                    <constraint firstAttribute="width" constant="35" id="WMJ-Ql-6ih"/>
+                                                    <constraint firstAttribute="height" constant="45" id="F3Z-rp-7vm"/>
+                                                    <constraint firstAttribute="width" constant="45" id="WMJ-Ql-6ih"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -2544,15 +2544,16 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aBY-d8-7je">
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="aBY-d8-7je">
                                                         <rect key="frame" x="0.0" y="244" width="350" height="50"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kgr-Li-H8t">
-                                                                <rect key="frame" x="0.0" y="0.0" width="116.66666666666667" height="50"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="109.33333333333333" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" title="Day" imagePadding="12" titleAlignment="trailing">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Day" imagePadding="15" titleAlignment="trailing">
+                                                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -2560,11 +2561,12 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIs-Op-e6c">
-                                                                <rect key="frame" x="116.66666666666666" y="0.0" width="116.66666666666666" height="50"/>
+                                                                <rect key="frame" x="109.33333333333334" y="0.0" width="125.33333333333334" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" title="Month" imagePadding="12" titleAlignment="trailing">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Month" imagePadding="10">
+                                                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -2572,11 +2574,12 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8tm-vZ-GJ4">
-                                                                <rect key="frame" x="233.33333333333329" y="0.0" width="116.66666666666666" height="50"/>
+                                                                <rect key="frame" x="234.66666666666671" y="0.0" width="115.33333333333334" height="50"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="chevron.down" catalog="system" title="Year" imagePadding="12" titleAlignment="trailing">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Year" imagePadding="15" titleAlignment="trailing">
+                                                                    <imageReference key="image" image="chevron.down" catalog="system" symbolScale="small"/>
                                                                     <fontDescription key="titleFontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
@@ -2614,7 +2617,7 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Male" imagePadding="5">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Male" imagePadding="10">
                                                                     <imageReference key="image" image="circle" catalog="system" renderingMode="hierarchical-single">
                                                                         <hierarchicalColors>
                                                                             <color systemColor="labelColor"/>
@@ -2633,8 +2636,8 @@
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="Female" imagePadding="5">
-                                                                    <imageReference key="image" image="checkmark.circle" catalog="system" renderingMode="hierarchical-single">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Female" imagePadding="10">
+                                                                    <imageReference key="image" image="circle" catalog="system" renderingMode="hierarchical-single">
                                                                         <hierarchicalColors>
                                                                             <color systemColor="labelColor"/>
                                                                             <color systemColor="secondaryLabelColor"/>
@@ -2805,10 +2808,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxH-Nn-LeJ">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="35" id="dxQ-qJ-TMM"/>
-                                                    <constraint firstAttribute="height" constant="35" id="vnM-8c-Z3w"/>
+                                                    <constraint firstAttribute="width" constant="45" id="dxQ-qJ-TMM"/>
+                                                    <constraint firstAttribute="height" constant="45" id="vnM-8c-Z3w"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -3160,10 +3163,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KVA-I0-HIU">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="Yre-eL-FWp"/>
-                                                    <constraint firstAttribute="width" constant="35" id="mcs-AU-pUa"/>
+                                                    <constraint firstAttribute="height" constant="45" id="Yre-eL-FWp"/>
+                                                    <constraint firstAttribute="width" constant="45" id="mcs-AU-pUa"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -3515,10 +3518,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCk-9i-Wam">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="35" id="CwS-kz-dN2"/>
-                                                    <constraint firstAttribute="height" constant="35" id="gSG-H7-rHD"/>
+                                                    <constraint firstAttribute="width" constant="45" id="CwS-kz-dN2"/>
+                                                    <constraint firstAttribute="height" constant="45" id="gSG-H7-rHD"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -3850,10 +3853,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d8A-Bj-EBv">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="0DU-Kj-em0"/>
-                                                    <constraint firstAttribute="width" constant="35" id="mik-hr-YTH"/>
+                                                    <constraint firstAttribute="height" constant="45" id="0DU-Kj-em0"/>
+                                                    <constraint firstAttribute="width" constant="45" id="mik-hr-YTH"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -4185,10 +4188,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6N-jN-cSk">
-                                                <rect key="frame" x="10" y="12.666666666666668" width="35" height="35"/>
+                                                <rect key="frame" x="10" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="35" id="POP-Am-6Bn"/>
-                                                    <constraint firstAttribute="width" constant="35" id="w5L-hR-cvo"/>
+                                                    <constraint firstAttribute="height" constant="45" id="POP-Am-6Bn"/>
+                                                    <constraint firstAttribute="width" constant="45" id="w5L-hR-cvo"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -4460,10 +4463,10 @@
                                         <rect key="frame" x="0.0" y="15" width="430" height="60"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cQ8-DR-nNq">
-                                                <rect key="frame" x="15" y="7.6666666666666679" width="40" height="45"/>
+                                                <rect key="frame" x="15" y="7.6666666666666679" width="45" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="IuY-ht-IEJ"/>
-                                                    <constraint firstAttribute="width" constant="40" id="qnp-Zj-7Ld"/>
+                                                    <constraint firstAttribute="width" constant="45" id="qnp-Zj-7Ld"/>
                                                 </constraints>
                                                 <color key="tintColor" name="basicTextColor"/>
                                                 <state key="normal" title="Button"/>
@@ -4773,7 +4776,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="circle" catalog="system" width="128" height="123"/>

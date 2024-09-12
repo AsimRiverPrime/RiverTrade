@@ -98,8 +98,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     print("User isPhone fields updated successfully!")
                    
                     
-                    if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "PasscodeFaceIDVC"){
-                        self.navigate(to: dashboardVC)
+                    if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+                        self.navigate(to: faceIDVC)
                     }
                 }
                 
@@ -197,12 +197,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         self.view.endEditing(true)
     }
     
-    
     private func navigateToPhoneVerifiyScreen() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
-//        self.navigationController?.pushViewController(verifyVC, animated: true)
-//        self.navigate(to: verifyVC)
         if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
             self.navigate(to: verifyVC)
         }
@@ -218,11 +213,7 @@ extension VerifyCodeViewController: SendOTPDelegate{
     
     func otpFailure(error: Error) {
         print("this is the error  otp response: \(error)")
-//        if self.isEmailVerification == false {
-//            self.isEmailVerification = true
-//        } else if self.isPhoneVerification == false {
-//            self.isPhoneVerification = true
-//        }
+
     }
 }
 
@@ -236,16 +227,10 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
         }else{
             updateUser()
         }
-        
-        
     }
     
     func otpVerifyFailure(error: Error) {
-//        if self.isEmailVerification == false {
-//            self.isEmailVerification = true
-//        } else if self.isPhoneVerification == false {
-//            self.isPhoneVerification = true
-//        }
+
         print("this is the error from verify otp response: \(error)")
     }
 }

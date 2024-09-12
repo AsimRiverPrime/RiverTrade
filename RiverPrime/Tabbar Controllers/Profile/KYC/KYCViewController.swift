@@ -8,21 +8,25 @@
 import UIKit
 import iPass2_0NativeiOS
 
-class KYCViewController: UIViewController {
+
+class KYCViewController: BaseViewController {
     
     var appToken = "eyJhbGciOiJIUzI1NiJ9.aXRAc2FsYW1pbnYuY29tWmFpZCAgT2RlaCAgIGQ3NDU5ZjBlLTdmNWItNDhlNC04ZDAzLWE0YmJjNzMyNzE3Mg.QzQR-QHQM2kyYkdqUF9x0Te2L4m8aCQvU4E6bL_9KrY"
     var userToken = ""
     
+    let fireStoreInstance = FirestoreServices()
+    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      //  ActivityIndicator.shared.show(in: self.view)
+        ActivityIndicator.shared.show(in: self.view)
         DataBaseDownloading.initialization(completion:{progres, status, error in
             print(progres, status, error)
            
-//            if progres == "100%" {
-//                ActivityIndicator.shared.hide(from: self.view)
-//            }
+            if status == "Start Now" {
+                ActivityIndicator.shared.hide(from: self.view)
+            }
         })
         
         iPassSDKManger.delegate = self
@@ -56,8 +60,8 @@ class KYCViewController: UIViewController {
               await  iPassSDKManger.startScanningProcess(
                     userEmail: "it@salaminv.com",
                     flowId: 10031,
-                    socialMediaEmail: "Aasimali11991@gmail.com",
-                    phoneNumber: "971561606314",
+                    socialMediaEmail: "Asimprime900@gmail.com",
+                    phoneNumber: "+971561606314",
                     controller: self,
                     userToken: self.userToken,
                     appToken: self.appToken
@@ -75,7 +79,6 @@ class KYCViewController: UIViewController {
                 await self.handleDocumentUpload()
                 }
         }
-       
 
     }
     
@@ -87,22 +90,104 @@ class KYCViewController: UIViewController {
             print("the get list is: \(getList)")
         }
     }
+    
+    func AddUserAccountDetail() {
+        let userId =  UserDefaults.standard.string(forKey: "userID")
+        let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
+        let overAllStatus = UserDefaults.standard.string(forKey: "OverAllStatus")
+        let sid = UserDefaults.standard.string(forKey: "SID")
+        
+        print("profileStepCompeleted is : \(profileStep) profile Step: \(overAllStatus) sid: \(sid)")
+       
+        var questionAnswer: [String: [String]] = [:]
+        
+        let userData: [String: Any] = [
+               "uid": userId!,
+               "sId": sid!,
+               "step": profileStep,
+               "profileStep": profileStep,
+               "overAllStatus": overAllStatus!,
+               "questionAnswer": questionAnswer
+           ]
+        
+        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
+            switch result {
+            case .success:
+                print("KYC detail ADD to firebase successfully!")
+                self.updateUser()
+               // self.ToastMessage("KYC detail add successfully!")
+                self.navigateToQuestionScreen()
+            case .failure(let error):
+                print("Error adding/updating document: \(error)")
+                self.ToastMessage("\(error)")
+            }
+        }
+    }
+    
+    func navigateToQuestionScreen() {
+        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+    }
+    
+    func updateUser() {
+        let userId =  UserDefaults.standard.string(forKey: "userID")
+        let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
+        
+        var fieldsToUpdate: [String: Any] = [
+                "profileStep": profileStep,
+             ]
+        
+        fireStoreInstance.updateUserFields(userID: userId!, fields: fieldsToUpdate) { error in
+            if let error = error {
+                print("Error updating user fields: \(error.localizedDescription)")
+                return
+            } else {
+                print("\n User data save successfully in the fireBase")
+            }
+        }
+    }
+    
 }
 // Delegate methods to handle scan completion
 extension KYCViewController: iPassSDKManagerDelegate {
-    
-    
+        
     func getScanCompletionResult(result: String, transactionId: String, error: String) {
         // Handle the result of the scanning process
         DispatchQueue.main.async {
             if error.isEmpty {
                 print("Scan successful. Result: \(result), Transaction ID: \(transactionId)")
-                // You can perform further actions here, such as notifying the user
+                self.ToastMessage("Data Scanned Successfully.")
+                // Convert the result string into a Data object
+                if let jsonData = result.data(using: .utf8) {
+                    do {
+                        // Parse the JSON data
+                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+                           let amlData = jsonObject["data"] as? [String: Any],
+                           let status = amlData["OverAllStatus"] as? String,
+                           let amlInfo = amlData["amlData"] as? [String: Any],
+                           let sid = amlInfo["sid"] as? String {
+                            
+                            print("\n SID: \(sid) \t overall status : \(status)")
+                            UserDefaults.standard.set(sid, forKey: "SID")
+                            UserDefaults.standard.set(status, forKey: "OverAllStatus")
+                            UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
+                            self.AddUserAccountDetail()
+                            
+                        } else {
+                            print("SID not found in the result.")
+                        }
+                    } catch {
+                        print("Failed to parse JSON: \(error.localizedDescription)")
+                    }
+                } else {
+                    print("Failed to convert result string to data.")
+                }
+             
                 
-                // if result sucess  then move to the CompleteVerificationProfileScreen1 for futher details 
             } else {
                 print("Scan failed. Error: \(error)")
                 // Handle the error, maybe show an alert to the user
+                self.ToastMessage("\(error)")
             }
         }
     }

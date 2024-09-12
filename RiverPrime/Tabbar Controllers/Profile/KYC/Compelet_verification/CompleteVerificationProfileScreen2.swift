@@ -73,10 +73,10 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-       
-//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         self.dismiss(animated: true)
+        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+       
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {

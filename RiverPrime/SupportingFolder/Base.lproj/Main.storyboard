@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZIg-TV-Pdq">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -69,11 +68,13 @@
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="30" id="8wL-19-Tmo"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="leading" secondItem="zo3-qq-gFM" secondAttribute="leading" id="8zg-0e-lv4"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.28169" id="Dho-MQ-7y8"/>
+                                    <constraint firstItem="zo3-qq-gFM" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="70" id="FdF-zf-S73"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="IXj-nh-Hgk"/>
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="top" secondItem="RhX-F9-dLn" secondAttribute="bottom" constant="15" id="J7x-Qo-h92"/>
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="top" secondItem="YwC-bP-FtE" secondAttribute="bottom" constant="15" id="LMm-dW-Yom"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.8" id="Nd1-5X-SCT"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="top" secondItem="zo3-qq-gFM" secondAttribute="bottom" constant="25" id="RDD-7Z-hfF"/>
+                                    <constraint firstAttribute="trailing" secondItem="zo3-qq-gFM" secondAttribute="trailing" constant="70" id="lcE-af-q4q"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="nNG-u3-2Cs"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="trailing" secondItem="zo3-qq-gFM" secondAttribute="trailing" id="wre-d2-l0C"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="width" secondItem="5xB-nq-lXT" secondAttribute="width" multiplier="0.610687" id="z8d-7Y-bKG"/>
@@ -2852,7 +2853,7 @@ Reach out for questions or concerns about your privacy.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="gvt-nr-y25" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="816"/>
+                                <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="816"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt7-wi-eW4">
                                         <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="360"/>

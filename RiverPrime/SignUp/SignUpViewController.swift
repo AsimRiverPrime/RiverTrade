@@ -49,7 +49,7 @@ class SignUpViewController: BaseViewController{
     
     var viewModel = SignViewModel()
     var odooClientService = OdooClient()
-  
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,10 +133,10 @@ class SignUpViewController: BaseViewController{
     
     @IBAction func continueBtn(_ sender: Any) {
 //        signUp()
-//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//            self.navigate(to: dashboardVC)
-//        }
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+            self.navigate(to: dashboardVC)
+        }
+        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
@@ -197,7 +197,7 @@ class SignUpViewController: BaseViewController{
                 
                 UserDefaults.standard.set(user.uid, forKey: "userID")
                 
-                    self.saveAdditionalUserData(userId: user.uid, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
+                self.saveAdditionalUserData(userId: user.uid, kyc: false, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
                     self.navigateToVerifiyScreen()
                 }
             }
@@ -220,7 +220,7 @@ class SignUpViewController: BaseViewController{
         UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
         UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
         // Check if user already exists in Firestore
-        let db = Firestore.firestore()
+       
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
@@ -255,7 +255,7 @@ class SignUpViewController: BaseViewController{
                         let name = firstName + " " + lastName
                         self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
                        
-                        self?.saveAdditionalUserData(userId: user.uid, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
+                        self?.saveAdditionalUserData(userId: user.uid, kyc: false, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
                         
                         self?.navigateToVerifiyScreen()
@@ -266,9 +266,10 @@ class SignUpViewController: BaseViewController{
         
     }
     
-    private func saveAdditionalUserData(userId: String, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool, realAccountCreated: Bool, demoAccountCreated: Bool) {
-        let db = Firestore.firestore()
+    private func saveAdditionalUserData(userId: String, kyc: Bool, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool, realAccountCreated: Bool, demoAccountCreated: Bool) {
+       
         db.collection("users").document(userId).setData([
+            "KYC" : kyc,
             "uid": userId,
             "name": name,
             "email":email,
@@ -289,12 +290,16 @@ class SignUpViewController: BaseViewController{
     }
     
     private func navigateToVerifiyScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-        verifyVC.userEmail = self.email_tf.text ?? ""
-        verifyVC.isEmailVerification = true
-        verifyVC.isPhoneVerification = false
-        self.navigate(to: verifyVC)
+        
+        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+//        verifyVC.userEmail = self.email_tf.text ?? ""
+//        verifyVC.isEmailVerification = true
+//        verifyVC.isPhoneVerification = false
+//        self.navigate(to: verifyVC)
     }
     
 }

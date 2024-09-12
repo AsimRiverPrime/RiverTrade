@@ -65,10 +65,10 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedObjective, forKey: "SelectedTradeObjective")
-       
+        self.dismiss(animated: true)
         let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-       // self.dismiss(animated: true)
+       
     }
     
     @IBAction func backBtn_action(_ sender: Any) {

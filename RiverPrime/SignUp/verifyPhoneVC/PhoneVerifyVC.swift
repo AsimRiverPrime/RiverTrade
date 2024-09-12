@@ -65,35 +65,6 @@ class PhoneVerifyVC: UIViewController {
        
     }
     
-//    func updateUser(){
-//        guard let userId = userId,
-//              let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
-//            print("Please enter your phone number")
-//            return
-//        }
-//       
-//        
-//        let fieldsToUpdate: [String: Any] = [
-//            "phone": phoneNumber,
-//            "phoneVerified": true
-//        ]
-//        
-//        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
-//            if let error = error {
-//                print("Error updating user fields: \(error.localizedDescription)")
-//                self.showAlert(message: "Failed to update phone number. Please try again.")
-//            } else {
-//                print("User phone number fields updated successfully!")
-//                self.showAlert(message: "Phone number verified successfully!", completion: {
-//                    // Optionally, navigate to the next screen or dismiss this screen
-//                    self.dismiss(animated: true, completion: nil)
-//                        
-//                    self.navigateToVerifiyScreen()
-//                })
-//            }
-//        }
-//    }
-    
     func showAlert(message: String, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -119,12 +90,12 @@ class PhoneVerifyVC: UIViewController {
 extension PhoneVerifyVC:  SendOTPDelegate {
     
     func otpSuccess(response: Any) {
-        print("this is the send otp response: \(response)")
+        print("this is the phone send otp response: \(response)")
         navigateToVerifiyScreen()
     }
     
     func otpFailure(error: any Error) {
-        print("this is the send otp error response: \(error)")
+        print("this is the phone send otp error response: \(error)")
     }
 }
 // MARK: - delegate from update number Method

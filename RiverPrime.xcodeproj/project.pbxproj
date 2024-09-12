@@ -1827,7 +1827,7 @@
 			);
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
-				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */,
+				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -2344,9 +2344,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "We need access to NFC to scan NFC-enabled documents and tags.";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera for scanning documents and capturing images.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to authenticate your account securely.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = SplashVC.xib;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -2379,9 +2384,14 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "We need access to NFC to scan NFC-enabled documents and tags.";
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera for scanning documents and capturing images.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to authenticate your account securely.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = SplashVC.xib;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -2423,7 +2433,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */ = {
+		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yazanalqasem/iPass2.0NativeiOS";
 			requirement = {
@@ -2436,7 +2446,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2.0NativeiOS" */;
+			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */;
 			productName = iPass2.0NativeiOS;
 		};
 /* End XCSwiftPackageProductDependency section */

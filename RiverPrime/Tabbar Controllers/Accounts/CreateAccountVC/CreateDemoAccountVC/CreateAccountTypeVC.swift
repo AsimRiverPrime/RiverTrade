@@ -143,7 +143,9 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         var fieldsToUpdate: [String: Any] = [:]
         
         fieldsToUpdate = [
-            "demoAccountCreated" : true
+            "demoAccountCreated" : true,
+            "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
+            "loginId" : 0
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -176,6 +178,7 @@ extension CreateAccountTypeVC {
 extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     func createAccountSuccess(response: Any) {
         print("\n this is create user success response: \(response)")
+        // get loginId from the response
         updateUser()
     }
     
