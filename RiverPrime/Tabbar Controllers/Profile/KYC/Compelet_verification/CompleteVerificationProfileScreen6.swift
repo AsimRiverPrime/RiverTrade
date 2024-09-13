@@ -18,6 +18,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     var selectedPurpose: [String: [String]] = [:]
     
     let fireStoreInstance = FirestoreServices()
+    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,11 +74,8 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-        
-        //        if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileVC"){
-        //        self.navigate(to: profileVC)
-        //        }
         self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {
@@ -85,8 +83,8 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     }
     
     func navigateToPersonalDetailScreen(){
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .SeventhScreen)
     }
     
     func updateUser() {

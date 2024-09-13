@@ -51,6 +51,8 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     let overAllStatus = UserDefaults.standard.string(forKey: "OverAllStatus")
     let sid = UserDefaults.standard.string(forKey: "SID")
     
+    weak var delegateKYC: KYCVCDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -157,6 +159,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         
         updateUser()
         AddUserAccountDetail()
+        
     }
     
     func updateGenderButtons(for gender: String) {
@@ -218,8 +221,12 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
             switch result {
             case .success:
                 print("Document USER_ACCOUNT detail ADD successfully!")
-                self.ToastMessage("User detail add successfully!")
-                self.navigateToDashboard()
+             
+                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
+                    self.navigateToDashboard()
+                }
+               
+                
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.ToastMessage("\(error)")
@@ -227,11 +234,19 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         }
     }
     
+    func showAlert(message: String, completion: (() -> Void)? = nil) {
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                completion?()
+               
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    
     func navigateToDashboard() {
         self.dismiss(animated: true)
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileVC"){
-                   self.navigate(to: dashboardVC)
-               }
+        delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
     }
     
     func updateUser() {

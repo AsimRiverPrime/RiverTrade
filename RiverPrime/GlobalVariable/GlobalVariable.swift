@@ -16,6 +16,7 @@ class GlobalVariable: NSObject {
     static var instance = GlobalVariable()
     
     var isAccountCreated = Bool()
+    var isReturnToProfile = false
     
     var symbolDataArray: [SymbolData] = []
     

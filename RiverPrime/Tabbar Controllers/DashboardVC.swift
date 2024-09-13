@@ -58,8 +58,12 @@ class DashboardVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setAccountsButton()
-      
+        if GlobalVariable.instance.isReturnToProfile == true {
+            setProfileButton()
+            GlobalVariable.instance.isReturnToProfile = false
+        }else{
+            setAccountsButton()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -287,6 +291,7 @@ extension DashboardVC {
             dismissViews()
             profileVC = ProfileVC.getView()
             profileVC.delegateCompeleteProfile = self
+          
             addView(customTabBarType: .Profile)
             
             break
@@ -325,6 +330,26 @@ extension DashboardVC: DashboardVCDelegate {
     func navigateToCompeletProfile() {
         if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
             self.navigate(to: kycVc)
+            
+            // Retrieve the data from UserDefaults
+            //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            //            print("saved User Data: \(savedUserData)")
+            //            // Access specific values from the dictionary
+            //            if let profileStep = savedUserData["profileStep"] as? Int {
+            //                // Example condition based on values
+            //                if profileStep == 0 {
+            //                    if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+            //                        self.navigate(to: kycVc)
+            //                    } else if profileStep == 1 {
+            //                        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+            //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //                    }else if profileStep == 2 {
+            //                        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
+            //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //                    }
+            //                }
+            //            }
+            //        }
         }
     }
         

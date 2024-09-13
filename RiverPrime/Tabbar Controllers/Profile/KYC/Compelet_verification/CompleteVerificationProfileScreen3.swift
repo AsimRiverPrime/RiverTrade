@@ -16,6 +16,7 @@ class CompleteVerificationProfileScreen3: BottomSheetController {
     @IBOutlet var selectionSwitch: [UISwitch]!
     
     var selectedAnticipated: [String: [String]] = [:]
+    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,17 +67,13 @@ class CompleteVerificationProfileScreen3: BottomSheetController {
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedAnticipated, forKey: "SelectedTradeAnticipateMonthly")
         
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        // self.dismiss(animated: true)
+        self.dismiss(animated: true)
+       delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-        
-        //        if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileVC"){
-        //        self.navigate(to: profileVC)
-        //        }
         self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {

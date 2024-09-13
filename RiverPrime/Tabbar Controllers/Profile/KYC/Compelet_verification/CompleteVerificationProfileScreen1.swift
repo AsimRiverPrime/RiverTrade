@@ -17,6 +17,8 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
     
     var selectedObjective: [String: [String]] = [:]
     
+    weak var delegateKYC: KYCVCDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.lbl_tradeObj.text = "What is your trading objective?"
@@ -66,17 +68,13 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedObjective, forKey: "SelectedTradeObjective")
         self.dismiss(animated: true)
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
        
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-       
-//        if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileVC"){
-//        self.navigate(to: profileVC)
-//        }
         self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .ProfileScreen)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {

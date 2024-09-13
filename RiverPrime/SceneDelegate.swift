@@ -22,17 +22,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        
-         if let user = Auth.auth().currentUser {
-                    // User is signed in.
- //                   navigateToMainScreen()
-             print("user is already register")
-            // fetchUserData(userId: user.uid)
-                } else {
-                    // No user is signed in.
- //                   navigateToLoginScreen()
-                    print("user is not register")
-                }
+//        
+//         if let user = Auth.auth().currentUser {
+//                    // User is signed in.
+// //                   navigateToMainScreen()
+//             print("user is already register")
+//             fireStoreInstance.fetchUserData(userId: user.uid)
+//                } else {
+//                    // No user is signed in.
+//                    fireStoreInstance.navigateToLoginScreen()
+//                    print("user is not register")
+//                }
          
     }
 
@@ -64,54 +64,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
     
-    func fetchUserData(userId: String) {
-        UserDefaults.standard.set(userId, forKey: "userID")
-         let db = Firestore.firestore()
-         let docRef = db.collection("users").document(userId)
-         
-         docRef.getDocument { (document, error) in
-             if let document = document, document.exists {
-                 print("User document exist ")
-                 if let data = document.data() {
-                     self.handleUserData(data: data)
-                 }
-             } else {
-                 print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
-//                 self.navigateToLoginScreen()
-             }
-         }
-     }
-    
-    private func handleUserData(data: [String: Any]) {
-           if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-               navigateToEmailVerificationScreen()
-           } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-               navigateToPhoneVerificationScreen()
-           } else if let realAccountCreated = data["realAccountCreated"] as? Bool, !realAccountCreated {
-//               navigateToRealAccountCreationScreen()
-               
-           } else {
-//               navigateToMainScreen()
-           }
-       }
-    
-    private func navigateToEmailVerificationScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let emailVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-        emailVerificationVC.isEmailVerification = true
-//        self.navigationController?.pushViewController(emailVerificationVC, animated: true)
-           window?.rootViewController = emailVerificationVC
-           window?.makeKeyAndVisible()
-    }
-    
-    private func navigateToPhoneVerificationScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let phoneVerificationVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
-//        phoneVerificationVC.isPhoneVerification = true
-//        self.navigationController?.pushViewController(phoneVerificationVC, animated: true)
-           window?.rootViewController = phoneVerificationVC
-           window?.makeKeyAndVisible()
-    }
-
 }
 

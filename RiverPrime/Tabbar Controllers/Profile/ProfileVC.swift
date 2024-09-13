@@ -18,6 +18,7 @@ class ProfileVC: UIView {
     //    weak var delegate: AccountInfoTapDelegate?
     weak var delegateCompeleteProfile: DashboardVCDelegate?
     //    var model: [String] = ["Open","Pending","Close","image"]
+    //weak var delegateKYC: KYCVCDelegate?
     
     public override func awakeFromNib() {
         

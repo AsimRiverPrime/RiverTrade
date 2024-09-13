@@ -43,21 +43,62 @@ class FirestoreServices: BaseViewController {
         }
     }
     
-     func fetchUserData(userId: String) {
-          let db = Firestore.firestore()
-          let docRef = db.collection("users").document(userId)
-          
-          docRef.getDocument { (document, error) in
-              if let document = document, document.exists {
-                  if let data = document.data() {
-                      self.handleUserData(data: data)
-                  }
-              } else {
-                  print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
-                  self.navigateToLoginScreen()
-              }
-          }
-      }
+    /**
+     
+     // Retrieve the data from UserDefaults
+     if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") as? [String: Any] {
+ 
+         // Access specific values from the dictionary
+         if let uid = savedUserData["uid"] as? String,
+            let login = savedUserData["login"] as? Int,
+            let emailVerified = savedUserData["emailVerified"] as? Int {
+ 
+             // Example condition based on values
+             if login == 0 {
+                 print("User is not logged in. UID: \(uid)")
+             } else {
+                 print("User is logged in. UID: \(uid)")
+             }
+ 
+             if emailVerified == 0 {
+                 print("Email is not verified.")
+             }
+         }
+     }
+     private func handleUserData(data: [String: Any]) {
+            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+                navigateToEmailVerificationScreen()
+            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
+                navigateToPhoneVerificationScreen()
+            } else if let realAccountCreated = data["realAccountCreated"] as? Bool, !realAccountCreated {
+ //               navigateToRealAccountCreationScreen()
+ 
+            } else {
+ //               navigateToMainScreen()
+            }
+        }
+       **/
+    func fetchUserData(userId: String) {
+        UserDefaults.standard.set(userId, forKey: "userID")
+        print("user ID is: \(userId)")
+        
+         let db = Firestore.firestore()
+         let docRef = db.collection("users").document(userId)
+         
+         docRef.getDocument { (document, error) in
+             if let document = document, document.exists {
+                 print("User document exist and data is: \(document) ")
+                 if let data = document.data() {
+                    // self.handleUserData(data: data)
+                     print("data is: \(data)")
+                     UserDefaults.standard.set(data, forKey: "userData")
+                 }
+             } else {
+                 print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
+
+             }
+         }
+     }
     
     func checkUserExists(withID id: String, completion: @escaping (Bool) -> Void) {
         let userRef = db.collection("users").document(id)
@@ -147,10 +188,10 @@ class FirestoreServices: BaseViewController {
            window?.makeKeyAndVisible()
        }
 
-       private func navigateToLoginScreen() {
+        func navigateToLoginScreen() {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)
            let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-//           self.navigationController?.pushViewController(loginVC, animated: true)
+           self.navigationController?.pushViewController(loginVC, animated: true)
            window?.rootViewController = loginVC
            window?.makeKeyAndVisible()
        }

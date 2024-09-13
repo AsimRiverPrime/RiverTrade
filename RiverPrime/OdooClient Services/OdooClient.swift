@@ -5,7 +5,6 @@
 //  Created by Ross Rostane on 05/08/2024.
 //
 
-import Foundation
 import Alamofire
 import Foundation
 import AEXML
@@ -130,6 +129,25 @@ class OdooClient {
             "email": email,
             "phone": phone
         ]
+        
+        
+            let parametersValue1: [String: Any] = [
+                "method": "execute_kw",
+                "params": [
+                    "mbe.riverprime.com",
+                    7,
+                    "4e9b5768375b5a0acf0c94645eac5cdd9c07c059",
+                    "mt.middleware",
+                    "send_otp",
+                    [
+                        phone,
+                        email,
+                        type,
+                        ""
+                    ]
+                ]
+            ]
+        
         // Convert the dictionary to JSON object and send the request using Alamofire
         AF.request(otpSendURL,
                    method: .post,
@@ -164,7 +182,25 @@ class OdooClient {
     }
     
     //MARK: - create trade Account Method
-
+//
+//    /web/mt/account/create
+//     
+//    {
+//            "jsonrpc": "2.0",
+//            "method": "call",
+//            "params": {
+//                    "email": "h.yaseen@riverprime.com",
+//                    "phone": "+971566486002",
+//                    "group": "demo\\RP\\PRO",
+//                    "leverage": 4000,
+//                    "first_name": "Hasabalrasool",
+//                    "last_name": "Yaseen",
+//                    "password": "CFCqse780@*"
+//            },
+//            "id": 82101
+//    }
+//     
+//
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
        
         let parameters: [String: Any] = [
@@ -211,7 +247,7 @@ class OdooClient {
     }
 
     //MARK: - Authentication Method
-    
+    // working
     func authenticate() {
         let methodName = "authenticate"
         let parametersValue: [Any] = [
@@ -289,7 +325,7 @@ class OdooClient {
     }
     
     //MARK: - information for trade Symbol detail
-    
+    // working
     func sendSymbolDetailRequest() {
         let methodName = "execute_kw"
        
@@ -339,6 +375,7 @@ class OdooClient {
             }
     }
     //MARK: - Create request (Leads) Method for records
+    // working
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true
         
@@ -389,6 +426,7 @@ class OdooClient {
             }
     }
     //MARK: - Method write/update data to OdooServer
+    // working
     func writeRecords(number: String) {
         let methodName = "execute_kw"
         let params: [Any] = [

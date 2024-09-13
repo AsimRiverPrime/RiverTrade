@@ -17,6 +17,8 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
    
     var selectedInstrument: [String: [String]] = [:]
 
+    weak var delegateKYC: KYCVCDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,18 +67,14 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
     
     @IBAction func continueBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedInstrument, forKey: "SelectedTradeInstruments")
-        
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-       // self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
         
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
         self.dismiss(animated: true)
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-       
+        delegateKYC?.navigateToCompeletProfile(kyc: .FirstScreen)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {

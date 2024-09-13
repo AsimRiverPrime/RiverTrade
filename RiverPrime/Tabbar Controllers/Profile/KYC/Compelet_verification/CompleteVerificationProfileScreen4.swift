@@ -14,6 +14,8 @@ class CompleteVerificationProfileScreen4: BottomSheetController {
     @IBOutlet var selectedSwitch: [UISwitch]!
     var selectedIncome: [String: [String]] = [:]
 
+    weak var delegateKYC: KYCVCDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -63,17 +65,14 @@ class CompleteVerificationProfileScreen4: BottomSheetController {
     @IBAction func continueBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedIncome, forKey: "SelectedTradeSourceIncome")
         
-        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-       // self.dismiss(animated: true)
+        self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
         
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-       
-//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {
