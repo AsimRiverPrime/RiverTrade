@@ -14,10 +14,21 @@ class ViewController: BaseViewController {
     @IBOutlet weak var companyTitlelbl: UILabel!
     @IBOutlet weak var registerNowBtn: UIButton!
     
+    let vm = ViewControllerVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         styling()
+        
+        vm.fetchJsonRPCData { jsonRPCResponse in
+            if jsonRPCResponse == nil {
+                print("Something went wrong.")
+                return
+            }
+            print("jsonRPCResponse = \(jsonRPCResponse ?? "-")")
+        }
+        
     }
     // for crash laytics
 //        let button = UIButton(type: .roundedRect)
