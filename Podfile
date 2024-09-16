@@ -17,6 +17,8 @@ pod 'Firebase/Crashlytics'
 pod 'CountryPickerView'
 pod 'PhoneNumberKit', '~> 3.7'
 
+pod 'SVProgressHUD'
+
 pod 'Alamofire', '~> 5.6'
 pod 'AEXML', '~> 4.2'
 pod 'Starscream', '~> 4.0.4'

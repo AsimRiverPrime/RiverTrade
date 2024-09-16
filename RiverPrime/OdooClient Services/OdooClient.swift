@@ -9,14 +9,14 @@ import Alamofire
 import Foundation
 import AEXML
 
-protocol SendOTPDelegate: AnyObject {
-    func otpSuccess(response: Any)
-    func otpFailure(error: Error)
-}
-protocol VerifyOTPDelegate: AnyObject {
-    func otpVerifySuccess(response: Any)
-    func otpVerifyFailure(error: Error)
-}
+//protocol SendOTPDelegate: AnyObject {
+//    func otpSuccess(response: Any)
+//    func otpFailure(error: Error)
+//}
+//protocol VerifyOTPDelegate: AnyObject {
+//    func otpVerifySuccess(response: Any)
+//    func otpVerifyFailure(error: Error)
+//}
 protocol CreateLeadOdooDelegate: AnyObject {
     func leadCreatSuccess(response: Any)
     func leadCreatFailure(error: Error)
@@ -76,7 +76,7 @@ class OdooClient {
     weak var delegate: SendOTPDelegate?
     weak var createLeadDelegate: CreateLeadOdooDelegate?
     weak var verifyDelegate: VerifyOTPDelegate?
-    weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
+    weak var updateNumberDelegate: UpdatePhoneNumebrDelegate? 
     weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
     weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
     
@@ -441,7 +441,7 @@ class OdooClient {
                         "type": "work"
                     ]]
                 ]
-                          ]]
+            ]]
         ]
         
         guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {

@@ -9,7 +9,7 @@ import Foundation
 
 struct JSONRPCModel: Encodable {
     let method: String
-    let context: [String: String]
     let service: String
     let args: [String]
 }
+

@@ -55,6 +55,7 @@
 		3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */; };
 		3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */; };
 		3191F6AD2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */; };
+		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
@@ -340,6 +341,7 @@
 		3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCurrencyListViewController.swift; sourceTree = "<group>"; };
 		3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
 		3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSelectTradeType.swift; sourceTree = "<group>"; };
+		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
@@ -760,6 +762,14 @@
 				FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */,
 			);
 			path = "Tabbar Controllers";
+			sourceTree = "<group>";
+		};
+		31A08BC32C98763E0028B293 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				31A08BC42C98765B0028B293 /* ApiProtocols.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		31A4F0432C3E90A1006FDE6E /* Helper */ = {
@@ -1796,6 +1806,7 @@
 		FAD776C92C976F2F000411F1 /* Apis */ = {
 			isa = PBXGroup;
 			children = (
+				31A08BC32C98763E0028B293 /* Protocols */,
 				FAD776D52C9771F9000411F1 /* Models */,
 				FAD776D02C976FCF000411F1 /* JsonRpcEndpoint */,
 				FAD776CF2C976F9A000411F1 /* APIResponse */,
@@ -2113,6 +2124,7 @@
 				31D2AF102C8840B800E0CF2E /* WhitespaceData.swift in Sources */,
 				31B90D2A2C3FFDE400A7A0D2 /* ActivityIndicator.swift in Sources */,
 				31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */,
+				31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */,
 				31D2AF332C8840B800E0CF2E /* BarPrice.swift in Sources */,
 				C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */,
 				31D2AF0E2C8840B800E0CF2E /* SeriesDataType.swift in Sources */,

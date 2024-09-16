@@ -1221,6 +1221,9 @@ PODS:
   - Starscream (4.0.8)
   - SVGKit (3.0.0):
     - CocoaLumberjack (~> 3.0)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
   - TPKeyboardAvoiding (1.3.5)
 
 DEPENDENCIES:
@@ -1237,6 +1240,7 @@ DEPENDENCIES:
   - SDWebImage (~> 5.0)
   - SDWebImageSVGKitPlugin
   - Starscream (~> 4.0.4)
+  - SVProgressHUD
   - TPKeyboardAvoiding
 
 SPEC REPOS:
@@ -1280,6 +1284,7 @@ SPEC REPOS:
     - SDWebImageSVGKitPlugin
     - Starscream
     - SVGKit
+    - SVProgressHUD
     - TPKeyboardAvoiding
 
 SPEC CHECKSUMS:
@@ -1322,8 +1327,9 @@ SPEC CHECKSUMS:
   SDWebImageSVGKitPlugin: 7542dd07c344ec3415ded0461a1161a6f087e0c9
   Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: a4560b63c1505f257ae99d97bf218be3c744e14c
+PODFILE CHECKSUM: 8fce21b24de287ad9a88410e016c1c36195d607a
 
 COCOAPODS: 1.15.2

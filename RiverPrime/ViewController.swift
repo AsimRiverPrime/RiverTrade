@@ -9,7 +9,7 @@ import UIKit
 
 
 class ViewController: BaseViewController {
-
+    
     @IBOutlet weak var titlelbl: UILabel!
     @IBOutlet weak var companyTitlelbl: UILabel!
     @IBOutlet weak var registerNowBtn: UIButton!
@@ -21,15 +21,17 @@ class ViewController: BaseViewController {
         
         styling()
         
-        vm.fetchJsonRPCData { jsonRPCResponse in
-            if jsonRPCResponse == nil {
+        vm.Authentication(completion: { response in
+            if response == nil {
                 print("Something went wrong.")
                 return
             }
-            print("jsonRPCResponse = \(jsonRPCResponse ?? "-")")
-        }
+            print("jsonRPCResponse = \(response ?? "-")")
+        })
         
     }
+    
+
     // for crash laytics
 //        let button = UIButton(type: .roundedRect)
 //           button.frame = CGRect(x: 20, y: 50, width: 100, height: 30)

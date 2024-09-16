@@ -23,16 +23,17 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     let userId =  UserDefaults.standard.string(forKey: "userID")
    
     var userPhone: String = ""
-    var userEmail: String = ""
+   
     
     let fireStoreInstance = FirestoreServices()
-    let odooClientService = OdooClient()
+//    let odooClientService = OdooClient()
+    let odooClientService1 = OdooClientNew()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        odooClientService.delegate = self
-        odooClientService.verifyDelegate = self
+        odooClientService1.otpDelegate = self
+        odooClientService1.verifyDelegate = self
         
         let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum, tf_sixthNum]
         
@@ -52,12 +53,14 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }else{
             if isEmailVerification == true {
                  //"verify the otp code func sent through email and set that function"
-                odooClientService.verifyOTP(type: "email", email: userEmail, phone: "", otp: getVerificationCode() ?? "" )
+//                odooClientService.verifyOTP(type: "email", email: userEmail, phone: "", otp: getVerificationCode() ?? "" )
+                odooClientService1.verifyOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "", otp: getVerificationCode() ?? "" )
                
                
             }else if isPhoneVerification == true {
                 //print("verify the number otp code func sent through phone number and set that function")
-                odooClientService.verifyOTP(type: "phone", email: "", phone: userPhone, otp: getVerificationCode() ?? "" )
+//                odooClientService.verifyOTP(type: "phone", email: "", phone: userPhone, otp: getVerificationCode() ?? "" )
+                odooClientService1.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone, otp: getVerificationCode() ?? "" )
                
             }
         }
@@ -143,7 +146,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         
@@ -198,17 +200,22 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     private func navigateToPhoneVerifiyScreen() {
-        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
-            self.navigate(to: verifyVC)
-        }
+//        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
+//            verifyVC.userEmail = userEmail
+//            self.navigate(to: verifyVC)
+//        }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
+//        verifyVC.userEmail = userEmail
+        self.navigate(to: verifyVC)
     }
     
 }
 
-extension VerifyCodeViewController: SendOTPDelegate{
+extension VerifyCodeViewController: SendOTPDelegate {
     func otpSuccess(response: Any) {
         print("this is the send otp response: \(response)")
-        
+        ToastMessage("Please check Your email for OTP")
     }
     
     func otpFailure(error: Error) {
@@ -223,6 +230,9 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
        
         if isEmailVerification == true {
             updateUser()
+            ToastMessage("OTP Correct...Verify Phone#")
+            
+            ActivityIndicator.shared.hide(from: self.view)
             navigateToPhoneVerifiyScreen()
         }else{
             updateUser()

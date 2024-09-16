@@ -15,9 +15,14 @@ class GlobalVariable: NSObject {
     
     static var instance = GlobalVariable()
     
+    var dataBaseName: String = "mbe.riverprime.com" // localhost
+    var dbUserName: String =  "ios"
+    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+    
+    
     var isAccountCreated = Bool()
     var isReturnToProfile = false
-    
+    var userEmail: String = ""
     var symbolDataArray: [SymbolData] = []
     
     var resultTopButtonType = String()

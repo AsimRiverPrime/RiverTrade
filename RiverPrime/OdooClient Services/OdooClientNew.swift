@@ -8,7 +8,12 @@
 import Foundation
 import Alamofire
 
+
 class OdooClientNew {
+    
+    var indicate = BaseViewController()
+    
+    var createRequestBool : Bool = false
     
     private let baseURL = "https://mbe.riverprime.com"
     private let authURL = "https://mbe.riverprime.com/jsonrpc"
@@ -19,6 +24,10 @@ class OdooClientNew {
     var userEmail: String = ""
     
     var uid = UserDefaults.standard.integer(forKey: "uid")
+  
+    weak var otpDelegate: SendOTPDelegate?
+    weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
+    weak var verifyDelegate: VerifyOTPDelegate?
     
     func authenticate() {
         let methodName = "login"
@@ -63,62 +72,160 @@ class OdooClientNew {
         var uid = UserDefaults.standard.integer(forKey: "uid")
         
         let parametersValue: [String: Any] = [
-            "jsonrpc": "2.0",
-            "method": "execute_kw",
-            "params": [
-                uid,
-                dataBaseName,   // Your database name
-                dbUserName,     // Your username
-                dbPassword,
-                "mt.middleware",
-                "send_otp",
-//                "service": "common"
-                [
-                    phone,
-                    email,
-                    type,
-                    ""
-                ]
-            ]
-        ]
+               "jsonrpc": "2.0",
+               
+               "params": [
+                   "service": "object",
+                   "method": "execute_kw",
+                   "args": [
+                       dataBaseName,    // Your database name
+                       uid,             // Your user ID
+                       dbPassword,      // Your password
+                       "mt.middleware", // The model you're calling
+                       "send_otp",      // The method to be executed
+                       [
+                           [],           // Empty list as per Postman
+                           email,        // Email address
+                           type,         // Type (e.g., "email")
+                           phone         // Phone number or empty string
+                       ]
+                   ]
+               ]
+           ]
         
         print("json params is: \(parametersValue)")
         
         // Convert the dictionary to JSON object and send the request using Alamofire
-        AF.request(baseURL,
+        AF.request(authURL,
                    method: .post,
                    parameters: parametersValue,
                    encoding: JSONEncoding.default,
                    headers: ["Content-Type": "application/json"])
-        .validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any],
-                   let result = json["result"] as? [String: Any],
-                   let status = result["status"] as? String {
-                    if status == "success" {
-                        print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
-                        //                        self.delegate?.otpSuccess(response: result)
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                  
+                case .success(let value):
+                    print("value is: \(value)")
+                    if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["status"] as? Bool {  // Expecting a boolean here
+                        
+                        if status {
+                            print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
+                            self.otpDelegate?.otpSuccess(response: result)
+                         //   self.indicate.ToastMessage("Please check Your email for OTP")
+                           
+                        } else {
+                            let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+                            self.otpDelegate?.otpFailure(error: error)
+                            print("this is send otp (success) error response of type \(type) : \(error)")
+                        }
                     } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
-                        //                        self.delegate?.otpFailure(error: error)
-                        print("this is send otp (success) error response of type \(type) : \(error)")
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                        self.otpDelegate?.otpFailure(error: error)
+                        print("this is send otp Error response of type \(type) : \(error)")
                     }
-                } else {
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
-                    //                    self.delegate?.otpFailure(error: error)
-                    print("this is send otp Error response of type \(type) : \(error)")
+                case .failure(let error):
+                    self.otpDelegate?.otpFailure(error: error)    // Handle the network or other failure, e.g.,
+                    print("this is send otp error response: \(error)")
                 }
-            case .failure(let error):
-                //                self.delegate?.otpFailure(error: error)
-                print("this is send otp error response: \(error)")
             }
-        }
     }
     
+    func verifyOTP(type: String, email: String, phone: String, otp: String) {
+        
+        let parametersValue: [String: Any] = [
+               "jsonrpc": "2.0",
+               
+               "params": [
+                   "service": "object",
+                   "method": "execute_kw",
+                   "args": [
+                       dataBaseName,    // Your database name
+                       uid,             // Your user ID
+                       dbPassword,      // Your password
+                       "mt.middleware", // The model you're calling
+                       "verify_otp",      // The method to be executed
+                       [
+                           [],           // Empty list as per Postman
+                           email,        // Email address
+                           type,         // Type (e.g., "email")
+                           phone,         // Phone number or empty string
+                           otp
+                       ]
+                   ]
+               ]
+           ]
+        
+        print("json params is: \(parametersValue)")
+        
+        // Convert the dictionary to JSON object and send the request using Alamofire
+        AF.request(authURL,
+                   method: .post,
+                   parameters: parametersValue,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type": "application/json"])
+            .validate()
+            .responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [String: Any],
+                       let status = result["status"] as? String {  // Expecting a boolean here
+                        if status == "success" {
+                            print("\n this is the SUCCESS response of verify OTP: \(type) and response is \(json)\n")
+                            self.verifyDelegate?.otpVerifySuccess(response: result)  
+                           
+                        } else {
+                            let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+                           
+                            self.verifyDelegate?.otpVerifyFailure(error: error)
+                            print("this is send otp (success) error response of type \(type) : \(error)")
+                        }
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                       
+                        self.verifyDelegate?.otpVerifyFailure(error: error)
+                        print("this is send otp Error response of type \(type) : \(error)")
+                    }
+                case .failure(let error):
+                    self.verifyDelegate?.otpVerifyFailure(error: error)
+                    print("this is send otp error response: \(error)")
+                }
+            }
+        
+    }
+    //MARK: - Create request (Leads) Method for records
+    // working
+    func createRecords(firebase_uid: String, email: String, name: String) {
+        self.createRequestBool = true
+        
+        let methodName = "execute_kw"
+        
+        let params: [Any] = [
+            dataBaseName,      // Database name
+            uid,               // uid
+            dbPassword,        // password
+            "crm.lead",       // Model name
+            "create",         // Method name
+            [[                // vals_list
+                "name": name,
+                "firebase_uid": firebase_uid,
+                "type": "opportunity",
+                "email_from": email
+                
+             ]]
+        ]
+        
+        
+        
+        
+        
+    }
     func saveUserIdFromJSONData(_ data: Data) {
+       
+        
         do {
+              
             if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let userId = jsonResponse["result"] as? Int {
                 // Save or process the userId

@@ -10,7 +10,7 @@ import CountryPickerView
 import PhoneNumberKit
 import Firebase
 
-class PhoneVerifyVC: UIViewController {
+class PhoneVerifyVC: BaseViewController {
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
     @IBOutlet weak var tf_numberField: UITextField!
@@ -23,11 +23,14 @@ class PhoneVerifyVC: UIViewController {
     var userEmail: String = ""
     let firestoreService = FirestoreServices()
     let oodoService = OdooClient()
+    let oodoServiceNew = OdooClientNew()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        oodoService.delegate = self
+//        oodoService.delegate = self
         oodoService.updateNumberDelegate = self
+        oodoServiceNew.otpDelegate = self
+        oodoServiceNew.updateNumberDelegate = self
         
         view_countryCode.delegate = self
         view_countryCode.showPhoneCodeInView = false
@@ -61,6 +64,7 @@ class PhoneVerifyVC: UIViewController {
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
+                  
             }
        
     }
@@ -108,7 +112,7 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
 //        print("\n number is: \(number)")
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
-        oodoService.sendOTP(type: "phone", email: "", phone: number)
+        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
     }
     
     func updateNumberFailure(error: any Error) {

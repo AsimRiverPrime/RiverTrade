@@ -9,19 +9,19 @@ import Foundation
 
 class ViewControllerVM {
     
-    func fetchJsonRPCData(completion: @escaping (String?) -> Void) {
+    func Authentication(completion: @escaping (String?) -> Void) {
         let request = JSONRPCRequest(
             jsonrpc: "2.0",
-            method: "call",
+            method: "execute_kw",
             id: 9105,
-            params: JSONRPCParams(
+            params: JSONRPCModel(
                 method: "login",
-                context: [:],
+              
                 service: "common",
                 args: [
-                    "mbe.riverprime.com",
-                    "admin",
-                    "fa2cc3eb83e8b8c1fa323828ec67f0cfac7ca662"
+                    GlobalVariable.instance.dataBaseName,
+                    GlobalVariable.instance.dbUserName,
+                    GlobalVariable.instance.dbPassword
                 ]
             )
         )

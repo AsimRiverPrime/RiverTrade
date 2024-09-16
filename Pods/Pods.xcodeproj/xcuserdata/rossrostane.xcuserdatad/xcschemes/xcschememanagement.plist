@@ -289,6 +289,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Starscream-Starscream_Privacy.xcscheme</key>
 		<dict>
 			<key>isShown</key>

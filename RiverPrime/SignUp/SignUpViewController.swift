@@ -11,7 +11,7 @@ import GoogleSignIn
 import FirebaseFirestore
 import FirebaseAuth
 
-class SignUpViewController: BaseViewController{
+class SignUpViewController: BaseViewController {
     
     
     @IBOutlet weak var lbl_firstName: UITextField!
@@ -257,6 +257,7 @@ class SignUpViewController: BaseViewController{
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                        
+                        ActivityIndicator.shared.show(in: self!.view)
                         
                         let name = firstName + " " + lastName
                         self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
@@ -303,7 +304,8 @@ class SignUpViewController: BaseViewController{
 //        }
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-        verifyVC.userEmail = self.email_tf.text ?? ""
+//        verifyVC.userEmail = self.email_tf.text ?? ""
+        GlobalVariable.instance.userEmail = self.email_tf.text ?? ""
         verifyVC.isEmailVerification = true
         verifyVC.isPhoneVerification = false
         self.navigate(to: verifyVC)
