@@ -283,6 +283,12 @@
 		FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */; };
 		FAC321A42C6AC6B80019073C /* AllRealAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */; };
 		FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */; };
+		FAD776CC2C976F4D000411F1 /* JSONRPCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776CB2C976F4D000411F1 /* JSONRPCClient.swift */; };
+		FAD776CE2C976F94000411F1 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776CD2C976F94000411F1 /* APIResponse.swift */; };
+		FAD776D22C976FD8000411F1 /* JsonRpcEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D12C976FD8000411F1 /* JsonRpcEndpoint.swift */; };
+		FAD776D42C977087000411F1 /* ViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D32C977087000411F1 /* ViewControllerVM.swift */; };
+		FAD776D72C97720D000411F1 /* JSONRPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D62C97720D000411F1 /* JSONRPCModel.swift */; };
+		FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -565,6 +571,12 @@
 		FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDetailTVC.xib; sourceTree = "<group>"; };
 		FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRealAccountsVC.swift; sourceTree = "<group>"; };
 		FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		FAD776CB2C976F4D000411F1 /* JSONRPCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCClient.swift; sourceTree = "<group>"; };
+		FAD776CD2C976F94000411F1 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
+		FAD776D12C976FD8000411F1 /* JsonRpcEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonRpcEndpoint.swift; sourceTree = "<group>"; };
+		FAD776D32C977087000411F1 /* ViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVM.swift; sourceTree = "<group>"; };
+		FAD776D62C97720D000411F1 /* JSONRPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCModel.swift; sourceTree = "<group>"; };
+		FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDataModel.swift; sourceTree = "<group>"; };
 		FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -944,6 +956,7 @@
 				31D262012C3BECDE00FC6651 /* AppDelegate.swift */,
 				31D262032C3BECDE00FC6651 /* SceneDelegate.swift */,
 				31D262052C3BECDE00FC6651 /* ViewController.swift */,
+				FAD776D32C977087000411F1 /* ViewControllerVM.swift */,
 				31566CE22C3D04DC00C8D03B /* SupportingFolder */,
 				31BCC3232C3D3E120034CD6B /* Font */,
 				31F29B2F2C7C9B2100BBB126 /* SplashScreenFolder */,
@@ -1611,6 +1624,7 @@
 		FA532D642C5721E1003A26D6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FAD776C92C976F2F000411F1 /* Apis */,
 				FAC321A52C6AC72C0019073C /* CustomSegmentControl */,
 				FA46138B2C602D5500B472D6 /* DropDown */,
 				FA532D652C5721E1003A26D6 /* FontController */,
@@ -1777,6 +1791,50 @@
 				FAC321A62C6AC72C0019073C /* CustomSegmentedControl.swift */,
 			);
 			path = CustomSegmentControl;
+			sourceTree = "<group>";
+		};
+		FAD776C92C976F2F000411F1 /* Apis */ = {
+			isa = PBXGroup;
+			children = (
+				FAD776D52C9771F9000411F1 /* Models */,
+				FAD776D02C976FCF000411F1 /* JsonRpcEndpoint */,
+				FAD776CF2C976F9A000411F1 /* APIResponse */,
+				FAD776CA2C976F3E000411F1 /* JSONRPCClient */,
+			);
+			path = Apis;
+			sourceTree = "<group>";
+		};
+		FAD776CA2C976F3E000411F1 /* JSONRPCClient */ = {
+			isa = PBXGroup;
+			children = (
+				FAD776CB2C976F4D000411F1 /* JSONRPCClient.swift */,
+			);
+			path = JSONRPCClient;
+			sourceTree = "<group>";
+		};
+		FAD776CF2C976F9A000411F1 /* APIResponse */ = {
+			isa = PBXGroup;
+			children = (
+				FAD776CD2C976F94000411F1 /* APIResponse.swift */,
+			);
+			path = APIResponse;
+			sourceTree = "<group>";
+		};
+		FAD776D02C976FCF000411F1 /* JsonRpcEndpoint */ = {
+			isa = PBXGroup;
+			children = (
+				FAD776D12C976FD8000411F1 /* JsonRpcEndpoint.swift */,
+			);
+			path = JsonRpcEndpoint;
+			sourceTree = "<group>";
+		};
+		FAD776D52C9771F9000411F1 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAD776D62C97720D000411F1 /* JSONRPCModel.swift */,
+				FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1996,6 +2054,7 @@
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
 				31D2AF382C8840B800E0CF2E /* Coordinate.swift in Sources */,
 				316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */,
+				FAD776D72C97720D000411F1 /* JSONRPCModel.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
 				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
@@ -2064,6 +2123,7 @@
 				31D2AF212C8840B800E0CF2E /* HandleScaleOptions.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
 				31D2AF3C2C8840B800E0CF2E /* PriceFormat.swift in Sources */,
+				FAD776CE2C976F94000411F1 /* APIResponse.swift in Sources */,
 				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
 				31806D192C609CD000E48730 /* OdooClient.swift in Sources */,
 				FA4613832C602CD400B472D6 /* CreateDemoAccountVC.swift in Sources */,
@@ -2081,6 +2141,7 @@
 				31D2AF022C8840B800E0CF2E /* JavaScriptEvaluator.swift in Sources */,
 				31D2AF3E2C8840B800E0CF2E /* SurfaceColor.swift in Sources */,
 				FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */,
+				FAD776D42C977087000411F1 /* ViewControllerVM.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
 				31D2AEF72C8840B800E0CF2E /* Chart.swift in Sources */,
 				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
@@ -2139,6 +2200,7 @@
 				FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */,
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
 				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
+				FAD776CC2C976F4D000411F1 /* JSONRPCClient.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
 				31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */,
@@ -2148,6 +2210,7 @@
 				FA4613842C602CD400B472D6 /* CreateAccountSlideCell.swift in Sources */,
 				31D2AF402C8840B800E0CF2E /* Time.swift in Sources */,
 				31D2AEEE2C8840B800E0CF2E /* UIColor+ColorComponents.swift in Sources */,
+				FAD776D22C976FD8000411F1 /* JsonRpcEndpoint.swift in Sources */,
 				314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
 				317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */,
@@ -2175,6 +2238,7 @@
 				31D2AF282C8840B800E0CF2E /* AreaSeriesOptions.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				31D2AF422C8840B800E0CF2E /* ChartApi.swift in Sources */,
+				FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */,
 				FAC321A22C6AC6B80019073C /* AccountDetailTVC.swift in Sources */,
 				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
