@@ -20,20 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         window!.overrideUserInterfaceStyle = .light
         
-        guard let _ = (scene as? UIWindowScene) else { return }
         
-//        
-//         if let user = Auth.auth().currentUser {
-//                    // User is signed in.
-// //                   navigateToMainScreen()
-//             print("user is already register")
-//             fireStoreInstance.fetchUserData(userId: user.uid)
-//                } else {
-//                    // No user is signed in.
-//                    fireStoreInstance.navigateToLoginScreen()
-//                    print("user is not register")
-//                }
-         
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            
+            fireStoreInstance.handleUserData()
+        }else {
+            fireStoreInstance.navigateToLoginScreen()
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

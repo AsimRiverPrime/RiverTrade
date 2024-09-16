@@ -146,12 +146,13 @@ class SignInViewController: BaseViewController {
                 self?.lbl_passwordCheck.isHidden = true
                 self?.lbl_credientailCheck.isHidden = true
                 print(" signing in successfully: \(authres ?? " no data")")
-                // Successfully signed in
-                // self?.navigateToDashboardScreen()
-                // check for the email verification and phone number verification
-                
+               
                 print(" signing in successfully and move to Dashboard screen ")
-                self?.navigateToDashboardScreen()
+                if let userId = authResult?.user.uid {
+                    self?.firebase.fetchUserData(userId: userId)
+                }
+                
+                self?.firebase.handleUserData()
             }
         }
         

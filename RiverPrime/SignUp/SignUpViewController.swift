@@ -49,13 +49,16 @@ class SignUpViewController: BaseViewController{
     
     var viewModel = SignViewModel()
     var odooClientService = OdooClient()
+    var odoClientNew = OdooClientNew()
+    
     let db = Firestore.firestore()
     let fireBaseService =  FirestoreServices()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("odoo client auth call")
-        odooClientService.authenticate()
+//        odooClientService.authenticate()
+        odoClientNew.authenticate()
         odooClientService.createLeadDelegate = self
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
@@ -133,12 +136,12 @@ class SignUpViewController: BaseViewController{
     }
     
     @IBAction func continueBtn(_ sender: Any) {
-//        signUp()
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
+        signUp()
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
         
-//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
@@ -311,7 +314,7 @@ class SignUpViewController: BaseViewController{
 extension SignUpViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-        odooClientService.sendOTP(type: "email", email: email_tf.text ?? "", phone: "")
+        odoClientNew.sendOTP(type: "email", email: email_tf.text ?? "", phone: "")
     }
     
     func leadCreatFailure(error: any Error) {

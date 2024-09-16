@@ -30,18 +30,19 @@ class FirestoreServices: BaseViewController {
            }
     }
     
-    func fetchUser(withID id: String, completion: @escaping (UserModel?, Error?) -> Void) {
-        let userRef = db.collection("users").document(id)
-        userRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let data = document.data()!
-                let user = UserModel(id: document.documentID, data: data)
-                completion(user, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
-    }
+    
+//    func fetchUser(withID id: String, completion: @escaping (UserModel?, Error?) -> Void) {
+//        let userRef = db.collection("users").document(id)
+//        userRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                let data = document.data()!
+//                let user = UserModel(id: document.documentID, data: data)
+//                completion(user, nil)
+//            } else {
+//                completion(nil, error)
+//            }
+//        }
+//    }
     
     /**
      
@@ -64,20 +65,8 @@ class FirestoreServices: BaseViewController {
                  print("Email is not verified.")
              }
          }
-     }
-     private func handleUserData(data: [String: Any]) {
-            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-                navigateToEmailVerificationScreen()
-            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-                navigateToPhoneVerificationScreen()
-            } else if let realAccountCreated = data["realAccountCreated"] as? Bool, !realAccountCreated {
- //               navigateToRealAccountCreationScreen()
- 
-            } else {
- //               navigateToMainScreen()
-            }
-        }
-       **/
+     }**/
+       
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
         print("user ID is: \(userId)")
@@ -89,7 +78,7 @@ class FirestoreServices: BaseViewController {
              if let document = document, document.exists {
                  print("User document exist and data is: \(document) ")
                  if let data = document.data() {
-                    // self.handleUserData(data: data)
+                   
                      print("data is: \(data)")
                      UserDefaults.standard.set(data, forKey: "userData")
                  }
@@ -99,6 +88,29 @@ class FirestoreServices: BaseViewController {
              }
          }
      }
+    
+    func handleUserData() {
+        if let data = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(data)")
+            
+            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+                // navigateToEmailVerificationScreen()
+                print("navigate to user email verification")
+            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
+                // navigateToPhoneVerificationScreen()
+                print("navigate to user phone verification")
+            } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
+                // navigateToRealAccountCreationScreen()
+                print("navigate to user demo account")
+            } else if let profileStep = data["demoAccountCreated"] as? Int {
+                // navigateToRealAccountCreationScreen()
+                print("check profile step: \(profileStep)")
+            } else {
+                print("navigate to Login")
+                // navigateToMainScreen()
+            }
+        }
+  }
     
     func checkUserExists(withID id: String, completion: @escaping (Bool) -> Void) {
         let userRef = db.collection("users").document(id)
@@ -167,33 +179,20 @@ class FirestoreServices: BaseViewController {
             }
         }
     }
-    
-    private func handleUserData(data: [String: Any]) {
-           if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-               navigateToEmailVerificationScreen()
-           } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-               navigateToPhoneVerificationScreen()
-           } else if let realAccountCreated = data["realAccountCreated"] as? Bool, !realAccountCreated {
-//               navigateToRealAccountCreationScreen()
-               
-           } else {
-               navigateToMainScreen()
-           }
-       }
+   
        
        private func navigateToMainScreen() {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)
            let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-           window?.rootViewController = mainVC
-           window?.makeKeyAndVisible()
+//           window?.rootViewController = mainVC
+//           window?.makeKeyAndVisible()
        }
 
         func navigateToLoginScreen() {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)
            let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
            self.navigationController?.pushViewController(loginVC, animated: true)
-           window?.rootViewController = loginVC
-           window?.makeKeyAndVisible()
+          
        }
        
        private func navigateToEmailVerificationScreen() {

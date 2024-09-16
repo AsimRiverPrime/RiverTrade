@@ -80,6 +80,40 @@ class OdooClient {
     weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
     weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
     
+    //MARK: - Authentication Method
+    // working
+    func authenticate() {
+        let methodName = "authenticate"
+        let parametersValue: [Any] = [
+            dataBaseName,     // Database name
+            dbUserName,     // Username
+            dbPassword,    // Password
+            [:] // Context as an empty dictionary
+        ]
+        
+        guard let xmlData = xmlRPCPayload(method: methodName, parameters: parametersValue) else {
+            print("Error creating XML payload")
+            return
+        }
+        var urlRequest = URLRequest(url: URL(string: commonURL)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = xmlData
+        
+        AF.request(urlRequest)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    self.saveUserIdFromXMLData(data)
+                    
+                    print("Response XML: \(String(data: data, encoding: .utf8) ?? "")")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+    }
+    
     //MARK: - Verify OTP Method
     
     func verifyOTP(type: String, email: String, phone: String, otp: String) {
@@ -181,10 +215,54 @@ class OdooClient {
         }
     }
     
+    //MARK: - Send request Method for fetch data
+    func sendRequest(searchEmail: String) {
+        let methodName = "execute_kw"
+        
+        // Define the domain filter and parameters
+        let domainFilter: [[Any]] = [[
+            "email_from", "=", searchEmail
+        ]]
+        let params: [Any] = [
+            dataBaseName,      // Database name
+            uid,               // UID
+            dbPassword,        // Password
+            "crm.lead",       // Model name
+            "search_read",    // Method name
+            [domainFilter],   // Domain (search criteria)
+            []                // Fields to retrieve
+        ]
+        
+        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+            print("Error creating XML payload")
+            return
+        }
+        
+        print(String(data: payload, encoding: .utf8)!)
+        
+        var urlRequest = URLRequest(url: URL(string: objectURL)!)
+        urlRequest.httpMethod = "POST"
+        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpBody = payload
+        
+        AF.request(urlRequest)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    if let responseString = String(data: data, encoding: .utf8) {
+                        print("Response XML: \(responseString)")
+                    }
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            }
+    }
+    
     //MARK: - create trade Account Method
 //
 //    /web/mt/account/create
-//     
+//
 //    {
 //            "jsonrpc": "2.0",
 //            "method": "call",
@@ -199,7 +277,7 @@ class OdooClient {
 //            },
 //            "id": 82101
 //    }
-//     
+//
 //
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
        
@@ -245,85 +323,6 @@ class OdooClient {
             }
         }
     }
-
-    //MARK: - Authentication Method
-    // working
-    func authenticate() {
-        let methodName = "authenticate"
-        let parametersValue: [Any] = [
-            dataBaseName,     // Database name
-            dbUserName,     // Username
-            dbPassword,    // Password
-            [:] // Context as an empty dictionary
-        ]
-        
-        guard let xmlData = xmlRPCPayload(method: methodName, parameters: parametersValue) else {
-            print("Error creating XML payload")
-            return
-        }
-        var urlRequest = URLRequest(url: URL(string: commonURL)!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = xmlData
-        
-        AF.request(urlRequest)
-            .validate()
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    self.saveUserIdFromXMLData(data)
-                    
-                    print("Response XML: \(String(data: data, encoding: .utf8) ?? "")")
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-    }
-    
-    //MARK: - Send request Method for fetch data
-    func sendRequest(searchEmail: String) {
-        let methodName = "execute_kw"
-        
-        // Define the domain filter and parameters
-        let domainFilter: [[Any]] = [[
-            "email_from", "=", searchEmail
-        ]]
-        let params: [Any] = [
-            dataBaseName,      // Database name
-            uid,               // UID
-            dbPassword,        // Password
-            "crm.lead",       // Model name
-            "search_read",    // Method name
-            [domainFilter],   // Domain (search criteria)
-            []                // Fields to retrieve
-        ]
-        
-        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
-            print("Error creating XML payload")
-            return
-        }
-        
-        print(String(data: payload, encoding: .utf8)!)
-        
-        var urlRequest = URLRequest(url: URL(string: objectURL)!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = payload
-        
-        AF.request(urlRequest)
-            .validate()
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response XML: \(responseString)")
-                    }
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-    }
-    
     //MARK: - information for trade Symbol detail
     // working
     func sendSymbolDetailRequest() {
