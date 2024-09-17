@@ -63,7 +63,7 @@ class OdooClient {
         return baseURLOTP + "/web/mt/account/create"
     }()
     
-    var uid: Int = UserDefaults.standard.integer(forKey: "uid")
+//    var uid: Int = UserDefaults.standard.integer(forKey: "uid")
     var recordedId: Int = UserDefaults.standard.integer(forKey: "recordId")
     
     var createRequestBool : Bool = false
@@ -82,139 +82,139 @@ class OdooClient {
     
     //MARK: - Authentication Method
     // working
-    func authenticate() {
-        let methodName = "authenticate"
-        let parametersValue: [Any] = [
-            dataBaseName,     // Database name
-            dbUserName,     // Username
-            dbPassword,    // Password
-            [:] // Context as an empty dictionary
-        ]
-        
-        guard let xmlData = xmlRPCPayload(method: methodName, parameters: parametersValue) else {
-            print("Error creating XML payload")
-            return
-        }
-        var urlRequest = URLRequest(url: URL(string: commonURL)!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = xmlData
-        
-        AF.request(urlRequest)
-            .validate()
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    self.saveUserIdFromXMLData(data)
-                    
-                    print("Response XML: \(String(data: data, encoding: .utf8) ?? "")")
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-    }
+//    func authenticate() {
+//        let methodName = "authenticate"
+//        let parametersValue: [Any] = [
+//            dataBaseName,     // Database name
+//            dbUserName,     // Username
+//            dbPassword,    // Password
+//            [:] // Context as an empty dictionary
+//        ]
+//        
+//        guard let xmlData = xmlRPCPayload(method: methodName, parameters: parametersValue) else {
+//            print("Error creating XML payload")
+//            return
+//        }
+//        var urlRequest = URLRequest(url: URL(string: commonURL)!)
+//        urlRequest.httpMethod = "POST"
+//        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+//        urlRequest.httpBody = xmlData
+//        
+//        AF.request(urlRequest)
+//            .validate()
+//            .responseData { response in
+//                switch response.result {
+//                case .success(let data):
+//                    self.saveUserIdFromXMLData(data)
+//                    
+//                    print("Response XML: \(String(data: data, encoding: .utf8) ?? "")")
+//                case .failure(let error):
+//                    print("Error: \(error)")
+//                }
+//            }
+//    }
     
     //MARK: - Verify OTP Method
-    
-    func verifyOTP(type: String, email: String, phone: String, otp: String) {
-        
-        let parametersValue: [String: Any] = [
-            "type": type,
-            "email": email,
-            "otp": otp,
-            "phone": phone
-        ]
-        // Convert the dictionary to JSON object and send the request using Alamofire
-        AF.request(otpVerifyURL,
-                   method: .post,
-                   parameters: parametersValue,
-                   encoding: JSONEncoding.default,
-                   headers: ["Content-Type": "application/json"])
-        .validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any],
-                   let result = json["result"] as? [String: Any],
-                   let status = result["status"] as? String {
-                    if status == "success" {
-                        print("\n this is the verify response of type: \(type) and response is \(json)\n")
-                        self.verifyDelegate?.otpVerifySuccess(response: result)
-                    } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
-                        self.verifyDelegate?.otpVerifyFailure(error: error)
-                    }
-                } else {
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
-                    self.verifyDelegate?.otpVerifyFailure(error: error)
-                }
-            case .failure(let error):
-                self.verifyDelegate?.otpVerifyFailure(error: error)
-            }
-        }
-    }
+//    
+//    func verifyOTP(type: String, email: String, phone: String, otp: String) {
+//        
+//        let parametersValue: [String: Any] = [
+//            "type": type,
+//            "email": email,
+//            "otp": otp,
+//            "phone": phone
+//        ]
+//        // Convert the dictionary to JSON object and send the request using Alamofire
+//        AF.request(otpVerifyURL,
+//                   method: .post,
+//                   parameters: parametersValue,
+//                   encoding: JSONEncoding.default,
+//                   headers: ["Content-Type": "application/json"])
+//        .validate()
+//        .responseJSON { response in
+//            switch response.result {
+//            case .success(let value):
+//                if let json = value as? [String: Any],
+//                   let result = json["result"] as? [String: Any],
+//                   let status = result["status"] as? String {
+//                    if status == "success" {
+//                        print("\n this is the verify response of type: \(type) and response is \(json)\n")
+//                        self.verifyDelegate?.otpVerifySuccess(response: result)
+//                    } else {
+//                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+//                        self.verifyDelegate?.otpVerifyFailure(error: error)
+//                    }
+//                } else {
+//                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+//                    self.verifyDelegate?.otpVerifyFailure(error: error)
+//                }
+//            case .failure(let error):
+//                self.verifyDelegate?.otpVerifyFailure(error: error)
+//            }
+//        }
+//    }
     
     //MARK: - send OTP Method
-    
-    func sendOTP(type: String, email: String, phone: String) {
-        
-        let parametersValue: [String: Any] = [
-            "type": type,
-            "email": email,
-            "phone": phone
-        ]
-        
-        
-            let parametersValue1: [String: Any] = [
-                "method": "execute_kw",
-                "params": [
-                    "mbe.riverprime.com",
-                    7,
-                    "4e9b5768375b5a0acf0c94645eac5cdd9c07c059",
-                    "mt.middleware",
-                    "send_otp",
-                    [
-                        phone,
-                        email,
-                        type,
-                        ""
-                    ]
-                ]
-            ]
-        
-        // Convert the dictionary to JSON object and send the request using Alamofire
-        AF.request(otpSendURL,
-                   method: .post,
-                   parameters: parametersValue,
-                   encoding: JSONEncoding.default,
-                   headers: ["Content-Type": "application/json"])
-        .validate()
-        .responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any],
-                   let result = json["result"] as? [String: Any],
-                   let status = result["status"] as? String {
-                    if status == "success" {
-                        print("\n this is the SUCESS response of type: \(type) and response is \(json)\n")
-                        self.delegate?.otpSuccess(response: result)
-                    } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
-                        self.delegate?.otpFailure(error: error)
-                        print("this is send otp (success) error response of type \(type) : \(error)")
-                    }
-                } else {
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
-                    self.delegate?.otpFailure(error: error)
-                    print("this is send otp Error response of type \(type) : \(error)")
-                }
-            case .failure(let error):
-                self.delegate?.otpFailure(error: error)
-                print("this is send otp error response: \(error)")
-            }
-        }
-    }
-    
+//    
+//    func sendOTP(type: String, email: String, phone: String) {
+//        
+//        let parametersValue: [String: Any] = [
+//            "type": type,
+//            "email": email,
+//            "phone": phone
+//        ]
+//        
+//        
+//            let parametersValue1: [String: Any] = [
+//                "method": "execute_kw",
+//                "params": [
+//                    "mbe.riverprime.com",
+//                    7,
+//                    "4e9b5768375b5a0acf0c94645eac5cdd9c07c059",
+//                    "mt.middleware",
+//                    "send_otp",
+//                    [
+//                        phone,
+//                        email,
+//                        type,
+//                        ""
+//                    ]
+//                ]
+//            ]
+//        
+//        // Convert the dictionary to JSON object and send the request using Alamofire
+//        AF.request(otpSendURL,
+//                   method: .post,
+//                   parameters: parametersValue,
+//                   encoding: JSONEncoding.default,
+//                   headers: ["Content-Type": "application/json"])
+//        .validate()
+//        .responseJSON { response in
+//            switch response.result {
+//            case .success(let value):
+//                if let json = value as? [String: Any],
+//                   let result = json["result"] as? [String: Any],
+//                   let status = result["status"] as? String {
+//                    if status == "success" {
+//                        print("\n this is the SUCESS response of type: \(type) and response is \(json)\n")
+//                        self.delegate?.otpSuccess(response: result)
+//                    } else {
+//                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+//                        self.delegate?.otpFailure(error: error)
+//                        print("this is send otp (success) error response of type \(type) : \(error)")
+//                    }
+//                } else {
+//                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+//                    self.delegate?.otpFailure(error: error)
+//                    print("this is send otp Error response of type \(type) : \(error)")
+//                }
+//            case .failure(let error):
+//                self.delegate?.otpFailure(error: error)
+//                print("this is send otp error response: \(error)")
+//            }
+//        }
+//    }
+//    
     //MARK: - Send request Method for fetch data
     func sendRequest(searchEmail: String) {
         let methodName = "execute_kw"
@@ -225,7 +225,7 @@ class OdooClient {
         ]]
         let params: [Any] = [
             dataBaseName,      // Database name
-            uid,               // UID
+            GlobalVariable.instance.uid,               // UID
             dbPassword,        // Password
             "crm.lead",       // Model name
             "search_read",    // Method name
@@ -338,7 +338,7 @@ class OdooClient {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            uid,               // UID
+            GlobalVariable.instance.uid,               // UID
             dbPassword,        // Password
             "mt.symbol",       // Model name
             "search_read",    // Method name
@@ -382,7 +382,7 @@ class OdooClient {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            uid,               // uid
+            GlobalVariable.instance.uid,               // uid
             dbPassword,        // password
             "crm.lead",       // Model name
             "create",         // Method name
@@ -430,11 +430,11 @@ class OdooClient {
         let methodName = "execute_kw"
         let params: [Any] = [
             dataBaseName,      // Database name
-            uid,               // uid
+            GlobalVariable.instance.uid,               // uid
             dbPassword,            // password
             "crm.lead",       // Model name
             "write",         // Method name
-            [[recordedId],[                // vals_list // need record id
+            [[recordedId],[                // vals_list // need record id save in userdefault
                 "number_ids": [
                     [0, 0, [
                         "number": number,

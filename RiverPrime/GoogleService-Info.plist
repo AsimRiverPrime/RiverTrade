@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com</string>
+	<string>1059141438445-qnn6bo87ce172k40ek6q1se7qnq5ts84.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92</string>
+	<string>com.googleusercontent.apps.1059141438445-qnn6bo87ce172k40ek6q1se7qnq5ts84</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>1059141438445-uvl0a3fd6rni2vr29imk8l30o6m7g1jj.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.RiverTrade</string>
+	<string>com.RiverPrime.RiverTrade</string>
 	<key>PROJECT_ID</key>
 	<string>river-prime-trade-app</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1059141438445:ios:0e65f812e5e929189175e4</string>
+	<string>1:1059141438445:ios:c4b85af1842a94b39175e4</string>
 	<key>DATABASE_URL</key>
 	<string>https://river-prime-trade-app-default-rtdb.firebaseio.com</string>
 </dict>

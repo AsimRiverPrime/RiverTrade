@@ -21,13 +21,14 @@ class ViewController: BaseViewController {
         
         styling()
         
-        vm.Authentication(completion: { response in
-            if response == nil {
-                print("Something went wrong.")
-                return
-            }
-            print("jsonRPCResponse = \(response ?? "-")")
-        })
+//        vm.Authentication(completion: { response in
+//            if response == nil {
+//                print("Something went wrong.")
+//                return
+//            }
+//            print("jsonRPCResponse = \(response ?? "-")")
+//           
+//        })
         
     }
     
@@ -52,7 +53,8 @@ class ViewController: BaseViewController {
     }
     
     @IBAction func registerBtn(_ sender: Any) {
-        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") {
+        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") //SignUpViewController PasscodeFaceIDVC
+        {
             self.navigate(to: signUp)
         }
         

@@ -20,17 +20,40 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         window!.overrideUserInterfaceStyle = .light
         
+        if isFaceIDAuthenticated() {
+//            showFaceIDScreen()
+            print("open faceID screen")
+        }
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
             
-            fireStoreInstance.handleUserData()
+           // fireStoreInstance.handleUserData()
         }else {
             fireStoreInstance.navigateToLoginScreen()
         }
 
+        // Check if the user has authenticated with Face ID
+        window?.makeKeyAndVisible()
+        
     }
-
+    func isFaceIDAuthenticated() -> Bool {
+            return UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
+        }
+        
+        // Show the Face ID screen
+//        func showFaceIDScreen() {
+//            let faceIDVC = PasscodeFaceIDVC() // Initialize your Face ID ViewController
+//            window?.rootViewController = faceIDVC
+//        }
+        
+        // Show the main app screen
+        func showMainAppScreen() {
+//            let mainVC = MainViewController() // Initialize your main ViewController
+//            let navigationController = UINavigationController(rootViewController: mainVC)
+//            window?.rootViewController = navigationController
+        }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

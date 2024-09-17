@@ -10,6 +10,7 @@ import Foundation
 class ViewControllerVM {
     
     func Authentication(completion: @escaping (String?) -> Void) {
+       
         let request = JSONRPCRequest(
             jsonrpc: "2.0",
             method: "execute_kw",
@@ -30,8 +31,18 @@ class ViewControllerVM {
             switch result {
             case .success(let data):
                 if let data = data, let jsonString = String(data: data, encoding: .utf8) {
-//                    print("Response JSON: \(jsonString)")
-                    
+                    print("Response JSON: \(jsonString)")
+        
+                            do {
+                                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                                   let userId = jsonResponse["result"] as? Int {
+                                    print("Result: \(userId)")
+                                   
+                                    GlobalVariable.instance.uid = userId
+                                }
+                            }catch {
+                        print("exception from JsonResponse from auth")
+                    }
 //                    do {
 //                        let decoder = JSONDecoder()
 //                        let response = try decoder.decode([SymbolData].self, from: data)
@@ -39,8 +50,14 @@ class ViewControllerVM {
 //                    } catch {
 //                        return "exception"
 //                    }
-                    
+//                    if let userId = jsonString["result"] as? Int {
+//                        // Save or process the userId
+//                        print("User ID: \(userId)")
+//                        UserDefaults.standard.set(userId, forKey: "uid")
+//                    }
                     completion(jsonString)
+                   
+                    
                 } else {
                     completion(nil)
                 }

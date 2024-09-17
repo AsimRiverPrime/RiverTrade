@@ -58,9 +58,11 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                
                
             }else if isPhoneVerification == true {
-                //print("verify the number otp code func sent through phone number and set that function")
-//                odooClientService.verifyOTP(type: "phone", email: "", phone: userPhone, otp: getVerificationCode() ?? "" )
-                odooClientService1.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone, otp: getVerificationCode() ?? "" )
+                if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+                    self.navigate(to: faceIDVC)
+                } // for testing only
+                
+//                odooClientService1.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone, otp: getVerificationCode() ?? "" )    when live
                
             }
         }
@@ -77,6 +79,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             fieldsToUpdate = [
                 "emailVerified" : true
             ]
+           
         }else if isPhoneVerification == true {
             fieldsToUpdate = [
                 "phone": self.userPhone,
@@ -84,6 +87,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 "login" : true,
                 "pushedToCRM": true
             ]
+            
         }
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -96,10 +100,12 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isEmailVerification = false
 //                    self.navigateToPhoneVerifiyScreen()
                     print("User emailVerify fields updated successfully!")
-                }else if self.isPhoneVerification == true {
+                    self.fireStoreInstance.fetchUserData(userId: userId)
+                    
+                } else if self.isPhoneVerification == true {
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
-                   
+                    self.fireStoreInstance.fetchUserData(userId: userId)
                     
                     if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
                         self.navigate(to: faceIDVC)
@@ -230,12 +236,13 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
        
         if isEmailVerification == true {
             updateUser()
-            ToastMessage("OTP Correct...Verify Phone#")
+            ToastMessage("OTP Correct. Verify Phone#")
             
             ActivityIndicator.shared.hide(from: self.view)
             navigateToPhoneVerifiyScreen()
         }else{
             updateUser()
+        
         }
     }
     

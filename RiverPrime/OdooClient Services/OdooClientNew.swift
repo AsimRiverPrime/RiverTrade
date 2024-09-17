@@ -23,7 +23,6 @@ class OdooClientNew {
     var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
     var userEmail: String = ""
     
-    var uid = UserDefaults.standard.integer(forKey: "uid")
   
     weak var otpDelegate: SendOTPDelegate?
     weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
@@ -64,12 +63,11 @@ class OdooClientNew {
                 print("Error: \(error)")
             }
         }
-        
     }
     
     func sendOTP(type: String, email: String, phone: String) {
         
-        var uid = UserDefaults.standard.integer(forKey: "uid")
+//        var uid = UserDefaults.standard.integer(forKey: "uid")
         
         let parametersValue: [String: Any] = [
                "jsonrpc": "2.0",
@@ -79,7 +77,7 @@ class OdooClientNew {
                    "method": "execute_kw",
                    "args": [
                        dataBaseName,    // Your database name
-                       uid,             // Your user ID
+                       GlobalVariable.instance.uid,             // Your user ID
                        dbPassword,      // Your password
                        "mt.middleware", // The model you're calling
                        "send_otp",      // The method to be executed
@@ -107,7 +105,7 @@ class OdooClientNew {
                   
                 case .success(let value):
                     print("value is: \(value)")
-                    if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["status"] as? Bool {  // Expecting a boolean here
+                    if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool {  // Expecting a boolean here
                         
                         if status {
                             print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
@@ -141,7 +139,7 @@ class OdooClientNew {
                    "method": "execute_kw",
                    "args": [
                        dataBaseName,    // Your database name
-                       uid,             // Your user ID
+                       GlobalVariable.instance.uid,             // Your user ID
                        dbPassword,      // Your password
                        "mt.middleware", // The model you're calling
                        "verify_otp",      // The method to be executed
@@ -170,8 +168,8 @@ class OdooClientNew {
                 case .success(let value):
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any],
-                       let status = result["status"] as? String {  // Expecting a boolean here
-                        if status == "success" {
+                       let status = result["success"] as? Bool {  // Expecting a boolean here
+                        if status {
                             print("\n this is the SUCCESS response of verify OTP: \(type) and response is \(json)\n")
                             self.verifyDelegate?.otpVerifySuccess(response: result)  
                            
@@ -203,7 +201,7 @@ class OdooClientNew {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            uid,               // uid
+            GlobalVariable.instance.uid,               // uid
             dbPassword,        // password
             "crm.lead",       // Model name
             "create",         // Method name
@@ -217,20 +215,18 @@ class OdooClientNew {
         ]
         
         
-        
-        
-        
     }
+    
     func saveUserIdFromJSONData(_ data: Data) {
        
-        
         do {
               
             if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                let userId = jsonResponse["result"] as? Int {
                 // Save or process the userId
                 print("User ID: \(userId)")
-                UserDefaults.standard.set(userId, forKey: "uid")
+                GlobalVariable.instance.uid = userId
+//                UserDefaults.standard.set(userId, forKey: "uid")
                
                 // You can store the userId in a variable or process it further as needed
             } else {

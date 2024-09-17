@@ -21,10 +21,11 @@ class PasscodeFaceIDVC: UIViewController {
     
     var enteredPasscode = ""
     //  var iscodeSelected : Bool = false
+    let isFaceIDEnabled = UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        authenticateWithFaceID()
+      //  authenticateWithFaceID()
         updateFaceIDButtonAction()
         // Do any additional setup after loading the view.
     }
@@ -66,7 +67,7 @@ class PasscodeFaceIDVC: UIViewController {
                     self.savePasscode(self.enteredPasscode)
                     print("Passcode saved successfully.")
                     // Optionally, navigate to the main screen or provide feedback
-                    // self.navigateToMainScreen()
+                     self.navigateToMainScreen()
                 } else {
                     // Verify the entered passcode
                     self.verifyPasscode()
@@ -85,6 +86,7 @@ class PasscodeFaceIDVC: UIViewController {
     
     func updateFaceIDButtonAction() {
         if enteredPasscode.isEmpty {
+          
             self.btn_faceID.setImage(UIImage(systemName: "faceid"), for: .normal)
         } else {
             
@@ -138,39 +140,44 @@ class PasscodeFaceIDVC: UIViewController {
 // MARK: - Face ID methods
 extension PasscodeFaceIDVC {
     func enableFaceID() {
-        let context = LAContext()
-        var error: NSError?
-        
-        // Check if Face ID is available
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            // Request Face ID authentication
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Enable Face ID to login automatically") { success, authenticationError in
-                DispatchQueue.main.async {
-                    if success {
-                        // Face ID enabled successfully, save the preference
-                        UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
-                        // Navigate to the main screen or do any post-authentication tasks
-                        
-                        for dot in self.view_dots {
-                            dot.backgroundColor = UIColor.systemYellow // Color indicating success
+       
+        if !isFaceIDEnabled {
+            let context = LAContext()
+            var error: NSError?
+            
+            // Check if Face ID is available
+            if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+                // Request Face ID authentication
+                context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Enable Face ID to login automatically") { success, authenticationError in
+                    DispatchQueue.main.async {
+                        if success {
+                            // Face ID enabled successfully, save the preference
+                            UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
+                            // Navigate to the main screen or do any post-authentication tasks
+                            
+                            for dot in self.view_dots {
+                                dot.backgroundColor = UIColor.systemYellow // Color indicating success
+                            }
+                            
+                            self.navigateToMainScreen()
+                        } else {
+                            // Handle the error, maybe show an alert
+                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
                         }
-                        
-                        self.navigateToMainScreen()
-                    } else {
-                        // Handle the error, maybe show an alert
-                        Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
                     }
                 }
+            } else {
+                // Face ID not available, handle accordingly
+                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
             }
-        } else {
-            // Face ID not available, handle accordingly
-            Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
+        }else{
+            authenticateWithFaceID()
         }
     }
     
+    
     func authenticateWithFaceID() {
-        let isFaceIDEnabled = UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
-        
+       
         if isFaceIDEnabled {
             let context = LAContext()
             var error: NSError?

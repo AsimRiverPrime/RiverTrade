@@ -159,16 +159,14 @@ extension DashboardVC {
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
-            
-            
+                        
             dismissViews()
             accountsVC = AccountsVC.getView()
             accountsVC.delegate = self
             accountsVC.delegateCreateAccount = self
             addView(customTabBarType: .Accounts)
             
-            
-            /*if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+           if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
                 accountsVC = AccountsVC.getView()
                 accountsVC.delegate = self
                 addView(customTabBarType: .Accounts)
@@ -176,8 +174,7 @@ extension DashboardVC {
                 createAccountVC = CreateAccountVC.getView()
                 createAccountVC.delegate = self
                 self.myViewFragment.addSubview(createAccountVC)
-            }*/
-            
+            }
             
             break
         case .Trade:

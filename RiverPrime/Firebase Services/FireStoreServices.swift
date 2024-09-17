@@ -94,20 +94,19 @@ class FirestoreServices: BaseViewController {
             print("saved User Data: \(data)")
             
             if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-                // navigateToEmailVerificationScreen()
+             //  navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
             } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-                // navigateToPhoneVerificationScreen()
+            //   navigateToPhoneVerificationScreen()
                 print("navigate to user phone verification")
             } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
-                // navigateToRealAccountCreationScreen()
+                navigateToDemoAccountCreationScreen()
                 print("navigate to user demo account")
             } else if let profileStep = data["demoAccountCreated"] as? Int {
-                // navigateToRealAccountCreationScreen()
                 print("check profile step: \(profileStep)")
             } else {
-                print("navigate to Login")
-                // navigateToMainScreen()
+                print("navigate to Main dashboard")
+                 navigateToMainScreen()
             }
         }
   }
@@ -182,8 +181,9 @@ class FirestoreServices: BaseViewController {
    
        
        private func navigateToMainScreen() {
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+           let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
            let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+           self.navigationController?.pushViewController(mainVC, animated: true)
 //           window?.rootViewController = mainVC
 //           window?.makeKeyAndVisible()
        }
@@ -195,29 +195,37 @@ class FirestoreServices: BaseViewController {
           
        }
        
-       private func navigateToEmailVerificationScreen() {
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-           let emailVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-           emailVerificationVC.isEmailVerification = true
-           self.navigationController?.pushViewController(emailVerificationVC, animated: true)
-//           window?.rootViewController = emailVerificationVC
-//           window?.makeKeyAndVisible()
-       }
+    private func navigateToEmailVerificationScreen() {
+    //           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    //           let emailVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+    //           emailVerificationVC.isEmailVerification = true
+    //           self.navigationController?.pushViewController(emailVerificationVC, animated: true)
+    ////           window?.rootViewController = emailVerificationVC
+    ////           window?.makeKeyAndVisible()
+               
+               //MARK: - Go to the VerifyCodeViewController Screen.
+               let verifyCodeVC = NavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main)
+        
+               let navController = UINavigationController(rootViewController: verifyCodeVC)
+               SCENE_DELEGATE.window?.rootViewController = navController
+               SCENE_DELEGATE.window?.makeKeyAndVisible()
+           }
        
        private func navigateToPhoneVerificationScreen() {
            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-           let phoneVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-           phoneVerificationVC.isPhoneVerification = true
+           let phoneVerificationVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
+          
            self.navigationController?.pushViewController(phoneVerificationVC, animated: true)
 //           window?.rootViewController = phoneVerificationVC
 //           window?.makeKeyAndVisible()
        }
-       
-//       private func navigateToRealAccountCreationScreen() {
-//           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//           let realAccountCreationVC = storyboard.instantiateViewController(withIdentifier: "RealAccountCreationViewController") as! RealAccountCreationViewController
-//           window?.rootViewController = realAccountCreationVC
-//           window?.makeKeyAndVisible()
-//       }
+ 
+    private func navigateToDemoAccountCreationScreen() {
+        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+        let demoAccountCreationVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+        self.navigationController?.pushViewController(demoAccountCreationVC, animated: true)
+//        window?.rootViewController = realAccountCreationVC
+//        window?.makeKeyAndVisible()
+    }
    
 }

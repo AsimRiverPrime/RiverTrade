@@ -18,9 +18,9 @@ class GlobalVariable: NSObject {
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
     var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+    var uid: Int =  0
     
-    
-    var isAccountCreated = Bool()
+    var isAccountCreated = false
     var isReturnToProfile = false
     var userEmail: String = ""
     var symbolDataArray: [SymbolData] = []

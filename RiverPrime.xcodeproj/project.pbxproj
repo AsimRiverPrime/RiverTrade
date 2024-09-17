@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */; };
+		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
 		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
 		31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31339D4E2C8884430059B7C8 /* StaticResponses.swift */; };
@@ -37,7 +39,6 @@
 		316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316873D92C6B4321001BEC1B /* WebSocketResponse.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
-		316A17572C57AAD500A1A43E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 316A17562C57AAD500A1A43E /* GoogleService-Info.plist */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
 		317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */; };
@@ -294,6 +295,8 @@
 
 /* Begin PBXFileReference section */
 		25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		31339D4E2C8884430059B7C8 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
@@ -323,7 +326,6 @@
 		316873D92C6B4321001BEC1B /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
-		316A17562C57AAD500A1A43E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
 		317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
@@ -973,7 +975,7 @@
 				31D2620A2C3BECDE00FC6651 /* Assets.xcassets */,
 				31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */,
 				31D2620F2C3BECDE00FC6651 /* Info.plist */,
-				316A17562C57AAD500A1A43E /* GoogleService-Info.plist */,
+				3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */,
 			);
 			path = RiverPrime;
 			sourceTree = "<group>";
@@ -1656,6 +1658,7 @@
 			isa = PBXGroup;
 			children = (
 				FA532D682C5721E1003A26D6 /* NavigationBar.swift */,
+				3106BBB42C998A3600B7ABF9 /* NavigationController.swift */,
 			);
 			path = NavigationBar;
 			sourceTree = "<group>";
@@ -1924,7 +1927,6 @@
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
 				C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */,
 				31D2AF482C8840B800E0CF2E /* .gitignore in Resources */,
-				316A17572C57AAD500A1A43E /* GoogleService-Info.plist in Resources */,
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
@@ -1957,6 +1959,7 @@
 				FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */,
 				FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */,
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
+				3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */,
 				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
 				315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */,
 				FA467DCA2C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib in Resources */,
@@ -2155,6 +2158,7 @@
 				FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */,
 				FAD776D42C977087000411F1 /* ViewControllerVM.swift in Sources */,
 				31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */,
+				3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */,
 				31D2AEF72C8840B800E0CF2E /* Chart.swift in Sources */,
 				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
 				FA467DCB2C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift in Sources */,
