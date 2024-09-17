@@ -20,7 +20,7 @@ protocol DashboardVCDelegate: AnyObject {
 }
 
 class DashboardVC: BaseViewController {
-
+    
     @IBOutlet weak var myViewFragment: UIView!
     @IBOutlet weak var myCustomTabbarView: UIView!
     
@@ -67,10 +67,10 @@ class DashboardVC: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.setNavBar(vc: self, isBackButton: true, isBar: true)
-//        navigationController?.setNavigationBarHidden(true, animated: animated)
+        //        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        //        navigationController?.setNavigationBarHidden(true, animated: animated)
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
-       
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,23 +80,23 @@ class DashboardVC: BaseViewController {
         marketsVC.frame = self.view.bounds
         resultVC.frame = self.view.bounds
         profileVC.frame = self.view.bounds
-//        bookFragment.frame = self.view.bounds
-//        homeAllReservationFragment.frame = self.view.bounds
-//        socialDistancePopupView.frame = self.view.bounds //MARK: - For Social distance popup.
+        //        bookFragment.frame = self.view.bounds
+        //        homeAllReservationFragment.frame = self.view.bounds
+        //        socialDistancePopupView.frame = self.view.bounds //MARK: - For Social distance popup.
     }
     
     @IBAction func AccountsButton(_ sender: UIButton) {
-      
+        
         setAccountsButton()
     }
     
     @IBAction func TradeButton(_ sender: UIButton) {
-       
+        
         setTradeButton()
     }
     
     @IBAction func MarketsButton(_ sender: UIButton) {
-       
+        
         setMarketsButton()
     }
     
@@ -114,7 +114,7 @@ class DashboardVC: BaseViewController {
 extension DashboardVC {
     
     private func setAccountsButton() {
-
+        
         CustomBarStatus(customTabBarType: .Accounts)
     }
     
@@ -136,7 +136,7 @@ extension DashboardVC {
     
     //MARK: - Custom tabbarView changing.
     private func CustomBarStatus(customTabBarType: CustomTabBarType) {
-//        let customTabBarType = CustomTabBarType.Accounts
+        //        let customTabBarType = CustomTabBarType.Accounts
         switch customTabBarType {
         case .Accounts:
             
@@ -159,22 +159,22 @@ extension DashboardVC {
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
-                        
+            
             dismissViews()
             accountsVC = AccountsVC.getView()
             accountsVC.delegate = self
             accountsVC.delegateCreateAccount = self
             addView(customTabBarType: .Accounts)
             
-           if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-                accountsVC = AccountsVC.getView()
-                accountsVC.delegate = self
-                addView(customTabBarType: .Accounts)
-            } else { //MARK: - if no account exist.
-                createAccountVC = CreateAccountVC.getView()
-                createAccountVC.delegate = self
-                self.myViewFragment.addSubview(createAccountVC)
-            }
+//            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+//                accountsVC = AccountsVC.getView()
+//                accountsVC.delegate = self
+//                addView(customTabBarType: .Accounts)
+//            } else { //MARK: - if no account exist.
+//                createAccountVC = CreateAccountVC.getView()
+//                createAccountVC.delegate = self
+//                self.myViewFragment.addSubview(createAccountVC)
+//            }
             
             break
         case .Trade:
@@ -201,7 +201,7 @@ extension DashboardVC {
             
             dismissViews()
             tradeVC = TradeVC.getView()
-//            tradeVC.delegate = self
+            //            tradeVC.delegate = self
             tradeVC.delegateDetail = self
             addView(customTabBarType: .Trade)
             
@@ -230,7 +230,7 @@ extension DashboardVC {
             
             dismissViews()
             marketsVC = MarketsVC.getView()
-//            tradeVC.delegate = self
+            //            tradeVC.delegate = self
             addView(customTabBarType: .Markets)
             
             break
@@ -259,7 +259,7 @@ extension DashboardVC {
             dismissViews()
             resultVC = ResultVC.getView()
             resultVC.delegate = self
-//            tradeVC.delegate = self
+            //            tradeVC.delegate = self
             addView(customTabBarType: .Results)
             
             break
@@ -288,7 +288,7 @@ extension DashboardVC {
             dismissViews()
             profileVC = ProfileVC.getView()
             profileVC.delegateCompeleteProfile = self
-          
+            
             addView(customTabBarType: .Profile)
             
             break
@@ -325,31 +325,31 @@ extension DashboardVC {
 //MARK: - compelet profile Button Taps is here.
 extension DashboardVC: DashboardVCDelegate {
     func navigateToCompeletProfile() {
-        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-            self.navigate(to: kycVc)
+//        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+//            self.navigate(to: kycVc)
             
             // Retrieve the data from UserDefaults
-            //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //            print("saved User Data: \(savedUserData)")
-            //            // Access specific values from the dictionary
-            //            if let profileStep = savedUserData["profileStep"] as? Int {
-            //                // Example condition based on values
-            //                if profileStep == 0 {
-            //                    if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-            //                        self.navigate(to: kycVc)
-            //                    } else if profileStep == 1 {
-            //                        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
-            //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            //                    }else if profileStep == 2 {
-            //                        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
-            //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            //                    }
-            //                }
-            //            }
-            //        }
+            if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+                print("saved User Data: \(savedUserData)")
+                // Access specific values from the dictionary
+                if let profileStep = savedUserData["profileStep"] as? Int {
+                    // Example condition based on values
+                    if profileStep == 0 {
+                        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+                            self.navigate(to: kycVc)
+                        } else if profileStep == 1 {
+                            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+                            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                        }else if profileStep == 2 {
+                            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
+                            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                        }
+                    }
+                }
+            }
         }
-    }
-        
+    
+    
 }
 //MARK: - AccountInfo Button Taps is here.
 extension DashboardVC: AccountInfoTapDelegate {
@@ -357,7 +357,7 @@ extension DashboardVC: AccountInfoTapDelegate {
         print("delegte called  \(accountInfo)" )
         
         switch accountInfo {
-       
+            
         case .deposit:
             let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
@@ -383,7 +383,7 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         }
-
+        
         
     }
     
@@ -400,8 +400,8 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
             print("Create new")
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-//            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             
             break
         case .unarchive:
@@ -422,7 +422,7 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
 extension DashboardVC: TradeDetailTapDelegate {
     func tradeDetailTap(indexPath: IndexPath, details: TradeDetails) {
         let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
-       
+        
         vc.tradeDetails = details
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
@@ -456,9 +456,9 @@ extension DashboardVC: iResultVCDelegate {
 
 ////MARK: - TradeInfo Collection Taps is here.
 //extension DashboardVC: TradeInfoTapDelegate {
-//    
+//
 //    func tradeInfoTap(_ tradeInfo: TradeInfo) {
-//        
+//
 //    }
-//    
+//
 //}

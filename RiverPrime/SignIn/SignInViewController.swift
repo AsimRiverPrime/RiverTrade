@@ -148,6 +148,7 @@ class SignInViewController: BaseViewController {
                 print(" signing in successfully: \(authres ?? " no data")")
                
                 print(" signing in successfully and move to Dashboard screen ")
+                
                 if let userId = authResult?.user.uid {
                     self?.firebase.fetchUserData(userId: userId)
                 }

@@ -94,10 +94,10 @@ class FirestoreServices: BaseViewController {
             print("saved User Data: \(data)")
             
             if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-             //  navigateToEmailVerificationScreen()
+               navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
             } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-            //   navigateToPhoneVerificationScreen()
+               navigateToPhoneVerificationScreen()
                 print("navigate to user phone verification")
             } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
                 navigateToDemoAccountCreationScreen()
@@ -106,7 +106,7 @@ class FirestoreServices: BaseViewController {
                 print("check profile step: \(profileStep)")
             } else {
                 print("navigate to Main dashboard")
-                 navigateToMainScreen()
+                navigateToDemoAccountCreationScreen()
             }
         }
   }
@@ -196,15 +196,8 @@ class FirestoreServices: BaseViewController {
        }
        
     private func navigateToEmailVerificationScreen() {
-    //           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    //           let emailVerificationVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-    //           emailVerificationVC.isEmailVerification = true
-    //           self.navigationController?.pushViewController(emailVerificationVC, animated: true)
-    ////           window?.rootViewController = emailVerificationVC
-    ////           window?.makeKeyAndVisible()
-               
                //MARK: - Go to the VerifyCodeViewController Screen.
-               let verifyCodeVC = NavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main)
+               let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main)
         
                let navController = UINavigationController(rootViewController: verifyCodeVC)
                SCENE_DELEGATE.window?.rootViewController = navController
@@ -212,20 +205,22 @@ class FirestoreServices: BaseViewController {
            }
        
        private func navigateToPhoneVerificationScreen() {
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-           let phoneVerificationVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
           
-           self.navigationController?.pushViewController(phoneVerificationVC, animated: true)
-//           window?.rootViewController = phoneVerificationVC
-//           window?.makeKeyAndVisible()
+           let phoneVerifyVC = MyNavigationController.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main)
+    
+           let navController = UINavigationController(rootViewController: phoneVerifyVC)
+           SCENE_DELEGATE.window?.rootViewController = navController
+           SCENE_DELEGATE.window?.makeKeyAndVisible()
        }
  
     private func navigateToDemoAccountCreationScreen() {
-        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-        let demoAccountCreationVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-        self.navigationController?.pushViewController(demoAccountCreationVC, animated: true)
-//        window?.rootViewController = realAccountCreationVC
-//        window?.makeKeyAndVisible()
+        
+        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .dashboardVC, storyboardType: .dashboard)
+        
+        let navController = UINavigationController(rootViewController: dashboardVC)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
+        
     }
    
 }

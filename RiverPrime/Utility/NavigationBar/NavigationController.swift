@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-class NavigationController {
+class MyNavigationController {
     
-    static let shared = NavigationController()
+    static let shared = MyNavigationController()
     private init() {}
     
     func getViewController(identifier: BottomSheetIdentifierType, storyboardType: StoryboardType) -> UIViewController {

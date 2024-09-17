@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ForgotPasscodeVC: UIViewController {
+class ForgotPasscodeVC: BaseViewController {
     
     @IBOutlet weak var lbl_setPasscode: UILabel!
     
@@ -23,6 +23,15 @@ class ForgotPasscodeVC: UIViewController {
         super.viewDidLoad()
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .darkGray, barColor: .clear)
+    }
+    
     
     @IBAction func numberBtn_action(_ sender: Any) {
         handleNumberInput((sender as AnyObject).tag)

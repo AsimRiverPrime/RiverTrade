@@ -30,8 +30,8 @@
             filePath = "RiverPrime/PasscodeVC/PasscodeFaceIDVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
+            startingLineNumber = "197"
+            endingLineNumber = "197"
             landmarkName = "authenticateWithFaceID()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "RiverPrime/PasscodeVC/PasscodeFaceIDVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "authenticateWithFaceID()"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "RiverPrime/GlobalVariable/GlobalVariable.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "GlobalVariable"
             landmarkType = "3">
          </BreakpointContent>
@@ -247,38 +247,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "76A45F2E-A9C4-4901-97B3-0246D41C349F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/DashboardVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "335"
-            endingLineNumber = "335"
-            landmarkName = "navigateToCompeletProfile()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "06E09DEA-0837-4F03-A9EB-1CBFCC1A03E4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/DashboardVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "332"
-            endingLineNumber = "332"
-            landmarkName = "navigateToCompeletProfile()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B940D358-0E79-459F-A430-2A7179720F6F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -350,8 +318,8 @@
             filePath = "RiverPrime/SceneDelegate.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "scene(_:willConnectTo:options:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -386,52 +354,6 @@
             endingLineNumber = "134"
             landmarkName = "verifyOTP(type:email:phone:otp:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "4DECC669-05C7-4890-8AE1-219DED59E5CF - 3bf37e2b06b72c46"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RiverPrime.OdooClient.verifyOTP(type: Swift.String, email: Swift.String, phone: Swift.String, otp: Swift.String) -&gt; ()"
-                  moduleName = "RiverPrime"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/OdooClient%20Services/OdooClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "134"
-                  endingLineNumber = "134">
-               </Location>
-               <Location
-                  uuid = "4DECC669-05C7-4890-8AE1-219DED59E5CF - 3d7aca5869edf5de"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Alamofire.DataResponse&lt;Any, Alamofire.AFError&gt;) -&gt; () in RiverPrime.OdooClient.verifyOTP(type: Swift.String, email: Swift.String, phone: Swift.String, otp: Swift.String) -&gt; ()"
-                  moduleName = "RiverPrime"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/OdooClient%20Services/OdooClient.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "135"
-                  endingLineNumber = "135">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E443DEDA-B0A6-4695-B209-4DF8B6DA1D30"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/SignUp/verifyPhoneVC/PhoneVerifyVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "updateNumberSuccess(response:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -447,22 +369,6 @@
             startingLineNumber = "108"
             endingLineNumber = "108"
             landmarkName = "updateNumberSuccess(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DDE34BF7-8FBD-40D6-9445-65897F5D74DA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/PasscodeVC/PasscodeFaceIDVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "enableFaceID()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -533,22 +439,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "632EF012-79B4-4F44-B065-31B99A21EC5E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Forget/VerifyCodeViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
-            landmarkName = "otpVerifySuccess(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "6B5D7DC9-A732-40DB-97E0-0CBB0B974E99"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -559,6 +449,22 @@
             startingLineNumber = "70"
             endingLineNumber = "70"
             landmarkName = "handleNumberInput(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20594128-5D0C-4849-BFEE-EDB12A574E7E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/SceneDelegate.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "navigateToFaceScreen()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -2772,6 +2772,7 @@ Reach out for questions or concerns about your privacy.</string>
                     </view>
                     <navigationItem key="navigationItem" id="c5c-KP-9EX"/>
                     <connections>
+                        <outlet property="resendCodeButton" destination="MjS-PB-cVC" id="Wjn-5w-TPR"/>
                         <outlet property="tf_SecondNum" destination="mns-3k-IKs" id="lMM-c3-V20"/>
                         <outlet property="tf_firstNum" destination="Te6-hx-7wn" id="SdN-4H-dtZ"/>
                         <outlet property="tf_fivethNum" destination="eDs-5N-PaH" id="Ksy-DD-eMt"/>

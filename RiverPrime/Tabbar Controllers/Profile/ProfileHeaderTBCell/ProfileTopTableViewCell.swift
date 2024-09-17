@@ -27,15 +27,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-//        checkProfileStatus()
+        checkProfileStatus()
     }
     
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            
             if let profileStep = savedUserData["profileStep"] as? Int {
-                // Example condition based on values
+                
                 if profileStep == 3 {
                     self.btn_completeProfile.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
                 }

@@ -153,6 +153,7 @@ extension PasscodeFaceIDVC {
                         if success {
                             // Face ID enabled successfully, save the preference
                             UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
+                            Session.instance.isFaceIDEnabled = true
                             // Navigate to the main screen or do any post-authentication tasks
                             
                             for dot in self.view_dots {
@@ -211,16 +212,17 @@ extension PasscodeFaceIDVC {
     
     func navigateToMainScreen() {
         // Implement the navigation to the main screen
-        print("Go to the desire screen")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-                self.navigate(to: dashboardVC)
-            }
+//        if GlobalVariable.instance.isAppBecomeActive {
+//            GlobalVariable.instance.isAppBecomeActive = false
+//            self.navigationController?.popViewController(animated: true)
+//        }else{
+            print("Go to the desire screen")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+                    self.navigate(to: dashboardVC)
+                }
+//            }
         }
     }
-    //    func showAlert(_ message: String) {
-    //        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-    //        alert.addAction(UIAlertAction(title: "OK", style: .default))
-    //        present(alert, animated: true)
-    //    }
+ 
 }

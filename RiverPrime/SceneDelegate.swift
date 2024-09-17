@@ -13,22 +13,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     let fireStoreInstance = FirestoreServices()
-
+    var navigationController : UINavigationController?
+    
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         window!.overrideUserInterfaceStyle = .light
         
-        if isFaceIDAuthenticated() {
-//            showFaceIDScreen()
-            print("open faceID screen")
-        }
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
             
-           // fireStoreInstance.handleUserData()
+            fireStoreInstance.handleUserData()
         }else {
             fireStoreInstance.navigateToLoginScreen()
         }
@@ -37,16 +35,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
         
     }
-    func isFaceIDAuthenticated() -> Bool {
-            return UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
-        }
-        
-        // Show the Face ID screen
-//        func showFaceIDScreen() {
-//            let faceIDVC = PasscodeFaceIDVC() // Initialize your Face ID ViewController
-//            window?.rootViewController = faceIDVC
-//        }
-        
+   
         // Show the main app screen
         func showMainAppScreen() {
 //            let mainVC = MainViewController() // Initialize your main ViewController
@@ -64,6 +53,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        navigateToFaceScreen()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -84,3 +74,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
 }
 
+extension SceneDelegate {
+    
+    private func navigateToFaceScreen() {
+        //        UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
+        
+        if let face = Session.instance.isFaceIDEnabled {
+            
+            if face {
+                GlobalVariable.instance.isAppBecomeActive = true
+                
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let loginVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                
+                let navController = UINavigationController(rootViewController: loginVC)
+                SCENE_DELEGATE.window?.rootViewController = navController
+                SCENE_DELEGATE.window?.makeKeyAndVisible()            }
+        }
+        
+    }
+}

@@ -229,6 +229,8 @@ extension AccountsVC {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
                 tblViewTopConstraint.constant = -60
                 
+            }else if screen_height == 844.0 {
+                tblViewTopConstraint.constant = -55
             } else {
                 //MARK: - other iphone if not in the above check's.
                 tblViewTopConstraint.constant = 0
@@ -257,6 +259,8 @@ extension AccountsVC {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
                 tableViewBottomConstraint.constant = 175
                 
+            } else if screen_height == 844.0 {
+                tableViewBottomConstraint.constant = 175
             } else {
                 //MARK: - other iphone if not in the above check's.
                 tableViewBottomConstraint.constant = 165
