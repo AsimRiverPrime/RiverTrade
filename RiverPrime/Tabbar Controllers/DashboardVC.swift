@@ -55,6 +55,9 @@ class DashboardVC: BaseViewController {
     var resultVC = ResultVC()
     var profileVC = ProfileVC()
     
+    var profileStep = 0
+    var demoAccountCreated = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +67,17 @@ class DashboardVC: BaseViewController {
         }else{
             setAccountsButton()
         }
+        
+        // Retrieve the data from UserDefaults
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+                profileStep = profileStep1
+                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+            }
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,15 +180,15 @@ extension DashboardVC {
             accountsVC.delegateCreateAccount = self
             addView(customTabBarType: .Accounts)
             
-//            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-//                accountsVC = AccountsVC.getView()
-//                accountsVC.delegate = self
-//                addView(customTabBarType: .Accounts)
-//            } else { //MARK: - if no account exist.
-//                createAccountVC = CreateAccountVC.getView()
-//                createAccountVC.delegate = self
-//                self.myViewFragment.addSubview(createAccountVC)
-//            }
+            //            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+            //                accountsVC = AccountsVC.getView()
+            //                accountsVC.delegate = self
+            //                addView(customTabBarType: .Accounts)
+            //            } else { //MARK: - if no account exist.
+            //                createAccountVC = CreateAccountVC.getView()
+            //                createAccountVC.delegate = self
+            //                self.myViewFragment.addSubview(createAccountVC)
+            //            }
             
             break
         case .Trade:
@@ -325,30 +339,23 @@ extension DashboardVC {
 //MARK: - compelet profile Button Taps is here.
 extension DashboardVC: DashboardVCDelegate {
     func navigateToCompeletProfile() {
-//        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-//            self.navigate(to: kycVc)
-            
-            // Retrieve the data from UserDefaults
-            if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-                print("saved User Data: \(savedUserData)")
-                // Access specific values from the dictionary
-                if let profileStep = savedUserData["profileStep"] as? Int {
-                    // Example condition based on values
-                    if profileStep == 0 {
-                        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-                            self.navigate(to: kycVc)
-                        } else if profileStep == 1 {
-                            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
-                            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                        }else if profileStep == 2 {
-                            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
-                            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                        }
-                    }
-                }
+        //        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+        //            self.navigate(to: kycVc)
+        
+        
+        // Example condition based on values
+        if profileStep == 0 {
+            if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+                self.navigate(to: kycVc)
             }
+        }else if profileStep == 1 {
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }else if profileStep == 2 {
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         }
-    
+    }
     
 }
 //MARK: - AccountInfo Button Taps is here.
@@ -454,11 +461,3 @@ extension DashboardVC: iResultVCDelegate {
     
 }
 
-////MARK: - TradeInfo Collection Taps is here.
-//extension DashboardVC: TradeInfoTapDelegate {
-//
-//    func tradeInfoTap(_ tradeInfo: TradeInfo) {
-//
-//    }
-//
-//}

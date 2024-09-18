@@ -65,6 +65,7 @@ class OdooClient {
     
 //    var uid: Int = UserDefaults.standard.integer(forKey: "uid")
     var recordedId: Int = UserDefaults.standard.integer(forKey: "recordId")
+    var uid = UserDefaults.standard.integer(forKey: "uid")
     
     var createRequestBool : Bool = false
     
@@ -225,7 +226,7 @@ class OdooClient {
         ]]
         let params: [Any] = [
             dataBaseName,      // Database name
-            GlobalVariable.instance.uid,               // UID
+            uid,               // UID
             dbPassword,        // Password
             "crm.lead",       // Model name
             "search_read",    // Method name
@@ -259,77 +260,77 @@ class OdooClient {
             }
     }
     
-    //MARK: - create trade Account Method
+//    //MARK: - create trade Account Method
 //
-//    /web/mt/account/create
-//
-//    {
+//    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+//  
+//        let params: [String: Any] = [
 //            "jsonrpc": "2.0",
-//            "method": "call",
-//            "params": {
-//                    "email": "h.yaseen@riverprime.com",
-//                    "phone": "+971566486002",
-//                    "group": "demo\\RP\\PRO",
-//                    "leverage": 4000,
-//                    "first_name": "Hasabalrasool",
-//                    "last_name": "Yaseen",
-//                    "password": "CFCqse780@*"
-//            },
-//            "id": 82101
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,
+//                    uid,
+//                    dbPassword,
+//                    "mt.middleware",
+//                    "create_account",
+//                    [
+//                    [],
+//                    email,
+//                    phone,
+//                    group,
+//                    leverage,
+//                    first_name,
+//                    last_name,
+//                    password
+//                    ]
+//                    ]
+//                ]
+//            ]
+//        
+//        print("\n the parameters is: \(params)")
+//        
+//        let url = "https://mbe.riverprime.com/jsonrpc"
+//        // Make the request
+//        AF.request(url,
+//                   method: .post,
+//                   parameters: params,
+//                   encoding: JSONEncoding.default,
+//                   headers: ["Content-Type": "application/json"])
+//        .validate()
+//        .responseJSON { (response: AFDataResponse<Any>) in
+//            switch response.result {
+//                           
+//            case .success(let value):
+//                print("value is: \(value)")
+//                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool, let loginID = result["login"] as? Int {  // Expecting a boolean here
+//                    if status {
+//                       
+//                        print("The login Id is: \(loginID)")
+//                        GlobalVariable.instance.loginID = loginID
+//                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
+//                    } else {
+//                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+//                        self.createUserAcctDelegate?.createAccountFailure(error: error)
+//                        print("Error response: \(error)")
+//                    }
+//                } else {
+//                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+//                    self.createUserAcctDelegate?.createAccountFailure(error: error)
+//                    print("Error response: \(error)")
+//                }
+//            case .failure(let error):
+//                self.createUserAcctDelegate?.createAccountFailure(error: error)
+//                print("Request failed: \(error)")
+//            }
+//        }
 //    }
-//
-//
-    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
-       
-        let parameters: [String: Any] = [
-            "phone": phone,
-            "group": group,
-            "currency": currency,
-            "email": email,
-            "first_name": first_name,
-            "last_name" : last_name,
-            "password": password
-        ]
-        
-        // Make the request
-        AF.request(createAccountURL,
-                   method: .post,
-                   parameters: parameters,
-                   encoding: JSONEncoding.default,
-                   headers: ["Content-Type": "application/json"])
-        .validate()
-        .responseJSON { (response: AFDataResponse<Any>) in
-            switch response.result {
-            case .success(let value):
-                if let json = value as? [String: Any],
-                   let result = json["result"] as? [String: Any],
-                   let status = result["status"] as? String {
-                    if status == "success" {
-                        print("This is the response: \(json)")
-                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
-                    } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
-                        self.createUserAcctDelegate?.createAccountFailure(error: error)
-                        print("Error response: \(error)")
-                    }
-                } else {
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
-                    self.createUserAcctDelegate?.createAccountFailure(error: error)
-                    print("Error response: \(error)")
-                }
-            case .failure(let error):
-                self.createUserAcctDelegate?.createAccountFailure(error: error)
-                print("Request failed: \(error)")
-            }
-        }
-    }
     //MARK: - information for trade Symbol detail
     // working
     func sendSymbolDetailRequest() {
         let methodName = "execute_kw"
-       
-      
-        // Define the domain filter and parameters
+               // Define the domain filter and parameters
         let domainFilter: [[Any]] = [[
             "mobile_available", "=" , "True"
         ]]
@@ -338,7 +339,7 @@ class OdooClient {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            GlobalVariable.instance.uid,               // UID
+            uid,               // UID
             dbPassword,        // Password
             "mt.symbol",       // Model name
             "search_read",    // Method name
@@ -373,7 +374,7 @@ class OdooClient {
                 }
             }
     }
-    //MARK: - Create request (Leads) Method for records
+    //MARK: - Create request (Leads to crm) Method for records
     // working
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true
@@ -382,7 +383,7 @@ class OdooClient {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            GlobalVariable.instance.uid,               // uid
+            uid,               // uid
             dbPassword,        // password
             "crm.lead",       // Model name
             "create",         // Method name
@@ -430,7 +431,7 @@ class OdooClient {
         let methodName = "execute_kw"
         let params: [Any] = [
             dataBaseName,      // Database name
-            GlobalVariable.instance.uid,               // uid
+            uid,               //   GlobalVariable.instance.uid,
             dbPassword,            // password
             "crm.lead",       // Model name
             "write",         // Method name

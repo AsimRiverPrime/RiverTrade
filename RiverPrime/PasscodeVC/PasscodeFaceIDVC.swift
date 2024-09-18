@@ -193,7 +193,7 @@ extension PasscodeFaceIDVC {
                             for dot in self.view_dots {
                                 dot.backgroundColor = UIColor.systemYellow // Color indicating success
                             }
-                            
+                            Session.instance.isFaceIDEnabled = true
                             self.navigateToMainScreen()
                         } else {
                             // Handle the error, maybe show an alert

@@ -288,7 +288,7 @@ class WebSocketManager: WebSocketDelegate {
                 "event_name": "subscribe",
                 "data": [
                     "last": 0,
-                    "channels": ["price_feed"]
+                    "channels": ["Gold"]
                 ]
             ]
            

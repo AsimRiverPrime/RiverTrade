@@ -30,7 +30,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     @IBOutlet weak var lbl_passCasethree: UILabel!
     
     let fireStoreInstance = FirestoreServices()
-    let odooClientService = OdooClient()
+    let odooClientService = OdooClientNew()
 //    let signViewModel = SignViewModel()
     
     var getSelectedAccountType = GetSelectedAccountType()
@@ -46,10 +46,28 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         tf_password.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         // Do any additional setup after loading the view.
-        if let user = Auth.auth().currentUser {
-            self.userEmail = user.email ?? ""
-            self.userId = user.uid
+//        if let user = Auth.auth().currentUser {
+//            self.userEmail = user.email ?? ""
+//            self.userId = user.uid
+//        }
+        
+        if let data = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(data)")
+            
+           if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
+               print("user ID: \(userIdSave)")
+               self.userId = userIdSave
+               self.userEmail = email1
+            }
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true) // This will dismiss the keyboard
     }
     
     @objc func showCurrencies() {
@@ -72,9 +90,20 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
         let Firstname = UserDefaults.standard.string(forKey: "firstName")
         let LastName = UserDefaults.standard.string(forKey: "lastName")
+       
+        var  group = ""
+        
+        if self.lbl_accountTitle.text == "Pro Account" {
+             group = "demo\\RP\\PRO"
+            print("group value is:\(group)")
+        }else if self.lbl_accountTitle.text == "Prime Account" {
+             group = "demo\\RP\\PRIME"
+        }else {
+             group = "demo\\RP\\PREMIUM"
+        }
         
 //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-        odooClientService.createAccount(phone: phone ?? "", group: self.lbl_accountTitle.text ?? "", email: userEmail, currency: currencyCode, leverage: 4000, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {
@@ -145,7 +174,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         fieldsToUpdate = [
             "demoAccountCreated" : true,
             "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
-            "loginId" : 0 // loginID in response
+            "loginId" : GlobalVariable.instance.loginID // loginID in response
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -179,6 +208,7 @@ extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     func createAccountSuccess(response: Any) {
         print("\n this is create user success response: \(response)")
         // get loginId from the response
+        
         updateUser()
     }
     

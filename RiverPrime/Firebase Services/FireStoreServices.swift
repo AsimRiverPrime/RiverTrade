@@ -96,15 +96,15 @@ class FirestoreServices: BaseViewController {
             if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
                navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
-            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-               navigateToPhoneVerificationScreen()
-                print("navigate to user phone verification")
+//            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
+//               navigateToPhoneVerificationScreen()
+//                print("navigate to user phone verification")
             } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
                 navigateToDemoAccountCreationScreen()
                 print("navigate to user demo account")
-            } else if let profileStep = data["demoAccountCreated"] as? Int {
-                print("check profile step: \(profileStep)")
-            } else {
+//            } else if let profileStep = data["demoAccountCreated"] as? Int {
+//                print("check profile step: \(profileStep)")
+//            } else {
                 print("navigate to Main dashboard")
                 navigateToDemoAccountCreationScreen()
             }

@@ -14,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     let fireStoreInstance = FirestoreServices()
     var navigationController : UINavigationController?
-    
+    let odoObject = OdooClientNew()
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -22,9 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         window!.overrideUserInterfaceStyle = .light
         
+        odoObject.authenticate()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
+            if let userId1 = savedUserData["uid"] as? Int {
+              
+                fireStoreInstance.fetchUserData(userId: "\(userId1)")
+                }
+                // Access specific values from the dictionary
+            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+                   
+                    GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+                }
             
             fireStoreInstance.handleUserData()
         }else {
@@ -53,7 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-        navigateToFaceScreen()
+//        navigateToFaceScreen()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -82,7 +92,7 @@ extension SceneDelegate {
         if let face = Session.instance.isFaceIDEnabled {
             
             if face {
-                GlobalVariable.instance.isAppBecomeActive = true
+//                GlobalVariable.instance.isAppBecomeActive = true
                 
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let loginVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC

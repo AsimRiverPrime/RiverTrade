@@ -20,6 +20,7 @@ class GlobalVariable: NSObject {
     var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
     var uid: Int =  0
      
+    var loginID: Int = 0
     var isAppBecomeActive = false
     var isAccountCreated = false
     var isReturnToProfile = false

@@ -241,6 +241,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             let code6 = tf_sixthNum.text, !code6.isEmpty
         else {
             print("Please fill in all fields.")
+            self.ToastMessage("Please fill in all fields.")
             return nil
         }
         
@@ -268,7 +269,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
 extension VerifyCodeViewController: SendOTPDelegate {
     func otpSuccess(response: Any) {
         print("this is the send otp response: \(response)")
-        ToastMessage("Please check Your email for OTP")
+        self.ToastMessage("Please check Your email for OTP")
     }
     
     func otpFailure(error: Error) {
@@ -283,7 +284,7 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
         
         if isEmailVerification == true {
             updateUser()
-            ToastMessage("OTP Correct. Verify Phone#")
+            self.ToastMessage("OTP Correct. Verify Phone#")
             
             ActivityIndicator.shared.hide(from: self.view)
             navigateToPhoneVerifiyScreen()

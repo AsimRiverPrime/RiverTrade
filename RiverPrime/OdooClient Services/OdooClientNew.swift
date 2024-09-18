@@ -27,6 +27,9 @@ class OdooClientNew {
     weak var otpDelegate: SendOTPDelegate?
     weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
     weak var verifyDelegate: VerifyOTPDelegate?
+    weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
+    
+    var uid = UserDefaults.standard.integer(forKey: "uid")
     
     func authenticate() {
         let methodName = "login"
@@ -67,7 +70,7 @@ class OdooClientNew {
     
     func sendOTP(type: String, email: String, phone: String) {
         
-//        var uid = UserDefaults.standard.integer(forKey: "uid")
+     
         
         let parametersValue: [String: Any] = [
                "jsonrpc": "2.0",
@@ -77,7 +80,7 @@ class OdooClientNew {
                    "method": "execute_kw",
                    "args": [
                        dataBaseName,    // Your database name
-                       GlobalVariable.instance.uid,             // Your user ID
+                       uid,             // Your user ID
                        dbPassword,      // Your password
                        "mt.middleware", // The model you're calling
                        "send_otp",      // The method to be executed
@@ -139,7 +142,7 @@ class OdooClientNew {
                    "method": "execute_kw",
                    "args": [
                        dataBaseName,    // Your database name
-                       GlobalVariable.instance.uid,             // Your user ID
+                       uid,             // Your user ID
                        dbPassword,      // Your password
                        "mt.middleware", // The model you're calling
                        "verify_otp",      // The method to be executed
@@ -201,7 +204,7 @@ class OdooClientNew {
         
         let params: [Any] = [
             dataBaseName,      // Database name
-            GlobalVariable.instance.uid,               // uid
+            uid,               // uid
             dbPassword,        // password
             "crm.lead",       // Model name
             "create",         // Method name
@@ -217,6 +220,73 @@ class OdooClientNew {
         
     }
     
+    //MARK: - create trade Account Method
+
+    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+  
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "create_account",
+                    [
+                    [],
+                    email,
+                    phone,
+                    group,
+                    leverage,
+                    first_name,
+                    last_name,
+                    password
+                    ]
+                    ]
+                ]
+            ]
+        
+        print("\n the parameters is: \(params)")
+        
+        let url = "https://mbe.riverprime.com/jsonrpc"
+        // Make the request
+        AF.request(url,
+                   method: .post,
+                   parameters: params,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type": "application/json"])
+        .validate()
+        .responseJSON { (response: AFDataResponse<Any>) in
+            switch response.result {
+                           
+            case .success(let value):
+                print("value is: \(value)")
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool, let loginID = result["login"] as? Int {  // Expecting a boolean here
+                    if status {
+                       
+                        print("The login Id is: \(loginID)")
+                        GlobalVariable.instance.loginID = loginID
+                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        self.createUserAcctDelegate?.createAccountFailure(error: error)
+                        print("Error response: \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    self.createUserAcctDelegate?.createAccountFailure(error: error)
+                    print("Error response: \(error)")
+                }
+            case .failure(let error):
+                self.createUserAcctDelegate?.createAccountFailure(error: error)
+                print("Request failed: \(error)")
+            }
+        }
+    }
+    
     func saveUserIdFromJSONData(_ data: Data) {
        
         do {
@@ -225,8 +295,8 @@ class OdooClientNew {
                let userId = jsonResponse["result"] as? Int {
                 // Save or process the userId
                 print("User ID: \(userId)")
-                GlobalVariable.instance.uid = userId
-//                UserDefaults.standard.set(userId, forKey: "uid")
+//                GlobalVariable.instance.uid = userId
+                UserDefaults.standard.set(userId, forKey: "uid")
                
                 // You can store the userId in a variable or process it further as needed
             } else {

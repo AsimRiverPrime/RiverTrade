@@ -216,7 +216,9 @@ extension TradeVC {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
                 tblViewTopConstraint.constant = -60
                 
-            } else {
+            }else if screen_height == 844.0 {
+                tblViewTopConstraint.constant = -55
+            }  else {
                 //MARK: - other iphone if not in the above check's.
                 tblViewTopConstraint.constant = 0
             }

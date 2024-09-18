@@ -9,6 +9,7 @@ import UIKit
 
 struct GetSelectedAccountType {
     var title = String()
+    
 }
 
 class CreateAccountSelectTradeType: BottomSheetController {
@@ -16,6 +17,15 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var bgView: CardView!
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    @IBOutlet weak var lbl_Spread: UILabel!
+    @IBOutlet weak var lbl_leverage: UILabel!
+    @IBOutlet weak var lbl_commission: UILabel!
+    @IBOutlet weak var lbl_miniDeposit: UILabel!
+    @IBOutlet weak var lbl_swap: UILabel!
+    @IBOutlet weak var lbl_stopOutLevel: UILabel!
+    
+    
     
     var counter = 0
     var getSelectedAccountType = GetSelectedAccountType()
@@ -38,6 +48,9 @@ class CreateAccountSelectTradeType: BottomSheetController {
         vc.preferredSheetSizing = .large
         vc.getSelectedAccountType = getSelectedAccountType
         PresentModalController.instance.presentBottomSheet(self, VC: vc)
+//        self.dismiss(animated: true, completion: {
+//            print("Bottom sheet dismissed after Move to next screen")
+//        })
     }
 }
 
@@ -84,10 +97,29 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         
         if counter == 0 {
             mainTitle.text = "Pro Account"
+            lbl_Spread.text = "Floating/ As low as 1 pips"
+            lbl_leverage.text = "1:400"
+            lbl_commission.text = "$0"
+            lbl_miniDeposit.text = "$20"
+            lbl_swap.text = "Free"
+            lbl_stopOutLevel.text = "20%"
+            
         } else if counter == 1 {
-            mainTitle.text = "Premium Account"
-        } else if counter == 2 {
             mainTitle.text = "Prime Account"
+            lbl_Spread.text = "Floating/ As low as 0 pips"
+            lbl_leverage.text = "1:400"
+            lbl_commission.text = "$6"
+            lbl_miniDeposit.text = "$250"
+            lbl_swap.text = "Free"
+            lbl_stopOutLevel.text = "20%"
+        } else if counter == 2 {
+            mainTitle.text = "Premium Account"
+            lbl_Spread.text = "Floating/ As low as 0 pips"
+            lbl_leverage.text = "1:400"
+            lbl_commission.text = "$3"
+            lbl_miniDeposit.text = "$3000"
+            lbl_swap.text = "Free"
+            lbl_stopOutLevel.text = "20%"
         }
         
         //MARK: - get selected account values here.
