@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TradeInfoTapDelegate: AnyObject {
-    func tradeInfoTap(_ tradeInfo: SymbolData)
+    func tradeInfoTap(_ tradeInfo: SectorGroup, index: Int)
 }
 
 struct TradeInfo {
@@ -25,7 +25,7 @@ class TradeTVC: UITableViewCell {
     var selectedIndex = 0
     
     weak var delegate: TradeInfoTapDelegate?
-    var symbolDataSector: [SymbolData] = []
+    var symbolDataSector: [SectorGroup] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,7 +46,7 @@ class TradeTVC: UITableViewCell {
 
     }
 
-    func config(_ symbolData: [SymbolData]){
+    func config(_ symbolData: [SectorGroup]){
         self.symbolDataSector = symbolData
         self.tradeTVCCollectionView.reloadData()
     }
@@ -67,6 +67,7 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeCVCCollectionViewCell", for: indexPath) as! TradeCVCCollectionViewCell
+        cell.backgroundColor = .clear
         
 //        let data = model[indexPath.row].name
         let data = symbolDataSector[indexPath.row]
@@ -88,7 +89,7 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         if let cell = collectionView.cellForItem(at: indexPath){
             let data = symbolDataSector[indexPath.row]
             selectedIndex = indexPath.row
-            self.delegate?.tradeInfoTap(data)
+            self.delegate?.tradeInfoTap(data, index: indexPath.row)
             collectionView.reloadData()
         }
     }

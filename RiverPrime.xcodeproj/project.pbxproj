@@ -10,9 +10,6 @@
 		3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */; };
 		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB72C99BFAE00B7ABF9 /* Session.swift */; };
-		3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */; };
-		3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */; };
-		31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31339D4E2C8884430059B7C8 /* StaticResponses.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
@@ -37,7 +34,6 @@
 		3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */; };
 		3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6022C47F1F20055F093 /* ProfileViewController.swift */; };
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
-		316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316873D92C6B4321001BEC1B /* WebSocketResponse.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
@@ -49,7 +45,6 @@
 		317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */; };
 		317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */; };
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
-		318257482C75C7F000723A50 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257472C75C7F000723A50 /* WebSocketManager.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
@@ -57,6 +52,20 @@
 		3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */; };
 		3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */; };
 		3191F6AD2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */; };
+		319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */; };
+		319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A328C2C9C3EFB006DA077 /* TradeVC.xib */; };
+		319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32832C9C3EFB006DA077 /* TradeTVC.xib */; };
+		319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */; };
+		319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32822C9C3EFB006DA077 /* TradeTVC.swift */; };
+		319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */; };
+		319A32962C9C3EFB006DA077 /* TradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328B2C9C3EFB006DA077 /* TradeVC.swift */; };
+		319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32892C9C3EFB006DA077 /* TradeVM.swift */; };
+		319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */; };
+		319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */; };
+		319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328D2C9C3EFB006DA077 /* TradeViewController.swift */; };
+		319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329D2C9C3F21006DA077 /* TradesViewModel.swift */; };
+		319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329E2C9C3F21006DA077 /* WebSocketManager.swift */; };
+		319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329C2C9C3F21006DA077 /* StaticResponses.swift */; };
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
@@ -89,7 +98,6 @@
 		31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */; };
 		31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */; };
 		31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */; };
-		31CB9D532C7D913800B293ED /* TradesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CB9D522C7D913800B293ED /* TradesViewModel.swift */; };
 		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
 		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
 		31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262052C3BECDE00FC6651 /* ViewController.swift */; };
@@ -219,7 +227,6 @@
 		C9EB4DCE2C4340B80049C961 /* AccountDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */; };
 		C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */; };
 		C9FD2E292C41C6B1002F9D06 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD2E272C41C6B1002F9D06 /* AccountTableViewCell.xib */; };
-		C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */; };
 		C9FD2E2F2C42FED2002F9D06 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */; };
 		C9FD2E302C42FED2002F9D06 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */; };
 		FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B5DD2C4F03AB0054F8D8 /* ResultTopViewCell.swift */; };
@@ -276,12 +283,6 @@
 		FA9B00C52C4BFCA300BC57F1 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */; };
 		FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00C62C4BFD4E00BC57F1 /* AccountsVC.xib */; };
 		FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00C72C4BFD4E00BC57F1 /* AccountsVC.swift */; };
-		FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */; };
-		FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */; };
-		FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */; };
-		FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */; };
-		FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */; };
-		FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */; };
 		FAC321A22C6AC6B80019073C /* AccountDetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC3219E2C6AC6B80019073C /* AccountDetailTVC.swift */; };
 		FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */; };
 		FAC321A42C6AC6B80019073C /* AllRealAccountsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */; };
@@ -299,9 +300,6 @@
 		3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3106BBB72C99BFAE00B7ABF9 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
-		3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
-		3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
-		31339D4E2C8884430059B7C8 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
@@ -325,7 +323,6 @@
 		3164C5FF2C47F1620055F093 /* TradingSignalCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradingSignalCollectionViewCell.xib; sourceTree = "<group>"; };
 		3164C6022C47F1F20055F093 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
-		316873D92C6B4321001BEC1B /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
@@ -337,7 +334,6 @@
 		317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen5.swift; sourceTree = "<group>"; };
 		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
-		318257472C75C7F000723A50 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
@@ -345,6 +341,21 @@
 		3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCurrencyListViewController.swift; sourceTree = "<group>"; };
 		3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
 		3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSelectTradeType.swift; sourceTree = "<group>"; };
+		319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
+		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
+		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
+		319A32832C9C3EFB006DA077 /* TradeTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
+		319A32852C9C3EFB006DA077 /* AreaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaData.swift; sourceTree = "<group>"; };
+		319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
+		319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
+		319A32892C9C3EFB006DA077 /* TradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeVM.swift; sourceTree = "<group>"; };
+		319A328B2C9C3EFB006DA077 /* TradeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeVC.swift; sourceTree = "<group>"; };
+		319A328C2C9C3EFB006DA077 /* TradeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeVC.xib; sourceTree = "<group>"; };
+		319A328D2C9C3EFB006DA077 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
+		319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
+		319A329C2C9C3F21006DA077 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
+		319A329D2C9C3F21006DA077 /* TradesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesViewModel.swift; sourceTree = "<group>"; };
+		319A329E2C9C3F21006DA077 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
@@ -377,7 +388,6 @@
 		31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsTableViewCell.swift; sourceTree = "<group>"; };
 		31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopNewsTableViewCell.xib; sourceTree = "<group>"; };
 		31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeDetalVC.swift; sourceTree = "<group>"; };
-		31CB9D522C7D913800B293ED /* TradesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesViewModel.swift; sourceTree = "<group>"; };
 		31D261FE2C3BECDE00FC6651 /* RiverPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiverPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31D262032C3BECDE00FC6651 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -510,7 +520,6 @@
 		C9EB4DCC2C4340B80049C961 /* AccountDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailTableViewCell.xib; sourceTree = "<group>"; };
 		C9FD2E262C41C6B1002F9D06 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		C9FD2E272C41C6B1002F9D06 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
-		C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
 		C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
 		FA12B5DD2C4F03AB0054F8D8 /* ResultTopViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTopViewCell.swift; sourceTree = "<group>"; };
@@ -567,12 +576,6 @@
 		FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		FA9B00C62C4BFD4E00BC57F1 /* AccountsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountsVC.xib; sourceTree = "<group>"; };
 		FA9B00C72C4BFD4E00BC57F1 /* AccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsVC.swift; sourceTree = "<group>"; };
-		FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeVC.xib; sourceTree = "<group>"; };
-		FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
-		FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
-		FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
-		FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
-		FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TradeVC.swift; sourceTree = "<group>"; };
 		FAC3219E2C6AC6B80019073C /* AccountDetailTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountDetailTVC.swift; sourceTree = "<group>"; };
 		FAC3219F2C6AC6B80019073C /* AccountDetailTVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AccountDetailTVC.xib; sourceTree = "<group>"; };
 		FAC321A12C6AC6B80019073C /* AllRealAccountsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllRealAccountsVC.swift; sourceTree = "<group>"; };
@@ -605,15 +608,6 @@
 				3106BBB72C99BFAE00B7ABF9 /* Session.swift */,
 			);
 			path = Session;
-			sourceTree = "<group>";
-		};
-		3109C6CD2C413A9C00F2C69C /* TradeTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				3109C6CE2C413C7700F2C69C /* TradeTableViewCell.swift */,
-				3109C6CF2C413C7700F2C69C /* TradeTableViewCell.xib */,
-			);
-			path = TradeTableViewCell;
 			sourceTree = "<group>";
 		};
 		3137AE702C77471A00B5A83B /* PasscodeVC */ = {
@@ -745,9 +739,9 @@
 		318257462C75C7B200723A50 /* WebStockManager */ = {
 			isa = PBXGroup;
 			children = (
-				318257472C75C7F000723A50 /* WebSocketManager.swift */,
-				31CB9D522C7D913800B293ED /* TradesViewModel.swift */,
-				31339D4E2C8884430059B7C8 /* StaticResponses.swift */,
+				319A329C2C9C3F21006DA077 /* StaticResponses.swift */,
+				319A329D2C9C3F21006DA077 /* TradesViewModel.swift */,
+				319A329E2C9C3F21006DA077 /* WebSocketManager.swift */,
 			);
 			path = WebStockManager;
 			sourceTree = "<group>";
@@ -760,6 +754,49 @@
 			path = CreateAccountSetPasswordScreen;
 			sourceTree = "<group>";
 		};
+		319A32842C9C3EFB006DA077 /* TableCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */,
+				319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */,
+				319A32822C9C3EFB006DA077 /* TradeTVC.swift */,
+				319A32832C9C3EFB006DA077 /* TradeTVC.xib */,
+			);
+			path = TableCollectionViewCell;
+			sourceTree = "<group>";
+		};
+		319A32882C9C3EFB006DA077 /* TradeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				319A32852C9C3EFB006DA077 /* AreaData.swift */,
+				319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */,
+				319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */,
+			);
+			path = TradeTableViewCell;
+			sourceTree = "<group>";
+		};
+		319A328A2C9C3EFB006DA077 /* TradeVM */ = {
+			isa = PBXGroup;
+			children = (
+				319A32892C9C3EFB006DA077 /* TradeVM.swift */,
+			);
+			path = TradeVM;
+			sourceTree = "<group>";
+		};
+		319A328F2C9C3EFB006DA077 /* Trade 2 */ = {
+			isa = PBXGroup;
+			children = (
+				319A32842C9C3EFB006DA077 /* TableCollectionViewCell */,
+				319A32882C9C3EFB006DA077 /* TradeTableViewCell */,
+				319A328A2C9C3EFB006DA077 /* TradeVM */,
+				319A328B2C9C3EFB006DA077 /* TradeVC.swift */,
+				319A328C2C9C3EFB006DA077 /* TradeVC.xib */,
+				319A328D2C9C3EFB006DA077 /* TradeViewController.swift */,
+				319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */,
+			);
+			path = "Trade 2";
+			sourceTree = "<group>";
+		};
 		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -767,8 +804,8 @@
 				31B102DA2C45144E0006E8EB /* Notifications */,
 				31F3BAD62C3FAB49009A2A12 /* Profile */,
 				31F3BAD52C3FAB37009A2A12 /* Results */,
+				319A328F2C9C3EFB006DA077 /* Trade 2 */,
 				31F3BAD42C3FAB2E009A2A12 /* Markets */,
-				31F3BAD32C3FAB26009A2A12 /* Trade */,
 				31F3BAD22C3FAB08009A2A12 /* Accounts */,
 				31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */,
 				FA9B00C42C4BFCA300BC57F1 /* DashboardVC.swift */,
@@ -1344,19 +1381,6 @@
 			path = Accounts;
 			sourceTree = "<group>";
 		};
-		31F3BAD32C3FAB26009A2A12 /* Trade */ = {
-			isa = PBXGroup;
-			children = (
-				FA9B00CB2C4BFDC000BC57F1 /* TableCollectionViewCell */,
-				3109C6CD2C413A9C00F2C69C /* TradeTableViewCell */,
-				C9FD2E2A2C42A67D002F9D06 /* TradeViewController.swift */,
-				FA9B00D02C4BFDC100BC57F1 /* TradeVC.swift */,
-				FA9B00CA2C4BFDBF00BC57F1 /* TradeVC.xib */,
-				316873D92C6B4321001BEC1B /* WebSocketResponse.swift */,
-			);
-			path = Trade;
-			sourceTree = "<group>";
-		};
 		31F3BAD42C3FAB2E009A2A12 /* Markets */ = {
 			isa = PBXGroup;
 			children = (
@@ -1764,17 +1788,6 @@
 			path = BaseClasses;
 			sourceTree = "<group>";
 		};
-		FA9B00CB2C4BFDC000BC57F1 /* TableCollectionViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				FA9B00CC2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.swift */,
-				FA9B00CD2C4BFDC000BC57F1 /* TradeTVC.swift */,
-				FA9B00CE2C4BFDC000BC57F1 /* TradeTVC.xib */,
-				FA9B00CF2C4BFDC000BC57F1 /* TradeCVCCollectionViewCell.xib */,
-			);
-			path = TableCollectionViewCell;
-			sourceTree = "<group>";
-		};
 		FAC3219B2C6AC6B80019073C /* DropDownScreens */ = {
 			isa = PBXGroup;
 			children = (
@@ -1950,10 +1963,13 @@
 				FA9B00C82C4BFD4E00BC57F1 /* AccountsVC.xib in Resources */,
 				FA4613852C602CD400B472D6 /* CreateAccountSlideCell.xib in Resources */,
 				FA467DCE2C695B9B00248A62 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
-				FA9B00D12C4BFDC100BC57F1 /* TradeVC.xib in Resources */,
 				31B90D2F2C400AF000A7A0D2 /* withDrawTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
+				319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */,
+				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
+				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
+				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
 				FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */,
 				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
@@ -1967,14 +1983,11 @@
 				31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */,
 				31B90D262C3FE94A00A7A0D2 /* ListingTableViewCell.xib in Resources */,
 				31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */,
-				FA9B00D42C4BFDC100BC57F1 /* TradeTVC.xib in Resources */,
 				FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */,
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
 				3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */,
-				3109C6D12C413C7700F2C69C /* TradeTableViewCell.xib in Resources */,
 				315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */,
 				FA467DCA2C695B9B00248A62 /* UnarchiveAccountTypeTVC.xib in Resources */,
-				FA9B00D52C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.xib in Resources */,
 				FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
 				FA46137D2C602CD400B472D6 /* CreateAccountTVCell.xib in Resources */,
@@ -2055,7 +2068,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC321A42C6AC6B80019073C /* AllRealAccountsVC.swift in Sources */,
-				C9FD2E2B2C42A67D002F9D06 /* TradeViewController.swift in Sources */,
 				31D2AF302C8840B800E0CF2E /* AutoscaleInfoProvider.swift in Sources */,
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
@@ -2078,11 +2090,9 @@
 				31D2AF142C8840B800E0CF2E /* LineType.swift in Sources */,
 				FA9B00C12C4BFBE900BC57F1 /* BaseViewController.swift in Sources */,
 				31D2AF382C8840B800E0CF2E /* Coordinate.swift in Sources */,
-				316873DA2C6B4321001BEC1B /* WebSocketResponse.swift in Sources */,
 				FAD776D72C97720D000411F1 /* JSONRPCModel.swift in Sources */,
 				FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */,
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
-				FA9B00D22C4BFDC100BC57F1 /* TradeCVCCollectionViewCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				31D2AF2F2C8840B800E0CF2E /* SeriesMarker.swift in Sources */,
 				31D2AEEF2C8840B800E0CF2E /* AreaSeries.swift in Sources */,
@@ -2090,7 +2100,6 @@
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				31D2AEF92C8840B800E0CF2E /* PriceFormatter.swift in Sources */,
 				FA46139B2C602D5600B472D6 /* DPDUIView+Extension.swift in Sources */,
-				FA9B00D32C4BFDC100BC57F1 /* TradeTVC.swift in Sources */,
 				31B90D1B2C3FCBEE00A7A0D2 /* WithdrawViewController.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
 				31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */,
@@ -2127,7 +2136,6 @@
 				31B90D182C3FCBA800A7A0D2 /* DepositViewController.swift in Sources */,
 				31D2AEF32C8840B800E0CF2E /* HistogramSeries.swift in Sources */,
 				31D2AF092C8840B800E0CF2E /* CandlestickData.swift in Sources */,
-				FA9B00D62C4BFDC100BC57F1 /* TradeVC.swift in Sources */,
 				31D2AF0C2C8840B800E0CF2E /* OhlcData.swift in Sources */,
 				31D2AEF12C8840B800E0CF2E /* BaselineSeries.swift in Sources */,
 				31D2AF172C8840B800E0CF2E /* PriceLineOptions.swift in Sources */,
@@ -2154,13 +2162,22 @@
 				31806D192C609CD000E48730 /* OdooClient.swift in Sources */,
 				FA4613832C602CD400B472D6 /* CreateDemoAccountVC.swift in Sources */,
 				31D2AEF22C8840B800E0CF2E /* CandlestickSeries.swift in Sources */,
+				319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */,
+				319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */,
+				319A32962C9C3EFB006DA077 /* TradeVC.swift in Sources */,
+				319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */,
+				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
+				319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */,
+				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
+				319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */,
+				319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */,
+				319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */,
 				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
 				FA46139E2C602D5600B472D6 /* DropDownCell.swift in Sources */,
 				31D2AF1B2C8840B800E0CF2E /* TimeScaleOptions.swift in Sources */,
 				31B102E52C452E390006E8EB /* TradeTypeTableViewCell.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				31D2AEEC2C8840B800E0CF2E /* NSRegularExpression+Color.swift in Sources */,
-				31339D4F2C8884430059B7C8 /* StaticResponses.swift in Sources */,
 				3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */,
 				31D2AF232C8840B800E0CF2E /* KineticScrollOptions.swift in Sources */,
 				C9FD2E282C41C6B1002F9D06 /* AccountTableViewCell.swift in Sources */,
@@ -2188,7 +2205,6 @@
 				3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */,
 				31D2AF3B2C8840B800E0CF2E /* Point.swift in Sources */,
 				31D2AF012C8840B800E0CF2E /* PromptHandler.swift in Sources */,
-				3109C6D02C413C7700F2C69C /* TradeTableViewCell.swift in Sources */,
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31B90D252C3FE94A00A7A0D2 /* ListingTableViewCell.swift in Sources */,
 				31D2AEFD2C8840B800E0CF2E /* MessageHandler.swift in Sources */,
@@ -2221,7 +2237,6 @@
 				31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */,
 				31D2AF3A2C8840B800E0CF2E /* MouseEventParams.swift in Sources */,
 				FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */,
-				31CB9D532C7D913800B293ED /* TradesViewModel.swift in Sources */,
 				31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */,
 				31D2AF002C8840B800E0CF2E /* JavaScriptSyncMethod.swift in Sources */,
 				FA9B00C92C4BFD4E00BC57F1 /* AccountsVC.swift in Sources */,
@@ -2253,7 +2268,6 @@
 				31D2AF2B2C8840B800E0CF2E /* CandlestickSeriesOptions.swift in Sources */,
 				31D2AF152C8840B800E0CF2E /* LineWidth.swift in Sources */,
 				FA532D7A2C5721E1003A26D6 /* UIAlertController+Extensions.swift in Sources */,
-				318257482C75C7F000723A50 /* WebSocketManager.swift in Sources */,
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
 				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,

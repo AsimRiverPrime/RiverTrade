@@ -19,16 +19,39 @@ class GlobalVariable: NSObject {
     var dbUserName: String =  "ios"
     var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
     var uid: Int =  0
-     
+    var changeSymbol = Bool()
     var loginID: Int = 0
     var isAppBecomeActive = false
-    var isAccountCreated = false
+   
     var isReturnToProfile = false
     var userEmail: String = ""
+    
     var symbolDataArray: [SymbolData] = []
     
+    var changeSector = Bool()
     var resultTopButtonType = String()
     var isProcessingSymbol: Bool = false
+    
+    var isAccountCreated = Bool()
+    
+    var tradeCollectionViewIndex: (Int, [Int]) = (0, [])
+    
+    var trades: [TradeDetails] = []
+    
+  
+    var sectors: [SectorGroup] = []
+    var tempSectors: [SectorGroup] = []
+    
+    var filteredSymbols: [[String]] = [[]]
+    var filteredSymbolsUrl: [[String]] = [[]]
+    
+    var getSelectedSectorSymbols: (Int, [String]) = (0, [""])
+    
+    var historyChartData = [SymbolChartData]()
+    
+    var isStopTick: Bool = false
+    var isStopHistory: Bool = false
+    
     
     public func showBarBackButton(vc: UIViewController) {
        
@@ -62,3 +85,5 @@ class GlobalVariable: NSObject {
     }
     
 }
+  
+    

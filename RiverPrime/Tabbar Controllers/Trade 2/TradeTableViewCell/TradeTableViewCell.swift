@@ -20,7 +20,7 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var profitIcon: UIImageView!
     
 
-    var historyChartData = [SymbolChartData]()
+//    var historyChartData = [SymbolChartData]()
   
     private var chart: LightweightCharts!
     private var series: AreaSeries!
@@ -38,15 +38,55 @@ class TradeTableViewCell: UITableViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(chartDataUpdated(_:)), name: .symbolDataUpdated, object: nil)
     }
    
+    //let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
+    class func cellForTableView(_ tableView: UITableView,  atIndexPath indexPath: IndexPath, trades: [TradeDetails]) -> TradeTableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AccountTableViewCell", for: indexPath) as? TradeTableViewCell else {
+            return UITableViewCell() as! TradeTableViewCell
+        }
+        
+        let trade = trades[indexPath.row] //vm.trade(at: indexPath)
+        
+        var symbolDataObj: SymbolData?
+        
+        if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade.symbol}) {
+            symbolDataObj = obj
+            //   print("\(obj.icon_url)")
+        }
+        
+        cell.configure(with: trade , symbolDataObj: symbolDataObj)
+        
+        return cell
+    }
     
     @objc private func chartDataUpdated(_ notification: Notification) {
         if let response = notification.object as? SymbolChartData {
                 // Store the chart data based on the symbol
-            historyChartData.append(response)
-                print("\n history chart Data: \(historyChartData)\n")
+                        
+//            if GlobalVariable.instance.historyChartData.count == 0 {
+//                GlobalVariable.instance.historyChartData.append(response)
+//                print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
+//           
+//                setupChart(for: response.symbol, with: response)
+//            }
+//            
+//            if GlobalVariable.instance.historyChartData.count > 1 {
+//                for history in GlobalVariable.instance.historyChartData {
+//                    if !response.symbol.contains(history.symbol) {
+//                        GlobalVariable.instance.historyChartData.append(response)
+//                        print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
+//                        
+//                        setupChart(for: response.symbol, with: response)
+//                    } else {
+////                    GlobalVariable.instance.isStopHistory = true
+//                    }
+//                }
+//            }
+            GlobalVariable.instance.isStopHistory = true
+            GlobalVariable.instance.historyChartData.append(response)
+                print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
        
-//            setupChart(for: response.symbol, with: response)
-            setupChart(for: response.message.payload.symbol, with: response)
+            setupChart(for: response.symbol, with: response)
+//            setupChart(for: response.message.payload.symbol, with: response)
             }
     }
    
@@ -95,8 +135,8 @@ class TradeTableViewCell: UITableViewCell {
     func updateChart(with chartData: SymbolChartData, areaSeries: AreaSeries) {
         var areaData = [AreaData]()
         
-//        let chartData = chartData.chartData
-        let chartData = chartData.message.payload.chartData
+        let chartData = chartData.chartData
+//        let chartData = chartData.message.payload.chartData
         for data in chartData {
             print("/n Datetime1: \(data.datetime), Close: \(data.close)")
             let _areaData = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
@@ -119,10 +159,17 @@ class TradeTableViewCell: UITableViewCell {
             
             let svgCoder = SDImageSVGKCoder.shared
             SDImageCodersManager.shared.addCoder(svgCoder)
-          //  print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
+            print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
 
+            
            // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: nil)
             currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            
+            
+//            // Use SDWebImage to load the SVG image
+//            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(systemName: "photo"), options: [], context: [.imageCoder : SDImageSVGKCoder.shared])
+                
+//            currencyICon.downloaded(from: imageUrl)
             
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")

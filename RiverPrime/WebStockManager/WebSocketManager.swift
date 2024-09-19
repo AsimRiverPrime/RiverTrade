@@ -5,9 +5,18 @@
 //  Created by Ross Rostane on 21/08/2024.
 //
 
-/*
 import Foundation
 import Starscream
+
+enum SocketMessageType {
+    case tick
+    case history
+}
+
+protocol GetSocketMessages: AnyObject {
+//    func tradeUpdates(tickMessage: TradeDetails? = nil, historyMessage: SymbolChartData? = nil)
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?)
+}
 
 class WebSocketManager: WebSocketDelegate {
 
@@ -15,6 +24,8 @@ class WebSocketManager: WebSocketDelegate {
     static let shared = WebSocketManager() // Shared instance
 
     private init() {}
+    
+    public weak var delegateSocketMessage: GetSocketMessages?
 
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
@@ -39,23 +50,66 @@ class WebSocketManager: WebSocketDelegate {
         webSocket?.connect()
     }
 
-    func sendWebSocketMessage(for event: String, symbol: String? = nil) {
+    func sendWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil) {
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
         var message: [String: Any] = [:]
-
+        
         // Prepare message based on event type (trade or history)
         if event == "subscribeTrade" {
-            message = [
-                "event_name": "subscribe",
-                "data": [
-                    "last": 0,
-                    "channels": ["price_feed"]
+            
+            if symbolList != nil {
+                message = [
+                    "event_name": "subscribe",
+                    "data": [
+                        "last": 0,
+    //                    "channels": ["price_feed"]
+                        "channels": symbolList ?? [""] //["Gold","Silver"]
+                    ]
                 ]
-            ]
+            } else {
+                message = [
+                    "event_name": "subscribe",
+                    "data": [
+                        "last": 0,
+    //                    "channels": ["price_feed"]
+                        "channels": [symbol ?? ""] //["Gold","Silver"]
+                    ]
+                ]
+            }
+            
+//            message = [
+//                "event_name": "subscribe",
+//                "data": [
+//                    "last": 0,
+////                    "channels": ["price_feed"]
+//                    "channels": [symbol ?? ""] //["Gold","Silver"]
+//                ]
+//            ]
         } else if event == "subscribeHistory" {
             
-            let message: [String: Any] = [
+            //MARK: - get_chart_history body values.
+            /*
+            Printing description of message:
+            ▿ 2 elements
+              ▿ 0 : 2 elements
+                - key : "event_name"
+                - value : "get_chart_history"
+              ▿ 1 : 2 elements
+                - key : "data"
+                ▿ value : 3 elements
+                  ▿ 0 : 2 elements
+                    - key : "symbol"
+                    - value : "NDX100"
+                  ▿ 1 : 2 elements
+                    - key : "from"
+                    - value : 1726068497
+                  ▿ 2 : 2 elements
+                    - key : "to"
+                    - value : 1726072097
+            */
+            
+            message = [
                 "event_name": "get_chart_history",
                 "data": [
                     "symbol": symbol ?? "",
@@ -79,47 +133,188 @@ class WebSocketManager: WebSocketDelegate {
             }
         }
     }
-
+    
+    func getSavedSymbols() -> [SymbolData]? {
+        let savedSymbolsKey = "savedSymbolsKey"
+        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
+            let decoder = JSONDecoder()
+            return try? decoder.decode([SymbolData].self, from: savedSymbols)
+        }
+        return nil
+    }
+    
     // WebSocket delegate method
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
         switch event {
         case .connected(let headers):
             print("WebSocket is connected: \(headers)")
+            
+            NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "true"])
 
-            // Subscribe to both trade and history once connected
-            sendWebSocketMessage(for: "subscribeTrade")
-//            sendWebSocketMessage(for: "subscribeHistory")
+//            let symbol = getSavedSymbols().map { $0 }
+//            print("symbol?[0].name = \(symbol?[0].name)")
+//            sendWebSocketMessage(for: "subscribeTrade", symbol: symbol?[0].name)
+            
+            
+            
+            
+            /*
+            let symbol = getSavedSymbols().map { $0 }
+            let sector = GlobalVariable.instance.sectors.map { $0.sector }
+            GlobalVariable.instance.getSelectedSectorSymbols.1.removeAll()
+            guard let mySymbol = symbol else { return }
+            if sector.count == 0 {
+                return
+            }
+            for item in mySymbol {
+                if sector[0] == item.sector {
+                    GlobalVariable.instance.getSelectedSectorSymbols.1.append(item.name)
+                }
+            }
+            sendWebSocketMessage(for: "subscribeTrade", symbolList: GlobalVariable.instance.getSelectedSectorSymbols.1)
+            */
+            
+            //This method is call from tradeVC according to the selection of collectionview.
+//            setTradeModel(collectionViewIndex: 0)
+             
+            
+            
+            
+//            // Subscribe to both trade and history once connected
+//            sendWebSocketMessage(for: "subscribeTrade")
+////            sendWebSocketMessage(for: "subscribeHistory")
 
         case .text(let string):
             handleWebSocketMessage(string)
 
         case .disconnected(let reason, let code):
             print("WebSocket is disconnected: \(reason) with code: \(code)")
+            
+            NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "false"])
 
         case .error(let error):
             handleError(error)
+            
+            NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "false"])
 
         default:
             print("WebSocket received an unhandled event: \(event)")
         }
     }
+    
+    
+    func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {
+        return symbols.filter { $0.sector == sector }.map { $0.displayName }
+    }
+    
+    private func setTradeModel(collectionViewIndex: Int) {
+        let symbols = GlobalVariable.instance.symbolDataArray
+        let sectors = GlobalVariable.instance.sectors
+        
+//        // Clear previous data
+//        vm.trades.removeAll()
+        GlobalVariable.instance.filteredSymbols.removeAll()
+        GlobalVariable.instance.filteredSymbolsUrl.removeAll()
+        
+        // Populate filteredSymbols and filteredSymbolsUrl for each sector
+        for sector in sectors {
+            let filteredSymbols = filterSymbolsBySector(symbols: symbols, sector: sector.sector)
+            
+            GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
+        }
+        
+        // Append trades for the selected collectionViewIndex
+        let selectedSymbols = GlobalVariable.instance.filteredSymbols[ collectionViewIndex] ?? []
+        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[ collectionViewIndex] ?? []
+        
+//        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
+//            vm.trades.append(TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url))
+//        }
+        
+        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+        
+        sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
+    }
+    
 
     // Handle the WebSocket message
     func handleWebSocketMessage(_ string: String) {
         if let jsonData = string.data(using: .utf8) {
             do {
                 // Determine the message type and decode based on that
-                let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                 
-                if genericResponse.message.type == "tick" {
+//                print("string = \(string)")
+//                print("jsonData = \(jsonData)")
+                
+                var myType = ""
+                
+                // Deserialize JSON data
+                do {
+                    // Deserialize data to a dictionary
+                    if let jsonDictionary = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
+                        
+                        // Access elements in the dictionary
+                        if let message = jsonDictionary["message"] as? [String: Any],
+                           let type = message["type"] as? String {
+                            
+                            // Print out values to verify
+                            print("Message Type: \(type)")
+                            
+                            myType = type
+                            
+                        } else {
+                            print("Error: Unexpected JSON format")
+                        }
+                        
+//                        // Access elements in the dictionary
+//                        if let id = jsonDictionary["id"] as? Int,
+//                           let message = jsonDictionary["message"] as? [String: Any],
+//                           let type = message["type"] as? String,
+//                           let payload = message["payload"] as? [String: Any],
+//                           let symbol = payload["symbol"] as? String,
+//                           let ask = payload["ask"] as? Double,
+//                           let bid = payload["bid"] as? Double,
+//                           let datetime = payload["datetime"] as? Int {
+//                            
+//                            // Print out values to verify
+//                            print("ID: \(id)")
+//                            print("Message Type: \(type)")
+//                            print("Symbol: \(symbol)")
+//                            print("Ask: \(ask)")
+//                            print("Bid: \(bid)")
+//                            print("Datetime: \(datetime)")
+//                            
+//                            myType = type
+//                            
+//                        } else {
+//                            print("Error: Unexpected JSON format")
+//                        }
+                    }
+                } catch {
+                    print("Error deserializing JSON: \(error.localizedDescription)")
+                }
+                
+                if myType == "tick" {
+                    let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                     handleTradeData(genericResponse.message.payload)
                    
-                } else if genericResponse.message.type == "ChartHistory" {
+                } else if myType == "ChartHistory" {
                     let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
                     handleHistoryData(historyResponse.message.payload)
                 } else {
-                    print("Unexpected message type: \(genericResponse.message.type)")
+                    print("Unexpected message type: \(myType)")
                 }
+                
+//                if "genericResponse.message.type" == "tick" {
+//                    let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
+//                    handleTradeData(genericResponse.message.payload)
+//                   
+//                } else if "genericResponse.message.type" == "ChartHistory" {
+//                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
+//                    handleHistoryData(historyResponse.message.payload)
+//                } else {
+//                    print("Unexpected message type: \("genericResponse.message.type")")
+//                }
             } catch {
                 print("Error parsing JSON: \(error.localizedDescription)")
             }
@@ -129,14 +324,31 @@ class WebSocketManager: WebSocketDelegate {
     }
 
 
-    // Handle trade data
-    func handleTradeData(_ response: TradeDetails) {
-        WebSocketManager.shared.trades[response.symbol] = response
-        print("Trade price tick details: \(WebSocketManager.shared.trades[response.symbol] ?? nil)")
+//    // Handle trade data
+//    func handleTradeData(_ response: [TradeDetails]) {
 //        for tradeDetail in response {
 //            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
 //            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
 //        }
+//        
+//    }
+    
+    // Handle trade data
+    func handleTradeData(_ response: TradeDetails) {
+        
+        delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
+        
+//        GlobalVariable.instance.changeSymbol = false
+//        GlobalVariable.instance.changeSector = false
+//        WebSocketManager.shared.trades[response.symbol] = response
+//        
+////        setTradeModel(collectionViewIndex: GlobalVariable.instance.tradeCollectionViewIndex.0)
+//        
+//        print("Trade price tick details: \(WebSocketManager.shared.trades[response.symbol] ?? nil)")
+////        for tradeDetail in response {
+////            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
+////            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
+////        }
         
     }
 
@@ -144,13 +356,17 @@ class WebSocketManager: WebSocketDelegate {
     func handleHistoryData(_ response: SymbolChartData) {
         // Handle history data here
         print("Received history data: \(response)")
+        
+        delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
       
-        NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
-                
-        for payload in response.chartData {
-                    print("[DEBUG] Chart history payload: \(payload)")
-                  
-            }
+//        GlobalVariable.instance.isProcessingSymbol = false
+//        GlobalVariable.instance.isStopTick = true
+//        NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
+//                
+//        for payload in response.chartData {
+//                    print("[DEBUG] Chart history payload: \(payload)")
+//                  
+//            }
             
     
     }
@@ -179,8 +395,7 @@ class WebSocketManager: WebSocketDelegate {
         
     }
 }
-*/
-
+/*
 
 import Foundation
 import Starscream
@@ -229,7 +444,7 @@ class WebSocketManager: WebSocketDelegate {
 //        DispatchQueue.main.async
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
-//            self.connectHistoryWebSocket()
+            self.connectHistoryWebSocket()
         }
 
     }
@@ -288,7 +503,7 @@ class WebSocketManager: WebSocketDelegate {
                 "event_name": "subscribe",
                 "data": [
                     "last": 0,
-                    "channels": ["Gold"]
+                    "channels": ["price_feed"]
                 ]
             ]
            
@@ -388,21 +603,16 @@ class WebSocketManager: WebSocketDelegate {
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse.self, from: jsonData)
-                print("Trade price tick details: \(response)")
                 guard response.message.type == "tick" else {
                     print("Unexpected message type: \(response.message.type)")
                     return
                 }
-                let tradeDetails = response.message.payload
-                   WebSocketManager.shared.trades[tradeDetails.symbol] = tradeDetails
-                   
-                   // Print the updated trade details for the symbol
-                   print("\n Updated trade details: \(WebSocketManager.shared.trades[tradeDetails.symbol] ?? nil)")
-//                for tradeDetail in response.message.payload {
-////                    self.getSymbolHistory(tradeDetail)
-//                    WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
-//                    print("Trade price tick details: \(trades[tradeDetail.symbol])")
-//                }
+                
+                for tradeDetail in response.message.payload {
+//                    self.getSymbolHistory(tradeDetail)
+                    WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
+                    print("Trade price tick details: \(trades[tradeDetail.symbol])")
+                }
             } catch {
                 print("Error parsing JSON: \(error.localizedDescription)")
             }
@@ -443,3 +653,5 @@ class WebSocketManager: WebSocketDelegate {
     }
 }
 
+
+ */
