@@ -199,10 +199,9 @@ class SignUpViewController: BaseViewController {
             // User is signed in with Firebase successfuly
             if let user = authResult?.user {
               
-                
                 UserDefaults.standard.set(user.uid, forKey: "userID")
                 
-                self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
+                self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                     self.navigateToVerifiyScreen()
                 }
             }
@@ -262,7 +261,7 @@ class SignUpViewController: BaseViewController {
                         let name = firstName + " " + lastName
                         self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
                        
-                        self?.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, login: false, pushedToCRM: false, realAccountCreated: false, demoAccountCreated: false)
+                        self?.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
                         
                         self?.navigateToVerifiyScreen()
@@ -273,7 +272,7 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, login:Bool, pushedToCRM:Bool, realAccountCreated: Bool, demoAccountCreated: Bool) {
+    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
        
         db.collection("users").document(userId).setData([
             "KYC" : kyc,
@@ -282,9 +281,11 @@ class SignUpViewController: BaseViewController {
             "name": name,
             "email":email,
             "phone": phone,
+            "loginId": loginId,
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
             "login": login,
+            "demoAccountGroup": demoAccountGroup,
             "pushedToCRM": pushedToCRM,
             "realAccountCreated": realAccountCreated,
             "demoAccountCreated": demoAccountCreated

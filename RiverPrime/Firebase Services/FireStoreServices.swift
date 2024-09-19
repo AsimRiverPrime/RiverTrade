@@ -91,7 +91,7 @@ class FirestoreServices: BaseViewController {
     
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(data)")
+            print("\n Handle saved User Data for navigation : \(data)")
             
             if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
                navigateToEmailVerificationScreen()
@@ -104,7 +104,7 @@ class FirestoreServices: BaseViewController {
                 print("navigate to user demo account")
 //            } else if let profileStep = data["demoAccountCreated"] as? Int {
 //                print("check profile step: \(profileStep)")
-//            } else {
+            } else {
                 print("navigate to Main dashboard")
                 navigateToDemoAccountCreationScreen()
             }
@@ -197,8 +197,8 @@ class FirestoreServices: BaseViewController {
        
     private func navigateToEmailVerificationScreen() {
                //MARK: - Go to the VerifyCodeViewController Screen.
-               let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main)
-        
+        let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .signInViewController, storyboardType: .main)
+        self.ToastMessage("Verify Email by OTP")
                let navController = UINavigationController(rootViewController: verifyCodeVC)
                SCENE_DELEGATE.window?.rootViewController = navController
                SCENE_DELEGATE.window?.makeKeyAndVisible()
@@ -207,7 +207,7 @@ class FirestoreServices: BaseViewController {
        private func navigateToPhoneVerificationScreen() {
           
            let phoneVerifyVC = MyNavigationController.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main)
-    
+           self.ToastMessage("Verify phone number by OTP")
            let navController = UINavigationController(rootViewController: phoneVerifyVC)
            SCENE_DELEGATE.window?.rootViewController = navController
            SCENE_DELEGATE.window?.makeKeyAndVisible()

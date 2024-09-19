@@ -25,11 +25,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         odoObject.authenticate()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            if let userId1 = savedUserData["uid"] as? Int {
-              
-                fireStoreInstance.fetchUserData(userId: "\(userId1)")
-                }
+            print("\n saved User Data: scenceDelegate \(savedUserData)")
+            if let uid = savedUserData["uid"] as? String {
+                print("UID is: \(uid)")
+                self.fireStoreInstance.fetchUserData(userId: uid)
+            }
                 // Access specific values from the dictionary
             if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
                    

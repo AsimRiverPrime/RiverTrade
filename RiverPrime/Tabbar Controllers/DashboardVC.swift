@@ -72,6 +72,7 @@ class DashboardVC: BaseViewController {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
+            
             if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
                 profileStep = profileStep1
                 GlobalVariable.instance.isAccountCreated = isCreateDemoAccount

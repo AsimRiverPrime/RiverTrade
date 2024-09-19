@@ -184,6 +184,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             } else {
                 print("User demoAccountCreated fields updated successfully!")
                 GlobalVariable.instance.isAccountCreated = true
+                self.fireStoreInstance.fetchUserData(userId: self.userId)
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed after success")
                 })

@@ -27,6 +27,8 @@ enum StoryboardType: String {
 }
 
 enum BottomSheetIdentifierType: String {
+    case signInViewController = "SignInViewController"
+    case signupViewController = "SignUpViewController"
     case verifyCodeViewController = "VerifyCodeViewController"
     case phoneVerifyVC = "PhoneVerifyVC"
     case dashboardVC = "DashboardVC"
