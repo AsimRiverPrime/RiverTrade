@@ -48,9 +48,9 @@ class TradeVC: UIView {
         
         
 ////        vm.webSocketManager.connectWebSocket()
-//        
+//
 ////        NotificationCenter.default.addObserver(self, selector: #selector(socketConnectivity(_:)), name: .checkSocketConnectivity, object: nil)
-////        
+////
         //MARK: - START SOCKET.
         vm.webSocketManager.delegateSocketMessage = self
         vm.webSocketManager.connectWebSocket()
@@ -168,7 +168,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .clear
             
 //            let trade = vm.trade(at: indexPath)
-            let trade = getSymbolData[0].tickMessage//?[indexPath.row]
+            let trade = getSymbolData[indexPath.row].tickMessage//?[indexPath.row]
             
             var symbolDataObj: SymbolData?
             
@@ -177,7 +177,13 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
                 //   print("\(obj.icon_url)")
             }
             
-            cell.configure(with: trade! , symbolDataObj: symbolDataObj)
+            if GlobalVariable.instance.isProcessingSymbol {
+                GlobalVariable.instance.isProcessingSymbol = false
+                cell.configureChart()
+            } else {
+                cell.configure(with: trade! , symbolDataObj: symbolDataObj)
+            }
+//            cell.configure(with: trade! , symbolDataObj: symbolDataObj)
             
 //            let cell = TradeTableViewCell.cellForTableView(tableView, atIndexPath: indexPath, trades: vm.trades)
             
@@ -278,9 +284,23 @@ extension TradeVC: GetSocketMessages {
 //                }
 //            }
             
+//            NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
+            
+//            vm.trades.removeAll()
+//            for i in 0...getSymbolData.count-1 {
+//                if let getTick = getSymbolData[i].tickMessage {
+//                    vm.trades.append(getTick)
+//                }
+//            }
+//            vm.fetchSymbolDataForNewSymbols()
+            
             if let getTick = tickMessage {
                 if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
                     getSymbolData[index].tickMessage = tickMessage
+                    if !GlobalVariable.instance.isProcessingSymbol {
+                        GlobalVariable.instance.isProcessingSymbol = true
+                        vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
+                    }
                     refreshSectionRow(at: 2, row: index)
                     return
                 }
@@ -292,19 +312,28 @@ extension TradeVC: GetSocketMessages {
 //                tempList
 //                if let tickMsg = item.tickMessage, let getTick = tickMessage {
 //                    if tickMsg.symbol == getTick.symbol {
-//                        
+//
 //                    }
 //                }
 //            }
             
 //            getSymbolData.append(SymbolCompleteList(tickMessage: vm.trades))
-//            
+//
 //            refreshSection(at: 2)
             
             
             break
         case .history:
             
+            if let getHistory = historyMessage {
+                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
+//                    getSymbolData[index].tickMessage = tickMessage
+                    getSymbolData[index].historyMessage = historyMessage
+                    refreshSectionRow(at: 2, row: index)
+                    return
+                }
+            }
+
             break
         }
     }
@@ -429,7 +458,7 @@ extension TradeVC: TradeSymbolDetailDelegate {
     }
     */
     
-    //MARK: - And this is the code where we use the above chatgpt commented code.    
+    //MARK: - And this is the code where we use the above chatgpt commented code.
     /*
     import Foundation
     import Starscream
@@ -572,9 +601,9 @@ extension TradeVC {
     private func setTradeModel1(collectionViewIndex: Int) {
         
 //        let trade = vm.trade(at: indexPath)
-//        
+//
 //        var symbolDataObj: SymbolData?
-//        
+//
 //        if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade.symbol}) {
 //            symbolDataObj = obj
 //            //   print("\(obj.icon_url)")
@@ -586,7 +615,7 @@ extension TradeVC {
         
 //        let data = GlobalVariable.instance.symbolDataArray.map { $0 }
 //        let sector = GlobalVariable.instance.sectors.map { $0 }
-//        
+//
 //        vm.trades.removeAll()
 //        for item in data {
 //            vm.trades.append(TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0))
@@ -671,8 +700,8 @@ extension TradeVC {
         }
         
         // Append trades for the selected collectionViewIndex
-        let selectedSymbols = GlobalVariable.instance.filteredSymbols[collectionViewIndex] ?? []
-        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[collectionViewIndex] ?? []
+        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
+        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
         
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
         getSymbolData.removeAll()
@@ -681,8 +710,9 @@ extension TradeVC {
             count += 1
             GlobalVariable.instance.tradeCollectionViewIndex.1.append(count)
             let tradedetail = TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url, close: nil)
+            let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
             vm.trades.append(tradedetail)
-            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail))
+            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
         }
         
         print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")

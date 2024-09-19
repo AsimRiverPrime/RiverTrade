@@ -175,7 +175,7 @@ class WebSocketManager: WebSocketDelegate {
             */
             
             //This method is call from tradeVC according to the selection of collectionview.
-//            setTradeModel(collectionViewIndex: 0)
+            setTradeModel(collectionViewIndex: 0)
              
             
             
@@ -224,8 +224,8 @@ class WebSocketManager: WebSocketDelegate {
         }
         
         // Append trades for the selected collectionViewIndex
-        let selectedSymbols = GlobalVariable.instance.filteredSymbols[ collectionViewIndex] ?? []
-        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[ collectionViewIndex] ?? []
+        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
+        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
         
 //        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
 //            vm.trades.append(TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url))
@@ -275,7 +275,7 @@ class WebSocketManager: WebSocketDelegate {
 //                           let ask = payload["ask"] as? Double,
 //                           let bid = payload["bid"] as? Double,
 //                           let datetime = payload["datetime"] as? Int {
-//                            
+//
 //                            // Print out values to verify
 //                            print("ID: \(id)")
 //                            print("Message Type: \(type)")
@@ -283,9 +283,9 @@ class WebSocketManager: WebSocketDelegate {
 //                            print("Ask: \(ask)")
 //                            print("Bid: \(bid)")
 //                            print("Datetime: \(datetime)")
-//                            
+//
 //                            myType = type
-//                            
+//
 //                        } else {
 //                            print("Error: Unexpected JSON format")
 //                        }
@@ -308,7 +308,7 @@ class WebSocketManager: WebSocketDelegate {
 //                if "genericResponse.message.type" == "tick" {
 //                    let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
 //                    handleTradeData(genericResponse.message.payload)
-//                   
+//
 //                } else if "genericResponse.message.type" == "ChartHistory" {
 //                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
 //                    handleHistoryData(historyResponse.message.payload)
@@ -330,7 +330,7 @@ class WebSocketManager: WebSocketDelegate {
 //            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
 //            print("Trade price tick details: \(trades[tradeDetail.symbol] ?? nil)")
 //        }
-//        
+//
 //    }
     
     // Handle trade data
@@ -341,9 +341,13 @@ class WebSocketManager: WebSocketDelegate {
 //        GlobalVariable.instance.changeSymbol = false
 //        GlobalVariable.instance.changeSector = false
 //        WebSocketManager.shared.trades[response.symbol] = response
-//        
+        
+//        GlobalVariable.instance.changeSymbol = false
+//        GlobalVariable.instance.changeSector = false
+//        WebSocketManager.shared.trades[response.symbol] = response
+//
 ////        setTradeModel(collectionViewIndex: GlobalVariable.instance.tradeCollectionViewIndex.0)
-//        
+//
 //        print("Trade price tick details: \(WebSocketManager.shared.trades[response.symbol] ?? nil)")
 ////        for tradeDetail in response {
 ////            WebSocketManager.shared.trades[tradeDetail.symbol] = tradeDetail
@@ -362,10 +366,10 @@ class WebSocketManager: WebSocketDelegate {
 //        GlobalVariable.instance.isProcessingSymbol = false
 //        GlobalVariable.instance.isStopTick = true
 //        NotificationCenter.default.post(name: .symbolDataUpdated, object: response)
-//                
+//
 //        for payload in response.chartData {
 //                    print("[DEBUG] Chart history payload: \(payload)")
-//                  
+//
 //            }
             
     

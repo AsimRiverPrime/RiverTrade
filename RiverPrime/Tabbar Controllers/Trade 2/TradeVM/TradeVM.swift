@@ -58,7 +58,7 @@ class TradeVM {
 
 extension TradeVM {
     
-    private func fetchSymbolDataForNewSymbols() {
+    func fetchSymbolDataForNewSymbols() {
         // Add new symbols to the queue
         for trade in trades {
             if !processedSymbols.contains(trade.symbol) {
