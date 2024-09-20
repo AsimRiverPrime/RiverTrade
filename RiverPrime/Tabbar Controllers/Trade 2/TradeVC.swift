@@ -196,10 +196,14 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
             
-            let selectedSymbol = Array(WebSocketManager.shared.trades.keys)[indexPath.row]
-            if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
-                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
+//            let selectedSymbol = Array(WebSocketManager.shared.trades.keys)[indexPath.row]
+            if let selectedSymbol = getSymbolData[indexPath.row].tickMessage {
+                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: selectedSymbol)
             }
+//            
+//            if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
+//                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
+//            }
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }

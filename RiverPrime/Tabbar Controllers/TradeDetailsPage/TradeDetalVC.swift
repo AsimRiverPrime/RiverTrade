@@ -37,6 +37,7 @@ class TradeDetalVC: UIViewController {
         setupSeries(candlestickData: [])
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated), name: .tradesUpdated, object: nil)
+        
          (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
 
         

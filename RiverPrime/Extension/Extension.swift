@@ -105,3 +105,9 @@ public extension UIDevice {
 
 let screen_width = UIScreen.main.bounds.size.width
 let screen_height = UIScreen.main.bounds.size.height
+
+extension Collection {
+    subscript(safe index: Index) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
