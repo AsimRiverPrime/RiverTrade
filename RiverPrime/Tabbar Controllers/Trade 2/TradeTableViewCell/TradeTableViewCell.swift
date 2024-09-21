@@ -235,8 +235,7 @@ class TradeTableViewCell: UITableViewCell {
         }
     }
     
-    func configureChart() {
-        
+    func configureChart(getSymbolData: SymbolCompleteList){
         setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
         
     }

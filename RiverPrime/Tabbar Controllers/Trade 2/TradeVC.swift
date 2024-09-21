@@ -22,7 +22,6 @@ struct SymbolCompleteList {
 
 class TradeVC: UIView {
     
-    
     @IBOutlet weak var tblView: UITableView!
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
@@ -179,7 +178,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
             if GlobalVariable.instance.isProcessingSymbol {
                 GlobalVariable.instance.isProcessingSymbol = false
-                cell.configureChart()
+                let getSymbolData = getSymbolData[indexPath.row]
+                cell.configureChart(getSymbolData: getSymbolData)
             } else {
                 cell.configure(with: trade! , symbolDataObj: symbolDataObj)
             }

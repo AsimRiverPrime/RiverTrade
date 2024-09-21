@@ -345,7 +345,6 @@
 		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
 		319A32832C9C3EFB006DA077 /* TradeTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
-		319A32852C9C3EFB006DA077 /* AreaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaData.swift; sourceTree = "<group>"; };
 		319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		319A32892C9C3EFB006DA077 /* TradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeVM.swift; sourceTree = "<group>"; };
@@ -768,7 +767,6 @@
 		319A32882C9C3EFB006DA077 /* TradeTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				319A32852C9C3EFB006DA077 /* AreaData.swift */,
 				319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */,
 				319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */,
 			);
