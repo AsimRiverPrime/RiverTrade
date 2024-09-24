@@ -52,6 +52,9 @@ class GlobalVariable: NSObject {
     var isStopTick: Bool = false
     var isStopHistory: Bool = false
     
+    var previouseSymbolList = [String]()
+    var isConnected: Bool = false // Track connection state
+    var getSectorIndex = 0
     
     public func showBarBackButton(vc: UIViewController) {
        

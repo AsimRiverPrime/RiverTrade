@@ -11,6 +11,7 @@ import Starscream
 enum SocketMessageType {
     case tick
     case history
+    case Unsubscribed
 }
 
 protocol GetSocketMessages: AnyObject {
@@ -40,6 +41,11 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
     
+    // Check if the socket is connected
+    func isSocketConnected() -> Bool {
+        return GlobalVariable.instance.isConnected
+    }
+
     func connectWebSocket() {
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
         var request = URLRequest(url: url)
@@ -118,6 +124,15 @@ class WebSocketManager: WebSocketDelegate {
                 ]
             ]
             
+        } else if event == "unsubscribeTrade" {
+//            print("symbolList = \(symbolList)")
+            message = [
+                "event_name": "unsubscribe",
+                "data": [
+                    "last": 0,
+                    "channels": symbolList ?? [""]
+                ]
+            ]
         }
 
         // Send the prepared message to the WebSocket
@@ -148,7 +163,8 @@ class WebSocketManager: WebSocketDelegate {
         switch event {
         case .connected(let headers):
             print("WebSocket is connected: \(headers)")
-            
+            GlobalVariable.instance.isConnected = true // Update connection state
+
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "true"])
 
 //            let symbol = getSavedSymbols().map { $0 }
@@ -189,7 +205,8 @@ class WebSocketManager: WebSocketDelegate {
 
         case .disconnected(let reason, let code):
             print("WebSocket is disconnected: \(reason) with code: \(code)")
-            
+            GlobalVariable.instance.isConnected = false // Update connection state
+
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "false"])
 
         case .error(let error):
@@ -232,6 +249,9 @@ class WebSocketManager: WebSocketDelegate {
 //        }
         
         print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+        
+        //MARK: - Save symbol local to unsubcibe.
+        GlobalVariable.instance.previouseSymbolList = selectedSymbols
         
         sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
     }
@@ -301,6 +321,8 @@ class WebSocketManager: WebSocketDelegate {
                 } else if myType == "ChartHistory" {
                     let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
                     handleHistoryData(historyResponse.message.payload)
+                } else if myType == "Unsubscribed" {
+                    handleUnsubscribedData()
                 } else {
                     print("Unexpected message type: \(myType)")
                 }
@@ -373,6 +395,11 @@ class WebSocketManager: WebSocketDelegate {
 //            }
             
     
+    }
+    
+    func handleUnsubscribedData() {
+        //Unsubscribed
+        delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
     }
 
     // Handle errors

@@ -18,9 +18,12 @@ protocol TradeDetailTapDelegate: AnyObject {
 struct SymbolCompleteList {
     var tickMessage: TradeDetails?
     var historyMessage: SymbolChartData?
+    var isTickFlag: Bool?
+    var isHistoryFlag: Bool?
 }
 
 class TradeVC: UIView {
+    
     
     @IBOutlet weak var tblView: UITableView!
     
@@ -196,11 +199,10 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
             
+            let getSymbolData = getSymbolData[indexPath.row]
+            delegateDetail?.tradeDetailTap(indexPath: indexPath, details: getSymbolData.tickMessage!)
+            
 //            let selectedSymbol = Array(WebSocketManager.shared.trades.keys)[indexPath.row]
-            if let selectedSymbol = getSymbolData[indexPath.row].tickMessage {
-                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: selectedSymbol)
-            }
-//            
 //            if let tradeDetail = WebSocketManager.shared.trades[selectedSymbol] {
 //                delegateDetail?.tradeDetailTap(indexPath: indexPath, details: tradeDetail)
 //            }
@@ -303,9 +305,24 @@ extension TradeVC: GetSocketMessages {
                     getSymbolData[index].tickMessage = tickMessage
                     if !GlobalVariable.instance.isProcessingSymbol {
                         GlobalVariable.instance.isProcessingSymbol = true
+//                        if getSymbolData[index].isTickFlag ?? false {
+//                        } else {
+//                            vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
+//                        }
                         vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
                     }
-                    refreshSectionRow(at: 2, row: index)
+                    
+                    if getSymbolData[index].isTickFlag ?? false {
+                        let indexPath = IndexPath(row: index, section: 2)
+                        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                            cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+                        }
+                    } else {
+                        refreshSectionRow(at: 2, row: index)
+                        getSymbolData[index].isTickFlag = true
+                    }
+                    
+//                    refreshSectionRow(at: 2, row: index)
                     return
                 }
             }
@@ -333,11 +350,43 @@ extension TradeVC: GetSocketMessages {
                 if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
 //                    getSymbolData[index].tickMessage = tickMessage
                     getSymbolData[index].historyMessage = historyMessage
-                    refreshSectionRow(at: 2, row: index)
+                    
+                    let indexPath = IndexPath(row: index, section: 2)
+                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                        cell.configureChart(getSymbolData: getSymbolData[index])
+                    }
+                    
+//                    if getSymbolData[index].isHistoryFlag ?? false {
+//                        let indexPath = IndexPath(row: index, section: 2)
+//                        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+////                            let getSymbolData = getSymbolData[indexPath.row]
+//                            cell.configureChart(getSymbolData: getSymbolData[index])
+//                        }
+//                    } else {
+//                        refreshSectionRow(at: 2, row: index)
+//                        getSymbolData[index].isHistoryFlag = true
+//                    }
                     return
                 }
             }
 
+            break
+            
+        case .Unsubscribed:
+            
+            GlobalVariable.instance.changeSector = true
+            
+            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+            
+            if vm.webSocketManager.isSocketConnected() {
+                print("Socket is connected")
+            } else {
+                print("Socket is not connected")
+                //MARK: - START SOCKET.
+                vm.webSocketManager.delegateSocketMessage = self
+                vm.webSocketManager.connectWebSocket()
+            }
+            
             break
         }
     }
@@ -352,9 +401,30 @@ extension TradeVC: TradeInfoTapDelegate {
         
         print("tradeInfo = \(tradeInfo)")
         
+        GlobalVariable.instance.getSectorIndex = index
+        
+        //MARK: - START calling Socket message from here.
+        vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList)
+        
+        //MARK: - Remove symbol local after unsubcibe.
+        GlobalVariable.instance.previouseSymbolList.removeAll()
+        
+        //MARK: - This below commented code Move to tradeUpdates Method under Unsubscribed Case.
+        
+        /*
         GlobalVariable.instance.changeSector = true
         
         setTradeModel(collectionViewIndex: index)
+        
+        if vm.webSocketManager.isSocketConnected() {
+            print("Socket is connected")
+        } else {
+            print("Socket is not connected")
+            //MARK: - START SOCKET.
+            vm.webSocketManager.delegateSocketMessage = self
+            vm.webSocketManager.connectWebSocket()
+        }
+        */
         
 //        refreshSection(at: 2)
         /*
@@ -716,7 +786,8 @@ extension TradeVC {
             let tradedetail = TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url, close: nil)
             let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
             vm.trades.append(tradedetail)
-            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
+//            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
+            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false))
         }
         
         print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
@@ -727,6 +798,9 @@ extension TradeVC {
 //        getSymbolData.append(SymbolCompleteList(tickMessage: vm.trades))
         
         refreshSection(at: 2)
+        
+        //MARK: - Save symbol local to unsubcibe.
+        GlobalVariable.instance.previouseSymbolList = selectedSymbols
         
         //MARK: - START calling Socket message from here.
         vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
