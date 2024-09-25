@@ -19,6 +19,10 @@ protocol GetSocketMessages: AnyObject {
     func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?)
 }
 
+protocol GetCandleData: AnyObject {
+    func tradeHistoryUpdates(socketMessageType: SocketMessageType, historyMessage: SymbolChartData?)
+}
+
 class WebSocketManager: WebSocketDelegate {
 
     var webSocket: WebSocket?
@@ -27,6 +31,7 @@ class WebSocketManager: WebSocketDelegate {
     private init() {}
     
     public weak var delegateSocketMessage: GetSocketMessages?
+    public weak var delegateCandleSocketMessage: GetCandleData?
 
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
@@ -55,10 +60,20 @@ class WebSocketManager: WebSocketDelegate {
         webSocket?.delegate = self
         webSocket?.connect()
     }
+    
+    func disconnectWebSocket() {
+        if isSocketConnected() {
+            webSocket?.disconnect()
+        }
+    }
 
     func sendWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil) {
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
+        let timestamps = currentAndBeforeBusinessDayTimestamps()
+        print("Current Timestamp: \(timestamps.currentTimestamp)")
+        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
+
         var message: [String: Any] = [:]
         
         // Prepare message based on event type (trade or history)
@@ -119,8 +134,10 @@ class WebSocketManager: WebSocketDelegate {
                 "event_name": "get_chart_history",
                 "data": [
                     "symbol": symbol ?? "",
-                    "from": hourBeforeTimestamp,
-                    "to": currentTimestamp
+                    "from": timestamps.previousTimestamp,
+                    "to":  timestamps.currentTimestamp
+//                    "from": hourBeforeTimestamp,
+//                    "to": currentTimestamp
                 ]
             ]
             
@@ -359,6 +376,7 @@ class WebSocketManager: WebSocketDelegate {
     func handleTradeData(_ response: TradeDetails) {
         
         delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
+        NotificationCenter.default.post(name: .tradesUpdated, object: response)
         
 //        GlobalVariable.instance.changeSymbol = false
 //        GlobalVariable.instance.changeSector = false
@@ -384,6 +402,8 @@ class WebSocketManager: WebSocketDelegate {
         print("Received history data: \(response)")
         
         delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
+        
+        delegateCandleSocketMessage?.tradeHistoryUpdates(socketMessageType: .history, historyMessage: response)
       
 //        GlobalVariable.instance.isProcessingSymbol = false
 //        GlobalVariable.instance.isStopTick = true
@@ -425,6 +445,43 @@ class WebSocketManager: WebSocketDelegate {
         return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
         
     }
+    
+    
+    func currentAndBeforeBusinessDayTimestamps() -> (currentTimestamp: Int, previousTimestamp: Int) {
+        let timeZone = TimeZone(identifier: "UTC")!
+        let currentDate = Date()
+        
+        // Get current date components
+        let components = Calendar.current.dateComponents(in: timeZone, from: currentDate)
+        
+        // Create the current timestamp
+        let currentTimestamp = Int(currentDate.timeIntervalSince1970)
+        
+        // Calculate previous business day
+        var previousBusinessDay = currentDate
+        
+        // Check if the current day is a business day (for this example, we'll consider weekdays only)
+        let weekday = components.weekday ?? 1 // Default to Sunday (1)
+        
+        // If today is Sunday (1), go back to Friday (5)
+        if weekday == 1 {
+            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -2, to: currentDate)!
+        }
+        // If today is Monday (2), go back to Friday (5)
+        else if weekday == 2 {
+            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!
+        }
+        // Otherwise, just go back one day
+        else {
+            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
+        }
+        
+        // Get previous timestamp
+        let previousTimestamp = Int(previousBusinessDay.timeIntervalSince1970)
+        
+        return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
+    }
+
 }
 /*
 
