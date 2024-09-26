@@ -49,36 +49,47 @@ class TradeDetalVC: UIViewController {
         disconnectWebSocket()
     }
     
-    @objc private func handleTradesUpdated(_ notification: Notification) {
-        if let tradeDetail = notification.object as? TradeDetails {
-            updateUI()
-            // Update the UI with the latest data for the selected symbol
-            
-//            self.tradeDetails = tradeDetail
-            
-//            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
-            getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-            let data =  getLiveCandelStick.getLatestOhlcData()
-            print("latest data: \(data)")
-            
-            let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
-            
-            let open = data?.open
-            let close = data?.close
-            let high = data?.high
-            let low = data?.low
-            
-            let dataPoint = CandlestickData(
-                time: times,
-                open: open,
-                high: high,
-                low: low,
-                close: close
-            )
-            
-//            // Use update to add this candlestick incrementally
-            series?.update(bar: dataPoint)
-            
+        @objc private func handleTradesUpdated(_ notification: Notification) {
+         
+            if let tradeDetail = notification.object as? TradeDetails {
+               
+                if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+                    symbolLabel.text = "Symbol: \(tradeDetail.symbol)"
+                      
+                    // Assuming TradeDetail has properties you want to display
+                    detailsLabel.text = "Ask: \(tradeDetail.ask), Bid :\(tradeDetail.bid), \n Time: \(tradeDetail.datetime)"
+                    
+                    self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
+                    self.lbl_sellBtn.text = "\(tradeDetail.ask)"
+                    
+                    
+                    // Update the UI with the latest data for the selected symbol
+                    
+                    //            self.tradeDetails = tradeDetail
+                    
+                    //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
+                    getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+                    let data =  getLiveCandelStick.getLatestOhlcData()
+                    print("latest data: \(data)")
+                    
+                    let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
+                    
+                    let open = data?.open
+                    let close = data?.close
+                    let high = data?.high
+                    let low = data?.low
+                    
+                    let dataPoint = CandlestickData(
+                        time: times,
+                        open: open,
+                        high: high,
+                        low: low,
+                        close: close
+                    )
+                    
+                    //            // Use update to add this candlestick incrementally
+                    series?.update(bar: dataPoint)
+                }
 //            setupSeries(candlestickData: dataPoint)
             
         }
@@ -120,21 +131,21 @@ class TradeDetalVC: UIViewController {
     }
     */
     
-    private func updateUI() {
-        if let symbol = getSymbolData.tickMessage?.symbol {
-            symbolLabel.text = "Symbol: \(symbol)"
-        }
-        
-//        if let tradeDetails = tradeDetails {
-        if let tick = getSymbolData.tickMessage {
-            // Assuming TradeDetail has properties you want to display
-            detailsLabel.text = "Ask: \(tick.ask), Bid :\(tick.bid), \n Time: \(tick.datetime)"
-            
-            self.lbl_BuyBtn.text = "\(tick.bid)"
-            self.lbl_sellBtn.text = "\(tick.ask)"
-        }
-        
-    }
+//    private func updateUI(detailData: TradeDetails) {
+//        if let symbol = detailData.symbol {
+//            symbolLabel.text = "Symbol: \(symbol)"
+//        }
+//        
+////        if let tradeDetails = tradeDetails {
+//        if let tick = getSymbolData.tickMessage {
+//            // Assuming TradeDetail has properties you want to display
+//            detailsLabel.text = "Ask: \(tick.ask), Bid :\(tick.bid), \n Time: \(tick.datetime)"
+//            
+//            self.lbl_BuyBtn.text = "\(tick.bid)"
+//            self.lbl_sellBtn.text = "\(tick.ask)"
+//        }
+//        
+//    }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
@@ -143,13 +154,13 @@ class TradeDetalVC: UIViewController {
     @IBAction func buyBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
         vc.titleString = "BUY"
-        
+        vc.getSymbolDetail = getSymbolData
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     @IBAction func sellBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
         vc.titleString = "SELL"
-        
+        vc.getSymbolDetail = getSymbolData
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customLarge, VC: vc)
     }
     
@@ -254,10 +265,10 @@ extension TradeDetalVC: WebSocketDelegate {
             "event_name": "get_chart_history",
             "data": [
                 "symbol":  getSymbolData.tickMessage?.symbol ?? "",
-                "from": timestamps.previousTimestamp,
-                "to":  timestamps.currentTimestamp
-//                "from": hourBeforeTimestamp,
-//                "to":  currentTimestamp
+//                "from": timestamps.previousTimestamp,
+//                "to":  timestamps.currentTimestamp
+                "from": hourBeforeTimestamp,
+                "to":  currentTimestamp
             ]
         ]
         
@@ -340,7 +351,7 @@ extension TradeDetalVC: WebSocketDelegate {
         
         // Get current timestamp in milliseconds
         let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
-        let beforeHourTimestamp = currentTimestamp -  (1 * 60 * 60)
+        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
         
         return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
         

@@ -61,13 +61,6 @@ class DashboardVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if GlobalVariable.instance.isReturnToProfile == true {
-            setProfileButton()
-            GlobalVariable.instance.isReturnToProfile = false
-        }else{
-            setAccountsButton()
-        }
-        
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
@@ -78,6 +71,15 @@ class DashboardVC: BaseViewController {
                 GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
             }
         }
+        
+        if GlobalVariable.instance.isReturnToProfile == true {
+            setProfileButton()
+            GlobalVariable.instance.isReturnToProfile = false
+        }else{
+            setAccountsButton()
+        }
+        
+       
         
     }
     

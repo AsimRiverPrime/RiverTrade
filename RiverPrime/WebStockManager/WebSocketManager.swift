@@ -189,8 +189,6 @@ class WebSocketManager: WebSocketDelegate {
 //            sendWebSocketMessage(for: "subscribeTrade", symbol: symbol?[0].name)
             
             
-            
-            
             /*
             let symbol = getSavedSymbols().map { $0 }
             let sector = GlobalVariable.instance.sectors.map { $0.sector }
