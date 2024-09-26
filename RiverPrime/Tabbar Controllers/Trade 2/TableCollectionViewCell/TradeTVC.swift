@@ -87,6 +87,9 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
+            // Scroll to the selected item
+            collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+            
             let data = symbolDataSector[indexPath.row]
             selectedIndex = indexPath.row
             self.delegate?.tradeInfoTap(data, index: indexPath.row)

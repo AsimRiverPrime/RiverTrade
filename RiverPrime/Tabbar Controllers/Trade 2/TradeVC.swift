@@ -87,6 +87,7 @@ class TradeVC: UIView {
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
         vm.webSocketManager.delegateSocketMessage = self
+        vm.webSocketManager.delegateSocketPeerClosed = self
         vm.webSocketManager.connectWebSocket()
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -193,6 +194,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             
+            
+            
         } else if indexPath.section == 2 {
             
             //MARK: - When we click on the symbol list index then it should move and show history data into the detail page.
@@ -258,6 +261,26 @@ extension TradeVC {
             
         }
         
+    }
+    
+}
+
+extension TradeVC: SocketPeerClosed {
+    
+    func peerClosed() {
+        
+        GlobalVariable.instance.changeSector = true
+        
+        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+        
+//        if vm.webSocketManager.isSocketConnected() {
+//            print("Socket is connected")
+//        } else {
+//            print("Socket is not connected")
+//            GlobalVariable.instance.changeSector = true
+//
+//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+//        }
     }
     
 }
@@ -367,19 +390,12 @@ extension TradeVC: TradeInfoTapDelegate {
         //MARK: - Remove symbol local after unsubcibe.
         GlobalVariable.instance.previouseSymbolList.removeAll()
         
-        
-        
-        
-        /*
         if vm.webSocketManager.isSocketConnected() {
             print("Socket is connected")
         } else {
             print("Socket is not connected")
-            GlobalVariable.instance.changeSector = true
-            
-            setTradeModel(collectionViewIndex: index)
         }
-         */
+        
         
         //MARK: - This below commented code Move to tradeUpdates Method under Unsubscribed Case.
         /*
@@ -465,6 +481,7 @@ extension TradeVC: TradeSymbolDetailDelegate {
         return symbols.filter { $0.sector == sector }.map { $0.icon_url }
     }
     
+    /*
     private func processSymbols(_ symbols: [SymbolData]) {
         var sectorDict = [String: [SymbolData]]()
         
@@ -483,6 +500,30 @@ extension TradeVC: TradeSymbolDetailDelegate {
         //MARK: - Init it will be zero.
         setTradeModel(collectionViewIndex: 0)
     }
+    */
+    
+    private func processSymbols(_ symbols: [SymbolData]) {
+        var sectorDict = [String: [SymbolData]]()
+        
+        // Group symbols by sector
+        for symbol in symbols {
+            sectorDict[symbol.sector, default: []].append(symbol)
+        }
+        
+        // Sort the sectors by key
+        let sortedSectors = sectorDict.keys.sorted()
+        
+        // Create SectorGroup from sorted keys
+        GlobalVariable.instance.sectors = sortedSectors.map {
+            SectorGroup(sector: $0, symbols: sectorDict[$0]!)
+        }
+        
+        saveSymbolsToDefaults(symbols)
+        
+        // Initialize with the first index
+        setTradeModel(collectionViewIndex: 0)
+    }
+
     
     private func saveSymbolsToDefaults(_ symbols: [SymbolData]) {
         let savedSymbolsKey = "savedSymbolsKey"

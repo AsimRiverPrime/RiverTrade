@@ -23,6 +23,10 @@ protocol GetCandleData: AnyObject {
     func tradeHistoryUpdates(socketMessageType: SocketMessageType, historyMessage: SymbolChartData?)
 }
 
+protocol SocketPeerClosed: AnyObject {
+    func peerClosed()
+}
+
 class WebSocketManager: WebSocketDelegate {
 
     var webSocket: WebSocket?
@@ -32,6 +36,7 @@ class WebSocketManager: WebSocketDelegate {
     
     public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateCandleSocketMessage: GetCandleData?
+    public weak var delegateSocketPeerClosed: SocketPeerClosed?
 
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
@@ -134,10 +139,10 @@ class WebSocketManager: WebSocketDelegate {
                 "event_name": "get_chart_history",
                 "data": [
                     "symbol": symbol ?? "",
-                    "from": timestamps.previousTimestamp,
-                    "to":  timestamps.currentTimestamp
-//                    "from": hourBeforeTimestamp,
-//                    "to": currentTimestamp
+//                    "from": timestamps.previousTimestamp,
+//                    "to":  timestamps.currentTimestamp
+                    "from": hourBeforeTimestamp,
+                    "to": currentTimestamp
                 ]
             ]
             
@@ -189,6 +194,8 @@ class WebSocketManager: WebSocketDelegate {
 //            sendWebSocketMessage(for: "subscribeTrade", symbol: symbol?[0].name)
             
             
+            
+            
             /*
             let symbol = getSavedSymbols().map { $0 }
             let sector = GlobalVariable.instance.sectors.map { $0.sector }
@@ -223,11 +230,23 @@ class WebSocketManager: WebSocketDelegate {
             GlobalVariable.instance.isConnected = false // Update connection state
 
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "false"])
-
+            
+            delegateSocketPeerClosed?.peerClosed()
+            
         case .error(let error):
             handleError(error)
             
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "false"])
+            
+            delegateSocketPeerClosed?.peerClosed()
+            
+        case .peerClosed:
+            
+            print("peerClosed...")
+            
+            delegateSocketPeerClosed?.peerClosed()
+            
+            break
 
         default:
             print("WebSocket received an unhandled event: \(event)")
@@ -438,7 +457,7 @@ class WebSocketManager: WebSocketDelegate {
         
         // Get current timestamp in milliseconds
         let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
-        let beforeHourTimestamp = currentTimestamp -  (1 * 60 * 60)
+        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
         
         return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
         
