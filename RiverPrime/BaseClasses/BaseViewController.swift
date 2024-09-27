@@ -160,4 +160,21 @@ extension BaseViewController {
         
     }
     
+    func dynamicDropDownButtonForTakeProfit(_ sender: UIButton, list: [String], completion: @escaping ((Int,String)) -> Void) {
+        
+        CustomDropDown.instance.dropDownButton(list: list, sender: sender) { [weak self] (index: Int, item: String) in
+            print("this is the selected index value:\(index)")
+            print("this is the selected item name :\(item)")
+//            guard let self = self else { return }
+            // Split the selected item into words and get the last word
+                   let words = item.split(separator: " ")
+                   if let lastWord = words.last {
+                       sender.setTitle(String(lastWord), for: .normal) // Set button title to the last word
+                   }
+//            sender.setTitle(item, for: .normal)
+            completion((index,item))
+        }
+        
+    }
 }
+
