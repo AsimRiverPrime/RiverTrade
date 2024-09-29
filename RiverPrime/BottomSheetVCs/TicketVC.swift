@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class TicketVC: BottomSheetController, UITextFieldDelegate {
     
@@ -146,10 +147,327 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
                 self.getPriceLiveValue = "\(tradeDetail.bid)"
                 
                 
-                checkValues(liveValue: getPriceLiveValue!)
-                CheckSLTPValue(liveValue: getPriceLiveValue!)
+//                checkValues(liveValue: getPriceLiveValue!)
+//                CheckSLTPValue(liveValue: getPriceLiveValue!)
+                
+                checkEnable(liveValue: getPriceLiveValue ?? "")
+                
             }
         }
+    }
+    
+    private func checkEnable(liveValue: String) {
+        
+        var price: (String,Double,Bool) = ("",0.0,false)
+        var profit: (String,Double,Bool) = ("",0.0,false)
+        var loss: (String,Double,Bool) = ("",0.0,false)
+        
+        //MARK: - START Price Logic
+        if titleString == "SELL" { //TODO: SELL
+            
+            if self.selectedPrice == "Limit" {
+                price.0 = "Limit"
+                price.1 = Double(liveValue) ?? 0.0
+                price.2 = true
+            } else if self.selectedPrice == "Stop" {
+                price.0 = "Stop"
+                price.1 = Double(liveValue) ?? 0.0
+                price.2 = true
+            } else { //TODO: STOP Price.
+                price.0 = ""
+                price.1 = 0.0
+                price.2 = false
+            }
+            
+        } else { //TODO: BUY
+            if self.selectedPrice == "Limit" {
+                price.0 = "Limit"
+                price.1 = Double(liveValue) ?? 0.0
+                price.2 = true
+            } else if self.selectedPrice == "Stop" {
+                price.0 = "Stop"
+                price.1 = Double(liveValue) ?? 0.0
+                price.2 = true
+            } else { //TODO: STOP Price.
+                price.0 = ""
+                price.1 = 0.0
+                price.2 = false
+            }
+        }
+        //MARK: - END Price Logic
+        
+        
+        
+        //MARK: - START profit Logic
+        if takeProfit_switch.isOn {
+            profit.0 = "Profit"
+            profit.1 = Double(liveValue) ?? 0.0
+            profit.2 = true
+        } else {
+            profit.0 = ""
+            profit.1 = 0.0
+            profit.2 = false
+        }
+        //MARK: - END profit Logic
+        
+        
+        
+        //MARK: - START loss Logic
+        if stopLoss_switch.isOn {
+            loss.0 = "Loss"
+            loss.1 = Double(liveValue) ?? 0.0
+            loss.2 = true
+        } else {
+            loss.0 = ""
+            loss.1 = 0.0
+            loss.2 = false
+        }
+        //MARK: - END loss Logic
+        
+        
+        
+        //MARK: - START Main Logic
+        if price.2 == true || profit.2 == true || loss.2 == true {
+            
+            var isConfirmEnable: [(String,Bool)] = [("",false), ("",false), ("",false)]
+            
+            if price.2 == true && price.0 == "Limit" {
+                
+                if !isFirstValueSet {
+                    bidValue = Double(liveValue)!
+                    // Set the text field with the first value
+                    tf_priceValue.text = String(liveValue)
+                    currentValue2 = Double(liveValue)!
+                    // Update the flag so the field is not updated again
+                    isFirstValueSet = true
+                }
+                
+                if titleString == "SELL" { //TODO: SELL
+                    
+                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
+                    
+                    self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
+                    lbl_limit.text = "Limit"
+                    
+                    if price.1 < myPriceValue {
+    //                    self.btn_confirm.isEnabled = true
+    //                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+    //                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
+                        
+                        isConfirmEnable[0].1 = true
+                        isConfirmEnable[0].0 = "on"
+                    }else{
+    //                    self.btn_confirm.isEnabled = false
+    //                    self.btn_confirm.backgroundColor = UIColor.systemGray4
+    //                    self.priceValue_view.layer.borderWidth = 1.0
+    //                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.red
+                        
+                        isConfirmEnable[0].1 = false
+                        isConfirmEnable[0].0 = ""
+                    }
+                    
+                } else { //TODO: BUY
+                    
+                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
+                    
+                    self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
+                    lbl_limit.text = "Limit"
+                    
+                    if price.1 > myPriceValue {
+    //                    self.btn_confirm.isEnabled = true
+    //                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+    //                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
+                        
+                        isConfirmEnable[0].1 = true
+                        isConfirmEnable[0].0 = "on"
+                    }else{
+    //                    self.btn_confirm.isEnabled = false
+    //                    self.btn_confirm.backgroundColor = UIColor.systemGray4
+    //                    self.priceValue_view.layer.borderWidth = 1.0
+    //                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.red
+                        
+                        isConfirmEnable[0].1 = false
+                        isConfirmEnable[0].0 = ""
+                    }
+                    
+                }
+                
+            } else if price.2 == true && price.0 == "Stop" {
+                
+                if !isFirstValueSet {
+                    bidValue = Double(liveValue)!
+                    // Set the text field with the first value
+                    tf_priceValue.text = String(liveValue)
+                    currentValue2 = Double(liveValue)!
+                    // Update the flag so the field is not updated again
+                    isFirstValueSet = true
+                }
+                
+                if titleString == "SELL" { //TODO: SELL
+                    
+                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
+                    
+                    self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
+                    lbl_limit.text = "Stop"
+                    
+                    if price.1 > myPriceValue {
+    //                    self.btn_confirm.isEnabled = true
+    //                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+    //                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
+                        
+                        isConfirmEnable[0].1 = true
+                        isConfirmEnable[0].0 = "on"
+                    }else{
+    //                    self.btn_confirm.isEnabled = false
+    //                    self.btn_confirm.backgroundColor = UIColor.systemGray4
+    //                    self.priceValue_view.layer.borderWidth = 1.0
+    //                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.red
+                        
+                        isConfirmEnable[0].1 = false
+                        isConfirmEnable[0].0 = ""
+                    }
+                    
+                } else { //TODO: BUY
+                    
+                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
+                    
+                    self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
+                    lbl_limit.text = "Stop"
+                    
+                    if price.1 < myPriceValue {
+    //                    self.btn_confirm.isEnabled = true
+    //                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+    //                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
+                        
+                        isConfirmEnable[0].1 = true
+                        isConfirmEnable[0].0 = "on"
+                    }else{
+    //                    self.btn_confirm.isEnabled = false
+    //                    self.btn_confirm.backgroundColor = UIColor.systemGray4
+    //                    self.priceValue_view.layer.borderWidth = 1.0
+    //                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+    //                    self.lbl_currentPriceValue.textColor = UIColor.red
+                        
+                        isConfirmEnable[0].1 = false
+                        isConfirmEnable[0].0 = ""
+                    }
+                    
+                }
+                
+            }
+            
+            if profit.2 == true && profit.0 == "Profit" {
+                
+                if !isFirstValueTakeProfit {
+                    tf_takeProfit.text = String(liveValue)
+                    currentValue3 = Double(liveValue)!
+                    isFirstValueTakeProfit = true
+                }
+                
+                let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
+                
+                if profit.1 > myTakeProfitValue {
+//                    self.btn_confirm.isEnabled = true
+//                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+//                    self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
+//                    self.lbl_liveProfitLoss.isHidden = true
+                    
+                    isConfirmEnable[1].1 = true
+                    isConfirmEnable[1].0 = "on"
+                }else{
+//                    self.btn_confirm.isEnabled = false
+//                    self.btn_confirm.backgroundColor = UIColor.lightGray
+//                    self.takeProfit_view.layer.borderWidth = 1.0
+//                    self.takeProfit_view.layer.borderColor = UIColor.red.cgColor
+//                    self.lbl_liveProfitLoss.isHidden = false
+//                    self.lbl_liveProfitLoss.text = "Max. " + liveValue
+//                    self.lbl_liveProfitLoss.textColor = UIColor.red
+                    
+                    isConfirmEnable[1].1 = false
+                    isConfirmEnable[1].0 = ""
+                }
+                
+            }
+            
+            if loss.2 == true && loss.0 == "Loss" {
+                
+                if !isFirstValueStopLoss {
+                    tf_stopLoss.text = String(liveValue)
+                    currentValue4 = Double(liveValue)!
+                    
+                    isFirstValueStopLoss = true
+                }
+                
+                let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
+                
+                if loss.1 < myStopLossValue {
+//                    self.btn_confirm.isEnabled = true
+//                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+//                    self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
+//                    self.lbl_liveStopLoss.isHidden = true
+                    
+                    isConfirmEnable[2].1 = true
+                    isConfirmEnable[2].0 = "on"
+                }else{
+//                    self.btn_confirm.isEnabled = false
+//                    self.btn_confirm.backgroundColor = UIColor.lightGray
+//                    self.stopLoss_view.layer.borderWidth = 1.0
+//                    self.stopLoss_view.layer.borderColor = UIColor.red.cgColor
+//                    self.lbl_liveStopLoss.isHidden = false
+//                    self.lbl_liveStopLoss.text = "Min. " + liveValue
+//                    self.lbl_liveStopLoss.textColor = UIColor.red
+                    
+                    isConfirmEnable[2].1 = false
+                    isConfirmEnable[2].0 = ""
+                }
+                
+            }
+            
+            var checkEnable = false
+            for isEnable in isConfirmEnable {
+                if !isEnable.1 && isEnable.0 != "" {
+                    checkEnable = true
+                    self.btn_confirm.isEnabled = false
+                    self.btn_confirm.backgroundColor = UIColor.systemGray4
+                    self.priceValue_view.layer.borderWidth = 1.0
+                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+                    self.lbl_currentPriceValue.textColor = UIColor.red
+                    return
+                }
+            }
+            
+            if !checkEnable {
+                self.btn_confirm.isEnabled = true
+                self.btn_confirm.backgroundColor = UIColor.systemYellow
+                self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
+                self.lbl_liveStopLoss.isHidden = true
+            }
+            
+//            if isConfirmEnable {
+//                self.btn_confirm.isEnabled = true
+//                self.btn_confirm.backgroundColor = UIColor.systemYellow
+//                self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
+//                self.lbl_liveStopLoss.isHidden = true
+//            } else {
+//                self.btn_confirm.isEnabled = false
+//                self.btn_confirm.backgroundColor = UIColor.systemGray4
+//                self.priceValue_view.layer.borderWidth = 1.0
+//                self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+//                self.lbl_currentPriceValue.textColor = UIColor.red
+//            }
+            
+        }
+        //MARK: - END Main Logic
+        
+        
+        
     }
     
     func checkValues(liveValue: String) {
@@ -592,6 +910,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
     
     @IBAction func submit_btnAction(_ sender: Any) {
         
+        createOrder()
         
     }
     
@@ -601,6 +920,95 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
         stopLossLiveValue_view.isHidden = true
         tf_stopLoss.text = ""
         tf_stopLoss.placeholder = "not set"
+    }
+    
+}
+
+extension TicketVC {
+    
+    func createOrder() {
+        ActivityIndicator.shared.show(in: self.view, style: .large)
+        
+        let url = "https://mbe.riverprime.com/jsonrpc"
+        let parameters: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method": "call",
+            "id": 3000,
+            "params": [
+                "method": "execute_kw",
+                "service": "object",
+                "args": [
+                    "mbe.riverprime.com",
+                    7,
+                    "4e9b5768375b5a0acf0c94645eac5cdd9c07c059",
+                    "mt.middleware",
+                    "create_order",
+                    [
+                        [],
+                        "asimprime900@gmail.com",
+                        "1012190",
+                        "asdasd",
+                        "Gold",
+                        "type",
+                        1.0,
+                        0,
+                        0,
+                        0,
+                        2,
+                        "Lots",
+                        100,
+                        "comment test"
+                    ]
+                ]
+            ]
+        ]
+        
+//        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+//            .validate() // Optionally validate the response
+//            .responseDecodable(of: JsonResponse.self) { response in
+//                switch response.result {
+//                case .success(let jsonResponse):
+//                    // Handle the successful response
+//                    ActivityIndicator.shared.hide(from: self.view)
+//
+//                    if jsonResponse.result.success {
+//                        print("Order created with ID: \(jsonResponse.result.orderId)")
+//                    } else {
+//                        print("Error: \(jsonResponse.result.error ?? "Unknown error")")
+//                    }
+//                case .failure(let error):
+//                    // Handle the error
+//                    ActivityIndicator.shared.hide(from: self.view)
+//
+//                    print("Request failed with error: \(error)")
+//                }
+//            }
+        
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+            .validate() // Optionally validate the response
+            .responseDecodable(of: JsonResponse.self) { response in
+                switch response.result {
+                case .success(let jsonResponse):
+                    // Handle the successful response
+                    ActivityIndicator.shared.hide(from: self.view)
+                    
+                    if jsonResponse.result.success {
+                        if let orderId = jsonResponse.result.orderId {
+                            print("Order created with ID: \(orderId)")
+                        } else {
+                            print("Order ID not found.")
+                        }
+                    } else {
+                        print("Error: \(jsonResponse.result.error ?? "Unknown error")")
+                    }
+                case .failure(let error):
+                    // Handle the error
+                    ActivityIndicator.shared.hide(from: self.view)
+                    
+                    print("Request failed with error: \(error)")
+                }
+            }
+        
     }
     
 }
