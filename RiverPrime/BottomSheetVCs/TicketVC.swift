@@ -92,11 +92,17 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
     var digits: Int?
     var volumeMin: Int?
     var bidValue: Double?
+    var selectedSymbol: String?
+    
     
     var userLoginID: Int?
     var userPassword: String?
     var userEmail: String?
     var digits_currency: Int = 3
+    var stopLoss: Double?
+    var takeProfit: Double?
+    var priceValue: Double?
+    
     var type: Int?
     /* OP_BUY                   =0,     // buy order
      OP_SELL                  =1,     // sell order
@@ -151,6 +157,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
             
             print("\n \(obj) \n")
+            selectedSymbol = obj.name
             contractSize = Int("\(obj.contractSize)")
             volumeStep = Int("\(obj.volumeStep)")
             volumeMax = Int("\(obj.volumeMax)")
@@ -215,6 +222,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
                     price.0 = ""
                     price.1 = 0.0
                     price.2 = false
+                    priceValue = 0.0
                 }
                 
             } else { //TODO: BUY
@@ -233,6 +241,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
                     price.0 = ""
                     price.1 = 0.0
                     price.2 = false
+                    priceValue = 0.0
                 }
             }
             //MARK: - END Price Logic
@@ -950,6 +959,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
             lbl_TP.isHidden = true
             self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
             self.lbl_liveProfitLoss.isHidden = true
+            self.takeProfit = 0.0
         }
     }
     
@@ -990,6 +1000,7 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
             lbl_SL.isHidden = true
             self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
             self.lbl_liveStopLoss.isHidden = true
+            self.stopLoss = 0.0
         }
     }
     
@@ -1010,17 +1021,6 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
         updateValue(for: tf_stopLoss, increment: true)
     }
     
-    @IBAction func cancel_btnAction(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-            print("Bottom sheet dismissed on cancel btn press")
-        })
-    }
-    
-    @IBAction func submit_btnAction(_ sender: Any) {
-        
-        createOrder()
-        
-    }
     
     
     @IBAction func stopLoss_clearAction(_ sender: Any) {
@@ -1030,11 +1030,33 @@ class TicketVC: BottomSheetController, UITextFieldDelegate {
         tf_stopLoss.placeholder = "not set"
     }
     
+    @IBAction func cancel_btnAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: {
+            print("Bottom sheet dismissed on cancel btn press")
+        })
+    }
+    
+    @IBAction func submit_btnAction(_ sender: Any) {
+      
+        print("\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)")
+       
+//        volume = self.tf_volume.text
+        priceValue = Double(self.tf_priceValue.text ?? "")
+        stopLoss = Double(self.tf_stopLoss.text ?? "")
+        takeProfit = Double(self.tf_takeProfit.text ?? "")
+        
+        //email, login, password, symbol, type, volume, price, stop_loss, take_profit, digits, digits_currency, contract_size, comment
+        
+        createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss ?? 0, take_profit: takeProfit ?? 0, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
+        
+    }
+  
+    
 }
 
 extension TicketVC {
     
-    func createOrder() {
+    func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
         
         let url = "https://mbe.riverprime.com/jsonrpc"
@@ -1047,25 +1069,25 @@ extension TicketVC {
                 "service": "object",
                 "args": [
                     "mbe.riverprime.com",
-                    7,
-                    "4e9b5768375b5a0acf0c94645eac5cdd9c07c059",
+                    6,
+                    "7d2d38646cf6437034109f442596b86cbf6110c0",
                     "mt.middleware",
                     "create_order",
                     [
                         [],
-                        "asimprime900@gmail.com",
-                        "1012190",
-                        "asdasd",
-                        "Gold",
-                        "type",
-                        1.0,
-                        0,
-                        0,
-                        0,
-                        2,
-                        "Lots",
-                        100,
-                        "comment test"
+                        email,
+                        loginID,
+                        password,
+                        symbol,
+                        type,
+                        volume,
+                        price,
+                        stop_loss,
+                        take_profit,
+                        digits,
+                        digits_currency,
+                        contract_size,
+                        comment
                     ]
                 ]
             ]

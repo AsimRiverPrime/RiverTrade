@@ -71,7 +71,7 @@ class OdooClient {
     
     var dataBaseName: String = "mbe.riverprime.com"
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+    var dbPassword: String =  "7d2d38646cf6437034109f442596b86cbf6110c0"//"4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
     var userEmail: String = ""
     
     weak var delegate: SendOTPDelegate?
