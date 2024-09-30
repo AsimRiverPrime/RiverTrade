@@ -91,6 +91,8 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         let Firstname = UserDefaults.standard.string(forKey: "firstName")
         let LastName = UserDefaults.standard.string(forKey: "lastName")
        
+        UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
+        
         var  group = ""
         
         if self.lbl_accountTitle.text == "Pro Account" {
