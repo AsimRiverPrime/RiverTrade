@@ -169,7 +169,7 @@ class TicketVC: BottomSheetController {
             
             userPassword = UserDefaults.standard.string(forKey: "password")
             
-            print("\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
+            print("selectedSymbol: \(selectedSymbol)\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
         }
         
     }
@@ -1000,8 +1000,10 @@ class TicketVC: BottomSheetController {
             currentValue1 = currentValue
         case tf_priceValue:
             currentValue2 = currentValue
+            priceValue = currentValue
         case tf_takeProfit:
             currentValue3 = currentValue
+           
         case tf_stopLoss:
             currentValue4 = currentValue
         default:
@@ -1107,7 +1109,7 @@ class TicketVC: BottomSheetController {
             let y = total / Double(contractSize ?? 0)
             volume = y
         }
-      //  priceValue = Double(self.tf_priceValue.text ?? "")
+        priceValue = Double(self.tf_priceValue.text ?? "")
         stopLoss = Double(self.tf_stopLoss.text ?? "") ?? 0
         takeProfit = Double(self.tf_takeProfit.text ?? "") ?? 0
         

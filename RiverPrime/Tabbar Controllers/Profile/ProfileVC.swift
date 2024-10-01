@@ -27,7 +27,7 @@ class ProfileVC: UIView {
         
        
         tblView.registerCells([
-            ProfileTopTableViewCell.self,BenefitsTableViewCell.self, RefferalProgramTableViewCell.self, SocialTradeTableViewCell.self, SuppotTableViewCell.self, LogoutTableViewCell.self
+            ProfileTopTableViewCell.self, RefferalProgramTableViewCell.self,  SuppotTableViewCell.self, LogoutTableViewCell.self
         ])
         
         tblView.delegate = self
@@ -56,7 +56,7 @@ class ProfileVC: UIView {
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 6
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,8 +66,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }else if section == 2 {
             return 1
-        }else if section == 3 {
-            return 1
+        
         }else{
             return 1
         }
@@ -80,39 +79,39 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
             cell.delegate = self
             return cell
             
+//        } else if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCell(with: BenefitsTableViewCell.self, for: indexPath)
+//            cell.backgroundColor = .clear
+////            
+////            cell.onAllRealAccountsFilterButtonClick = {
+////                [self] in
+////                print("Click on onAllRealAccountsFilterButtonClick")
+////                
+////            }
+////            
+////            cell.onDaysFilterButton = {
+////                [self] in
+////                print("Click on onDaysFilterButton")
+////                
+////            }
+//            
+//            self.setNeedsLayout()
+//            return cell
+            
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(with: BenefitsTableViewCell.self, for: indexPath)
-            cell.backgroundColor = .clear
-//            
-//            cell.onAllRealAccountsFilterButtonClick = {
-//                [self] in
-//                print("Click on onAllRealAccountsFilterButtonClick")
-//                
-//            }
-//            
-//            cell.onDaysFilterButton = {
-//                [self] in
-//                print("Click on onDaysFilterButton")
-//                
-//            }
-            
-            self.setNeedsLayout()
-            return cell
-            
-        } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(with: RefferalProgramTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             
             self.setNeedsLayout()
             return cell
-        }else if indexPath.section == 3 {
-            let cell = tableView.dequeueReusableCell(with: SocialTradeTableViewCell.self, for: indexPath)
-            cell.backgroundColor = .clear
-            
-            self.setNeedsLayout()
-            return cell
-            
-        }else if indexPath.section == 4 {
+        }else if indexPath.section == 2 {
+//            let cell = tableView.dequeueReusableCell(with: SocialTradeTableViewCell.self, for: indexPath)
+//            cell.backgroundColor = .clear
+//            
+//            self.setNeedsLayout()
+//            return cell
+//            
+//        }else if indexPath.section == 4 {
             let cell = tableView.dequeueReusableCell(with: SuppotTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             return cell
@@ -128,15 +127,11 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 280
         }else if indexPath.section == 1 {
-            return 170
-            
-        } else if indexPath.section == 2 {
             return 120
             
-        }else if indexPath.section == 3 {
-            return 190
-        }else if indexPath.section == 4 {
-            return 390
+        } else if indexPath.section == 2 {
+            return 320
+            
         }else{
             return 80
         }
