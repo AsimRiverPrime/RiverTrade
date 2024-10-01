@@ -70,7 +70,7 @@ class OdooClientNew {
     
     func sendOTP(type: String, email: String, phone: String) {
         
-     
+       
         
         let parametersValue: [String: Any] = [
                "jsonrpc": "2.0",
@@ -287,6 +287,8 @@ class OdooClientNew {
         }
     }
     
+    
+    
     func saveUserIdFromJSONData(_ data: Data) {
        
         do {
@@ -297,7 +299,7 @@ class OdooClientNew {
                 print("User ID: \(userId)")
 //                GlobalVariable.instance.uid = userId
                 UserDefaults.standard.set(userId, forKey: "uid")
-               
+                uid = UserDefaults.standard.integer(forKey: "uid")
                 // You can store the userId in a variable or process it further as needed
             } else {
                 print("Unexpected JSON format")

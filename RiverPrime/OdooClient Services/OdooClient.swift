@@ -329,6 +329,8 @@ class OdooClient {
     //MARK: - information for trade Symbol detail
     // working
     func sendSymbolDetailRequest() {
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        
         let methodName = "execute_kw"
                // Define the domain filter and parameters
         let domainFilter: [[Any]] = [[
@@ -379,6 +381,8 @@ class OdooClient {
     func createRecords(firebase_uid: String, email: String, name: String) {
         self.createRequestBool = true
         
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        
         let methodName = "execute_kw"
         
         let params: [Any] = [
@@ -428,6 +432,7 @@ class OdooClient {
     //MARK: - Method write/update data to OdooServer
     // working
     func writeRecords(number: String) {
+        uid = UserDefaults.standard.integer(forKey: "uid")
         let methodName = "execute_kw"
         let params: [Any] = [
             dataBaseName,      // Database name

@@ -52,6 +52,7 @@ class PhoneVerifyVC: BaseViewController {
         guard let userId = userId, let selectedCountry = selectedCountry,
               let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
             print("Please enter your phone number")
+            self.ToastMessage("Please enter your phone number")
             return
         }
         do {
@@ -88,6 +89,11 @@ class PhoneVerifyVC: BaseViewController {
         verifyVC.userPhone = self.tf_numberField.text ?? "0000"
         self.navigate(to: verifyVC)
     }
+    private func navigateToDashboardScreen() {
+        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+        self.navigate(to: dashboardVC)
+    }
     
 }
 // MARK: - delegate from phone number OTP
@@ -112,7 +118,9 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
 //        print("\n number is: \(number)")
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
-        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
+      //  oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
+        navigateToDashboardScreen()
+        
     }
     
     func updateNumberFailure(error: any Error) {
