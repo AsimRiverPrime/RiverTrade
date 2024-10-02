@@ -7,6 +7,7 @@
 
 import UIKit
 import Alamofire
+import CryptoKit
 
 class TicketVC: BottomSheetController {
     
@@ -116,13 +117,16 @@ class TicketVC: BottomSheetController {
     
     var previousSelectedVolume: String?
     
-    var getTF_Volume: Double = 0.01
+    var decryptedPass: String?
+    
+    var getTF_Volume: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lbl_title.text = titleString
         
         selectedVolume = "Lots"
+        previousSelectedVolume = selectedVolume
 //        volume = 0.01
         btn_volumeDropdown.setTitle(selectedVolume, for: .normal)
         tf_volume.delegate = self
@@ -151,9 +155,13 @@ class TicketVC: BottomSheetController {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String {
+            if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String, let password = savedUserData["password"] as? String {
                 userLoginID = LoginIDs
                 userEmail = email
+                print("password:\(password)")
+//                decryptedPass = decryptPassword(password, using: GlobalVariable.instance.passwordKey)
+                print("Key is:\(GlobalVariable.instance.passwordKey)")
+                print("Key representation contains \(GlobalVariable.instance.passwordKey.withUnsafeBytes { $0.count }) bytes.")
             }
         }
         
@@ -167,12 +175,17 @@ class TicketVC: BottomSheetController {
             volumeMin = Int("\(obj.volumeMin)")
             digits = Int("\(obj.digits)")
             
+            print("decryptedPassword is: \(decryptedPass)")
+            
             userPassword = UserDefaults.standard.string(forKey: "password")
+            print("userPassword saved in local is: \(userPassword)")
             
             print("selectedSymbol: \(selectedSymbol)\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
         }
         
     }
+
+    
     
     @objc func hideKeyboard() {
         view.endEditing(true)  // This will dismiss the keyboard for all text fields
@@ -603,172 +616,6 @@ class TicketVC: BottomSheetController {
             
         }
     
- /*   func checkValues(liveValue: String) {
-        
-        //        print("\t \t the live value is: \(liveValue)")
-        self.lbl_ConfrmBtnPrice.text = tf_priceValue.text
-        
-        if !isFirstValueSet {
-            bidValue = Double(liveValue)!
-            // Set the text field with the first value
-            tf_priceValue.text = String(liveValue)
-            currentValue2 = Double(liveValue)!
-            // Update the flag so the field is not updated again
-            isFirstValueSet = true
-        }
-        let myliveValue: Double = Double(liveValue)!
-        let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
-        
-        if titleString == "SELL" {
-            if self.selectedPrice == "Limit" {
-                self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
-                lbl_limit.text = "Limit"
-                
-                if myliveValue < myPriceValue {
-                    self.btn_confirm.isEnabled = true
-                    self.btn_confirm.backgroundColor = UIColor.systemYellow
-                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
-                }else{
-                    self.btn_confirm.isEnabled = false
-                    self.btn_confirm.backgroundColor = UIColor.systemGray4
-                    self.priceValue_view.layer.borderWidth = 1.0
-                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.red
-                }
-                
-            }else if self.selectedPrice == "Stop" {
-                self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
-                lbl_limit.text = "Stop"
-                
-                if myliveValue > myPriceValue {
-                    self.btn_confirm.isEnabled = true
-                    self.btn_confirm.backgroundColor = UIColor.systemYellow
-                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
-                }else{
-                    self.btn_confirm.isEnabled = false
-                    self.btn_confirm.backgroundColor = UIColor.systemGray4
-                    self.priceValue_view.layer.borderWidth = 1.0
-                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.red
-                }
-            }
-            
-        }else{
-            if self.selectedPrice == "Limit" {
-                self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
-                lbl_limit.text = "Limit"
-                
-                if myliveValue > myPriceValue {
-                    self.btn_confirm.isEnabled = true
-                    self.btn_confirm.backgroundColor = UIColor.systemYellow
-                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
-                }else{
-                    self.btn_confirm.isEnabled = false
-                    self.btn_confirm.backgroundColor = UIColor.lightGray
-                    self.priceValue_view.layer.borderWidth = 1.0
-                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.red
-                }
-                
-            }else if self.selectedPrice == "Stop" {
-                self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
-                lbl_limit.text = "Stop"
-                
-                if myliveValue < myPriceValue {
-                    self.btn_confirm.isEnabled = true
-                    self.btn_confirm.backgroundColor = UIColor.systemYellow
-                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
-                }else{
-                    self.btn_confirm.isEnabled = false
-                    self.btn_confirm.backgroundColor = UIColor.lightGray
-                    self.priceValue_view.layer.borderWidth = 1.0
-                    self.priceValue_view.layer.borderColor = UIColor.red.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.red
-                }
-                
-            }
-        }
-    }
-    
-    func CheckSLTPValue(liveValue: String){
-        
-        if takeProfit_switch.isOn {
-            //            self.lbl_ConfrmBtnPrice.text = liveValue
-            
-            if !isFirstValueTakeProfit {
-                tf_takeProfit.text = String(liveValue)
-                currentValue3 = Double(liveValue)!
-                isFirstValueTakeProfit = true
-            }
-            
-            let myliveValue: Double = Double(liveValue)!
-            let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
-            
-            if myliveValue > myTakeProfitValue {
-                self.btn_confirm.isEnabled = true
-                self.btn_confirm.backgroundColor = UIColor.systemYellow
-                self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
-                self.lbl_liveProfitLoss.isHidden = true
-            }else{
-                self.btn_confirm.isEnabled = false
-                self.btn_confirm.backgroundColor = UIColor.lightGray
-                self.takeProfit_view.layer.borderWidth = 1.0
-                self.takeProfit_view.layer.borderColor = UIColor.red.cgColor
-                self.lbl_liveProfitLoss.isHidden = false
-                self.lbl_liveProfitLoss.text = "Max. " + liveValue
-                self.lbl_liveProfitLoss.textColor = UIColor.red
-            }
-            
-        }
-        
-        if stopLoss_switch.isOn {
-            //            self.lbl_ConfrmBtnPrice.text = liveValue
-            
-            if !isFirstValueStopLoss {
-                tf_stopLoss.text = String(liveValue)
-                currentValue4 = Double(liveValue)!
-                
-                isFirstValueStopLoss = true
-            }
-            let myliveValue: Double = Double(liveValue)!
-            let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
-            
-            if myliveValue < myStopLossValue {
-                self.btn_confirm.isEnabled = true
-                self.btn_confirm.backgroundColor = UIColor.systemYellow
-                self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
-                self.lbl_liveStopLoss.isHidden = true
-            }else{
-                self.btn_confirm.isEnabled = false
-                self.btn_confirm.backgroundColor = UIColor.lightGray
-                self.stopLoss_view.layer.borderWidth = 1.0
-                self.stopLoss_view.layer.borderColor = UIColor.red.cgColor
-                self.lbl_liveStopLoss.isHidden = false
-                self.lbl_liveStopLoss.text = "Min. " + liveValue
-                self.lbl_liveStopLoss.textColor = UIColor.red
-            }
-        }
-        
-    } */
-    //MARK: - volume actions
-    //    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    ////        // Combine the current text with the new text that is being typed
-    //        if let text = textField.text, let textRange = Range(range, in: text) {
-    //            let updatedText = text.replacingCharacters(in: textRange, with: string)
-    //
-    //            // Now you can handle the updated text value
-    //            print("Updated text: \(updatedText)")
-    //            updateVolumeValue()
-    ////
-    //            }
-    //
-    //        return true
-    //    }
-    
 //    func updateVolumeValue() {
 //
 //        // Check if the new selection is the same as the previous one
@@ -808,45 +655,47 @@ class TicketVC: BottomSheetController {
     func updateVolumeValue() {
         
 //        // Check if the new selection is the same as the previous one
-//           if selectedVolume == previousSelectedVolume {
-//               // If the same, do nothing and return
-//               print("Selected volume is the same as the previous one, no update needed.")
-//               return
-//           }
+           if selectedVolume == previousSelectedVolume {
+               // If the same, do nothing and return
+               print("Selected volume is the same as the previous one, no update needed.")
+               return
+           }
            
            // Update the previous selected volume with the current one
            previousSelectedVolume = selectedVolume
         
         print("\n contractSize: \(contractSize) \t userInput: \(Double(self.tf_volume.text ?? "") ?? 0) \t bidValue: \(bidValue)")
-        
+        getTF_Volume = Double(self.tf_volume.text ?? "") ?? 0
         
         if selectedVolume == "Lots" {
 //            let total = (Double(self.tf_volume.text ?? "") ?? 0) / (bidValue ?? 0)
-            let total = getTF_Volume / (bidValue ?? 0)
-            print("\n getTF_Volume: \(getTF_Volume)")
-            print("\n bidValue: \(bidValue)")
-            print("\n total: \(total)")
+          
             
-            print("abcd total: ", String(format: "%.10f", total))
+            let total = (getTF_Volume ?? 0) / (bidValue ?? 0)
+//            print("\n getTF_Volume: \(getTF_Volume)")
+//            print("\n bidValue: \(bidValue)")
+//            print("\n total: \(total)")
+            
+//            print("abcd total: ", String(format: "%.10f", total))
             
             let getTotal = String(format: "%.10f", total)
             print("\n getTotal: \(getTotal)")
             
             self.volume = (Double(getTotal) ?? 0.0) / Double(contractSize ?? 0)
             
-            print("\n contractSize: \(contractSize)")
-            print("\n volume: \(volume)")
+//            print("\n contractSize: \(contractSize)")
+//            print("\n volume: \(volume)")
             
             let getTotalVolume = String(format: "%.10f", Double(self.volume ?? 0.0))
             print("\n getTotalVolume: \(getTotalVolume)")
             
             let roundedValue = Double(round(1000 * (Double(getTotalVolume) ?? 0.0)) / 1000)
             print("\n rounded value : \(roundedValue)")
-            self.tf_volume.text = getTotalVolume
+            self.tf_volume.text = "\(roundedValue)"
         }else{
             
 //            let total = (Double(self.tf_volume.text ?? "") ?? 0)  * Double(contractSize ?? 0) * Double(bidValue ?? 0)
-            let total = getTF_Volume  * Double(contractSize ?? 0) * Double(bidValue ?? 0)
+            let total = (getTF_Volume ?? 0)  * Double(contractSize ?? 0) * Double(bidValue ?? 0)
             print("\n total: \(total)")
             
             let roundedValue = Double(round(1000 * total) / 1000)
@@ -1116,7 +965,9 @@ class TicketVC: BottomSheetController {
         print("\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)  \t volume: \(volume) \t price: \(priceValue) \t stop_loss: \(stopLoss) \t take_profit: \(takeProfit)")
        
        
-        selectedSymbol = selectedSymbol! + "."
+        if !selectedSymbol!.contains(".") {
+            selectedSymbol! += "."
+        }
         
         
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")

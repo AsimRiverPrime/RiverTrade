@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -32,7 +32,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OKT-q7-g7S">
                                 <rect key="frame" x="0.0" y="0.0" width="319" height="280"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrI-bF-WQv">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wrI-bF-WQv">
                                         <rect key="frame" x="285" y="45" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="22" id="2xz-pt-y1H"/>
@@ -44,7 +44,7 @@
                                             <action selector="notificationBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rEN-im-23s"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6v-ZI-0ri">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6v-ZI-0ri">
                                         <rect key="frame" x="253" y="45" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="2mE-Nm-g5f"/>
@@ -60,13 +60,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#0123456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHD-to-qPb">
-                                        <rect key="frame" x="111.66666666666666" y="123.99999999999999" width="95.666666666666657" height="24.333333333333329"/>
+                                        <rect key="frame" x="111.66666666666666" y="124.00000000000001" width="95.666666666666657" height="14.666666666666671"/>
                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PDv-ik-0oq">
-                                        <rect key="frame" x="68" y="158.33333333333334" width="183" height="19.666666666666657"/>
+                                        <rect key="frame" x="68" y="148.66666666666666" width="183" height="19.666666666666657"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Real " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfX-K6-O49">
                                                 <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="19.666666666666668"/>
@@ -108,16 +108,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ND-1m-GRs" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="24" y="193" width="271.33333333333331" height="183"/>
+                                <rect key="frame" x="24" y="183.33333333333337" width="271.33333333333331" height="192.66666666666663"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 USD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsO-Sj-J9p">
-                                        <rect key="frame" x="20.000000000000014" y="22" width="231.33333333333337" height="29.333333333333329"/>
+                                        <rect key="frame" x="20.000000000000014" y="22" width="231.33333333333337" height="39"/>
                                         <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="32"/>
                                         <color key="textColor" red="0.41960784313725491" green="0.41960784313725491" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="G7O-5h-JiX">
-                                        <rect key="frame" x="20.000000000000014" y="61.33333333333335" width="231.33333333333337" height="111.66666666666669"/>
+                                        <rect key="frame" x="20.000000000000014" y="71" width="231.33333333333337" height="111.66666666666669"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Vb-DV-Qmo">
                                                 <rect key="frame" x="0.0" y="0.0" width="44.666666666666664" height="111.66666666666667"/>
@@ -382,10 +382,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PwA-cY-pp7" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="24" y="198" width="271" height="178"/>
+                                <rect key="frame" x="24" y="188.33333333333337" width="271" height="187.66666666666663"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eHU-c6-CBC">
-                                        <rect key="frame" x="25" y="64" width="221" height="50"/>
+                                        <rect key="frame" x="25" y="68.999999999999972" width="221" height="50"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eU7-JO-ciE">
                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>

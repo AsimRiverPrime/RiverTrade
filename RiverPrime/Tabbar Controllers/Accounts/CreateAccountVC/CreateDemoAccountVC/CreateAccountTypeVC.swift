@@ -7,9 +7,11 @@
 
 import UIKit
 import Firebase
+import CryptoKit
+import Security
+
 
 class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelegate {
-    
     
     @IBOutlet weak var lbl_accountTitle: UILabel!
     @IBOutlet weak var selectCurrencyBtn: UIButton!
@@ -34,6 +36,10 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
 //    let signViewModel = SignViewModel()
     
     var getSelectedAccountType = GetSelectedAccountType()
+    
+   
+   
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,14 +175,22 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         }
     }
     
+  
+    
     func updateUser(){
+        
+       
+        
+        let encryptedPassword = encryptPassword(self.tf_password.text ?? "", using: GlobalVariable.instance.passwordKey)
+        print("the encrypted password is : \(encryptedPassword)")
         
         var fieldsToUpdate: [String: Any] = [:]
         
         fieldsToUpdate = [
             "demoAccountCreated" : true,
             "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
-            "loginId" : GlobalVariable.instance.loginID // loginID in response
+            "loginId" : GlobalVariable.instance.loginID, // loginID in response
+            "password": encryptedPassword
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -194,6 +208,24 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         }
     }
 
+    func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
+        let passwordData = Data(password.utf8)
+        
+        do {
+            // Encrypt the password
+            let sealedBox = try AES.GCM.seal(passwordData, using: key)
+            
+            // Combine the nonce, ciphertext, and tag into a single Data object
+            let combinedData = sealedBox.nonce + sealedBox.ciphertext + sealedBox.tag
+            
+            // Convert the Data to base64 string for storing in Firestore
+            return combinedData.base64EncodedString()
+        } catch {
+            print("Encryption failed: \(error)")
+            return nil
+        }
+    }
+    
 }
 
 //MARK: - Set the selected account values here.

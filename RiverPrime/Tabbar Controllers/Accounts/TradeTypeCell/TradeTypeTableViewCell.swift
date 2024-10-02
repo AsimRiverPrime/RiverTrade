@@ -51,7 +51,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         }
        
         cell.lbl_tradetype.text = model[indexPath.row]
-        if indexPath.row == selectedIndex {
+            if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
         }else{
             cell.selectedColorView.isHidden = true

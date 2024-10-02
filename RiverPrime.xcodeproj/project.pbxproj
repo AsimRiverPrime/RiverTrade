@@ -52,6 +52,7 @@
 		3191E88B2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */; };
 		3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */; };
 		3191F6AD2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */; };
+		319871642CAD49DC007FE3DA /* SecurePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319871632CAD49CE007FE3DA /* SecurePassword.swift */; };
 		319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */; };
 		319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A328C2C9C3EFB006DA077 /* TradeVC.xib */; };
 		319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32832C9C3EFB006DA077 /* TradeTVC.xib */; };
@@ -341,6 +342,7 @@
 		3191E88A2C65F20C00BB4F08 /* CountryCurrencyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCurrencyListViewController.swift; sourceTree = "<group>"; };
 		3191F6AA2C64EB9100F623C6 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
 		3191F6AC2C64EBB800F623C6 /* CreateAccountSelectTradeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSelectTradeType.swift; sourceTree = "<group>"; };
+		319871632CAD49CE007FE3DA /* SecurePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurePassword.swift; sourceTree = "<group>"; };
 		319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
 		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
@@ -753,6 +755,14 @@
 			path = CreateAccountSetPasswordScreen;
 			sourceTree = "<group>";
 		};
+		319871612CAD4991007FE3DA /* passwordSecure */ = {
+			isa = PBXGroup;
+			children = (
+				319871632CAD49CE007FE3DA /* SecurePassword.swift */,
+			);
+			path = passwordSecure;
+			sourceTree = "<group>";
+		};
 		319A32842C9C3EFB006DA077 /* TableCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,6 +1002,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				319871612CAD4991007FE3DA /* passwordSecure */,
 				3137AE702C77471A00B5A83B /* PasscodeVC */,
 				318257462C75C7B200723A50 /* WebStockManager */,
 				315DB98A2C6C778A00FF967C /* BottomSheetVCs */,
@@ -2228,6 +2239,7 @@
 				31D2AF3D2C8840B800E0CF2E /* SeriesType.swift in Sources */,
 				FA532D7B2C5721E1003A26D6 /* AlertModel.swift in Sources */,
 				31D2AF472C8840B800E0CF2E /* TimeScaleApi.swift in Sources */,
+				319871642CAD49DC007FE3DA /* SecurePassword.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
 				31D2AEF82C8840B800E0CF2E /* LightweightCharts.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,

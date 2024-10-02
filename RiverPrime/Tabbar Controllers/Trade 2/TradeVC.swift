@@ -451,7 +451,17 @@ extension TradeVC: TradeSymbolDetailDelegate {
                             let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
                            let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
                          
-                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: symbolIcon , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
+                            
+                            let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
+                            print(" originalUrl URL: \(originalUrl)")
+                            // Replace the part of the URL
+                            let modifiedUrl = originalUrl
+                                .replacingOccurrences(of: "-01.svg", with: ".png")
+                                .replacingOccurrences(of: ".com/", with: ".com/png/")
+
+                            print("\n modifiy URL: \(modifiedUrl)")
+                            
+                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
                         }
                            
                         print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")

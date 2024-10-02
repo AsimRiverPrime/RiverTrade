@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import CryptoKit
 
 let APP_DELEGATE = UIApplication.shared.delegate as! AppDelegate
 let SCENE_DELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
@@ -14,6 +15,10 @@ let SCENE_DELEGATE = UIApplication.shared.connectedScenes.first?.delegate as! Sc
 class GlobalVariable: NSObject {
     
     static var instance = GlobalVariable()
+    
+    
+    var passwordKey = SymmetricKey(size: .bits256)
+    var keyIdentifier = "com.riverTrade.aesPassKey"
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
