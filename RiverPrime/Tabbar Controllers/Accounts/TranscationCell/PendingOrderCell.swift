@@ -1,21 +1,20 @@
 //
-//  TransactionCell.swift
+//  PendingOrderCell.swift
 //  RiverPrime
 //
-//  Created by Ahmad on 13/07/2024.
+//  Created by Ross Rostane on 03/10/2024.
 //
 
 import UIKit
 
-class TransactionCell: UITableViewCell {
+class PendingOrderCell: UITableViewCell {
 
+    
     @IBOutlet weak var symbol_icon: UIImageView!
     @IBOutlet weak var lbl_symbolName: UILabel!
     @IBOutlet weak var lbl_profitValue: UILabel!
-    @IBOutlet weak var lbl_currentPrice: UILabel!
-    @IBOutlet weak var lbl_openPriceVolume: UILabel!
+    @IBOutlet weak var lbl_currentPriceVolume: UILabel!
     
-    var opcDataList: OPCType?
     
     override func awakeFromNib() {
         super.awakeFromNib()

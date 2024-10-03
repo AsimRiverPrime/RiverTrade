@@ -21,6 +21,11 @@ class RefferalProgramTableViewCell: UITableViewCell {
     }
     @IBAction func referralBtnAction(_ sender: Any) {
         print("Refferal btn action")
+       
+        if let url = URL(string: "https://riverprime.com/en/Partnership-Broker") {
+                   UIApplication.shared.open(url, options: [:], completionHandler: nil)
+               }
+           
     }
     
 }

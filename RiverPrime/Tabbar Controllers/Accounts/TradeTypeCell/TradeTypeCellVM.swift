@@ -1,0 +1,129 @@
+//
+//  TradeTypeCellVM.swift
+//  RiverPrime
+//
+//  Created by abrar ul haq on 03/10/2024.
+//
+
+import Foundation
+import Alamofire
+
+class TradeTypeCellVM {
+    
+    var onTradesUpdated: (() -> Void)?
+    
+    //self.onTradesUpdated?()
+    
+    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [CloseModel]?, Error?) -> Void) {
+        
+        let url = "https://mbe.riverprime.com/jsonrpc"
+        var jsonrpcBody: [String: Any] = [String: Any]()
+        
+        if index == 0 {
+            
+            jsonrpcBody = [
+                "jsonrpc": "2.0",
+                "params": [
+                    "service": "object",
+                    "method": "execute_kw",
+                    "args": [
+                        "mbe.riverprime.com",
+                        6,
+                        "7d2d38646cf6437034109f442596b86cbf6110c0",
+                        "mt.middleware",
+                        "get_positions",
+                        [
+                            [],
+                            "asimprime900@gmail.com",
+                            1012576
+                        ]
+                    ]
+                ]
+            ]
+            
+        } else if index == 1 {
+            
+        } else if index == 2 {
+            
+            jsonrpcBody = [
+                "jsonrpc": "2.0",
+                "params": [
+                    "service": "object",
+                    "method": "execute_kw",
+                    "args": [
+                        "mbe.riverprime.com",
+                        6,
+                        "7d2d38646cf6437034109f442596b86cbf6110c0",
+                        "mt.middleware",
+                        "get_orders",
+                        [
+                            [],
+                            "asimprime900@gmail.com",
+                            1012576
+                        ]
+                    ]
+                ]
+            ]
+            
+        }
+        
+        AF.request(url,
+                   method: .post,
+                   parameters: jsonrpcBody,
+                   encoding: JSONEncoding.default,
+                   headers: ["Content-Type": "application/json"])
+        .validate()
+        .responseJSON { (response: AFDataResponse<Any>) in
+            switch response.result {
+                
+            case .success(let value):
+                print("value is: \(value)")
+//                ActivityIndicator.shared.hide(from: self.view)
+                
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]] {
+                        
+                        if index == 0 {
+                            
+                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                            let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
+                            
+    //                        // Use the parsed positions
+    //                        for position in positions {
+    //                            print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
+    //                        }
+                            
+                            completion(positions, nil, nil, nil) // Pass positions to completion
+                            
+                        } else if index == 1 {
+                            //MARK: - Pending work here.
+                            
+                        } else if index == 2 {
+                            
+                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                            let orders = try JSONDecoder().decode([CloseModel].self, from: jsonData)
+                            
+                            completion(nil, nil, orders, nil) // Pass positions to completion
+                            
+                        }
+                        
+                    }
+                } catch {
+                    print("Error decoding response: \(error)")
+                    completion(nil, nil, nil, error) // Pass error to completion
+                }
+                
+            case .failure(let error):
+                // Handle the error
+//                ActivityIndicator.shared.hide(from: self.view)
+                print("Request failed with error: \(error)")
+                completion(nil, nil, nil, error) // Pass error to completion
+            }
+            
+        }
+        
+    }
+    
+}

@@ -1,21 +1,19 @@
 //
-//  TransactionCell.swift
+//  CloseOrderCell.swift
 //  RiverPrime
 //
-//  Created by Ahmad on 13/07/2024.
+//  Created by Ross Rostane on 03/10/2024.
 //
 
 import UIKit
 
-class TransactionCell: UITableViewCell {
+class CloseOrderCell: UITableViewCell {
 
+    
     @IBOutlet weak var symbol_icon: UIImageView!
     @IBOutlet weak var lbl_symbolName: UILabel!
     @IBOutlet weak var lbl_profitValue: UILabel!
-    @IBOutlet weak var lbl_currentPrice: UILabel!
-    @IBOutlet weak var lbl_openPriceVolume: UILabel!
-    
-    var opcDataList: OPCType?
+    @IBOutlet weak var lbl_timeValue: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

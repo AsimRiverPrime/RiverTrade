@@ -9,6 +9,8 @@ import UIKit
 
 class LogoutTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lbl_email: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -18,6 +20,10 @@ class LogoutTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func logOutAction(_ sender: Any) {
+        
     }
     
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,9 +47,12 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C38-47-ZRV">
-                                                <rect key="frame" x="0.0" y="0.0" width="270" height="14"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="270" height="45"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="logOutAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vxu-XD-sST"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -60,6 +63,7 @@
                                             <constraint firstItem="j6n-mE-WmJ" firstAttribute="top" secondItem="gt1-yF-HV7" secondAttribute="top" id="J8d-t6-x8p"/>
                                             <constraint firstItem="OpJ-3c-xaP" firstAttribute="leading" secondItem="j6n-mE-WmJ" secondAttribute="leading" id="JPB-xI-Uxv"/>
                                             <constraint firstItem="OpJ-3c-xaP" firstAttribute="top" secondItem="j6n-mE-WmJ" secondAttribute="bottom" constant="5" id="QTk-U1-dH3"/>
+                                            <constraint firstAttribute="bottom" secondItem="C38-47-ZRV" secondAttribute="bottom" id="WG7-ab-Smx"/>
                                             <constraint firstItem="gt1-yF-HV7" firstAttribute="centerY" secondItem="wio-0i-8iT" secondAttribute="centerY" id="XIq-Vl-6HY"/>
                                             <constraint firstItem="j6n-mE-WmJ" firstAttribute="leading" secondItem="gt1-yF-HV7" secondAttribute="trailing" constant="10" id="acZ-YP-LJK"/>
                                             <constraint firstItem="OpJ-3c-xaP" firstAttribute="trailing" secondItem="j6n-mE-WmJ" secondAttribute="trailing" id="mLO-wX-9IW"/>
@@ -109,11 +113,14 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lbl_email" destination="OpJ-3c-xaP" id="tUE-z9-suu"/>
+            </connections>
             <point key="canvasLocation" x="233.58778625954199" y="33.802816901408455"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="logoutIcon" width="53" height="40"/>
+        <image name="logoutIcon" width="52" height="57"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

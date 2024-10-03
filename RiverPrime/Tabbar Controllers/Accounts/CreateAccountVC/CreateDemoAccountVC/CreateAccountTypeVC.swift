@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 import CryptoKit
-import Security
+import CommonCrypto
 
 
 class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelegate {
@@ -37,13 +37,13 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     var getSelectedAccountType = GetSelectedAccountType()
     
+    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
    
-   
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UserDefaults.standard.set(aesPasswordKey, forKey: "passwordKey")
         setSelectedAccountValues()
         
         odooClientService.createUserAcctDelegate = self
@@ -134,11 +134,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     }
     
     @objc func passwordDidChange(_ textField: UITextField) {
-//        if self.signViewModel.isValidatePassword(password: textField.text ?? ""){
-//            
-//        }else{
-//            
-//        }
+
         validatePassword(password: textField.text ?? "")
     }
     
@@ -179,8 +175,6 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     func updateUser(){
         
-       
-        
         let encryptedPassword = encryptPassword(self.tf_password.text ?? "", using: GlobalVariable.instance.passwordKey)
         print("the encrypted password is : \(encryptedPassword)")
         
@@ -203,11 +197,29 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                 self.fireStoreInstance.fetchUserData(userId: self.userId)
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed after success")
+                    // notification send to dashboardvc
+                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+                       
                 })
             }
         }
     }
-
+    
+    // Encrypt and save the password entered by the user
+//    func saveEncryptedPassword() {
+//        if let password = tf_password.text, let passwordData = password.data(using: .utf8) {
+//            if let encryptedData = encrypt(data: passwordData, key: aesKey) {
+//              
+//                // Save the encrypted data to UserDefaults (for demonstration, use Keychain for secure storage)
+//                UserDefaults.standard.set(encryptedData, forKey: "encryptedPassword")
+//                print("Password encrypted and saved successfully.")
+//            } else {
+//                print("Failed to encrypt the password.")
+//            }
+//        }
+//    }
+    
+    
     func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
         let passwordData = Data(password.utf8)
         

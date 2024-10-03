@@ -63,6 +63,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="270" height="59"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="helpCenterAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="tzu-VT-zdL"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -118,6 +121,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="270" height="59"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="liveChatAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="JUL-OD-Vx4"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -172,6 +178,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="270" height="59"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="legalDocumentAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0wS-rA-j3U"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -219,6 +228,9 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="270" height="59"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
+                                                <connections>
+                                                    <action selector="rateAppAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pKC-BF-hM7"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>

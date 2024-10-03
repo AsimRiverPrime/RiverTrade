@@ -77,12 +77,20 @@ class TradeVC: UIView {
     var getSymbolData = [SymbolCompleteList]()
     
     public override func awakeFromNib() {
-        ActivityIndicator.shared.show(in: self)
+//        ActivityIndicator.shared.show(in: self)
         
         //MARK: - Call Symbol Api and their delegate method to get data.
-        odooClientService.sendSymbolDetailRequest()
-        odooClientService.tradeSymbolDetailDelegate = self
-       
+//        odooClientService.sendSymbolDetailRequest()
+//        odooClientService.tradeSymbolDetailDelegate = self
+        //MARK: - if Symbol Api data is exist then we must set our list data.
+                if GlobalVariable.instance.symbolDataArray.count != 0 {
+                    //MARK: - Get the list and save localy and set sectors and symbols.
+                    processSymbols(GlobalVariable.instance.symbolDataArray)
+                    
+                    //MARK: - Reload tablview when all data set into the list at first time.
+                    self.tblView.reloadData()
+                }
+        
         //NotificationCenter.default.addObserver(self, selector: #selector(socketConnectivity(_:)), name: .checkSocketConnectivity, object: nil)
         
         //MARK: - START SOCKET and call delegate method to get data from socket.

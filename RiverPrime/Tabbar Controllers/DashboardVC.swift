@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AEXML
+
 
 enum CustomTabBarType {
     case Accounts
@@ -58,6 +60,8 @@ class DashboardVC: BaseViewController {
     var profileStep = 0
     var demoAccountCreated = Bool()
     
+    var odooClientService = OdooClient()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -76,12 +80,21 @@ class DashboardVC: BaseViewController {
             setProfileButton()
             GlobalVariable.instance.isReturnToProfile = false
         }else{
+            symbolApiCalling()
             setAccountsButton()
         }
-        
-       
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
+
     }
+    
+    @objc func apiSuccessHandler() {
+           // Perform necessary updates
+           print("Add account success & notification received!")
+            setAccountsButton()
+    }
+    deinit {
+           NotificationCenter.default.removeObserver(self, name: NSNotification.Name("apiSuccessNotification"), object: nil)
+       }
     
     override func viewWillAppear(_ animated: Bool) {
         //        self.setNavBar(vc: self, isBackButton: true, isBar: true)
@@ -465,3 +478,185 @@ extension DashboardVC: iResultVCDelegate {
     
 }
 
+extension DashboardVC {
+    
+    private func symbolApiCalling() {
+        
+        //MARK: - Call Symbol Api and their delegate method to get data.
+        odooClientService.sendSymbolDetailRequest()
+        odooClientService.tradeSymbolDetailDelegate = self
+       
+    }
+    
+}
+
+//MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
+extension DashboardVC: TradeSymbolDetailDelegate {
+    func tradeSymbolDetailSuccess(response: String) {
+//        print("\n \(response) ")
+        convertXMLIntoJson(response)
+        ActivityIndicator.shared.hide(from: self.view)
+    }
+    
+    func tradeSymbolDetailFailure(error: any Error) {
+        print("\n the trade symbol detail Error response: \(error) ")
+    }
+    
+    func convertXMLIntoJson(_ xmlString: String) {
+        
+        do {
+            let xmlDoc = try AEXMLDocument(xml: xmlString)
+
+            if let xmlDocFile = xmlDoc.root["params"]["param"]["value"]["array"]["data"]["value"].all {
+                
+                
+                for param in xmlDocFile {
+                    if let structElement = param["struct"].first {
+                        var parsedData: [String: Any] = [:]
+                        for member in structElement["member"].all ?? [] {
+                            let name = member["name"].value ?? ""
+                            let value = member["value"].children.first?.value ?? ""
+                            parsedData[name] = value
+                        }
+                        
+                        if let symbolId = parsedData["id"] as? String, let symbolName = parsedData["name"] as? String,
+                            let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
+                            let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
+                            let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
+                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
+                         
+                            
+                            let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
+                            print(" originalUrl URL: \(originalUrl)")
+                            // Replace the part of the URL
+                            let modifiedUrl = originalUrl
+                                .replacingOccurrences(of: "-01.svg", with: ".png")
+                                .replacingOccurrences(of: ".com/", with: ".com/png/")
+
+                            print("\n modifiy URL: \(modifiedUrl)")
+                            
+                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
+                        }
+                           
+                        print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
+                       
+                        print("\n the parsed value is :\(parsedData)")
+                    }
+                }
+                
+                //MARK: - Get the list and save localy and set sectors and symbols.
+                processSymbols(GlobalVariable.instance.symbolDataArray)
+                
+//                //MARK: - Reload tablview when all data set into the list at first time.
+//                self.tblView.reloadData()
+            }
+        } catch {
+            print("Failed to parse XML: \(error.localizedDescription)")
+        }
+
+    }
+    
+    func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {
+        return symbols.filter { $0.sector == sector }.map { $0.displayName }
+    }
+    
+    func filterSymbolsImageBySector(symbols: [SymbolData], sector: String) -> [String] {
+        return symbols.filter { $0.sector == sector }.map { $0.icon_url }
+    }
+    
+    private func processSymbols(_ symbols: [SymbolData]) {
+        var sectorDict = [String: [SymbolData]]()
+        
+        // Group symbols by sector
+        for symbol in symbols {
+            sectorDict[symbol.sector, default: []].append(symbol)
+        }
+        
+        // Sort the sectors by key
+        let sortedSectors = sectorDict.keys.sorted()
+        
+        // Create SectorGroup from sorted keys
+        GlobalVariable.instance.sectors = sortedSectors.map {
+            SectorGroup(sector: $0, symbols: sectorDict[$0]!)
+        }
+        
+        saveSymbolsToDefaults(symbols)
+        
+        // Initialize with the first index
+        setTradeModel(collectionViewIndex: 0)
+    }
+
+    
+    private func saveSymbolsToDefaults(_ symbols: [SymbolData]) {
+        let savedSymbolsKey = "savedSymbolsKey"
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(symbols) {
+            UserDefaults.standard.set(encoded, forKey: savedSymbolsKey)
+        }
+    }
+    
+    func getSavedSymbols() -> [SymbolData]? {
+        let savedSymbolsKey = "savedSymbolsKey"
+        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
+            let decoder = JSONDecoder()
+            return try? decoder.decode([SymbolData].self, from: savedSymbols)
+        }
+        return nil
+    }
+    
+}
+
+//MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
+extension DashboardVC {
+    
+    //MARK: - Update all list when selector will change, and update tick socket message according to the selected sector.
+    private func setTradeModel(collectionViewIndex: Int) {
+        
+        GlobalVariable.instance.tradeCollectionViewIndex.0 = collectionViewIndex
+        
+        let symbols = GlobalVariable.instance.symbolDataArray
+        let sectors = GlobalVariable.instance.sectors
+        
+        // Clear previous data
+        GlobalVariable.instance.filteredSymbols.removeAll()
+        GlobalVariable.instance.filteredSymbolsUrl.removeAll()
+        
+        // Populate filteredSymbols and filteredSymbolsUrl for each sector
+        for sector in sectors {
+            let filteredSymbols = filterSymbolsBySector(symbols: symbols, sector: sector.sector)
+            let filteredSymbolsUrl = filterSymbolsImageBySector(symbols: symbols, sector: sector.sector)
+            
+            GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
+            GlobalVariable.instance.filteredSymbolsUrl.append(filteredSymbolsUrl)
+        }
+        
+        // Append trades for the selected collectionViewIndex
+        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
+        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
+        
+        GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
+//        getSymbolData.removeAll()
+//        var count = 0
+        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
+//            count += 1
+//            GlobalVariable.instance.tradeCollectionViewIndex.1.append(count)
+//            let tradedetail = TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url, close: nil)
+//            let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
+//            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false))
+        }
+        
+//        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+//
+//        GlobalVariable.instance.isProcessingSymbol = false
+//
+//        refreshSection(at: 2)
+//
+//        //MARK: - Save symbol local to unsubcibe.
+//        GlobalVariable.instance.previouseSymbolList = selectedSymbols
+//
+//        //MARK: - START calling Socket message from here.
+//        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
+    }
+
+    
+}

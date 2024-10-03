@@ -7,12 +7,39 @@
 
 import UIKit
 
+//struct OPCModel {
+//    var symbol = String()
+//}
+
+enum OPCType {
+    case open([OpenModel])
+    case pending([PendingModel])
+    case close([CloseModel])
+}
+
+
+//enum OPCType {
+//    case open
+//    case pending
+//    case close
+//}
+
+protocol OPCDelegate: AnyObject {
+//    func getOPCData(opcType: OPCType, openModel: [OpenModel])
+//    func getOPCData(opcType: OPCType, closeModel: [CloseModel])
+    func getOPCData(opcType: OPCType)
+}
+
 class TradeTypeTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
     var model: [String] = ["Open","Pending","Close","image"/*,"test","test1","test2","test3"*/]
     var refreshList = ["by instrument", "by volume", "by open time"]
     var selectedIndex = 0
+    
+    var vm = TradeTypeCellVM()
+    
+    weak var delegate: OPCDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +48,21 @@ class TradeTypeTableViewCell: BaseTableViewCell {
         tradeTypeCollectionView.dataSource = self
         tradeTypeCollectionView.register(UINib(nibName: "TradeTypeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeTypeCollectionViewCell")
  
+        fetchPositions(index: 0)
+        
+//        vm.OPCApi(opcType: .open) { [weak self] positions, error in
+//            DispatchQueue.main.async {
+//                if let error = error {
+//                    print("Error fetching positions: \(error)")
+//                    // Handle the error (show an alert, etc.)
+//                } else if let positions = positions {
+//                    // Use the positions (reload a table view, etc.)
+//                    for position in positions {
+//                        print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
+//                    }
+//                }
+//            }
+//        }
         
     }
 
@@ -90,13 +132,18 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
 //            if indexPath.row != model.count-1 {
 //                collectionView.reloadData()
 //            }
+            
+            if indexPath.row != model.count-1 {
+                fetchPositions(index: indexPath.row)
+            }
+            
             collectionView.reloadData()
         }
     }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             cell.backgroundColor = .clear
-            
+//            self.delegate?.getOPCData(opcType: .open, opcModel: .init(symbol: "Gold"))
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -110,6 +157,60 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         return CGSize(width: data.count + 80, height: 40)
         
     }
+}
+
+extension TradeTypeTableViewCell {
+    
+    func fetchPositions(index: Int) {
+        if index == 0 {
+            
+            // Execute the fetch on a background thread
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+                    // Switch back to the main thread to update the UI
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print("Error fetching positions: \(error)")
+                            // Handle the error (e.g., show an alert)
+                        } else if let positions = openData {
+//                            // Use the positions (e.g., reload a table view)
+//                            for position in positions {
+//                                print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
+//                            }
+//                            // If you have a UITableView, call reloadData() here
+                            
+//                            self?.delegateOpen?.getOPCData(opcType: .open, openModel: positions)
+                            self?.delegate?.getOPCData(opcType: .open(positions))
+                            
+                        }
+                    }
+                }
+            }
+            
+        } else if index == 1 {
+            
+            //MARK: - Pending work here.
+            
+        } else if index == 2 {
+            
+            // Execute the fetch on a background thread
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+                    // Switch back to the main thread to update the UI
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print("Error fetching positions: \(error)")
+                            // Handle the error (e.g., show an alert)
+                        } else if let orders = closeData {
+                            self?.delegate?.getOPCData(opcType: .close(orders))
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    
 }
 
 /*
@@ -128,3 +229,4 @@ extension TradeTypeTableViewCell {
     
 }
 */
+

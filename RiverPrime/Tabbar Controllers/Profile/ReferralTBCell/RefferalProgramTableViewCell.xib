@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -47,7 +47,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4F-3L-Kgb">
-                                                <rect key="frame" x="0.0" y="0.0" width="327" height="14"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="327" height="50"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
@@ -57,6 +57,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="V4F-3L-Kgb" secondAttribute="bottom" id="0jN-2q-Elz"/>
                                             <constraint firstItem="V4F-3L-Kgb" firstAttribute="leading" secondItem="K0c-pz-JfP" secondAttribute="leading" id="HeW-nM-50a"/>
                                             <constraint firstItem="JR9-Dv-JH3" firstAttribute="centerY" secondItem="Pyu-Qb-7W9" secondAttribute="centerY" id="IgL-9Q-aKL"/>
                                             <constraint firstItem="Pyu-Qb-7W9" firstAttribute="leading" secondItem="K0c-pz-JfP" secondAttribute="leading" constant="15" id="Quj-J4-YQy"/>

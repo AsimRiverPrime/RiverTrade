@@ -23,11 +23,14 @@ class AccountsVC: UIView {
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
     
-    weak var delegate: AccountInfoTapDelegate?    
+    weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     
     var model: [String] = ["Open","Pending","Close","image"]
     
+//    var opcList: (String,[OpenModel]) = ("",[])
+    var opcList: OPCType? = .open([])
+
     public override func awakeFromNib() {
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -77,6 +80,13 @@ class AccountsVC: UIView {
 
 extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: - Just reload the given tableview section.
+    func refreshSection(at section: Int) {
+        let indexSet = IndexSet(integer: section)
+        tblView.reloadSections(indexSet, with: .none)
+        
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
             return 3
     }
@@ -87,7 +97,18 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         }else if section == 1 {
             return 1
         }else{
-            return 0 //4
+            switch opcList {
+            case .open(let open):
+                return open.count
+            case .pending(let pending):
+                return pending.count
+            case .close(let close):
+                return close.count
+            case .none:
+                return 0
+            }
+            
+//            return  //opcList.1.count //4
         }
     }
     
@@ -108,6 +129,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradeTypeTableViewCell.self, for: indexPath)
+            cell.delegate = self
             cell.backgroundColor = .clear
             return cell
             
@@ -115,6 +137,21 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
             if GlobalVariable.instance.isAccountCreated {
                 cell.isHidden = false
+
+                switch opcList {
+                case .open(let openData):
+//                    cell.symbolName.text = openData[indexPath.row].symbol
+                    
+                    break
+                case .pending(let pendingData):
+                    break
+                case .close(let closeData):
+                    break
+                    
+                case .none:
+                    break
+                }
+               
             }else{
                 cell.isHidden = true
             }
@@ -147,7 +184,16 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
+extension AccountsVC {
+    func getSavedSymbols() -> [SymbolData]? {
+        let savedSymbolsKey = "savedSymbolsKey"
+        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
+            let decoder = JSONDecoder()
+            return try? decoder.decode([SymbolData].self, from: savedSymbols)
+        }
+        return nil
+    }
+}
 extension AccountsVC: AccountInfoDelegate {
     func accountInfoTap(_ accountInfo: AccountInfo) {
         print("delegte called  \(accountInfo)" )
@@ -210,6 +256,81 @@ extension AccountsVC: CreateAccountInfoDelegate {
     
 }
 
+extension AccountsVC: OPCDelegate {
+    func getOPCData(opcType: OPCType) {
+        print("opcType = \(opcType)")
+        
+        self.opcList = opcType
+        
+        refreshSection(at: 2)
+        
+//        switch opcType {
+//        case .open(let openData):
+//
+////            self.opcList.0 = "Open"
+////            self.opcList.1.removeAll()
+////            self.opcList.1 = openData
+//
+//            self.opcList = openData
+//
+//            refreshSection(at: 2)
+//
+//            break
+//
+//        case .close(let closeData):
+//
+////            self.opcList.0 = "Close"
+////            self.opcList.1.removeAll()
+////            self.opcList.1 = closeData
+//
+//            refreshSection(at: 2)
+//
+//            break
+//        }
+    }
+    
+//    func getOPCData(opcType: OPCType, openModel: [OpenModel]) {
+////        print("OPC Result")
+//        print("opcType = \(opcType)")
+//        print("openModel = \(openModel)")
+//        switch opcType {
+//        case .open:
+//
+//            self.opcList.0 = "Open"
+//            self.opcList.1.removeAll()
+//            self.opcList.1 = openModel
+//
+//            refreshSection(at: 2)
+//
+//            break
+//        case .pending:
+//
+//
+//            break
+//        case .close:
+//
+//
+//            break
+//
+//        }
+//    }
+//
+//    func getOPCData(opcType: OPCType, closeModel: [CloseModel]) {
+//
+//        print("opcType = \(opcType)")
+//        print("closeModel = \(closeModel)")
+//
+//        self.opcList.0 = "Close"
+//        self.opcList.1.removeAll()
+//        self.opcList.1 = closeModel
+//
+//        refreshSection(at: 2)
+//
+//    }
+    
+}
+
+//MARK: - Layout Constraints.
 extension AccountsVC {
     
     //MARK: - Set TableViewTopConstraint.
