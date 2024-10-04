@@ -10,6 +10,11 @@
 		3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */; };
 		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB72C99BFAE00B7ABF9 /* Session.swift */; };
+		3121BB662CAFC40F00013557 /* OpenTicketBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3121BB652CAFC40F00013557 /* OpenTicketBottomSheetVC.swift */; };
+		3121BB682CAFC43200013557 /* PendingTicketBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3121BB672CAFC43200013557 /* PendingTicketBottomSheetVC.swift */; };
+		3121BB6A2CAFC44600013557 /* CloseTicketBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3121BB692CAFC44600013557 /* CloseTicketBottomSheetVC.swift */; };
+		3121BB6E2CAFD0E900013557 /* CloseTicketTBCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3121BB6C2CAFD0E900013557 /* CloseTicketTBCell.swift */; };
+		3121BB6F2CAFD0E900013557 /* CloseTicketTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3121BB6D2CAFD0E900013557 /* CloseTicketTBCell.xib */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
@@ -307,6 +312,11 @@
 		3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3106BBB72C99BFAE00B7ABF9 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3121BB652CAFC40F00013557 /* OpenTicketBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenTicketBottomSheetVC.swift; sourceTree = "<group>"; };
+		3121BB672CAFC43200013557 /* PendingTicketBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingTicketBottomSheetVC.swift; sourceTree = "<group>"; };
+		3121BB692CAFC44600013557 /* CloseTicketBottomSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketBottomSheetVC.swift; sourceTree = "<group>"; };
+		3121BB6C2CAFD0E900013557 /* CloseTicketTBCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketTBCell.swift; sourceTree = "<group>"; };
+		3121BB6D2CAFD0E900013557 /* CloseTicketTBCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseTicketTBCell.xib; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
@@ -621,6 +631,26 @@
 				3106BBB72C99BFAE00B7ABF9 /* Session.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		3121BB642CAFC3B800013557 /* TranscationBottomSheetVC */ = {
+			isa = PBXGroup;
+			children = (
+				3121BB6B2CAFD09800013557 /* closeTicket_TVCell */,
+				3121BB652CAFC40F00013557 /* OpenTicketBottomSheetVC.swift */,
+				3121BB672CAFC43200013557 /* PendingTicketBottomSheetVC.swift */,
+				3121BB692CAFC44600013557 /* CloseTicketBottomSheetVC.swift */,
+			);
+			path = TranscationBottomSheetVC;
+			sourceTree = "<group>";
+		};
+		3121BB6B2CAFD09800013557 /* closeTicket_TVCell */ = {
+			isa = PBXGroup;
+			children = (
+				3121BB6C2CAFD0E900013557 /* CloseTicketTBCell.swift */,
+				3121BB6D2CAFD0E900013557 /* CloseTicketTBCell.xib */,
+			);
+			path = closeTicket_TVCell;
 			sourceTree = "<group>";
 		};
 		3137AE702C77471A00B5A83B /* PasscodeVC */ = {
@@ -1517,6 +1547,7 @@
 		C9FD2E2C2C42FE28002F9D06 /* TranscationCell */ = {
 			isa = PBXGroup;
 			children = (
+				3121BB642CAFC3B800013557 /* TranscationBottomSheetVC */,
 				C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */,
 				C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */,
 				3184F0882CAEBBD000BC1479 /* CloseOrderCell.swift */,
@@ -1996,6 +2027,7 @@
 				319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */,
 				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
+				3121BB6F2CAFD0E900013557 /* CloseTicketTBCell.xib in Resources */,
 				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
 				FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */,
@@ -2220,6 +2252,7 @@
 				31D2AEF72C8840B800E0CF2E /* Chart.swift in Sources */,
 				3191F6AB2C64EB9100F623C6 /* CreateAccountSetPassword.swift in Sources */,
 				FA467DCB2C695B9B00248A62 /* UnarchiveAccountTypeCVC.swift in Sources */,
+				3121BB6E2CAFD0E900013557 /* CloseTicketTBCell.swift in Sources */,
 				3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */,
 				317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */,
 				31D2AF372C8840B800E0CF2E /* ColorType.swift in Sources */,
@@ -2263,6 +2296,7 @@
 				31D2AF472C8840B800E0CF2E /* TimeScaleApi.swift in Sources */,
 				319871642CAD49DC007FE3DA /* SecurePassword.swift in Sources */,
 				318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */,
+				3121BB662CAFC40F00013557 /* OpenTicketBottomSheetVC.swift in Sources */,
 				31D2AEF82C8840B800E0CF2E /* LightweightCharts.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31D2AF352C8840B800E0CF2E /* BusinessDay.swift in Sources */,
@@ -2275,6 +2309,7 @@
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
 				31B90D2E2C400AF000A7A0D2 /* withDrawTableViewCell.swift in Sources */,
 				FAD776CC2C976F4D000411F1 /* JSONRPCClient.swift in Sources */,
+				3121BB682CAFC43200013557 /* PendingTicketBottomSheetVC.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
 				31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */,
@@ -2300,6 +2335,7 @@
 				31D2AF2B2C8840B800E0CF2E /* CandlestickSeriesOptions.swift in Sources */,
 				31D2AF152C8840B800E0CF2E /* LineWidth.swift in Sources */,
 				FA532D7A2C5721E1003A26D6 /* UIAlertController+Extensions.swift in Sources */,
+				3121BB6A2CAFC44600013557 /* CloseTicketBottomSheetVC.swift in Sources */,
 				315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */,
 				3169F23E2C5387F00032272A /* UserModel.swift in Sources */,
 				3164C6032C47F1F20055F093 /* ProfileViewController.swift in Sources */,

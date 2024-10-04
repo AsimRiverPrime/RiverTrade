@@ -140,8 +140,10 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
 
                 switch opcList {
                 case .open(let openData):
-//                    cell.symbolName.text = openData[indexPath.row].symbol
-                    
+                    cell.lbl_symbolName.text = openData[indexPath.row].symbol
+                    cell.lbl_profitValue.text = "\(openData[indexPath.row].priceCurrent)"
+                 //  cell.lbl_openPriceVolume =  openData[indexPath.row].action // apply check according to type and also volume value and open price value
+                    cell.lbl_openPriceVolume.text = "Buy 1 Lots at " + "\(openData[indexPath.row].priceOpen)"
                     break
                 case .pending(let pendingData):
                     break
