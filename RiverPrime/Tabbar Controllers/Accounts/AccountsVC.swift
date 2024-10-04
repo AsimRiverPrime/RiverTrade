@@ -47,11 +47,11 @@ class AccountsVC: UIView {
         
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
-                AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self
+                AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self
             ])
         } else { //MARK: - if no account exist.
             tblView.registerCells([
-                CreateAccountTVCell.self, TradeTypeTableViewCell.self, TransactionCell.self
+                CreateAccountTVCell.self, TradeTypeTableViewCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self
             ])
         }
       
@@ -134,30 +134,52 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         }else{
-            let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
-            if GlobalVariable.instance.isAccountCreated {
-                cell.isHidden = false
-
-                switch opcList {
-                case .open(let openData):
-                    cell.lbl_symbolName.text = openData[indexPath.row].symbol
-                    cell.lbl_profitValue.text = "\(openData[indexPath.row].priceCurrent)"
-                 //  cell.lbl_openPriceVolume =  openData[indexPath.row].action // apply check according to type and also volume value and open price value
-                    cell.lbl_openPriceVolume.text = "Buy 1 Lots at " + "\(openData[indexPath.row].priceOpen)"
-                    break
-                case .pending(let pendingData):
-                    break
-                case .close(let closeData):
-                    break
+            
+            switch opcList {
+            case .open(let openData):
+//                    cell.symbolName.text = openData[indexPath.row].symbol
+                
+                let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
+                if GlobalVariable.instance.isAccountCreated {
+                    cell.isHidden = false
                     
-                case .none:
-                    break
+                    cell.getCellData(open: openData, indexPath: indexPath)
+                    
+                }else{
+                    cell.isHidden = true
                 }
-               
-            }else{
-                cell.isHidden = true
+                return cell
+                
+            case .pending(let pendingData):
+                
+                let cell = tableView.dequeueReusableCell(with: PendingOrderCell.self, for: indexPath)
+                if GlobalVariable.instance.isAccountCreated {
+                    cell.isHidden = false
+                    
+                    cell.getCellData(pending: pendingData, indexPath: indexPath)
+                    
+                }else{
+                    cell.isHidden = true
+                }
+                return cell
+                
+            case .close(let closeData):
+                
+                let cell = tableView.dequeueReusableCell(with: CloseOrderCell.self, for: indexPath)
+                if GlobalVariable.instance.isAccountCreated {
+                    cell.isHidden = false
+                    
+                    cell.getCellData(close: closeData, indexPath: indexPath)
+                    
+                }else{
+                    cell.isHidden = true
+                }
+                return cell
+                
+            case .none:
+                return UITableViewCell()
             }
-            return cell
+            
         }
         
         
@@ -186,16 +208,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-extension AccountsVC {
-    func getSavedSymbols() -> [SymbolData]? {
-        let savedSymbolsKey = "savedSymbolsKey"
-        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
-            let decoder = JSONDecoder()
-            return try? decoder.decode([SymbolData].self, from: savedSymbols)
-        }
-        return nil
-    }
-}
+
 extension AccountsVC: AccountInfoDelegate {
     func accountInfoTap(_ accountInfo: AccountInfo) {
         print("delegte called  \(accountInfo)" )

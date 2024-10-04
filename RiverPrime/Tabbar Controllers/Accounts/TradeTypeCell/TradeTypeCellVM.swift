@@ -43,6 +43,28 @@ class TradeTypeCellVM {
             
         } else if index == 1 {
             
+            jsonrpcBody = [
+                "jsonrpc": "2.0",
+                "params": [
+                    "service": "object",
+                    "method": "execute_kw",
+                    "args": [
+                        "mbe.riverprime.com",
+                        6,
+                        "7d2d38646cf6437034109f442596b86cbf6110c0",
+                        "mt.middleware",
+                        "get_deals",
+                        [
+                            [],
+                            "asimprime900@gmail.com",
+                            1012614,
+                            1727740855, // to previous
+                            1728036267  // from current
+                        ]
+                    ]
+                ]
+            ]
+            
         } else if index == 2 {
             
             jsonrpcBody = [
@@ -98,7 +120,11 @@ class TradeTypeCellVM {
                             completion(positions, nil, nil, nil) // Pass positions to completion
                             
                         } else if index == 1 {
-                            //MARK: - Pending work here.
+                            
+                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                            let orders = try JSONDecoder().decode([PendingModel].self, from: jsonData)
+                            
+                            completion(nil, orders, nil, nil) // Pass positions to completion
                             
                         } else if index == 2 {
                             

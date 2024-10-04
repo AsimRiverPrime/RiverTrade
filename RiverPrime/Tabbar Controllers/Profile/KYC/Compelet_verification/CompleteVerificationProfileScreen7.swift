@@ -2,7 +2,7 @@
 //  CompleteVerificationProfileScreen1.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 08/09/2024.
+//  Created by Ross Rostane on 08/09/2024.
 //
 
 import UIKit

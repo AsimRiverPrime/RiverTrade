@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-import SDWebImageSVGKitPlugin
+//import SDWebImageSVGKitPlugin
 
 class TradeTableViewCell: UITableViewCell {
     
@@ -216,8 +216,8 @@ class TradeTableViewCell: UITableViewCell {
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             lblCurrencyName.text = symbol.description
             
-            let svgCoder = SDImageSVGKCoder.shared
-            SDImageCodersManager.shared.addCoder(svgCoder)
+//            let svgCoder = SDImageSVGKCoder.shared
+//            SDImageCodersManager.shared.addCoder(svgCoder)
             print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
 
             

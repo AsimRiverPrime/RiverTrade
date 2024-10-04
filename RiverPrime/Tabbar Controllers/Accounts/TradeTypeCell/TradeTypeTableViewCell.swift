@@ -39,6 +39,8 @@ class TradeTypeTableViewCell: BaseTableViewCell {
     
     var vm = TradeTypeCellVM()
     
+    let activityIndicator = NewActivityIndicator()
+    
     weak var delegate: OPCDelegate?
     
     override func awakeFromNib() {
@@ -164,9 +166,14 @@ extension TradeTypeTableViewCell {
     func fetchPositions(index: Int) {
         if index == 0 {
             
+//            ActivityIndicator.shared.showCell(in: self)
+            activityIndicator.show(in: self.contentView)
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+//                    ActivityIndicator.shared.hideCell(from: self!)
+                    self?.activityIndicator.hide()
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -189,13 +196,36 @@ extension TradeTypeTableViewCell {
             
         } else if index == 1 {
             
-            //MARK: - Pending work here.
-            
-        } else if index == 2 {
+//            ActivityIndicator.shared.showCell(in: self)
+            activityIndicator.show(in: self.contentView)
             
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+//                    ActivityIndicator.shared.hideCell(from: self!)
+                    self?.activityIndicator.hide()
+                    // Switch back to the main thread to update the UI
+                    DispatchQueue.main.async {
+                        if let error = error {
+                            print("Error fetching positions: \(error)")
+                            // Handle the error (e.g., show an alert)
+                        } else if let orders = pendingData {
+                            self?.delegate?.getOPCData(opcType: .pending(orders))
+                        }
+                    }
+                }
+            }
+            
+        } else if index == 2 {
+            
+//            ActivityIndicator.shared.showCell(in: self)
+            activityIndicator.show(in: self.contentView)
+            
+            // Execute the fetch on a background thread
+            DispatchQueue.global(qos: .background).async { [weak self] in
+                self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+//                    ActivityIndicator.shared.hideCell(from: self!)
+                    self?.activityIndicator.hide()
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {

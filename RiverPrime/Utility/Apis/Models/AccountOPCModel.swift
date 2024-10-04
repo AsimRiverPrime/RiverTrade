@@ -40,7 +40,34 @@ struct OpenModel: Codable {
 
 //MARK: - Pending
 struct PendingModel: Codable {
+    let deal: Int
+    let login: Int
+    let order: Int
+    let position: Int
+    let dealer: Int
+    let entry: Int
+    let value: Double
+    let symbol: String
+    let action: Int
+    let price: Double
+    let volume: Int
+    let takeProfit: Double
+    let stopLoss: Double
+    let time: Int
+    let comment: String
+    let fee: Double
+    let profit: Double
+    let marketBid: Double
+    let marketAsk: Double
     
+    enum CodingKeys: String, CodingKey {
+        case deal, login, order, position, dealer, entry, value, symbol, action, price, volume
+        case takeProfit = "take_profit"
+        case stopLoss = "stop_loss"
+        case time, comment, fee, profit
+        case marketBid = "market_bid"
+        case marketAsk = "market_ask"
+    }
 }
 
 //MARK: - Close

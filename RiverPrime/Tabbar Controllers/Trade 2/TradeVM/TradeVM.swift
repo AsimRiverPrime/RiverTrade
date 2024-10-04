@@ -2,7 +2,7 @@
 //  TradeVM.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 10/09/2024.
+//  Created by Ross Rostane on 10/09/2024.
 //
 
 import Foundation

@@ -28,6 +28,7 @@
 		315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */; };
 		315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB092C4FA05700C4F8C0 /* ProfileVC.xib */; };
 		315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB0B2C4FA06700C4F8C0 /* ProfileVC.swift */; };
+		315E9CDD2CB037C500516074 /* TransactionCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E9CDB2CB037C500516074 /* TransactionCellVM.swift */; };
 		3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EC2C47D0540055F093 /* MarketsViewController.swift */; };
 		3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */; };
 		3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */; };
@@ -329,6 +330,7 @@
 		315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
 		315DDB092C4FA05700C4F8C0 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
 		315DDB0B2C4FA06700C4F8C0 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		315E9CDB2CB037C500516074 /* TransactionCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCellVM.swift; sourceTree = "<group>"; };
 		3164C5EC2C47D0540055F093 /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
 		3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -713,6 +715,14 @@
 				315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */,
 			);
 			path = LogoutTBCell;
+			sourceTree = "<group>";
+		};
+		315E9CDC2CB037C500516074 /* TransactionCellVM */ = {
+			isa = PBXGroup;
+			children = (
+				315E9CDB2CB037C500516074 /* TransactionCellVM.swift */,
+			);
+			path = TransactionCellVM;
 			sourceTree = "<group>";
 		};
 		3164C5EE2C47D0860055F093 /* MarketsCollectionViewCell */ = {
@@ -1547,6 +1557,7 @@
 		C9FD2E2C2C42FE28002F9D06 /* TranscationCell */ = {
 			isa = PBXGroup;
 			children = (
+				315E9CDC2CB037C500516074 /* TransactionCellVM */,
 				3121BB642CAFC3B800013557 /* TranscationBottomSheetVC */,
 				C9FD2E2D2C42FED2002F9D06 /* TransactionCell.swift */,
 				C9FD2E2E2C42FED2002F9D06 /* TransactionCell.xib */,
@@ -2313,6 +2324,7 @@
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
 				31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */,
+				315E9CDD2CB037C500516074 /* TransactionCellVM.swift in Sources */,
 				31D2AF1C2C8840B800E0CF2E /* ChartOptions.swift in Sources */,
 				31D2AF392C8840B800E0CF2E /* FromToRange.swift in Sources */,
 				31D2AF3F2C8840B800E0CF2E /* TickMarkFormatter.swift in Sources */,
