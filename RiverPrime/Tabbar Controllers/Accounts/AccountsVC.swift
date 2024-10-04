@@ -16,6 +16,16 @@ protocol CreateAccountInfoTapDelegate: AnyObject {
     func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo)
 }
 
+enum OPCNavigationType {
+    case open(OpenModel)
+    case pending(PendingModel)
+    case close(CloseModel)
+}
+
+protocol OPCNavigationDelegate: AnyObject {
+    func navigateOPC(_ opcNavigationType: OPCNavigationType)
+}
+
 class AccountsVC: UIView {
     
     @IBOutlet weak var tblView: UITableView!
@@ -25,6 +35,7 @@ class AccountsVC: UIView {
     
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
+    weak var delegateOPCNavigation: OPCNavigationDelegate?
     
     var model: [String] = ["Open","Pending","Close","image"]
     
@@ -193,16 +204,38 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 return 300.0
             }
         }else if indexPath.section == 1{
-            return 45
+            return 40
             
         }else{
-            return 90.0
+            return 100.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTypeTableViewCell") as? TradeTypeTableViewCell
             
+            
+        }
+        if indexPath.section == 2 {
+            
+            switch opcList {
+            case .open(let openData):
+                
+                self.delegateOPCNavigation?.navigateOPC(.open(openData[indexPath.row]))
+                
+                break
+            case .pending(let pendingData):
+                
+                self.delegateOPCNavigation?.navigateOPC(.pending(pendingData[indexPath.row]))
+                
+                break
+            case .close(let closeData):
+                
+                self.delegateOPCNavigation?.navigateOPC(.close(closeData[indexPath.row]))
+                
+                break
+            case .none: break
+            }
             
         }
         tableView.deselectRow(at: indexPath, animated: true)

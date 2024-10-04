@@ -62,6 +62,8 @@ class DashboardVC: BaseViewController {
     
     var odooClientService = OdooClient()
     
+     let webSocketManager = WebSocketManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,7 +82,14 @@ class DashboardVC: BaseViewController {
             setProfileButton()
             GlobalVariable.instance.isReturnToProfile = false
         }else{
+            //MARK: - START Symbol api calling.
             symbolApiCalling()
+            
+            //MARK: - START SOCKET and call delegate method to get data from socket.
+//            webSocketManager.delegateSocketMessage = self
+//            webSocketManager.delegateSocketPeerClosed = self
+            webSocketManager.connectWebSocket()
+            
             setAccountsButton()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
@@ -190,10 +199,11 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-            dismissViews()
+            dismissViews(false)
             accountsVC = AccountsVC.getView()
             accountsVC.delegate = self
             accountsVC.delegateCreateAccount = self
+            accountsVC.delegateOPCNavigation = self
             addView(customTabBarType: .Accounts)
             
             //            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
@@ -229,7 +239,7 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-            dismissViews()
+            dismissViews(true)
             tradeVC = TradeVC.getView()
             //            tradeVC.delegate = self
             tradeVC.delegateDetail = self
@@ -258,7 +268,7 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-            dismissViews()
+            dismissViews(false)
             marketsVC = MarketsVC.getView()
             //            tradeVC.delegate = self
             addView(customTabBarType: .Markets)
@@ -286,7 +296,7 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.black
             ProfileView.backgroundColor = UIColor.lightText
             
-            dismissViews()
+            dismissViews(false)
             resultVC = ResultVC.getView()
             resultVC.delegate = self
             //            tradeVC.delegate = self
@@ -315,7 +325,7 @@ extension DashboardVC {
             ProfileLabel.textColor = UIColor.systemYellow
             ProfileView.backgroundColor = UIColor.splashScreen
             
-            dismissViews()
+            dismissViews(false)
             profileVC = ProfileVC.getView()
             profileVC.delegateCompeleteProfile = self
             
@@ -325,10 +335,10 @@ extension DashboardVC {
         }
     }
     
-    private func dismissViews() {
+    private func dismissViews(_ isTrade: Bool) {
         createAccountVC.dismissView()
         accountsVC.dismissView()
-        tradeVC.dismissView()
+        tradeVC.dismissView(isTrade)
         marketsVC.dismissView()
         resultVC.dismissView()
         profileVC.dismissView()
@@ -437,6 +447,44 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         }
+    }
+    
+}
+
+extension DashboardVC: OPCNavigationDelegate {
+    
+    func navigateOPC(_ opcNavigationType: OPCNavigationType) {
+        
+        switch opcNavigationType {
+        case .open(let openData):
+            
+            let vc = Utilities.shared.getViewController(identifier: .openTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! OpenTicketBottomSheetVC
+            
+            vc.openData = openData
+            
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            
+            break
+        case .pending(let pendingData):
+            
+            let vc = Utilities.shared.getViewController(identifier: .pendingTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! PendingTicketBottomSheetVC
+            
+            vc.pendingData = pendingData
+            
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            
+            break
+        case .close(let closeData):
+            
+            let vc = Utilities.shared.getViewController(identifier: .closeTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! CloseTicketBottomSheetVC
+            
+            vc.closeData = closeData
+            
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            
+            break
+        }
+        
     }
     
 }

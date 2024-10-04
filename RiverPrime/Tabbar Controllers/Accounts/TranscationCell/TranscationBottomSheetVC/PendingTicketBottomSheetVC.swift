@@ -19,11 +19,12 @@ class PendingTicketBottomSheetVC: UIViewController {
     @IBOutlet weak var tf_takeProfit: UITextField!
     @IBOutlet weak var tf_stopLoss: UITextField!
     
+    var pendingData: PendingModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        print("pendingData = \(pendingData)")
     }
     
     @IBAction func priceMinus_actoin(_ sender: Any) {

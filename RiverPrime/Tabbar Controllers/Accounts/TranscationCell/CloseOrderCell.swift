@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import SDWebImageSVGKitPlugin
 
 class CloseOrderCell: UITableViewCell {
 

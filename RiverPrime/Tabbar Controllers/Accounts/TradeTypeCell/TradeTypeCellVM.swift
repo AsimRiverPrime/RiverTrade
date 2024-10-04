@@ -122,7 +122,17 @@ class TradeTypeCellVM {
                         } else if index == 1 {
                             
                             let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                            let orders = try JSONDecoder().decode([PendingModel].self, from: jsonData)
+                            var orders = try JSONDecoder().decode([PendingModel].self, from: jsonData)
+                            
+                            if orders.count != 0 {
+                                
+                                var data = [PendingModel]()
+                                data = orders
+                                data.remove(at: 0)
+                                
+                                orders = data
+                                
+                            }
                             
                             completion(nil, orders, nil, nil) // Pass positions to completion
                             

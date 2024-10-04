@@ -16,11 +16,13 @@ class CloseTicketBottomSheetVC: UIViewController {
     
     @IBOutlet weak var closeValue_TableView: UITableView!
     
+    var closeData: CloseModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
         
-        // Do any additional setup after loading the view.
+        print("closeData = \(closeData)")
     }
     
     private func registerCell() {

@@ -83,20 +83,22 @@ class TradeVC: UIView {
 //        odooClientService.sendSymbolDetailRequest()
 //        odooClientService.tradeSymbolDetailDelegate = self
         //MARK: - if Symbol Api data is exist then we must set our list data.
-                if GlobalVariable.instance.symbolDataArray.count != 0 {
-                    //MARK: - Get the list and save localy and set sectors and symbols.
-                    processSymbols(GlobalVariable.instance.symbolDataArray)
-                    
-                    //MARK: - Reload tablview when all data set into the list at first time.
-                    self.tblView.reloadData()
-                }
+        if GlobalVariable.instance.symbolDataArray.count != 0 {
+            //MARK: - Get the list and save localy and set sectors and symbols.
+            processSymbols(GlobalVariable.instance.symbolDataArray)
+            
+            //MARK: - Reload tablview when all data set into the list at first time.
+            self.tblView.reloadData()
+        }
         
         //NotificationCenter.default.addObserver(self, selector: #selector(socketConnectivity(_:)), name: .checkSocketConnectivity, object: nil)
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
         vm.webSocketManager.delegateSocketMessage = self
         vm.webSocketManager.delegateSocketPeerClosed = self
-        vm.webSocketManager.connectWebSocket()
+//        vm.webSocketManager.connectWebSocket()
+        
+        
         
         //MARK: - Handle tableview constraints according to the device logical height.
         //        setTableViewLayoutConstraints()
@@ -123,7 +125,18 @@ class TradeVC: UIView {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
     }
     
-    func dismissView() {
+    func dismissView(_ trade: Bool) {
+        if !trade {
+            
+            print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+            
+            //MARK: - START calling Socket message from here.
+            vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
+            
+            //MARK: - Remove symbol local after unsubcibe.
+            GlobalVariable.instance.previouseSymbolList.removeAll()
+            
+        }
         UIView.animate(
             withDuration: 0.4,
             delay: 0.04,

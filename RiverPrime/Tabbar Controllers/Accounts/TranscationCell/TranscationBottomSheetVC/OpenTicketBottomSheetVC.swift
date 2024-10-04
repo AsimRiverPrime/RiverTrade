@@ -27,10 +27,13 @@ class OpenTicketBottomSheetVC: UIViewController {
     @IBOutlet weak var takeProfit_switch: UISwitch!
     @IBOutlet weak var stopLoss_switch: UISwitch!
     
+//    var openData: OPCNavigationType?
+    var openData: OpenModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        print("openData = \(openData)")
     }
     
     @IBAction func partialSwitch_action(_ sender: Any) {

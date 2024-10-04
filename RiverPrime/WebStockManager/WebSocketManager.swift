@@ -37,6 +37,8 @@ class WebSocketManager: WebSocketDelegate {
     public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateCandleSocketMessage: GetCandleData?
     public weak var delegateSocketPeerClosed: SocketPeerClosed?
+    
+    var isTradeDismiss = Bool()
 
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
@@ -72,7 +74,7 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
 
-    func sendWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil) {
+    func sendWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil, isTradeDismiss: Bool? = nil) {
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
         let timestamps = currentAndBeforeBusinessDayTimestamps()
@@ -148,6 +150,9 @@ class WebSocketManager: WebSocketDelegate {
             
         } else if event == "unsubscribeTrade" {
 //            print("symbolList = \(symbolList)")
+            
+            self.isTradeDismiss = isTradeDismiss ?? false
+            
             message = [
                 "event_name": "unsubscribe",
                 "data": [
@@ -188,7 +193,16 @@ class WebSocketManager: WebSocketDelegate {
             GlobalVariable.instance.isConnected = true // Update connection state
 
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "true"])
+            
+            //MARK: - This method is comment for now because we shift our socket into DashboardVC and we don't need to call the following method with zero index at start.
+            /*
+            //This method is call from tradeVC according to the selection of collectionview.
+            setTradeModel(collectionViewIndex: 0)
+             */
+            
+            
 
+            /*
 //            let symbol = getSavedSymbols().map { $0 }
 //            print("symbol?[0].name = \(symbol?[0].name)")
 //            sendWebSocketMessage(for: "subscribeTrade", symbol: symbol?[0].name)
@@ -212,9 +226,6 @@ class WebSocketManager: WebSocketDelegate {
             sendWebSocketMessage(for: "subscribeTrade", symbolList: GlobalVariable.instance.getSelectedSectorSymbols.1)
             */
             
-            //This method is call from tradeVC according to the selection of collectionview.
-            setTradeModel(collectionViewIndex: 0)
-             
             
             
             
@@ -222,6 +233,7 @@ class WebSocketManager: WebSocketDelegate {
 //            sendWebSocketMessage(for: "subscribeTrade")
 ////            sendWebSocketMessage(for: "subscribeHistory")
 
+            */
         case .text(let string):
             handleWebSocketMessage(string)
 
@@ -436,6 +448,11 @@ class WebSocketManager: WebSocketDelegate {
     
     func handleUnsubscribedData() {
         //Unsubscribed
+        
+        if self.isTradeDismiss {
+            return
+        }
+        
         delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
     }
 
