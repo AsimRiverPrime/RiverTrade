@@ -191,10 +191,17 @@ class FirestoreServices: BaseViewController {
        }
 
         func navigateToLoginScreen() {
-           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-           let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-           self.navigationController?.pushViewController(loginVC, animated: true)
-          
+//           let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//           let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+//           self.navigationController?.pushViewController(loginVC, animated: true)
+            
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+            
+            let navController = UINavigationController(rootViewController: loginVC)
+            SCENE_DELEGATE.window?.rootViewController = navController
+            SCENE_DELEGATE.window?.makeKeyAndVisible()
        }
        
     private func navigateToEmailVerificationScreen() {

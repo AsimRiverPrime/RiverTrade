@@ -16,7 +16,6 @@ class TradeTypeCellVM {
     
     func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [CloseModel]?, Error?) -> Void) {
         
-        let url = "https://mbe.riverprime.com/jsonrpc"
         var jsonrpcBody: [String: Any] = [String: Any]()
         
         if index == 0 {
@@ -89,18 +88,11 @@ class TradeTypeCellVM {
             
         }
         
-        AF.request(url,
-                   method: .post,
-                   parameters: jsonrpcBody,
-                   encoding: JSONEncoding.default,
-                   headers: ["Content-Type": "application/json"])
-        .validate()
-        .responseJSON { (response: AFDataResponse<Any>) in
-            switch response.result {
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            switch result {
                 
             case .success(let value):
                 print("value is: \(value)")
-//                ActivityIndicator.shared.hide(from: self.view)
                 
                 do {
                     // Decode the response
@@ -157,7 +149,6 @@ class TradeTypeCellVM {
                 print("Request failed with error: \(error)")
                 completion(nil, nil, nil, error) // Pass error to completion
             }
-            
         }
         
     }

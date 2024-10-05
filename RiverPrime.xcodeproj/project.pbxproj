@@ -306,6 +306,7 @@
 		FAD776D42C977087000411F1 /* ViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D32C977087000411F1 /* ViewControllerVM.swift */; };
 		FAD776D72C97720D000411F1 /* JSONRPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D62C97720D000411F1 /* JSONRPCModel.swift */; };
 		FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */; };
+		FAF18C5B2CB202F700AAB538 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -611,6 +612,7 @@
 		FAD776D32C977087000411F1 /* ViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVM.swift; sourceTree = "<group>"; };
 		FAD776D62C97720D000411F1 /* JSONRPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCModel.swift; sourceTree = "<group>"; };
 		FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDataModel.swift; sourceTree = "<group>"; };
+		FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1421,6 +1423,7 @@
 				31F29B2B2C7C96FD00BBB126 /* Logo.gif */,
 				31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */,
 				31F29B372C7CA72000BBB126 /* SplashVC.xib */,
+				FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */,
 			);
 			path = SplashScreenFolder;
 			sourceTree = "<group>";
@@ -2177,6 +2180,7 @@
 				31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */,
 				31D2AF0A2C8840B800E0CF2E /* HistogramData.swift in Sources */,
 				31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */,
+				FAF18C5B2CB202F700AAB538 /* SplashViewController.swift in Sources */,
 				31D2AF272C8840B800E0CF2E /* WatermarkOptions.swift in Sources */,
 				FA467DD12C695BDF00248A62 /* UIView+Extension.swift in Sources */,
 				31D2AF412C8840B800E0CF2E /* TogglableOptions.swift in Sources */,
