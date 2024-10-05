@@ -412,7 +412,7 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .createAccount:
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         }
@@ -462,7 +462,7 @@ extension DashboardVC: OPCNavigationDelegate {
             
             vc.openData = openData
             
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
             
             break
         case .pending(let pendingData):
@@ -471,7 +471,7 @@ extension DashboardVC: OPCNavigationDelegate {
             
             vc.pendingData = pendingData
             
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             
             break
         case .close(let closeData):
@@ -480,7 +480,7 @@ extension DashboardVC: OPCNavigationDelegate {
             
             vc.closeData = closeData
             
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             
             break
         }
@@ -514,11 +514,11 @@ extension DashboardVC: iResultVCDelegate {
         case .BenifitAllRealAccountFilter:
             break
         case .ExnessStartTrading:
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         case .ExnessTrading:
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .dashboard) as! SelectAccountTypeVC
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         }

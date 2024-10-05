@@ -61,8 +61,13 @@ extension PendingOrderCell {
         // Retrieve the symbol data using the name as the key
         if let symbolData = savedSymbolsDict[getSymbol] {
             // Return the icon_url if a match is found
-            let imageUrl = URL(string: symbolData.icon_url)
-            symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            if symbolData.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else {
+                let imageUrl = URL(string: symbolData.icon_url)
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
 //            vm.loadImage(imageUrl: imageUrl) { [weak self] image in
 //                DispatchQueue.main.async {
 //                    self?.symbol_icon.image = image

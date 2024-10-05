@@ -61,8 +61,14 @@ extension CloseOrderCell {
         // Retrieve the symbol data using the name as the key
         if let symbolData = savedSymbolsDict[getSymbol] {
             // Return the icon_url if a match is found
-            let imageUrl = URL(string: symbolData.icon_url)
-            symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            if symbolData.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else {
+                let imageUrl = URL(string: symbolData.icon_url)
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+           
 //            vm.loadImage(imageUrl: imageUrl) { [weak self] image in
 //                DispatchQueue.main.async {
 //                    self?.symbol_icon.image = image
@@ -72,6 +78,16 @@ extension CloseOrderCell {
         
         lbl_symbolName.text = data.symbol
         
+        let createDate = Date(timeIntervalSince1970: data.timeSetup / 1000.0)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+        
+        lbl_timeValue.text = datee
+        
 //        lbl_profitValue.text = "\(data.priceCurrent)"
      //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
         
@@ -79,4 +95,5 @@ extension CloseOrderCell {
         
     }
     
+   
 }

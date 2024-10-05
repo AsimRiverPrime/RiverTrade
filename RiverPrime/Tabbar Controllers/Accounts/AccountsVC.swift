@@ -204,10 +204,10 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 return 300.0
             }
         }else if indexPath.section == 1{
-            return 40
+            return 45
             
         }else{
-            return 100.0
+            return 90
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -35,47 +35,57 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SymbolName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDH-Ik-pbH">
-                                <rect key="frame" x="67" y="28" width="97" height="19.333333333333329"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <rect key="frame" x="62" y="30.333333333333332" width="75" height="14.333333333333332"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMG-If-yek">
-                                <rect key="frame" x="247.00000000000003" y="29" width="35.333333333333343" height="17"/>
+                                <rect key="frame" x="275.33333333333331" y="30.333333333333339" width="31" height="14.666666666666668"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
-                                            <font key="NSFont" metaFont="menu" size="14"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gH4-wg-UXf">
-                                <rect key="frame" x="487.33333333333331" y="12" width="21.666666666666686" height="17"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <rect key="frame" x="490" y="23" width="19" height="14.333333333333336"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="profitValue(- +)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucH-Tb-OML">
-                                <rect key="frame" x="409.66666666666669" y="34" width="99.333333333333314" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <rect key="frame" x="421.66666666666669" y="42.333333333333336" width="87.333333333333314" height="14.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Kbu-fB-K2e">
+                                <rect key="frame" x="250.33333333333331" y="28.333333333333329" width="20" height="18.666666666666671"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Q3C-IR-fb1"/>
+                                    <constraint firstAttribute="width" constant="20" id="leo-Ly-5aP"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="VMG-If-yek" firstAttribute="centerX" secondItem="Qbm-nl-vj4" secondAttribute="centerX" id="0XU-WK-hcZ"/>
+                            <constraint firstItem="VMG-If-yek" firstAttribute="centerX" secondItem="Qbm-nl-vj4" secondAttribute="centerX" multiplier="1.1" id="0XU-WK-hcZ"/>
                             <constraint firstItem="ucH-Tb-OML" firstAttribute="top" secondItem="gH4-wg-UXf" secondAttribute="bottom" constant="5" id="121-Lg-45x"/>
                             <constraint firstItem="VMG-If-yek" firstAttribute="centerY" secondItem="SDH-Ik-pbH" secondAttribute="centerY" id="2FQ-CS-w1D"/>
                             <constraint firstAttribute="trailing" secondItem="gH4-wg-UXf" secondAttribute="trailing" constant="20" id="FOz-CK-3w6"/>
                             <constraint firstAttribute="trailing" secondItem="ucH-Tb-OML" secondAttribute="trailing" constant="20" id="LCM-VT-lSa"/>
-                            <constraint firstItem="SDH-Ik-pbH" firstAttribute="leading" secondItem="bxU-tj-Bbg" secondAttribute="trailing" constant="12" id="ME8-x3-Ant"/>
+                            <constraint firstItem="SDH-Ik-pbH" firstAttribute="leading" secondItem="bxU-tj-Bbg" secondAttribute="trailing" constant="7" id="ME8-x3-Ant"/>
+                            <constraint firstItem="gH4-wg-UXf" firstAttribute="centerY" secondItem="VMG-If-yek" secondAttribute="centerY" multiplier="0.8" id="P4m-1q-FtK"/>
+                            <constraint firstItem="Kbu-fB-K2e" firstAttribute="centerY" secondItem="VMG-If-yek" secondAttribute="centerY" id="TId-5d-rfP"/>
                             <constraint firstItem="bxU-tj-Bbg" firstAttribute="top" secondItem="Qbm-nl-vj4" secondAttribute="top" constant="15" id="jyB-PX-OCX"/>
+                            <constraint firstItem="VMG-If-yek" firstAttribute="leading" secondItem="Kbu-fB-K2e" secondAttribute="trailing" constant="5" id="nPM-lg-8bW"/>
                             <constraint firstItem="bxU-tj-Bbg" firstAttribute="leading" secondItem="Qbm-nl-vj4" secondAttribute="leading" constant="10" id="okz-8g-UiB"/>
                             <constraint firstItem="SDH-Ik-pbH" firstAttribute="centerY" secondItem="bxU-tj-Bbg" secondAttribute="centerY" id="p1q-L3-HmH"/>
-                            <constraint firstItem="gH4-wg-UXf" firstAttribute="top" secondItem="Qbm-nl-vj4" secondAttribute="top" constant="12" id="qLl-Jw-BhL"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -93,6 +103,7 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="Qbm-nl-vj4" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="44T-U9-Ux6"/>
                     <constraint firstAttribute="trailing" secondItem="Qbm-nl-vj4" secondAttribute="trailing" constant="12" id="Bhr-xJ-haE"/>
@@ -112,6 +123,7 @@
     </objects>
     <resources>
         <image name="backgroundOfIcon" width="108" height="108"/>
+        <image name="clock" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
