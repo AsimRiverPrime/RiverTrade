@@ -40,6 +40,36 @@ struct OpenModel: Codable {
 
 //MARK: - Pending
 struct PendingModel: Codable {
+    let login: Int
+    let order: Int
+    let position: Int
+    let dealer: Int
+    let symbol: String
+    let type: Int
+    let typeFill: Int
+    let price: Double
+    let volume: Int
+    let takeProfit: Double
+    let stopLoss: Double
+    let timeSetup: Double
+    let timeDone: Double
+    let comment: String
+
+    enum CodingKeys: String, CodingKey {
+        case login, order, position, dealer, symbol, type
+        case typeFill = "type_fill"
+        case price, volume
+        case takeProfit = "take_profit"
+        case stopLoss = "stop_loss"
+        case timeSetup = "time_setup"
+        case timeDone = "time_done"
+        case comment
+    }
+    
+}
+
+//MARK: - Close
+struct CloseModel: Codable {
     let deal: Int
     let login: Int
     let order: Int
@@ -67,34 +97,5 @@ struct PendingModel: Codable {
         case time, comment, fee, profit
         case marketBid = "market_bid"
         case marketAsk = "market_ask"
-    }
-}
-
-//MARK: - Close
-struct CloseModel: Codable {
-    let login: Int
-    let order: Int
-    let position: Int
-    let dealer: Int
-    let symbol: String
-    let type: Int
-    let typeFill: Int
-    let price: Double
-    let volume: Int
-    let takeProfit: Double
-    let stopLoss: Double
-    let timeSetup: Double
-    let timeDone: Double
-    let comment: String
-
-    enum CodingKeys: String, CodingKey {
-        case login, order, position, dealer, symbol, type
-        case typeFill = "type_fill"
-        case price, volume
-        case takeProfit = "take_profit"
-        case stopLoss = "stop_loss"
-        case timeSetup = "time_setup"
-        case timeDone = "time_done"
-        case comment
     }
 }

@@ -48,30 +48,36 @@ class PendingTicketBottomSheetVC: BaseViewController {
         
 
         self.lbl_symbolName.text = pendingData?.symbol
-        self.lbl_positionNumber.text = "#\(pendingData?.position ?? 0)"
+        self.lbl_positionNumber.text = "#\(pendingData?.order ?? 0)"
         
-        //        if openData?.action == 0 {
-        //            ticketName = "Buy Ticket"
-        //        }else if openData?.action == 1 {
-        //            ticketName = "Sell Ticket"
-        //        }else if openData?.action == 2 {
-        //            ticketName = "Sell Ticket"
-        //        }else if openData?.action == 3 {
-        //            ticketName = "Sell Ticket"
-        //        }else if openData?.action == 4 {
-        //            ticketName = "Sell Ticket"
-        //        }else if openData?.action == 5 {
-        //            ticketName = "Sell Ticket"
-        //        }
-        if pendingData?.action == 1 {
-            ticketName = "Buy Ticket"
-        }else {
-            ticketName = "Sell Ticket"
+        if pendingData?.type == 0 {
+            ticketName = "Buy"
+            self.lbl_ticketName.text = "Buy Ticket"
+        }else if pendingData?.type == 1 {
+            ticketName = "Sell"
+            self.lbl_ticketName.text = "Sell Ticket"
+        }else if pendingData?.type == 2 {
+            ticketName = "Buy Limit"
+            self.lbl_ticketName.text = "Buy Ticket"
+        }else if pendingData?.type == 3 {
+            ticketName = "Sell Limit"
+            self.lbl_ticketName.text = "Sell Ticket"
+        }else if pendingData?.type == 4 {
+            ticketName = "Buy Stop"
+            self.lbl_ticketName.text = "Buy Ticket"
+        }else if pendingData?.type == 5 {
+            ticketName = "Sell Stop"
+            self.lbl_ticketName.text = "Sell Ticket"
         }
-        self.lbl_ticketName.text = ticketName
+        
+        let volume: Double = Double(pendingData?.volume ?? 0) / Double(10000)
+        
         let time = timeConvert()
         self.lbl_dateTime.text = "Time: " + time
-        self.lbl_volumePrice.text = "Buy Limit 0.04 Lot at " + "\(pendingData?.price ?? 0)"
+        self.lbl_volumePrice.text = ticketName! + " \(volume) Lots at " + "\(pendingData?.price ?? 0)"
+        tf_price.text = "\(pendingData?.price ?? 0)"
+        currentValue1 = Double(pendingData?.price ?? 0)
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         
@@ -79,7 +85,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     
     func timeConvert() -> String {
         
-        let createDate = Date(timeIntervalSince1970: Double(pendingData!.time) / 1000.0)
+        let createDate = Date(timeIntervalSince1970: Double(pendingData!.timeSetup) / 1000.0 )
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
@@ -111,7 +117,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func takeProfitDropDown_action(_ sender: Any) {
-        self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
+        self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
            
@@ -165,7 +171,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
         })
     }
     
-    @IBAction func closePosition_action(_ sender: Any) {
+    @IBAction func deleteOrder_action(_ sender: Any) {
     }
     
     @IBAction func save_action(_ sender: Any) {

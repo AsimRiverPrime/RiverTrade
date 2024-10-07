@@ -10,7 +10,7 @@ import UIKit
 class AccountsViewController: UIViewController {
    
     @IBOutlet weak var tblView: UITableView!
-    var model: [String] = ["Open","Pending","Close","image"]
+//    var model: [String] = ["Open","Pending","Close","image"]
     
     
     override func viewDidLoad() {

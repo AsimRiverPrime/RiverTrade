@@ -7,7 +7,6 @@
 
 import UIKit
 import SDWebImage
-import SDWebImageSVGKitPlugin
 
 class PendingOrderCell: UITableViewCell {
 
@@ -18,6 +17,7 @@ class PendingOrderCell: UITableViewCell {
     @IBOutlet weak var lbl_currentPriceVolume: UILabel!
     
     var vm = TransactionCellVM()
+    var ticketName: String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,9 +38,9 @@ extension PendingOrderCell {
         
         let data = pending[indexPath.row]
         
-//        guard let _savedSymbol = vm.getSavedSymbols() else { return }
-//
-//        let savedSymbol = _savedSymbol[indexPath.row]
+        //        guard let _savedSymbol = vm.getSavedSymbols() else { return }
+        //
+        //        let savedSymbol = _savedSymbol[indexPath.row]
         
         // Get saved symbols as a dictionary
         guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
@@ -68,20 +68,39 @@ extension PendingOrderCell {
                 let imageUrl = URL(string: symbolData.icon_url)
                 symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
             }
-//            vm.loadImage(imageUrl: imageUrl) { [weak self] image in
-//                DispatchQueue.main.async {
-//                    self?.symbol_icon.image = image
-//                }
-//            }
+            
         }
         
         lbl_symbolName.text = data.symbol
         
-//        lbl_profitValue.text = "\(data.priceCurrent)"
-     //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
+        if data.type == 0 {
+            ticketName = "Buy"
+            
+        }else if data.type == 1 {
+            ticketName = "Sell"
+            
+        }else if data.type == 2 {
+            ticketName = "Buy Limit"
+            
+        }else if data.type == 3 {
+            ticketName = "Sell Limit"
+            
+        }else if data.type == 4 {
+            ticketName = "Buy Stop"
+            
+        }else if data.type == 5 {
+            ticketName = "Sell Stop"
+        }
         
-//        lbl_openPriceVolume.text = "Buy 1 Lots at " + "\(data.priceOpen)"
+        let volume : Double = Double(data.volume) / Double(10000)
+        lbl_currentPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(data.price)"
         
+//        if data.profit < 0 {
+//            lbl_profitValue.textColor = .systemRed
+//        }else{
+//            lbl_profitValue.textColor = .systemGreen
+//        }
+      
     }
     
 }

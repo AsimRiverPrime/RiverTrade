@@ -416,11 +416,7 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             break
         }
-        
-        
     }
-    
-    
 }
 
 extension DashboardVC: CreateAccountInfoTapDelegate {
@@ -471,7 +467,7 @@ extension DashboardVC: OPCNavigationDelegate {
             
             vc.pendingData = pendingData
             
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
             
             break
         case .close(let closeData):
@@ -480,7 +476,7 @@ extension DashboardVC: OPCNavigationDelegate {
             
             vc.closeData = closeData
             
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
             
             break
         }
@@ -708,3 +704,4 @@ extension DashboardVC {
 
     
 }
+

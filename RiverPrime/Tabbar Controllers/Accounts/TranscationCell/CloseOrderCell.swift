@@ -7,7 +7,6 @@
 
 import UIKit
 import SDWebImage
-import SDWebImageSVGKitPlugin
 
 class CloseOrderCell: UITableViewCell {
 
@@ -78,7 +77,7 @@ extension CloseOrderCell {
         
         lbl_symbolName.text = data.symbol
         
-        let createDate = Date(timeIntervalSince1970: data.timeSetup / 1000.0)
+        let createDate = Date(timeIntervalSince1970: Double(data.time))
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
@@ -88,6 +87,13 @@ extension CloseOrderCell {
         
         lbl_timeValue.text = datee
         
+        if data.profit < 0 {
+            lbl_profitValue.textColor = .systemRed
+        }else{
+            lbl_profitValue.textColor = .systemGreen
+        }
+        
+        lbl_profitValue.text = "\(data.profit)"
 //        lbl_profitValue.text = "\(data.priceCurrent)"
      //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
         

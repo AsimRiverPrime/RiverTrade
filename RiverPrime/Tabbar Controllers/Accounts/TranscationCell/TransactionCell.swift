@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TransactionCell: UITableViewCell {
 
@@ -18,6 +19,7 @@ class TransactionCell: UITableViewCell {
 //    var opcDataList: OPCType?
     
     var vm = TransactionCellVM()
+    var ticketName : String?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -74,7 +76,31 @@ extension TransactionCell {
         lbl_profitValue.text = "\(data.priceCurrent)"
      //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
         
-        lbl_openPriceVolume.text = "Buy 1 Lots at " + "\(data.priceOpen)"
+        
+        if data.action == 0 {
+            ticketName = "Buy"
+            
+        }else if data.action == 1 {
+            ticketName = "Sell"
+            
+        }else if data.action == 2 {
+            ticketName = "Buy Limit"
+            
+        }else if data.action == 3 {
+            ticketName = "Sell Limit"
+            
+        }else if data.action == 4 {
+            ticketName = "Buy Stop"
+            
+        }else if data.action == 5 {
+            ticketName = "Sell Stop"
+            
+        }
+        
+        let volume : Double = Double(data.volume) / Double(10000)
+        print("\(volume)")
+        lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(data.priceOpen)"
+        
         
     }
     

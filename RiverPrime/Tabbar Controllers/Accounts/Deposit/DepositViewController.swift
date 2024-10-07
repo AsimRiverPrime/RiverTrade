@@ -62,7 +62,7 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             if indexPath.section == 0 {
-                return 300.0
+                return 310.0
             }else{
                 return 200.0
             }

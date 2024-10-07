@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //MARK: - App initialization.
         splash(scene: scene)
-        
+//        decideRootViewController()
         
         //MARK: - ProgressBar initialization.
         self.setSVProgressHUD()

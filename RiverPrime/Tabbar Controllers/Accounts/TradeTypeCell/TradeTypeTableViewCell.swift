@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 //struct OPCModel {
 //    var symbol = String()
@@ -33,7 +34,7 @@ protocol OPCDelegate: AnyObject {
 class TradeTypeTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
-    var model: [String] = ["Open","Pending","Close","image"/*,"test","test1","test2","test3"*/]
+    var model: [String] = ["OPEN","PENDING","CLOSED","image"/*,"test","test1","test2","test3"*/]
     var refreshList = ["by instrument", "by volume", "by open time"]
     var selectedIndex = 0
     
@@ -166,10 +167,16 @@ extension TradeTypeTableViewCell {
     func fetchPositions(index: Int) {
         if index == 0 {
             
+//////            ActivityIndicator.shared.showCell(in: self)
+////            activityIndicator.show(in: self.contentView)
+//            SVProgressHUD.show()
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-                    
+//////                    ActivityIndicator.shared.hideCell(from: self!)
+////                    self?.activityIndicator.hide()
+//                    SVProgressHUD.dismiss()
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -192,10 +199,16 @@ extension TradeTypeTableViewCell {
             
         } else if index == 1 {
             
+//////            ActivityIndicator.shared.showCell(in: self)
+////            activityIndicator.show(in: self.contentView)
+//            SVProgressHUD.show()
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-                    
+//////                    ActivityIndicator.shared.hideCell(from: self!)
+////                    self?.activityIndicator.hide()
+//                    SVProgressHUD.dismiss()
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -210,10 +223,16 @@ extension TradeTypeTableViewCell {
             
         } else if index == 2 {
             
+//////            ActivityIndicator.shared.showCell(in: self)
+////            activityIndicator.show(in: self.contentView)
+//            SVProgressHUD.show()
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-                    
+//////                    ActivityIndicator.shared.hideCell(from: self!)
+////                    self?.activityIndicator.hide()
+//                    SVProgressHUD.dismiss()
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {

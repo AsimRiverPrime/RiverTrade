@@ -51,7 +51,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         print("openData = \(openData)")
         self.lbl_symbolName.text = openData?.symbol
         self.lbl_positionNumber.text = "#\(openData?.position ?? 0)"
-        
+       
         //        if openData?.action == 0 {
         //            ticketName = "Buy Ticket"
         //        }else if openData?.action == 1 {
@@ -71,6 +71,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
             ticketName = "Sell Ticket"
         }
         self.lbl_ticketName.text = ticketName
+        
         let time = timeConvert()
         self.lbl_dateTime.text = "Time: " + time
         

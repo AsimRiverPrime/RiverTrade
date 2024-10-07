@@ -37,11 +37,15 @@ class AccountsVC: UIView {
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
     
-    var model: [String] = ["Open","Pending","Close","image"]
+//    var model: [String] = ["Open","Pending","Close","image"]
     
 //    var opcList: (String,[OpenModel]) = ("",[])
     var opcList: OPCType? = .open([])
-
+    
+     let webSocketManager = WebSocketManager.shared
+    
+   var getSymbolData = [SymbolCompleteList]()
+   
     public override func awakeFromNib() {
         
         //MARK: - Handle tableview constraints according to the device logical height.
@@ -154,7 +158,35 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
                     
-                    cell.getCellData(open: openData, indexPath: indexPath)
+                    
+                    
+                    
+                    
+//                    //MARK: - getSymbolData list is comming from symbol api.
+//                    let trade = getSymbolData[indexPath.row].tickMessage
+//                    
+//                    var symbolDataObj: SymbolData?
+//                    
+//                    //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
+//                    if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
+//                        symbolDataObj = obj
+//                    }
+//                    
+//                    if GlobalVariable.instance.isProcessingSymbol { // MARK: - When History data coming from API then IF Statement is working and update chart according to the values.
+//                        GlobalVariable.instance.isProcessingSymbol = false
+//                        let getSymbolData = getSymbolData[indexPath.row]
+////                        cell.configureChart(getSymbolData: getSymbolData)
+//                    } else { //MARK: - Showing the list of Symbols according to the selected sector in else statement.
+////                        cell.configure(with: trade! , symbolDataObj: symbolDataObj)
+//                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    cell.getCellData(open: openData, indexPath: indexPath/*, trade: trade!, symbolDataObj: symbolDataObj*/)
                     
                 }else{
                     cell.isHidden = true
@@ -207,7 +239,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             return 45
             
         }else{
-            return 90
+            return 85.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -312,6 +344,28 @@ extension AccountsVC: OPCDelegate {
         
         refreshSection(at: 2)
         
+        //MARK: - START SOCKET and call delegate method to get data from socket.
+        webSocketManager.delegateSocketMessage = self
+        webSocketManager.delegateSocketPeerClosed = self
+        
+        //MARK: - unsubscribeTrade first.
+        print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+        //MARK: - START calling Socket message from here.
+        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
+        //MARK: - Remove symbol local after unsubcibe.
+        GlobalVariable.instance.previouseSymbolList.removeAll()
+        
+        
+        
+        let symbolList = getFormattedSymbols(opcType: opcType)
+        GlobalVariable.instance.previouseSymbolList = symbolList
+        //MARK: - START calling Socket message from here.
+        webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: symbolList)
+        
+        
+        
+        
+        
 //        switch opcType {
 //        case .open(let openData):
 //
@@ -335,6 +389,85 @@ extension AccountsVC: OPCDelegate {
 //
 //            break
 //        }
+    }
+    
+    private func getSymbol(item: String) -> String {
+        
+        var getSymbol = ""
+        
+        if item.contains("..") {
+            getSymbol = String(item.dropLast())
+            getSymbol = String(getSymbol.dropLast())
+        } else if item.contains(".") {
+            getSymbol = String(item.dropLast())
+        } else {
+            getSymbol = item
+        }
+        
+        return getSymbol
+        
+    }
+    
+    func getFormattedSymbols(opcType: OPCType) -> [String] {
+        
+        switch opcList {
+        case .open(let openData):
+            
+            self.getSymbolData.removeAll()
+            for item in openData {
+                
+                var getSymbol = getSymbol(item: item.symbol)
+                
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+            }
+            
+            return openData.map { symbol in
+                var symbol = symbol
+                
+                var getSymbol = getSymbol(item: symbol.symbol)
+                
+                return getSymbol
+            }
+            
+        case .pending(let pendingData):
+            
+            self.getSymbolData.removeAll()
+            for item in pendingData {
+                
+                var getSymbol = getSymbol(item: item.symbol)
+                
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+            }
+            
+            return pendingData.map { symbol in
+                var symbol = symbol
+                
+                var getSymbol = getSymbol(item: symbol.symbol)
+                
+                return getSymbol
+            }
+            
+        case .close(let closeData):
+            
+            self.getSymbolData.removeAll()
+            for item in closeData {
+                
+                var getSymbol = getSymbol(item: item.symbol)
+                
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+            }
+            
+            return closeData.map { symbol in
+                var symbol = symbol
+                
+                var getSymbol = getSymbol(item: symbol.symbol)
+                
+                return getSymbol
+            }
+            
+        case .none: return []
+        }
+        
     }
     
 //    func getOPCData(opcType: OPCType, openModel: [OpenModel]) {
@@ -437,6 +570,165 @@ extension AccountsVC {
             
         }
         
+    }
+    
+}
+
+
+extension AccountsVC: SocketPeerClosed {
+    
+    func peerClosed() {
+        
+        GlobalVariable.instance.changeSector = true
+        
+//        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+        
+    }
+    
+}
+
+//MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
+extension AccountsVC: GetSocketMessages {
+    
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
+        switch socketMessageType {
+        case .tick:
+            
+            //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
+            if let getTick = tickMessage {
+                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
+                    getSymbolData[index].tickMessage = tickMessage
+
+//                    //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+//                    if getSymbolData[index].isTickFlag ?? false {
+                        let indexPath = IndexPath(row: index, section: 2)
+
+                        switch opcList {
+                        case .open(let openData):
+                            
+                            if let cell = tblView.cellForRow(at: indexPath) as? TransactionCell {
+                                if GlobalVariable.instance.isAccountCreated {
+                                    cell.isHidden = false
+                                    
+                                    //MARK: - getSymbolData list is comming from symbol api.
+                                    let trade = getSymbolData[indexPath.row].tickMessage
+                                    
+                                    var symbolDataObj: SymbolData?
+                                    
+                                    //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
+                                    if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
+                                        symbolDataObj = obj
+                                    }
+                                    
+                                    if GlobalVariable.instance.isProcessingSymbol { // MARK: - When History data coming from API then IF Statement is working and update chart according to the values.
+                                        GlobalVariable.instance.isProcessingSymbol = false
+                                        let getSymbolData = getSymbolData[indexPath.row]
+                                    } else { //MARK: - Showing the list of Symbols according to the selected sector in else statement.
+                                    }
+                                    
+//                                    cell.getCellData(open: openData, indexPath: indexPath, trade: trade!, symbolDataObj: symbolDataObj)
+                                    
+                                    let profitLoss: Double = Double(openData[indexPath.row].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                    
+                                    if profitLoss < 0.0 {
+                                        cell.lbl_profitValue.textColor = .systemRed
+                                        let roundValue = String(format: "%.2f", profitLoss)
+                                        
+                                        cell.lbl_profitValue.text = "\(roundValue)"
+                                    }else{
+                                        cell.lbl_profitValue.textColor = .systemGreen
+                                        let roundValue = String(format: "%.2f", profitLoss)
+                                        
+                                        cell.lbl_profitValue.text = "\(roundValue)"
+                                    }
+                                    
+                                    let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                    cell.lbl_currentPrice.text = "\(bidValuess)"
+                                    
+                                }else{
+                                    cell.isHidden = true
+                                }
+                            }
+                            
+                        case .pending(let pendingData):
+                            
+                            if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
+                                if GlobalVariable.instance.isAccountCreated {
+                                    cell.isHidden = false
+                                    
+//                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
+                                    
+                                    
+                                }else{
+                                    cell.isHidden = true
+                                }
+                            }
+                            
+                        case .close(let closeData):
+                            
+                            if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
+                                if GlobalVariable.instance.isAccountCreated {
+                                    cell.isHidden = false
+                                    
+//                                    cell.getCellData(close: closeData, indexPath: indexPath)
+                                    
+//                                    cell.lbl_timeValue.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+                                    
+                                }else{
+                                    cell.isHidden = true
+                                }
+                            }
+                            
+                        case .none:break
+                            
+                        }
+                        
+//                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must relad the compared symbol index only.
+////                        refreshSectionRow(at: 2, row: index)
+//                        getSymbolData[index].isTickFlag = true
+//                    }
+                    
+                    return
+                }
+            }
+
+            break
+        case .history:
+            
+            if let getHistory = historyMessage {
+                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
+                    getSymbolData[index].historyMessage = historyMessage
+                    
+                    let indexPath = IndexPath(row: index, section: 2)
+                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                        cell.configureChart(getSymbolData: getSymbolData[index])
+                    }
+                    
+                    return
+                }
+            }
+
+            break
+            
+        case .Unsubscribed:
+            
+            //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
+            
+            GlobalVariable.instance.changeSector = true
+            
+//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+            
+            if webSocketManager.isSocketConnected() {
+                print("Socket is connected")
+            } else {
+                print("Socket is not connected")
+                //MARK: - START SOCKET.
+                webSocketManager.delegateSocketMessage = self
+                webSocketManager.connectWebSocket()
+            }
+            
+            break
+        }
     }
     
 }
