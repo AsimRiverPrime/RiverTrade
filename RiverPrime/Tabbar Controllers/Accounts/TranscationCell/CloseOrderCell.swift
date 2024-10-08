@@ -42,63 +42,56 @@ extension CloseOrderCell {
 //        let savedSymbol = _savedSymbol[indexPath.row]
         
         // Get saved symbols as a dictionary
-        guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
-            return
-        }
-        
-        var getSymbol = ""
-        
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
-            getSymbol = String(data.symbol.dropLast())
-        } else {
-            getSymbol = data.symbol
-        }
-        
-        // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            // Return the icon_url if a match is found
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else {
-                let imageUrl = URL(string: symbolData.icon_url)
-                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+        if data.entry == 1 {
+            guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
+                return
             }
-           
-//            vm.loadImage(imageUrl: imageUrl) { [weak self] image in
-//                DispatchQueue.main.async {
-//                    self?.symbol_icon.image = image
-//                }
-//            }
+            
+            var getSymbol = ""
+            
+            if data.symbol.contains("..") {
+                getSymbol = String(data.symbol.dropLast())
+                getSymbol = String(getSymbol.dropLast())
+            } else if data.symbol.contains(".") {
+                getSymbol = String(data.symbol.dropLast())
+            } else {
+                getSymbol = data.symbol
+            }
+            
+            // Retrieve the symbol data using the name as the key
+            if let symbolData = savedSymbolsDict[getSymbol] {
+                // Return the icon_url if a match is found
+                if symbolData.name == "Platinum" {
+                    let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                    symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+                }else {
+                    let imageUrl = URL(string: symbolData.icon_url)
+                    symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+                }
+                
+            }
+            
+            lbl_symbolName.text = data.symbol
+            
+            let createDate = Date(timeIntervalSince1970: Double(data.time))
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+            dateFormatter.timeZone = .current
+            
+            let datee = dateFormatter.string(from: createDate)
+            
+            lbl_timeValue.text = datee
+            
+            if data.profit < 0 {
+                lbl_profitValue.textColor = .systemRed
+            }else{
+                lbl_profitValue.textColor = .systemGreen
+            }
+            
+            lbl_profitValue.text = "\(data.profit)"
+          
         }
-        
-        lbl_symbolName.text = data.symbol
-        
-        let createDate = Date(timeIntervalSince1970: Double(data.time))
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        dateFormatter.timeZone = .current
-        
-        let datee = dateFormatter.string(from: createDate)
-        
-        lbl_timeValue.text = datee
-        
-        if data.profit < 0 {
-            lbl_profitValue.textColor = .systemRed
-        }else{
-            lbl_profitValue.textColor = .systemGreen
-        }
-        
-        lbl_profitValue.text = "\(data.profit)"
-//        lbl_profitValue.text = "\(data.priceCurrent)"
-     //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
-        
-//        lbl_openPriceVolume.text = "Buy 1 Lots at " + "\(data.priceOpen)"
-        
     }
     
    

@@ -239,6 +239,8 @@ extension TradeTypeTableViewCell {
                             print("Error fetching positions: \(error)")
                             // Handle the error (e.g., show an alert)
                         } else if let orders = closeData {
+                          
+                            
                             self?.delegate?.getOPCData(opcType: .close(orders))
                         }
                     }
@@ -248,6 +250,7 @@ extension TradeTypeTableViewCell {
         }
     }
     
+   
 }
 
 /*

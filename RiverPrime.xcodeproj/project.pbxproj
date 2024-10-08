@@ -78,6 +78,8 @@
 		315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */; };
 		315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB092C4FA05700C4F8C0 /* ProfileVC.xib */; };
 		315DDB0C2C4FA06700C4F8C0 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB0B2C4FA06700C4F8C0 /* ProfileVC.swift */; };
+		315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */; };
+		315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */; };
 		3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EC2C47D0540055F093 /* MarketsViewController.swift */; };
 		3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */; };
 		3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */; };
@@ -382,6 +384,8 @@
 		315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
 		315DDB092C4FA05700C4F8C0 /* ProfileVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileVC.xib; sourceTree = "<group>"; };
 		315DDB0B2C4FA06700C4F8C0 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
+		315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketSectionCell.swift; sourceTree = "<group>"; };
+		315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseTicketSectionCell.xib; sourceTree = "<group>"; };
 		3164C5EC2C47D0540055F093 /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
 		3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -827,6 +831,8 @@
 			children = (
 				3105DECB2CB3E8A400D1B884 /* CloseTicketTBCell.swift */,
 				3105DECC2CB3E8A400D1B884 /* CloseTicketTBCell.xib */,
+				315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */,
+				315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */,
 			);
 			path = closeTicket_TVCell;
 			sourceTree = "<group>";
@@ -2063,6 +2069,7 @@
 				31F3D27A2C8EF90F004E120F /* BottomSheetPopups.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */,
+				315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */,
 				31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */,
 				FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */,
 				3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */,
@@ -2345,6 +2352,7 @@
 				3105DEF92CB3E8A400D1B884 /* SelectAccountTypeCell.swift in Sources */,
 				3105DEFA2CB3E8A400D1B884 /* SelectAccountTypeVC.swift in Sources */,
 				3105DEFB2CB3E8A400D1B884 /* OpenTicketBottomSheetVC.swift in Sources */,
+				315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */,
 				3105DEFC2CB3E8A400D1B884 /* TransactionCellVM.swift in Sources */,
 				3105DEFD2CB3E8A400D1B884 /* PendingOrderCell.swift in Sources */,
 				3105DEFE2CB3E8A400D1B884 /* DepositViewController.swift in Sources */,

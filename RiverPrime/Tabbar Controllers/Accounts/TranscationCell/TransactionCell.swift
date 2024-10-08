@@ -73,7 +73,7 @@ extension TransactionCell {
         }
         
         lbl_symbolName.text = data.symbol
-        lbl_profitValue.text = "\(data.priceCurrent)"
+//        lbl_profitValue.text = "\(data.priceCurrent)"
      //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
         
         

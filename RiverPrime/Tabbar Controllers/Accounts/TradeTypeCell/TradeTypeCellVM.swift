@@ -272,16 +272,20 @@ class TradeTypeCellVM {
                         } else if index == 2 {
                             
                             let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                            var orders = try JSONDecoder().decode([CloseModel].self, from: jsonData)
                             
-                            if orders.count != 0 {
+                            
+                            var orders = try JSONDecoder().decode([CloseModel].self, from: jsonData)
+                            var filteredOrders = [CloseModel]()
+                            if orders.count != 0  {
+                                var filteredOrders = orders.filter { $0.entry == 1 }
                                 
                                 var data = [CloseModel]()
-                                data = orders
-                                data.remove(at: 0)
-                                
-                                orders = data
-                                
+                                    
+                                data = filteredOrders
+//                                    data.remove(at: 0)
+                                    
+                                filteredOrders = data
+                                orders = filteredOrders
                             }
                             
                             completion(nil, nil, orders, nil) // Pass positions to completion
@@ -303,5 +307,6 @@ class TradeTypeCellVM {
         }
         
     }
+    
     
 }

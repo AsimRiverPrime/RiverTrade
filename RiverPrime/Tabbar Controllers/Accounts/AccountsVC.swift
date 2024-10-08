@@ -118,6 +118,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             case .pending(let pending):
                 return pending.count
             case .close(let close):
+                
                 return close.count
             case .none:
                 return 0
@@ -157,34 +158,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
-                    
-                    
-                    
-                    
-                    
-//                    //MARK: - getSymbolData list is comming from symbol api.
-//                    let trade = getSymbolData[indexPath.row].tickMessage
-//                    
-//                    var symbolDataObj: SymbolData?
-//                    
-//                    //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
-//                    if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
-//                        symbolDataObj = obj
-//                    }
-//                    
-//                    if GlobalVariable.instance.isProcessingSymbol { // MARK: - When History data coming from API then IF Statement is working and update chart according to the values.
-//                        GlobalVariable.instance.isProcessingSymbol = false
-//                        let getSymbolData = getSymbolData[indexPath.row]
-////                        cell.configureChart(getSymbolData: getSymbolData)
-//                    } else { //MARK: - Showing the list of Symbols according to the selected sector in else statement.
-////                        cell.configure(with: trade! , symbolDataObj: symbolDataObj)
-//                    }
-                    
-                    
-                    
-                    
-                    
-                    
+                  
                     
                     cell.getCellData(open: openData, indexPath: indexPath/*, trade: trade!, symbolDataObj: symbolDataObj*/)
                     
@@ -363,32 +337,6 @@ extension AccountsVC: OPCDelegate {
         webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: symbolList)
         
         
-        
-        
-        
-//        switch opcType {
-//        case .open(let openData):
-//
-////            self.opcList.0 = "Open"
-////            self.opcList.1.removeAll()
-////            self.opcList.1 = openData
-//
-//            self.opcList = openData
-//
-//            refreshSection(at: 2)
-//
-//            break
-//
-//        case .close(let closeData):
-//
-////            self.opcList.0 = "Close"
-////            self.opcList.1.removeAll()
-////            self.opcList.1 = closeData
-//
-//            refreshSection(at: 2)
-//
-//            break
-//        }
     }
     
     private func getSymbol(item: String) -> String {
@@ -470,44 +418,6 @@ extension AccountsVC: OPCDelegate {
         
     }
     
-//    func getOPCData(opcType: OPCType, openModel: [OpenModel]) {
-////        print("OPC Result")
-//        print("opcType = \(opcType)")
-//        print("openModel = \(openModel)")
-//        switch opcType {
-//        case .open:
-//
-//            self.opcList.0 = "Open"
-//            self.opcList.1.removeAll()
-//            self.opcList.1 = openModel
-//
-//            refreshSection(at: 2)
-//
-//            break
-//        case .pending:
-//
-//
-//            break
-//        case .close:
-//
-//
-//            break
-//
-//        }
-//    }
-//
-//    func getOPCData(opcType: OPCType, closeModel: [CloseModel]) {
-//
-//        print("opcType = \(opcType)")
-//        print("closeModel = \(closeModel)")
-//
-//        self.opcList.0 = "Close"
-//        self.opcList.1.removeAll()
-//        self.opcList.1 = closeModel
-//
-//        refreshSection(at: 2)
-//
-//    }
     
 }
 
@@ -596,6 +506,8 @@ extension AccountsVC: GetSocketMessages {
             
             //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
             if let getTick = tickMessage {
+//                let matchedSymbols = getSymbolData.filter { $0.tickMessage?.symbol == getTick.symbol }
+
                 if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
                     getSymbolData[index].tickMessage = tickMessage
 
@@ -606,49 +518,52 @@ extension AccountsVC: GetSocketMessages {
                         switch opcList {
                         case .open(let openData):
                             
-                            if let cell = tblView.cellForRow(at: indexPath) as? TransactionCell {
-                                if GlobalVariable.instance.isAccountCreated {
-                                    cell.isHidden = false
-                                    
-                                    //MARK: - getSymbolData list is comming from symbol api.
-                                    let trade = getSymbolData[indexPath.row].tickMessage
-                                    
-                                    var symbolDataObj: SymbolData?
-                                    
-                                    //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
-                                    if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
-                                        symbolDataObj = obj
-                                    }
-                                    
-                                    if GlobalVariable.instance.isProcessingSymbol { // MARK: - When History data coming from API then IF Statement is working and update chart according to the values.
-                                        GlobalVariable.instance.isProcessingSymbol = false
-                                        let getSymbolData = getSymbolData[indexPath.row]
-                                    } else { //MARK: - Showing the list of Symbols according to the selected sector in else statement.
-                                    }
-                                    
-//                                    cell.getCellData(open: openData, indexPath: indexPath, trade: trade!, symbolDataObj: symbolDataObj)
-                                    
-                                    let profitLoss: Double = Double(openData[indexPath.row].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                    
-                                    if profitLoss < 0.0 {
-                                        cell.lbl_profitValue.textColor = .systemRed
-                                        let roundValue = String(format: "%.2f", profitLoss)
+                            //MARK: - Get All Matched Symbols data and Set accordingly.
+                            
+                            for i in 0...openData.count-1 {
+                                
+//                                        for item in matchedSymbols {
+//                                            if item.tickMessage?.symbol ==
+//                                        }
+                                
+                                let myIndexPath = IndexPath(row: i, section: 2)
+                                
+                                if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
+                                    if GlobalVariable.instance.isAccountCreated {
+                                        cell.isHidden = false
                                         
-                                        cell.lbl_profitValue.text = "\(roundValue)"
+//                                        print("cell.lbl_symbolName.text = \(cell.lbl_symbolName.text)")
+//                                        print("openData[\(i)].symbol = \(openData[index].symbol)")
+                                        if cell.lbl_symbolName.text == openData[index].symbol {
+                                            
+                                            let profitLoss: Double = Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                            
+                                            if profitLoss < 0.0 {
+                                                cell.lbl_profitValue.textColor = .systemRed
+                                                let roundValue = String(format: "%.2f", profitLoss)
+                                                
+                                                cell.lbl_profitValue.text = "\(roundValue)"
+                                            }else{
+                                                cell.lbl_profitValue.textColor = .systemGreen
+                                                let roundValue = String(format: "%.2f", profitLoss)
+                                                
+                                                cell.lbl_profitValue.text = "\(roundValue)"
+                                            }
+                                            
+                                            let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                            cell.lbl_currentPrice.text = "\(bidValuess)"
+                                            
+                                            
+                                        }
+                                        
+                                        
                                     }else{
-                                        cell.lbl_profitValue.textColor = .systemGreen
-                                        let roundValue = String(format: "%.2f", profitLoss)
-                                        
-                                        cell.lbl_profitValue.text = "\(roundValue)"
+                                        cell.isHidden = true
                                     }
-                                    
-                                    let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                    cell.lbl_currentPrice.text = "\(bidValuess)"
-                                    
-                                }else{
-                                    cell.isHidden = true
                                 }
                             }
+                            
+                         
                             
                         case .pending(let pendingData):
                             
@@ -670,9 +585,6 @@ extension AccountsVC: GetSocketMessages {
                                 if GlobalVariable.instance.isAccountCreated {
                                     cell.isHidden = false
                                     
-//                                    cell.getCellData(close: closeData, indexPath: indexPath)
-                                    
-//                                    cell.lbl_timeValue.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                                     
                                 }else{
                                     cell.isHidden = true
@@ -683,7 +595,7 @@ extension AccountsVC: GetSocketMessages {
                             
                         }
                         
-//                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must relad the compared symbol index only.
+//                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must reload the compared symbol index only.
 ////                        refreshSectionRow(at: 2, row: index)
 //                        getSymbolData[index].isTickFlag = true
 //                    }
@@ -732,3 +644,4 @@ extension AccountsVC: GetSocketMessages {
     }
     
 }
+

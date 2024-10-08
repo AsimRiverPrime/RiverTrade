@@ -89,7 +89,7 @@ class DashboardVC: BaseViewController {
 //            webSocketManager.delegateSocketMessage = self
 //            webSocketManager.delegateSocketPeerClosed = self
             webSocketManager.connectWebSocket()
-            
+            webSocketManager.connectHistoryWebSocket()
             setAccountsButton()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)

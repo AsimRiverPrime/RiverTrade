@@ -41,25 +41,25 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsS-Y9-hxc">
-                                <rect key="frame" x="9.9999999999999982" y="55.666666666666664" width="27.333333333333329" height="13.333333333333336"/>
+                                <rect key="frame" x="10" y="55.666666666666664" width="31" height="13.333333333333336"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
                                             <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                            <font key="NSFont" metaFont="system" size="12"/>
+                                            <font key="NSFont" metaFont="cellTitle"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h09-Be-YFe">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P/L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h09-Be-YFe">
                                 <rect key="frame" x="406" y="25.999999999999996" width="19" height="14.333333333333332"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YOV-vZ-YGR">
-                                <rect key="frame" x="377" y="45.333333333333336" width="48" height="14.333333333333336"/>
+                                <rect key="frame" x="377" y="25.999999999999996" width="48" height="14.333333333333332"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
@@ -71,12 +71,12 @@
                             <constraint firstAttribute="trailing" secondItem="YOV-vZ-YGR" secondAttribute="trailing" constant="20" id="4Ii-X2-ulq"/>
                             <constraint firstItem="MsS-Y9-hxc" firstAttribute="top" secondItem="bma-Lz-UWE" secondAttribute="bottom" constant="5" id="6OE-zP-09o"/>
                             <constraint firstAttribute="trailing" secondItem="h09-Be-YFe" secondAttribute="trailing" constant="20" id="91O-1F-QaJ"/>
+                            <constraint firstItem="YOV-vZ-YGR" firstAttribute="centerY" secondItem="x1n-Gc-f2s" secondAttribute="centerY" id="9qd-2F-ctG"/>
                             <constraint firstItem="8Bm-jG-W7H" firstAttribute="leading" secondItem="bma-Lz-UWE" secondAttribute="trailing" constant="8" id="D8H-yF-ziV"/>
                             <constraint firstItem="bma-Lz-UWE" firstAttribute="centerY" secondItem="x1n-Gc-f2s" secondAttribute="centerY" id="FUH-rA-A3k"/>
                             <constraint firstItem="h09-Be-YFe" firstAttribute="centerY" secondItem="8Bm-jG-W7H" secondAttribute="centerY" id="VZT-CL-WTH"/>
                             <constraint firstItem="8Bm-jG-W7H" firstAttribute="centerY" secondItem="bma-Lz-UWE" secondAttribute="centerY" id="aOl-yH-wxE"/>
                             <constraint firstItem="bma-Lz-UWE" firstAttribute="leading" secondItem="x1n-Gc-f2s" secondAttribute="leading" constant="10" id="afE-IS-nFQ"/>
-                            <constraint firstItem="YOV-vZ-YGR" firstAttribute="top" secondItem="h09-Be-YFe" secondAttribute="bottom" constant="5" id="giy-KB-zle"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
