@@ -18,8 +18,16 @@ protocol CreateAccountInfoTapDelegate: AnyObject {
 enum OPCNavigationType {
     case open(OpenModel)
     case pending(PendingModel)
-    case close(CloseModel)
+    case close((String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double))
 }
+
+//    var order = Int()//6
+//    var entry = Int()//7
+//    var action = Int()//8
+//    var volume = Int()//9
+//    var price = Double()//10
+//    var profit = Double()//11
+//    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
 
 protocol OPCNavigationDelegate: AnyObject {
     func navigateOPC(_ opcNavigationType: OPCNavigationType)
@@ -389,7 +397,7 @@ extension AccountsVC: OPCDelegate {
             self.getSymbolData.removeAll()
             for item in closeData {
                 
-                var getSymbol = getSymbol(item: item.symbol)
+                var getSymbol = getSymbol(item: item.0)
                 
                 self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
             }
@@ -397,7 +405,7 @@ extension AccountsVC: OPCDelegate {
             return closeData.map { symbol in
                 var symbol = symbol
                 
-                var getSymbol = getSymbol(item: symbol.symbol)
+                var getSymbol = getSymbol(item: symbol.0)
                 
                 return getSymbol
             }

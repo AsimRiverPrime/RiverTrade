@@ -47,6 +47,9 @@ class SignInViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
       
+        username_tf.text = "asimprime900@gmail.com"
+        password_tf.text = "asdasd"
+        
     }
     
     @IBAction func rememberMeBtn(_ sender: Any) {

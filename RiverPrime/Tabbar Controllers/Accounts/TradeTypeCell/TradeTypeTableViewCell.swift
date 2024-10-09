@@ -15,9 +15,20 @@ import SVProgressHUD
 enum OPCType {
     case open([OpenModel])
     case pending([PendingModel])
-    case close([CloseModel])
+    case close([(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)])
 }
 
+
+//    var order = Int()//6
+//    var entry = Int()//7
+//    var action = Int()//8
+//    var volume = Int()//9
+//    var price = Double()//10
+//    var profit = Double()//11
+//    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
+
+
+//var newCloseList = [(String,[CloseModel],Int,[Double],Double,[CloseModel])]()
 
 //enum OPCType {
 //    case open

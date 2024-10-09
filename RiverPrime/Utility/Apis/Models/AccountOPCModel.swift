@@ -99,3 +99,59 @@ struct CloseModel: Codable {
         case marketAsk = "market_ask"
     }
 }
+
+//new postion array without zero + time + symbol + profit/loss + repeated values against symbols
+//Model
+//var groupedModels: [(String,[CloseModel],Int,[Double],Double)] = [("",[],0,[],0.0)]
+
+////MARK: - New close Model
+//struct NewCloseModel {
+//    var filteredArray = [CloseModel]()
+//    var time = Int()
+//    var symbol = String()
+//    var profitLoss = Double()
+//    var repeatedSymbolList = [CloseModel]()
+//}
+
+////MARK: - New close Model
+//struct NewCloseModel {
+//    var symbol = String()
+//    var filteredArray = [CloseModel]()
+//    var time = Int()
+//    var profitLoss = [Double]()
+//    var totalProfit = Double()
+//    var order = Int()//5
+//    var entry = Int()//6
+//    var action = Int()//7
+//    var volume = Int()//8
+//    var price = Double()//9
+//    var profit = Double()//10
+////    var repeatedSymbolList = [CloseModel]()
+//}
+
+////// MARK: - SummaryCloseModel
+////struct SummaryCloseModel {
+////    let latestTime: Int
+////    let repeatedSymbols: [CloseModel]
+////    let symbolStrings: [String]
+////    let profitValues: [Double]
+////    let nonZeroPositionValues: [CloseModel]
+////}
+//
+//// MARK: - SummaryCloseModel
+//struct SummaryCloseModel {
+//    let latestTime: Int
+//    let repeatedSymbols: [CloseModel]
+//    let symbolProfitList: [(time: Int, symbol: String, profit: Double)]
+//    let symbolStrings: [String]
+//    let profitValues: [Double]
+//    let nonZeroPositionValues: [CloseModel]
+//}
+//
+//
+////get all these values from the CloseModel and make a new model.
+////repeatedSymbols only as a CloseModel + Latest time from compared time + get symbol as a string from the repeated symbols + and profit value and last get all fillter array in which position is not 0.
+////
+////get time, symbol and profit against every symbol in the list.
+////
+////use only one model like: SummaryCloseModel don't use SymbolProfitModel seperatly

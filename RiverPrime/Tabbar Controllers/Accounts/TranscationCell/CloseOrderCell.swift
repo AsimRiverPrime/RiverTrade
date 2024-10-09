@@ -33,7 +33,7 @@ class CloseOrderCell: UITableViewCell {
 
 extension CloseOrderCell {
     
-    func getCellData(close: [CloseModel], indexPath: IndexPath) {
+    func getCellData1(close: [CloseModel], indexPath: IndexPath) {
         
         let data = close[indexPath.row]
         
@@ -94,5 +94,70 @@ extension CloseOrderCell {
         }
     }
     
+    ////var newCloseList = [(String,[CloseModel],Int,[Double],Double,[CloseModel])]()
+    
+    
+    //    var order = Int()//6
+    //    var entry = Int()//7
+    //    var action = Int()//8
+    //    var volume = Int()//9
+    //    var price = Double()//10
+    //    var profit = Double()//11
+    //    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
+
+    
+    func getCellData(close: [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)], indexPath: IndexPath) {
+        
+        let data = close[indexPath.row]
+        
+        guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
+            return
+        }
+        
+        var getSymbol = ""
+        
+        if data.0.contains("..") {
+            getSymbol = String(data.0.dropLast())
+            getSymbol = String(getSymbol.dropLast())
+        } else if data.0.contains(".") {
+            getSymbol = String(data.0.dropLast())
+        } else {
+            getSymbol = data.0
+        }
+        
+        // Retrieve the symbol data using the name as the key
+        if let symbolData = savedSymbolsDict[getSymbol] {
+            // Return the icon_url if a match is found
+            if symbolData.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else {
+                let imageUrl = URL(string: symbolData.icon_url)
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+            
+        }
+        
+        lbl_symbolName.text = data.0
+        
+        let createDate = Date(timeIntervalSince1970: Double(data.2))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+        
+        lbl_timeValue.text = datee
+        
+        if data.4 < 0 {
+            lbl_profitValue.textColor = .systemRed
+        }else{
+            lbl_profitValue.textColor = .systemGreen
+        }
+        
+        lbl_profitValue.text = "\(data.4)"
+        
+    }
    
 }
