@@ -39,6 +39,9 @@ class OpenTicketBottomSheetVC: BaseViewController {
     var ticketName: String?
     //    var openData: OPCNavigationType?
     var openData: OpenModel?
+    var vol: Double?
+    
+    var viewModel = TradeTypeCellVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,6 +55,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         self.lbl_symbolName.text = openData?.symbol
         self.lbl_positionNumber.text = "#\(openData?.position ?? 0)"
        
+        vol = Double(openData?.volume ?? 0) / 10000
         //        if openData?.action == 0 {
         //            ticketName = "Buy Ticket"
         //        }else if openData?.action == 1 {
@@ -77,7 +81,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
+        closeBtnEnable()
     }
     
     func timeConvert() -> String {
@@ -100,13 +104,14 @@ class OpenTicketBottomSheetVC: BaseViewController {
         
         if sender.isOn {
             self.partialClose_View.isUserInteractionEnabled = true
-            self.tf_partialClose.text = "\(openData?.priceOpen ?? 0)"
-            self.currentValue1 = openData?.priceOpen ?? 0
+            self.tf_partialClose.text = "\(vol ?? 0)"
+            self.currentValue1 = (vol ?? 0)
             btn_closePosition.setTitle("Partial Close", for: .normal)
         }else{
             self.partialClose_View.isUserInteractionEnabled = false
             btn_closePosition.setTitle("Close Postion", for: .normal)
         }
+//        closeBtnEnable()
     }
     
     @IBAction func partialMinus_actoin(_ sender: Any) {
@@ -139,11 +144,11 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.takeProfit_View.isUserInteractionEnabled = true
             self.tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
             self.currentValue2 = openData?.takeProfit ?? 0
-           
         }else{
             self.takeProfit_View.isUserInteractionEnabled = false
             self.tf_takeProfit.text = ""
         }
+        closeBtnEnable()
     }
     
     @IBAction func stopLossMinus_action(_ sender: Any) {
@@ -163,6 +168,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func stopLoss_Switch(_ sender: UISwitch) {
+        
         if sender.isOn {
             self.stopLoss_view.isUserInteractionEnabled = true
             self.tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
@@ -171,6 +177,15 @@ class OpenTicketBottomSheetVC: BaseViewController {
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
             self.tf_stopLoss.text = ""
+        }
+        closeBtnEnable()
+    }
+    
+    func closeBtnEnable() {
+        if partialCose_switch.isOn || takeProfit_switch.isOn || stopLoss_switch.isOn {
+            self.btn_closePosition.isEnabled = false
+        }else{
+            self.btn_closePosition.isEnabled = true
         }
     }
     
@@ -181,6 +196,18 @@ class OpenTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func closePosition_action(_ sender: Any) {
+      
+        vol = Double("\(tf_partialClose.text ?? "")")
+        
+        var type = openData?.action
+        if type == 1 {
+            type = 0
+        }else{
+            type = 1
+        }
+        
+        viewModel.orderClosed(symbol: openData?.symbol ?? "", type: type!, volume: vol ?? 0, price: 0, position: openData?.position ?? 0)
+        
     }
     
     @IBAction func save_action(_ sender: Any) {

@@ -9,7 +9,6 @@ import UIKit
 
 protocol AccountInfoTapDelegate: AnyObject {
     func accountInfoTap(_ accountInfo: AccountInfo)
-    
 }
 
 protocol CreateAccountInfoTapDelegate: AnyObject {
@@ -36,10 +35,7 @@ class AccountsVC: UIView {
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
-    
-//    var model: [String] = ["Open","Pending","Close","image"]
-    
-//    var opcList: (String,[OpenModel]) = ("",[])
+
     var opcList: OPCType? = .open([])
     
      let webSocketManager = WebSocketManager.shared
@@ -52,14 +48,7 @@ class AccountsVC: UIView {
 //        setTableViewLayoutConstraints()
         setTableViewLayoutTopConstraints()
         
-        /*
-        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-            
-        } else { //MARK: - if no account exist.
-            
-        }
-        */
-        
+       
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
                 AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self

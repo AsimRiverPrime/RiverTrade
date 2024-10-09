@@ -61,37 +61,6 @@ class TradeTableViewCell: UITableViewCell {
         return cell
     }
     
-    @objc private func chartDataUpdated(_ notification: Notification) {
-//        if let response = notification.object as? SymbolChartData {
-//                // Store the chart data based on the symbol
-//
-////            if GlobalVariable.instance.historyChartData.count == 0 {
-////                GlobalVariable.instance.historyChartData.append(response)
-////                print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
-////
-////                setupChart(for: response.symbol, with: response)
-////            }
-////
-////            if GlobalVariable.instance.historyChartData.count > 1 {
-////                for history in GlobalVariable.instance.historyChartData {
-////                    if !response.symbol.contains(history.symbol) {
-////                        GlobalVariable.instance.historyChartData.append(response)
-////                        print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
-////
-////                        setupChart(for: response.symbol, with: response)
-////                    } else {
-//////                    GlobalVariable.instance.isStopHistory = true
-////                    }
-////                }
-////            }
-//            GlobalVariable.instance.isStopHistory = true
-//            GlobalVariable.instance.historyChartData.append(response)
-//                print("\n history chart Data: \(GlobalVariable.instance.historyChartData)\n")
-//
-//            setupChart(for: response.symbol, with: response)
-////            setupChart(for: response.message.payload.symbol, with: response)
-//            }
-    }
    
     private func setupChart(for symbol: String, with chartData: [ChartData]) {
         // Check if the chart has already been created for the symbol
@@ -214,21 +183,12 @@ class TradeTableViewCell: UITableViewCell {
         lblPercent.textColor = trade.ask < 1 ? .systemRed : .systemGreen
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
-            lblCurrencyName.text = symbol.description
             
-//            let svgCoder = SDImageSVGKCoder.shared
-//            SDImageCodersManager.shared.addCoder(svgCoder)
+            let trimString = removeParentheses(from: symbol.description)
+            lblCurrencyName.text = trimString
+            
             print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
-
-            
-           // currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"), options: [], context: nil)
             currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            
-            
-//            // Use SDWebImage to load the SVG image
-//            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(systemName: "photo"), options: [], context: [.imageCoder : SDImageSVGKCoder.shared])
-                
-//            currencyICon.downloaded(from: imageUrl)
             
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
@@ -241,6 +201,19 @@ class TradeTableViewCell: UITableViewCell {
         
     }
     
+    func removeParentheses(from input: String) -> String {
+            let pattern = "\\s*\\([^)]*\\)"  // Regular expression pattern to match parentheses and content
+            let regex = try! NSRegularExpression(pattern: pattern, options: [])
+            let range = NSRange(location: 0, length: input.utf16.count)
+            
+            // Replacing the matched part (parentheses and content inside) with an empty string
+            let trimmedString = regex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "")
+            
+            return trimmedString.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+
+    
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -250,7 +223,7 @@ class TradeTableViewCell: UITableViewCell {
 extension String {
     func trimmedTrailingZeros() -> String {
         if let doubleValue = Double(self) {
-            return String(format: "%.4f", doubleValue)
+            return String(format: "%.3f", doubleValue)
         }
         return self
     }

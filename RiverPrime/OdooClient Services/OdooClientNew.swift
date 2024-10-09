@@ -11,7 +11,6 @@ import Alamofire
 
 class OdooClientNew {
     
-    var indicate = BaseViewController()
     
     var createRequestBool : Bool = false
     
@@ -31,7 +30,7 @@ class OdooClientNew {
     
     var uid = UserDefaults.standard.integer(forKey: "uid")
     
-    func authenticate() {
+    func authenticate1() {
         let methodName = "login"
         
         let parametersValue: [String: Any] = [
@@ -68,7 +67,38 @@ class OdooClientNew {
         }
     }
     
-    func sendOTP(type: String, email: String, phone: String) {
+    func authenticate() {
+        
+        let methodName = "login"
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method": "execute_kw",  // Correct method name as per Postman
+            "id": 9105,  // The request ID
+            "params": [
+                "method": methodName,  // Method inside "params" should be "login"
+                "service": "common",  // Object
+                "args": [
+                    dataBaseName,   // Your database name
+                    dbUserName,     // Your username
+                    dbPassword      // Your password (hashed)
+                ]
+            ]
+        ]
+        
+        print("the params is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
+            
+            guard let data = result.data else { return }
+            
+            self.saveUserIdFromJSONData(data)
+            
+        }
+        
+    }
+    
+    func sendOTP1(type: String, email: String, phone: String) {
         
        
         
@@ -132,7 +162,66 @@ class OdooClientNew {
             }
     }
     
-    func verifyOTP(type: String, email: String, phone: String, otp: String) {
+    func sendOTP(type: String, email: String, phone: String) {
+        
+       
+        
+        let jsonrpcBody: [String: Any] = [
+               "jsonrpc": "2.0",
+               
+               "params": [
+                   "service": "object",
+                   "method": "execute_kw",
+                   "args": [
+                       dataBaseName,    // Your database name
+                       uid,             // Your user ID
+                       dbPassword,      // Your password
+                       "mt.middleware", // The model you're calling
+                       "send_otp",      // The method to be executed
+                       [
+                           [],           // Empty list as per Postman
+                           email,        // Email address
+                           type,         // Type (e.g., "email")
+                           phone         // Phone number or empty string
+                       ]
+                   ]
+               ]
+           ]
+        
+        print("json params is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("value is: \(value)")
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool {  // Expecting a boolean here
+                    
+                    if status {
+                        print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
+                        self.otpDelegate?.otpSuccess(response: result)
+                    //   self.indicate.ToastMessage("Please check Your email for OTP")
+                        
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+                        self.otpDelegate?.otpFailure(error: error)
+                        print("this is send otp (success) error response of type \(type) : \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                    self.otpDelegate?.otpFailure(error: error)
+                    print("this is send otp Error response of type \(type) : \(error)")
+                }
+            case .failure(let error):
+                self.otpDelegate?.otpFailure(error: error)    // Handle the network or other failure, e.g.,
+                print("this is send otp error response: \(error)")
+            }
+        }
+        
+    }
+    
+    func verifyOTP1(type: String, email: String, phone: String, otp: String) {
         
         let parametersValue: [String: Any] = [
                "jsonrpc": "2.0",
@@ -174,7 +263,7 @@ class OdooClientNew {
                        let status = result["success"] as? Bool {  // Expecting a boolean here
                         if status {
                             print("\n this is the SUCCESS response of verify OTP: \(type) and response is \(json)\n")
-                            self.verifyDelegate?.otpVerifySuccess(response: result)  
+                            self.verifyDelegate?.otpVerifySuccess(response: result)
                            
                         } else {
                             let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
@@ -195,6 +284,67 @@ class OdooClientNew {
             }
         
     }
+    
+    func verifyOTP(type: String, email: String, phone: String, otp: String) {
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,    // Your database name
+                    uid,             // Your user ID
+                    dbPassword,      // Your password
+                    "mt.middleware", // The model you're calling
+                    "verify_otp",      // The method to be executed
+                    [
+                        [],           // Empty list as per Postman
+                        email,        // Email address
+                        type,         // Type (e.g., "email")
+                        phone,         // Phone number or empty string
+                        otp
+                    ]
+                ]
+            ]
+        ]
+        
+        print("json params is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("value is: \(value)")
+                if let json = value as? [String: Any],
+                   let result = json["result"] as? [String: Any],
+                   let status = result["success"] as? Bool {  // Expecting a boolean here
+                    if status {
+                        print("\n this is the SUCCESS response of verify OTP: \(type) and response is \(json)\n")
+                        self.verifyDelegate?.otpVerifySuccess(response: result)
+                        
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
+                        
+                        self.verifyDelegate?.otpVerifyFailure(error: error)
+                        print("this is send otp (success) error response of type \(type) : \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Invalid JSON structure"])
+                    
+                    self.verifyDelegate?.otpVerifyFailure(error: error)
+                    print("this is send otp Error response of type \(type) : \(error)")
+                }
+            case .failure(let error):
+                self.verifyDelegate?.otpVerifyFailure(error: error)
+                print("this is send otp error response: \(error)")
+            }
+        }
+        
+    }
+    
     //MARK: - Create request (Leads) Method for records
     // working
     func createRecords(firebase_uid: String, email: String, name: String) {
@@ -222,7 +372,7 @@ class OdooClientNew {
     
     //MARK: - create trade Account Method
 
-    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+    func createAccount1(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
   
         let params: [String: Any] = [
             "jsonrpc": "2.0",
@@ -287,7 +437,64 @@ class OdooClientNew {
         }
     }
     
-    
+    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+  
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "create_account",
+                    [
+                    [],
+                    email,
+                    phone,
+                    group,
+                    leverage,
+                    first_name,
+                    last_name,
+                    password
+                    ]
+                    ]
+                ]
+            ]
+        
+        print("\n the parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("value is: \(value)")
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool, let loginID = result["login"] as? Int {  // Expecting a boolean here
+                    if status {
+                       
+                        print("The login Id is: \(loginID)")
+                        GlobalVariable.instance.loginID = loginID
+                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        self.createUserAcctDelegate?.createAccountFailure(error: error)
+                        print("Error response: \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    self.createUserAcctDelegate?.createAccountFailure(error: error)
+                    print("Error response: \(error)")
+                }
+            case .failure(let error):
+                self.createUserAcctDelegate?.createAccountFailure(error: error)
+                print("Request failed: \(error)")
+            }
+        }
+        
+    }
     
     func saveUserIdFromJSONData(_ data: Data) {
        
