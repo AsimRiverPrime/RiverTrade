@@ -169,10 +169,9 @@ class TradeTypeCellVM {
     var email = ""
     var loginId = 0
     
-    func orderClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int) {
+    func positionClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
                 loginId = _loginId
@@ -213,30 +212,78 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("close position value is: \(value)")
-                
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [[String: Any]] {
-                       
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        
                         print("jsonData: \(jsonData)")
-                        
                     }
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                   
                 }
-                
             case .failure(let error):
-               
-             
                 print("Request failed with error: \(error)")
-              
             }
-            
+        }
+    }
+    
+    func positionUpdate(takeProfit: Double, stopLoss: Double, position: Int) {
+        // Retrieve the data from UserDefaults
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t  position: \(position) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
+        //update_position(self, email, login, password, position_id, take_profit, stop_loss)
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "update_position",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass ?? "",
+                        position,
+                        takeProfit,
+                        stopLoss
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print(" position update value is: \(value)")
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]] {
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        print("jsonData: \(jsonData)")
+                    }
+                }
+                catch {
+                    print("Error decoding response: \(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+            }
         }
     }
     
@@ -399,8 +446,6 @@ class TradeTypeCellVM {
                             completion(nil, nil, orders, nil) // Pass positions to completion
 
                             }
-
-                        
                     }
                 } catch {
                     print("Error decoding response: \(error)")

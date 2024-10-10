@@ -18,6 +18,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     @IBOutlet weak var partialClose_View: UIStackView!
     @IBOutlet weak var partialCose_switch: UISwitch!
     @IBOutlet weak var tf_partialClose: UITextField!
+    @IBOutlet weak var lbl_partialCloseValidate: UILabel!
     
     @IBOutlet weak var tf_takeProfit: UITextField!
     @IBOutlet weak var takeProfit_View: UIStackView!
@@ -40,6 +41,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
     //    var openData: OPCNavigationType?
     var openData: OpenModel?
     var vol: Double?
+    var takeProfit_value: Double?
+    var stoploss_value: Double?
     
     var viewModel = TradeTypeCellVM()
     
@@ -82,7 +85,32 @@ class OpenTicketBottomSheetVC: BaseViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         closeBtnEnable()
+        tf_partialClose.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
     }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+      
+        validePartialCloseValue()
+ }
+   func validePartialCloseValue(){
+       vol = Double(openData?.volume ?? 0) / 10000
+       guard let text = tf_partialClose.text, let value = Double(text) else {
+           return
+       }
+       if value > vol ?? 0 {
+           print("\n Value must be between 0 and \(vol ?? 0)")
+           lbl_partialCloseValidate.isHidden = false
+           lbl_partialCloseValidate.text = "volume must be equal or less then \(vol ?? 0)"
+           tf_partialClose.text = "\(vol ?? 0)"
+           self.currentValue1 = (vol ?? 0)
+       } else {
+           self.vol = value
+           print("Value is within the valid range")
+           lbl_partialCloseValidate.isHidden = true
+   }
+       
+}
     
     func timeConvert() -> String {
         
@@ -100,6 +128,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         view.endEditing(true)  // This will dismiss the keyboard for all text fields
     }
     
+   
     @IBAction func partialSwitch_action(_ sender: UISwitch) {
         
         if sender.isOn {
@@ -144,9 +173,11 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.takeProfit_View.isUserInteractionEnabled = true
             self.tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
             self.currentValue2 = openData?.takeProfit ?? 0
+            takeProfit_value = openData?.takeProfit ?? 0
         }else{
             self.takeProfit_View.isUserInteractionEnabled = false
             self.tf_takeProfit.text = ""
+            takeProfit_value = 0
         }
         closeBtnEnable()
     }
@@ -173,16 +204,18 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.stopLoss_view.isUserInteractionEnabled = true
             self.tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
             self.currentValue3 = openData?.stopLoss ?? 0
+            stoploss_value = openData?.stopLoss ?? 0
            
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
             self.tf_stopLoss.text = ""
+            stoploss_value = 0
         }
         closeBtnEnable()
     }
     
     func closeBtnEnable() {
-        if partialCose_switch.isOn || takeProfit_switch.isOn || stopLoss_switch.isOn {
+        if takeProfit_switch.isOn || stopLoss_switch.isOn {
             self.btn_closePosition.isEnabled = false
         }else{
             self.btn_closePosition.isEnabled = true
@@ -197,7 +230,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     
     @IBAction func closePosition_action(_ sender: Any) {
       
-        vol = Double("\(tf_partialClose.text ?? "")")
+       // vol = Double("\(tf_partialClose.text ?? "")")
         
         var type = openData?.action
         if type == 1 {
@@ -206,11 +239,14 @@ class OpenTicketBottomSheetVC: BaseViewController {
             type = 1
         }
         
-        viewModel.orderClosed(symbol: openData?.symbol ?? "", type: type!, volume: vol ?? 0, price: 0, position: openData?.position ?? 0)
+        viewModel.positionClosed(symbol: openData?.symbol ?? "", type: type!, volume: vol ?? 0, price: 0, position: openData?.position ?? 0)
         
     }
     
     @IBAction func save_action(_ sender: Any) {
+        
+        viewModel.positionUpdate(takeProfit: takeProfit_value ?? 0, stopLoss: stoploss_value ?? 0, position: (openData?.position)!)
+        
     }
     
     func updateValue(for textField: UITextField, increment: Bool) {
@@ -220,6 +256,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         switch textField {
         case tf_partialClose:
             currentValue = currentValue1
+            validePartialCloseValue()
         case tf_takeProfit:
             currentValue = currentValue2
         case tf_stopLoss:
@@ -244,12 +281,15 @@ class OpenTicketBottomSheetVC: BaseViewController {
         // Save the updated current value back to the respective variable
         switch textField {
         case tf_partialClose:
+            validePartialCloseValue()
             currentValue1 = currentValue
+           
         case tf_takeProfit:
             currentValue2 = currentValue
+            takeProfit_value = currentValue
         case tf_stopLoss:
             currentValue3 = currentValue
-      
+            stoploss_value = currentValue
         default:
             break
         }

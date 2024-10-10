@@ -23,16 +23,62 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BE0C67FD-F1D9-48BC-A447-A612D7F879BB"
-            shouldBeEnabled = "No"
+            uuid = "B7656509-CD0F-4576-BCCF-39D96346F4F7"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Tabbar Controllers/Accounts/TradeTypeCell/TradeTypeCellVM.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
-            landmarkName = "OPCApi(index:completion:)"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "positionUpdate(takeProfit:stopLoss:position:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B7656509-CD0F-4576-BCCF-39D96346F4F7 - faed99bb99c85bbf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;Any&gt;, Swift.Error&gt;) -&gt; () in RiverPrime.TradeTypeCellVM.positionUpdate(takeProfit: Swift.Double, stopLoss: Swift.Double, position: Swift.Int) -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/TradeTypeCell/TradeTypeCellVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271">
+               </Location>
+               <Location
+                  uuid = "B7656509-CD0F-4576-BCCF-39D96346F4F7 - faed99bb99c85bbf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;Any&gt;, Swift.Error&gt;) -&gt; () in RiverPrime.TradeTypeCellVM.positionUpdate(takeProfit: Swift.Double, stopLoss: Swift.Double, position: Swift.Int) -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/TradeTypeCell/TradeTypeCellVM.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0EACC4CB-D061-46FD-8715-C24A46FB95C3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/Accounts/TradeTypeCell/TradeTypeCellVM.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "positionUpdate(takeProfit:stopLoss:position:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

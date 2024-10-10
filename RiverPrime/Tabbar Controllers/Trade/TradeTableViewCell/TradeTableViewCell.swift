@@ -188,7 +188,15 @@ class TradeTableViewCell: UITableViewCell {
             lblCurrencyName.text = trimString
             
             print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
-            currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            if symbol.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else {
+                let imageUrl = URL(string: symbol.icon_url)
+                currencyICon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+            
+           
             
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")

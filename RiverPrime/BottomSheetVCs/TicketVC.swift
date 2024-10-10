@@ -877,8 +877,11 @@ extension TicketVC {
                         print("success")
                         self.ToastMessage("Order Placed successfully")
                     }else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
-                        print("Error response: \(error)")
+                        if let result = json["result"] as? [String: Any], let error = result["error"] as? String {
+                          
+                            print("Error response: \(error)")
+                            self.ToastMessage(error)
+                        }
                     }
                 }
                 
