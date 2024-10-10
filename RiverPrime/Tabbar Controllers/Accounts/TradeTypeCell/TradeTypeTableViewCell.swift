@@ -15,7 +15,7 @@ import SVProgressHUD
 enum OPCType {
     case open([OpenModel])
     case pending([PendingModel])
-    case close([(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)])
+    case close([NewCloseModel]/*[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]*/)
 }
 
 

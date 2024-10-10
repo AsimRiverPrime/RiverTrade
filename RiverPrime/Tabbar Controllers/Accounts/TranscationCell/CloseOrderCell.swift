@@ -106,7 +106,7 @@ extension CloseOrderCell {
     //    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
 
     
-    func getCellData(close: [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)], indexPath: IndexPath) {
+    func getCellData(close: [NewCloseModel]/*[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]*/, indexPath: IndexPath) {
         
         let data = close[indexPath.row]
         
@@ -116,13 +116,13 @@ extension CloseOrderCell {
         
         var getSymbol = ""
         
-        if data.0.contains("..") {
-            getSymbol = String(data.0.dropLast())
+        if data.symbol.contains("..") {
+            getSymbol = String(data.symbol.dropLast())
             getSymbol = String(getSymbol.dropLast())
-        } else if data.0.contains(".") {
-            getSymbol = String(data.0.dropLast())
+        } else if data.symbol.contains(".") {
+            getSymbol = String(data.symbol.dropLast())
         } else {
-            getSymbol = data.0
+            getSymbol = data.symbol
         }
         
         // Retrieve the symbol data using the name as the key
@@ -138,9 +138,9 @@ extension CloseOrderCell {
             
         }
         
-        lbl_symbolName.text = data.0
+        lbl_symbolName.text = data.symbol
         
-        let createDate = Date(timeIntervalSince1970: Double(data.2))
+        let createDate = Date(timeIntervalSince1970: Double(data.LatestTime))
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
@@ -150,13 +150,13 @@ extension CloseOrderCell {
         
         lbl_timeValue.text = datee
         
-        if data.4 < 0 {
+        if data.totalProfit < 0 {
             lbl_profitValue.textColor = .systemRed
         }else{
             lbl_profitValue.textColor = .systemGreen
         }
         
-        lbl_profitValue.text = "\(data.4)"
+        lbl_profitValue.text = "\(data.totalProfit)"
         
     }
    

@@ -100,6 +100,18 @@ struct CloseModel: Codable {
     }
 }
 
+//only get duplicate positions list data -> time + symbol + price + profit + Close Model Complete
+//MARK: - New close Model
+struct NewCloseModel {
+    var symbol = String()
+    var LatestTime = Int()
+    var totalPrice = Double()
+    var totalProfit = Double()
+    var action = Int()
+    var order = Int()
+    var repeatedFilteredArray = [CloseModel]()
+}
+
 //new postion array without zero + time + symbol + profit/loss + repeated values against symbols
 //Model
 //var groupedModels: [(String,[CloseModel],Int,[Double],Double)] = [("",[],0,[],0.0)]

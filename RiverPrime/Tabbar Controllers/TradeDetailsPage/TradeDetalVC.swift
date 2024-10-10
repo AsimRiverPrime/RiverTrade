@@ -17,16 +17,19 @@ class TradeDetalVC: UIViewController {
     private var chart: LightweightCharts!
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
-        
+    
     @IBOutlet weak var symbolLabel: UILabel!
     @IBOutlet weak var detailsLabel: UILabel!
     
     @IBOutlet weak var lbl_sellBtn: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
     
-//    var tradeDetails: TradeDetails?
+    //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
+    
+    @IBOutlet var menuButton: [UIButton]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +38,9 @@ class TradeDetalVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
-//        handleTradesUpdated()
+        //        handleTradesUpdated()
+        
+        addTopAndBottomBorders(menuButton[0])
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -48,52 +53,73 @@ class TradeDetalVC: UIViewController {
         disconnectWebSocket()
     }
     
-        @objc private func handleTradesUpdated(_ notification: Notification) {
-         
-            if let tradeDetail = notification.object as? TradeDetails {
-               
-                if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
-                    symbolLabel.text = "Symbol: \(tradeDetail.symbol)"
-                      
-                    // Assuming TradeDetail has properties you want to display
-                    detailsLabel.text = "Ask: \(tradeDetail.ask), Bid :\(tradeDetail.bid), \n Time: \(tradeDetail.datetime)"
-                    
-                    self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
-                    self.lbl_sellBtn.text = "\(tradeDetail.ask)"
-                    
-                    
-                    // Update the UI with the latest data for the selected symbol
-                    
-                    //            self.tradeDetails = tradeDetail
-                    
-                    //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
-                    getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-                    let data =  getLiveCandelStick.getLatestOhlcData()
-                    print("latest data: \(data)")
-                    
-                    let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
-                    
-                    let open = data?.open
-                    let close = data?.close
-                    let high = data?.high
-                    let low = data?.low
-                    
-                    let dataPoint = CandlestickData(
-                        time: times,
-                        open: open,
-                        high: high,
-                        low: low,
-                        close: close
-                    )
-                    
-                    //            // Use update to add this candlestick incrementally
-                    series?.update(bar: dataPoint)
-                }
-//            setupSeries(candlestickData: dataPoint)
+    @IBAction func menuButton(_ sender: UIButton) {
+        addTopAndBottomBorders(menuButton[sender.tag])
+    }
+    
+    func addTopAndBottomBorders(_ sender: UIButton) {
+        
+        for i in 0...2 {
+            let thickness: CGFloat = 2.0
+            let bottomBorder = CALayer()
+            bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
+            bottomBorder.backgroundColor = UIColor.white.cgColor
+            menuButton[i].layer.addSublayer(bottomBorder)
+        }
+        
+        let thickness: CGFloat = 2.0
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x:0, y: self.menuButton[sender.tag].frame.size.height - thickness, width: self.menuButton[sender.tag].frame.size.width, height:thickness)
+        bottomBorder.backgroundColor = UIColor.black.cgColor
+        menuButton[sender.tag].layer.addSublayer(bottomBorder)
+    }
+    
+    @objc private func handleTradesUpdated(_ notification: Notification) {
+        
+        if let tradeDetail = notification.object as? TradeDetails {
+            
+            if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+                symbolLabel.text = "Symbol: \(tradeDetail.symbol)"
+                
+                // Assuming TradeDetail has properties you want to display
+                detailsLabel.text = "Ask: \(tradeDetail.ask), Bid :\(tradeDetail.bid), \n Time: \(tradeDetail.datetime)"
+                
+                self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
+                self.lbl_sellBtn.text = "\(tradeDetail.ask)"
+                
+                
+                // Update the UI with the latest data for the selected symbol
+                
+                //            self.tradeDetails = tradeDetail
+                
+                //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
+                getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+                let data =  getLiveCandelStick.getLatestOhlcData()
+                print("latest data: \(data)")
+                
+                let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
+                
+                let open = data?.open
+                let close = data?.close
+                let high = data?.high
+                let low = data?.low
+                
+                let dataPoint = CandlestickData(
+                    time: times,
+                    open: open,
+                    high: high,
+                    low: low,
+                    close: close
+                )
+                
+                //            // Use update to add this candlestick incrementally
+                series?.update(bar: dataPoint)
+            }
+            //            setupSeries(candlestickData: dataPoint)
             
         }
     }
-   
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
@@ -113,7 +139,7 @@ class TradeDetalVC: UIViewController {
     }
     
     private func setupSeries(candlestickData: [CandlestickData]) {
-   
+        
         let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
@@ -145,9 +171,9 @@ class TradeDetalVC: UIViewController {
                 chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
-      
         
-//        self.chart = chart
+        
+        //        self.chart = chart
         
         let myoptions = CandlestickSeriesOptions(
             upColor: "rgba(8, 153, 52, 1)",
@@ -160,7 +186,7 @@ class TradeDetalVC: UIViewController {
         
         let series = chart.addCandlestickSeries(options: myoptions)
         self.series = series
-   
+        
         series.setData(data: candlestickData)
         
     }
@@ -181,7 +207,7 @@ extension TradeDetalVC: WebSocketDelegate {
     func disconnectWebSocket() {
         webSocket?.disconnect()
     }
-
+    
     func sendSubscriptionHistoryMessage() {
         // Define the message dictionary
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
@@ -189,14 +215,14 @@ extension TradeDetalVC: WebSocketDelegate {
         let timestamps = currentAndBeforeBusinessDayTimestamps()
         print("Current Timestamp: \(timestamps.currentTimestamp)")
         print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-
+        
         
         let message: [String: Any] = [
             "event_name": "get_chart_history",
             "data": [
                 "symbol":  getSymbolData.tickMessage?.symbol ?? "",
-//                "from": timestamps.previousTimestamp,
-//                "to":  timestamps.currentTimestamp
+                //                "from": timestamps.previousTimestamp,
+                //                "to":  timestamps.currentTimestamp
                 "from": hourBeforeTimestamp,
                 "to":  currentTimestamp
             ]
@@ -231,12 +257,12 @@ extension TradeDetalVC: WebSocketDelegate {
     
     func handleHistoryWebSocketMessage(_ string: String) {
         print("\n this is history json: \(string)")
-         
-                    
+        
+        
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-//                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
+                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                 for payload in response.message.payload.chartData {
                     
                     let times = Time.utc(timestamp: Double(payload.datetime))
@@ -262,7 +288,7 @@ extension TradeDetalVC: WebSocketDelegate {
                     candlestickData.append(dataPoint)
                 }
                 series.setData(data: candlestickData)
-//                setupSeries(candlestickData: candlestickData)
+                //                setupSeries(candlestickData: candlestickData)
             } catch {
                 print("Error parsing JSON: \(error)")
             }
@@ -321,6 +347,6 @@ extension TradeDetalVC: WebSocketDelegate {
         
         return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
     }
-
+    
 }
 

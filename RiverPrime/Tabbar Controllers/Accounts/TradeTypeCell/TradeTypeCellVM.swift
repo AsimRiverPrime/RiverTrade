@@ -486,7 +486,7 @@ class TradeTypeCellVM {
         
     }
     
-    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]?, Error?) -> Void) {
+    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?/*[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]?*/, Error?) -> Void) {
         
         var jsonrpcBody: [String: Any] = [String: Any]()
         
@@ -622,16 +622,17 @@ class TradeTypeCellVM {
                             
 //                            var filteredOrders = [CloseModel]()
                             
-                            var newCloseList = [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]()
+//                            var newCloseList = [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]()
+                            var newCloseModel = [NewCloseModel]()
                             
                             if orders.count != 0  {
                                 
                                 let getNewCloseList = self.getSymbolProfitList(from: orders)
-                                newCloseList = getNewCloseList
+                                newCloseModel = getNewCloseList
                                 
                             }
                             
-                            completion(nil, nil, newCloseList, nil) // Pass positions to completion
+                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
 
                             }
 
@@ -651,6 +652,23 @@ class TradeTypeCellVM {
         }
         
     }
+    
+    ////MARK: - New close Model
+    //struct NewCloseModel {
+    //    var symbol = String()
+    //    var filteredArray = [CloseModel]()
+    //    var time = Int()
+    //    var profitLoss = [Double]()
+    //    var totalProfit = Double()
+    //    var order = Int()//5
+    //    var entry = Int()//6
+    //    var action = Int()//7
+    //    var volume = Int()//8
+    //    var price = Double()//9
+    //    var profit = Double()//10
+    ////    var repeatedSymbolList = [CloseModel]()
+    //}
+    
 //    var order = Int()//6
 //    var entry = Int()//7
 //    var action = Int()//8
@@ -659,13 +677,22 @@ class TradeTypeCellVM {
 //    var profit = Double()//11
 //    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
     
-    func getSymbolProfitList(from closes: [CloseModel]) -> [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] {
+    
+    
+    //only get duplicate positions list data -> time + symbol + price + profit + Close Model Complete
+    
+    func getSymbolProfitList(from closes: [CloseModel]) -> [NewCloseModel] { //}[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] {
         var filteredOrders = closes.filter { $0.position != 0 }
         
-        let groupedCloseModels = separateDuplicateSymbols(from: filteredOrders)
+        /*
+        
+//        let groupedCloseModels = separateDuplicateSymbols(from: filteredOrders)
+        
         
         var groupedModels: [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] = [("",[],0,[],0.0,[],0,0,0,0,0.0,0.0)]
         groupedModels.removeAll()
+        
+        var newCloseModel = [NewCloseModel]()
         
 //        var profits: [Double] = []
         
@@ -715,7 +742,56 @@ class TradeTypeCellVM {
         
 //        //let repeatedValues = closes.filter { $0.symbol == latestTime }
         
-        return groupedModels
+        */
+        
+        let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders)
+        
+//        var groupedModels: [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] = [("",[],0,[],0.0,[],0,0,0,0,0.0,0.0)]
+//        groupedModels.removeAll()
+        
+        var newCloseModel = [NewCloseModel]()
+        
+        if groupedCloseModels.count == 0 {
+            return [] //[("",[],0,[],0.0,[],0,0,0,0,0.0,0.0)]
+        }
+        
+        // Now you can access groupedCloseModels
+        for (position, models) in groupedCloseModels {
+//            print("Symbol: \(symbol), Models: \(models)")
+            // Get the latest time
+            let latestTime = models.map { $0.time }.max() ?? 0
+            
+            let profitValues = models.map { $0.profit }
+            
+            let totalPrice = models.map { $0.price }.reduce(0, +)
+            
+            let totalProfit = models.map { $0.profit }.reduce(0, +)
+            
+            guard let latestMaxTimeModel = models.max(by: { $0.time < $1.time }) else {
+                return [] //[("",[],0,[],0.0,[],0,0,0,0,0.0,0.0)] // Return nil if there are no models
+            }
+            
+            // Filter to get repeated values based on the latest time
+            let repeatedValues = models.filter { $0.time == latestTime }
+            
+            // Get unique symbols from the repeated values
+            let order = latestMaxTimeModel.order
+            let entry = latestMaxTimeModel.entry
+//            let action = latestMaxTimeModel.action
+            let volume = latestMaxTimeModel.volume
+            let price = latestMaxTimeModel.price
+            let profit = latestMaxTimeModel.profit
+            let symbol = latestMaxTimeModel.symbol
+            let action = latestMaxTimeModel.action
+            
+            
+            
+//            groupedModels.append((symbol,models,latestTime,profitValues,totalProfit,filteredOrders,order,entry,action,volume,price,profit))
+            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action, order: order, repeatedFilteredArray: groupedCloseModels[position]!))
+        }
+        
+        
+        return newCloseModel //groupedModels
     }
     
 //    // Function to append new data
@@ -746,6 +822,42 @@ class TradeTypeCellVM {
         
         return groupedModels
     }
+    
+    func separateDuplicatePositions(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
+        var groupedModels: [Int: [CloseModel]] = [:]
+
+        for model in closeModels {
+            if groupedModels[model.position] == nil {
+                groupedModels[model.position] = []
+            }
+            groupedModels[model.position]?.append(model)
+        }
+
+        return groupedModels
+    }
+    
+    func separateDuplicatePositionsOnly(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
+        var positionCount: [Int: Int] = [:]
+        var groupedModels: [Int: [CloseModel]] = [:]
+
+        // First pass: Count occurrences of each position
+        for model in closeModels {
+            positionCount[model.position, default: 0] += 1
+        }
+
+        // Second pass: Group models by position, but only if they have duplicates
+        for model in closeModels {
+            if positionCount[model.position] ?? 0 > 1 {
+                if groupedModels[model.position] == nil {
+                    groupedModels[model.position] = []
+                }
+                groupedModels[model.position]?.append(model)
+            }
+        }
+
+        return groupedModels
+    }
+
     
 //    func getSummaryCloseModel(from closes: [CloseModel]) -> SummaryCloseModel? {
 //        guard !closes.isEmpty else { return nil }

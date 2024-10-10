@@ -24,7 +24,7 @@ class CloseTicketBottomSheetVC: UIViewController {
     //    var profit = Double()//11
     //    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
     
-    var closeData: (String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)?
+    var closeData: NewCloseModel?/*(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)?*/
     var ticketName : String?
      
     var totalValue: Double?
@@ -37,25 +37,25 @@ class CloseTicketBottomSheetVC: UIViewController {
         
         
         
-        self.lbl_symbolName.text = closeData?.0
-        self.lbl_positionNumber.text = "#\(closeData?.6 ?? 0)"
+        self.lbl_symbolName.text = closeData?.symbol
+        self.lbl_positionNumber.text = "#\(closeData?.order ?? 0)"
         
-        if closeData?.8 == 0 {
+        if closeData?.action == 0 {
             ticketName = "Buy"
             self.lbl_ticketName.text = "Buy Ticket"
-        }else if closeData?.8 == 1 {
+        }else if closeData?.action == 1 {
             ticketName = "Sell"
             self.lbl_ticketName.text = "Sell Ticket"
-        }else if closeData?.8 == 2 {
+        }else if closeData?.action == 2 {
             ticketName = "Buy Limit"
             self.lbl_ticketName.text = "Buy Ticket"
-        }else if closeData?.8 == 3 {
+        }else if closeData?.action == 3 {
             ticketName = "Sell Limit"
             self.lbl_ticketName.text = "Sell Ticket"
-        }else if closeData?.8 == 4 {
+        }else if closeData?.action == 4 {
             ticketName = "Buy Stop"
             self.lbl_ticketName.text = "Buy Ticket"
-        }else if closeData?.8 == 5 {
+        }else if closeData?.action == 5 {
             ticketName = "Sell Stop"
             self.lbl_ticketName.text = "Sell Ticket"
         }
@@ -84,7 +84,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         }else{
-            return 1
+            return closeData?.repeatedFilteredArray.count ?? 0
         }
     }
     
@@ -98,18 +98,20 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(with: CloseTicketTBCell.self, for: indexPath)
             
-            if closeData?.7 == 0 {
+            let data = closeData?.repeatedFilteredArray[indexPath.row]
+            
+            if data?.entry == 0 {
                 cell.lbl_type.text = "IN"
             }else{
                 cell.lbl_type.text = "OUT"
             }
-            let volumee = Double(closeData!.9) / Double(10000)
+            let volumee = Double(data?.volume ?? 0) / Double(10000)
             cell.lbl_volume.text = "\(volumee)"
-            cell.lbl_price.text = "\(closeData!.10)"
-            cell.lbl_profit.text = "\(closeData!.11)"
+            cell.lbl_price.text = "\(data?.price ?? 0.0)"
+            cell.lbl_profit.text = "\(data?.profit ?? 0.0)"
             
 //            self.totalValue = Double(closeData!.profit)
-            self.lbl_totalPrice.text = "\(closeData!.11)"
+            self.lbl_totalPrice.text = "\(closeData!.totalProfit)"
             return cell
         }
     }
