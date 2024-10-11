@@ -32,67 +32,58 @@ class CloseOrderCell: UITableViewCell {
 }
 
 extension CloseOrderCell {
-    
-    func getCellData(close: [CloseModel], indexPath: IndexPath) {
+    func getCellData(close: [NewCloseModel], indexPath: IndexPath) {
         
         let data = close[indexPath.row]
         
-//        guard let _savedSymbol = vm.getSavedSymbols() else { return }
-//
-//        let savedSymbol = _savedSymbol[indexPath.row]
-        
-        // Get saved symbols as a dictionary
-        if data.entry == 1 {
-            guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
-                return
-            }
-            
-            var getSymbol = ""
-            
-            if data.symbol.contains("..") {
-                getSymbol = String(data.symbol.dropLast())
-                getSymbol = String(getSymbol.dropLast())
-            } else if data.symbol.contains(".") {
-                getSymbol = String(data.symbol.dropLast())
-            } else {
-                getSymbol = data.symbol
-            }
-            
-            // Retrieve the symbol data using the name as the key
-            if let symbolData = savedSymbolsDict[getSymbol] {
-                // Return the icon_url if a match is found
-                if symbolData.name == "Platinum" {
-                    let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                    symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-                }else {
-                    let imageUrl = URL(string: symbolData.icon_url)
-                    symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-                }
-                
-            }
-            
-            lbl_symbolName.text = data.symbol
-            
-            let createDate = Date(timeIntervalSince1970: Double(data.time))
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-            dateFormatter.timeZone = .current
-            
-            let datee = dateFormatter.string(from: createDate)
-            
-            lbl_timeValue.text = datee
-            
-            if data.profit < 0 {
-                lbl_profitValue.textColor = .systemRed
-            }else{
-                lbl_profitValue.textColor = .systemGreen
-            }
-            
-            lbl_profitValue.text = "\(data.profit)"
-          
+        guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
+            return
         }
+        
+        var getSymbol = ""
+        
+        if data.symbol.contains("..") {
+            getSymbol = String(data.symbol.dropLast())
+            getSymbol = String(getSymbol.dropLast())
+        } else if data.symbol.contains(".") {
+            getSymbol = String(data.symbol.dropLast())
+        } else {
+            getSymbol = data.symbol
+        }
+        
+        // Retrieve the symbol data using the name as the key
+        if let symbolData = savedSymbolsDict[getSymbol] {
+            // Return the icon_url if a match is found
+            if symbolData.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else {
+                let imageUrl = URL(string: symbolData.icon_url)
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+            
+        }
+        
+        lbl_symbolName.text = data.symbol
+        
+        let createDate = Date(timeIntervalSince1970: Double(data.LatestTime))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+        
+        lbl_timeValue.text = datee
+        
+        if data.totalProfit < 0 {
+            lbl_profitValue.textColor = .systemRed
+        }else{
+            lbl_profitValue.textColor = .systemGreen
+        }
+        
+        lbl_profitValue.text = "\(data.totalProfit)"
+        
     }
     
-   
 }

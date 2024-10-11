@@ -93,6 +93,8 @@
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
+		3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */; };
+		3171E3A62CB94CF60043203F /* HistoryTradeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
 		317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */; };
@@ -399,6 +401,8 @@
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
+		3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTradeTVCell.swift; sourceTree = "<group>"; };
+		3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTradeTVCell.xib; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
 		317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
@@ -794,6 +798,8 @@
 			isa = PBXGroup;
 			children = (
 				3105DEC02CB3E8A400D1B884 /* HistoryViewController.swift */,
+				3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */,
+				3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -2034,6 +2040,7 @@
 				FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
+				3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */,
 				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
@@ -2277,6 +2284,7 @@
 				31D2AF1A2C8840B800E0CF2E /* Rectangle.swift in Sources */,
 				31D2AF3B2C8840B800E0CF2E /* Point.swift in Sources */,
 				31D2AF012C8840B800E0CF2E /* PromptHandler.swift in Sources */,
+				3171E3A62CB94CF60043203F /* HistoryTradeTVCell.swift in Sources */,
 				FA12B5DF2C4F03AB0054F8D8 /* ResultTopViewCell.swift in Sources */,
 				31D2AEFD2C8840B800E0CF2E /* MessageHandler.swift in Sources */,
 				31D2AF182C8840B800E0CF2E /* PriceLineSource.swift in Sources */,

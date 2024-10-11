@@ -34,7 +34,7 @@ class TradeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       
+        self.graphView.isUserInteractionEnabled = false
         SDImageCache.shared.clearMemory()
         SDImageCache.shared.clearDisk(onCompletion: nil)
 //        NotificationCenter.default.addObserver(self, selector: #selector(chartDataUpdated(_:)), name: .symbolDataUpdated, object: nil)
@@ -63,15 +63,9 @@ class TradeTableViewCell: UITableViewCell {
     
    
     private func setupChart(for symbol: String, with chartData: [ChartData]) {
-        // Check if the chart has already been created for the symbol
         guard createdCharts[symbol] == nil else { return }
-        
-        // Mark the chart as created for the symbol
             createdCharts[symbol] = true
 
-//            // Store the chart data for the symbol
-//            storedChartData[symbol] = chartData
-        
         chart = LightweightCharts()
         graphView.addSubview(chart)
         chart.translatesAutoresizingMaskIntoConstraints = false
@@ -85,9 +79,14 @@ class TradeTableViewCell: UITableViewCell {
            let chartOptions = ChartOptions(
             layout: LayoutOptions(background: .none ),
                rightPriceScale: VisiblePriceScaleOptions(visible: false),
-               timeScale: TimeScaleOptions(visible: false)
+               timeScale: TimeScaleOptions(visible: false),
+            grid: GridOptions(
+                verticalLines: GridLineOptions(visible: false),
+                horizontalLines: GridLineOptions(visible: false)
+            )
            )
            chart.applyOptions(options: chartOptions)
+
         
         // Update options to hide the line and values
         let options = AreaSeriesOptions(

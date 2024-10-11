@@ -15,19 +15,10 @@ import SVProgressHUD
 enum OPCType {
     case open([OpenModel])
     case pending([PendingModel])
-    case close([CloseModel])
+    case close([NewCloseModel])
 }
 
-
-//enum OPCType {
-//    case open
-//    case pending
-//    case close
-//}
-
 protocol OPCDelegate: AnyObject {
-//    func getOPCData(opcType: OPCType, openModel: [OpenModel])
-//    func getOPCData(opcType: OPCType, closeModel: [CloseModel])
     func getOPCData(opcType: OPCType)
 }
 
@@ -52,20 +43,6 @@ class TradeTypeTableViewCell: BaseTableViewCell {
         tradeTypeCollectionView.register(UINib(nibName: "TradeTypeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeTypeCollectionViewCell")
  
         fetchPositions(index: 0)
-        
-//        vm.OPCApi(opcType: .open) { [weak self] positions, error in
-//            DispatchQueue.main.async {
-//                if let error = error {
-//                    print("Error fetching positions: \(error)")
-//                    // Handle the error (show an alert, etc.)
-//                } else if let positions = positions {
-//                    // Use the positions (reload a table view, etc.)
-//                    for position in positions {
-//                        print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
-//                    }
-//                }
-//            }
-//        }
         
     }
 
@@ -106,21 +83,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             cell.refreshImage.isHidden = false
             cell.refreshImageButton.isHidden = false
             cell.lbl_tradetype.isHidden = true
-            
-            /* if selectedIndex == model.count - 1 {
-               cell.onRefreshImageButtonClick = {
-                    [self] sender in
-                    print("onRefreshImageButtonClick")
-                    self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-                        print("drop down index = \(index)")
-                        print("drop down item = \(item)")
-                    }
-                }
-            }*/
-//            let image = UIImageView()
-//            image.image = UIImage(named: "currencyIcon")
-//            image.frame = CGRect(x: cell.sepratorView.frame.origin.x, y: 0, width: 40, height: 40)
-            
+       
         } else {
             cell.sepratorView.isHidden = false
             cell.refreshImage.isHidden = true
@@ -132,10 +95,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
-//            if indexPath.row != model.count-1 {
-//                collectionView.reloadData()
-//            }
-            
+
             if indexPath.row != model.count-1 {
                 fetchPositions(index: indexPath.row)
             }
@@ -150,12 +110,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //        // get the Collection View width and height
-        
-//        if indexPath.row == model.count-1 {
-//            return CGSize(width: 200, height: 40)
-//        }
-        
+      
         let data = model[indexPath.row]
         return CGSize(width: data.count + 80, height: 40)
         
@@ -166,30 +121,16 @@ extension TradeTypeTableViewCell {
     
     func fetchPositions(index: Int) {
         if index == 0 {
-            
-//////            ActivityIndicator.shared.showCell(in: self)
-////            activityIndicator.show(in: self.contentView)
-//            SVProgressHUD.show()
-            
+      
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-//////                    ActivityIndicator.shared.hideCell(from: self!)
-////                    self?.activityIndicator.hide()
-//                    SVProgressHUD.dismiss()
-                    // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
                             print("Error fetching positions: \(error)")
                             // Handle the error (e.g., show an alert)
                         } else if let positions = openData {
-//                            // Use the positions (e.g., reload a table view)
-//                            for position in positions {
-//                                print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
-//                            }
-//                            // If you have a UITableView, call reloadData() here
-                            
-//                            self?.delegateOpen?.getOPCData(opcType: .open, openModel: positions)
+//
                             self?.delegate?.getOPCData(opcType: .open(positions))
                             
                         }
@@ -198,17 +139,11 @@ extension TradeTypeTableViewCell {
             }
             
         } else if index == 1 {
-            
-//////            ActivityIndicator.shared.showCell(in: self)
-////            activityIndicator.show(in: self.contentView)
-//            SVProgressHUD.show()
-            
+    
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-//////                    ActivityIndicator.shared.hideCell(from: self!)
-////                    self?.activityIndicator.hide()
-//                    SVProgressHUD.dismiss()
+
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -222,17 +157,12 @@ extension TradeTypeTableViewCell {
             }
             
         } else if index == 2 {
-            
-//////            ActivityIndicator.shared.showCell(in: self)
-////            activityIndicator.show(in: self.contentView)
-//            SVProgressHUD.show()
+   
             
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-//////                    ActivityIndicator.shared.hideCell(from: self!)
-////                    self?.activityIndicator.hide()
-//                    SVProgressHUD.dismiss()
+
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -240,7 +170,6 @@ extension TradeTypeTableViewCell {
                             // Handle the error (e.g., show an alert)
                         } else if let orders = closeData {
                           
-                            
                             self?.delegate?.getOPCData(opcType: .close(orders))
                         }
                     }
@@ -252,21 +181,3 @@ extension TradeTypeTableViewCell {
     
    
 }
-
-/*
-extension TradeTypeTableViewCell {
-    
-    private func dynamicDropDownButton(_ sender: UIButton, list: [String]) {
-        
-        CustomDropDown.instance.dropDownButton(list: list, sender: sender) { [weak self] (index: Int, item: String) in
-            print("this is the selected index value:\(index)")
-            print("this is the selected item name :\(item)")
-//            guard let self = self else { return }
-            sender.setTitle(item, for: .normal)
-        }
-        
-    }
-    
-}
-*/
-

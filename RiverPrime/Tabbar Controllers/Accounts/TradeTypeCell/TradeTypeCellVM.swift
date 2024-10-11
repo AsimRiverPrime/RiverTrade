@@ -12,156 +12,7 @@ class TradeTypeCellVM {
     
     var onTradesUpdated: (() -> Void)?
     
-    //self.onTradesUpdated?()
-    
-//    func OPCApi1(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [CloseModel]?, Error?) -> Void) {
-//        
-//        let url = "https://mbe.riverprime.com/jsonrpc"
-//        var jsonrpcBody: [String: Any] = [String: Any]()
-//        
-//        if index == 0 {
-//            
-//            jsonrpcBody = [
-//                "jsonrpc": "2.0",
-//                "params": [
-//                    "service": "object",
-//                    "method": "execute_kw",
-//                    "args": [
-//                        "mbe.riverprime.com",
-//                        6,
-//                        "7d2d38646cf6437034109f442596b86cbf6110c0",
-//                        "mt.middleware",
-//                        "get_positions",
-//                        [
-//                            [],
-//                            "asimprime900@gmail.com",
-//                            1012576
-//                        ]
-//                    ]
-//                ]
-//            ]
-//            
-//        } else if index == 1 {
-//            
-//            jsonrpcBody = [
-//                "jsonrpc": "2.0",
-//                "params": [
-//                    "service": "object",
-//                    "method": "execute_kw",
-//                    "args": [
-//                        "mbe.riverprime.com",
-//                        6,
-//                        "7d2d38646cf6437034109f442596b86cbf6110c0",
-//                        "mt.middleware",
-//                        "get_orders",
-//                        [
-//                            [],
-//                            "asimprime900@gmail.com",
-//                            1012576
-//                        ]
-//                    ]
-//                ]
-//            ]
-//            
-//            
-//        } else if index == 2 {
-//            
-//            jsonrpcBody = [
-//                "jsonrpc": "2.0",
-//                "params": [
-//                    "service": "object",
-//                    "method": "execute_kw",
-//                    "args": [
-//                        "mbe.riverprime.com",
-//                        6,
-//                        "7d2d38646cf6437034109f442596b86cbf6110c0",
-//                        "mt.middleware",
-//                        "get_deals",
-//                        [
-//                            [],
-//                            "asimprime900@gmail.com",
-//                            1012614,
-//                            1727740855, // to previous
-//                            1728036267  // from current
-//                        ]
-//                    ]
-//                ]
-//            ]
-//            
-//        }
-//        
-//        AF.request(url,
-//                   method: .post,
-//                   parameters: jsonrpcBody,
-//                   encoding: JSONEncoding.default,
-//                   headers: ["Content-Type": "application/json"])
-//        .validate()
-//        .responseJSON { (response: AFDataResponse<Any>) in
-//            switch response.result {
-//                
-//            case .success(let value):
-//                print("value is: \(value)")
-////                ActivityIndicator.shared.hide(from: self.view)
-//                
-//                do {
-//                    // Decode the response
-//                    if let json = value as? [String: Any],
-//                       let result = json["result"] as? [[String: Any]] {
-//                        
-//                        if index == 0 {
-//                            
-//                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-//                            let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
-//                            
-//    //                        // Use the parsed positions
-//    //                        for position in positions {
-//    //                            print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
-//    //                        }
-//                            
-//                            completion(positions, nil, nil, nil) // Pass positions to completion
-//                            
-//                        } else if index == 1 {
-//                            
-//                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-//                            var orders = try JSONDecoder().decode([PendingModel].self, from: jsonData)
-//                            
-//                            if orders.count != 0 {
-//                                
-//                                var data = [PendingModel]()
-//                                data = orders
-//                                data.remove(at: 0)
-//                                
-//                                orders = data
-//                                
-//                            }
-//                            
-//                            completion(nil, orders, nil, nil) // Pass positions to completion
-//                            
-//                        } else if index == 2 {
-//                            
-//                            let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-//                            let orders = try JSONDecoder().decode([CloseModel].self, from: jsonData)
-//                            
-//                            completion(nil, nil, orders, nil) // Pass positions to completion
-//                            
-//                        }
-//                        
-//                    }
-//                } catch {
-//                    print("Error decoding response: \(error)")
-//                    completion(nil, nil, nil, error) // Pass error to completion
-//                }
-//                
-//            case .failure(let error):
-//                // Handle the error
-////                ActivityIndicator.shared.hide(from: self.view)
-//                print("Request failed with error: \(error)")
-//                completion(nil, nil, nil, error) // Pass error to completion
-//            }
-//            
-//        }
-//        
-//    }
+    var forToast = BaseViewController()
     
     let odooClientService = OdooClientNew()
     let uid = UserDefaults.standard.integer(forKey: "uid")
@@ -212,6 +63,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("close position value is: \(value)")
+                self.forToast.ToastMessage("Position closed successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -270,6 +122,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print(" position update value is: \(value)")
+                self.forToast.ToastMessage("Position closed partially successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -287,7 +140,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [CloseModel]?, Error?) -> Void) {
+    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
         
         var jsonrpcBody: [String: Any] = [String: Any]()
         
@@ -347,6 +200,9 @@ class TradeTypeCellVM {
             
             let currentTimestampInSeconds = Int(Date().timeIntervalSince1970)
             print("Current timestamp in milliseconds: \(currentTimestampInSeconds)")
+            let secondsToAdd = 3 * 60 * 60
+            let newTimestampInSeconds = currentTimestampInSeconds + secondsToAdd
+            print("New Timestamp (after adding 3 hours): \(newTimestampInSeconds)")
             
             
             jsonrpcBody = [
@@ -365,7 +221,7 @@ class TradeTypeCellVM {
                             email, //"asimprime900@gmail.com",
                             loginId, //1012614,
                             1727740855, // to previous
-                            currentTimestampInSeconds  // from current
+                            newTimestampInSeconds  // from current
                         ]
                     ]
                 ]
@@ -377,7 +233,7 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("value is: \(value)")
+                print(" value is: \(value)")
                 
                 do {
                     // Decode the response
@@ -385,9 +241,9 @@ class TradeTypeCellVM {
                        let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai as pe thost lagana hai
                         
 //                         let error = result["error"] as? String {
-//                            
+//
 //                        }
-//                        
+//
 //                        print("error comes")
                         
                         if index == 0 {
@@ -395,11 +251,7 @@ class TradeTypeCellVM {
                             let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                             let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
                             
-                            // Use the parsed positions
-    //                        for position in positions {
-    //                            print("Position: \(position.position), Symbol: \(position.symbol), Profit: \(position.profit)")
-    //                        }
-                            
+                          
                             completion(positions, nil, nil, nil) // Pass positions to completion
                             
                         } else if index == 1 {
@@ -416,36 +268,20 @@ class TradeTypeCellVM {
                             
                             print("order count:\(orders.count)")
                             
-                            var filteredOrders = [CloseModel]()
+                            var newCloseModel = [NewCloseModel]()
+                            
                             if orders.count != 0  {
-//                                filteredOrders = orders.filter { $0.entry == 1 }
-                                filteredOrders = orders.filter { $0.position != 0 }
-                                print("\n filteredOrders array is:  \(filteredOrders)")
-                                   // Step 2: Count repeated positions
-                                   var positionCount: [Int: Int] = [:]
-                                   
-                                   for order in filteredOrders {
-                                       positionCount[order.position, default: 0] += 1
-                                   }
-                                   
-                                   // Step 3: Find and print repeated positions
-                                   for (position, count) in positionCount where count > 1 {
-                                       print("Position \(position) is repeated \(count) times")
-                                      
-                                   }
-                              //  print("filteredOrders array is:  \(filteredOrders) is count of: \(filteredOrders.count)")
-//                                var data = [CloseModel]()
-//                                    
-//                                data = filteredOrders
-//                                    
-//                                filteredOrders = data
-                                orders = filteredOrders
-                                print("order count after filter:\(orders.count)")
+                                
+                                let getNewCloseList = self.getSymbolProfitList(from: orders)
+                                newCloseModel = getNewCloseList
+                                
                             }
-
-                            completion(nil, nil, orders, nil) // Pass positions to completion
+                            
+                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
 
                             }
+
+                        
                     }
                 } catch {
                     print("Error decoding response: \(error)")
@@ -461,6 +297,110 @@ class TradeTypeCellVM {
         }
         
     }
+    
+    //only get duplicate positions list data -> time + symbol + price + profit + Close Model Complete
+    
+    func getSymbolProfitList(from closes: [CloseModel]) -> [NewCloseModel] { //}[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] {
+        var filteredOrders = closes.filter { $0.position != 0 }
+        
+        let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders)
+        
+        var newCloseModel = [NewCloseModel]()
+        
+        if groupedCloseModels.count == 0 {
+            return []
+        }
+        
+        // Now you can access groupedCloseModels
+        for (position, models) in groupedCloseModels {
+//            print("Symbol: \(symbol), Models: \(models)")
+            // Get the latest time
+            let latestTime = models.map { $0.time }.max() ?? 0
+            
+            let profitValues = models.map { $0.profit }
+            
+            let totalPrice = models.map { $0.price }.reduce(0, +)
+            
+            let totalProfit = models.map { $0.profit }.reduce(0, +)
+            
+            guard let latestMaxTimeModel = models.max(by: { $0.time < $1.time }) else {
+                return []
+            }
+            
+            // Filter to get repeated values based on the latest time
+            let repeatedValues = models.filter { $0.time == latestTime }
+            
+            // Get unique symbols from the repeated values
+            let order = latestMaxTimeModel.order
+            let entry = latestMaxTimeModel.entry
+//            let action = latestMaxTimeModel.action
+            let position = latestMaxTimeModel.position
+            let volume = latestMaxTimeModel.volume
+            let price = latestMaxTimeModel.price
+            let profit = latestMaxTimeModel.profit
+            let symbol = latestMaxTimeModel.symbol
+            let action = latestMaxTimeModel.action
+            
+            
+            
+            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!))
+        }
+        
+        
+        return newCloseModel
+    }
+    
+    
+    func separateDuplicateSymbols(from closeModels: [CloseModel]) -> [String: [CloseModel]] {
+        var uniqueSymbols: Set<String> = []
+        var groupedModels: [String: [CloseModel]] = [:]
+
+        for model in closeModels {
+            if !uniqueSymbols.contains(model.symbol) {
+                uniqueSymbols.insert(model.symbol)
+                groupedModels[model.symbol] = []
+            }
+            groupedModels[model.symbol]?.append(model)
+        }
+        
+        return groupedModels
+    }
+    
+    func separateDuplicatePositions(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
+        var groupedModels: [Int: [CloseModel]] = [:]
+
+        for model in closeModels {
+            if groupedModels[model.position] == nil {
+                groupedModels[model.position] = []
+            }
+            groupedModels[model.position]?.append(model)
+        }
+
+        return groupedModels
+    }
+    
+    func separateDuplicatePositionsOnly(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
+        var positionCount: [Int: Int] = [:]
+        var groupedModels: [Int: [CloseModel]] = [:]
+
+        // First pass: Count occurrences of each position
+        for model in closeModels {
+            positionCount[model.position, default: 0] += 1
+        }
+
+        // Second pass: Group models by position, but only if they have duplicates
+        for model in closeModels {
+            if positionCount[model.position] ?? 0 > 1 {
+                if groupedModels[model.position] == nil {
+                    groupedModels[model.position] = []
+                }
+                groupedModels[model.position]?.append(model)
+            }
+        }
+
+        return groupedModels
+    }
+
     
 }
 

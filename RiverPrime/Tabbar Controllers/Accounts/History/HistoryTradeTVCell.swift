@@ -1,68 +1,95 @@
 //
-//  CloseTicketBottomSheetVC.swift
+//  HistoryTradeTVCell.swift
 //  RiverPrime
 //
-//  Created by Ross Rostane on 04/10/2024.
+//  Created by Ross Rostane on 11/10/2024.
 //
 
 import UIKit
 
-class CloseTicketBottomSheetVC: UIViewController {
+class HistoryTradeTVCell: UITableViewCell {
 
-    @IBOutlet weak var lbl_ticketName: UILabel!
-    @IBOutlet weak var lbl_positionNumber: UILabel!
+    @IBOutlet weak var lbl_positionID: UILabel!
+    @IBOutlet weak var image_SymbolIcon: UIImageView!
     @IBOutlet weak var lbl_symbolName: UILabel!
+    @IBOutlet weak var lbl_typeVolume: UILabel!
+    @IBOutlet weak var lbl_dateTime: UILabel!
+    @IBOutlet weak var lbl_price: UILabel!
+    
+    @IBOutlet weak var orders_tableView: UITableView!
     @IBOutlet weak var lbl_totalPrice: UILabel!
     
-    @IBOutlet weak var closeValue_TableView: UITableView!
     
     var closeData: NewCloseModel?
     var ticketName : String?
      
     var totalValue: Double?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
         registerCell()
-                
+        
+//        print("closeData = \(closeData)")
+        
         self.lbl_symbolName.text = closeData?.symbol
-        self.lbl_positionNumber.text = "#\(closeData?.position ?? 0)"
+        self.lbl_positionID.text = "#\(closeData?.position ?? 0)"
         
         if closeData?.action == 0 {
             ticketName = "Buy"
-            self.lbl_ticketName.text = "Buy Ticket"
+         
         }else if closeData?.action == 1 {
             ticketName = "Sell"
-            self.lbl_ticketName.text = "Sell Ticket"
+         
         }else if closeData?.action == 2 {
             ticketName = "Buy Limit"
-            self.lbl_ticketName.text = "Buy Ticket"
+        
         }else if closeData?.action == 3 {
             ticketName = "Sell Limit"
-            self.lbl_ticketName.text = "Sell Ticket"
+      
         }else if closeData?.action == 4 {
             ticketName = "Buy Stop"
-            self.lbl_ticketName.text = "Buy Ticket"
+        
         }else if closeData?.action == 5 {
             ticketName = "Sell Stop"
-            self.lbl_ticketName.text = "Sell Ticket"
+        
         }
         
+        self.lbl_typeVolume.text = ticketName ?? "" + "  " + "Lot"
+        self.lbl_price.text = "\(closeData?.totalPrice ?? 0)"
+        
+        let createDate = Date(timeIntervalSince1970: Double(closeData?.LatestTime ?? 0))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+        
+        self.lbl_dateTime.text = datee
+        
+        self.lbl_totalPrice.text = "\(closeData?.totalPrice ?? 0)"
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
     
     private func registerCell() {
-        closeValue_TableView.registerCells([
+        orders_tableView.registerCells([
             CloseTicketSectionCell.self , CloseTicketTBCell.self
         ])
-        closeValue_TableView.delegate = self
-        closeValue_TableView.dataSource = self
-        closeValue_TableView.reloadData()
+        orders_tableView.delegate = self
+        orders_tableView.dataSource = self
+        orders_tableView.reloadData()
     }
     
-
 }
 
-extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
+
+extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
             return 2
     }
@@ -127,7 +154,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 {
             return 40
         }else{
-            return 40
+            return 70
         }
     }
 }

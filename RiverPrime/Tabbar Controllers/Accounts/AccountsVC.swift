@@ -18,7 +18,7 @@ protocol CreateAccountInfoTapDelegate: AnyObject {
 enum OPCNavigationType {
     case open(OpenModel)
     case pending(PendingModel)
-    case close(CloseModel)
+    case close(NewCloseModel)
 }
 
 protocol OPCNavigationDelegate: AnyObject {
@@ -542,9 +542,7 @@ extension AccountsVC: GetSocketMessages {
                                             let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
                                             cell.lbl_currentPrice.text = "\(bidValuess)"
                                             
-                                            
                                         }
-                                        
                                         
                                     }else{
                                         cell.isHidden = true

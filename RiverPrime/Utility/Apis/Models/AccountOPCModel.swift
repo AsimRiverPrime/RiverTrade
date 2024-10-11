@@ -99,3 +99,15 @@ struct CloseModel: Codable {
         case marketAsk = "market_ask"
     }
 }
+
+//MARK: - New closed position Model
+struct NewCloseModel {
+    var symbol = String()
+    var LatestTime = Int()
+    var totalPrice = Double()
+    var totalProfit = Double()
+    var action = Int()
+    var order = Int()
+    var position = Int()
+    var repeatedFilteredArray = [CloseModel]()
+}
