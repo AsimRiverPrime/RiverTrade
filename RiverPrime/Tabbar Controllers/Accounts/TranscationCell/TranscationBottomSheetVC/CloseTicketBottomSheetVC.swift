@@ -16,15 +16,7 @@ class CloseTicketBottomSheetVC: UIViewController {
     
     @IBOutlet weak var closeValue_TableView: UITableView!
     
-    //    var order = Int()//6
-    //    var entry = Int()//7
-    //    var action = Int()//8
-    //    var volume = Int()//9
-    //    var price = Double()//10
-    //    var profit = Double()//11
-    //    [(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)]
-    
-    var closeData: NewCloseModel?/*(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)?*/
+    var closeData: NewCloseModel?
     var ticketName : String?
      
     var totalValue: Double?
@@ -35,10 +27,8 @@ class CloseTicketBottomSheetVC: UIViewController {
         
         print("closeData = \(closeData)")
         
-        
-        
         self.lbl_symbolName.text = closeData?.symbol
-        self.lbl_positionNumber.text = "#\(closeData?.order ?? 0)"
+        self.lbl_positionNumber.text = "#\(closeData?.position ?? 0)"
         
         if closeData?.action == 0 {
             ticketName = "Buy"
@@ -111,7 +101,25 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             cell.lbl_profit.text = "\(data?.profit ?? 0.0)"
             
 //            self.totalValue = Double(closeData!.profit)
-            self.lbl_totalPrice.text = "\(closeData!.totalProfit)"
+            let Tprofit = closeData!.totalProfit
+            let profit = data!.profit
+            
+            if Tprofit < 0  {
+                self.lbl_totalPrice.textColor = .systemRed
+               
+            }else {
+                self.lbl_totalPrice.textColor = .darkGray
+                
+            }
+            
+            if profit < 0 {
+                cell.lbl_profit.textColor = .systemRed
+            }else{
+                cell.lbl_profit.textColor = .darkGray
+            }
+            
+            self.lbl_totalPrice.text = "\(Tprofit) USD"
+            
             return cell
         }
     }

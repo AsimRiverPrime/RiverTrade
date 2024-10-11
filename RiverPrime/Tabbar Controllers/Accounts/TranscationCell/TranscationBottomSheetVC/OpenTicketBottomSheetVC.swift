@@ -50,12 +50,15 @@ class OpenTicketBottomSheetVC: BaseViewController {
         takeProfit_switch.isOn = false
         self.takeProfit_View.isUserInteractionEnabled = false
         self.stopLoss_view.isUserInteractionEnabled = false
+        self.partialClose_View.isUserInteractionEnabled = false
+        partialCose_switch.isOn = false
         
         print("openData = \(openData)")
         self.lbl_symbolName.text = openData?.symbol
         self.lbl_positionNumber.text = "#\(openData?.position ?? 0)"
        
         vol = Double(openData?.volume ?? 0) / 10000
+        self.tf_partialClose.text = "\(vol ?? 0)"
         //        if openData?.action == 0 {
         //            ticketName = "Buy Ticket"
         //        }else if openData?.action == 1 {
@@ -197,7 +200,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     
     @IBAction func closePosition_action(_ sender: Any) {
       
-        vol = Double("\(tf_partialClose.text ?? "")")
+//        vol = Double("\(tf_partialClose.text ?? "")")
         
         var type = openData?.action
         if type == 1 {

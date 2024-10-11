@@ -109,6 +109,7 @@ struct NewCloseModel {
     var totalProfit = Double()
     var action = Int()
     var order = Int()
+    var position = Int()
     var repeatedFilteredArray = [CloseModel]()
 }
 
