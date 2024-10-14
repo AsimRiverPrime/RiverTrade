@@ -140,7 +140,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func OPCApi(index: Int, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
+    func OPCApi(index: Int, fromDate: Int? = nil, toDate: Int? = nil, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
         
         var jsonrpcBody: [String: Any] = [String: Any]()
         
@@ -220,8 +220,10 @@ class TradeTypeCellVM {
                             [],
                             email, //"asimprime900@gmail.com",
                             loginId, //1012614,
-                            1727740855, // to previous
-                            newTimestampInSeconds  // from current
+                            fromDate ?? 1727740855, // to previous
+                            toDate ?? newTimestampInSeconds  // from current
+//                            1727740855, // to previous
+//                            newTimestampInSeconds  // from current
                         ]
                     ]
                 ]

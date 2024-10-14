@@ -40,7 +40,12 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var labelStack: UIStackView!
     @IBOutlet weak var viewOfAccount: UIStackView!
     @IBOutlet weak var viewOfBtnStack: UIView!
-        
+      
+    @IBOutlet weak var lbl_account: UILabel!
+    @IBOutlet weak var lbl_MT5: UILabel!
+    @IBOutlet weak var lbl_accountType: UILabel!
+    
+    
     @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
     @IBOutlet weak var widthOfMainStackView: NSLayoutConstraint!
     
@@ -56,6 +61,10 @@ class AccountTableViewCell: UITableViewCell {
     var accountInfo: AccountInfo = .deposit
     var navigation: NavigationType = .account
     
+    var login_Id = Int()
+    var account_type = String()
+    var account_group = String()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -68,7 +77,29 @@ class AccountTableViewCell: UITableViewCell {
 //            viewOfAccount.spacing = -300
             widthOfMainStackView.constant = -300
         }
-        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+               
+                self.login_Id = loginID
+                
+                if isCreateDemoAccount == true {
+                    self.account_type = " Demo "
+                }
+                if isRealAccount == true {
+                    self.account_type = " Real "
+                }
+                if accountType == "Pro Account" {
+                    self.account_group = " PRO "
+                }else if accountType == "Prime Account" {
+                    self.account_group = " PRIME "
+                }else {
+                    self.account_group = " PREMIUM "
+                }
+            }
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -99,7 +130,10 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Account"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
-            secondTitle.text = "#0123456"
+            secondTitle.text = "#\(self.login_Id)"
+            lbl_MT5.text = " MT5 "
+            lbl_account.text = self.account_type
+            lbl_accountType.text = self.account_group
             
         case .withdraw:
             Btn_view.isHidden = true
@@ -116,7 +150,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Details"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
-            secondTitle.text = "#0123456"
+            secondTitle.text = "#\(self.login_Id)"
             
         case .trade:
             Btn_view.isHidden = true
@@ -124,7 +158,10 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Trade"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
-            secondTitle.text = "#0123456"
+            secondTitle.text = "#\(self.login_Id)"
+            lbl_MT5.text = " MT5 "
+            lbl_account.text = self.account_type
+            lbl_accountType.text = self.account_group
             
         case .market:
             Btn_view.isHidden = true
@@ -132,7 +169,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Market"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
-            secondTitle.text = "#0123456"
+            secondTitle.text = "#\(self.login_Id)"
             
         case .result:
             Btn_view.isHidden = false
@@ -140,7 +177,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Details"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
-            secondTitle.text = "#0123456"
+            secondTitle.text = "#\(self.login_Id)"
         
         case .history:
             break

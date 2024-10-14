@@ -18,6 +18,12 @@ class HistoryViewController: UIViewController {
     
     @IBOutlet weak var view_noMatchData: UIView!
     
+    var fromDate = String()
+    var toDate = String()
+    
+    var fromTimestamp = 0
+    var toTimestamp = 0
+    
     var vm = HistoryVM()
     
     var closeData = [NewCloseModel]()
@@ -36,13 +42,33 @@ class HistoryViewController: UIViewController {
     }
     
     @IBAction func fromDateBtn_action(_ sender: Any) {
+        
+        showDatePicker(sender as! UIButton)
+        
     }
     
     @IBAction func toDateBtn_action(_ sender: Any) {
+        
+        showDatePicker(sender as! UIButton)
+        
     }
     
     
     @IBAction func searchBtn_action(_ sender: Any) {
+        
+        if btn_fromDate.titleLabel?.text != "from date" && btn_toDate.titleLabel?.text != "to date" {
+            let from: Int = fromTimestamp
+            let to: Int = toTimestamp
+            
+            print("from = \(from)")
+            print("to = \(to)")
+            
+            closeApiCalling(fromDate: from, toDate: to)
+            
+        }else{
+            Alert.showAlert(withMessage: "Please enter date", andTitle: "Message!", on: self )
+        }
+        
     }
     
 }
@@ -72,9 +98,9 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension HistoryViewController {
     
-    private func closeApiCalling() {
+    private func closeApiCalling(fromDate: Int? = nil, toDate: Int? = nil) {
         
-        vm.fetchPositions { closeData, error in
+        vm.fetchPositions(fromDate: fromDate, toDate: toDate) { closeData, error in
             if error != nil {
                 return
             }
@@ -106,6 +132,84 @@ extension HistoryViewController {
             } else {
                 return
             }
+        }
+        
+    }
+    
+}
+
+extension HistoryViewController {
+    
+    func showDatePicker(_ sender: UIButton) {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+        
+        if sender == btn_fromDate {
+            fromDate = "From"
+            toDate = ""
+        } else if sender == btn_toDate {
+            toDate = "To"
+            fromDate = ""
+        }
+        
+        // Create an alert controller
+        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .actionSheet)
+        
+        // Add the date picker to the alert
+        alertController.view.addSubview(datePicker)
+        
+        // Set the height of the date picker
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePicker.widthAnchor.constraint(equalTo: alertController.view.widthAnchor),
+            datePicker.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 50),
+            datePicker.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -60)
+        ])
+        
+        // Add a "Done" button
+        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+            let selectedDate = datePicker.date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .medium
+           
+            print("Selected date: \(dateFormatter.string(from: selectedDate))")
+        }
+        
+        alertController.addAction(doneAction)
+        
+        // Present the alert controller
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func dateChanged(_ sender: UIDatePicker) {
+        // Optionally handle date changes in real-time if needed
+        let selectedDate = sender.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        let date = dateFormatter.string(from: selectedDate)
+        print("Current date: \(date)")
+        
+//        if fromDate != "" {
+//            btn_fromDate.setTitle(date, for: .normal)
+//            btn_fromDate.titleLabel?.text = date
+//        } else if toDate != "" {
+//            btn_toDate.setTitle(date, for: .normal)
+//            btn_toDate.titleLabel?.text = date
+//        }
+        
+//        let selectedDate = datePicker.date
+        let timestamp = selectedDate.timeIntervalSince1970
+        print("Selected timestamp: \(timestamp)")
+        
+        if fromDate != "" {
+            btn_fromDate.setTitle(date, for: .normal)
+            btn_fromDate.titleLabel?.text = date
+            fromTimestamp = Int(timestamp)
+        } else if toDate != "" {
+            btn_toDate.setTitle(date, for: .normal)
+            btn_toDate.titleLabel?.text = date
+            toTimestamp = Int(timestamp)
         }
         
     }

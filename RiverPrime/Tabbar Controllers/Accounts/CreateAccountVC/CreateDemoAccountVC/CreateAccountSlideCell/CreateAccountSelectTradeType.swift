@@ -9,7 +9,6 @@ import UIKit
 
 struct GetSelectedAccountType {
     var title = String()
-    
 }
 
 class CreateAccountSelectTradeType: BottomSheetController {
@@ -24,9 +23,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_miniDeposit: UILabel!
     @IBOutlet weak var lbl_swap: UILabel!
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
-    
-    
-    
+        
     var counter = 0
     var getSelectedAccountType = GetSelectedAccountType()
     
