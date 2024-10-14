@@ -65,6 +65,7 @@
 		3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */; };
 		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB72C99BFAE00B7ABF9 /* Session.swift */; };
+		3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117F78D2CBCE3500095DA19 /* HistoryVM.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
@@ -374,6 +375,7 @@
 		3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3106BBB72C99BFAE00B7ABF9 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3117F78D2CBCE3500095DA19 /* HistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVM.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
@@ -797,6 +799,7 @@
 		3105DEC12CB3E8A400D1B884 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				3117F78E2CBCE3500095DA19 /* ViewModel */,
 				3105DEC02CB3E8A400D1B884 /* HistoryViewController.swift */,
 				3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */,
 				3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */,
@@ -911,6 +914,14 @@
 				3106BBB72C99BFAE00B7ABF9 /* Session.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		3117F78E2CBCE3500095DA19 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3117F78D2CBCE3500095DA19 /* HistoryVM.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		3137AE702C77471A00B5A83B /* PasscodeVC */ = {
@@ -2374,6 +2385,7 @@
 				3105DF062CB3E8A400D1B884 /* AccountsVC.swift in Sources */,
 				3105DF072CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3105DF082CB3E8A400D1B884 /* AccountsViewController.swift in Sources */,
+				3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */,
 				3105DF092CB3E8A400D1B884 /* CreateDemoAccountVC.swift in Sources */,
 				3105DF0A2CB3E8A400D1B884 /* TradeTypeTableViewCell.swift in Sources */,
 				3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */,
