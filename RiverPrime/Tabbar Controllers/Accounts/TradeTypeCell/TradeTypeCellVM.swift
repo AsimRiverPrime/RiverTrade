@@ -146,7 +146,7 @@ class TradeTypeCellVM {
         
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-
+            
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
                 loginId = _loginId
@@ -240,18 +240,18 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai as pe thost lagana hai
                         
-//                         let error = result["error"] as? String {
-//
-//                        }
-//
-//                        print("error comes")
+                        //                         let error = result["error"] as? String {
+                        //
+                        //                        }
+                        //
+                        //                        print("error comes")
                         
                         if index == 0 {
                             
                             let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                             let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
                             
-                          
+                            
                             completion(positions, nil, nil, nil) // Pass positions to completion
                             
                         } else if index == 1 {
@@ -277,10 +277,19 @@ class TradeTypeCellVM {
                                 
                             }
                             
-                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
-
-                            }
-
+                            //TODO: Without sort.
+                            //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
+                            
+                            //TODO: With sort.
+                            // Sort orders before passing them to the completion handler
+                            var sortedOrders = newCloseModel.sorted { $0.position < $1.position }
+                            sortedOrders = newCloseModel.sorted { $0.LatestTime > $1.LatestTime }
+                           
+                            completion(nil, nil, sortedOrders, nil) // Pass positions to completion
+                            
+                            //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
+                            //
+                        }
                         
                     }
                 } catch {
@@ -290,7 +299,7 @@ class TradeTypeCellVM {
                 
             case .failure(let error):
                 // Handle the error
-//                ActivityIndicator.shared.hide(from: self.view)
+                //                ActivityIndicator.shared.hide(from: self.view)
                 print("Request failed with error: \(error)")
                 completion(nil, nil, nil, error) // Pass error to completion
             }
@@ -313,7 +322,7 @@ class TradeTypeCellVM {
         
         // Now you can access groupedCloseModels
         for (position, models) in groupedCloseModels {
-//            print("Symbol: \(symbol), Models: \(models)")
+            //            print("Symbol: \(symbol), Models: \(models)")
             // Get the latest time
             let latestTime = models.map { $0.time }.max() ?? 0
             
@@ -333,17 +342,18 @@ class TradeTypeCellVM {
             // Get unique symbols from the repeated values
             let order = latestMaxTimeModel.order
             let entry = latestMaxTimeModel.entry
-//            let action = latestMaxTimeModel.action
+            //            let action = latestMaxTimeModel.action
             let position = latestMaxTimeModel.position
             let volume = latestMaxTimeModel.volume
             let price = latestMaxTimeModel.price
             let profit = latestMaxTimeModel.profit
             let symbol = latestMaxTimeModel.symbol
-            let action = latestMaxTimeModel.action
             
+            let earliestCloseModel = models.min(by: { $0.time < $1.time })
             
+            let action = earliestCloseModel?.action
             
-            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!))
+            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action ?? -1, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!))
         }
         
         
@@ -354,7 +364,7 @@ class TradeTypeCellVM {
     func separateDuplicateSymbols(from closeModels: [CloseModel]) -> [String: [CloseModel]] {
         var uniqueSymbols: Set<String> = []
         var groupedModels: [String: [CloseModel]] = [:]
-
+        
         for model in closeModels {
             if !uniqueSymbols.contains(model.symbol) {
                 uniqueSymbols.insert(model.symbol)
@@ -368,26 +378,26 @@ class TradeTypeCellVM {
     
     func separateDuplicatePositions(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
         var groupedModels: [Int: [CloseModel]] = [:]
-
+        
         for model in closeModels {
             if groupedModels[model.position] == nil {
                 groupedModels[model.position] = []
             }
             groupedModels[model.position]?.append(model)
         }
-
+        
         return groupedModels
     }
     
     func separateDuplicatePositionsOnly(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
         var positionCount: [Int: Int] = [:]
         var groupedModels: [Int: [CloseModel]] = [:]
-
+        
         // First pass: Count occurrences of each position
         for model in closeModels {
             positionCount[model.position, default: 0] += 1
         }
-
+        
         // Second pass: Group models by position, but only if they have duplicates
         for model in closeModels {
             if positionCount[model.position] ?? 0 > 1 {
@@ -397,10 +407,10 @@ class TradeTypeCellVM {
                 groupedModels[model.position]?.append(model)
             }
         }
-
+        
         return groupedModels
     }
-
+    
     
 }
 

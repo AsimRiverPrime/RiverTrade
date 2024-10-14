@@ -8,7 +8,7 @@
 import UIKit
 
 class CloseTicketBottomSheetVC: UIViewController {
-
+    
     @IBOutlet weak var lbl_ticketName: UILabel!
     @IBOutlet weak var lbl_positionNumber: UILabel!
     @IBOutlet weak var lbl_symbolName: UILabel!
@@ -18,33 +18,33 @@ class CloseTicketBottomSheetVC: UIViewController {
     
     var closeData: NewCloseModel?
     var ticketName : String?
-     
+    
     var totalValue: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCell()
-                
+        
         self.lbl_symbolName.text = closeData?.symbol
         self.lbl_positionNumber.text = "#\(closeData?.position ?? 0)"
         
         if closeData?.action == 0 {
-            ticketName = "Buy"
+            ticketName = "BUY"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 1 {
-            ticketName = "Sell"
+            ticketName = "SELL"
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 2 {
-            ticketName = "Buy Limit"
+            ticketName = "BUY Limit"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 3 {
-            ticketName = "Sell Limit"
+            ticketName = "SELL Limit"
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 4 {
-            ticketName = "Buy Stop"
+            ticketName = "BUY Stop"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 5 {
-            ticketName = "Sell Stop"
+            ticketName = "SELL Stop"
             self.lbl_ticketName.text = "Sell Ticket"
         }
         
@@ -59,12 +59,12 @@ class CloseTicketBottomSheetVC: UIViewController {
         closeValue_TableView.reloadData()
     }
     
-
+    
 }
 
 extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 2
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,7 +80,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: CloseTicketSectionCell.self, for: indexPath)
-           
+            
             return cell
         } else {
             
@@ -98,13 +98,15 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             cell.lbl_price.text = "\(data?.price ?? 0.0)"
             cell.lbl_profit.text = "\(data?.profit ?? 0.0)"
             
-//            self.totalValue = Double(closeData!.profit)
-            let Tprofit = closeData!.totalProfit
-            let profit = data!.profit
+            //            self.totalValue = Double(closeData!.profit)
+            let Tprofit = closeData?.totalProfit ?? 0
+            let profit = data?.profit ?? 0
             
             if Tprofit < 0  {
                 self.lbl_totalPrice.textColor = .systemRed
-               
+            } else if Tprofit > 0 {
+                self.lbl_totalPrice.textColor = .systemGreen
+                
             }else {
                 self.lbl_totalPrice.textColor = .darkGray
                 
@@ -112,10 +114,11 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             if profit < 0 {
                 cell.lbl_profit.textColor = .systemRed
+            }else if profit > 0 {
+                cell.lbl_profit.textColor = .systemGreen
             }else{
                 cell.lbl_profit.textColor = .darkGray
             }
-            
             self.lbl_totalPrice.text = "\(Tprofit) USD"
             
             return cell

@@ -34,9 +34,6 @@ class HistoryTradeTVCell: UITableViewCell {
         // Initialization code
         registerCell()
         
-        print("\n closeData in history TV cell :\n \(closeData)")
-        
-     
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -51,7 +48,7 @@ class HistoryTradeTVCell: UITableViewCell {
         ])
         orders_tableView.delegate = self
         orders_tableView.dataSource = self
-        orders_tableView.reloadData()
+//        orders_tableView.reloadData()
     }
     
 }
@@ -62,13 +59,14 @@ extension HistoryTradeTVCell {
         
 //        let data = close[indexPath.row]
         closeData = close[indexPath.row]
+        print("\n closeData in history TV cell :\n \(closeData)")
         
         guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
             return
         }
         
         self.lbl_positionID.text = "#\(closeData.position)"
-        
+   
         if closeData.action == 0 {
             ticketName = "BUY"
          
@@ -87,7 +85,11 @@ extension HistoryTradeTVCell {
         }else if closeData.action == 5 {
             ticketName = "SELL Stop"
         
+        } else {
+        print("No data found.")
         }
+    
+      
         
         
         let createDate = Date(timeIntervalSince1970: Double(closeData.LatestTime))
@@ -137,6 +139,7 @@ extension HistoryTradeTVCell {
         self.lbl_price.text = "\(closeData.totalProfit) USD"
         lbl_totalPrice.text = "\(closeData.totalProfit) USD"
         
+        orders_tableView.reloadData()
     }
     
 }
@@ -169,6 +172,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             
             let data = closeData.repeatedFilteredArray[indexPath.row]
             let volumee = Double(data.volume ) / Double(10000)
+            
             
             if data.entry == 0 {
                 cell.lbl_type.text = "IN"
@@ -203,5 +207,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             return 40
         }
     }
+    
+
 }
 

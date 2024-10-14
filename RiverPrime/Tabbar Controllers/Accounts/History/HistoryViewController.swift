@@ -16,6 +16,8 @@ class HistoryViewController: UIViewController {
     
     @IBOutlet weak var historyTableView: UITableView!
     
+    @IBOutlet weak var view_noMatchData: UIView!
+    
     var vm = HistoryVM()
     
     var closeData = [NewCloseModel]()
@@ -77,16 +79,29 @@ extension HistoryViewController {
                 return
             }
             
-            if let closeData = closeData {
-                self.closeData = closeData
-                self.lbl_noPosition.text = "\(closeData.count)"
-                print("historyClose data : \(closeData)")
+            if closeData?.count == 0 {
+                self.view_noMatchData.isHidden = false
+                self.historyTableView.isHidden = true
+            }else{
+                self.view_noMatchData.isHidden = true
+                self.historyTableView.isHidden = false
+            }
+            
+            if let closeData1 = closeData {
+                self.closeData = closeData1
+                self.lbl_noPosition.text = "\(self.closeData.count)"
+                print("historyClose data : \(self.closeData)")
                 
-//                for (models) in closeData {
-//                
-////                    let totalPrice = models.map { $0.price }.reduce(0, +)
-//                }
-                
+                let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
+                self.lbl_totalProfit.text = "\(totalProfitValue) USD"
+             
+                if totalProfitValue < 0 {
+                    self.lbl_totalProfit.textColor = .systemRed
+                }else{
+                    self.lbl_totalProfit.textColor = .systemGreen
+                }
+             //   closeData.sort(by: { $0.LatestTime > $1.LatestTime })
+//                self.closeData.sort { $0.LatestTime > $1.LatestTime }
                 self.historyTableView.reloadData()
             } else {
                 return

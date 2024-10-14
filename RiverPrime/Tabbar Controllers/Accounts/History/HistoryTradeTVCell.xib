@@ -95,10 +95,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EaE-Ph-Sif">
-                                <rect key="frame" x="10" y="150.33333333333331" width="494" height="173.33333333333331"/>
+                                <rect key="frame" x="10" y="150.33333333333331" width="494" height="168.33333333333331"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="n18-4S-rvL">
-                                        <rect key="frame" x="0.0" y="0.0" width="494" height="173.33333333333334"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="494" height="168.33333333333334"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                 </subviews>
@@ -111,7 +111,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TotalPrice" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buU-0D-Guo">
-                                <rect key="frame" x="443" y="333.66666666666669" width="61" height="14.333333333333314"/>
+                                <rect key="frame" x="443" y="328.66666666666669" width="61" height="14.333333333333314"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -121,7 +121,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="6S2-c0-RvO" firstAttribute="centerX" secondItem="qQT-h8-gJa" secondAttribute="centerX" id="14c-Dz-Zcc"/>
-                            <constraint firstAttribute="bottom" secondItem="buU-0D-Guo" secondAttribute="bottom" constant="10" id="5YB-Rk-8Be"/>
+                            <constraint firstAttribute="bottom" secondItem="buU-0D-Guo" secondAttribute="bottom" constant="15" id="5YB-Rk-8Be"/>
                             <constraint firstItem="rhA-af-ei3" firstAttribute="top" secondItem="5ZG-v7-zze" secondAttribute="bottom" constant="15" id="76T-q3-r8b"/>
                             <constraint firstItem="5ZG-v7-zze" firstAttribute="centerY" secondItem="Ngg-QM-9BR" secondAttribute="centerY" id="8wI-jl-Nbs"/>
                             <constraint firstItem="KtT-6y-dM8" firstAttribute="top" secondItem="QvB-Y2-act" secondAttribute="bottom" constant="10" id="9iK-QU-wQI"/>
