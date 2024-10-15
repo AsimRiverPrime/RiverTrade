@@ -14,6 +14,7 @@ struct SymbolCompleteList {
     var historyMessage: SymbolChartData?
     var isTickFlag: Bool?
     var isHistoryFlag: Bool?
+    var isHistoryFlagTimer: Bool?
 }
 
 struct SymbolData: Codable {
@@ -70,6 +71,10 @@ class TradeVC: UIView {
      
     var getSymbolData = [SymbolCompleteList]()
     
+    var timer: Timer?
+    var timeLeft = 60 // seconds
+    var isTimerRunMoreThenOnce = false
+    
     public override func awakeFromNib() {
 //        ActivityIndicator.shared.show(in: self)
         
@@ -92,7 +97,7 @@ class TradeVC: UIView {
         vm.webSocketManager.delegateSocketPeerClosed = self
 //        vm.webSocketManager.connectWebSocket()
         
-        
+        isTimerRunMoreThenOnce = false
         
         //MARK: - Handle tableview constraints according to the device logical height.
         //        setTableViewLayoutConstraints()
@@ -120,6 +125,8 @@ class TradeVC: UIView {
     }
     
     func dismissView(_ trade: Bool) {
+        timer?.invalidate()
+        timer = nil
         if !trade {
             
             print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
@@ -263,7 +270,7 @@ extension TradeVC {
                 
             } else if screen_height == 812.0 {
                 //MARK: - iphoneXs
-                tblViewTopConstraint.constant = -30
+                tblViewTopConstraint.constant = -45
                 
             } else if screen_height >= 852.0 && screen_height <= 932.0 {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
@@ -357,11 +364,35 @@ extension TradeVC: GetSocketMessages {
    //                        vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
    //                    }
                        
-                       if let flag = getSymbolData[index].isHistoryFlag {
+                       /*if let flag = getSymbolData[index].isHistoryFlag {
                            if !flag && !GlobalVariable.instance.isProcessingSymbol {
                                getSymbolData[index].isHistoryFlag = true
                                GlobalVariable.instance.isProcessingSymbol = true
                                vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
+                           }
+                       }*/
+                       
+                       if let flag = getSymbolData[index].isHistoryFlag {
+                           if !flag/* && !GlobalVariable.instance.isProcessingSymbol*/ {
+                               getSymbolData[index].isHistoryFlag = true
+//                               GlobalVariable.instance.isProcessingSymbol = true
+                               vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
+                           } else {
+                               if !GlobalVariable.instance.isProcessingSymbol {
+                                   GlobalVariable.instance.isProcessingSymbol = true
+                                   start60SecondsCountdown()
+                               } else {
+                                   if let flagTimer = getSymbolData[index].isHistoryFlagTimer {
+                                       if !flagTimer && !GlobalVariable.instance.isProcessingSymbolTimer {
+                                           if isTimerRunMoreThenOnce {
+                                               getSymbolData[index].isHistoryFlag = true
+                                               GlobalVariable.instance.isProcessingSymbolTimer = true
+                                               getSymbolData[index].isHistoryFlagTimer = true
+                                               vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
+                                           }
+                                       }
+                                   }
+                               }
                            }
                        }
                        
@@ -390,8 +421,9 @@ extension TradeVC: GetSocketMessages {
                        let indexPath = IndexPath(row: index, section: 2)
                        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                            print("getSymbolData[\(index)] = \(getSymbolData[index])")
-   //                        getSymbolData[index].isHistoryFlag = true
-                           GlobalVariable.instance.isProcessingSymbol = false
+//   //                        getSymbolData[index].isHistoryFlag = true
+//                           GlobalVariable.instance.isProcessingSymbol = false
+                           GlobalVariable.instance.isProcessingSymbolTimer = false
                            cell.configureChart(getSymbolData: getSymbolData[index])
                        }
                        
@@ -431,6 +463,33 @@ extension TradeVC: GetSocketMessages {
                break
            }
        }
+
+    func start60SecondsCountdown() {
+        timeLeft = 60 // Reset to 60 seconds
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        if timeLeft > 0 {
+            timeLeft -= 1
+        } else {
+            timer?.invalidate()
+            timer = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//                self.start60SecondsCountdown() // Restart the timer after 1 second
+//                for i in 0...self.getSymbolData.count-1 {
+//                    self.getSymbolData[i].isHistoryFlagTimer = false
+//                }
+                
+//                self.getSymbolData.forEach { $0.isHistoryFlagTimer = false }
+                self.getSymbolData.indices.forEach { index in
+                    self.getSymbolData[index].isHistoryFlagTimer = false
+                }
+                self.isTimerRunMoreThenOnce = true
+                GlobalVariable.instance.isProcessingSymbol = false
+            }
+        }
+    }
 
 }
 
@@ -656,7 +715,7 @@ extension TradeVC {
             let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
 //            vm.trades.append(tradedetail)
 //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
-            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false))
+            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
         }
         
         print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
@@ -670,6 +729,12 @@ extension TradeVC {
         
         //MARK: - START calling Socket message from here.
         vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
+        
+        timer?.invalidate()
+        timer = nil
+        GlobalVariable.instance.isProcessingSymbolTimer = false
+        start60SecondsCountdown()
+        
     }
 
     

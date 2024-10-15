@@ -960,9 +960,6 @@ PODS:
   - BoringSSL-GRPC/Implementation (0.0.32):
     - BoringSSL-GRPC/Interface (= 0.0.32)
   - BoringSSL-GRPC/Interface (0.0.32)
-  - CocoaLumberjack (3.8.5):
-    - CocoaLumberjack/Core (= 3.8.5)
-  - CocoaLumberjack/Core (3.8.5)
   - CountryPickerView (3.3.0)
   - Firebase/Core (10.29.0):
     - Firebase/CoreOnly
@@ -1054,6 +1051,7 @@ PODS:
     - nanopb (< 2.30911.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
   - FirebaseSharedSwift (10.29.0)
+  - FSCalendar (2.8.4)
   - GoogleAppMeasurement (10.29.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.29.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -1215,12 +1213,7 @@ PODS:
   - SDWebImage (5.19.7):
     - SDWebImage/Core (= 5.19.7)
   - SDWebImage/Core (5.19.7)
-  - SDWebImageSVGKitPlugin (1.4.0):
-    - SDWebImage/Core (~> 5.10)
-    - SVGKit (~> 3.0)
   - Starscream (4.0.8)
-  - SVGKit (3.0.0):
-    - CocoaLumberjack (~> 3.0)
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
@@ -1234,11 +1227,11 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Firestore
   - FirebaseAuth
+  - FSCalendar
   - GoogleSignIn
   - GTMSessionFetcher
   - PhoneNumberKit (~> 3.7)
   - SDWebImage (~> 5.0)
-  - SDWebImageSVGKitPlugin
   - Starscream (~> 4.0.4)
   - SVProgressHUD
   - TPKeyboardAvoiding
@@ -1250,7 +1243,6 @@ SPEC REPOS:
     - Alamofire
     - AppAuth
     - BoringSSL-GRPC
-    - CocoaLumberjack
     - CountryPickerView
     - Firebase
     - FirebaseAnalytics
@@ -1266,6 +1258,7 @@ SPEC REPOS:
     - FirebaseRemoteConfigInterop
     - FirebaseSessions
     - FirebaseSharedSwift
+    - FSCalendar
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
@@ -1281,9 +1274,7 @@ SPEC REPOS:
     - PromisesSwift
     - RecaptchaInterop
     - SDWebImage
-    - SDWebImageSVGKitPlugin
     - Starscream
-    - SVGKit
     - SVProgressHUD
     - TPKeyboardAvoiding
 
@@ -1293,7 +1284,6 @@ SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
-  CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
   CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
   Firebase: cec914dab6fd7b1bd8ab56ea07ce4e03dd251c2d
   FirebaseAnalytics: 23717de130b779aa506e757edb9713d24b6ffeda
@@ -1309,6 +1299,7 @@ SPEC CHECKSUMS:
   FirebaseRemoteConfigInterop: 6efda51fb5e2f15b16585197e26eaa09574e8a4d
   FirebaseSessions: dbd14adac65ce996228652c1fc3a3f576bdf3ecc
   FirebaseSharedSwift: 20530f495084b8d840f78a100d8c5ee613375f6e
+  FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   GoogleAppMeasurement: f9de05ee17401e3355f68e8fc8b5064d429f5918
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
@@ -1324,12 +1315,10 @@ SPEC CHECKSUMS:
   PromisesSwift: 9d77319bbe72ebf6d872900551f7eeba9bce2851
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SDWebImage: 8a6b7b160b4d710e2a22b6900e25301075c34cb3
-  SDWebImageSVGKitPlugin: 7542dd07c344ec3415ded0461a1161a6f087e0c9
   Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
-  SVGKit: 1ad7513f8c74d9652f94ed64ddecda1a23864dea
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: 31adfcd409ff60f985a83cfbfe9accad3c141372
+PODFILE CHECKSUM: c7ea94b43255751abd6f18ad7dd3a1fac8ea4e00
 
 COCOAPODS: 1.15.2

@@ -64,6 +64,7 @@ class AccountTableViewCell: UITableViewCell {
     var login_Id = Int()
     var account_type = String()
     var account_group = String()
+    var mt5 = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -93,10 +94,17 @@ class AccountTableViewCell: UITableViewCell {
                 }
                 if accountType == "Pro Account" {
                     self.account_group = " PRO "
+                    mt5 = " MT5 "
                 }else if accountType == "Prime Account" {
                     self.account_group = " PRIME "
-                }else {
+                    mt5 = " MT5 "
+                }else if accountType == "Premium Account" {
                     self.account_group = " PREMIUM "
+                    mt5 = " MT5 "
+                }else{
+                    self.account_group = ""
+                    mt5 = ""
+                    
                 }
             }
         }
@@ -131,7 +139,7 @@ class AccountTableViewCell: UITableViewCell {
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
             secondTitle.text = "#\(self.login_Id)"
-            lbl_MT5.text = " MT5 "
+            lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             
@@ -159,7 +167,7 @@ class AccountTableViewCell: UITableViewCell {
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
             secondTitle.text = "#\(self.login_Id)"
-            lbl_MT5.text = " MT5 "
+            lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             

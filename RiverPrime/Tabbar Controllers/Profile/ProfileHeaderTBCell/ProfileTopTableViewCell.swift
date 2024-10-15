@@ -33,8 +33,12 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int {
-                
+            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool {
+                if realAccount == true {
+                    
+                }else{
+//                    Alert.showAlert(withMessage: "First create Real Account" , andTitle: "Alert!", on: self)
+                }
                 if profileStep == 3 {
                     self.btn_completeProfile.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
                 }

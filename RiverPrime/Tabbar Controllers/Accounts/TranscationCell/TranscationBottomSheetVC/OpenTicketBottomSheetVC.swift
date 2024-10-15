@@ -75,6 +75,10 @@ class OpenTicketBottomSheetVC: BaseViewController {
         //        }else if openData?.action == 5 {
         //            ticketName = "Sell Ticket"
         //        }
+        
+        tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
+        tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
+        
         if openData?.action == 1 {
             ticketName = "Buy Ticket"
         }else {
@@ -248,7 +252,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     
     @IBAction func save_action(_ sender: Any) {
         
-        viewModel.positionUpdate(takeProfit: takeProfit_value ?? 0, stopLoss: stoploss_value ?? 0, position: (openData!.position))
+        viewModel.positionUpdate(takeProfit: Double(tf_takeProfit.text ?? "") ?? 0 , stopLoss: Double(tf_stopLoss.text ?? "") ?? 0 , position: openData?.position ?? 0)
         
     }
     

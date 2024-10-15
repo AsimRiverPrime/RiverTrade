@@ -16,6 +16,7 @@ class GlobalVariable: NSObject {
     
     static var instance = GlobalVariable()
     
+    var isProcessingSymbolTimer: Bool = false
     
     var passwordKey = SymmetricKey(size: .bits256)
     var keyIdentifier = "com.riverTrade.aesPassKey"

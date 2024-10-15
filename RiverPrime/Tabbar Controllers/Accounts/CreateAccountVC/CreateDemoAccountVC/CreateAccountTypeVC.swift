@@ -103,15 +103,15 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         
         if self.lbl_accountTitle.text == "Pro Account" {
              group = "demo\\RP\\PRO"
-            print("group value is:\(group)")
+            
         }else if self.lbl_accountTitle.text == "Prime Account" {
-             group = "demo\\RP\\PRIME"
+             group = "demo\\RP\\Prime"
         }else {
-             group = "demo\\RP\\PREMIUM"
+             group = "demo\\RP\\Premium"
         }
         
 //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 100, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {

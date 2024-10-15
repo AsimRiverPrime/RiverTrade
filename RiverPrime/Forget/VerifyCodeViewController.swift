@@ -29,7 +29,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     var userPhone: String?
     
-    
     let fireStoreInstance = FirestoreServices()
     //    let odooClientService = OdooClient()
     let odooClientService = OdooClientNew()
@@ -254,13 +253,10 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     private func navigateToPhoneVerifiyScreen() {
-        //        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PhoneVerifyVC"){
-        //            verifyVC.userEmail = userEmail
-        //            self.navigate(to: verifyVC)
-        //        }
+       
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
-        //        verifyVC.userEmail = userEmail
+       
         self.navigate(to: verifyVC)
     }
     
@@ -269,7 +265,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
 extension VerifyCodeViewController: SendOTPDelegate {
     func otpSuccess(response: Any) {
         print("this is the send otp response: \(response)")
-        self.ToastMessage("Please check Your email for OTP")
+        self.ToastMessage("Check your email inbox or spam for OTP")
     }
     
     func otpFailure(error: Error) {

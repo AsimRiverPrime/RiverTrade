@@ -22,11 +22,22 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var detailsLabel: UILabel!
     
     @IBOutlet weak var lbl_sellBtn: UILabel!
+    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
+    @IBOutlet weak var lbl_amount: UILabel!
+    
+    @IBOutlet weak var lbl_accountType: UILabel!
+    @IBOutlet weak var lbl_accountGroup: UILabel!
+    
     
 //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
+    
+    var login_Id = Int()
+    var account_type = String()
+    var account_group = String()
+    var mt5 = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +47,42 @@ class TradeDetalVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
 //        handleTradesUpdated()
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+               
+                self.login_Id = loginID
+                
+                if isCreateDemoAccount == true {
+                    self.account_type = " Demo "
+                }
+                if isRealAccount == true {
+                    self.account_type = " Real "
+                }
+                if accountType == "Pro Account" {
+                    self.account_group = " PRO "
+                    mt5 = " MT5 "
+                }else if accountType == "Prime Account" {
+                    self.account_group = " PRIME "
+                    mt5 = " MT5 "
+                }else if accountType == "Premium Account" {
+                    self.account_group = " PREMIUM "
+                    mt5 = " MT5 "
+                }else{
+                    self.account_group = ""
+                    mt5 = ""
+                    
+                }
+            }
+        }
+        
+        self.lbl_login_id.text = "#\(self.login_Id)"
+        self.lbl_accountType.text = self.account_type
+        self.lbl_accountGroup.text = self.account_group
+        
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -53,10 +100,7 @@ class TradeDetalVC: UIViewController {
             if let tradeDetail = notification.object as? TradeDetails {
                
                 if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
-                    symbolLabel.text = "Symbol: \(tradeDetail.symbol)"
-                      
-                    // Assuming TradeDetail has properties you want to display
-                    detailsLabel.text = "Ask: \(tradeDetail.ask), Bid :\(tradeDetail.bid), \n Time: \(tradeDetail.datetime)"
+//
                     
                     self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
                     self.lbl_sellBtn.text = "\(tradeDetail.ask)"

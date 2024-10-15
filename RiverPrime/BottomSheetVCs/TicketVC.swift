@@ -54,11 +54,6 @@ class TicketVC: BottomSheetController {
     @IBOutlet weak var clearStoploss_btn: UIButton!
     @IBOutlet weak var btn_stopLossDropDown: UIButton!
     
-    @IBOutlet weak var lbl_SL: UILabel!
-    @IBOutlet weak var lbl_TP: UILabel!
-    @IBOutlet weak var lbl_limit: UILabel!
-    @IBOutlet weak var lbl_ConfrmBtnPrice: UILabel!
-    
     @IBOutlet weak var btn_confirm: UIButton!
     
     var getSymbolDetail = SymbolCompleteList()
@@ -266,7 +261,7 @@ class TicketVC: BottomSheetController {
                 profit.1 = Double(liveValue) ?? 0.0
                 profit.2 = true
                 
-                self.lbl_ConfrmBtnPrice.text = liveValue
+//                self.lbl_ConfrmBtnPrice.text = liveValue
                 
             } else {
                 profit.0 = ""
@@ -283,7 +278,7 @@ class TicketVC: BottomSheetController {
                 loss.1 = Double(liveValue) ?? 0.0
                 loss.2 = true
                 
-                self.lbl_ConfrmBtnPrice.text = liveValue
+//                self.lbl_ConfrmBtnPrice.text = liveValue
                 
             } else {
                 loss.0 = ""
@@ -315,7 +310,7 @@ class TicketVC: BottomSheetController {
                         let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
                         
                         self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
-                        lbl_limit.text = "Limit"
+//                        lbl_limit.text = "Limit"
                         
                         if price.1 < myPriceValue {
                             isConfirmEnable[0].1 = true
@@ -332,7 +327,7 @@ class TicketVC: BottomSheetController {
                         let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
                         
                         self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
-                        lbl_limit.text = "Limit"
+//                        lbl_limit.text = "Limit"
                         
                         if price.1 > myPriceValue {
                             isConfirmEnable[0].1 = true
@@ -362,7 +357,7 @@ class TicketVC: BottomSheetController {
                         let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
                         
                         self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
-                        lbl_limit.text = "Stop"
+//                        lbl_limit.text = "Stop"
                         
                         if price.1 > myPriceValue {
                             isConfirmEnable[0].1 = true
@@ -379,7 +374,7 @@ class TicketVC: BottomSheetController {
                         let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
                         
                         self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
-                        lbl_limit.text = "Stop"
+//                        lbl_limit.text = "Stop"
                         
                         if price.1 < myPriceValue {
                             isConfirmEnable[0].1 = true
@@ -582,12 +577,12 @@ class TicketVC: BottomSheetController {
         if selectedPrice == "Market" {
             price_view.isHidden = true
             lbl_currentPriceValue.isHidden = true
-            lbl_limit.isHidden = true
+//            lbl_limit.isHidden = true
             priceValue = bidValue
         } else {
             price_view.isHidden = false
             lbl_currentPriceValue.isHidden = false
-            lbl_limit.isHidden = false
+//            lbl_limit.isHidden = false
         }
     }
     
@@ -705,11 +700,11 @@ class TicketVC: BottomSheetController {
       
         if sender.isOn {
             self.takeProfit_view.isUserInteractionEnabled = true
-            lbl_TP.isHidden = false
+//            lbl_TP.isHidden = false
             
         }else{
             self.takeProfit_view.isUserInteractionEnabled = false
-            lbl_TP.isHidden = true
+//            lbl_TP.isHidden = true
             self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
             self.lbl_liveProfitLoss.isHidden = true
             self.takeProfit = 0.0
@@ -734,7 +729,7 @@ class TicketVC: BottomSheetController {
     }
     
     @IBAction func profit_clearAction(_ sender: Any) {
-        lbl_TP.isHidden = true
+//        lbl_TP.isHidden = true
         liveValue_view.isHidden = true
         tf_takeProfit.text = ""
         tf_takeProfit.placeholder = "not set"
@@ -746,11 +741,11 @@ class TicketVC: BottomSheetController {
         //       updateStopLossView()
         if sender.isOn {
             self.stopLoss_view.isUserInteractionEnabled = true
-            lbl_SL.isHidden = false
+//            lbl_SL.isHidden = false
             
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
-            lbl_SL.isHidden = true
+//            lbl_SL.isHidden = true
             self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
             self.lbl_liveStopLoss.isHidden = true
             self.stopLoss = 0.0
@@ -777,7 +772,7 @@ class TicketVC: BottomSheetController {
     
     
     @IBAction func stopLoss_clearAction(_ sender: Any) {
-        lbl_SL.isHidden = true
+//        lbl_SL.isHidden = true
         stopLossLiveValue_view.isHidden = true
         tf_stopLoss.text = ""
         tf_stopLoss.placeholder = "not set"
@@ -821,6 +816,7 @@ extension TicketVC {
     func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
         
+        var odooClient = OdooClientNew()
         
         let url = "https://mbe.riverprime.com/jsonrpc"
         
@@ -832,9 +828,9 @@ extension TicketVC {
                 "method": "execute_kw",
                 "service": "object",
                 "args": [
-                    "mbe.riverprime.com",
-                    6,
-                    "7d2d38646cf6437034109f442596b86cbf6110c0",
+                    odooClient.dataBaseName, //"mbe.riverprime.com",
+                    odooClient.uid, //6,
+                    odooClient.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
                     "mt.middleware",
                     "create_order",
                     [

@@ -37,8 +37,8 @@ pod 'Alamofire', '~> 5.6'
 pod 'AEXML', '~> 4.2'
 pod 'Starscream', '~> 4.0.4'
 pod 'SDWebImage', '~> 5.0'
-pod 'SDWebImageSVGKitPlugin'
+#pod 'SDWebImageSVGKitPlugin'
 
 #pod 'DGCharts'
-
+pod 'FSCalendar'
 end

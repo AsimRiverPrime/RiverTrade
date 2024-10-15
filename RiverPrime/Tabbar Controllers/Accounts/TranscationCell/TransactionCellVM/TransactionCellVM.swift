@@ -7,7 +7,6 @@
 
 import Foundation
 import SDWebImage
-import SDWebImageSVGKitPlugin
 
 class TransactionCellVM {
     

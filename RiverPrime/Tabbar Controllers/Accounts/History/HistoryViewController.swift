@@ -119,7 +119,7 @@ extension HistoryViewController {
                 print("historyClose data : \(self.closeData)")
                 
                 let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
-                self.lbl_totalProfit.text = "\(totalProfitValue) USD"
+                self.lbl_totalProfit.text = "\(String(totalProfitValue).trimmedTrailingZeros()) USD"
              
                 if totalProfitValue < 0 {
                     self.lbl_totalProfit.textColor = .systemRed
@@ -154,7 +154,7 @@ extension HistoryViewController {
         }
         
         // Create an alert controller
-        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
         
         // Add the date picker to the alert
         alertController.view.addSubview(datePicker)
@@ -190,15 +190,6 @@ extension HistoryViewController {
         let date = dateFormatter.string(from: selectedDate)
         print("Current date: \(date)")
         
-//        if fromDate != "" {
-//            btn_fromDate.setTitle(date, for: .normal)
-//            btn_fromDate.titleLabel?.text = date
-//        } else if toDate != "" {
-//            btn_toDate.setTitle(date, for: .normal)
-//            btn_toDate.titleLabel?.text = date
-//        }
-        
-//        let selectedDate = datePicker.date
         let timestamp = selectedDate.timeIntervalSince1970
         print("Selected timestamp: \(timestamp)")
         

@@ -74,9 +74,11 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
+                    self.forToast.ToastMessage("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
+                self.forToast.ToastMessage("\(error)")
             }
         }
     }
@@ -90,7 +92,7 @@ class TradeTypeCellVM {
             }
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t  position: \(position) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
-        //update_position(self, email, login, password, position_id, take_profit, stop_loss)
+        
         let params: [String: Any] = [
             "jsonrpc": "2.0",
             "params": [
@@ -122,20 +124,161 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print(" position update value is: \(value)")
-                self.forToast.ToastMessage("Position closed partially successfully")
+                self.forToast.ToastMessage("Position update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]] {
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
+                        if success == 1 {
+                            self.forToast.ToastMessage("Position update successfully")
+                        }else{
+                            self.forToast.ToastMessage("Position Not Found")
+                        }
                     }
                 }
                 catch {
                     print("Error decoding response: \(error)")
+                    self.forToast.ToastMessage("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
+                self.forToast.ToastMessage("\(error)")
+            }
+        }
+    }
+    
+    func deletePendingOrder(order_Id: Int) {
+        // Retrieve the data from UserDefaults
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) ")
+        
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "delete_order",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass ?? "",
+                        order_Id
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print("Delete order value is: \(value)")
+                self.forToast.ToastMessage("Order Deleted successfully")
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        print("jsonData: \(jsonData)")
+                        if success == 1 {
+                            self.forToast.ToastMessage("Delete order successfully")
+                        }else{
+                            self.forToast.ToastMessage("Order Not Found")
+                        }
+                        
+                    }
+                }
+                catch {
+                    print("Error decoding response: \(error)")
+                    self.forToast.ToastMessage("\(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+                self.forToast.ToastMessage("\(error)")
+            }
+        }
+    }
+    
+    func UpdatePendingOrder(order_Id: Int, takeProfit: Double, stopLoss: Double, price: Double) {
+        // Retrieve the data from UserDefaults
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        
+        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) \t  price: \(price) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
+
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "update_order",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass ?? "",
+                        order_Id
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print("Delete order value is: \(value)")
+                self.forToast.ToastMessage("Order Deleted successfully")
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        print("jsonData: \(jsonData)")
+                        if success == 1 {
+                            self.forToast.ToastMessage("Delete order successfully")
+                        }else{
+                            self.forToast.ToastMessage("Order Not Found")
+                        }
+                        
+                    }
+                }
+                catch {
+                    print("Error decoding response: \(error)")
+                    self.forToast.ToastMessage("\(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+                self.forToast.ToastMessage("\(error)")
             }
         }
     }
@@ -222,8 +365,7 @@ class TradeTypeCellVM {
                             loginId, //1012614,
                             fromDate ?? 1727740855, // to previous
                             toDate ?? newTimestampInSeconds  // from current
-//                            1727740855, // to previous
-//                            newTimestampInSeconds  // from current
+                          
                         ]
                     ]
                 ]

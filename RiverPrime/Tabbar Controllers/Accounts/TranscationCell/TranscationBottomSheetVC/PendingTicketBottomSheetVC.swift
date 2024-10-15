@@ -36,7 +36,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     
     var ticketName: String?
     //    var openData: OPCNavigationType?
-    
+    var viewModel = TradeTypeCellVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,6 +76,9 @@ class PendingTicketBottomSheetVC: BaseViewController {
         self.lbl_dateTime.text = "Time: " + time
         self.lbl_volumePrice.text = ticketName! + " \(volume) Lots at " + "\(pendingData?.price ?? 0)"
         tf_price.text = "\(pendingData?.price ?? 0)"
+        tf_stopLoss.text = "\(pendingData?.stopLoss ?? 0)"
+        tf_takeProfit.text = "\(pendingData?.takeProfit ?? 0)"
+        
         currentValue1 = Double(pendingData?.price ?? 0)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
@@ -95,6 +98,8 @@ class PendingTicketBottomSheetVC: BaseViewController {
         
         return datee
     }
+    
+    
     @objc func hideKeyboard() {
         view.endEditing(true)  // This will dismiss the keyboard for all text fields
     }
@@ -172,9 +177,16 @@ class PendingTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func deleteOrder_action(_ sender: Any) {
+//        delete_order(self, email, login, password, order_id)
+        guard let order_id = pendingData?.order else { return }
+        
+        viewModel.deletePendingOrder(order_Id: order_id)
     }
     
     @IBAction func save_action(_ sender: Any) {
+//        update_order(self, email, login, password, order_id, price, take_profit, stop_loss)
+        guard let order_id = pendingData?.order else { return }
+        viewModel.UpdatePendingOrder(order_Id: order_id, takeProfit: (Double(tf_takeProfit.text ?? "") ?? 0), stopLoss: (Double(tf_stopLoss.text ?? "") ?? 0), price: (Double(tf_price.text ?? "") ?? 0))
     }
     
     func updateValue(for textField: UITextField, increment: Bool) {

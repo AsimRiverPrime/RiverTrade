@@ -82,7 +82,7 @@ extension CloseOrderCell {
             lbl_profitValue.textColor = .systemGreen
         }
         
-        lbl_profitValue.text = "\(data.totalProfit)"
+        lbl_profitValue.text = "\(data.totalProfit)".trimmedTrailingZeros()
         
     }
     

@@ -41,7 +41,8 @@ class TradeTypeTableViewCell: BaseTableViewCell {
         tradeTypeCollectionView.delegate = self
         tradeTypeCollectionView.dataSource = self
         tradeTypeCollectionView.register(UINib(nibName: "TradeTypeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeTypeCollectionViewCell")
- 
+        tradeTypeCollectionView.isScrollEnabled = false
+
         fetchPositions(index: 0)
         
     }

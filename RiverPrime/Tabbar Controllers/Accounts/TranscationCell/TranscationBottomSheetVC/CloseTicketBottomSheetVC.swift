@@ -119,7 +119,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.lbl_profit.textColor = .darkGray
             }
-            self.lbl_totalPrice.text = "\(Tprofit) USD"
+            self.lbl_totalPrice.text = "\(Tprofit) USD".trimmedTrailingZeros()
             
             return cell
         }

@@ -168,7 +168,7 @@ extension ProfileVC {
                 
             } else if screen_height == 812.0 {
                 //MARK: - iphoneXs
-                tblViewTopConstraint.constant = -30
+                tblViewTopConstraint.constant = -45
                 
             } else if screen_height >= 852.0 && screen_height <= 932.0 {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
