@@ -237,7 +237,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func UpdatePendingOrder(order_Id: Int, takeProfit: Double, stopLoss: Double, price: Double) {
+    func UpdatePendingOrder(order_Id: Int, takeProfit: Double, stopLoss: Double, price: Double, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -277,7 +277,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("Delete order value is: \(value)")
-                self.forToast.showTimeAlert(str: "Order update successfully")
+                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -286,20 +286,23 @@ class TradeTypeCellVM {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {
-                            self.forToast.showTimeAlert(str: "Order update successfully")
+                           
+                            completion("Order update successfully")
                         }else{
-                            self.forToast.showTimeAlert(str: "Order Not Found")
+                            completion("Order Not Found")
                         }
                         
                     }
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    self.forToast.showTimeAlert(str: "\(error)")
+//                    self.forToast.showTimeAlert(str: "\(error)")
+                    completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                self.forToast.showTimeAlert(str: "\(error)")
+//                self.forToast.showTimeAlert(str: "\(error)")
+                completion("\(error)")
             }
         }
     }

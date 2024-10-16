@@ -50,6 +50,15 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         
         resendCodeButton.isEnabled = true
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            if self.isEmailVerification == true {
+                self.ToastMessage( "check email inbox/spam for OTP")
+            }else{
+                self.ToastMessage("check message for OTP")
+            }
+        }
+        
+        
     }
     
     @IBAction func confirmBtn(_ sender: Any) {

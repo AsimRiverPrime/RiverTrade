@@ -8,7 +8,7 @@
 import UIKit
 
 class PendingTicketBottomSheetVC: BaseViewController {
-
+    
     @IBOutlet weak var lbl_ticketName: UILabel!
     @IBOutlet weak var lbl_positionNumber: UILabel!
     @IBOutlet weak var lbl_symbolName: UILabel!
@@ -46,7 +46,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
         self.takeProfit_View.isUserInteractionEnabled = false
         self.stopLoss_view.isUserInteractionEnabled = false
         
-
+        
         self.lbl_symbolName.text = pendingData?.symbol
         self.lbl_positionNumber.text = "#\(pendingData?.order ?? 0)"
         
@@ -125,7 +125,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-           
+            
         }
     }
     
@@ -135,7 +135,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
             self.takeProfit_View.isUserInteractionEnabled = true
             self.tf_takeProfit.text = "\(pendingData?.takeProfit ?? 0)"
             self.currentValue2 = pendingData?.takeProfit ?? 0
-           
+            
         }else{
             self.takeProfit_View.isUserInteractionEnabled = false
             self.tf_takeProfit.text = ""
@@ -154,7 +154,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-           
+            
         }
     }
     
@@ -163,7 +163,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
             self.stopLoss_view.isUserInteractionEnabled = true
             self.tf_stopLoss.text = "\(pendingData?.stopLoss ?? 0)"
             self.currentValue3 = pendingData?.stopLoss ?? 0
-           
+            
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
             self.tf_stopLoss.text = ""
@@ -177,7 +177,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func deleteOrder_action(_ sender: Any) {
-//        delete_order(self, email, login, password, order_id)
+        //        delete_order(self, email, login, password, order_id)
         guard let order_id = pendingData?.order else { return }
         
         viewModel.deletePendingOrder(order_Id: order_id, completion: { response in
@@ -187,7 +187,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed on success.")
-                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Pending"])
                 })
             }
             
@@ -195,9 +195,21 @@ class PendingTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func save_action(_ sender: Any) {
-//        update_order(self, email, login, password, order_id, price, take_profit, stop_loss)
+        //        update_order(self, email, login, password, order_id, price, take_profit, stop_loss)
         guard let order_id = pendingData?.order else { return }
-        viewModel.UpdatePendingOrder(order_Id: order_id, takeProfit: (Double(tf_takeProfit.text ?? "") ?? 0), stopLoss: (Double(tf_stopLoss.text ?? "") ?? 0), price: (Double(tf_price.text ?? "") ?? 0))
+        
+        viewModel.UpdatePendingOrder(order_Id: order_id, takeProfit: (Double(tf_takeProfit.text ?? "") ?? 0), stopLoss: (Double(tf_stopLoss.text ?? "") ?? 0), price: (Double(tf_price.text ?? "") ?? 0), completion: { response in
+            
+            self.showTimeAlert(str: response)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.dismiss(animated: true, completion: {
+                    print("Bottom sheet dismissed on success.")
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Pending"])
+                })
+                
+            }
+        })
     }
     
     func updateValue(for textField: UITextField, increment: Bool) {
@@ -211,7 +223,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
             currentValue = currentValue2
         case tf_stopLoss:
             currentValue = currentValue3
-     
+            
         default:
             return
         }
@@ -236,7 +248,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
             currentValue2 = currentValue
         case tf_stopLoss:
             currentValue3 = currentValue
-      
+            
         default:
             break
         }

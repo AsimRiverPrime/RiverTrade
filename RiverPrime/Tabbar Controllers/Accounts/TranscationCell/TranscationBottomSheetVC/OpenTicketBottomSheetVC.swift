@@ -253,7 +253,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed on success.")
-                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
                 })
             }
             
@@ -270,7 +270,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed on success.")
-                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)  
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil,  userInfo: ["OPCType": "Open"])
                 })
             }
             

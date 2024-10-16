@@ -7,13 +7,16 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 
 
 class FirestoreServices: BaseViewController {
     
     var window: UIWindow?
     
-    private let db = Firestore.firestore()
+    let db = Firestore.firestore()
+   
+    var odoClientNew = OdooClientNew()
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
         let userRef = db.collection("users").document(user.uid)
@@ -73,7 +76,7 @@ class FirestoreServices: BaseViewController {
         UserDefaults.standard.set(userId, forKey: "userID")
         print("user ID is: \(userId)")
         
-         let db = Firestore.firestore()
+//         let db = Firestore.firestore()
          let docRef = db.collection("users").document(userId)
          
          docRef.getDocument { (document, error) in
@@ -96,11 +99,16 @@ class FirestoreServices: BaseViewController {
             print("\n Handle saved User Data for navigation : \(data)")
             
             if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+                if let email = data["email"] as? String {
+                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
+                   
+                }
                navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
-//            } else if let phoneVerified = data["phoneVerified"] as? Bool, !phoneVerified {
-//               navigateToPhoneVerificationScreen()
-//                print("navigate to user phone verification")
+               
+            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
+               navigateToPhoneVerificationScreen()
+                print("navigate to user phone verification")
             } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
                 navigateToDemoAccountCreationScreen()
                 print("navigate to user demo account")
@@ -206,9 +214,10 @@ class FirestoreServices: BaseViewController {
        
     private func navigateToEmailVerificationScreen() {
                //MARK: - Go to the VerifyCodeViewController Screen.
-        let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .signInViewController, storyboardType: .main)
-        self.ToastMessage("Verify Email by OTP")
-               let navController = UINavigationController(rootViewController: verifyCodeVC)
+        let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main) as? VerifyCodeViewController
+        verifyCodeVC!.isEmailVerification = true
+       
+               let navController = UINavigationController(rootViewController: verifyCodeVC!)
                SCENE_DELEGATE.window?.rootViewController = navController
                SCENE_DELEGATE.window?.makeKeyAndVisible()
            }

@@ -54,10 +54,12 @@ class SignUpViewController: BaseViewController {
     let db = Firestore.firestore()
     let fireBaseService =  FirestoreServices()
     
+    var emailUser: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print("odoo client auth call")
-//        odooClientService.authenticate()
+        //        odooClientService.authenticate()
         odoClientNew.authenticate()
         odooClientService.createLeadDelegate = self
         // Do any additional setup after loading the view.
@@ -76,6 +78,7 @@ class SignUpViewController: BaseViewController {
     @objc func emailTextChanged(_ textField: UITextField) {
         if self.viewModel.isValidEmail(self.email_tf.text!)  {
             self.lbl_emailValid.isHidden = true
+            emailUser = self.email_tf.text!
         } else {
             self.lbl_emailValid.textColor = .red
             self.lbl_emailValid.text = "email is not correct"
@@ -137,12 +140,12 @@ class SignUpViewController: BaseViewController {
     
     @IBAction func continueBtn(_ sender: Any) {
         signUp()
-//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//            self.navigate(to: dashboardVC)
-//        }
+        //        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+        //            self.navigate(to: dashboardVC)
+        //        }
         
-//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        //        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
+        //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -156,13 +159,13 @@ class SignUpViewController: BaseViewController {
     }
     
     @IBAction func continueGoogleBtn(_ sender: Any) {
- 
+        
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             if let error = error {
                 print("Sign in failed: \(error.localizedDescription)")
                 return
             }
-            
+            print("result user: \(result)")
             guard let user1 = result?.user else { return }
             
             self?.authenticateWithFirebase(user: user1)
@@ -198,13 +201,36 @@ class SignUpViewController: BaseViewController {
             
             // User is signed in with Firebase successfuly
             if let user = authResult?.user {
-              
-                UserDefaults.standard.set(user.uid, forKey: "userID")
                 
-                self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
-                    self.navigateToVerifiyScreen()
+                UserDefaults.standard.set(user.uid, forKey: "userID")
+                self.emailUser = user.email ?? ""
+                
+                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error checking for existing user: \(error.localizedDescription)")
+                    }
+                    
+                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+                        print("User with this email already exists.")
+                        self.fireBaseService.fetchUserData(userId: user.uid)
+                        
+                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+                            print("Timer fired!")
+                            self.fireBaseService.handleUserData()
+                        }
+                        
+                        
+                    } else {
+                        self.odooClientService.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+                        
+                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+                        
+                    }
                 }
+                
+                
             }
+        }
     }
     
     private func signUp() {
@@ -224,7 +250,7 @@ class SignUpViewController: BaseViewController {
         UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
         UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
         // Check if user already exists in Firestore
-       
+        
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
@@ -255,16 +281,16 @@ class SignUpViewController: BaseViewController {
                     // Successfully add user to firebase
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
-                       
+                        
                         ActivityIndicator.shared.show(in: self!.view)
                         
                         let name = firstName + " " + lastName
                         self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
-                       
+                        
                         self?.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
                         
-                        self?.navigateToVerifiyScreen()
+                        
                     }
                 }
             }
@@ -273,7 +299,7 @@ class SignUpViewController: BaseViewController {
     }
     
     private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
-       
+        
         db.collection("users").document(userId).setData([
             "KYC" : kyc,
             "profileStep" : profileStep,
@@ -300,12 +326,10 @@ class SignUpViewController: BaseViewController {
     }
     
     private func navigateToVerifiyScreen() {
-//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//            self.navigate(to: dashboardVC)
-//        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
-//        verifyVC.userEmail = self.email_tf.text ?? ""
+        //        verifyVC.userEmail = self.email_tf.text ?? ""
         GlobalVariable.instance.userEmail = self.email_tf.text ?? ""
         verifyVC.isEmailVerification = true
         verifyVC.isPhoneVerification = false
@@ -317,7 +341,9 @@ class SignUpViewController: BaseViewController {
 extension SignUpViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-        odoClientNew.sendOTP(type: "email", email: email_tf.text ?? "", phone: "")
+        odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
+        self.ToastMessage("Check email inbox or spam for OTP")
+        self.navigateToVerifiyScreen()
     }
     
     func leadCreatFailure(error: any Error) {

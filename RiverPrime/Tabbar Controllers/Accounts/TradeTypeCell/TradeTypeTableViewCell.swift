@@ -45,7 +45,7 @@ class TradeTypeTableViewCell: BaseTableViewCell {
 
         fetchPositions(index: 0)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal), name: .OPCListDismissall, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal(_:)), name: .OPCListDismissall, object: nil)
        
     }
 
@@ -55,23 +55,42 @@ class TradeTypeTableViewCell: BaseTableViewCell {
         // Configure the view for the selected state
     }
     
-    @objc private func OPCListDissmisal() {
-        
-        // Execute the fetch on a background thread
-        DispatchQueue.global(qos: .background).async { [weak self] in
-            self?.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        print("Error fetching positions: \(error)")
-                        // Handle the error (e.g., show an alert)
-                    } else if let positions = openData {
-                        //
-                        self?.delegate?.getOPCData(opcType: .open(positions))
+    @objc private func OPCListDissmisal(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+               let receivedString = userInfo["yourKey"] as? String {
+                print("Received string: \(receivedString)")
+            if receivedString == "Open" {
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    self?.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
+                        DispatchQueue.main.async {
+                            if let error = error {
+                                print("Error fetching positions: \(error)")
+                                // Handle the error (e.g., show an alert)
+                            } else if let positions = openData {
+                                //
+                                self?.delegate?.getOPCData(opcType: .open(positions))
 
+                            }
+                        }
+                    }
+                }
+            }else if receivedString == "Pending" {
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    self?.vm.OPCApi(index: 1) { openData, pendingData, closeData, error in
+                        DispatchQueue.main.async {
+                            if let error = error {
+                                print("Error fetching positions: \(error)")
+                               
+                            } else if let orders = pendingData {
+                                self?.delegate?.getOPCData(opcType: .pending(orders))
+                            }
+                        }
                     }
                 }
             }
-        }
+            }
+        // Execute the fetch on a background thread
+        
         
     }
     
