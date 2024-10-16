@@ -29,6 +29,7 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var lbl_accountType: UILabel!
     @IBOutlet weak var lbl_accountGroup: UILabel!
     
+    @IBOutlet var menuButton: [UIButton]!
     
 //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
@@ -47,6 +48,8 @@ class TradeDetalVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
 //        handleTradesUpdated()
+        
+        addTopAndBottomBorders(menuButton[0])
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
@@ -95,12 +98,59 @@ class TradeDetalVC: UIViewController {
         disconnectWebSocket()
     }
     
+    @IBAction func menuButton(_ sender: UIButton) {
+        addTopAndBottomBorders(menuButton[sender.tag])
+        
+        //MARK: - Remove previous button content here.
+//        for view in self.chartView.subviews {
+//            view.removeFromSuperview()
+//        }
+        
+        //MARK: - Add new content from here.
+        
+//        lazy var label: UILabel = {
+//          let label = UILabel()
+//            label.text = "test label."
+//            label.translatesAutoresizingMaskIntoConstraints = false
+//            return label
+//        }()
+//
+//        self.chartView.addSubview(label)
+//
+//        label.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+//        label.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        label.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//        label.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        
+    }
+    
+    func addTopAndBottomBorders(_ sender: UIButton) {
+        
+        for i in 0...2 {
+            let thickness: CGFloat = 3.0
+            let bottomBorder = CALayer()
+            bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
+            bottomBorder.backgroundColor = UIColor.white.cgColor
+           
+            menuButton[i].titleLabel?.font = UIFont.systemFont(ofSize: 16)
+            menuButton[i].layer.addSublayer(bottomBorder)
+        }
+        
+        let thickness: CGFloat = 3.0
+        let bottomBorder = CALayer()
+        bottomBorder.frame = CGRect(x:0, y: self.menuButton[sender.tag].frame.size.height - thickness, width: self.menuButton[sender.tag].frame.size.width, height:thickness)
+        bottomBorder.backgroundColor = UIColor.systemYellow.cgColor
+        menuButton[sender.tag].titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        menuButton[sender.tag].layer.addSublayer(bottomBorder)
+       
+    }
+    
         @objc private func handleTradesUpdated(_ notification: Notification) {
          
             if let tradeDetail = notification.object as? TradeDetails {
                
                 if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
-//
                     
                     self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
                     self.lbl_sellBtn.text = "\(tradeDetail.ask)"
@@ -190,9 +240,6 @@ class TradeDetalVC: UIViewController {
             ])
         }
       
-        
-//        self.chart = chart
-        
         let myoptions = CandlestickSeriesOptions(
             upColor: "rgba(8, 153, 52, 1)",
             downColor: "rgba(204, 13, 13, 1)",

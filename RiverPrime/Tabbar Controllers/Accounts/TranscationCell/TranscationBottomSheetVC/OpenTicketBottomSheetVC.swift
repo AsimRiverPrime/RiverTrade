@@ -246,13 +246,35 @@ class OpenTicketBottomSheetVC: BaseViewController {
             type = 1
         }
         
-        viewModel.positionClosed(symbol: openData?.symbol ?? "", type: type!, volume: vol ?? 0, price: 0, position: openData?.position ?? 0)
+        viewModel.positionClosed(symbol: openData?.symbol ?? "", type: type!, volume: vol ?? 0, price: 0, position: openData?.position ?? 0) { response in
+            
+            self.showTimeAlert(str: response)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.dismiss(animated: true, completion: {
+                    print("Bottom sheet dismissed on success.")
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)
+                })
+            }
+            
+        }
         
     }
     
     @IBAction func save_action(_ sender: Any) {
         
-        viewModel.positionUpdate(takeProfit: Double(tf_takeProfit.text ?? "") ?? 0 , stopLoss: Double(tf_stopLoss.text ?? "") ?? 0 , position: openData?.position ?? 0)
+        viewModel.positionUpdate(takeProfit: Double(tf_takeProfit.text ?? "") ?? 0 , stopLoss: Double(tf_stopLoss.text ?? "") ?? 0 , position: openData?.position ?? 0) { response in
+            
+            self.showTimeAlert(str: response)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.dismiss(animated: true, completion: {
+                    print("Bottom sheet dismissed on success.")
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)  
+                })
+            }
+            
+        }
         
     }
     

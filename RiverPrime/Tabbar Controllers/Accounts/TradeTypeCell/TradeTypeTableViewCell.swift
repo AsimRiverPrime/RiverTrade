@@ -45,12 +45,34 @@ class TradeTypeTableViewCell: BaseTableViewCell {
 
         fetchPositions(index: 0)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal), name: .OPCListDismissall, object: nil)
+       
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @objc private func OPCListDissmisal() {
+        
+        // Execute the fetch on a background thread
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            self?.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        print("Error fetching positions: \(error)")
+                        // Handle the error (e.g., show an alert)
+                    } else if let positions = openData {
+                        //
+                        self?.delegate?.getOPCData(opcType: .open(positions))
+
+                    }
+                }
+            }
+        }
+        
     }
     
 }

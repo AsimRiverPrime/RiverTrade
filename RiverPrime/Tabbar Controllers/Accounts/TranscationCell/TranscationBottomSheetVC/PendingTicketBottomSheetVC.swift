@@ -180,7 +180,18 @@ class PendingTicketBottomSheetVC: BaseViewController {
 //        delete_order(self, email, login, password, order_id)
         guard let order_id = pendingData?.order else { return }
         
-        viewModel.deletePendingOrder(order_Id: order_id)
+        viewModel.deletePendingOrder(order_Id: order_id, completion: { response in
+            
+            self.showTimeAlert(str: response)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.dismiss(animated: true, completion: {
+                    print("Bottom sheet dismissed on success.")
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil)
+                })
+            }
+            
+        })
     }
     
     @IBAction func save_action(_ sender: Any) {

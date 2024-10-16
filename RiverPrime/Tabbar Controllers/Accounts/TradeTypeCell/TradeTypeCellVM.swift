@@ -20,7 +20,7 @@ class TradeTypeCellVM {
     var email = ""
     var loginId = 0
     
-    func positionClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int) {
+    func positionClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -63,27 +63,41 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("close position value is: \(value)")
-                self.forToast.ToastMessage("Position closed successfully")
+//                self.forToast.showTimeAlert(str: "Position closed successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]] {
+                       let result = json["result"] as? [String: Any], let success = result["success"] as? Bool {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
+                        
+                        print("success = \(success)")
+                        
+                        let error = result["error"] as? String
+                        
+                        if success {
+                            completion("Position closed successfully")
+                        } else {
+                            completion(error ?? "Something went wrong.")
+                        }
+                        return
                     }
+                    completion("Something went wrong.")
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    self.forToast.ToastMessage("\(error)")
+//                    self.forToast.showTimeAlert(str: "\(error)")
+                    completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                self.forToast.ToastMessage("\(error)")
+//                self.forToast.showTimeAlert(str: "\(error)")
+                completion("\(error)")
             }
         }
     }
     
-    func positionUpdate(takeProfit: Double, stopLoss: Double, position: Int) {
+    func positionUpdate(takeProfit: Double, stopLoss: Double, position: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -124,33 +138,39 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print(" position update value is: \(value)")
-                self.forToast.ToastMessage("Position update successfully")
+//                self.forToast.showTimeAlert(str: "Position update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]],
-                       let success = json["success"] as? Int {
+                       let result = json["result"] as? [String: Any],
+                       let success = result["success"] as? Bool {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
-                        if success == 1 {
-                            self.forToast.ToastMessage("Position update successfully")
+                        if success {
+//                            self.forToast.showTimeAlert(str: "Position update successfully")
+                            completion("Position update successfully")
                         }else{
-                            self.forToast.ToastMessage("Position Not Found")
+//                            self.forToast.showTimeAlert(str: "Position Not Found")
+                            completion("Position Not Found")
                         }
+                        return
                     }
+                    completion("Something went wrong.")
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    self.forToast.ToastMessage("\(error)")
+//                    self.forToast.showTimeAlert(str: "\(error)")
+                    completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                self.forToast.ToastMessage("\(error)")
+//                self.forToast.showTimeAlert(str: "\(error)")
+                completion("\(error)")
             }
         }
     }
     
-    func deletePendingOrder(order_Id: Int) {
+    func deletePendingOrder(order_Id: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -189,7 +209,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("Delete order value is: \(value)")
-                self.forToast.ToastMessage("Order Deleted successfully")
+//                self.forToast.showTimeAlert(str: "Order Deleted successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -198,20 +218,21 @@ class TradeTypeCellVM {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {
-                            self.forToast.ToastMessage("Delete order successfully")
+                            completion("Delete order successfully")
                         }else{
-                            self.forToast.ToastMessage("Order Not Found")
+                            completion("Order Not Found")
                         }
-                        
+                        return
                     }
+                    completion("Something went wrong.")
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    self.forToast.ToastMessage("\(error)")
+                    completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                self.forToast.ToastMessage("\(error)")
+                completion("\(error)")
             }
         }
     }
@@ -256,7 +277,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("Delete order value is: \(value)")
-                self.forToast.ToastMessage("Order Deleted successfully")
+                self.forToast.showTimeAlert(str: "Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -265,20 +286,20 @@ class TradeTypeCellVM {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {
-                            self.forToast.ToastMessage("Delete order successfully")
+                            self.forToast.showTimeAlert(str: "Order update successfully")
                         }else{
-                            self.forToast.ToastMessage("Order Not Found")
+                            self.forToast.showTimeAlert(str: "Order Not Found")
                         }
                         
                     }
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    self.forToast.ToastMessage("\(error)")
+                    self.forToast.showTimeAlert(str: "\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                self.forToast.ToastMessage("\(error)")
+                self.forToast.showTimeAlert(str: "\(error)")
             }
         }
     }

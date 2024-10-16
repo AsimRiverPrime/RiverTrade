@@ -20,8 +20,6 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var profitIcon: UIImageView!
     
 
-//    var historyChartData = [SymbolChartData]()
-  
     private var chart: LightweightCharts!
     private var series: AreaSeries!
     
@@ -35,10 +33,7 @@ class TradeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.graphView.isUserInteractionEnabled = false
-        SDImageCache.shared.clearMemory()
-        SDImageCache.shared.clearDisk(onCompletion: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(chartDataUpdated(_:)), name: .symbolDataUpdated, object: nil)
-        setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+       setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
     }
    
     //let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
@@ -117,63 +112,6 @@ class TradeTableViewCell: UITableViewCell {
 //        GlobalVariable.instance.isProcessingSymbol = false
     }
     
-    /*
-    private func setupChart(for symbol: String, with chartData: SymbolChartData) {
-        // Check if the chart has already been created for the symbol
-        guard createdCharts[symbol] == nil else { return }
-        
-        // Mark the chart as created for the symbol
-            createdCharts[symbol] = true
-
-            // Store the chart data for the symbol
-            storedChartData[symbol] = chartData
-        
-        chart = LightweightCharts()
-        graphView.addSubview(chart)
-        chart.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
-            chart.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
-            chart.topAnchor.constraint(equalTo: graphView.topAnchor),
-            chart.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
-        ])
-        // Options to hide the x-axis and y-axis
-           let chartOptions = ChartOptions(
-            layout: LayoutOptions(background: .none ),
-               rightPriceScale: VisiblePriceScaleOptions(visible: false),
-               timeScale: TimeScaleOptions(visible: false)
-           )
-           chart.applyOptions(options: chartOptions)
-        
-        // Update options to hide the line and values
-        let options = AreaSeriesOptions(
-                   priceLineVisible: false,
-                   topColor: "rgba(76, 175, 80, 0.5)",
-                   bottomColor: "rgba(76, 175, 80, 0)",
-                   lineColor: "rgba(76, 175, 80, 1)",
-                   lineWidth: .one
-               )
-        
-        let areaSeries = chart.addAreaSeries(options: options)
-        
-        updateChart(with: chartData, areaSeries: areaSeries)
-    }
-
-    func updateChart(with chartData: SymbolChartData, areaSeries: AreaSeries) {
-        var areaData = [AreaData]()
-        
-        let chartData = chartData.chartData
-//        let chartData = chartData.message.payload.chartData
-        for data in chartData {
-            print("/n Datetime1: \(data.datetime), Close: \(data.close)")
-            let _areaData = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
-            areaData.append(_areaData)
-        }
-        
-        areaSeries.setData(data: areaData)
-    }
-    */
-    
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
         lblCurrencySymbl.text = trade.symbol
        
@@ -183,8 +121,8 @@ class TradeTableViewCell: UITableViewCell {
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             
-            let trimString = removeParentheses(from: symbol.description)
-            lblCurrencyName.text = trimString
+//            let trimString = removeParentheses(from: symbol.description)
+            lblCurrencyName.text = symbol.description 
             
             print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
             if symbol.name == "Platinum" {
@@ -208,16 +146,16 @@ class TradeTableViewCell: UITableViewCell {
         
     }
     
-    func removeParentheses(from input: String) -> String {
-            let pattern = "\\s*\\([^)]*\\)"  // Regular expression pattern to match parentheses and content
-            let regex = try! NSRegularExpression(pattern: pattern, options: [])
-            let range = NSRange(location: 0, length: input.utf16.count)
-            
-            // Replacing the matched part (parentheses and content inside) with an empty string
-            let trimmedString = regex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "")
-            
-            return trimmedString.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
+//    func removeParentheses(from input: String) -> String {
+//            let pattern = "\\s*\\([^)]*\\)"  // Regular expression pattern to match parentheses and content
+//            let regex = try! NSRegularExpression(pattern: pattern, options: [])
+//            let range = NSRange(location: 0, length: input.utf16.count)
+//            
+//            // Replacing the matched part (parentheses and content inside) with an empty string
+//            let trimmedString = regex.stringByReplacingMatches(in: input, options: [], range: range, withTemplate: "")
+//            
+//            return trimmedString.trimmingCharacters(in: .whitespacesAndNewlines)
+//        }
 
     
     

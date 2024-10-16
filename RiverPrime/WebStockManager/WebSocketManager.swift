@@ -63,6 +63,7 @@ class WebSocketManager: WebSocketDelegate {
 
     func connectHistoryWebSocket() {
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
+//        let url = URL(string: "ws://192.168.3.169:8073")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -79,6 +80,7 @@ class WebSocketManager: WebSocketDelegate {
 
     func connectWebSocket() {
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
+//        let url = URL(string: "ws://192.168.3.169:8073")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
