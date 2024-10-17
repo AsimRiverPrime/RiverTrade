@@ -18,16 +18,16 @@ class TradeDetalVC: UIViewController {
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
         
-    @IBOutlet weak var symbolLabel: UILabel!
-    @IBOutlet weak var detailsLabel: UILabel!
+//    @IBOutlet weak var symbolLabel: UILabel!
+//    @IBOutlet weak var detailsLabel: UILabel!
     
     @IBOutlet weak var lbl_sellBtn: UILabel!
-    @IBOutlet weak var lbl_login_id: UILabel!
+//    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
     @IBOutlet weak var lbl_amount: UILabel!
     
-    @IBOutlet weak var lbl_accountType: UILabel!
-    @IBOutlet weak var lbl_accountGroup: UILabel!
+//    @IBOutlet weak var lbl_accountType: UILabel!
+//    @IBOutlet weak var lbl_accountGroup: UILabel!
     
     @IBOutlet var menuButton: [UIButton]!
     
@@ -51,41 +51,41 @@ class TradeDetalVC: UIViewController {
         
         addTopAndBottomBorders(menuButton[0])
         
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-               
-                self.login_Id = loginID
-                
-                if isCreateDemoAccount == true {
-                    self.account_type = " Demo "
-                }
-                if isRealAccount == true {
-                    self.account_type = " Real "
-                }
-                if accountType == "Pro Account" {
-                    self.account_group = " PRO "
-                    mt5 = " MT5 "
-                }else if accountType == "Prime Account" {
-                    self.account_group = " PRIME "
-                    mt5 = " MT5 "
-                }else if accountType == "Premium Account" {
-                    self.account_group = " PREMIUM "
-                    mt5 = " MT5 "
-                }else{
-                    self.account_group = ""
-                    mt5 = ""
-                    
-                }
-            }
-        }
+//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+//            print("saved User Data: \(savedUserData)")
+//            // Access specific values from the dictionary
+//            
+//            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+//               
+//                self.login_Id = loginID
+//                
+//                if isCreateDemoAccount == true {
+//                    self.account_type = " Demo "
+//                }
+//                if isRealAccount == true {
+//                    self.account_type = " Real "
+//                }
+//                if accountType == "Pro Account" {
+//                    self.account_group = " PRO "
+//                    mt5 = " MT5 "
+//                }else if accountType == "Prime Account" {
+//                    self.account_group = " PRIME "
+//                    mt5 = " MT5 "
+//                }else if accountType == "Premium Account" {
+//                    self.account_group = " PREMIUM "
+//                    mt5 = " MT5 "
+//                }else{
+//                    self.account_group = ""
+//                    mt5 = ""
+//                    
+//                }
+//            }
+//        }
         
-        self.lbl_login_id.text = "#\(self.login_Id)"
-        self.lbl_accountType.text = self.account_type
-        self.lbl_accountGroup.text = self.account_group
-        
+//        self.lbl_login_id.text = "#\(self.login_Id)"
+//        self.lbl_accountType.text = self.account_type
+//        self.lbl_accountGroup.text = self.account_group
+//        
         
     }
     override func viewWillAppear(_ animated: Bool) {

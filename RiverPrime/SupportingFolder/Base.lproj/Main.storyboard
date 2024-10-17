@@ -2138,10 +2138,10 @@ Reach out for questions or concerns about your privacy.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiD-nj-Ign" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="853"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doR-qR-3Gh">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1023.6666666666666"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eA6-il-whs">
                                                 <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
@@ -2185,7 +2185,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-b2-5mg">
-                                                <rect key="frame" x="0.0" y="359.99999999999994" width="393" height="663.66666666666652"/>
+                                                <rect key="frame" x="0.0" y="360" width="393" height="492"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cv6-5L-KCT">
                                                         <rect key="frame" x="50" y="320" width="293" height="38"/>
@@ -2363,6 +2363,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         <constraints>
                                             <constraint firstItem="Tgm-b2-5mg" firstAttribute="leading" secondItem="doR-qR-3Gh" secondAttribute="leading" id="Ey7-gS-J3R"/>
                                             <constraint firstItem="eA6-il-whs" firstAttribute="top" secondItem="doR-qR-3Gh" secondAttribute="top" id="GCJ-45-iG9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Tgm-b2-5mg" secondAttribute="bottom" id="Hty-dA-FOg"/>
                                             <constraint firstItem="eA6-il-whs" firstAttribute="leading" secondItem="doR-qR-3Gh" secondAttribute="leading" id="Jye-X0-7Lf"/>
                                             <constraint firstItem="W8R-lr-qhH" firstAttribute="leading" secondItem="doR-qR-3Gh" secondAttribute="leading" constant="30" id="PW6-SA-HAG"/>
                                             <constraint firstAttribute="trailing" secondItem="W8R-lr-qhH" secondAttribute="trailing" constant="30" id="QOM-eg-G1k"/>
@@ -2377,22 +2378,21 @@ Reach out for questions or concerns about your privacy.</string>
                                 <constraints>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="leading" secondItem="hiD-nj-Ign" secondAttribute="leading" id="0Eh-vg-hrA"/>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="top" secondItem="hiD-nj-Ign" secondAttribute="top" id="UgX-JY-sj2"/>
-                                    <constraint firstItem="doR-qR-3Gh" firstAttribute="height" secondItem="hiD-nj-Ign" secondAttribute="height" multiplier="1.2" id="cPh-rK-vS8"/>
                                     <constraint firstAttribute="trailing" secondItem="doR-qR-3Gh" secondAttribute="trailing" id="edP-gh-OmA"/>
+                                    <constraint firstItem="doR-qR-3Gh" firstAttribute="height" secondItem="hiD-nj-Ign" secondAttribute="height" id="vb6-ZI-OSW"/>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="width" secondItem="hiD-nj-Ign" secondAttribute="width" id="vd7-HL-ZkV"/>
                                     <constraint firstAttribute="bottom" secondItem="doR-qR-3Gh" secondAttribute="bottom" id="vpo-iH-y4H"/>
-                                    <constraint firstAttribute="bottom" secondItem="Tgm-b2-5mg" secondAttribute="bottom" id="zTK-Mz-oMB"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="RKQ-8L-emy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="leading" secondItem="Vo9-LW-Gun" secondAttribute="leading" id="C5K-cv-eS6"/>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="top" secondItem="Vo9-LW-Gun" secondAttribute="top" id="JH5-Di-P2l"/>
+                            <constraint firstItem="hiD-nj-Ign" firstAttribute="height" secondItem="Vo9-LW-Gun" secondAttribute="height" id="KfY-Vv-JTT"/>
                             <constraint firstAttribute="trailing" secondItem="hiD-nj-Ign" secondAttribute="trailing" id="kh8-ao-Wrf"/>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="width" secondItem="Vo9-LW-Gun" secondAttribute="width" id="rbC-1y-5VK"/>
-                            <constraint firstAttribute="bottom" secondItem="hiD-nj-Ign" secondAttribute="bottom" constant="-1" id="w0i-dT-neF"/>
+                            <constraint firstAttribute="bottom" secondItem="hiD-nj-Ign" secondAttribute="bottom" id="w0i-dT-neF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qek-5G-bAM"/>
@@ -2855,7 +2855,7 @@ Reach out for questions or concerns about your privacy.</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="gvt-nr-y25" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="-59" width="353.66666666666669" height="911"/>
+                                <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt7-wi-eW4">
                                         <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="360"/>
@@ -2991,7 +2991,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password not match" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxz-TH-SB6">
-                                                <rect key="frame" x="12" y="236.33333333333331" width="269.66666666666669" height="14.333333333333343"/>
+                                                <rect key="frame" x="12" y="236.33333333333337" width="269.66666666666669" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
@@ -3010,7 +3010,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9qe-vP-Ppv">
-                                                <rect key="frame" x="12" y="255.66666666666669" width="25" height="25"/>
+                                                <rect key="frame" x="12" y="255.66666666666663" width="25" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="Bby-Tx-Fng"/>
                                                     <constraint firstAttribute="width" constant="25" id="fUm-Z0-xwy"/>
@@ -3041,7 +3041,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="5"/>
+                                                        <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -3054,7 +3054,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YZ-Fj-hLi">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0YZ-Fj-hLi">
                                                 <rect key="frame" x="34.999999999999986" y="373.66666666666663" width="223.66666666666663" height="45"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -3062,33 +3062,24 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue with Google">
-                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="google.png" imagePlacement="leading" title="Continue with Google" imagePadding="15">
+                                                    <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="5"/>
+                                                        <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="continueGoogleBtn:" destination="mGn-jd-fpH" eventType="touchUpInside" id="HfC-vh-8qb"/>
                                                 </connections>
                                             </button>
-                                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="googleIcon" translatesAutoresizingMaskIntoConstraints="NO" id="JWb-aM-OLI">
-                                                <rect key="frame" x="40" y="383.66666666666663" width="30" height="25"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="XOq-LR-LHB"/>
-                                                    <constraint firstAttribute="height" constant="25" id="dVy-ou-tvb"/>
-                                                </constraints>
-                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" name="buttonTextColor"/>
                                         <constraints>
                                             <constraint firstItem="9qe-vP-Ppv" firstAttribute="leading" secondItem="hxz-TH-SB6" secondAttribute="leading" id="1nF-OX-DhS"/>
                                             <constraint firstAttribute="trailing" secondItem="A2r-Mv-XGv" secondAttribute="trailing" constant="12" id="1tH-aW-DWa"/>
                                             <constraint firstItem="A2r-Mv-XGv" firstAttribute="leading" secondItem="9qe-vP-Ppv" secondAttribute="trailing" constant="8" id="4V0-WE-WpH"/>
-                                            <constraint firstItem="JWb-aM-OLI" firstAttribute="leading" secondItem="0YZ-Fj-hLi" secondAttribute="leading" constant="5" id="4hD-kM-q0D"/>
                                             <constraint firstItem="zch-Lp-VIa" firstAttribute="centerY" secondItem="aED-d9-JXz" secondAttribute="centerY" id="7yO-xa-Afx"/>
                                             <constraint firstItem="6WJ-R4-qKB" firstAttribute="top" secondItem="GET-Ir-oEE" secondAttribute="bottom" constant="17" id="Avl-WC-Shr"/>
                                             <constraint firstItem="GET-Ir-oEE" firstAttribute="top" secondItem="C0s-9b-cJq" secondAttribute="bottom" constant="16" id="B1T-Oe-yZe"/>
@@ -3119,7 +3110,6 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="aED-d9-JXz" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="owe-5F-0Iu"/>
                                             <constraint firstAttribute="trailing" secondItem="aED-d9-JXz" secondAttribute="trailing" constant="12" id="oyH-Ch-cEf"/>
                                             <constraint firstItem="14y-9W-lho" firstAttribute="centerX" secondItem="Xp9-Ip-DhV" secondAttribute="centerX" id="p6h-YC-tlV"/>
-                                            <constraint firstItem="JWb-aM-OLI" firstAttribute="centerY" secondItem="0YZ-Fj-hLi" secondAttribute="centerY" id="pfU-Km-BpS"/>
                                             <constraint firstItem="tep-wG-CHW" firstAttribute="top" secondItem="GET-Ir-oEE" secondAttribute="bottom" id="tBk-HT-LH6"/>
                                             <constraint firstItem="hxz-TH-SB6" firstAttribute="leading" secondItem="2zK-6q-NFh" secondAttribute="leading" constant="12" id="tMF-qr-wYU"/>
                                             <constraint firstAttribute="trailing" secondItem="6WJ-R4-qKB" secondAttribute="trailing" constant="12" id="uks-Gf-UgX"/>
@@ -3142,10 +3132,10 @@ Reach out for questions or concerns about your privacy.</string>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OYY-hj-BmH">
-                                        <rect key="frame" x="0.0" y="760" width="353.66666666666669" height="70"/>
+                                        <rect key="frame" x="0.0" y="760" width="353.66666666666669" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qT8-na-Rkf">
-                                                <rect key="frame" x="182.66666666666666" y="17.666666666666629" width="129.99999999999997" height="35"/>
+                                                <rect key="frame" x="182.66666666666666" y="7.6666666666666288" width="129.99999999999997" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
@@ -3154,7 +3144,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="5"/>
+                                                        <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -3162,7 +3152,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEF-7X-7bN">
-                                                <rect key="frame" x="41" y="17.666666666666629" width="130" height="35"/>
+                                                <rect key="frame" x="41" y="7.6666666666666288" width="130" height="35"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="130" id="Z4O-Nq-m2U"/>
@@ -3175,7 +3165,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <integer key="value" value="5"/>
+                                                        <integer key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -3188,7 +3178,7 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="qT8-na-Rkf" firstAttribute="width" secondItem="sEF-7X-7bN" secondAttribute="width" id="3nO-Kz-bwf"/>
                                             <constraint firstItem="qT8-na-Rkf" firstAttribute="centerY" secondItem="sEF-7X-7bN" secondAttribute="centerY" id="8yb-40-qdy"/>
                                             <constraint firstItem="qT8-na-Rkf" firstAttribute="height" secondItem="sEF-7X-7bN" secondAttribute="height" id="9xz-Iw-34V"/>
-                                            <constraint firstAttribute="height" constant="70" id="R0N-A7-r55"/>
+                                            <constraint firstAttribute="height" constant="50" id="R0N-A7-r55"/>
                                             <constraint firstItem="sEF-7X-7bN" firstAttribute="centerX" secondItem="OYY-hj-BmH" secondAttribute="centerX" multiplier="0.6" id="aHs-ci-3KQ"/>
                                             <constraint firstItem="qT8-na-Rkf" firstAttribute="centerX" secondItem="OYY-hj-BmH" secondAttribute="centerX" multiplier="1.4" id="th7-qA-if0"/>
                                             <constraint firstItem="sEF-7X-7bN" firstAttribute="centerY" secondItem="OYY-hj-BmH" secondAttribute="centerY" id="uln-V4-w1p"/>
@@ -3199,11 +3189,11 @@ Reach out for questions or concerns about your privacy.</string>
                                 <constraints>
                                     <constraint firstItem="OYY-hj-BmH" firstAttribute="top" secondItem="2zK-6q-NFh" secondAttribute="bottom" constant="20" id="2r3-Kf-ruD"/>
                                     <constraint firstAttribute="trailing" secondItem="Vt7-wi-eW4" secondAttribute="trailing" id="9DJ-dd-T0T"/>
-                                    <constraint firstAttribute="bottom" secondItem="OYY-hj-BmH" secondAttribute="bottom" constant="5" id="DWY-9p-ETO"/>
                                     <constraint firstItem="2zK-6q-NFh" firstAttribute="top" secondItem="Vt7-wi-eW4" secondAttribute="bottom" constant="-60" id="Gnz-dO-dXw"/>
                                     <constraint firstAttribute="trailing" secondItem="OYY-hj-BmH" secondAttribute="trailing" id="KXs-AW-EcN"/>
                                     <constraint firstAttribute="trailing" secondItem="2zK-6q-NFh" secondAttribute="trailing" constant="30" id="RLN-Sg-axB"/>
                                     <constraint firstItem="Vt7-wi-eW4" firstAttribute="leading" secondItem="gvt-nr-y25" secondAttribute="leading" id="RdT-hG-rpg"/>
+                                    <constraint firstAttribute="bottom" secondItem="OYY-hj-BmH" secondAttribute="bottom" constant="2" id="Z9U-TT-Kyx"/>
                                     <constraint firstItem="2zK-6q-NFh" firstAttribute="centerX" secondItem="gvt-nr-y25" secondAttribute="centerX" id="ag7-Oy-A3X"/>
                                     <constraint firstItem="OYY-hj-BmH" firstAttribute="leading" secondItem="gvt-nr-y25" secondAttribute="leading" id="faW-lG-BAL"/>
                                     <constraint firstItem="OYY-hj-BmH" firstAttribute="centerX" secondItem="gvt-nr-y25" secondAttribute="centerX" id="gW2-iY-vCH"/>
@@ -3215,10 +3205,11 @@ Reach out for questions or concerns about your privacy.</string>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="top" secondItem="gvt-nr-y25" secondAttribute="top" constant="59" id="JUk-i9-ggl"/>
-                            <constraint firstItem="gvt-nr-y25" firstAttribute="bottom" secondItem="Cyd-jW-SN4" secondAttribute="bottom" id="dGK-KJ-SjZ"/>
+                            <constraint firstItem="gvt-nr-y25" firstAttribute="width" secondItem="Cyd-jW-SN4" secondAttribute="width" id="2JC-VF-o5S"/>
+                            <constraint firstAttribute="top" secondItem="gvt-nr-y25" secondAttribute="top" id="JUk-i9-ggl"/>
                             <constraint firstAttribute="trailing" secondItem="gvt-nr-y25" secondAttribute="trailing" id="ndj-F2-WJH"/>
                             <constraint firstItem="gvt-nr-y25" firstAttribute="leading" secondItem="Cyd-jW-SN4" secondAttribute="leading" id="qRw-qa-VDD"/>
+                            <constraint firstAttribute="bottom" secondItem="gvt-nr-y25" secondAttribute="bottom" id="wW2-VE-VIu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Akm-b3-xJI"/>
@@ -3244,7 +3235,6 @@ Reach out for questions or concerns about your privacy.</string>
         <!--Navigation Controller-->
         <scene sceneID="34Y-Yj-sGa">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fVq-wP-DxC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ddc-Km-xtd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="755-eJ-BA3">
@@ -3256,6 +3246,7 @@ Reach out for questions or concerns about your privacy.</string>
                         <segue destination="Sue-mK-KG2" kind="relationship" relationship="rootViewController" id="6ML-rL-PEp"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fVq-wP-DxC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3623.6641221374043" y="3.5211267605633805"/>
         </scene>
@@ -3267,7 +3258,7 @@ Reach out for questions or concerns about your privacy.</string>
         <image name="eye.slash" catalog="system" width="128" height="97"/>
         <image name="faceid" catalog="system" width="128" height="115"/>
         <image name="forgetIcon" width="449" height="449"/>
-        <image name="googleIcon" width="70" height="70"/>
+        <image name="google.png" width="18" height="18"/>
         <image name="phone.circle.fill" catalog="system" width="128" height="123"/>
         <image name="riverPrimeIcon" width="415" height="93"/>
         <image name="signInIcon" width="449" height="449"/>

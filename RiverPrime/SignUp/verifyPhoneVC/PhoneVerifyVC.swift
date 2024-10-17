@@ -118,7 +118,7 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
 //        print("\n number is: \(number)")
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
-      //  oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
+        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
         navigateToDashboardScreen()
         
     }

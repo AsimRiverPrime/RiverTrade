@@ -68,6 +68,7 @@
 		3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117F78D2CBCE3500095DA19 /* HistoryVM.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
+		313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
 		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
@@ -124,6 +125,7 @@
 		319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329D2C9C3F21006DA077 /* TradesViewModel.swift */; };
 		319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329E2C9C3F21006DA077 /* WebSocketManager.swift */; };
 		319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329C2C9C3F21006DA077 /* StaticResponses.swift */; };
+		319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */; };
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
@@ -263,7 +265,6 @@
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B372C7CA72000BBB126 /* SplashVC.xib */; };
 		31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */; };
-		31F7C2812CBFABB9007EE589 /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31F7C2802CBFABB9007EE589 /* BottomSheetPopups.storyboard */; };
 		31FC183B2C3C086400340CFC /* ForgotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183A2C3C086400340CFC /* ForgotViewController.swift */; };
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
 		31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */; };
@@ -378,6 +379,7 @@
 		3117F78D2CBCE3500095DA19 /* HistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVM.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
+		313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupBottomSheet.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
 		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 		319A329C2C9C3F21006DA077 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
 		319A329D2C9C3F21006DA077 /* TradesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesViewModel.swift; sourceTree = "<group>"; };
 		319A329E2C9C3F21006DA077 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
+		319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
@@ -575,7 +578,6 @@
 		31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		31F29B372C7CA72000BBB126 /* SplashVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SplashVC.xib; sourceTree = "<group>"; };
 		31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen7.swift; sourceTree = "<group>"; };
-		31F7C2802CBFABB9007EE589 /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
 		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
 		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
@@ -933,6 +935,14 @@
 			path = PasscodeVC;
 			sourceTree = "<group>";
 		};
+		313F4F1B2CC0EA8F00A1508A /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */,
+			);
+			path = DatePicker;
+			sourceTree = "<group>";
+		};
 		314B3BC12C8B2D4C00C009A0 /* KYC */ = {
 			isa = PBXGroup;
 			children = (
@@ -945,9 +955,9 @@
 		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
 			isa = PBXGroup;
 			children = (
-				31F7C2802CBFABB9007EE589 /* BottomSheetPopups.storyboard */,
 				31D262072C3BECDE00FC6651 /* Main.storyboard */,
 				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
+				319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */,
 			);
 			path = SupportingFolder;
 			sourceTree = "<group>";
@@ -1806,6 +1816,7 @@
 		FA532D6B2C5721E1003A26D6 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				313F4F1B2CC0EA8F00A1508A /* DatePicker */,
 				31D2AEE52C8840B800E0CF2E /* LightweightChartsSource */,
 				FA532D6C2C5721E1003A26D6 /* Alert */,
 				FA532D722C5721E1003A26D6 /* ToastMessages */,
@@ -2043,6 +2054,7 @@
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */,
 				FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */,
+				319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */,
 				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
 				3164C6012C47F1620055F093 /* TradingSignalCollectionViewCell.xib in Resources */,
 				3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */,
@@ -2056,7 +2068,6 @@
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
 				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
-				31F7C2812CBFABB9007EE589 /* BottomSheetPopups.storyboard in Resources */,
 				319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */,
 				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
@@ -2360,6 +2371,7 @@
 				31D2AEEB2C8840B800E0CF2E /* Int+ColorComponent.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D2AF282C8840B800E0CF2E /* AreaSeriesOptions.swift in Sources */,
+				313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				31D2AF422C8840B800E0CF2E /* ChartApi.swift in Sources */,
 				FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */,

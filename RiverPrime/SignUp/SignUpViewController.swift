@@ -223,7 +223,7 @@ class SignUpViewController: BaseViewController {
                     } else {
                         self.odooClientService.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         
-                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "No email", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         
                     }
                 }
@@ -330,7 +330,7 @@ class SignUpViewController: BaseViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
         //        verifyVC.userEmail = self.email_tf.text ?? ""
-        GlobalVariable.instance.userEmail = self.email_tf.text ?? ""
+        GlobalVariable.instance.userEmail = self.emailUser ?? ""
         verifyVC.isEmailVerification = true
         verifyVC.isPhoneVerification = false
         self.navigate(to: verifyVC)

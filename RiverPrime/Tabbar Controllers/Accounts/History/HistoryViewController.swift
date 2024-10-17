@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryViewController: UIViewController {
+class HistoryViewController: BaseViewController {
     
     @IBOutlet weak var btn_fromDate: UIButton!
     @IBOutlet weak var btn_toDate: UIButton!
@@ -28,6 +28,9 @@ class HistoryViewController: UIViewController {
     
     var closeData = [NewCloseModel]()
     
+    var _getSelectedDate = String()
+    var isFromOrToDate = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTableView.registerCells([
@@ -43,13 +46,36 @@ class HistoryViewController: UIViewController {
     
     @IBAction func fromDateBtn_action(_ sender: Any) {
         
-        showDatePicker(sender as! UIButton)
+//        showDatePicker(sender as! UIButton)
+        
+        isFromOrToDate = "From"
+        
+        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+
+        vc.delegate = self
+        vc.isSingleEntery = true
+
+//        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
         
     }
     
     @IBAction func toDateBtn_action(_ sender: Any) {
         
-        showDatePicker(sender as! UIButton)
+//        showDatePicker(sender as! UIButton)
+        
+        isFromOrToDate = "To"
+        
+        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+
+        vc.delegate = self
+        vc.isSingleEntery = true
+//        vc.multipleSelection(isMultiple: false)
+//        vc.calendar.allowsMultipleSelection = false
+        vc.singleDateSelection = true
+
+//        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
         
     }
     
@@ -205,4 +231,82 @@ extension HistoryViewController {
         
     }
     
+}
+
+//MARK: - Date picker delegate
+extension HistoryViewController: didSelectBtnDelegate {
+
+    func showAlert(str: String) {
+        
+        if var topController = SCENE_DELEGATE.window?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+                topController.view.makeToast(str)
+            }
+        }
+
+    }
+
+    func getDate(date: String) {
+        print("this is date: \(date)")
+    }
+
+    func getStartEndDate(startDate: String, endDate: String) {
+        if startDate == "" /*|| endDate == ""*/ {
+            //            self..text = ""
+//            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
+            self.showTimeAlert(str: "Please select date properly.")
+        } else {
+
+            //            self.tfDate.text =
+//            print("this is selected date : \(startDate) to \(endDate)")
+//            _getSelectedDate = "\(startDate) to \(endDate)"
+            print("this is selected date : \(startDate)")
+            _getSelectedDate = "\(startDate)"
+        }
+    }
+
+
+    func doneDatePickerButton(_ sender: UIButton) {
+        print("done")
+
+        print("_getSelectedDate = \(_getSelectedDate)")
+        
+        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        
+        guard let date = dateFormatter.date(from: _getSelectedDate) else {
+            print("ERROR: Date conversion failed due to mismatched format.")
+            return
+        }
+        
+        let _date = dateFormatter.string(from: date)
+        print("Current date: \(_date)")
+        
+        let timestamp = date.timeIntervalSince1970
+        print("Selected timestamp: \(timestamp)")
+        
+        if isFromOrToDate == "From" {
+            btn_fromDate.setTitle(_getSelectedDate, for: .normal)
+            btn_fromDate.titleLabel?.text = _getSelectedDate
+            fromTimestamp = Int(timestamp)
+        } else if isFromOrToDate == "To" {
+            btn_toDate.setTitle(_getSelectedDate, for: .normal)
+            btn_toDate.titleLabel?.text = _getSelectedDate
+            toTimestamp = Int(timestamp)
+        }
+        isFromOrToDate = ""
+        
+//        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
+        PresentModalController.instance.dismisBottomSheet(self)
+    }
+
+    func cancelDatePickerButton(_ sender: UIButton) {
+        print("cancel")
+        //        datePickerPopup.dismissView()
+//        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
+        PresentModalController.instance.dismisBottomSheet(self)
+    }
+
 }

@@ -27,7 +27,7 @@ class SplashViewController: UIViewController {
         imageView.frame = CGRect(x: self.view.frame.origin.x, y: self.view.frame.origin.y, width: self.view.frame.size.width, height: self.view.frame.size.height)
         view.addSubview(imageView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 //            let appDelegate = UIApplication.shared.delegate as! AppDelegate
 //            appDelegate.decideRootViewController()
             

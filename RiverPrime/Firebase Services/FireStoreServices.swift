@@ -205,7 +205,7 @@ class FirestoreServices: BaseViewController {
             
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
             
             let navController = UINavigationController(rootViewController: loginVC)
             SCENE_DELEGATE.window?.rootViewController = navController
