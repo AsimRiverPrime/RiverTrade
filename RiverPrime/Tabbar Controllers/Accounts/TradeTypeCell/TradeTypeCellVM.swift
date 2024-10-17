@@ -180,6 +180,7 @@ class TradeTypeCellVM {
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) ")
         
+        
         let params: [String: Any] = [
             "jsonrpc": "2.0",
             "params": [
@@ -247,7 +248,7 @@ class TradeTypeCellVM {
         }
         
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) \t  price: \(price) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
-
+        
         let params: [String: Any] = [
             "jsonrpc": "2.0",
             "params": [
@@ -303,6 +304,138 @@ class TradeTypeCellVM {
                 print("Request failed with error: \(error)")
 //                self.forToast.showTimeAlert(str: "\(error)")
                 completion("\(error)")
+            }
+        }
+    }
+    
+    func loginForPassword (pass: String) {
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "login",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass
+                       
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print("Login value is: \(value)")
+//                completion("Order update successfully")
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        print("jsonData: \(jsonData)")
+                        if success == 1 {
+                           
+//                            completion("Order update successfully")
+                        }else{
+//                            completion("Order Not Found")
+                        }
+                        
+                    }
+                }
+                catch {
+                    print("Error decoding response: \(error)")
+//                    completion("\(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+//                completion("\(error)")
+            }
+        }
+    }
+    
+    func getBalance(password: String) {
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "get_balance",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass ?? ""
+                       
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print("Login value is: \(value)")
+//                completion("Order update successfully")
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        print("jsonData: \(jsonData)")
+                        if success == 1 {
+                           
+//                            completion("Order update successfully")
+                        }else{
+//                            completion("Order Not Found")
+                        }
+                        
+                    }
+                }
+                catch {
+                    print("Error decoding response: \(error)")
+//                    completion("\(error)")
+                }
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+//                completion("\(error)")
             }
         }
     }

@@ -106,9 +106,9 @@ class FirestoreServices: BaseViewController {
                navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
                
-            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
-               navigateToPhoneVerificationScreen()
-                print("navigate to user phone verification")
+//            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
+//               navigateToPhoneVerificationScreen()
+//                print("/n navigate to user phone verification")
             } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
                 navigateToDemoAccountCreationScreen()
                 print("navigate to user demo account")

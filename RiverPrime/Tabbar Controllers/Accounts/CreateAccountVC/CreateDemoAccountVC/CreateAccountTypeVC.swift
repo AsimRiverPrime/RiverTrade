@@ -183,8 +183,8 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         fieldsToUpdate = [
             "demoAccountCreated" : true,
             "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
-            "loginId" : GlobalVariable.instance.loginID, // loginID in response
-            "password": encryptedPassword
+            "loginId" : GlobalVariable.instance.loginID // loginID in response
+            
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in

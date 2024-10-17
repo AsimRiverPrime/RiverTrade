@@ -153,16 +153,19 @@ class SignInViewController: BaseViewController {
                     self?.firebase.fetchUserData(userId: userId)
                 }
                 
-                self?.firebase.handleUserData()
+                let timer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in
+                    print("Timer fired!")
+                    self?.firebase.handleUserData()
+                }
             }
         }
         
     }
-    
-   
-    private func navigateToDashboardScreen() {
-        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            self.navigate(to: dashboardVC)
-        }
-    }
+//    
+//   
+//    private func navigateToDashboardScreen() {
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            self.navigate(to: dashboardVC)
+//        }
+//    }
 }

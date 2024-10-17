@@ -152,8 +152,8 @@ class TradeDetalVC: UIViewController {
                
                 if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
                     
-                    self.lbl_BuyBtn.text = "\(tradeDetail.bid)"
-                    self.lbl_sellBtn.text = "\(tradeDetail.ask)"
+                    self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
+                    self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
                     
                     
                     // Update the UI with the latest data for the selected symbol

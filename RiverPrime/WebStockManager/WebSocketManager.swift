@@ -384,7 +384,7 @@ class WebSocketManager: WebSocketDelegate {
             break
             
         case .cancelled:
-            
+            print("WebSocket cancelled... reconnect again")
             connectWebSocket()
             connectHistoryWebSocket()
 

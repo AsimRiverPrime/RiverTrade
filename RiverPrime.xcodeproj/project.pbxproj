@@ -97,6 +97,7 @@
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
 		3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */; };
 		3171E3A62CB94CF60043203F /* HistoryTradeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */; };
+		3173DB802CC1254200C679C4 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
 		317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */; };
@@ -407,6 +408,7 @@
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
 		3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTradeTVCell.swift; sourceTree = "<group>"; };
 		3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTradeTVCell.xib; sourceTree = "<group>"; };
+		3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
 		317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
@@ -974,6 +976,7 @@
 			isa = PBXGroup;
 			children = (
 				315DB98B2C6C77BD00FF967C /* TicketVC.swift */,
+				3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */,
 			);
 			path = BottomSheetVCs;
 			sourceTree = "<group>";
@@ -2394,6 +2397,7 @@
 				3105DF032CB3E8A400D1B884 /* UnarchiveAccountTypeVC.swift in Sources */,
 				3105DF042CB3E8A400D1B884 /* CreateAccountSetPassword.swift in Sources */,
 				3105DF052CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.swift in Sources */,
+				3173DB802CC1254200C679C4 /* LoginPopupVC.swift in Sources */,
 				3105DF062CB3E8A400D1B884 /* AccountsVC.swift in Sources */,
 				3105DF072CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3105DF082CB3E8A400D1B884 /* AccountsViewController.swift in Sources */,
