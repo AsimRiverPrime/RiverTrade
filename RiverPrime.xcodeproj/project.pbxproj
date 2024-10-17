@@ -274,6 +274,10 @@
 		FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */; };
 		FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */; };
 		FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */; };
+		FA316F872CC1ADEE0048B181 /* Total_PLCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA316F822CC1ADED0048B181 /* Total_PLCell.swift */; };
+		FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA316F832CC1ADED0048B181 /* Total_PLCell.xib */; };
+		FA316F892CC1ADEE0048B181 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA316F852CC1ADED0048B181 /* EmptyCell.swift */; };
+		FA316F8A2CC1ADEE0048B181 /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA316F862CC1ADEE0048B181 /* EmptyCell.xib */; };
 		FA4613892C602D1300B472D6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */; };
 		FA46138A2C602D1300B472D6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */; };
 		FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA46138D2C602D5500B472D6 /* DropDownCell.xib */; };
@@ -588,6 +592,10 @@
 		FA12B5DE2C4F03AB0054F8D8 /* ResultTopViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultTopViewCell.xib; sourceTree = "<group>"; };
 		FA12B5E22C4F10820054F8D8 /* ResultsFilterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsFilterViewCell.swift; sourceTree = "<group>"; };
 		FA12B5E32C4F10820054F8D8 /* ResultsFilterViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultsFilterViewCell.xib; sourceTree = "<group>"; };
+		FA316F822CC1ADED0048B181 /* Total_PLCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Total_PLCell.swift; sourceTree = "<group>"; };
+		FA316F832CC1ADED0048B181 /* Total_PLCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Total_PLCell.xib; sourceTree = "<group>"; };
+		FA316F852CC1ADED0048B181 /* EmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
+		FA316F862CC1ADEE0048B181 /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyCell.xib; sourceTree = "<group>"; };
 		FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		FA46138D2C602D5500B472D6 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
@@ -902,6 +910,8 @@
 				3105DEBA2CB3E8A400D1B884 /* Deposit */,
 				3105DEBF2CB3E8A400D1B884 /* Details */,
 				3105DEC12CB3E8A400D1B884 /* History */,
+				FA316F842CC1ADED0048B181 /* EmptyCell */,
+				FA316F812CC1ADED0048B181 /* Total_PLCell */,
 				3105DEC82CB3E8A400D1B884 /* TradeTypeCell */,
 				3105DED82CB3E8A400D1B884 /* TranscationCell */,
 				3105DEDD2CB3E8A400D1B884 /* withDraw */,
@@ -1730,6 +1740,24 @@
 			path = ResultsFilterViewCell;
 			sourceTree = "<group>";
 		};
+		FA316F812CC1ADED0048B181 /* Total_PLCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA316F822CC1ADED0048B181 /* Total_PLCell.swift */,
+				FA316F832CC1ADED0048B181 /* Total_PLCell.xib */,
+			);
+			path = Total_PLCell;
+			sourceTree = "<group>";
+		};
+		FA316F842CC1ADED0048B181 /* EmptyCell */ = {
+			isa = PBXGroup;
+			children = (
+				FA316F852CC1ADED0048B181 /* EmptyCell.swift */,
+				FA316F862CC1ADEE0048B181 /* EmptyCell.xib */,
+			);
+			path = EmptyCell;
+			sourceTree = "<group>";
+		};
 		FA46138B2C602D5500B472D6 /* DropDown */ = {
 			isa = PBXGroup;
 			children = (
@@ -2056,6 +2084,7 @@
 			files = (
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */,
+				FA316F8A2CC1ADEE0048B181 /* EmptyCell.xib in Resources */,
 				FAC321A32C6AC6B80019073C /* AccountDetailTVC.xib in Resources */,
 				319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */,
 				31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */,
@@ -2100,6 +2129,7 @@
 				3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
+				FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */,
 				31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */,
 				315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */,
 				31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */,
@@ -2307,6 +2337,7 @@
 				31D2AEFC2C8840B800E0CF2E /* TimeScale.swift in Sources */,
 				31D2AF1F2C8840B800E0CF2E /* GridLineOptions.swift in Sources */,
 				31D2AF1A2C8840B800E0CF2E /* Rectangle.swift in Sources */,
+				FA316F892CC1ADEE0048B181 /* EmptyCell.swift in Sources */,
 				31D2AF3B2C8840B800E0CF2E /* Point.swift in Sources */,
 				31D2AF012C8840B800E0CF2E /* PromptHandler.swift in Sources */,
 				3171E3A62CB94CF60043203F /* HistoryTradeTVCell.swift in Sources */,
@@ -2398,6 +2429,7 @@
 				3105DF042CB3E8A400D1B884 /* CreateAccountSetPassword.swift in Sources */,
 				3105DF052CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.swift in Sources */,
 				3173DB802CC1254200C679C4 /* LoginPopupVC.swift in Sources */,
+				FA316F872CC1ADEE0048B181 /* Total_PLCell.swift in Sources */,
 				3105DF062CB3E8A400D1B884 /* AccountsVC.swift in Sources */,
 				3105DF072CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3105DF082CB3E8A400D1B884 /* AccountsViewController.swift in Sources */,

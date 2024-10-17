@@ -37,6 +37,8 @@ class AccountsVC: UIView {
     weak var delegateOPCNavigation: OPCNavigationDelegate?
 
     var opcList: OPCType? = .open([])
+    var totalProfitOpenClose = Double()
+    var emptyListCount = 0
     
      let webSocketManager = WebSocketManager.shared
     
@@ -51,11 +53,11 @@ class AccountsVC: UIView {
        
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
-                AccountTableViewCell.self, TradeTypeTableViewCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self
+                AccountTableViewCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
         } else { //MARK: - if no account exist.
             tblView.registerCells([
-                CreateAccountTVCell.self, TradeTypeTableViewCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self
+                CreateAccountTVCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
         }
       
@@ -92,7 +94,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 3
+            return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -100,7 +102,9 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             return 1
         }else if section == 1 {
             return 1
-        }else{
+        }else if section == 2 {
+            return 1
+        }else if section == 3 {
             switch opcList {
             case .open(let open):
                 return open.count
@@ -114,6 +118,8 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             }
             
 //            return  //opcList.1.count //4
+        } else {
+            return emptyListCount
         }
     }
     
@@ -138,7 +144,32 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .clear
             return cell
             
-        }else{
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(with: Total_PLCell.self, for: indexPath)
+//            cell.delegate = self
+            cell.backgroundColor = .clear
+            cell.textLabel?.text = "Total P/L"
+            cell.detailTextLabel?.text = "\(totalProfitOpenClose)" //"17,380.97"
+            
+            cell.textLabel?.textColor = UIColor.black
+            cell.detailTextLabel?.textColor = .systemGreen
+            
+            // Remove the existing border
+            cell.layer.borderWidth = 0
+
+            // Create a top border view
+            let topBorder = CALayer()
+            topBorder.borderColor = UIColor.black.cgColor
+            topBorder.borderWidth = 2
+            topBorder.frame = CGRect(x: 20, y: 0, width: cell.bounds.width - 40, height: 0.5)
+            cell.layer.addSublayer(topBorder)
+            
+//            cell.layer.cornerRadius = 2
+//            cell.layer.borderColor = UIColor.black.cgColor
+//            cell.layer.borderWidth = 2
+            return cell
+            
+        } else if indexPath.section == 3 {
             
             switch opcList {
             case .open(let openData):
@@ -186,6 +217,11 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             
+        } else {
+            let cell = tableView.dequeueReusableCell(with: EmptyCell.self, for: indexPath)
+            cell.backgroundColor = .clear
+            cell.emptyLabelMessage.text = "No Data Found."
+            return cell
         }
         
         
@@ -201,7 +237,12 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 1{
             return 45
             
-        }else{
+        }else if indexPath.section == 2{
+            return 45
+            
+        }else if indexPath.section == 3{
+            return 85.0
+        } else {
             return 85.0
         }
     }
@@ -211,7 +252,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             
             
         }
-        if indexPath.section == 2 {
+        if indexPath.section == 3 {
             
             switch opcList {
             case .open(let openData):
@@ -305,7 +346,42 @@ extension AccountsVC: OPCDelegate {
         
         self.opcList = opcType
         
-        refreshSection(at: 2)
+        switch opcType {
+        case .open(let open):
+            // Calculate the total priceOpen
+            let totalPriceOpen = open.map { $0.profit }.reduce(0, +)
+            totalProfitOpenClose = totalPriceOpen
+//            refreshSection(at: 2)
+            if open.count == 0 {
+                emptyListCount = 1
+            } else {
+                emptyListCount = 0
+            }
+            
+        case .pending(let pending):
+//            // Calculate the total priceOpen
+//            let totalPriceOpen = pending.map { $0.price }.reduce(0, +)
+//            refreshSection(at: 2)
+            if pending.count == 0 {
+                emptyListCount = 1
+            } else {
+                emptyListCount = 0
+            }
+        case .close(let close):
+            // Calculate the total priceOpen
+            let totalPriceClose = close.map { $0.totalProfit }.reduce(0, +)
+            totalProfitOpenClose = totalPriceClose
+//            refreshSection(at: 2)
+            if close.count == 0 {
+                emptyListCount = 1
+            } else {
+                emptyListCount = 0
+            }
+            
+        }
+        
+//        refreshSection(at: 3)
+        tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
         webSocketManager.delegateSocketMessage = self

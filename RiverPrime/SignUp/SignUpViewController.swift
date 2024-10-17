@@ -42,6 +42,7 @@ class SignUpViewController: BaseViewController {
         }
     }
     
+    @IBOutlet weak var signinbutton: UIButton!
     @IBOutlet weak var btn_termsCondition: UIButton!
     @IBOutlet weak var btn_passowrdIcon: UIButton!
     @IBOutlet weak var btn_reTpyePassowrdIcon: UIButton!
@@ -66,6 +67,7 @@ class SignUpViewController: BaseViewController {
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         self.reTypePassword_tf.addTarget(self, action: #selector(reTypePasswordTextChange), for: .editingChanged)
+        self.signinbutton.setTitle("", for: .normal)
     }
     
     override func viewWillAppear(_ animated: Bool) {
