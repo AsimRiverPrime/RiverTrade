@@ -582,7 +582,7 @@ extension DashboardVC: TradeSymbolDetailDelegate {
                             GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
                         }
                            
-                        print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
+                        print("symbol data array count : \(GlobalVariable.instance.symbolDataArray.count)")
                        
                         print("\n the parsed value is :\(parsedData)")
                     }

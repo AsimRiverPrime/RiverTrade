@@ -35,22 +35,22 @@ class AccountsVC: UIView {
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
-
+    
     var opcList: OPCType? = .open([])
     var totalProfitOpenClose = Double()
     var emptyListCount = 0
     
-     let webSocketManager = WebSocketManager.shared
+    let webSocketManager = WebSocketManager.shared
     
-   var getSymbolData = [SymbolCompleteList]()
-   
+    var getSymbolData = [SymbolCompleteList]()
+    
     public override func awakeFromNib() {
         
         //MARK: - Handle tableview constraints according to the device logical height.
-//        setTableViewLayoutConstraints()
+        //        setTableViewLayoutConstraints()
         setTableViewLayoutTopConstraints()
         
-       
+        
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
                 AccountTableViewCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
@@ -60,7 +60,7 @@ class AccountsVC: UIView {
                 CreateAccountTVCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
         }
-      
+        
         tblView.delegate = self
         tblView.dataSource = self
         tblView.reloadData()
@@ -76,9 +76,9 @@ class AccountsVC: UIView {
             delay: 0.04,
             animations: {
                 self.alpha = 0
-        }, completion: { (complete) in
-            self.removeFromSuperview()
-        })
+            }, completion: { (complete) in
+                self.removeFromSuperview()
+            })
     }
     
     
@@ -94,7 +94,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 5
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -117,7 +117,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
                 return 0
             }
             
-//            return  //opcList.1.count //4
+            //            return  //opcList.1.count //4
         } else {
             return emptyListCount
         }
@@ -146,39 +146,39 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(with: Total_PLCell.self, for: indexPath)
-//            cell.delegate = self
+            //            cell.delegate = self
             cell.backgroundColor = .clear
             cell.textLabel?.text = "Total P/L"
-            cell.detailTextLabel?.text = "\(totalProfitOpenClose)" //"17,380.97"
+            cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros() //"17,380.97"
             
             cell.textLabel?.textColor = UIColor.black
-            cell.detailTextLabel?.textColor = .systemGreen
-            
+            if totalProfitOpenClose < 0 {
+                cell.detailTextLabel?.textColor = .systemRed
+            }else{
+                cell.detailTextLabel?.textColor = .systemGreen
+            }
             // Remove the existing border
             cell.layer.borderWidth = 0
-
+            
             // Create a top border view
             let topBorder = CALayer()
             topBorder.borderColor = UIColor.black.cgColor
-            topBorder.borderWidth = 2
+            topBorder.borderWidth = 3
             topBorder.frame = CGRect(x: 20, y: 0, width: cell.bounds.width - 40, height: 0.5)
             cell.layer.addSublayer(topBorder)
             
-//            cell.layer.cornerRadius = 2
-//            cell.layer.borderColor = UIColor.black.cgColor
-//            cell.layer.borderWidth = 2
             return cell
             
         } else if indexPath.section == 3 {
             
             switch opcList {
             case .open(let openData):
-//                    cell.symbolName.text = openData[indexPath.row].symbol
+                //                    cell.symbolName.text = openData[indexPath.row].symbol
                 
                 let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
-                  
+                    
                     
                     cell.getCellData(open: openData, indexPath: indexPath/*, trade: trade!, symbolDataObj: symbolDataObj*/)
                     
@@ -283,37 +283,37 @@ extension AccountsVC: AccountInfoDelegate {
         print("delegte called  \(accountInfo)" )
         
         switch accountInfo {
-       
+            
         case .deposit:
-//            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.deposit)
             break
         case .withDraw:
-//            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.withDraw)
             break
         case .history:
-//            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.history)
             break
         case .detail:
-//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.detail)
             break
         case .notification:
-//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
+            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             delegate?.accountInfoTap(.notification)
             break
         case .createAccount:
             delegate?.accountInfoTap(.createAccount)
             break
         }
-
+        
         
     }
     
@@ -349,9 +349,9 @@ extension AccountsVC: OPCDelegate {
         switch opcType {
         case .open(let open):
             // Calculate the total priceOpen
-            let totalPriceOpen = open.map { $0.profit }.reduce(0, +)
-            totalProfitOpenClose = totalPriceOpen
-//            refreshSection(at: 2)
+            //            let totalPriceOpen = open.map { $0.profit }.reduce(0, +)
+            //            totalProfitOpenClose = totalPriceOpen
+            //            refreshSection(at: 2)
             if open.count == 0 {
                 emptyListCount = 1
             } else {
@@ -359,9 +359,9 @@ extension AccountsVC: OPCDelegate {
             }
             
         case .pending(let pending):
-//            // Calculate the total priceOpen
-//            let totalPriceOpen = pending.map { $0.price }.reduce(0, +)
-//            refreshSection(at: 2)
+            //            // Calculate the total priceOpen
+            //            let totalPriceOpen = pending.map { $0.price }.reduce(0, +)
+            //            refreshSection(at: 2)
             if pending.count == 0 {
                 emptyListCount = 1
             } else {
@@ -369,9 +369,9 @@ extension AccountsVC: OPCDelegate {
             }
         case .close(let close):
             // Calculate the total priceOpen
-            let totalPriceClose = close.map { $0.totalProfit }.reduce(0, +)
-            totalProfitOpenClose = totalPriceClose
-//            refreshSection(at: 2)
+            //            let totalPriceClose = close.map { $0.totalProfit }.reduce(0, +)
+            //            totalProfitOpenClose = totalPriceClose
+            //            refreshSection(at: 2)
             if close.count == 0 {
                 emptyListCount = 1
             } else {
@@ -380,7 +380,7 @@ extension AccountsVC: OPCDelegate {
             
         }
         
-//        refreshSection(at: 3)
+        //        refreshSection(at: 3)
         tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
@@ -500,7 +500,7 @@ extension AccountsVC {
                 
             } else if screen_height == 812.0 {
                 //MARK: - iphoneXs
-//                tblViewTopConstraint.constant = -30
+                //                tblViewTopConstraint.constant = -30
                 tblViewTopConstraint.constant = -45
                 
             } else if screen_height >= 852.0 && screen_height <= 932.0 {
@@ -557,7 +557,7 @@ extension AccountsVC: SocketPeerClosed {
         
         GlobalVariable.instance.changeSector = true
         
-//        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+        //        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
         
     }
     
@@ -572,102 +572,114 @@ extension AccountsVC: GetSocketMessages {
             
             //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
             if let getTick = tickMessage {
-//                let matchedSymbols = getSymbolData.filter { $0.tickMessage?.symbol == getTick.symbol }
-
+                //                let matchedSymbols = getSymbolData.filter { $0.tickMessage?.symbol == getTick.symbol }
+                
                 if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
                     getSymbolData[index].tickMessage = tickMessage
-
-//                    //MARK: - If tick flag is true then we just update the label only not reload the tableview.
-//                    if getSymbolData[index].isTickFlag ?? false {
-                        let indexPath = IndexPath(row: index, section: 2)
-
-                        switch opcList {
-                        case .open(let openData):
+                    
+                    //                    //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+                    //                    if getSymbolData[index].isTickFlag ?? false {
+                    let indexPath = IndexPath(row: index, section: 2)
+                    
+                    switch opcList {
+                    case .open(let openData):
+                        
+                        totalProfitOpenClose = 0.0
+                        var profitLoss = Double()
+                        //MARK: - Get All Matched Symbols data and Set accordingly.
+                        
+                        for i in 0...openData.count-1 {
                             
-                            //MARK: - Get All Matched Symbols data and Set accordingly.
+                            let myIndexPath = IndexPath(row: i, section: 3)
                             
-                            for i in 0...openData.count-1 {
-                                
-//                                        for item in matchedSymbols {
-//                                            if item.tickMessage?.symbol ==
-//                                        }
-                                
-                                let myIndexPath = IndexPath(row: i, section: 2)
-                                
-                                if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
-                                    if GlobalVariable.instance.isAccountCreated {
-                                        cell.isHidden = false
+                            if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
+                                if GlobalVariable.instance.isAccountCreated {
+                                    cell.isHidden = false
+                                    
+                                    if cell.lbl_symbolName.text == openData[index].symbol {
+                                        print("getSymbolData  count and detail: \(GlobalVariable.instance.symbolDataArray)")
+                                        openData[index].symbol.dropLast()
                                         
-//                                        print("cell.lbl_symbolName.text = \(cell.lbl_symbolName.text)")
-//                                        print("openData[\(i)].symbol = \(openData[index].symbol)")
-                                        if cell.lbl_symbolName.text == openData[index].symbol {
+                                        let symbolContractSize = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == openData[index].symbol }))
+                                        
+                                        print("\n symbol \(cell.lbl_symbolName.text) \t contractSize: \(symbolContractSize)")
+                                      
+                                        profitLoss = (Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)) * Double(openData[index].volume) / 10000 * 100 // contract sixe
+                                        
+                                        if profitLoss < 0.0 {
+                                            cell.lbl_profitValue.textColor = .systemRed
+                                            let roundValue = String(format: "%.2f", profitLoss)
                                             
-                                            let profitLoss: Double = Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                            cell.lbl_profitValue.text = "\(roundValue)"
+                                        }else{
+                                            cell.lbl_profitValue.textColor = .systemGreen
+                                            let roundValue = String(format: "%.2f", profitLoss)
                                             
-                                            if profitLoss < 0.0 {
-                                                cell.lbl_profitValue.textColor = .systemRed
-                                                let roundValue = String(format: "%.2f", profitLoss)
-                                                
-                                                cell.lbl_profitValue.text = "\(roundValue)"
-                                            }else{
-                                                cell.lbl_profitValue.textColor = .systemGreen
-                                                let roundValue = String(format: "%.2f", profitLoss)
-                                                
-                                                cell.lbl_profitValue.text = "\(roundValue)"
-                                            }
-                                            
-                                            let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                            cell.lbl_currentPrice.text = "\(bidValuess)"
-                                            
+                                            cell.lbl_profitValue.text = "\(roundValue)"
                                         }
                                         
-                                    }else{
-                                        cell.isHidden = true
+                                        totalProfitOpenClose += profitLoss
+                                        // let indexPath = IndexPath(row: 0, section: 2) // Update row and section accordingly
+                                        // tblView.reloadRows(at: [indexPath], with: .none)
+                                        
+                                        let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+                                            totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
+                                        }
+                                        
+                                        
+                                        let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                        cell.lbl_currentPrice.text = "\(bidValuess)"
                                     }
-                                }
-                            }
-                            
-                         
-                            
-                        case .pending(let pendingData):
-                            
-                            if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
-                                if GlobalVariable.instance.isAccountCreated {
-                                    cell.isHidden = false
-                                    
-//                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
-                                    
                                     
                                 }else{
                                     cell.isHidden = true
                                 }
                             }
-                            
-                        case .close(let closeData):
-                            
-                            if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
-                                if GlobalVariable.instance.isAccountCreated {
-                                    cell.isHidden = false
-                                    
-                                    
-                                }else{
-                                    cell.isHidden = true
-                                }
-                            }
-                            
-                        case .none:break
-                            
                         }
                         
-//                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must reload the compared symbol index only.
-////                        refreshSectionRow(at: 2, row: index)
-//                        getSymbolData[index].isTickFlag = true
-//                    }
+                        profitLoss = 0.0
+                        
+                    case .pending(let pendingData):
+                        
+                        if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
+                            if GlobalVariable.instance.isAccountCreated {
+                                cell.isHidden = false
+                                
+                                //                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
+                                
+                                
+                            }else{
+                                cell.isHidden = true
+                            }
+                        }
+                        
+                    case .close(let closeData):
+                        
+                        if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
+                            if GlobalVariable.instance.isAccountCreated {
+                                cell.isHidden = false
+                                
+                                
+                            }else{
+                                cell.isHidden = true
+                            }
+                        }
+                        
+                    case .none:break
+                        
+                    }
+                    
+                    //                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must reload the compared symbol index only.
+                    ////                        refreshSectionRow(at: 2, row: index)
+                    //                        getSymbolData[index].isTickFlag = true
+                    //                    }
                     
                     return
                 }
             }
-
+            
             break
         case .history:
             
@@ -683,7 +695,7 @@ extension AccountsVC: GetSocketMessages {
                     return
                 }
             }
-
+            
             break
             
         case .Unsubscribed:
@@ -692,7 +704,7 @@ extension AccountsVC: GetSocketMessages {
             
             GlobalVariable.instance.changeSector = true
             
-//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+            //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
             
             if webSocketManager.isSocketConnected() {
                 print("Socket is connected")

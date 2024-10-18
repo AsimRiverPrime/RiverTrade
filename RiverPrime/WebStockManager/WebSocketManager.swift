@@ -492,7 +492,7 @@ class WebSocketManager: WebSocketDelegate {
                     let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                     handleTradeData(genericResponse.message.payload)
                    
-                } else if myType == "ChartHistory" {
+                } else if myType == "get_chart_history" {
                     let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
                     handleHistoryData(historyResponse.message.payload)
                 } else if myType == "Unsubscribed" {

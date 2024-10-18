@@ -2,7 +2,7 @@
 //  TradeTypeCellVM.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 03/10/2024.
+//  Created by Ross Rostane on 03/10/2024.
 //
 
 import Foundation

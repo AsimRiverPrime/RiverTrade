@@ -2,7 +2,7 @@
 //  EmptyCell.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 18/10/2024.
+//  Created by Ross Rostane on 18/10/2024.
 //
 
 import UIKit
