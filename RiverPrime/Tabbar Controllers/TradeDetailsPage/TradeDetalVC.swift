@@ -7,6 +7,7 @@
 
 import UIKit
 import Starscream
+import TPKeyboardAvoiding
 
 class TradeDetalVC: UIViewController {
     
@@ -40,6 +41,8 @@ class TradeDetalVC: UIViewController {
     var account_group = String()
     var mt5 = String()
     
+    var tradeDetail: TradeDetails?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         connectHistoryWebSocket()
@@ -54,11 +57,11 @@ class TradeDetalVC: UIViewController {
 //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
 //            print("saved User Data: \(savedUserData)")
 //            // Access specific values from the dictionary
-//            
+//
 //            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-//               
+//
 //                self.login_Id = loginID
-//                
+//
 //                if isCreateDemoAccount == true {
 //                    self.account_type = " Demo "
 //                }
@@ -77,7 +80,7 @@ class TradeDetalVC: UIViewController {
 //                }else{
 //                    self.account_group = ""
 //                    mt5 = ""
-//                    
+//
 //                }
 //            }
 //        }
@@ -85,7 +88,7 @@ class TradeDetalVC: UIViewController {
 //        self.lbl_login_id.text = "#\(self.login_Id)"
 //        self.lbl_accountType.text = self.account_type
 //        self.lbl_accountGroup.text = self.account_group
-//        
+//
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -101,26 +104,24 @@ class TradeDetalVC: UIViewController {
     @IBAction func menuButton(_ sender: UIButton) {
         addTopAndBottomBorders(menuButton[sender.tag])
         
-        //MARK: - Remove previous button content here.
-//        for view in self.chartView.subviews {
-//            view.removeFromSuperview()
-//        }
-        
-        //MARK: - Add new content from here.
-        
-//        lazy var label: UILabel = {
-//          let label = UILabel()
-//            label.text = "test label."
-//            label.translatesAutoresizingMaskIntoConstraints = false
-//            return label
-//        }()
-//
-//        self.chartView.addSubview(label)
-//
-//        label.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-//        label.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-//        label.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-//        label.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        if sender.tag == 0 { //For Chart
+            //MARK: - Remove previous button content here.
+            // Remove all subviews
+            self.chartView.subviews.forEach { $0.removeFromSuperview() }
+            
+            //MARK: - Add new content from here.
+            setupChart()
+            
+        } else { //tag = 1 -> For Overview
+            
+            //MARK: - Remove previous button content here.
+            // Remove all subviews
+            self.chartView.subviews.forEach { $0.removeFromSuperview() }
+            
+            //MARK: - Add new content from here.
+            setupOverview()
+            
+        }
         
     }
     
@@ -151,6 +152,8 @@ class TradeDetalVC: UIViewController {
             if let tradeDetail = notification.object as? TradeDetails {
                
                 if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+                    
+                    self.tradeDetail = tradeDetail
                     
                     self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
                     self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
@@ -415,3 +418,144 @@ extension TradeDetalVC: WebSocketDelegate {
 
 }
 
+//MARK: - Setup the Chart view.
+extension TradeDetalVC {
+    
+    private func setupChart() {
+        
+        setupSeries(candlestickData: candlestickData)
+        
+        self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0).trimmedTrailingZeros())"
+        self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0).trimmedTrailingZeros())"
+        
+        
+        // Update the UI with the latest data for the selected symbol
+        
+        //            self.tradeDetails = tradeDetail
+        
+        //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
+        getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
+        let data =  getLiveCandelStick.getLatestOhlcData()
+        print("latest data: \(data)")
+        
+        let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
+        
+        let open = data?.open
+        let close = data?.close
+        let high = data?.high
+        let low = data?.low
+        
+        let dataPoint = CandlestickData(
+            time: times,
+            open: open,
+            high: high,
+            low: low,
+            close: close
+        )
+        
+        //            // Use update to add this candlestick incrementally
+        series?.update(bar: dataPoint)
+        
+    }
+    
+}
+
+//MARK: - Setup the Overview view.
+extension TradeDetalVC {
+    
+    private func setupOverview() {
+        
+        lazy var scrollView: TPKeyboardAvoidingScrollView = {
+            let scroll = TPKeyboardAvoidingScrollView()
+            scroll.backgroundColor = .clear
+            scroll.translatesAutoresizingMaskIntoConstraints = false
+            return scroll
+        }()
+        
+        self.chartView.addSubview(scrollView)
+        
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                scrollView.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor),
+                scrollView.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                scrollView.leadingAnchor.constraint(equalTo: chartView.leadingAnchor),
+                scrollView.trailingAnchor.constraint(equalTo: chartView.trailingAnchor),
+                scrollView.topAnchor.constraint(equalTo: chartView.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
+            ])
+        }
+        
+        let overviewList = [("Minimum volume, lots","0.01"), ("Maximum volume, lots","0.01"), ("Volume step","0.01"), ("Contract size","0.01"), ("Spread units","Cents"), ("Stop level, pips","0.01"), ("Swap long, pips","0.01"), ("Swap short, pips","0.01")]
+        
+        var stackViewList = [UIStackView]()
+        stackViewList.removeAll()
+        
+        for (index, item) in overviewList.enumerated() {
+            
+            lazy var stackView: UIStackView = {
+              let view = UIStackView()
+                view.axis = .horizontal        // Arrange views horizontally
+                view.spacing = 10              // Space between labels
+                view.distribution = .equalSpacing  // Equal spacing between items
+                view.alignment = .center       // Align labels in the center
+                view.tag = index
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            lazy var title: UILabel = {
+              let label = UILabel()
+                label.textColor = .black
+                label.text = item.0
+                label.tag = index
+                return label
+            }()
+            
+            lazy var detail: UILabel = {
+              let label = UILabel()
+                label.textColor = .black
+                label.text = item.1
+                label.tag = index
+                return label
+            }()
+            
+            scrollView.addSubview(stackView)
+            
+            stackViewList.append(stackView)
+            
+            stackView.addArrangedSubview(title)
+            stackView.addArrangedSubview(detail)
+            
+            if index == 0 {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                ])
+            } else {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
+                ])
+                if index == overviewList.count-1 {
+                    NSLayoutConstraint.activate([
+                        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+                    ])
+                }
+                
+            }
+            
+            
+        }
+      
+    }
+    
+}

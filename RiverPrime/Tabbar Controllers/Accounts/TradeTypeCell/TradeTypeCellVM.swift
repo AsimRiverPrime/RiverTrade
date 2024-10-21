@@ -12,7 +12,7 @@ class TradeTypeCellVM {
     
     var onTradesUpdated: (() -> Void)?
     
-    var forToast = BaseViewController()
+//    var forToast = BaseViewController()
     
     let odooClientService = OdooClientNew()
     let uid = UserDefaults.standard.integer(forKey: "uid")
@@ -214,8 +214,8 @@ class TradeTypeCellVM {
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]],
-                       let success = json["success"] as? Int {
+                       let result = json["result"] as? [String: Any],
+                       let success = result["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {
@@ -277,13 +277,13 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("Delete order value is: \(value)")
-                completion("Order update successfully")
+                print(" order  update value is: \(value)")
+//                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]],
-                       let success = json["success"] as? Int {
+                       let result = json["result"] as? [String: Any],
+                       let success = result["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {
@@ -308,7 +308,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func loginForPassword (pass: String) {
+    func loginForPassword (pass: String, completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -350,15 +350,15 @@ class TradeTypeCellVM {
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]],
-                       let success = json["success"] as? Int {
+                       let result = json["result"] as? [String: Any],
+                       let success = result["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
+//                        print("jsonData: \(jsonData)")
                         if success == 1 {
-                           
-//                            completion("Order update successfully")
+                            UserDefaults.standard.set((pass), forKey: "password")
+                            completion("Login Successfully")
                         }else{
-//                            completion("Order Not Found")
+                            completion("Login Failed")
                         }
                         
                     }
@@ -374,13 +374,20 @@ class TradeTypeCellVM {
         }
     }
     
-    func getBalance(password: String) {
+    func getBalance(completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
                 loginId = _loginId
             }
+        }
+        
+        if pass == nil || pass == "" {
+            showPopup()
+            return
+        }else{
+            print("the password is: \(pass ?? "")")
         }
         
         let params: [String: Any] = [
@@ -411,27 +418,33 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("Login value is: \(value)")
+                print("get balance value is: \(value)")
 //                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]],
-                       let success = json["success"] as? Int {
+                       let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
+                       let success = result["success"] as? Bool,       // Success and balance are inside "result"
+                       let balance_get = result["balance"] as? Double {
+                        
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
-                        if success == 1 {
-                           
-//                            completion("Order update successfully")
-                        }else{
-//                            completion("Order Not Found")
+                        print("jsonData: \(String(data: jsonData, encoding: .utf8) ?? "")")
+                        
+                        if success {
+                            // Return the balance value in the completion handler
+                            completion("\(balance_get)")
+                        } else {
+                            // Handle the case where success is not 1
+                            completion("No balance Found")
                         }
                         
+                    } else {
+                        print("Error: Invalid JSON structure")
+                        completion("Invalid Response")
                     }
-                }
-                catch {
+                } catch {
                     print("Error decoding response: \(error)")
-//                    completion("\(error)")
+                    completion("Error: \(error.localizedDescription)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
@@ -541,9 +554,9 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai as pe thost lagana hai
                         
-                        //                         let error = result["error"] as? String {
-                        //
-                        //                        }
+//                                                 let error = result["error"] as? String {
+//                        
+//                                                }
                         //
                         //                        print("error comes")
                         
@@ -715,3 +728,24 @@ class TradeTypeCellVM {
     
 }
 
+extension TradeTypeCellVM {
+    func showPopup() {
+        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+        
+        // Replace "PopupViewController" with the actual identifier of your popup view controller
+        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+            // Set modal presentation style
+            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+           
+                 
+            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            popupVC.view.alpha = 0
+            // Optional: Set modal transition style (this is for animation)
+            popupVC.modalTransitionStyle = .crossDissolve
+            
+            // Present the popup
+//            self.present(popupVC, animated: true, completion: nil)
+            SCENE_DELEGATE.window?.rootViewController?.present(popupVC, animated: true)
+        }
+    }
+}

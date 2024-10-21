@@ -47,6 +47,8 @@ class SignInViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
       
+        username_tf.text = "asimprime900@gmail.com"
+        password_tf.text = "asdasd"
     }
     
     @IBAction func rememberMeBtn(_ sender: Any) {
@@ -134,8 +136,8 @@ class SignInViewController: BaseViewController {
                         self?.lbl_emailCheck.text = "No account found for this email."
                         self?.lbl_emailCheck.isHidden = false
                     default:
-                        self?.lbl_credientailCheck.text = "Please enter correct crediential."
-                        self?.lbl_credientailCheck.isHidden = false
+                        self?.lbl_passwordCheck.text = "Please enter correct crediential."
+                        self?.lbl_passwordCheck.isHidden = false
                         print("Error signing in: \(error.localizedDescription)")
                         return
                     }

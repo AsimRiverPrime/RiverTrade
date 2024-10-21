@@ -66,6 +66,8 @@ class AccountTableViewCell: UITableViewCell {
     var account_group = String()
     var mt5 = String()
     
+    var get_balance = String()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

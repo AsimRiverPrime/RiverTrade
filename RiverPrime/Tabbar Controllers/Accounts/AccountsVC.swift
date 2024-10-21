@@ -129,6 +129,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
                 let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
                 cell.setHeaderUI(.account)
+               
                 cell.delegate = self
                 return cell
             } else { //MARK: - if no account exist.
@@ -152,7 +153,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros() //"17,380.97"
             
             cell.textLabel?.textColor = UIColor.black
-            if totalProfitOpenClose < 0 {
+            if totalProfitOpenClose < 0.0 {
                 cell.detailTextLabel?.textColor = .systemRed
             }else{
                 cell.detailTextLabel?.textColor = .systemGreen
@@ -249,7 +250,6 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTypeTableViewCell") as? TradeTypeTableViewCell
-            
             
         }
         if indexPath.section == 3 {
@@ -603,8 +603,8 @@ extension AccountsVC: GetSocketMessages {
                                         let symbolContractSize = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == openData[index].symbol }))
                                         
                                         print("\n symbol \(cell.lbl_symbolName.text) \t contractSize: \(symbolContractSize)")
-                                      
-                                        profitLoss = (Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)) * Double(openData[index].volume) / 10000 * 100 // contract sixe
+                                        
+                                        profitLoss = (Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)) * Double(openData[index].volume) / 10000 * 100 // symbol contract size
                                         
                                         if profitLoss < 0.0 {
                                             cell.lbl_profitValue.textColor = .systemRed
@@ -622,12 +622,7 @@ extension AccountsVC: GetSocketMessages {
                                         // let indexPath = IndexPath(row: 0, section: 2) // Update row and section accordingly
                                         // tblView.reloadRows(at: [indexPath], with: .none)
                                         
-                                        let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
-                                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
-                                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                                            totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
-                                        }
-                                        
+                                       
                                         
                                         let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
                                         cell.lbl_currentPrice.text = "\(bidValuess)"
@@ -639,7 +634,17 @@ extension AccountsVC: GetSocketMessages {
                             }
                         }
                         
-                        profitLoss = 0.0
+                        let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                            totalCell.detailTextLabel?.isHidden = false
+                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+                            totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
+                            if totalProfitOpenClose < 0.0 {
+                                totalCell.detailTextLabel?.textColor = .systemRed
+                            }else{
+                                totalCell.detailTextLabel?.textColor = .systemGreen
+                            }
+                        }
                         
                     case .pending(let pendingData):
                         
@@ -648,7 +653,7 @@ extension AccountsVC: GetSocketMessages {
                                 cell.isHidden = false
                                 
                                 //                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
-                                
+                              
                                 
                             }else{
                                 cell.isHidden = true
@@ -657,10 +662,29 @@ extension AccountsVC: GetSocketMessages {
                         
                     case .close(let closeData):
                         
+                        totalProfitOpenClose == 0.0
+                        
                         if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
                             if GlobalVariable.instance.isAccountCreated {
                                 cell.isHidden = false
                                 
+                                for i in 0...closeData.count-1 {
+                                    
+                                    let totalPL = closeData[i].totalProfit
+                                    
+                                    totalProfitOpenClose += totalPL
+                                    
+                                }
+                                let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                                if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                                    totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+                                    totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
+                                    if totalProfitOpenClose < 0.0 {
+                                        totalCell.detailTextLabel?.textColor = .systemRed
+                                    }else{
+                                        totalCell.detailTextLabel?.textColor = .systemGreen
+                                    }
+                                }
                                 
                             }else{
                                 cell.isHidden = true
@@ -683,18 +707,18 @@ extension AccountsVC: GetSocketMessages {
             break
         case .history:
             
-            if let getHistory = historyMessage {
-                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
-                    getSymbolData[index].historyMessage = historyMessage
-                    
-                    let indexPath = IndexPath(row: index, section: 2)
-                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-                        cell.configureChart(getSymbolData: getSymbolData[index])
-                    }
-                    
-                    return
-                }
-            }
+//            if let getHistory = historyMessage {
+//                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
+//                    getSymbolData[index].historyMessage = historyMessage
+//                    
+//                    let indexPath = IndexPath(row: index, section: 2)
+//                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+//                        cell.configureChart(getSymbolData: getSymbolData[index])
+//                    }
+//                    
+//                    return
+//                }
+//            }
             
             break
             

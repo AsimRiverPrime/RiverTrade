@@ -68,6 +68,7 @@ class SignUpViewController: BaseViewController {
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         self.reTypePassword_tf.addTarget(self, action: #selector(reTypePasswordTextChange), for: .editingChanged)
         self.signinbutton.setTitle("", for: .normal)
+        enableLoginButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,12 +92,20 @@ class SignUpViewController: BaseViewController {
     
     @objc func passwordTextChanged(_ textField: UITextField) {
         
-        if self.viewModel.isPasswordValid(self.password_tf.text!)  {
+//        if self.viewModel.isPasswordValid(self.password_tf.text!)  {
+//            self.lbl_passValid.isHidden = true
+//            
+//        } else {
+//            self.lbl_passValid.isHidden = false
+//            self.lbl_passValid.text = "Password must be 6 character"
+//            self.lbl_passValid.textColor = .red
+//        }
+        
+        if self.viewModel.isValidatePassword(password: self.password_tf.text!) {
             self.lbl_passValid.isHidden = true
-            
-        } else {
+        }else{
             self.lbl_passValid.isHidden = false
-            self.lbl_passValid.text = "Password must be 6 character"
+            self.lbl_passValid.text = "Password is atleast 8 character with 1 capital & 1 Special & 1 number"
             self.lbl_passValid.textColor = .red
         }
         

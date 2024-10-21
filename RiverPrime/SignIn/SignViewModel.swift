@@ -36,23 +36,12 @@ import Foundation
      
      func isValidatePassword(password: String) -> Bool {
          // Condition 1: Length between 8 and 15 characters
-         if password.count >= 8 && password.count <= 15 {
-             return true
-         } else {
-             return false
-         }
-         
+        
          // Condition 2: At least one uppercase and one lowercase letter
          let uppercaseLetter = CharacterSet.uppercaseLetters
          let lowercaseLetter = CharacterSet.lowercaseLetters
          let hasUppercase = password.rangeOfCharacter(from: uppercaseLetter) != nil
          let hasLowercase = password.rangeOfCharacter(from: lowercaseLetter) != nil
-         
-         if hasUppercase && hasLowercase {
-             return true
-         } else {
-             return false
-         }
          
          // Condition 3: At least one number and one special character
          let numbers = CharacterSet.decimalDigits
@@ -60,11 +49,12 @@ import Foundation
          let hasNumber = password.rangeOfCharacter(from: numbers) != nil
          let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
          
-         if hasNumber && hasSpecial {
-             return true
-         } else {
-             return false
-         }
+     if password.count >= 8 && password.count <= 15 && hasUppercase && hasLowercase && hasNumber && hasSpecial {
+         return true
+     } else {
+         return false
+     }
+  
      }
      
      

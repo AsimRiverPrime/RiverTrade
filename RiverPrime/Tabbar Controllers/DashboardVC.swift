@@ -59,6 +59,7 @@ class DashboardVC: BaseViewController {
     
     var profileStep = 0
     var demoAccountCreated = Bool()
+    var balance = String()
     
     var odooClientService = OdooClient()
     
@@ -75,16 +76,32 @@ class DashboardVC: BaseViewController {
             if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
                 profileStep = profileStep1
                 GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+               
+                let password = UserDefaults.standard.string(forKey: "password")
+                if password == nil && isCreateDemoAccount == true {
+                    showPopup()
+                }else{
+                    print("the password is: \(password ?? "")")
+                    
+                    let getbalanceApi = TradeTypeCellVM()
+                    getbalanceApi.getBalance(completion: { response in
+                        print("response of get balance: \(response)")
+                        self.balance = response
+                    })
+                }
+                
+                
             }
         }
         
+       
         if GlobalVariable.instance.isReturnToProfile == true {
             setProfileButton()
             GlobalVariable.instance.isReturnToProfile = false
         }else{
             //MARK: - START Symbol api calling.
             symbolApiCalling()
-            
+           
             //MARK: - START SOCKET and call delegate method to get data from socket.
 //            webSocketManager.delegateSocketMessage = self
 //            webSocketManager.delegateSocketPeerClosed = self
@@ -368,8 +385,6 @@ extension DashboardVC: DashboardVCDelegate {
         //        if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
         //            self.navigate(to: kycVc)
         
-        
-        // Example condition based on values
         if profileStep == 0 {
             if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
                 self.navigate(to: kycVc)
@@ -652,7 +667,24 @@ extension DashboardVC: TradeSymbolDetailDelegate {
 
 //MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
 extension DashboardVC {
-    
+    func showPopup() {
+        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+        
+        // Replace "PopupViewController" with the actual identifier of your popup view controller
+        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+            // Set modal presentation style
+            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+           
+                 
+            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            popupVC.view.alpha = 0
+            // Optional: Set modal transition style (this is for animation)
+            popupVC.modalTransitionStyle = .crossDissolve
+            
+            // Present the popup
+            self.present(popupVC, animated: true, completion: nil)
+        }
+    }
     //MARK: - Update all list when selector will change, and update tick socket message according to the selected sector.
     private func setTradeModel(collectionViewIndex: Int) {
         
@@ -681,13 +713,13 @@ extension DashboardVC {
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
 //        getSymbolData.removeAll()
 //        var count = 0
-        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
+//        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
 //            count += 1
 //            GlobalVariable.instance.tradeCollectionViewIndex.1.append(count)
 //            let tradedetail = TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url, close: nil)
 //            let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
 //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false))
-        }
+//        }
         
 //        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
 //

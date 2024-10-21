@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginPopupVC: UIViewController {
+class LoginPopupVC: BaseViewController {
 
     @IBOutlet weak var login_popupView: UIView!
     
@@ -39,18 +39,30 @@ class LoginPopupVC: UIViewController {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
                 loginId = _loginId
-                self.loginID_tf.text = "\(loginId)"
+                self.loginID_tf.text = "\(loginId ?? 0)"
             }
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc func dismissKeyboard(){
+        self.view.endEditing(true)
     }
     
     @IBAction func cancel_action(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func login_action(_ sender: Any) {
-        UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
-        viewModel.loginForPassword(pass: self.password_tf.text ?? "")
+      
+        viewModel.loginForPassword(pass: self.password_tf.text ?? "", completion: { response in
+            print("the login to meta Trader account response is: \(response)")
+            self.ToastMessage(response)
+            self.dismiss(animated: true, completion: nil)
+        })
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {

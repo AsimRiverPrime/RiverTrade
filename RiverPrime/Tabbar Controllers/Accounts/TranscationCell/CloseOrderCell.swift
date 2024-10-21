@@ -84,6 +84,7 @@ extension CloseOrderCell {
         
         lbl_profitValue.text = "\(data.totalProfit)".trimmedTrailingZeros()
         
+        
     }
     
 }
