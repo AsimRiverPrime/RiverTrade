@@ -94,7 +94,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,6 +103,9 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         }else if section == 1 {
             return 1
         }else if section == 2 {
+            if emptyListCount != 0 { //TODO: If Open, Pending, Close is empty then section 2 (Total P/L) should be hide as well.
+                return 0
+            }
             return 1
         }else if section == 3 {
             switch opcList {
@@ -244,7 +247,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 3{
             return 85.0
         } else {
-            return 85.0
+            return 100.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

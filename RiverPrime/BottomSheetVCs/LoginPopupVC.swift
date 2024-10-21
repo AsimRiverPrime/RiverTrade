@@ -7,13 +7,24 @@
 
 import UIKit
 
+enum MetaTraderType {
+    case Balance
+    case GetBalance
+    case None
+}
+
 class LoginPopupVC: BaseViewController {
 
     @IBOutlet weak var login_popupView: UIView!
     
     @IBOutlet weak var loginID_tf: UITextField!{
         didSet{
-            loginID_tf.setIcon(UIImage(systemName: "iphone.and.arrow.forward.outward")!)
+//            loginID_tf.setIcon(UIImage(systemName: "iphone.and.arrow.forward.outward")!)
+            if let iconImage = UIImage(systemName: "iphone.and.arrow.forward.outward") {
+                loginID_tf.setIcon(iconImage)
+            } else {
+                print("Failed to load system image")
+            }
             loginID_tf.tintColor = UIColor.darkGray
         }
     }
@@ -30,6 +41,7 @@ class LoginPopupVC: BaseViewController {
     var loginId: Int?
     
     var viewModel = TradeTypeCellVM()
+    var metaTraderType: MetaTraderType? = .None
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +73,8 @@ class LoginPopupVC: BaseViewController {
         viewModel.loginForPassword(pass: self.password_tf.text ?? "", completion: { response in
             print("the login to meta Trader account response is: \(response)")
             self.ToastMessage(response)
+//            NotificationCenter.default.post(name: .MetaTraderLogin, object: nil,  userInfo: ["MetaTraderLoginType": self.metaTraderType ?? MetaTraderType.None])
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
             self.dismiss(animated: true, completion: nil)
         })
     }

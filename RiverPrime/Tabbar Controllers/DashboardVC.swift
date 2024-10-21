@@ -68,6 +68,9 @@ class DashboardVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: .MetaTraderLogin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
+        
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
@@ -87,6 +90,9 @@ class DashboardVC: BaseViewController {
                     getbalanceApi.getBalance(completion: { response in
                         print("response of get balance: \(response)")
                         self.balance = response
+                        GlobalVariable.instance.balanceUpdate = self.balance
+                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
                     })
                 }
                 
@@ -111,6 +117,29 @@ class DashboardVC: BaseViewController {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
 
+    }
+    
+    @objc private func MetaTraderLogin(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.MetaTraderLoginConstant.title] as? MetaTraderType {
+            print("Received string: \(receivedString)")
+            switch receivedString {
+            case .Balance:
+                let getbalanceApi = TradeTypeCellVM()
+                getbalanceApi.getBalance(completion: { response in
+                    print("response of get balance: \(response)")
+                    self.balance = response
+                    GlobalVariable.instance.balanceUpdate = self.balance
+//                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+                })
+                break
+            case .GetBalance:
+                break
+            case .None:
+                break
+            }
+        }
     }
     
     @objc func apiSuccessHandler() {
@@ -680,6 +709,7 @@ extension DashboardVC {
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
             popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.metaTraderType = .Balance
             
             // Present the popup
             self.present(popupVC, animated: true, completion: nil)

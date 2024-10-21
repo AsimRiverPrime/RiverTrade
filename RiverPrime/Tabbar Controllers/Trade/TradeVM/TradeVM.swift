@@ -161,9 +161,9 @@ extension TradeVM {
 }
 
 
-extension Notification.Name {
-    static let tradesUpdated = Notification.Name("tradesUpdated")
-    static let symbolDataUpdated = Notification.Name("symbolDataUpdated")
-    static let checkSocketConnectivity = Notification.Name("socketConnectivity")
-    static let OPCListDismissall = Notification.Name("opcListDismiss")
-}
+//extension Notification.Name {
+//    static let tradesUpdated = Notification.Name("tradesUpdated")
+//    static let symbolDataUpdated = Notification.Name("symbolDataUpdated")
+//    static let checkSocketConnectivity = Notification.Name("socketConnectivity")
+//    static let OPCListDismissall = Notification.Name("opcListDismiss")
+//}

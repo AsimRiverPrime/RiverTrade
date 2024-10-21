@@ -32,6 +32,8 @@ class GlobalVariable: NSObject {
     var isReturnToProfile = false
     var userEmail: String = ""
     
+    var balanceUpdate = "0.0"
+    
     var symbolDataArray: [SymbolData] = []
     
     var changeSector = Bool()

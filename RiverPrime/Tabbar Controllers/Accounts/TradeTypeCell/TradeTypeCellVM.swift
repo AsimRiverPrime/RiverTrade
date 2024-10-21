@@ -282,8 +282,8 @@ class TradeTypeCellVM {
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [String: Any],
-                       let success = result["success"] as? Int {
+                       let result = json["result"] as? [[String: Any]],
+                       let success = json["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(jsonData)")
                         if success == 1 {

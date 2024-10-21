@@ -72,6 +72,13 @@ class AccountTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        labelAmmount.text = "\(GlobalVariable.instance.balanceUpdate) USD"
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.BalanceUpdate(_:)), name: .BalanceUpdate, object: nil)
+        
+//        //NotificationObserver.shared.delegate = self
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+        
         //MARK: - width constraint of main stack view.
         if UIDevice.isPhone {
 //            viewOfAccount.spacing = 2
@@ -111,7 +118,24 @@ class AccountTableViewCell: UITableViewCell {
             }
         }
     }
-
+    
+    @objc func notificationPopup(_ notification: NSNotification) {
+        
+        if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+            print("Received ammount: \(ammount)")
+            self.labelAmmount.text = "\(ammount) USD"
+        }
+        
+    }
+    
+    @objc private func BalanceUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo["BalanceUpdateType"] as? String {
+            print("Received string: \(receivedString)")
+            self.labelAmmount.text = "\(receivedString) USD"
+        }
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

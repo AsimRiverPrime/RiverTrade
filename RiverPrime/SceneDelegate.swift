@@ -176,3 +176,16 @@ extension SceneDelegate {
     }
     
 }
+
+extension SceneDelegate {
+    
+    func registerNotifications() {
+        
+        //Balance Api
+        NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key)
+        //Get Balance
+        NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key)        
+        
+    }
+    
+}

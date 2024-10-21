@@ -278,6 +278,8 @@
 		FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA316F832CC1ADED0048B181 /* Total_PLCell.xib */; };
 		FA316F892CC1ADEE0048B181 /* EmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA316F852CC1ADED0048B181 /* EmptyCell.swift */; };
 		FA316F8A2CC1ADEE0048B181 /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA316F862CC1ADEE0048B181 /* EmptyCell.xib */; };
+		FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F70312CC70C0F00B3CE8A /* Notification+Extension.swift */; };
+		FA3F70352CC70C2300B3CE8A /* NotificationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3F70342CC70C2300B3CE8A /* NotificationObserver.swift */; };
 		FA4613892C602D1300B472D6 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */; };
 		FA46138A2C602D1300B472D6 /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */; };
 		FA4613982C602D5600B472D6 /* DropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA46138D2C602D5500B472D6 /* DropDownCell.xib */; };
@@ -596,6 +598,8 @@
 		FA316F832CC1ADED0048B181 /* Total_PLCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Total_PLCell.xib; sourceTree = "<group>"; };
 		FA316F852CC1ADED0048B181 /* EmptyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyCell.swift; sourceTree = "<group>"; };
 		FA316F862CC1ADEE0048B181 /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyCell.xib; sourceTree = "<group>"; };
+		FA3F70312CC70C0F00B3CE8A /* Notification+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
+		FA3F70342CC70C2300B3CE8A /* NotificationObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationObserver.swift; sourceTree = "<group>"; };
 		FA4613872C602D1300B472D6 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA4613882C602D1300B472D6 /* BaseTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		FA46138D2C602D5500B472D6 /* DropDownCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DropDownCell.xib; sourceTree = "<group>"; };
@@ -1323,6 +1327,7 @@
 		31D2621B2C3BF5BC00FC6651 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				FA3F70312CC70C0F00B3CE8A /* Notification+Extension.swift */,
 				FA467DD02C695BDF00248A62 /* UIView+Extension.swift */,
 				31D2621C2C3BF5CE00FC6651 /* Extension.swift */,
 				FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */,
@@ -1758,6 +1763,14 @@
 			path = EmptyCell;
 			sourceTree = "<group>";
 		};
+		FA3F70332CC70C2300B3CE8A /* NotificationObserver */ = {
+			isa = PBXGroup;
+			children = (
+				FA3F70342CC70C2300B3CE8A /* NotificationObserver.swift */,
+			);
+			path = NotificationObserver;
+			sourceTree = "<group>";
+		};
 		FA46138B2C602D5500B472D6 /* DropDown */ = {
 			isa = PBXGroup;
 			children = (
@@ -1808,6 +1821,7 @@
 		FA532D642C5721E1003A26D6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FA3F70332CC70C2300B3CE8A /* NotificationObserver */,
 				3106BBB62C99BF9A00B7ABF9 /* Session */,
 				FAD776C92C976F2F000411F1 /* Apis */,
 				FAC321A52C6AC72C0019073C /* CustomSegmentControl */,
@@ -2219,6 +2233,7 @@
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
 				FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */,
+				FA3F70352CC70C2300B3CE8A /* NotificationObserver.swift in Sources */,
 				31D2AEFA2C8840B800E0CF2E /* PriceLine.swift in Sources */,
 				31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */,
 				317D7DFB2C91550800902B4A /* CompleteVerificationProfileScreen3.swift in Sources */,
@@ -2308,6 +2323,7 @@
 				319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */,
 				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
 				319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */,
+				FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */,
 				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
 				319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */,
 				319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */,
