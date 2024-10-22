@@ -570,116 +570,101 @@ extension AccountsVC: SocketPeerClosed {
 extension AccountsVC: GetSocketMessages {
     
     func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
-        switch socketMessageType {
-        case .tick:
-            
-            //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
-            if let getTick = tickMessage {
-                //                let matchedSymbols = getSymbolData.filter { $0.tickMessage?.symbol == getTick.symbol }
-                
-                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
-                    getSymbolData[index].tickMessage = tickMessage
+                switch socketMessageType {
+                case .tick:
                     
-                    //                    //MARK: - If tick flag is true then we just update the label only not reload the tableview.
-                    //                    if getSymbolData[index].isTickFlag ?? false {
-                    let indexPath = IndexPath(row: index, section: 2)
-                    
-                    switch opcList {
-                    case .open(let openData):
+                    //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
+                    if let getTick = tickMessage {
+                        //                let matchedSymbols = getSymbolData.filter { $0.tickMessage?.symbol == getTick.symbol }
                         
-                        totalProfitOpenClose = 0.0
-                        var profitLoss = Double()
-                        //MARK: - Get All Matched Symbols data and Set accordingly.
+                        if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
+                            getSymbolData[index].tickMessage = tickMessage
                         
-                        for i in 0...openData.count-1 {
+                            let indexPath = IndexPath(row: index, section: 2)
                             
-                            let myIndexPath = IndexPath(row: i, section: 3)
-                            
-                            if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
-                                if GlobalVariable.instance.isAccountCreated {
-                                    cell.isHidden = false
+                            switch opcList {
+                            case .open(let openData):
+                                
+                                totalProfitOpenClose = 0.0
+                                var profitLoss = Double()
+                                //MARK: - Get All Matched Symbols data and Set accordingly.
+                                
+                                for i in 0...openData.count-1 {
                                     
-                                    if cell.lbl_symbolName.text == openData[index].symbol {
-                                        print("getSymbolData  count and detail: \(GlobalVariable.instance.symbolDataArray)")
-                                        openData[index].symbol.dropLast()
-                                        
-                                        let symbolContractSize = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == openData[index].symbol }))
-                                        
-                                        print("\n symbol \(cell.lbl_symbolName.text) \t contractSize: \(symbolContractSize)")
-                                        
-                                        profitLoss = (Double(openData[index].priceOpen) - (getSymbolData[index].tickMessage?.bid ?? 0.0)) * Double(openData[index].volume) / 10000 * 100 // symbol contract size
-                                        
-                                        if profitLoss < 0.0 {
-                                            cell.lbl_profitValue.textColor = .systemRed
-                                            let roundValue = String(format: "%.2f", profitLoss)
+                                    let myIndexPath = IndexPath(row: i, section: 3)
+                                    print("my current index \(myIndexPath)")
+                                    
+                                    if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
+                                        if GlobalVariable.instance.isAccountCreated {
+                                            cell.isHidden = false
+                                         
+                                            if cell.lbl_symbolName.text == openData[i].symbol {
+                                                let x =  openData[i].symbol.dropLast()
+                                                  if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+                                                      let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+                                                      
+                                                      
+                                                      let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
+                                                      let priceOpen = Double(openData[i].priceOpen)
+                                                      let volume = Double(openData[i].volume) / 10000
+                                                      let contractSize = Double(symbolContractSize)!
+
+                                                      profitLoss = (bid - priceOpen) * volume * contractSize
+                                                      
+                                                  }
+          
+                                                  totalProfitOpenClose += profitLoss
+                                                
+                                            }
                                             
-                                            cell.lbl_profitValue.text = "\(roundValue)"
+                                           
+                                            if cell.lbl_symbolName.text == openData[index].symbol && cell.volume == (Double(openData[myIndexPath.row].volume) / 10000) {
+        //                                        print("getSymbolData  count and detail: \(GlobalVariable.instance.symbolDataArray)")
+                                              let x =  openData[index].symbol.dropLast()
+                                                if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+                                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+                                                    
+                                                    let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
+                                                    let priceOpen = Double(openData[myIndexPath.row].priceOpen)
+                                                    let volume = Double(openData[myIndexPath.row].volume) / 10000
+                                                    let contractSize = Double(symbolContractSize)!
+
+                                                    profitLoss = (bid - priceOpen) * volume * contractSize
+                                                    
+                                                    
+        //                                            print("\n symbol \(cell.lbl_symbolName.text) \t contractSize: \(symbolContractSize)")
+                                                }
+        //                                        profitLoss = (Double(openData[i].priceOpen) - (getSymbolData[i].tickMessage?.bid ?? 0.0))  Double(openData[i].volume) / 10000  100 // symbol contract size
+                                                
+                                                if profitLoss < 0.0 {
+                                                    cell.lbl_profitValue.textColor = .systemRed
+                                                   
+                                                }else{
+                                                    cell.lbl_profitValue.textColor = .systemGreen
+                                                   
+                                                }
+                                                let roundValue = String(format: "%.3f", profitLoss)
+                                                
+                                                cell.lbl_profitValue.text = "\(roundValue)"
+        //                                        totalProfitOpenClose += profitLoss
+                                                // let indexPath = IndexPath(row: 0, section: 2) // Update row and section accordingly
+                                                // tblView.reloadRows(at: [indexPath], with: .none)
+                                                
+                                               
+                                                
+                                                let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                                cell.lbl_currentPrice.text = "\(bidValuess)"
+                                            }
+                                            
                                         }else{
-                                            cell.lbl_profitValue.textColor = .systemGreen
-                                            let roundValue = String(format: "%.2f", profitLoss)
-                                            
-                                            cell.lbl_profitValue.text = "\(roundValue)"
+                                            cell.isHidden = true
                                         }
-                                        
-                                        totalProfitOpenClose += profitLoss
-                                        // let indexPath = IndexPath(row: 0, section: 2) // Update row and section accordingly
-                                        // tblView.reloadRows(at: [indexPath], with: .none)
-                                        
-                                       
-                                        
-                                        let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                        cell.lbl_currentPrice.text = "\(bidValuess)"
                                     }
-                                    
-                                }else{
-                                    cell.isHidden = true
                                 }
-                            }
-                        }
-                        
-                        let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
-                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
-                            totalCell.detailTextLabel?.isHidden = false
-                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                            totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
-                            if totalProfitOpenClose < 0.0 {
-                                totalCell.detailTextLabel?.textColor = .systemRed
-                            }else{
-                                totalCell.detailTextLabel?.textColor = .systemGreen
-                            }
-                        }
-                        
-                    case .pending(let pendingData):
-                        
-                        if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
-                            if GlobalVariable.instance.isAccountCreated {
-                                cell.isHidden = false
                                 
-                                //                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
-                              
-                                
-                            }else{
-                                cell.isHidden = true
-                            }
-                        }
-                        
-                    case .close(let closeData):
-                        
-                        totalProfitOpenClose == 0.0
-                        
-                        if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
-                            if GlobalVariable.instance.isAccountCreated {
-                                cell.isHidden = false
-                                
-                                for i in 0...closeData.count-1 {
-                                    
-                                    let totalPL = closeData[i].totalProfit
-                                    
-                                    totalProfitOpenClose += totalPL
-                                    
-                                }
                                 let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
                                 if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                                    totalCell.detailTextLabel?.isHidden = false
                                     totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
                                     totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
                                     if totalProfitOpenClose < 0.0 {
@@ -689,62 +674,113 @@ extension AccountsVC: GetSocketMessages {
                                     }
                                 }
                                 
-                            }else{
-                                cell.isHidden = true
+                                let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
+                                let balance = Double(GlobalVariable.instance.balanceUpdate)
+                                let finalTotal = totalProfit! + balance!
+                                
+                                print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                                print("totalProfit = \(totalProfit)")
+                                print("finalTotal = \(finalTotal)")
+                                let _finalTotal = String(format: "%.3f", finalTotal)
+                                
+                                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+                                
+                            case .pending(let pendingData):
+                                
+                                if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
+                                    if GlobalVariable.instance.isAccountCreated {
+                                        cell.isHidden = false
+                                        
+                                        //                                    cell.getCellData(pending: pendingData, indexPath: indexPath)
+                                      
+                                        
+                                    }else{
+                                        cell.isHidden = true
+                                    }
+                                }
+                                
+                            case .close(let closeData):
+                                
+                                totalProfitOpenClose == 0.0
+                                
+                                if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
+                                    if GlobalVariable.instance.isAccountCreated {
+                                        cell.isHidden = false
+                                        
+                                        for i in 0...closeData.count-1 {
+                                            
+                                            let totalPL = closeData[i].totalProfit
+                                            
+                                            totalProfitOpenClose += totalPL
+                                            
+                                        }
+                                        let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+                                            totalCell.detailTextLabel?.text = String(format: "%.3f", totalProfitOpenClose)
+                                            if totalProfitOpenClose < 0.0 {
+                                                totalCell.detailTextLabel?.textColor = .systemRed
+                                            }else{
+                                                totalCell.detailTextLabel?.textColor = .systemGreen
+                                            }
+                                        }
+                                        
+                                    }else{
+                                        cell.isHidden = true
+                                    }
+                                }
+                                
+                            case .none:break
+                                
                             }
+                            
+                            //                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must reload the compared symbol index only.
+                            ////                        refreshSectionRow(at: 2, row: index)
+                            //                        getSymbolData[index].isTickFlag = true
+                            //                    }
+                            
+                            return
                         }
-                        
-                    case .none:break
-                        
                     }
                     
-                    //                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must reload the compared symbol index only.
-                    ////                        refreshSectionRow(at: 2, row: index)
-                    //                        getSymbolData[index].isTickFlag = true
-                    //                    }
+                    break
+                case .history:
                     
-                    return
+        //            if let getHistory = historyMessage {
+        //                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
+        //                    getSymbolData[index].historyMessage = historyMessage
+        //
+        //                    let indexPath = IndexPath(row: index, section: 2)
+        //                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+        //                        cell.configureChart(getSymbolData: getSymbolData[index])
+        //                    }
+        //
+        //                    return
+        //                }
+        //            }
+                    
+                    break
+                    
+                case .Unsubscribed:
+                    
+                    //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
+                    
+                    GlobalVariable.instance.changeSector = true
+                    
+                    //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+                    
+                    if webSocketManager.isSocketConnected() {
+                        print("Socket is connected")
+                    } else {
+                        print("Socket is not connected")
+                        //MARK: - START SOCKET.
+                        webSocketManager.delegateSocketMessage = self
+                        webSocketManager.connectWebSocket()
+                    }
+                    
+                    break
                 }
             }
-            
-            break
-        case .history:
-            
-//            if let getHistory = historyMessage {
-//                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
-//                    getSymbolData[index].historyMessage = historyMessage
-//                    
-//                    let indexPath = IndexPath(row: index, section: 2)
-//                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-//                        cell.configureChart(getSymbolData: getSymbolData[index])
-//                    }
-//                    
-//                    return
-//                }
-//            }
-            
-            break
-            
-        case .Unsubscribed:
-            
-            //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
-            
-            GlobalVariable.instance.changeSector = true
-            
-            //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
-            
-            if webSocketManager.isSocketConnected() {
-                print("Socket is connected")
-            } else {
-                print("Socket is not connected")
-                //MARK: - START SOCKET.
-                webSocketManager.delegateSocketMessage = self
-                webSocketManager.connectWebSocket()
-            }
-            
-            break
-        }
-    }
     
 }
 
