@@ -9,11 +9,14 @@ import UIKit
 import CountryPickerView
 import PhoneNumberKit
 import Firebase
+import CoreLocation
 
-class PhoneVerifyVC: BaseViewController {
+class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
     @IBOutlet weak var tf_numberField: UITextField!
+    
+    let locationManager = CLLocationManager()
     
     var number = ""
     var selectedCountry: Country?
@@ -27,6 +30,11 @@ class PhoneVerifyVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
 //        oodoService.delegate = self
         oodoService.updateNumberDelegate = self
         oodoServiceNew.otpDelegate = self
@@ -37,13 +45,63 @@ class PhoneVerifyVC: BaseViewController {
         view_countryCode.showCountryCodeInView = false
         view_countryCode.showCountryNameInView = false
         view_countryCode.flagImageView.isHidden = false
-       
         
-        tf_numberField.text = view_countryCode.selectedCountry.phoneCode
-        selectedCountry = view_countryCode.selectedCountry
         tf_numberField.delegate = self
-        
     }
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: - Show Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+           if let location = locations.first {
+               // Reverse geocode to get the country code
+               getCountryFromLocation(location)
+           }
+       }
+    
+    func getCountryFromLocation(_ location: CLLocation) {
+          let geocoder = CLGeocoder()
+          
+          geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+              if let error = error {
+                  print("Failed to reverse geocode: \(error.localizedDescription)")
+                  return
+              }
+              
+              if let placemark = placemarks?.first, let countryCode = placemark.isoCountryCode {
+                  
+                  let country = self.view_countryCode.getCountryByCode(countryCode)
+                  
+                  // Access the flag and country code
+                  if let currentCountry = country {
+                      print("Country Flag: \(currentCountry.flag)")
+                      print("Country Code: \(currentCountry.code)")
+                      print("Country Phone Code: \(currentCountry.phoneCode)")
+                      self.tf_numberField.text = currentCountry.phoneCode
+                      self.view_countryCode.flagImageView.image = currentCountry.flag
+                      
+                      // Optionally, you can update UI with this information
+                      // Example: self.countryLabel.text = "\(currentCountry.flag) \(currentCountry.phoneCode)"
+                  }
+              }
+          }
+      }
+      
+      // Handle location authorization changes
+      func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+          if status == .authorizedWhenInUse || status == .authorizedAlways {
+              locationManager.startUpdatingLocation()
+          } else {
+              print("Location access denied")
+          }
+      }
+
+      // Handle location errors
+      func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+          print("Failed to get location: \(error.localizedDescription)")
+      }
     
     @IBAction func confirmBtnAction(_ sender: Any) {
         
@@ -108,18 +166,17 @@ extension PhoneVerifyVC:  SendOTPDelegate {
         print("this is the phone send otp error response: \(error)")
     }
 }
-// MARK: - delegate from update number Method
+// MARK: - delegate from update number Method on CRM
 extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
     func updateNumberSuccess(response: Any) {
         print("this is the update phone number success response: \(response)")
         
         var number = self.tf_numberField.text!
-//        number = number.trimmingCharacters(in: .whitespaces)
-//        print("\n number is: \(number)")
+ 
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
         oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-        navigateToDashboardScreen()
+//        navigateToDashboardScreen()
         
     }
     

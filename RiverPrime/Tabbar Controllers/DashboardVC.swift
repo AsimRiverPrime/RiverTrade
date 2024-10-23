@@ -581,7 +581,7 @@ extension DashboardVC {
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension DashboardVC: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: String) {
-//        print("\n \(response) ")
+        print("\n \(response) ")
         convertXMLIntoJson(response)
         ActivityIndicator.shared.hide(from: self.view)
     }
@@ -611,7 +611,7 @@ extension DashboardVC: TradeSymbolDetailDelegate {
                             let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
                             let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
                             let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
-                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
+                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String,  let symbolSwap_long = parsedData["swap_long"] as? String , let symbolStops_level = parsedData["stops_level"] as? String,  let symbolSpread_size = parsedData["spread_size"] as? String, let symbolSwap_short = parsedData["swap_short"] as? String   {
                          
                             
                             let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
@@ -623,7 +623,7 @@ extension DashboardVC: TradeSymbolDetailDelegate {
 
                             print("\n modifiy URL: \(modifiedUrl)")
                             
-                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
+                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits,  stopsLevel: symbolStops_level, swapLong: symbolSwap_long, swapShort: symbolSwap_short, spreadSize: symbolSpread_size, mobile_available: symbolMobile_available))
                         }
                            
                         print("symbol data array count : \(GlobalVariable.instance.symbolDataArray.count)")

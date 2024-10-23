@@ -136,6 +136,7 @@
 		31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248C2C3D461F0058C9DD /* Inter.ttc */; };
 		31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248D2C3D461F0058C9DD /* InterVariable.ttf */; };
 		31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B124912C3D49420058C9DD /* PrivacyViewController.swift */; };
+		31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */; };
 		31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */; };
 		31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */; };
 		31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */; };
@@ -453,6 +454,7 @@
 		31B1248C2C3D461F0058C9DD /* Inter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttc; sourceTree = "<group>"; };
 		31B1248D2C3D461F0058C9DD /* InterVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterVariable.ttf; sourceTree = "<group>"; };
 		31B124912C3D49420058C9DD /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDetailsModel.swift; sourceTree = "<group>"; };
 		31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventsTableViewCell.xib; sourceTree = "<group>"; };
 		31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentModelController.swift; sourceTree = "<group>"; };
@@ -1186,6 +1188,14 @@
 			path = Notifications;
 			sourceTree = "<group>";
 		};
+		31B6C53A2CC91740000DF849 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		31B830442C491DA20050F3DD /* UpcommingEvents */ = {
 			isa = PBXGroup;
 			children = (
@@ -1262,6 +1272,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				31B6C53A2CC91740000DF849 /* Models */,
 				319871612CAD4991007FE3DA /* passwordSecure */,
 				3137AE702C77471A00B5A83B /* PasscodeVC */,
 				318257462C75C7B200723A50 /* WebStockManager */,
@@ -2348,6 +2359,7 @@
 				31D2AF432C8840B800E0CF2E /* PriceFormatterApi.swift in Sources */,
 				31D2AF112C8840B800E0CF2E /* BaseValueType.swift in Sources */,
 				31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */,
+				31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */,
 				FA9B00C32C4BFC1500BC57F1 /* Image+Extension.swift in Sources */,
 				FA46139C2C602D5600B472D6 /* CustomDropDown.swift in Sources */,
 				31D2AEFC2C8840B800E0CF2E /* TimeScale.swift in Sources */,

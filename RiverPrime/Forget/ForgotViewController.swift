@@ -6,26 +6,94 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ForgotViewController: UIViewController {
 
+    var email = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
     @IBAction func continue_btn(_ sender: Any) {
-        if let verifyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "VerifyCodeViewController"){
-            self.navigate(to: verifyVC)
+
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let _email = savedUserData["email"] as? String {
+                email = _email
+            }
         }
+        if email != "" {
+            Auth.auth().sendPasswordReset(withEmail: email) { error in
+                if let error = error {
+                    // Handle error
+                    self.showSimpleAlert("Error: \(error.localizedDescription)")
+                } else {
+                    // Notify user that the reset email has been sent
+                    self.showSimpleAlert("Password reset email sent. Check your inbox!")
+                }
+            }
+        }else{
+            showAlertWithEmailField()
+        }
+    
     }
     
     @IBAction func backLoginBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true) 
     }
     
+    // Function to show alert with a text field for the email
+       func showAlertWithEmailField() {
+           let alert = UIAlertController(title: "Reset Password", message: "Enter your email address to reset your password.", preferredStyle: .alert)
+           
+           // Add a text field to the alert for email input
+           alert.addTextField { textField in
+               textField.placeholder = "Enter your email"
+               textField.keyboardType = .emailAddress
+           }
+           
+           // Add a "Send" action that triggers password reset
+           let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
+               if let email = alert.textFields?.first?.text, !email.isEmpty {
+                   // Send password reset email
+                   Auth.auth().sendPasswordReset(withEmail: email) { error in
+                       if let error = error {
+                           // Handle error
+                           self.showSimpleAlert("Error: \(error.localizedDescription)")
+                       } else {
+                           // Notify user that the reset email has been sent
+                           self.showSimpleAlert("Password reset email sent. Check your inbox!")
+                       }
+                   }
+               } else {
+                   // Show error if email is empty
+                   self.showSimpleAlert("Please enter a valid email address.")
+               }
+           }
+           
+           // Add a cancel action
+           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+           
+           // Add actions to the alert
+           alert.addAction(sendAction)
+           alert.addAction(cancelAction)
+           
+           // Present the alert
+           present(alert, animated: true, completion: nil)
+       }
+       
+       // Helper function to show a simple alert message
+       func showSimpleAlert(_ message: String) {
+           let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+           present(alert, animated: true, completion: nil)
+       }
 }

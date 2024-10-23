@@ -27,6 +27,8 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict/>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to display the correct country.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>InterVariable.ttf</string>

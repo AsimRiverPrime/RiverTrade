@@ -328,6 +328,11 @@ class OdooClient {
 //    }
     //MARK: - information for trade Symbol detail
     // working
+    
+    func sendSymbolDetailRequest1() {
+        
+    }
+    
     func sendSymbolDetailRequest() {
         uid = UserDefaults.standard.integer(forKey: "uid")
         
@@ -337,7 +342,7 @@ class OdooClient {
             "mobile_available", "=" , "True"
         ]]
         
-        let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available"]]
+        let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level"]]
         
         let params: [Any] = [
             dataBaseName,      // Database name

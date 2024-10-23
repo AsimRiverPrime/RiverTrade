@@ -162,6 +162,12 @@ extension SceneDelegate {
                 }
             
             fireStoreInstance.handleUserData()
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let loginVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
+//            
+//            let navController = UINavigationController(rootViewController: loginVC)
+//            SCENE_DELEGATE.window?.rootViewController = navController
+//            SCENE_DELEGATE.window?.makeKeyAndVisible()
         }else {
             fireStoreInstance.navigateToLoginScreen()
         }

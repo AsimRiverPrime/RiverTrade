@@ -57,7 +57,7 @@ class TradeTypeTableViewCell: BaseTableViewCell {
     
     @objc private func OPCListDissmisal(_ notification: Notification) {
         if let userInfo = notification.userInfo,
-               let receivedString = userInfo["yourKey"] as? String {
+               let receivedString = userInfo["OPCType"] as? String {
                 print("Received string: \(receivedString)")
             if receivedString == "Open" {
                 DispatchQueue.global(qos: .background).async { [weak self] in
@@ -67,7 +67,7 @@ class TradeTypeTableViewCell: BaseTableViewCell {
                                 print("Error fetching positions: \(error)")
                                 // Handle the error (e.g., show an alert)
                             } else if let positions = openData {
-                                //
+                              
                                 self?.delegate?.getOPCData(opcType: .open(positions))
 
                             }
@@ -134,6 +134,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         }
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
@@ -145,6 +146,7 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             collectionView.reloadData()
         }
     }
+    
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             cell.backgroundColor = .clear

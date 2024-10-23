@@ -57,10 +57,12 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 self.ToastMessage("check message for OTP")
             }
         }
-        
-        
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        //MARK: - Show Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+    }
     @IBAction func confirmBtn(_ sender: Any) {
         if ((getVerificationCode()?.isEmpty) == nil) {
             print("please enter code")

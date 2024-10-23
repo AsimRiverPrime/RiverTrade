@@ -29,11 +29,14 @@ class SignInViewController: BaseViewController {
     @IBOutlet weak var lbl_passwordCheck: UILabel!
     @IBOutlet weak var lbl_credientailCheck: UILabel!
     @IBOutlet weak var btn_rememberMe: UIButton!
+   
+    @IBOutlet weak var btn_submit: UIButton!
     
     @IBOutlet weak var hideShowPassBtn: UIButton!
     
     let firebase = FirestoreServices()
-    
+    var viewModel = SignViewModel()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,18 +45,62 @@ class SignInViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Show Navigation Bar
-        self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
       
         username_tf.text = "asimprime900@gmail.com"
         password_tf.text = "asdasd"
+        
+        
+//        self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
+//        self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
+        enableLoginButton()
     }
     
+    private func enableLoginButton() {
+        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
+            self.btn_submit.isEnabled = true
+            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
+        } else {
+            self.btn_submit.isEnabled = false
+            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+        }
+        
+        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
+            self.btn_submit.isEnabled = false
+            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+            return
+           }
+    }
+    
+    @objc func emailTextChanged(_ textField: UITextField) {
+        if self.viewModel.isValidEmail(self.username_tf.text!) || self.username_tf.state.isEmpty {
+            self.lbl_emailCheck.isHidden = true
+        } else {
+            
+            self.lbl_emailCheck.text = "email is not correct"
+            self.lbl_emailCheck.isHidden = false
+        }
+        enableLoginButton()
+    }
+    
+    @objc func passwordTextChanged(_ textField: UITextField) {
+    
+        if self.viewModel.isValidatePassword(password: self.password_tf.text!) {
+            self.lbl_passwordCheck.isHidden = true
+        }else{
+            self.lbl_passwordCheck.isHidden = false
+            self.lbl_passwordCheck.text = "Password is atleast 8 character with 1 capital & 1 Special & 1 number"
+        }
+        enableLoginButton()
+    }
     @IBAction func rememberMeBtn(_ sender: Any) {
         self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
         self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "square") : UIImage(systemName: "checkmark.square"), for: .normal)
+        
         
     }
     
@@ -93,28 +140,7 @@ class SignInViewController: BaseViewController {
             return
         }
         
-        // MARK: - check user verified email and number
-//        firebase.getUserDataByEmail(email: email) { result in
-//            switch result {
-//            case .success(let data):
-//                print("User data: \(data)")
-//                if let isEmailVerified = data["emailVerified"] as? Bool, isEmailVerified {
-//                          print("User email is active: \(isEmailVerified)")
-//                      } else {
-//                          print("User email is not active ")
-//                          print("User move to the email verification screen")
-//                      }
-//                      
-//                      // Additional conditions can be checked here
-//                      if let isPhoneVerified = data["phoneVerified"] as? String {
-//                          print("User phone is verify: \(isPhoneVerified)")
-//                      } else {
-//                          print("User move to the phone verification screen")
-//                      }
-//            case .failure(let error):
-//                print("Error getting user data: \(error.localizedDescription)")
-//            }
-//        }
+ 
         
         // Use Firebase Authentication to sign in
         Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
@@ -163,11 +189,5 @@ class SignInViewController: BaseViewController {
         }
         
     }
-//    
-//   
-//    private func navigateToDashboardScreen() {
-//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//            self.navigate(to: dashboardVC)
-//        }
-//    }
+
 }

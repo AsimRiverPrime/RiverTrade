@@ -129,6 +129,12 @@ class SignUpViewController: BaseViewController {
             self.btn_contiune.isEnabled = false
             self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
         }
+        
+        guard let email = email_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
+            self.btn_contiune.isEnabled = false
+            self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+            return
+           }
     }
     
     

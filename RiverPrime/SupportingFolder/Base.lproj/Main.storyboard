@@ -2137,14 +2137,14 @@ Reach out for questions or concerns about your privacy.</string>
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hiD-nj-Ign" customClass="TPKeyboardAvoidingScrollView">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hiD-nj-Ign" customClass="TPKeyboardAvoidingScrollView">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doR-qR-3Gh">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="837"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eA6-il-whs">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="360"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="334.66666666666669"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MbI-NZ-BgH">
                                                         <rect key="frame" x="10" y="50" width="373" height="196"/>
@@ -2177,7 +2177,6 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                                 <color key="backgroundColor" name="splashScreen"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="360" id="EEf-fq-wQk"/>
                                                     <constraint firstItem="MbI-NZ-BgH" firstAttribute="leading" secondItem="eA6-il-whs" secondAttribute="leading" constant="10" id="PHd-yR-gkf"/>
                                                     <constraint firstItem="MbI-NZ-BgH" firstAttribute="centerX" secondItem="eA6-il-whs" secondAttribute="centerX" id="WtR-71-M6r"/>
                                                     <constraint firstItem="MbI-NZ-BgH" firstAttribute="top" secondItem="eA6-il-whs" secondAttribute="top" constant="50" id="bG9-2y-mFD"/>
@@ -2185,10 +2184,10 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tgm-b2-5mg">
-                                                <rect key="frame" x="0.0" y="360" width="393" height="492"/>
+                                                <rect key="frame" x="0.0" y="334.66666666666674" width="393" height="502.33333333333326"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cv6-5L-KCT">
-                                                        <rect key="frame" x="50" y="320" width="293" height="38"/>
+                                                        <rect key="frame" x="50" y="330.33333333333331" width="293" height="38"/>
                                                         <color key="tintColor" name="basicTextColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Create Account">
@@ -2199,7 +2198,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't Have an Account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tT3-SA-bgH">
-                                                        <rect key="frame" x="50" y="296" width="293" height="24"/>
+                                                        <rect key="frame" x="50" y="301.33333333333331" width="293" height="24"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2208,9 +2207,10 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="tT3-SA-bgH" secondAttribute="trailing" constant="50" id="Gin-Hf-WsR"/>
-                                                    <constraint firstItem="cv6-5L-KCT" firstAttribute="top" secondItem="tT3-SA-bgH" secondAttribute="bottom" id="Glg-x0-gSz"/>
+                                                    <constraint firstItem="cv6-5L-KCT" firstAttribute="top" secondItem="tT3-SA-bgH" secondAttribute="bottom" constant="5" id="Glg-x0-gSz"/>
                                                     <constraint firstItem="cv6-5L-KCT" firstAttribute="trailing" secondItem="tT3-SA-bgH" secondAttribute="trailing" id="MSw-2Z-d1d"/>
                                                     <constraint firstItem="cv6-5L-KCT" firstAttribute="leading" secondItem="tT3-SA-bgH" secondAttribute="leading" id="s3s-Jg-IAX"/>
+                                                    <constraint firstAttribute="bottom" secondItem="cv6-5L-KCT" secondAttribute="bottom" constant="134" id="w0G-qw-kkg"/>
                                                     <constraint firstItem="tT3-SA-bgH" firstAttribute="leading" secondItem="Tgm-b2-5mg" secondAttribute="leading" constant="50" id="yFQ-3h-E2D"/>
                                                 </constraints>
                                             </view>
@@ -2227,8 +2227,8 @@ Reach out for questions or concerns about your privacy.</string>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username is not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPk-Nk-EVW">
-                                                        <rect key="frame" x="20" y="60.000000000000007" width="293" height="14.333333333333336"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <rect key="frame" x="20" y="60" width="293" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" systemColor="systemRedColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -2251,14 +2251,14 @@ Reach out for questions or concerns about your privacy.</string>
                                                             <action selector="passwordIconAction:" destination="Sue-mK-KG2" eventType="touchUpInside" id="7QR-Oj-e6D"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password is not correct" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-lF-QFd">
-                                                        <rect key="frame" x="20" y="120" width="293" height="14.666666666666657"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password is not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-lF-QFd">
+                                                        <rect key="frame" x="20" y="120" width="293" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" systemColor="systemRedColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dsW-5K-Ijq">
-                                                        <rect key="frame" x="20" y="139.66666666666669" width="25" height="25"/>
+                                                        <rect key="frame" x="20" y="137" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="25" id="8jy-Bo-nsx"/>
                                                             <constraint firstAttribute="height" constant="25" id="xWF-t5-Tjh"/>
@@ -2271,13 +2271,13 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember Me" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yN0-cs-lXZ">
-                                                        <rect key="frame" x="55" y="145.33333333333331" width="205" height="14"/>
+                                                        <rect key="frame" x="55" y="142.66666666666669" width="205" height="14"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZE-MQ-GtS">
-                                                        <rect key="frame" x="20" y="184.66666666666669" width="293" height="45"/>
+                                                        <rect key="frame" x="20" y="182" width="293" height="45"/>
                                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="45" id="kPb-bW-i8b"/>
@@ -2297,7 +2297,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nge-5l-dva">
-                                                        <rect key="frame" x="20" y="249.66666666666663" width="293" height="33"/>
+                                                        <rect key="frame" x="20" y="247" width="293" height="33"/>
                                                         <color key="tintColor" name="basicTextColor"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="Forget password?">
@@ -2361,6 +2361,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstItem="eA6-il-whs" firstAttribute="height" secondItem="doR-qR-3Gh" secondAttribute="height" multiplier="0.4" id="Bkk-Cl-XYU"/>
                                             <constraint firstItem="Tgm-b2-5mg" firstAttribute="leading" secondItem="doR-qR-3Gh" secondAttribute="leading" id="Ey7-gS-J3R"/>
                                             <constraint firstItem="eA6-il-whs" firstAttribute="top" secondItem="doR-qR-3Gh" secondAttribute="top" id="GCJ-45-iG9"/>
                                             <constraint firstAttribute="bottom" secondItem="Tgm-b2-5mg" secondAttribute="bottom" id="Hty-dA-FOg"/>
@@ -2369,7 +2370,7 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstAttribute="trailing" secondItem="W8R-lr-qhH" secondAttribute="trailing" constant="30" id="QOM-eg-G1k"/>
                                             <constraint firstAttribute="trailing" secondItem="Tgm-b2-5mg" secondAttribute="trailing" id="UcC-25-dCH"/>
                                             <constraint firstItem="Tgm-b2-5mg" firstAttribute="top" secondItem="eA6-il-whs" secondAttribute="bottom" id="c1O-UV-p7v"/>
-                                            <constraint firstItem="tT3-SA-bgH" firstAttribute="top" secondItem="W8R-lr-qhH" secondAttribute="bottom" constant="70" id="idE-ah-Dbq"/>
+                                            <constraint firstItem="tT3-SA-bgH" firstAttribute="top" secondItem="W8R-lr-qhH" secondAttribute="bottom" constant="50" id="idE-ah-Dbq"/>
                                             <constraint firstItem="W8R-lr-qhH" firstAttribute="top" secondItem="MbI-NZ-BgH" secondAttribute="bottom" constant="20" id="oLA-x4-DFz"/>
                                             <constraint firstAttribute="trailing" secondItem="eA6-il-whs" secondAttribute="trailing" id="utm-ao-eB3"/>
                                         </constraints>
@@ -2379,18 +2380,15 @@ Reach out for questions or concerns about your privacy.</string>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="leading" secondItem="hiD-nj-Ign" secondAttribute="leading" id="0Eh-vg-hrA"/>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="top" secondItem="hiD-nj-Ign" secondAttribute="top" id="UgX-JY-sj2"/>
                                     <constraint firstAttribute="trailing" secondItem="doR-qR-3Gh" secondAttribute="trailing" id="edP-gh-OmA"/>
-                                    <constraint firstItem="doR-qR-3Gh" firstAttribute="height" secondItem="hiD-nj-Ign" secondAttribute="height" id="vb6-ZI-OSW"/>
                                     <constraint firstItem="doR-qR-3Gh" firstAttribute="width" secondItem="hiD-nj-Ign" secondAttribute="width" id="vd7-HL-ZkV"/>
                                     <constraint firstAttribute="bottom" secondItem="doR-qR-3Gh" secondAttribute="bottom" id="vpo-iH-y4H"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="rEP-6K-FkL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="leading" secondItem="Vo9-LW-Gun" secondAttribute="leading" id="C5K-cv-eS6"/>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="top" secondItem="Vo9-LW-Gun" secondAttribute="top" id="JH5-Di-P2l"/>
-                            <constraint firstItem="hiD-nj-Ign" firstAttribute="height" secondItem="Vo9-LW-Gun" secondAttribute="height" id="KfY-Vv-JTT"/>
                             <constraint firstAttribute="trailing" secondItem="hiD-nj-Ign" secondAttribute="trailing" id="kh8-ao-Wrf"/>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="width" secondItem="Vo9-LW-Gun" secondAttribute="width" id="rbC-1y-5VK"/>
                             <constraint firstAttribute="bottom" secondItem="hiD-nj-Ign" secondAttribute="bottom" id="w0i-dT-neF"/>
@@ -2399,6 +2397,7 @@ Reach out for questions or concerns about your privacy.</string>
                     <navigationItem key="navigationItem" id="Qek-5G-bAM"/>
                     <connections>
                         <outlet property="btn_rememberMe" destination="dsW-5K-Ijq" id="fIe-Hk-PaV"/>
+                        <outlet property="btn_submit" destination="cZE-MQ-GtS" id="Xl2-YA-M1g"/>
                         <outlet property="hideShowPassBtn" destination="FO8-41-56t" id="vAV-kp-Fon"/>
                         <outlet property="lbl_credientailCheck" destination="yeF-ik-bN0" id="77N-Za-wbm"/>
                         <outlet property="lbl_emailCheck" destination="qPk-Nk-EVW" id="3t7-kS-M8I"/>

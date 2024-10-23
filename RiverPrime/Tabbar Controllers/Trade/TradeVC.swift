@@ -29,9 +29,13 @@ struct SymbolData: Codable {
     let displayName: String
     let sector: String
     let digits: String
+    let stopsLevel: String
+    let swapLong: String
+    let swapShort: String
+    let spreadSize: String
     let mobile_available: String
     
-    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, mobile_available: String) {
+    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String) {
         self.id = id
         self.name = name
         self.description = description
@@ -43,6 +47,10 @@ struct SymbolData: Codable {
         self.displayName = displayName
         self.sector = sector
         self.digits = digits
+        self.spreadSize = spreadSize
+        self.swapLong = swapLong
+        self.swapShort = swapShort
+        self.stopsLevel = stopsLevel
         self.mobile_available = mobile_available
         
     }
@@ -112,13 +120,13 @@ class TradeVC: UIView {
       
     }
     
-    @objc private func socketConnectivity(_ notification: NSNotification) {
-        if let listData = notification.userInfo?["isConnect"] as? String {
-            print("listData = \(listData)") // TODO: get bool value in string.
-            odooClientService.sendSymbolDetailRequest()
-            odooClientService.tradeSymbolDetailDelegate = self
-        }
-    }
+//    @objc private func socketConnectivity(_ notification: NSNotification) {
+//        if let listData = notification.userInfo?["isConnect"] as? String {
+//            print("listData = \(listData)") // TODO: get bool value in string.
+//            odooClientService.sendSymbolDetailRequest()
+//            odooClientService.tradeSymbolDetailDelegate = self
+//        }
+//    }
     
     class func getView()->TradeVC {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
@@ -297,15 +305,7 @@ extension TradeVC: SocketPeerClosed {
         GlobalVariable.instance.changeSector = true
         
         setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
-        
-//        if vm.webSocketManager.isSocketConnected() {
-//            print("Socket is connected")
-//        } else {
-//            print("Socket is not connected")
-//            GlobalVariable.instance.changeSector = true
-//
-//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
-//        }
+    
     }
     
 }
@@ -317,61 +317,11 @@ extension TradeVC: GetSocketMessages {
            switch socketMessageType {
            case .tick:
                
-               /*
                //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
                if let getTick = tickMessage {
                    if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
                        getSymbolData[index].tickMessage = tickMessage
-   //                    if !GlobalVariable.instance.isProcessingSymbol {
-   //                        GlobalVariable.instance.isProcessingSymbol = true
-   //                        if getSymbolData[index].isTickFlag ?? false {
-   //                        } else {
-   //                            vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-   //                        }
-   ////                        vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-   //                    }
-                       
-                       //MARK: - If tick flag is true then we just update the label only not reload the tableview.
-                       if getSymbolData[index].isTickFlag ?? false {
-                           let indexPath = IndexPath(row: index, section: 2)
-                           if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
-                           }
-                       } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must relad the compared symbol index only.
-                           refreshSectionRow(at: 2, row: index)
-                           getSymbolData[index].isTickFlag = true
-                       }
-                       
-                       return
-                   }
-               }
-               */
-               
-               //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
-               if let getTick = tickMessage {
-                   if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
-                       getSymbolData[index].tickMessage = tickMessage
-   //                    if !GlobalVariable.instance.isProcessingSymbol {
-   //                        GlobalVariable.instance.isProcessingSymbol = true
-   ////                        if getSymbolData[index].isTickFlag ?? false {
-   ////                        } else {
-   //                            vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-   ////                        }
-   //////                        vm.webSocketManager.sendWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-   //                    }
-                       
-   //                    if (getSymbolData[index].isHistoryFlag ?? false) == false {
-   //                        vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-   //                    }
-                       
-                       /*if let flag = getSymbolData[index].isHistoryFlag {
-                           if !flag && !GlobalVariable.instance.isProcessingSymbol {
-                               getSymbolData[index].isHistoryFlag = true
-                               GlobalVariable.instance.isProcessingSymbol = true
-                               vm.webSocketManager.sendHistoryWebSocketMessage(for: "subscribeHistory", symbol: getTick.symbol)
-                           }
-                       }*/
-                       
+  
                        if let flag = getSymbolData[index].isHistoryFlag {
                            if !flag/* && !GlobalVariable.instance.isProcessingSymbol*/ {
                                getSymbolData[index].isHistoryFlag = true
@@ -402,10 +352,6 @@ extension TradeVC: GetSocketMessages {
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                            }
-   //                    } else { //MARK: - Else flag is false it means that this symbol data coming from socket is first time, then we must relad the compared symbol index only.
-   //                        refreshSectionRow(at: 2, row: index)
-   //                        getSymbolData[index].isTickFlag = true
-   //                    }
                        
                        return
                    }
@@ -426,17 +372,7 @@ extension TradeVC: GetSocketMessages {
                            GlobalVariable.instance.isProcessingSymbolTimer = false
                            cell.configureChart(getSymbolData: getSymbolData[index])
                        }
-                       
-   //                    if getSymbolData[index].isHistoryFlag ?? false {
-   //                        let indexPath = IndexPath(row: index, section: 2)
-   //                        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-   ////                            let getSymbolData = getSymbolData[indexPath.row]
-   //                            cell.configureChart(getSymbolData: getSymbolData[index])
-   //                        }
-   //                    } else {
-   //                        refreshSectionRow(at: 2, row: index)
-   //                        getSymbolData[index].isHistoryFlag = true
-   //                    }
+                  
                        return
                    }
                }
@@ -476,12 +412,6 @@ extension TradeVC: GetSocketMessages {
             timer?.invalidate()
             timer = nil
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//                self.start60SecondsCountdown() // Restart the timer after 1 second
-//                for i in 0...self.getSymbolData.count-1 {
-//                    self.getSymbolData[i].isHistoryFlagTimer = false
-//                }
-                
-//                self.getSymbolData.forEach { $0.isHistoryFlagTimer = false }
                 self.getSymbolData.indices.forEach { index in
                     self.getSymbolData[index].isHistoryFlagTimer = false
                 }
@@ -518,92 +448,77 @@ extension TradeVC: TradeInfoTapDelegate {
             print("Socket is not connected")
         }
         
-        
-        //MARK: - This below commented code Move to tradeUpdates Method under Unsubscribed Case.
-        /*
-        GlobalVariable.instance.changeSector = true
-        
-        setTradeModel(collectionViewIndex: index)
-        
-        if vm.webSocketManager.isSocketConnected() {
-            print("Socket is connected")
-        } else {
-            print("Socket is not connected")
-            //MARK: - START SOCKET.
-            vm.webSocketManager.delegateSocketMessage = self
-            vm.webSocketManager.connectWebSocket()
-        }
-        */
+   
         
     }
 }
 
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
-extension TradeVC: TradeSymbolDetailDelegate {
-    func tradeSymbolDetailSuccess(response: String) {
-//        print("\n \(response) ")
-        convertXMLIntoJson(response)
-        ActivityIndicator.shared.hide(from: self)
-    }
-    
-    func tradeSymbolDetailFailure(error: any Error) {
-        print("\n the trade symbol detail Error response: \(error) ")
-    }
-    
-    func convertXMLIntoJson(_ xmlString: String) {
-        
-        do {
-            let xmlDoc = try AEXMLDocument(xml: xmlString)
-
-            if let xmlDocFile = xmlDoc.root["params"]["param"]["value"]["array"]["data"]["value"].all {
-                
-                
-                for param in xmlDocFile {
-                    if let structElement = param["struct"].first {
-                        var parsedData: [String: Any] = [:]
-                        for member in structElement["member"].all ?? [] {
-                            let name = member["name"].value ?? ""
-                            let value = member["value"].children.first?.value ?? ""
-                            parsedData[name] = value
-                        }
-                        
-                        if let symbolId = parsedData["id"] as? String, let symbolName = parsedData["name"] as? String,
-                            let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
-                            let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
-                            let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
-                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String {
-                         
-                            
-                            let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
-                            print(" originalUrl URL: \(originalUrl)")
-                            // Replace the part of the URL
-                            let modifiedUrl = originalUrl
-                                .replacingOccurrences(of: "-01.svg", with: ".png")
-                                .replacingOccurrences(of: ".com/", with: ".com/png/")
-
-                            print("\n modifiy URL: \(modifiedUrl)")
-                            
-                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits, mobile_available: symbolMobile_available ))
-                        }
-                           
-                        print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
-                       
-                        print("\n the parsed value is :\(parsedData)")
-                    }
-                }
-//                print("GlobalVariable.instance.symbolDataArray = \(GlobalVariable.instance.symbolDataArray)")
-                
-                //MARK: - Get the list and save localy and set sectors and symbols.
-                processSymbols(GlobalVariable.instance.symbolDataArray)
-                
-                //MARK: - Reload tablview when all data set into the list at first time.
-                self.tblView.reloadData()
-            }
-        } catch {
-            print("Failed to parse XML: \(error.localizedDescription)")
-        }
-
-    }
+extension TradeVC { //: TradeSymbolDetailDelegate {
+//    func tradeSymbolDetailSuccess(response: String) {
+////        print("\n \(response) ")
+//        convertXMLIntoJson(response)
+//        ActivityIndicator.shared.hide(from: self)
+//    }
+//    
+//    func tradeSymbolDetailFailure(error: any Error) {
+//        print("\n the trade symbol detail Error response: \(error) ")
+//    }
+//    
+//    func convertXMLIntoJson(_ xmlString: String) {
+//        
+//        do {
+//            let xmlDoc = try AEXMLDocument(xml: xmlString)
+//
+//            if let xmlDocFile = xmlDoc.root["params"]["param"]["value"]["array"]["data"]["value"].all {
+//                
+//                
+//                for param in xmlDocFile {
+//                    if let structElement = param["struct"].first {
+//                        var parsedData: [String: Any] = [:]
+//                        for member in structElement["member"].all ?? [] {
+//                            let name = member["name"].value ?? ""
+//                            let value = member["value"].children.first?.value ?? ""
+//                            parsedData[name] = value
+//                        }
+//                        
+//                        if let symbolId = parsedData["id"] as? String, let symbolName = parsedData["name"] as? String,
+//                            let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
+//                            let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
+//                            let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
+//                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String,  let symbolSwap_long = parsedData["swap_long"] as? String , let symbolStops_level = parsedData["stops_level"] as? String,  let symbolSpread_size = parsedData["spread_size"] as? String, let symbolSwap_short = parsedData["swap_short"] as? String   {
+//                         
+//                            
+//                            let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
+//                            print(" originalUrl URL: \(originalUrl)")
+//                            // Replace the part of the URL
+//                            let modifiedUrl = originalUrl
+//                                .replacingOccurrences(of: "-01.svg", with: ".png")
+//                                .replacingOccurrences(of: ".com/", with: ".com/png/")
+//
+//                            print("\n modifiy URL: \(modifiedUrl)")
+//                            
+//                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits,  stopsLevel: symbolStops_level, swapLong: symbolSwap_long, swapShort: symbolSwap_short, spreadSize: symbolSpread_size, mobile_available: symbolMobile_available))
+//                        }
+//                           
+//                        print("symbol data array : \(GlobalVariable.instance.symbolDataArray.count)")
+//                       
+//                        print("\n the parsed value is :\(parsedData)")
+//                    }
+//                }
+////                print("GlobalVariable.instance.symbolDataArray = \(GlobalVariable.instance.symbolDataArray)")
+//                
+//                //MARK: - Get the list and save localy and set sectors and symbols.
+//                processSymbols(GlobalVariable.instance.symbolDataArray)
+//                
+//                //MARK: - Reload tablview when all data set into the list at first time.
+//                self.tblView.reloadData()
+//            }
+//        } catch {
+//            print("Failed to parse XML: \(error.localizedDescription)")
+//        }
+//
+//    }
     
     func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {
         return symbols.filter { $0.sector == sector }.map { $0.displayName }
