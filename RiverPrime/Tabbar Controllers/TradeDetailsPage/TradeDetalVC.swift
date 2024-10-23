@@ -153,6 +153,7 @@ class TradeDetalVC: UIViewController {
                
                 if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
                     
+                    
                     self.tradeDetail = tradeDetail
                     
                     self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
@@ -489,7 +490,13 @@ extension TradeDetalVC {
                 scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
+       
+//        if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+//            if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+//                let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+              
         
+                
         let overviewList = [("Minimum volume, lots","0.01"), ("Maximum volume, lots","0.01"), ("Volume step","0.01"), ("Contract size","0.01"), ("Spread units","Cents"), ("Stop level, pips","0.01"), ("Swap long, pips","0.01"), ("Swap short, pips","0.01")]
         
         var stackViewList = [UIStackView]()
