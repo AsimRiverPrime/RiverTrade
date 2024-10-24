@@ -23,7 +23,13 @@ class LogoutTableViewCell: UITableViewCell {
     }
     
     @IBAction func logOutAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         
+        let navController = UINavigationController(rootViewController: loginVC)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
     }
     
 }

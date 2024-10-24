@@ -19,6 +19,12 @@ class SelectAccountTypeVC: BaseViewController {
     
     var selectAccountType = [SelectAccountType]()
     
+     var loginID = Int()
+     var createDemoAccount = String()
+     var realAccount = String()
+     var accountType = String()
+    var mt5 = String()
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -78,7 +84,28 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.numberOfLines = 0
         
         cell.textLabel?.text = model.title
-        cell.detailTextLabel?.text = model.detail
+        
+        if indexPath.row == 0 {//demo account
+            if isAccountExist() {
+                cell.detailTextLabel?.text = self.createDemoAccount + "\t\(self.accountType)"
+                cell.accessoryType = .none
+            } else {
+                cell.detailTextLabel?.text = model.detail
+                cell.accessoryType = .disclosureIndicator
+            }
+        } else if indexPath.row == 1 {//real account
+//            if isAccountExist() {
+//                cell.detailTextLabel?.text = self.realAccount + "\t\(self.accountType)"
+//                cell.accessoryType = .none
+//            } else {
+//                cell.detailTextLabel?.text = model.detail
+//                cell.accessoryType = .disclosureIndicator
+//            }
+            cell.detailTextLabel?.text = model.detail
+            cell.accessoryType = .disclosureIndicator
+        }
+        
+//        cell.detailTextLabel?.text = model.detail
         
         return cell
     }
@@ -92,16 +119,59 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         if indexPath.row == 0 {
             //MARK: - Create demo account
             
-//            let vc = Utilities.shared.getViewController(identifier: .createDemoAccountVC, storyboardType: .dashboard) as! CreateDemoAccountVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
-            vc.preferredSheetSizing = .large
-//            PresentModalController.instance.presentBottomSheet(self, VC: vc)
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+            if !isAccountExist() {
+                //            let vc = Utilities.shared.getViewController(identifier: .createDemoAccountVC, storyboardType: .dashboard) as! CreateDemoAccountVC
+                //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
+                vc.preferredSheetSizing = .large
+                //            PresentModalController.instance.presentBottomSheet(self, VC: vc)
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+            }
             
         } else if indexPath.row == 1 {
             //MARK: - Create real account
             
         }
     }
+}
+
+extension SelectAccountTypeVC {
+    
+    private func isAccountExist() -> Bool {
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+                
+                self.loginID = loginID
+                
+                if isCreateDemoAccount == true {
+                    self.createDemoAccount = " Demo "
+                }
+                if isRealAccount == true {
+                    self.realAccount = " Real "
+                }
+                if accountType == "Pro Account" {
+                    self.accountType = " PRO "
+                    self.mt5 = " MT5 "
+                }else if accountType == "Prime Account" {
+                    self.accountType = " PRIME "
+                    self.mt5 = " MT5 "
+                }else if accountType == "Premium Account" {
+                    self.accountType = " PREMIUM "
+                    self.mt5 = " MT5 "
+                }else{
+                    self.accountType = ""
+                    self.mt5 = ""
+                    
+                }
+                return true
+            }
+            return false
+        }
+        return false
+    }
+    
 }

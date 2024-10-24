@@ -209,6 +209,17 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             //MARK: - Showing the list of Symbols according to the selected sector in else statement.
                 cell.configure(with: trade! , symbolDataObj: symbolDataObj)
             
+            // Disable interaction for specific cells
+            if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.
+                cell.isUserInteractionEnabled = false
+                cell.contentView.alpha = 0.5 // Visual cue that the cell is disabled
+                cell.selectionStyle = .none // No selection effect
+            } else {
+                cell.isUserInteractionEnabled = true
+                cell.contentView.alpha = 1.0
+                cell.selectionStyle = .default
+            }
+            
             return cell
         }
     }
@@ -339,7 +350,13 @@ extension TradeVC: GetSocketMessages {
    //                    if getSymbolData[index].isTickFlag ?? false {
                            let indexPath = IndexPath(row: index, section: 2)
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                               getSymbolData[index].isTickFlag = true
                                cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+                               
+                               //MARK: - User Interface enabled, when tick flag is true.
+                               cell.isUserInteractionEnabled = true
+                               cell.contentView.alpha = 1.0
+                               cell.selectionStyle = .default
                            }
                        
                        return
