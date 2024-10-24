@@ -7,6 +7,7 @@
 
 import UIKit
 import iPass2_0NativeiOS
+import SVProgressHUD
 
 enum KYCType {
     case ProfileScreen
@@ -35,11 +36,15 @@ class KYCViewController: BaseViewController {
         super.viewDidLoad()
         
         ActivityIndicator.shared.show(in: self.view)
+        
         DataBaseDownloading.initialization(completion:{progres, status, error in
             print(progres, status, error)
-           
+            ActivityIndicator.shared.hide(from: self.view)
+
+            SVProgressHUD.show(withStatus: progres)
             if status == "Start Now" {
-                ActivityIndicator.shared.hide(from: self.view)
+                SVProgressHUD.dismiss()
+                
             }
         })
         

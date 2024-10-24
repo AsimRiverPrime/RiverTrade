@@ -423,7 +423,7 @@ class OdooClient {
                 switch response.result {
                 case .success(let data):
                     if let responseString = String(data: data, encoding: .utf8) {
-                        print("createR Lead ecords Response XML: \(responseString)")
+                        print("create Lead Records Response XML: \(responseString)")
                         createLeadDelegate?.leadCreatSuccess(response: responseString)
                         // sendOTP(email: userEmail, phone: "")
                     }
@@ -567,7 +567,7 @@ class OdooClient {
             }
             
             let xmlDoc1 = try AEXMLDocument(xml: data)
-            print(xmlDoc1.xml)
+//            print(xmlDoc1.xml)
             
             if createRequestBool == false {
                 // Adjust this based on the actual XML structure

@@ -62,7 +62,7 @@ class SignUpViewController: BaseViewController {
         print("odoo client auth call")
         //        odooClientService.authenticate()
         odoClientNew.authenticate()
-        odooClientService.createLeadDelegate = self
+        odooClientService.createLeadDelegate = self 
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
@@ -91,16 +91,7 @@ class SignUpViewController: BaseViewController {
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
-        
-//        if self.viewModel.isPasswordValid(self.password_tf.text!)  {
-//            self.lbl_passValid.isHidden = true
-//            
-//        } else {
-//            self.lbl_passValid.isHidden = false
-//            self.lbl_passValid.text = "Password must be 6 character"
-//            self.lbl_passValid.textColor = .red
-//        }
-        
+    
         if self.viewModel.isValidatePassword(password: self.password_tf.text!) {
             self.lbl_passValid.isHidden = true
         }else{
@@ -203,7 +194,7 @@ class SignUpViewController: BaseViewController {
     }
     
     
-    private func authenticateWithFirebase(user: GIDGoogleUser) {
+    func authenticateWithFirebase(user: GIDGoogleUser) {
         
         let idToken = user.idToken?.tokenString
         let accessToken = user.accessToken.tokenString
@@ -342,7 +333,7 @@ class SignUpViewController: BaseViewController {
         fireBaseService.fetchUserData(userId: userId)
     }
     
-    private func navigateToVerifiyScreen() {
+     func navigateToVerifiyScreen() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
@@ -367,4 +358,4 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
         print("this is error response:\(error)")
     }
 }
-
+    

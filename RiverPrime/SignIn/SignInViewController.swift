@@ -9,6 +9,7 @@ import UIKit
 import TPKeyboardAvoiding
 import FirebaseAuth
 import FirebaseFirestore
+import GoogleSignIn
 
 class SignInViewController: BaseViewController {
     
@@ -36,10 +37,15 @@ class SignInViewController: BaseViewController {
     
     let firebase = FirestoreServices()
     var viewModel = SignViewModel()
-
+//    var signUpVC = SignUpViewController()
+    var odooClientService = OdooClient()
+    var odoClientNew = OdooClientNew()
+    var emailUser: String?
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        odooClientService.createLeadDelegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -113,6 +119,20 @@ class SignInViewController: BaseViewController {
         login()
     }
     
+    @IBAction func signINGoogle_action(_ sender: Any) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+            if let error = error {
+                print("Sign in failed: \(error.localizedDescription)")
+                return
+            }
+            print("result user: \(result)")
+            guard let user1 = result?.user else { return }
+            
+            self?.authenticateWithFirebase(user: user1)
+            
+        }
+        
+    }
     @IBAction func forgotBtn(_ sender: Any) {
         if let forgotVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotViewController"){
             self.navigate(to: forgotVC)
@@ -189,5 +209,104 @@ class SignInViewController: BaseViewController {
         }
         
     }
+    
+    func authenticateWithFirebase(user: GIDGoogleUser) {
+        
+        let idToken = user.idToken?.tokenString
+        let accessToken = user.accessToken.tokenString
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
+        
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+                print("Firebase authentication failed: \(error.localizedDescription)")
+                return
+            }
+            
+            // User is signed in with Firebase successfuly
+            if let user = authResult?.user {
+                
+                UserDefaults.standard.set(user.uid, forKey: "userID")
+                self.emailUser = user.email ?? ""
+                
+                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error checking for existing user: \(error.localizedDescription)")
+                    }
+                    
+                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+                        print("User with this email already exists.")
+                        self.firebase.fetchUserData(userId: user.uid)
+                        
+                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+                            print("Timer fired!")
+                            self.firebase.handleUserData()
+                        }
+                        
+                        
+                    } else {
+                        self.odooClientService.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+                        
+                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+                        
+                    }
+                }
+                
+                
+            }
+        }
+    }
+    
+    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
+        
+        db.collection("users").document(userId).setData([
+            "KYC" : kyc,
+            "profileStep" : profileStep,
+            "uid": userId,
+            "name": name,
+            "email":email,
+            "phone": phone,
+            "loginId": loginId,
+            "emailVerified": emailVerified,
+            "phoneVerified": phoneVerified,
+            "login": login,
+            "demoAccountGroup": demoAccountGroup,
+            "pushedToCRM": pushedToCRM,
+            "realAccountCreated": realAccountCreated,
+            "demoAccountCreated": demoAccountCreated
+        ]) { error in
+            if let error = error {
+                print("Error saving user data: \(error.localizedDescription)")
+            } else {
+                print("User data saved successfully.")
+            }
+        }
+        firebase.fetchUserData(userId: userId)
+    }
+    
+     func navigateToVerifiyScreen() {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+        //        verifyVC.userEmail = self.email_tf.text ?? ""
+        GlobalVariable.instance.userEmail = self.emailUser ?? ""
+        verifyVC.isEmailVerification = true
+        verifyVC.isPhoneVerification = false
+        self.navigate(to: verifyVC)
+    }
+    
+}
 
+extension SignInViewController:  CreateLeadOdooDelegate {
+    func leadCreatSuccess(response: Any) {
+        print("this is success response from create Lead :\(response)")
+        odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
+        self.ToastMessage("Check email inbox or spam for OTP")
+        self.navigateToVerifiyScreen()
+    }
+    
+    func leadCreatFailure(error: any Error) {
+        print("this is error response:\(error)")
+    }
+    
 }
