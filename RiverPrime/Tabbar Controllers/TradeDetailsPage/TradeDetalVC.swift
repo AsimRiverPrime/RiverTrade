@@ -31,6 +31,7 @@ class TradeDetalVC: UIViewController {
 //    @IBOutlet weak var lbl_accountGroup: UILabel!
     
     @IBOutlet var menuButton: [UIButton]!
+    @IBOutlet weak var SellBuyView: UIView!
     
 //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
@@ -42,6 +43,8 @@ class TradeDetalVC: UIViewController {
     var mt5 = String()
     
     var tradeDetail: TradeDetails?
+    
+    var overviewList = [(String, String)]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,6 +111,7 @@ class TradeDetalVC: UIViewController {
             //MARK: - Remove previous button content here.
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
+            self.SellBuyView.isHidden = false
             
             //MARK: - Add new content from here.
             setupChart()
@@ -117,6 +121,7 @@ class TradeDetalVC: UIViewController {
             //MARK: - Remove previous button content here.
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
+            self.SellBuyView.isHidden = true
             
             //MARK: - Add new content from here.
             setupOverview()
@@ -327,7 +332,6 @@ extension TradeDetalVC: WebSocketDelegate {
     func handleHistoryWebSocketMessage(_ string: String) {
         print("\n this is history json: \(string)")
          
-                    
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
@@ -468,44 +472,83 @@ extension TradeDetalVC {
         
         lazy var scrollView: TPKeyboardAvoidingScrollView = {
             let scroll = TPKeyboardAvoidingScrollView()
-            scroll.backgroundColor = .clear
+            scroll.backgroundColor = .white //.clear
+            scroll.layer.cornerRadius = 10
+            
+            scroll.layer.masksToBounds = false
+            // Shadow settings
+            scroll.layer.shadowColor = UIColor.black.cgColor
+            scroll.layer.shadowOpacity = 0.2
+            scroll.layer.shadowOffset = CGSize(width: 0, height: 2)
+            scroll.layer.shadowRadius = 4
+            
             scroll.translatesAutoresizingMaskIntoConstraints = false
             return scroll
         }()
         
+        
         self.chartView.addSubview(scrollView)
+        
+        scrollView.isScrollEnabled = false
+        scrollView.isUserInteractionEnabled = false
         
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor),
-                scrollView.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.bottomAnchor)
+                scrollView.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+                scrollView.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+                scrollView.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor, constant: 20),
+                scrollView.bottomAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
             ])
         } else {
             NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: chartView.leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: chartView.trailingAnchor),
-                scrollView.topAnchor.constraint(equalTo: chartView.topAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
+                scrollView.leadingAnchor.constraint(equalTo: chartView.leadingAnchor, constant: 10),
+                scrollView.trailingAnchor.constraint(equalTo: chartView.trailingAnchor, constant: -20),
+                scrollView.topAnchor.constraint(equalTo: chartView.topAnchor, constant: 20),
+                scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor, constant: -10)
             ])
         }
        
 //        if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
 //            if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
 //                let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-              
         
-                
-        let overviewList = [("Minimum volume, lots","0.01"), ("Maximum volume, lots","0.01"), ("Volume step","0.01"), ("Contract size","0.01"), ("Spread units","Cents"), ("Stop level, pips","0.01"), ("Swap long, pips","0.01"), ("Swap short, pips","0.01")]
+        if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
+            let volumeMin = GlobalVariable.instance.symbolDataArray[valueIndex].volumeMin
+            let volumeMax = GlobalVariable.instance.symbolDataArray[valueIndex].volumeMax
+            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
+            let contractSize = GlobalVariable.instance.symbolDataArray[valueIndex].contractSize
+//            let spreadSize = GlobalVariable.instance.symbolDataArray[valueIndex].spreadSize
+            let stopLevel = GlobalVariable.instance.symbolDataArray[valueIndex].stopsLevel
+            let swapLong = GlobalVariable.instance.symbolDataArray[valueIndex].swapLong
+            let swapShort = GlobalVariable.instance.symbolDataArray[valueIndex].swapShort
+//            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
+            
+            let minVol = Double(volumeMin)! / 10000
+            let maxVol = Double(volumeMax)! / 10000
+            let volStep = Double(volumeStep)! / 10000
+            
+            overviewList = [("Minimum volume, lots","\(minVol)"), ("Maximum volume, lots","\(maxVol)"), ("Volume step","\(volStep)"), ("Contract size","\(contractSize)"), ("Stop level","\(stopLevel)"), ("Swap long","\(swapLong)"), ("Swap short","\(swapShort)")]
+            
+        } else {
+            overviewList = [("Minimum volume, lots","0"), ("Maximum volume, lots","0"), ("Volume step","0"), ("Contract size","0"), ("Stop level","0"), ("Swap long","0"), ("Swap short","0")]
+        }
+        
+        
         
         var stackViewList = [UIStackView]()
         stackViewList.removeAll()
         
         for (index, item) in overviewList.enumerated() {
             
+            lazy var lineView: UIView = {
+                let view = UIView()
+                view.backgroundColor = .gray
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
             lazy var stackView: UIStackView = {
-              let view = UIStackView()
+                let view = UIStackView()
                 view.axis = .horizontal        // Arrange views horizontally
                 view.spacing = 10              // Space between labels
                 view.distribution = .equalSpacing  // Equal spacing between items
@@ -516,16 +559,18 @@ extension TradeDetalVC {
             }()
             
             lazy var title: UILabel = {
-              let label = UILabel()
-                label.textColor = .black
+                let label = UILabel()
+                label.textColor = .darkGray
+                label.font = FontController.Fonts.ListInter_Regular.font
                 label.text = item.0
                 label.tag = index
                 return label
             }()
             
             lazy var detail: UILabel = {
-              let label = UILabel()
-                label.textColor = .black
+                let label = UILabel()
+                label.textColor = .darkGray
+                label.font = FontController.Fonts.ListInter_Regular.font
                 label.text = item.1
                 label.tag = index
                 return label
@@ -538,29 +583,40 @@ extension TradeDetalVC {
             stackView.addArrangedSubview(title)
             stackView.addArrangedSubview(detail)
             
+            scrollView.addSubview(lineView)
+            
             if index == 0 {
                 NSLayoutConstraint.activate([
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
+                    
+                    lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                    lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                    lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
                 ])
             } else {
                 NSLayoutConstraint.activate([
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 20),
                 ])
                 if index == overviewList.count-1 {
                     NSLayoutConstraint.activate([
                         stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
                     ])
+                } else {
+                    
+                    NSLayoutConstraint.activate([
+                        lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                        lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                        lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                    ])
                 }
                 
             }
-            
-            
         }
       
     }

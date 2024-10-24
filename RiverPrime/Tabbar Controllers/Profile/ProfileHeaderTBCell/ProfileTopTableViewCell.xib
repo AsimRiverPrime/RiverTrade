@@ -46,28 +46,31 @@
                                 <state key="normal" backgroundImage="reminder"/>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
-                                <rect key="frame" x="129" y="79" width="86.333333333333314" height="22"/>
-                                <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="27"/>
+                                <rect key="frame" x="133.66666666666666" y="75.333333333333329" width="76.666666666666657" height="29.333333333333329"/>
+                                <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="24"/>
                                 <color key="textColor" systemColor="systemYellowColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LVk-gG-1sh" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="30" y="113" width="284" height="108"/>
+                                <rect key="frame" x="30" y="124.66666666666669" width="284" height="96.333333333333314"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="completeProfileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="TZp-2y-AMB">
-                                        <rect key="frame" x="20" y="15" width="35" height="35"/>
+                                        <rect key="frame" x="20" y="14.999999999999986" width="35" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="NEk-hF-jY5"/>
                                             <constraint firstAttribute="width" constant="35" id="ehQ-Kp-ZJu"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello. Fill in your account details to make your first deposit" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-Pq-J4V">
+                                        <rect key="frame" x="61" y="15.666666666666668" width="215" height="33.666666666666657"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bw-SY-Tdq">
-                                        <rect key="frame" x="10" y="66" width="264" height="30"/>
-                                        <color key="backgroundColor" red="0.9882352941176471" green="0.82352941176470584" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="jX9-Es-izo"/>
-                                        </constraints>
-                                        <color key="tintColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="0.0" y="64.333333333333329" width="284" height="32"/>
+                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Complete Profile">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="15"/>
@@ -76,20 +79,14 @@
                                             <action selector="completeBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="amP-NT-0hx"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello. Fill in your account details to make your first deposit" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-Pq-J4V">
-                                        <rect key="frame" x="61" y="15.666666666666654" width="215" height="33.666666666666657"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="3bw-SY-Tdq" firstAttribute="leading" secondItem="LVk-gG-1sh" secondAttribute="leading" constant="10" id="95f-in-UIy"/>
-                                    <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" constant="12" id="BAj-WR-skt"/>
-                                    <constraint firstItem="3bw-SY-Tdq" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="bottom" constant="16" id="JUl-SB-oh0"/>
+                                    <constraint firstItem="3bw-SY-Tdq" firstAttribute="top" secondItem="fUb-Pq-J4V" secondAttribute="bottom" constant="15" id="I1O-AE-Ral"/>
                                     <constraint firstItem="fUb-Pq-J4V" firstAttribute="centerY" secondItem="TZp-2y-AMB" secondAttribute="centerY" id="KLM-Zt-MBP"/>
-                                    <constraint firstAttribute="trailing" secondItem="3bw-SY-Tdq" secondAttribute="trailing" constant="10" id="Yhb-Ox-0Lv"/>
+                                    <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" id="RMB-A6-Xum"/>
+                                    <constraint firstItem="3bw-SY-Tdq" firstAttribute="width" secondItem="LVk-gG-1sh" secondAttribute="width" id="Wqb-b4-7Rd"/>
+                                    <constraint firstItem="3bw-SY-Tdq" firstAttribute="centerX" secondItem="LVk-gG-1sh" secondAttribute="centerX" id="Zhg-xw-SvD"/>
                                     <constraint firstItem="TZp-2y-AMB" firstAttribute="top" secondItem="LVk-gG-1sh" secondAttribute="top" constant="15" id="auY-d9-dUk"/>
                                     <constraint firstItem="TZp-2y-AMB" firstAttribute="leading" secondItem="LVk-gG-1sh" secondAttribute="leading" constant="20" id="dZg-O9-v6V"/>
                                     <constraint firstItem="fUb-Pq-J4V" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="6" id="gcX-pQ-u8t"/>
@@ -111,9 +108,8 @@
                         <color key="backgroundColor" name="splashScreen"/>
                         <constraints>
                             <constraint firstItem="7bO-qy-ou1" firstAttribute="top" secondItem="zrW-0a-vHz" secondAttribute="top" constant="45" id="08m-gZ-eco"/>
-                            <constraint firstItem="LVk-gG-1sh" firstAttribute="top" secondItem="qFh-nM-Xbm" secondAttribute="bottom" constant="12" id="AfL-Jz-GuI"/>
+                            <constraint firstItem="LVk-gG-1sh" firstAttribute="top" secondItem="qFh-nM-Xbm" secondAttribute="bottom" constant="20" id="AfL-Jz-GuI"/>
                             <constraint firstAttribute="bottom" secondItem="LVk-gG-1sh" secondAttribute="bottom" constant="20" id="LQa-ZF-QfF"/>
-                            <constraint firstItem="qFh-nM-Xbm" firstAttribute="top" secondItem="efY-g5-mww" secondAttribute="bottom" constant="12" id="aqC-7h-N9Z"/>
                             <constraint firstItem="qFh-nM-Xbm" firstAttribute="centerX" secondItem="zrW-0a-vHz" secondAttribute="centerX" id="fzJ-r2-3iT"/>
                             <constraint firstAttribute="trailing" secondItem="7bO-qy-ou1" secondAttribute="trailing" constant="12" id="lTd-Mr-Bnm"/>
                             <constraint firstItem="efY-g5-mww" firstAttribute="centerY" secondItem="7bO-qy-ou1" secondAttribute="centerY" id="nLu-3v-l8N"/>
@@ -135,6 +131,7 @@
                 <outlet property="btn_completeProfile" destination="3bw-SY-Tdq" id="8n8-Xl-tMT"/>
                 <outlet property="imageIcon" destination="TZp-2y-AMB" id="BJa-Ja-pew"/>
                 <outlet property="lbl_profile" destination="fUb-Pq-J4V" id="BI3-Gn-3fo"/>
+                <outlet property="lbl_title" destination="qFh-nM-Xbm" id="1pA-xl-CdR"/>
                 <outlet property="view_profileComplete" destination="LVk-gG-1sh" id="GNZ-HX-ku6"/>
             </connections>
             <point key="canvasLocation" x="157.25190839694656" y="96.126760563380287"/>

@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //MARK: - ProgressBar initialization.
         self.setSVProgressHUD()
-        
+        GlobalVariable.instance.socketTimer = 10.0
         
         window!.overrideUserInterfaceStyle = .light
         

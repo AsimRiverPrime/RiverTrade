@@ -440,8 +440,8 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .withDraw:
-            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .history:
             let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
@@ -473,8 +473,6 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
             print("Create new")
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-            //            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .dashboard) as! CreateAccountSelectTradeType
-            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
             
             break
         case .unarchive:
@@ -704,8 +702,7 @@ extension DashboardVC {
             // Set modal presentation style
             popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
            
-                 
-            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
             popupVC.modalTransitionStyle = .crossDissolve
@@ -737,8 +734,8 @@ extension DashboardVC {
         }
         
         // Append trades for the selected collectionViewIndex
-        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
-        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
+//        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
+//        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
         
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
 //        getSymbolData.removeAll()

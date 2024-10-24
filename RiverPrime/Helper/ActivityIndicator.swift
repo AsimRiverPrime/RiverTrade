@@ -23,7 +23,7 @@ class ActivityIndicator {
         activityIndicator.hidesWhenStopped = true
     }
     
-    func show(in view: UIView, style: UIActivityIndicatorView.Style = .medium, color: UIColor = .gray) {
+    func show(in view: UIView, style: UIActivityIndicatorView.Style = .large, color: UIColor = .gray) {
         activityIndicator.style = style
         activityIndicator.color = color
         activityIndicator.center = view.center

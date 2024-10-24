@@ -127,7 +127,7 @@ class KYCViewController: BaseViewController {
         fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
             switch result {
             case .success:
-                print("KYC detail ADD to firebase successfully!")
+                print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
                // self.ToastMessage("KYC detail add successfully!")
                 self.navigateToQuestionScreen()
@@ -202,7 +202,7 @@ extension KYCViewController: iPassSDKManagerDelegate {
             } else {
                 print("Scan failed. Error: \(error)")
                 // Handle the error, maybe show an alert to the user
-                self.ToastMessage("\(error)")
+                self.ToastMessage("\(error)...scan again")
             }
         }
     }

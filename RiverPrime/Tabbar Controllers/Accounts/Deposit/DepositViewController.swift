@@ -17,7 +17,7 @@ class DepositViewController: UIViewController {
         super.viewDidLoad()
         
         deposit_tableView.registerCells([
-            AccountTableViewCell.self, ListingTableViewCell.self
+            ProfileTopTableViewCell.self, ListingTableViewCell.self
         ])
         
         deposit_tableView.reloadData()
@@ -39,17 +39,15 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         }else{
-            return bank_item.count
+            return 1
         }
     }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-                cell.setHeaderUI(.deposit)
-//                cell.delegate = self
-                
+                let cell = tableView.dequeueReusableCell(with: ProfileTopTableViewCell.self, for: indexPath)
+                cell.lbl_title.text = "Deposit"
                 return cell
             } else  {
                 let cell = tableView.dequeueReusableCell(with: ListingTableViewCell.self, for: indexPath)
@@ -62,9 +60,9 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             if indexPath.section == 0 {
-                return 310.0
+                return 220
             }else{
-                return 200.0
+                return 180
             }
         }
         

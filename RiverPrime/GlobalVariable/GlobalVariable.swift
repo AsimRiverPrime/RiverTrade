@@ -24,6 +24,7 @@ class GlobalVariable: NSObject {
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
     var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+  
     var uid: Int =  0
     var changeSymbol = Bool()
     var loginID: Int = 0
@@ -32,6 +33,9 @@ class GlobalVariable: NSObject {
     var isReturnToProfile = false
     var userEmail: String = ""
     
+    var socketTimer = Double()
+    var socketTimerCount = 0
+      
     var balanceUpdate = "0.0"
     
     var symbolDataArray: [SymbolData] = []
@@ -61,6 +65,8 @@ class GlobalVariable: NSObject {
     var isStopHistory: Bool = false
     
     var previouseSymbolList = [String]()
+    var tempPreviouseSymbolList = [String]()
+    
     var isConnected: Bool = false // Track connection state
     var getSectorIndex = 0
     

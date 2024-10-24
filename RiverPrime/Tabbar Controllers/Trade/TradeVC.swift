@@ -97,9 +97,6 @@ class TradeVC: UIView {
             //MARK: - Reload tablview when all data set into the list at first time.
             self.tblView.reloadData()
         }
-        
-        //NotificationCenter.default.addObserver(self, selector: #selector(socketConnectivity(_:)), name: .checkSocketConnectivity, object: nil)
-        
         //MARK: - START SOCKET and call delegate method to get data from socket.
         vm.webSocketManager.delegateSocketMessage = self
         vm.webSocketManager.delegateSocketPeerClosed = self
@@ -119,14 +116,6 @@ class TradeVC: UIView {
         tblView.dataSource = self
       
     }
-    
-//    @objc private func socketConnectivity(_ notification: NSNotification) {
-//        if let listData = notification.userInfo?["isConnect"] as? String {
-//            print("listData = \(listData)") // TODO: get bool value in string.
-//            odooClientService.sendSymbolDetailRequest()
-//            odooClientService.tradeSymbolDetailDelegate = self
-//        }
-//    }
     
     class func getView()->TradeVC {
         return Bundle.main.loadNibNamed("TradeVC", owner: self, options: nil)?.first as! TradeVC
@@ -447,8 +436,6 @@ extension TradeVC: TradeInfoTapDelegate {
         } else {
             print("Socket is not connected")
         }
-        
-   
         
     }
 }
