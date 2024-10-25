@@ -100,7 +100,7 @@ class TradeTableViewCell: UITableViewCell {
             lineWidth: .one
         )
         
-        let areaSeries = chart.addAreaSeries(options: options2)
+        let areaSeries = chart.addAreaSeries(options: options)
         
         updateChart(with: chartData, areaSeries: areaSeries)
     }
@@ -108,8 +108,6 @@ class TradeTableViewCell: UITableViewCell {
     func updateChart(with chartData: [ChartData], areaSeries: AreaSeries) {
         var areaData = [AreaData]()
         
-//        let chartData = chartData.chartData
-//        let chartData = chartData.message.payload.chartData
         for data in chartData {
             print("/n Datetime1: \(data.datetime), Close: \(data.close)")
             self.close = data.close
@@ -118,7 +116,6 @@ class TradeTableViewCell: UITableViewCell {
         }
         
         areaSeries.setData(data: areaData)
-//        GlobalVariable.instance.isProcessingSymbol = false
     }
     
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
@@ -126,16 +123,9 @@ class TradeTableViewCell: UITableViewCell {
        
         lblAmount.text = String(trade.bid).trimmedTrailingZeros()
        
-//        
-//        let percentageChange = ((trade.bid - close))
-//        lblPercent.text = ("\(percentageChange) %".trimmedTrailingZeros())
-//        self.lblPercent.textColor = percentageChange < 0 ? .systemRed : .systemGreen
-//        self.profitIcon.image = percentageChange < 0 ? UIImage(systemName: "downIcon") :UIImage(systemName: "upIcon")
-        
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
-            
-//            let trimString = removeParentheses(from: symbol.description)
-            lblCurrencyName.text = symbol.description 
+        
+            lblCurrencyName.text = symbol.description
             
             print("\n Image Symbol: \(symbol.name) \t  Symbol: \(trade.symbol) \n Image URL: \(symbol.icon_url)")
             if symbol.name == "Platinum" {
@@ -159,6 +149,57 @@ class TradeTableViewCell: UITableViewCell {
         
     }
     
+    func configureChartRed(getSymbolData: SymbolCompleteList){
+        setupChartRed(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+    }
+    
+    private func setupChartRed(for symbol: String, with chartData: [ChartData]) {
+        guard createdCharts[symbol] == nil else { return }
+            createdCharts[symbol] = true
+
+        chart = LightweightCharts()
+        graphView.addSubview(chart)
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
+            chart.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
+            chart.topAnchor.constraint(equalTo: graphView.topAnchor),
+            chart.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
+        ])
+        // Options to hide the x-axis and y-axis
+           let chartOptions = ChartOptions(
+            layout: LayoutOptions(background: .none ),
+               rightPriceScale: VisiblePriceScaleOptions(visible: false),
+               timeScale: TimeScaleOptions(visible: false),
+            grid: GridOptions(
+                verticalLines: GridLineOptions(visible: false),
+                horizontalLines: GridLineOptions(visible: false)
+            )
+           )
+           chart.applyOptions(options: chartOptions)
+
+        
+        // Update options to hide the line and values
+//        let options = AreaSeriesOptions(
+//                   priceLineVisible: false,
+//                   topColor: "rgba(76, 175, 80, 0.5)",
+//                   bottomColor: "rgba(76, 175, 80, 0)",
+//                   lineColor: "rgba(76, 175, 80, 1)",
+//                   lineWidth: .one
+//               )
+        
+        let options = AreaSeriesOptions(
+            priceLineVisible: false,
+            topColor: "rgba(255, 59, 48, 0.5)",
+            bottomColor: "rgba(255, 59, 48, 0.0)",
+            lineColor: "rgba(255, 59, 48, 1.0)",
+            lineWidth: .one
+        )
+        
+        let areaSeries = chart.addAreaSeries(options: options)
+        
+        updateChart(with: chartData, areaSeries: areaSeries)
+    }
 //    func removeParentheses(from input: String) -> String {
 //            let pattern = "\\s*\\([^)]*\\)"  // Regular expression pattern to match parentheses and content
 //            let regex = try! NSRegularExpression(pattern: pattern, options: [])

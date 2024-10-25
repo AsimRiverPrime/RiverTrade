@@ -105,14 +105,14 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
        
-        cell.onRefreshImageButtonClick = {
-            [self] sender in
-            print("onRefreshImageButtonClick")
-            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-                print("drop down index = \(index)")
-                print("drop down item = \(item)")
-            }
-        }
+//        cell.onRefreshImageButtonClick = {
+//            [self] sender in
+//            print("onRefreshImageButtonClick")
+//            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+//                print("drop down index = \(index)")
+//                print("drop down item = \(item)")
+//            }
+//        }
        
         cell.lbl_tradetype.text = model[indexPath.row]
             if indexPath.row == selectedIndex {

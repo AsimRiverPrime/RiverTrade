@@ -7,14 +7,19 @@
 
 import UIKit
 
-class DepositViewController: UIViewController {
+class DepositViewController: UIViewController{
     
     @IBOutlet weak var deposit_tableView: UITableView!
     
     var bank_item = ["Bank Card", "Skrill" , "Venmo", "PayPal","BitCoin"]
     
+    weak var delegateCompeleteProfile: DashboardVCDelegate?
+    weak var delegate : CompleteProfileButtonDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.delegateCompeleteProfile = self
+        self.delegate = self
         
         deposit_tableView.registerCells([
             ProfileTopTableViewCell.self, ListingTableViewCell.self
@@ -51,7 +56,10 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else  {
                 let cell = tableView.dequeueReusableCell(with: ListingTableViewCell.self, for: indexPath)
-                cell.lblTitle.text = self.bank_item[indexPath.row]
+                cell.lblTitle.text = "Deposit using Trust wallet" //self.bank_item[indexPath.row]
+                cell.icon_bank.image = UIImage(named: "trustWallet")
+                cell.icon_bank.layer.cornerRadius = 0
+                cell.icon_bank.backgroundColor = .clear
                 return cell
             }
             
@@ -66,11 +74,21 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-    
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
     }
 }
 
+extension DepositViewController: DashboardVCDelegate {
+    func navigateToCompeletProfile() {
+        print("move to completeprofile")
+    }
+}
+extension DepositViewController: CompleteProfileButtonDelegate {
+    
+    func didTapCompleteProfileButtonInCell() {
+        delegateCompeleteProfile?.navigateToCompeletProfile()
+    }
+    
+}

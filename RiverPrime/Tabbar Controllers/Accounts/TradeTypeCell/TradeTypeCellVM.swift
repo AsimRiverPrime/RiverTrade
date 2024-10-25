@@ -383,7 +383,7 @@ class TradeTypeCellVM {
             }
         }
         
-        if pass == nil || pass == "" {
+        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
             showPopup()
             return
         }else{

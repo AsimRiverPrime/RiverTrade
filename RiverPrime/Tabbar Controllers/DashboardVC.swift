@@ -95,11 +95,8 @@ class DashboardVC: BaseViewController {
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
                     })
                 }
-                
-                
             }
         }
-        
        
         if GlobalVariable.instance.isReturnToProfile == true {
             setProfileButton()
@@ -437,6 +434,7 @@ extension DashboardVC: AccountInfoTapDelegate {
             
         case .deposit:
             let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+           // vc.delegateCompeleteProfile = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .withDraw:
@@ -448,8 +446,8 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .detail:
-            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .notification:
             let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
@@ -457,7 +455,7 @@ extension DashboardVC: AccountInfoTapDelegate {
             break
         case .createAccount:
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
             break
         }
     }

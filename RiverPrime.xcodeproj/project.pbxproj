@@ -51,7 +51,6 @@
 		3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE952CB3E8A400D1B884 /* CreateAccountTVCell.swift */; };
 		3105DF0C2CB3E8A400D1B884 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DED62CB3E8A400D1B884 /* TransactionCell.swift */; };
 		3105DF0D2CB3E8A400D1B884 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEDC2CB3E8A400D1B884 /* WithdrawViewController.swift */; };
-		3105DF0E2CB3E8A400D1B884 /* Untitled.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE932CB3E8A400D1B884 /* Untitled.swift */; };
 		3105DF0F2CB3E8A400D1B884 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE912CB3E8A400D1B884 /* AccountTableViewCell.swift */; };
 		3105DF102CB3E8A400D1B884 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB22CB3E8A400D1B884 /* CountryCurrencyListViewController.swift */; };
 		3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE9A2CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift */; };
@@ -329,7 +328,6 @@
 		25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3105DE912CB3E8A400D1B884 /* AccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCell.swift; sourceTree = "<group>"; };
 		3105DE922CB3E8A400D1B884 /* AccountTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountTableViewCell.xib; sourceTree = "<group>"; };
-		3105DE932CB3E8A400D1B884 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
 		3105DE952CB3E8A400D1B884 /* CreateAccountTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountTVCell.swift; sourceTree = "<group>"; };
 		3105DE962CB3E8A400D1B884 /* CreateAccountTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAccountTVCell.xib; sourceTree = "<group>"; };
 		3105DE982CB3E8A400D1B884 /* CreateAccountSetPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountSetPassword.swift; sourceTree = "<group>"; };
@@ -666,7 +664,6 @@
 			children = (
 				3105DE912CB3E8A400D1B884 /* AccountTableViewCell.swift */,
 				3105DE922CB3E8A400D1B884 /* AccountTableViewCell.xib */,
-				3105DE932CB3E8A400D1B884 /* Untitled.swift */,
 			);
 			path = AccountTableViewCells;
 			sourceTree = "<group>";
@@ -2471,7 +2468,6 @@
 				3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */,
 				3105DF0C2CB3E8A400D1B884 /* TransactionCell.swift in Sources */,
 				3105DF0D2CB3E8A400D1B884 /* WithdrawViewController.swift in Sources */,
-				3105DF0E2CB3E8A400D1B884 /* Untitled.swift in Sources */,
 				3105DF0F2CB3E8A400D1B884 /* AccountTableViewCell.swift in Sources */,
 				3105DF102CB3E8A400D1B884 /* CountryCurrencyListViewController.swift in Sources */,
 				3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */,

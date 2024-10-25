@@ -39,7 +39,7 @@ class PresentModalController {
                 } else if sheetDetents == .customSmall {
                     sheet.detents = [
                         .custom { context in
-                            return 200 // Custom height for small detent
+                            return 300 // Custom height for small detent
                         }
                     ]
                 } else if sheetDetents == .customMedium {

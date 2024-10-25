@@ -27,7 +27,7 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     let firestoreService = FirestoreServices()
     let oodoService = OdooClient()
     let oodoServiceNew = OdooClientNew()
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -47,6 +47,7 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         view_countryCode.flagImageView.isHidden = false
         
         tf_numberField.delegate = self
+      
     }
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Show Navigation Bar
@@ -81,7 +82,8 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                       print("Country Phone Code: \(currentCountry.phoneCode)")
                       self.tf_numberField.text = currentCountry.phoneCode
                       self.view_countryCode.flagImageView.image = currentCountry.flag
-                      
+                     
+                      self.locationManager.stopUpdatingLocation()
                       // Optionally, you can update UI with this information
                       // Example: self.countryLabel.text = "\(currentCountry.flag) \(currentCountry.phoneCode)"
                   }
@@ -119,20 +121,16 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
             self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
-//            updateUser()
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
-                  
             }
-       
     }
     
     func showAlert(message: String, completion: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             completion?()
-           
         }
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
@@ -169,14 +167,14 @@ extension PhoneVerifyVC:  SendOTPDelegate {
 // MARK: - delegate from update number Method on CRM
 extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
     func updateNumberSuccess(response: Any) {
-        print("this is the update phone number success response: \(response)")
+        print("the phone number update successfuly response is: \(response)")
         
         var number = self.tf_numberField.text!
  
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
-        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-//        navigateToDashboardScreen()
+//        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
+        navigateToDashboardScreen()
         
     }
     

@@ -359,15 +359,17 @@ extension TradeVC: GetSocketMessages {
                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                                let close = Double((getSymbolData[index].tickMessage?.close) ?? 0)
 
-                               let percentageChange = ((bid - (getSymbolData[index].tickMessage?.ask ?? 0.0) + close) * 10) + 2
+                               let percentageChange = ((bid - (getSymbolData[index].tickMessage?.ask ?? 0.0) + close) * 10) + 1
                                print("\n percentageChange: \(percentageChange)")
                                let percent = String(percentageChange).trimmedTrailingZeros()
                                
-                               cell.lblPercent.text =  percent + " %"
-                               cell.lblPercent.textColor = percentageChange < 0.0 ? .systemRed : .systemGreen
-                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
-                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen
-                             
+                               cell.lblPercent.text =    "0 %"
+//                               cell.lblPercent.textColor = percentageChange < 0.0 ? .systemRed : .systemGreen
+//                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
+//                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen
+//                             
+//                               double diff = newBid - oldBid;double percentageChange = (diff / oldBid) * 100;return Math.round(percentageChange * 100.0) / 100.0;
+                               
                                //MARK: - User Interface enabled, when tick flag is true.
                                cell.isUserInteractionEnabled = true
                                cell.contentView.alpha = 1.0

@@ -57,8 +57,8 @@ class SignInViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
       
-        username_tf.text = "asimprime900@gmail.com"
-        password_tf.text = "asdasd"
+//        username_tf.text = "asimprime900@gmail.com"
+//        password_tf.text = "asdasd"
         
         
 //        self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)

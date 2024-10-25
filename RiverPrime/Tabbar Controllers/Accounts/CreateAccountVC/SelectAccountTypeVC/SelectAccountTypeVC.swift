@@ -52,7 +52,7 @@ class SelectAccountTypeVC: BaseViewController {
         tableView.registerCells([
             SelectAccountTypeCell.self
         ])
-        
+        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()

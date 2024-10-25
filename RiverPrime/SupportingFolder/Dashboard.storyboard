@@ -1512,7 +1512,7 @@
                                                                                 </constraints>
                                                                                 <color key="tintColor" red="0.41960784309999999" green="0.41960784309999999" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain" image="copyIcon" cornerStyle="small"/>
+                                                                                <buttonConfiguration key="configuration" style="plain" image="document.on.document" catalog="system" cornerStyle="small"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sds-zN-XHP">
                                                                                 <rect key="frame" x="0.0" y="49.666666666666629" width="323" height="0.3333333333333357"/>
@@ -1565,7 +1565,7 @@
                                                                                 </constraints>
                                                                                 <color key="tintColor" red="0.41960784309999999" green="0.41960784309999999" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                                 <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain" image="copyIcon" cornerStyle="small"/>
+                                                                                <buttonConfiguration key="configuration" style="plain" image="document.on.document" catalog="system" cornerStyle="small"/>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYv-LR-m99">
                                                                                 <rect key="frame" x="0.0" y="49.666666666666629" width="323" height="0.3333333333333357"/>
@@ -1714,7 +1714,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VDa-c6-Ad0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-273" y="1714"/>
+            <point key="canvasLocation" x="-1155" y="1720"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="DuO-B3-nd1">
@@ -2384,10 +2384,10 @@
         <image name="account" width="17.666666030883789" height="17.333333969116211"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <image name="copyIcon" width="41" height="50"/>
         <image name="depositIcon" width="60" height="75"/>
         <image name="detailIcon" width="64" height="64"/>
         <image name="doc.viewfinder.fill" catalog="system" width="128" height="115"/>
+        <image name="document.on.document" catalog="system" width="116" height="128"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="historyIcon" width="63" height="56"/>
         <image name="market" width="17" height="17"/>
