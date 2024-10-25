@@ -225,7 +225,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(with: EmptyCell.self, for: indexPath)
             cell.backgroundColor = .clear
-            cell.emptyLabelMessage.text = "No Data Found."
+            cell.emptyLabelMessage.text = "No Position Data Found."
             return cell
         }
         
@@ -235,7 +235,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-                return 397.0
+                return 320
             } else { //MARK: - if no account exist.
                 return 300.0
             }

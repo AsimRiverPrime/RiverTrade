@@ -34,6 +34,10 @@ protocol AccountInfoDelegate: AnyObject {
 
 class AccountTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var outer_view: UIView!
+    @IBOutlet weak var height_outerView: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
+    
     @IBOutlet weak var headerTitle: UILabel!
     @IBOutlet weak var secondTitle: UILabel!
     @IBOutlet weak var labelAmmount: UILabel!
@@ -45,13 +49,14 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
-    
     @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
     @IBOutlet weak var widthOfMainStackView: NSLayoutConstraint!
     
+    @IBOutlet weak var height_ViewBtnStack: NSLayoutConstraint!
     @IBOutlet weak var Btn_view: UIView!
     @IBOutlet weak var btn_funds: UIButton!
     @IBOutlet weak var btnFundsLineView: UIView!
+    @IBOutlet weak var height_BtnView: NSLayoutConstraint!
     
     @IBOutlet weak var btn_Settings: UIButton!
     @IBOutlet weak var btnSettingsLineView: UIView!
@@ -71,7 +76,7 @@ class AccountTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.outer_view.layoutIfNeeded()
         labelAmmount.text = "\(GlobalVariable.instance.balanceUpdate) USD"
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.BalanceUpdate(_:)), name: .BalanceUpdate, object: nil)
@@ -145,7 +150,6 @@ class AccountTableViewCell: UITableViewCell {
     func setHeaderUI(_ navigation: NavigationType) {
         let heightOfSuperview = self.bounds.height
         
-
         switch navigation {
             
         case .deposit:
@@ -154,6 +158,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Deposit"
             labelStack.isHidden = true
             viewOfBtnStack.isHidden = true
+            
             secondTitle.text = "Verification required"
 //            heightOfAccountHeaderView.constant = 1.0
             heightOfAccountHeaderView.constant = heightOfSuperview * 1.0 // this has the same effect as multiplier
@@ -164,6 +169,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Account"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
+//            height_ViewBtnStack.constant = 114 
             secondTitle.text = "#\(self.login_Id)"
             lbl_MT5.text = mt5
             lbl_account.text = self.account_type
@@ -188,10 +194,14 @@ class AccountTableViewCell: UITableViewCell {
             
         case .trade:
             Btn_view.isHidden = true
+//            height_outerView.constant = 210//headerView.bounds.height
+//            height_BtnView.constant = 0
+            outer_view.backgroundColor = UIColor(named: "splashScreen")
             viewOfAccount.isHidden =  true
             headerTitle.text = "Trade"
             labelStack.isHidden = false
-            viewOfBtnStack.isHidden = false
+            viewOfBtnStack.isHidden = true
+            height_ViewBtnStack.constant = 0
             secondTitle.text = "#\(self.login_Id)"
             lbl_MT5.text = mt5
             lbl_account.text = self.account_type

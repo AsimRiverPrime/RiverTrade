@@ -22,7 +22,7 @@ class TradeTableViewCell: UITableViewCell {
 
     private var chart: LightweightCharts!
     private var series: AreaSeries!
-    
+    var close = Double()
     // Track created charts for symbols
     var createdCharts = [String: Bool]()
     // Store chart data for each symbol
@@ -92,7 +92,15 @@ class TradeTableViewCell: UITableViewCell {
                    lineWidth: .one
                )
         
-        let areaSeries = chart.addAreaSeries(options: options)
+        let options2 = AreaSeriesOptions(
+            priceLineVisible: false,
+            topColor: "rgba(255, 59, 48, 0.5)",
+            bottomColor: "rgba(255, 59, 48, 0.0)",
+            lineColor: "rgba(255, 59, 48, 1.0)",
+            lineWidth: .one
+        )
+        
+        let areaSeries = chart.addAreaSeries(options: options2)
         
         updateChart(with: chartData, areaSeries: areaSeries)
     }
@@ -104,6 +112,7 @@ class TradeTableViewCell: UITableViewCell {
 //        let chartData = chartData.message.payload.chartData
         for data in chartData {
             print("/n Datetime1: \(data.datetime), Close: \(data.close)")
+            self.close = data.close
             let _areaData = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
             areaData.append(_areaData)
         }
@@ -116,8 +125,12 @@ class TradeTableViewCell: UITableViewCell {
         lblCurrencySymbl.text = trade.symbol
        
         lblAmount.text = String(trade.bid).trimmedTrailingZeros()
-        lblPercent.text = "+ " + String(trade.ask).trimmedTrailingZeros()
-        lblPercent.textColor = trade.ask < 1 ? .systemRed : .systemGreen
+       
+//        
+//        let percentageChange = ((trade.bid - close))
+//        lblPercent.text = ("\(percentageChange) %".trimmedTrailingZeros())
+//        self.lblPercent.textColor = percentageChange < 0 ? .systemRed : .systemGreen
+//        self.profitIcon.image = percentageChange < 0 ? UIImage(systemName: "downIcon") :UIImage(systemName: "upIcon")
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             
@@ -168,7 +181,7 @@ class TradeTableViewCell: UITableViewCell {
 extension String {
     func trimmedTrailingZeros() -> String {
         if let doubleValue = Double(self) {
-            return String(format: "%.3f", doubleValue)
+            return String(format: "%.2f", doubleValue)
         }
         return self
     }

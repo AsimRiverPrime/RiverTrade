@@ -241,9 +241,9 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 300.0
+            return 220
         }else if indexPath.section == 1{
-            return 40
+            return 55
             
         }else{
             return 90.0
@@ -284,6 +284,9 @@ extension TradeVC {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
                 tblViewTopConstraint.constant = -60
                 
+            }else if screen_height == 844.0 {
+                //MARK: - iphone12 pro,
+                tblViewTopConstraint.constant = -55
             } else {
                 //MARK: - other iphone if not in the above check's.
                 tblViewTopConstraint.constant = 0
@@ -352,7 +355,19 @@ extension TradeVC: GetSocketMessages {
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                getSymbolData[index].isTickFlag = true
                                cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+                             
+                               let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
+                               let close = Double((getSymbolData[index].tickMessage?.close) ?? 0)
+
+                               let percentageChange = ((bid - (getSymbolData[index].tickMessage?.ask ?? 0.0) + close) * 10) + 2
+                               print("\n percentageChange: \(percentageChange)")
+                               let percent = String(percentageChange).trimmedTrailingZeros()
                                
+                               cell.lblPercent.text =  percent + " %"
+                               cell.lblPercent.textColor = percentageChange < 0.0 ? .systemRed : .systemGreen
+                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
+                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen
+                             
                                //MARK: - User Interface enabled, when tick flag is true.
                                cell.isUserInteractionEnabled = true
                                cell.contentView.alpha = 1.0

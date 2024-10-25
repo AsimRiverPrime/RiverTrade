@@ -87,7 +87,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.row == 0 {//demo account
             if isAccountExist() {
-                cell.detailTextLabel?.text = self.createDemoAccount + "\t\(self.accountType)"
+                cell.detailTextLabel?.text = " # \(self.loginID)\n"  + "\n\(self.accountType) Account"
                 cell.accessoryType = .none
             } else {
                 cell.detailTextLabel?.text = model.detail
