@@ -364,6 +364,31 @@ extension TradeVC: GetSocketMessages {
                                let percent = String(percentageChange).trimmedTrailingZeros()
                                
                                cell.lblPercent.text =    "0 %"
+                               
+                               if percentageChange > 0.0 {
+                                   
+                                   //MARK: - Update options -> Green
+                                   cell.options = AreaSeriesOptions(
+                                    priceLineVisible: false,
+                                    topColor: "rgba(76, 175, 80, 0.5)",
+                                    bottomColor: "rgba(76, 175, 80, 0)",
+                                    lineColor: "rgba(76, 175, 80, 1)",
+                                    lineWidth: .one
+                                   )
+                                   
+                               } else {
+                                   
+                                   //MARK: - Update options -> Red
+                                   cell.options = AreaSeriesOptions(
+                                    priceLineVisible: false,
+                                    topColor: "rgba(255, 0, 0, 0.5)",
+                                    bottomColor: "rgba(255, 0, 0, 0)",
+                                    lineColor: "rgba(255, 0, 0, 1)",
+                                    lineWidth: .one
+                                   )
+                                   
+                               }
+                               
 //                               cell.lblPercent.textColor = percentageChange < 0.0 ? .systemRed : .systemGreen
 //                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
 //                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen

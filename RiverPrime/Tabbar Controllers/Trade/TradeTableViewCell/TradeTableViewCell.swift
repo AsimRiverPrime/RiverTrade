@@ -30,6 +30,8 @@ class TradeTableViewCell: UITableViewCell {
     
     var getSymbolData = SymbolCompleteList()
     
+    var options = AreaSeriesOptions()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.graphView.isUserInteractionEnabled = false
@@ -82,15 +84,27 @@ class TradeTableViewCell: UITableViewCell {
            )
            chart.applyOptions(options: chartOptions)
 
+        var options = AreaSeriesOptions()
         
-        // Update options to hide the line and values
-        let options = AreaSeriesOptions(
-                   priceLineVisible: false,
-                   topColor: "rgba(76, 175, 80, 0.5)",
-                   bottomColor: "rgba(76, 175, 80, 0)",
-                   lineColor: "rgba(76, 175, 80, 1)",
-                   lineWidth: .one
-               )
+        options = self.options
+        
+//        //MARK: - Update options to hide the line and values -> Green
+//        options = AreaSeriesOptions(
+//                   priceLineVisible: false,
+//                   topColor: "rgba(76, 175, 80, 0.5)",
+//                   bottomColor: "rgba(76, 175, 80, 0)",
+//                   lineColor: "rgba(76, 175, 80, 1)",
+//                   lineWidth: .one
+//               )
+//        
+//        //MARK: - Update options to hide the line and values -> Red
+//        options = AreaSeriesOptions(
+//                   priceLineVisible: false,
+//                   topColor: "rgba(255, 0, 0, 0.5)",
+//                   bottomColor: "rgba(255, 0, 0, 0)",
+//                   lineColor: "rgba(255, 0, 0, 1)",
+//                   lineWidth: .one
+//               )
         
         let options2 = AreaSeriesOptions(
             priceLineVisible: false,

@@ -446,8 +446,8 @@ extension DashboardVC: AccountInfoTapDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .detail:
-//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .notification:
             let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
