@@ -46,6 +46,9 @@ class KYCViewController: BaseViewController {
                 SVProgressHUD.dismiss()
                 
             }
+            if progres == "" {
+                SVProgressHUD.dismiss()
+            }
         })
         
         iPassSDKManger.delegate = self

@@ -470,7 +470,7 @@ extension DashboardVC: CreateAccountInfoTapDelegate {
         case .createNew:
             print("Create new")
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
             
             break
         case .unarchive:

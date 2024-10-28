@@ -149,10 +149,14 @@ extension SelectAccountTypeVC {
                 
                 if isCreateDemoAccount == true {
                     self.createDemoAccount = " Demo "
+                }else {
+                    return false
                 }
+                
                 if isRealAccount == true {
                     self.realAccount = " Real "
                 }
+                
                 if accountType == "Pro Account" {
                     self.accountType = " PRO "
                     self.mt5 = " MT5 "

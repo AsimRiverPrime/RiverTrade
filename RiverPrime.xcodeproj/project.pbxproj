@@ -136,6 +136,11 @@
 		31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248C2C3D461F0058C9DD /* Inter.ttc */; };
 		31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248D2C3D461F0058C9DD /* InterVariable.ttf */; };
 		31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B124912C3D49420058C9DD /* PrivacyViewController.swift */; };
+		31B263312CCF5C5E006D4DF4 /* FundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2632B2CCF5C5E006D4DF4 /* FundsView.swift */; };
+		31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */; };
+		31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */; };
+		31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B2632F2CCF5C5E006D4DF4 /* SettingsView.xib */; };
+		31B263362CCF7B9D006D4DF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31B263352CCF7B9D006D4DF4 /* Main.storyboard */; };
 		31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */; };
 		31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */; };
 		31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */; };
@@ -151,7 +156,6 @@
 		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
 		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
 		31D262062C3BECDE00FC6651 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262052C3BECDE00FC6651 /* ViewController.swift */; };
-		31D262092C3BECDE00FC6651 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 31D262082C3BECDE00FC6651 /* Base */; };
 		31D2620B2C3BECDE00FC6651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31D2620A2C3BECDE00FC6651 /* Assets.xcassets */; };
 		31D2620E2C3BECDE00FC6651 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 31D2620D2C3BECDE00FC6651 /* Base */; };
 		31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262192C3BF58200FC6651 /* SignUpViewController.swift */; };
@@ -454,6 +458,11 @@
 		31B1248C2C3D461F0058C9DD /* Inter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttc; sourceTree = "<group>"; };
 		31B1248D2C3D461F0058C9DD /* InterVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterVariable.ttf; sourceTree = "<group>"; };
 		31B124912C3D49420058C9DD /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		31B2632B2CCF5C5E006D4DF4 /* FundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundsView.swift; sourceTree = "<group>"; };
+		31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FundsView.xib; sourceTree = "<group>"; };
+		31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		31B2632F2CCF5C5E006D4DF4 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		31B263352CCF7B9D006D4DF4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDetailsModel.swift; sourceTree = "<group>"; };
 		31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventsTableViewCell.xib; sourceTree = "<group>"; };
@@ -470,7 +479,6 @@
 		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		31D262032C3BECDE00FC6651 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		31D262052C3BECDE00FC6651 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		31D262082C3BECDE00FC6651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		31D2620A2C3BECDE00FC6651 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		31D2620D2C3BECDE00FC6651 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31D2620F2C3BECDE00FC6651 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -798,6 +806,8 @@
 		3105DEBD2CB3E8A400D1B884 /* AccountDetailCell */ = {
 			isa = PBXGroup;
 			children = (
+				31B2632D2CCF5C5E006D4DF4 /* FundsView */,
+				31B263302CCF5C5E006D4DF4 /* SettingsView */,
 				3105DEBB2CB3E8A400D1B884 /* AccountDetailTableViewCell.swift */,
 				3105DEBC2CB3E8A400D1B884 /* AccountDetailTableViewCell.xib */,
 			);
@@ -972,7 +982,7 @@
 		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
 			isa = PBXGroup;
 			children = (
-				31D262072C3BECDE00FC6651 /* Main.storyboard */,
+				31B263352CCF7B9D006D4DF4 /* Main.storyboard */,
 				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
 				319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */,
 			);
@@ -1186,6 +1196,24 @@
 				31B102DB2C4514B10006E8EB /* NotificationViewController.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		31B2632D2CCF5C5E006D4DF4 /* FundsView */ = {
+			isa = PBXGroup;
+			children = (
+				31B2632B2CCF5C5E006D4DF4 /* FundsView.swift */,
+				31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */,
+			);
+			path = FundsView;
+			sourceTree = "<group>";
+		};
+		31B263302CCF5C5E006D4DF4 /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */,
+				31B2632F2CCF5C5E006D4DF4 /* SettingsView.xib */,
+			);
+			path = SettingsView;
 			sourceTree = "<group>";
 		};
 		31B6C53A2CC91740000DF849 /* Models */ = {
@@ -2123,7 +2151,6 @@
 				3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */,
 				318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
-				31D262092C3BECDE00FC6651 /* Base in Resources */,
 				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
 				319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */,
 				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
@@ -2145,6 +2172,8 @@
 				3105DEEB2CB3E8A400D1B884 /* withDrawTableViewCell.xib in Resources */,
 				3105DEEC2CB3E8A400D1B884 /* UnarchiveAccountTypeTVC.xib in Resources */,
 				3105DEED2CB3E8A400D1B884 /* CreateAccountVC.xib in Resources */,
+				31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */,
+				31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */,
 				3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */,
 				3105DEEF2CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.xib in Resources */,
 				3105DEF02CB3E8A400D1B884 /* TradeTypeCollectionViewCell.xib in Resources */,
@@ -2152,6 +2181,7 @@
 				3105DEF22CB3E8A400D1B884 /* AccountDetailTableViewCell.xib in Resources */,
 				3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */,
+				31B263362CCF7B9D006D4DF4 /* Main.storyboard in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */,
@@ -2345,6 +2375,8 @@
 				31D2AF1B2C8840B800E0CF2E /* TimeScaleOptions.swift in Sources */,
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				31D2AEEC2C8840B800E0CF2E /* NSRegularExpression+Color.swift in Sources */,
+				31B263312CCF5C5E006D4DF4 /* FundsView.swift in Sources */,
+				31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */,
 				3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */,
 				31D2AF232C8840B800E0CF2E /* KineticScrollOptions.swift in Sources */,
 				31D2AF022C8840B800E0CF2E /* JavaScriptEvaluator.swift in Sources */,
@@ -2495,14 +2527,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		31D262072C3BECDE00FC6651 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				31D262082C3BECDE00FC6651 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		31D2620C2C3BECDE00FC6651 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -2652,11 +2676,15 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera for scanning documents and capturing images.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to authenticate your account securely.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to display the correct country.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2692,11 +2720,15 @@
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to the camera for scanning documents and capturing images.";
 				INFOPLIST_KEY_NSFaceIDUsageDescription = "We use Face ID to authenticate your account securely.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to display the correct country.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -19,7 +19,7 @@ class ForgotViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     @IBAction func continue_btn(_ sender: Any) {
@@ -93,7 +93,10 @@ class ForgotViewController: UIViewController {
        // Helper function to show a simple alert message
        func showSimpleAlert(_ message: String) {
            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+           alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+               // Pop the current view controller to go back
+               self.navigationController?.popViewController(animated: true)
+           }))
            present(alert, animated: true, completion: nil)
        }
 }

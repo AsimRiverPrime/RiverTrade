@@ -47,6 +47,10 @@ class SignInViewController: BaseViewController {
         super.viewDidLoad()
         odooClientService.createLeadDelegate = self
         // Do any additional setup after loading the view.
+        
+        self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
+        self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
+        enableLoginButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,16 +58,12 @@ class SignInViewController: BaseViewController {
         
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Show Navigation Bar
-        self.setNavBar(vc: self, isBackButton: true, isBar: true)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+//        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+//        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
       
 //        username_tf.text = "asimprime900@gmail.com"
 //        password_tf.text = "asdasd"
         
-        
-//        self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
-//        self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
-        enableLoginButton()
     }
     
     private func enableLoginButton() {
@@ -83,7 +83,7 @@ class SignInViewController: BaseViewController {
     }
     
     @objc func emailTextChanged(_ textField: UITextField) {
-        if self.viewModel.isValidEmail(self.username_tf.text!) || self.username_tf.state.isEmpty {
+        if self.viewModel.isValidEmail(self.username_tf.text!) {
             self.lbl_emailCheck.isHidden = true
         } else {
             
@@ -95,7 +95,7 @@ class SignInViewController: BaseViewController {
     
     @objc func passwordTextChanged(_ textField: UITextField) {
     
-        if self.viewModel.isValidatePassword(password: self.password_tf.text!) {
+        if self.viewModel.isValidatePassword(password: self.password_tf.text!)  {
             self.lbl_passwordCheck.isHidden = true
         }else{
             self.lbl_passwordCheck.isHidden = false
@@ -125,7 +125,7 @@ class SignInViewController: BaseViewController {
                 print("Sign in failed: \(error.localizedDescription)")
                 return
             }
-            print("result user: \(result)")
+//            print("result user: \(result)")
             guard let user1 = result?.user else { return }
             
             self?.authenticateWithFirebase(user: user1)

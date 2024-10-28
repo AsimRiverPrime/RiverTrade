@@ -40,7 +40,9 @@ class LogoutTableViewCell: UITableViewCell {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
 // update the firebase as well login
-        let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
+        UserDefaults.standard.removeObject(forKey: "userData")
+        
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "SignInViewController") as! SignInViewController
         
         let navController = UINavigationController(rootViewController: loginVC)
         SCENE_DELEGATE.window?.rootViewController = navController

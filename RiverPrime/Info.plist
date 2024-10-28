@@ -27,8 +27,6 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict/>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>We need your location to display the correct country.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>InterVariable.ttf</string>
@@ -54,6 +52,8 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 	<key>com.apple.developer.nfc.readersession.formats</key>
 	<array>
 		<string>NDEF</string>

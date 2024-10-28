@@ -55,7 +55,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
 //                    Alert.showAlert(withMessage: "First create Real Account" , andTitle: "Alert!", on: self)
                 }
                 if profileStep == 3 {
-                    self.btn_completeProfile.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
+                    self.view_profileComplete.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
                 }
             }
         }

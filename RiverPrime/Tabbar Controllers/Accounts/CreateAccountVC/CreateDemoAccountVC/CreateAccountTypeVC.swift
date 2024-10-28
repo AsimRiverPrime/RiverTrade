@@ -182,6 +182,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         
         fieldsToUpdate = [
             "demoAccountCreated" : true,
+           // "" : true,
             "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
             "loginId" : GlobalVariable.instance.loginID // loginID in response
             
