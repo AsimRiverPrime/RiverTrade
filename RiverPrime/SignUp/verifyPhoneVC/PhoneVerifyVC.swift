@@ -11,7 +11,7 @@ import PhoneNumberKit
 import Firebase
 import CoreLocation
 
-class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
+class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
     @IBOutlet weak var tf_numberField: UITextField!
@@ -82,7 +82,7 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                       print("Country Phone Code: \(currentCountry.phoneCode)")
                       self.tf_numberField.text = currentCountry.phoneCode
                       self.view_countryCode.flagImageView.image = currentCountry.flag
-                     
+                      self.selectedCountry = currentCountry
                       self.locationManager.stopUpdatingLocation()
                       // Optionally, you can update UI with this information
                       // Example: self.countryLabel.text = "\(currentCountry.flag) \(currentCountry.phoneCode)"
@@ -107,17 +107,20 @@ class PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     
     @IBAction func confirmBtnAction(_ sender: Any) {
         
-        print("\(userId ?? "")")
+        print("userID: \(userId ?? "")")
         print(self.tf_numberField.text ?? "")
+        print(self.selectedCountry ?? "")
+        
         guard let userId = userId, let selectedCountry = selectedCountry,
               let phoneNumber = tf_numberField.text, !phoneNumber.isEmpty else {
+            
             print("Please enter your phone number")
             self.ToastMessage("Please enter your phone number")
             return
         }
         do {
             let phoneNumber1 = try phoneNumberKit.parse(phoneNumber, withRegion: selectedCountry.code, ignoreType: true)
-                  let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
+                let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
             self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber

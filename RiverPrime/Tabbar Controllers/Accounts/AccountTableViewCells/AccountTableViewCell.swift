@@ -102,10 +102,16 @@ class AccountTableViewCell: UITableViewCell {
                 
                 if isCreateDemoAccount == true {
                     self.account_type = " Demo "
+                    mt5 = " MT5 "
+                    self.account_group = " \(accountType) "
                 }
                 if isRealAccount == true {
                     self.account_type = " Real "
+                    mt5 = " MT5 "
+                    self.account_group = " \(accountType) "
                 }
+                
+                
                 if accountType == "Pro Account" {
                     self.account_group = " PRO "
                     mt5 = " MT5 "
@@ -116,8 +122,8 @@ class AccountTableViewCell: UITableViewCell {
                     self.account_group = " PREMIUM "
                     mt5 = " MT5 "
                 }else{
-                    self.account_group = ""
-                    mt5 = ""
+//                    self.account_group = ""
+//                    mt5 = ""
                     
                 }
             }

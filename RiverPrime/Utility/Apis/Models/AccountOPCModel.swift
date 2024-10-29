@@ -75,7 +75,7 @@ struct CloseModel: Codable {
     let order: Int
     let position: Int
     let dealer: Int
-    let entry: Int
+    let direction: Int
     let value: Double
     let symbol: String
     let action: Int
@@ -89,9 +89,10 @@ struct CloseModel: Codable {
     let profit: Double
     let marketBid: Double
     let marketAsk: Double
+   
     
     enum CodingKeys: String, CodingKey {
-        case deal, login, order, position, dealer, entry, value, symbol, action, price, volume
+        case deal, login, order, position, dealer, direction, value, symbol, action, price, volume
         case takeProfit = "take_profit"
         case stopLoss = "stop_loss"
         case time, comment, fee, profit

@@ -9,6 +9,10 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
+    @IBOutlet weak var lbl_loginID: UILabel!
+    @IBOutlet weak var lbl_acctType: UILabel!
+    @IBOutlet weak var lbl_mt: UILabel!
+    @IBOutlet weak var lbl_acctGroup: UILabel!
     
     @IBOutlet weak var fundsUnderline: UIView!
     @IBOutlet weak var settingsUnderline: UIView!
@@ -22,17 +26,38 @@ class DetailsViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
-//        detail_tableView.registerCells([
-//            AccountTableViewCell.self, ListingTableViewCell.self
-//        ])
-//        detail_tableView.delegate = self
-//        detail_tableView.dataSource = self
-//        detail_tableView.reloadData() 
         
         fundsV()
-        
+        setHeaderValue()
+    }
+    
+    func setHeaderValue() {
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+                
+                self.lbl_acctGroup.text = " \(accountType) "
+                self.lbl_mt.text = " MT5 "
+                
+                self.lbl_loginID.text = "#\(loginID)"
+                if isCreateDemoAccount {
+                    self.lbl_acctType.text = " Demo "
+                }
+                if isRealAccount {
+                    self.lbl_acctType.text = " Real "
+                }
+                
+                if accountType == "Pro Account" {
+                    self.lbl_acctGroup.text = " PRO "
+                }else if accountType == "Prime Account" {
+                    self.lbl_acctGroup.text  = " PRIME "
+                }else if accountType == "Premium Account" {
+                    self.lbl_acctGroup.text  = " PREMIUM "
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,49 +98,3 @@ class DetailsViewController: UIViewController {
     }
     
 }
-//extension DetailsViewController: UITableViewDelegate, UITableViewDataSource {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//           return 2
-//    }
-//        
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if section == 0 {
-//            return 1
-//        }else{
-//            return 2
-//        }
-//    }
-//        
-//        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//            
-//            if indexPath.section == 0 {
-//                let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-//                cell.setHeaderUI(.detail)
-////                cell.delegate = self
-//                
-//                return cell
-//            } else  {
-//                let cell = tableView.dequeueReusableCell(with: ListingTableViewCell.self, for: indexPath)
-//                    return cell
-//            }
-//            
-//            
-//        }
-//        
-//        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//            if indexPath.section == 0 {
-//                return 300.0
-//            }else{
-//                return 200.0
-//            }
-//        }
-//        
-//    
-//    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        
-//        
-//    }
-//    
-//    
-//}

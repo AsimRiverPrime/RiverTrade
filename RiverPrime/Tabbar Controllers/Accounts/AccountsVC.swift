@@ -698,12 +698,23 @@ extension AccountsVC: GetSocketMessages {
                                
                                let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
                                let balance = Double(GlobalVariable.instance.balanceUpdate)
-                               let finalTotal = totalProfit! + balance!
                                
-                               let _finalTotal = String(format: "%.2f", finalTotal)
-                               
-                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
-                               
+                               if balance == nil {
+                                   let finalTotal = 0.0
+                                   
+                                   let _finalTotal = String(format: "%.2f", finalTotal)
+                                   
+                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+                                   
+                               }else{
+                                   let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
+                                   
+                                   let _finalTotal = String(format: "%.2f", finalTotal)
+                                   
+                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+                                   
+                               }
+                              
                            case .pending(let pendingData):
                                
                                if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {

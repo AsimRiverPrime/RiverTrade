@@ -268,8 +268,8 @@ class SignUpViewController: BaseViewController {
             if let snapshot = querySnapshot, !snapshot.isEmpty {
                 print("User with this email already exists.")
                 self.lbl_emailValid.isHidden = false
-                self.lbl_emailValid.text = "The email address is already in use by another account"
-                
+                self.lbl_emailValid.text = "The email address is already Exist"
+                return
             } else {
                 //if user is not exist then Use Firebase Authentication to create a new user
                 Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
@@ -280,6 +280,7 @@ class SignUpViewController: BaseViewController {
                                 self?.lbl_emailValid.isHidden = false
                                 self?.lbl_emailValid.text = "The email address is already in use by another account"
                                 print("The email address is already in use by another account.")
+                                return
                             default:
                                 print("Error creating user: \(error.localizedDescription)")
                             }
@@ -350,12 +351,16 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
         odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
-        self.ToastMessage("Check email inbox or spam for OTP")
-        self.navigateToVerifiyScreen()
+        Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
+            self.navigateToVerifiyScreen()
+        }
+        
+        ActivityIndicator.shared.hide(from: self.view)
     }
     
     func leadCreatFailure(error: any Error) {
         print("this is error response:\(error)")
+        ActivityIndicator.shared.hide(from: self.view)
     }
 }
     

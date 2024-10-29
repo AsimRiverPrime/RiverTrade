@@ -163,57 +163,57 @@ class TradeTableViewCell: UITableViewCell {
         
     }
     
-    func configureChartRed(getSymbolData: SymbolCompleteList){
-        setupChartRed(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
-    }
-    
-    private func setupChartRed(for symbol: String, with chartData: [ChartData]) {
-        guard createdCharts[symbol] == nil else { return }
-            createdCharts[symbol] = true
-
-        chart = LightweightCharts()
-        graphView.addSubview(chart)
-        chart.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
-            chart.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
-            chart.topAnchor.constraint(equalTo: graphView.topAnchor),
-            chart.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
-        ])
-        // Options to hide the x-axis and y-axis
-           let chartOptions = ChartOptions(
-            layout: LayoutOptions(background: .none ),
-               rightPriceScale: VisiblePriceScaleOptions(visible: false),
-               timeScale: TimeScaleOptions(visible: false),
-            grid: GridOptions(
-                verticalLines: GridLineOptions(visible: false),
-                horizontalLines: GridLineOptions(visible: false)
-            )
-           )
-           chart.applyOptions(options: chartOptions)
-
-        
-        // Update options to hide the line and values
+//    func configureChartRed(getSymbolData: SymbolCompleteList){
+//        setupChartRed(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+//    }
+//    
+//    private func setupChartRed(for symbol: String, with chartData: [ChartData]) {
+//        guard createdCharts[symbol] == nil else { return }
+//            createdCharts[symbol] = true
+//
+//        chart = LightweightCharts()
+//        graphView.addSubview(chart)
+//        chart.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
+//            chart.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
+//            chart.topAnchor.constraint(equalTo: graphView.topAnchor),
+//            chart.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
+//        ])
+//        // Options to hide the x-axis and y-axis
+//           let chartOptions = ChartOptions(
+//            layout: LayoutOptions(background: .none ),
+//               rightPriceScale: VisiblePriceScaleOptions(visible: false),
+//               timeScale: TimeScaleOptions(visible: false),
+//            grid: GridOptions(
+//                verticalLines: GridLineOptions(visible: false),
+//                horizontalLines: GridLineOptions(visible: false)
+//            )
+//           )
+//           chart.applyOptions(options: chartOptions)
+//
+//        
+//        // Update options to hide the line and values
+////        let options = AreaSeriesOptions(
+////                   priceLineVisible: false,
+////                   topColor: "rgba(76, 175, 80, 0.5)",
+////                   bottomColor: "rgba(76, 175, 80, 0)",
+////                   lineColor: "rgba(76, 175, 80, 1)",
+////                   lineWidth: .one
+////               )
+//        
 //        let options = AreaSeriesOptions(
-//                   priceLineVisible: false,
-//                   topColor: "rgba(76, 175, 80, 0.5)",
-//                   bottomColor: "rgba(76, 175, 80, 0)",
-//                   lineColor: "rgba(76, 175, 80, 1)",
-//                   lineWidth: .one
-//               )
-        
-        let options = AreaSeriesOptions(
-            priceLineVisible: false,
-            topColor: "rgba(255, 59, 48, 0.5)",
-            bottomColor: "rgba(255, 59, 48, 0.0)",
-            lineColor: "rgba(255, 59, 48, 1.0)",
-            lineWidth: .one
-        )
-        
-        let areaSeries = chart.addAreaSeries(options: options)
-        
-        updateChart(with: chartData, areaSeries: areaSeries)
-    }
+//            priceLineVisible: false,
+//            topColor: "rgba(255, 59, 48, 0.5)",
+//            bottomColor: "rgba(255, 59, 48, 0.0)",
+//            lineColor: "rgba(255, 59, 48, 1.0)",
+//            lineWidth: .one
+//        )
+//        
+//        let areaSeries = chart.addAreaSeries(options: options)
+//        
+//        updateChart(with: chartData, areaSeries: areaSeries)
+//    }
 //    func removeParentheses(from input: String) -> String {
 //            let pattern = "\\s*\\([^)]*\\)"  // Regular expression pattern to match parentheses and content
 //            let regex = try! NSRegularExpression(pattern: pattern, options: [])

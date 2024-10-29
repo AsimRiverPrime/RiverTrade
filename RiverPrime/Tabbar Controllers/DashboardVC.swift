@@ -68,7 +68,7 @@ class DashboardVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: .MetaTraderLogin, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         
         // Retrieve the data from UserDefaults
@@ -89,6 +89,10 @@ class DashboardVC: BaseViewController {
                     let getbalanceApi = TradeTypeCellVM()
                     getbalanceApi.getBalance(completion: { response in
                         print("response of get balance: \(response)")
+                        if response == "Invalid Response" {
+                            self.balance = "0.0"
+                            return
+                        }
                         self.balance = response
                         GlobalVariable.instance.balanceUpdate = self.balance
                         print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
@@ -113,7 +117,7 @@ class DashboardVC: BaseViewController {
             setAccountsButton()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: .MetaTraderLogin, object: nil) // NSNotification.Name("metaTraderLogin")
     }
     
     @objc private func MetaTraderLogin(_ notification: Notification) {
@@ -125,6 +129,10 @@ class DashboardVC: BaseViewController {
                 let getbalanceApi = TradeTypeCellVM()
                 getbalanceApi.getBalance(completion: { response in
                     print("response of get balance: \(response)")
+                    if response == "Invalid Response" {
+                        self.balance = "0.0"
+                        return
+                    }
                     self.balance = response
                     GlobalVariable.instance.balanceUpdate = self.balance
 //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
@@ -146,6 +154,7 @@ class DashboardVC: BaseViewController {
     }
     deinit {
            NotificationCenter.default.removeObserver(self, name: NSNotification.Name("apiSuccessNotification"), object: nil)
+//        NotificationCenter.default.removeObserver(self)
        }
     
     override func viewWillAppear(_ animated: Bool) {

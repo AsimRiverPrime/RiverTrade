@@ -10,6 +10,7 @@ import TPKeyboardAvoiding
 import FirebaseAuth
 import FirebaseFirestore
 import GoogleSignIn
+import SVProgressHUD
 
 class SignInViewController: BaseViewController {
     
@@ -58,9 +59,10 @@ class SignInViewController: BaseViewController {
         
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Show Navigation Bar
-//        self.setNavBar(vc: self, isBackButton: true, isBar: true)
-//        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
-      
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
+     
+
 //        username_tf.text = "asimprime900@gmail.com"
 //        password_tf.text = "asdasd"
         
@@ -127,7 +129,8 @@ class SignInViewController: BaseViewController {
             }
 //            print("result user: \(result)")
             guard let user1 = result?.user else { return }
-            
+            SVProgressHUD.show()
+        
             self?.authenticateWithFirebase(user: user1)
             
         }
@@ -238,8 +241,9 @@ class SignInViewController: BaseViewController {
                         print("User with this email already exists.")
                         self.firebase.fetchUserData(userId: user.uid)
                         
-                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                             print("Timer fired!")
+                            SVProgressHUD.dismiss()
                             self.firebase.handleUserData()
                         }
                         
@@ -251,7 +255,6 @@ class SignInViewController: BaseViewController {
                         
                     }
                 }
-                
                 
             }
         }

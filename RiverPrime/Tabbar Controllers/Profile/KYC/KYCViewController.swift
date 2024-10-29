@@ -57,6 +57,10 @@ class KYCViewController: BaseViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     func login() {
         // User onboarding process to get user token
         iPassSDKManger.UserOnboardingProcess(email: "it@salaminv.com", password: "Salam@2022") { [weak self] status, tokenString in

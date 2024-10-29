@@ -115,7 +115,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 
                 if self.isEmailVerification == true {
                     self.isEmailVerification = false
-                    //                    self.navigateToPhoneVerifiyScreen()
+                    //       self.navigateToPhoneVerifiyScreen()
                     print("User emailVerify fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
                     
@@ -123,16 +123,19 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
-                    
-                    if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
-                        self.navigate(to: faceIDVC)
-                    }
+//                    self.navigateToFaceID()
+                  
                 }
                 
             }
         }
     }
     
+    func navigateToFaceID(){
+        if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+            self.navigate(to: faceIDVC)
+        }
+    }
     @IBAction func resendCodeBtn(_ sender: Any) {
         
         resendCodeButton.isEnabled = false
@@ -275,7 +278,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
 
 extension VerifyCodeViewController: SendOTPDelegate {
     func otpSuccess(response: Any) {
-        print("this is the send otp response: \(response)")
+        print("this is the email send otp response: \(response)")
         self.ToastMessage("Check your email inbox or spam for OTP")
     }
     

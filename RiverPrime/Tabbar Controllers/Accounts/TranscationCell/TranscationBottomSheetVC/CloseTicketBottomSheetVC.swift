@@ -88,7 +88,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             let data = closeData?.repeatedFilteredArray[indexPath.row]
             
-            if data?.entry == 0 {
+            if data?.direction == 0 {
                 cell.lbl_type.text = "IN"
             }else{
                 cell.lbl_type.text = "OUT"

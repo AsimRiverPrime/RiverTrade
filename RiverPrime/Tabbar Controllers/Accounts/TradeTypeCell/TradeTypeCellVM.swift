@@ -62,7 +62,7 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("close position value is: \(value)")
+                print(" position closed value is: \(value)")
 //                self.forToast.showTimeAlert(str: "Position closed successfully")
                 do {
                     // Decode the response
@@ -543,11 +543,13 @@ class TradeTypeCellVM {
             
         }
         
+        print("\n parameter is : \(jsonrpcBody)")
+        
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             switch result {
                 
             case .success(let value):
-                print(" value is: \(value)")
+                print(" closed LIST value is: \(value)")
                 
                 do {
                     // Decode the response
@@ -655,7 +657,7 @@ class TradeTypeCellVM {
             
             // Get unique symbols from the repeated values
             let order = latestMaxTimeModel.order
-            let entry = latestMaxTimeModel.entry
+            let entry = latestMaxTimeModel.direction
             //            let action = latestMaxTimeModel.action
             let position = latestMaxTimeModel.position
             let volume = latestMaxTimeModel.volume

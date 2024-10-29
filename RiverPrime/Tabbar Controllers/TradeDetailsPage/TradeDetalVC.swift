@@ -18,7 +18,8 @@ class TradeDetalVC: UIViewController {
     private var chart: LightweightCharts!
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
-        
+    private var areaChartData: [AreaData] = []
+    private var barChartData: [BarData] = []
 //    @IBOutlet weak var symbolLabel: UILabel!
 //    @IBOutlet weak var detailsLabel: UILabel!
     
@@ -201,6 +202,13 @@ class TradeDetalVC: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
     }
+    
+    @IBAction func chartTypeBtn_action(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
+        vc.delegate = self
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+    }
+    
     
     @IBAction func buyBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
@@ -462,9 +470,140 @@ extension TradeDetalVC {
         series?.update(bar: dataPoint)
         
     }
+//    
+//    private func setupLineSeries(lineData: [AreaData]) {
+//        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
+//        let chart = LightweightCharts(options: options)
+//        chartView.addSubview(chart)
+//        self.chart = chart
+//        
+//      let  optionss = AreaSeriesOptions(
+//                          priceLineVisible: false,
+//                          topColor: "rgba(76, 175, 80, 0.5)",
+//                          bottomColor: "rgba(76, 175, 80, 0)",
+//                          lineColor: "rgba(76, 175, 80, 1)",
+//                          lineWidth: .one
+//                      )
+//            
+//        let lineSeries = chart.addAreaSeries(options: optionss)
+//        lineSeries.setData(data: lineData)
+//        
+//        // Add constraints as you did for candlestick chart
+//        setupChartConstraints(chart)
+//    }
+    private func setupAreaSeries(areaData: [AreaData]) {
+        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
+        let chart = LightweightCharts(options: options)
+        chartView.addSubview(chart)
+        self.chart = chart
+
+        let  areaSeriesOptions = AreaSeriesOptions(
+                            priceLineVisible: false,
+                            topColor: "rgba(76, 175, 80, 0.5)",
+                            bottomColor: "rgba(76, 175, 80, 0)",
+                            lineColor: "rgba(76, 175, 80, 1)",
+                            lineWidth: .one
+                        )
+        let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
+//        areaSeries.setData(data: areaData)
+//      
+//        let data = [
+//            AreaData(time: .string("2016-07-18"), value: 26.10),
+//            AreaData(time: .string("2016-07-25"), value: 26.19),
+//            AreaData(time: .string("2016-08-01"), value: 26.24),
+//            AreaData(time: .string("2016-08-08"), value: 26.22),
+//           
+//            AreaData(time: .string("2019-05-27"), value: 26.23)
+//        ]
+//        areaSeries.setData(data: data)
+       
+        // Add constraints as before
+        setupChartConstraints(chart)
+    }
+
+    private func setupBarSeries(barData: [BarData]) {
+        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
+        let chart = LightweightCharts(options: options)
+        chartView.addSubview(chart)
+        self.chart = chart
+        
+        let barSeriesOptions = BarSeriesOptions(
+            upColor: "rgba(76, 175, 80, 1)",   // Color of bars that moved up
+            downColor: "rgba(255, 82, 82, 1)" // Color of bars that moved down
+        )
+        
+        let barSeries = chart.addBarSeries(options: barSeriesOptions)
+        barSeries.setData(data: barData)
+        
+        // Add constraints as you did for candlestick chart
+        setupChartConstraints(chart)
+    }
+
+    private func setupChartConstraints(_ chart: LightweightCharts) {
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        if #available(iOS 11.0, *) {
+            NSLayoutConstraint.activate([
+                chart.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor),
+                chart.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor),
+                chart.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor),
+                chart.bottomAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                chart.leadingAnchor.constraint(equalTo: chartView.leadingAnchor),
+                chart.trailingAnchor.constraint(equalTo: chartView.trailingAnchor),
+                chart.topAnchor.constraint(equalTo: chartView.topAnchor),
+                chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
+            ])
+        }
+    }
     
+    private func clearChart() {
+        if let chart = self.chart {
+            chart.removeFromSuperview()
+            self.chart = nil
+        }
+    }
+    
+    private func convertToBarData(candlestickData: [CandlestickData]) -> [BarData] {
+        return candlestickData.map { candle in
+            return BarData(
+                time: candle.time,
+                open: candle.open,
+                high: candle.high,
+                low: candle.low,
+                close: candle.close
+            )
+        }
+    }
+    private func convertToAreaData(candlestickData: [CandlestickData]) -> [AreaData] {
+        return candlestickData.map { candle in
+            return AreaData(time: candle.time, value: candle.close)
+        }
+    }
 }
 
+extension TradeDetalVC: ChartOptionsDelegate {
+    func didSelectChartType(_ chartType: ChartType) {
+          // Clear existing chart
+          clearChart()
+
+          switch chartType {
+          case .candlestick:
+              setupSeries(candlestickData: candlestickData)
+          case .area:
+              let areaData = convertToAreaData(candlestickData: candlestickData)
+              setupAreaSeries(areaData: areaData)
+          case .bar:
+              let barData = convertToBarData(candlestickData: candlestickData)
+              setupBarSeries(barData: barData)
+             
+          }
+      }
+
+      // Other chart setup methods remain the same...
+  
+}
 //MARK: - Setup the Overview view.
 extension TradeDetalVC {
     

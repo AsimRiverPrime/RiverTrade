@@ -94,21 +94,21 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
 extension DepositViewController: DashboardVCDelegate {
     func navigateToCompeletProfile() {
         print("move to completeprofile screen")
-        
-        if profileStep == 0 {
-            if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-                self.navigate(to: kycVc)
+            
+            if profileStep == 0 {
+                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+                    self.navigate(to: kycVc)
+                }
+            }else if profileStep == 1 {
+                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else if profileStep == 2 {
+                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else{
+                self.ToastMessage("Already Done KYC")
             }
-        }else if profileStep == 1 {
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        }else if profileStep == 2 {
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .dashboard) as! CompleteVerificationProfileScreen7
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        }else{
-            self.ToastMessage("Already Done KYC")
-        }
-        
+            
     }
 }
 

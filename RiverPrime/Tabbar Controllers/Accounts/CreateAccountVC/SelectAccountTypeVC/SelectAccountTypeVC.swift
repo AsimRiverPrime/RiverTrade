@@ -156,6 +156,9 @@ extension SelectAccountTypeVC {
                 if isRealAccount == true {
                     self.realAccount = " Real "
                 }
+                self.accountType = " \(accountType) "
+                self.mt5 = " MT5 "
+                
                 
                 if accountType == "Pro Account" {
                     self.accountType = " PRO "

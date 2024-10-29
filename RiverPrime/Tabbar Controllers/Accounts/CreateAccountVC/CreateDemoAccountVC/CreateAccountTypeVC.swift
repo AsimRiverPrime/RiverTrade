@@ -38,7 +38,9 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     var getSelectedAccountType = GetSelectedAccountType()
     
     let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
-   
+    
+    var  group = String()
+    var demoAccountGroup = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,15 +101,15 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
        
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
         
-        var  group = ""
-        
         if self.lbl_accountTitle.text == "Pro Account" {
              group = "demo\\RP\\PRO"
-            
+            demoAccountGroup = "PRO"
         }else if self.lbl_accountTitle.text == "Prime Account" {
              group = "demo\\RP\\Prime"
+            demoAccountGroup = "PRIME"
         }else {
              group = "demo\\RP\\Premium"
+            demoAccountGroup = "PREMIUM"
         }
         
 //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
@@ -183,9 +185,8 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         fieldsToUpdate = [
             "demoAccountCreated" : true,
            // "" : true,
-            "demoAccountGroup" : self.lbl_accountTitle.text ?? "" ,
+            "demoAccountGroup" : self.demoAccountGroup ,
             "loginId" : GlobalVariable.instance.loginID // loginID in response
-            
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -199,28 +200,18 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                 self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed after success")
                     // notification send to dashboardvc
-                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                      
+                        NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+                    }
+                    
                        
                 })
             }
         }
     }
-    
-    // Encrypt and save the password entered by the user
-//    func saveEncryptedPassword() {
-//        if let password = tf_password.text, let passwordData = password.data(using: .utf8) {
-//            if let encryptedData = encrypt(data: passwordData, key: aesKey) {
-//              
-//                // Save the encrypted data to UserDefaults (for demonstration, use Keychain for secure storage)
-//                UserDefaults.standard.set(encryptedData, forKey: "encryptedPassword")
-//                print("Password encrypted and saved successfully.")
-//            } else {
-//                print("Failed to encrypt the password.")
-//            }
-//        }
-//    }
-    
-    
+
     func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
         let passwordData = Data(password.utf8)
         

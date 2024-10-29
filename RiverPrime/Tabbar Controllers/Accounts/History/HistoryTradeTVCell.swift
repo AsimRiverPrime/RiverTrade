@@ -174,7 +174,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             let volumee = Double(data.volume ) / Double(10000)
             
             
-            if data.entry == 0 {
+            if data.direction == 0 {
                 cell.lbl_type.text = "IN"
                 self.lbl_typeVolume.text = ticketName + " \(volumee) " + "Lot"
             }else{
