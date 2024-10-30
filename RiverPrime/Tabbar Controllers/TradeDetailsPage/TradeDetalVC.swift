@@ -20,18 +20,18 @@ class TradeDetalVC: UIViewController {
     private var candlestickData: [CandlestickData] = []
     
     @IBOutlet weak var lbl_sellBtn: UILabel!
-//    @IBOutlet weak var lbl_login_id: UILabel!
+    //    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
     @IBOutlet weak var lbl_amount: UILabel!
     
-//    @IBOutlet weak var lbl_accountType: UILabel!
-//    @IBOutlet weak var lbl_accountGroup: UILabel!
+    //    @IBOutlet weak var lbl_accountType: UILabel!
+    //    @IBOutlet weak var lbl_accountGroup: UILabel!
     
     @IBOutlet var menuButton: [UIButton]!
     @IBOutlet weak var SellBuyView: UIView!
     @IBOutlet weak var btn_chartType: UIButton!
     
-//    var tradeDetails: TradeDetails?
+    //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
     
@@ -51,51 +51,12 @@ class TradeDetalVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
-//        handleTradesUpdated()
-        
         addTopAndBottomBorders(menuButton[0])
-        
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            print("saved User Data: \(savedUserData)")
-//            // Access specific values from the dictionary
-//
-//            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-//
-//                self.login_Id = loginID
-//
-//                if isCreateDemoAccount == true {
-//                    self.account_type = " Demo "
-//                }
-//                if isRealAccount == true {
-//                    self.account_type = " Real "
-//                }
-//                if accountType == "Pro Account" {
-//                    self.account_group = " PRO "
-//                    mt5 = " MT5 "
-//                }else if accountType == "Prime Account" {
-//                    self.account_group = " PRIME "
-//                    mt5 = " MT5 "
-//                }else if accountType == "Premium Account" {
-//                    self.account_group = " PREMIUM "
-//                    mt5 = " MT5 "
-//                }else{
-//                    self.account_group = ""
-//                    mt5 = ""
-//
-//                }
-//            }
-//        }
-        
-//        self.lbl_login_id.text = "#\(self.login_Id)"
-//        self.lbl_accountType.text = self.account_type
-//        self.lbl_accountGroup.text = self.account_group
-//
         
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -136,7 +97,7 @@ class TradeDetalVC: UIViewController {
             let bottomBorder = CALayer()
             bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
             bottomBorder.backgroundColor = UIColor.white.cgColor
-           
+            
             menuButton[i].titleLabel?.font = UIFont.systemFont(ofSize: 16)
             menuButton[i].layer.addSublayer(bottomBorder)
         }
@@ -148,28 +109,24 @@ class TradeDetalVC: UIViewController {
         menuButton[sender.tag].titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         menuButton[sender.tag].layer.addSublayer(bottomBorder)
-       
+        
     }
     
-        @objc private func handleTradesUpdated(_ notification: Notification) {
-         
-            if let tradeDetail = notification.object as? TradeDetails {
-               
-                if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
-                    
-                    
-                    self.tradeDetail = tradeDetail
-                    
-                    self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
-                    self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
-                    
-                    
-                    // Update the UI with the latest data for the selected symbol
-                    
-                    //            self.tradeDetails = tradeDetail
-                    
-                    //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
-                    getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+    @objc private func handleTradesUpdated(_ notification: Notification) {
+        
+        if let tradeDetail = notification.object as? TradeDetails {
+            
+            if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+                
+                self.tradeDetail = tradeDetail
+                
+                self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
+                self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
+                
+                getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+                
+                // if ChartType.candlestick {
+                
                     let data =  getLiveCandelStick.getLatestOhlcData()
                     print("latest data: \(data)")
                     
@@ -190,12 +147,14 @@ class TradeDetalVC: UIViewController {
                     
                     //            // Use update to add this candlestick incrementally
                     series?.update(bar: dataPoint)
-                }
-//            setupSeries(candlestickData: dataPoint)
+               
+                
+            }
+            //            setupSeries(candlestickData: dataPoint)
             
         }
     }
-   
+    
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -222,7 +181,7 @@ class TradeDetalVC: UIViewController {
     }
     
     private func setupSeries(candlestickData: [CandlestickData]) {
-   
+        
         let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
@@ -254,7 +213,7 @@ class TradeDetalVC: UIViewController {
                 chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
-      
+        
         let myoptions = CandlestickSeriesOptions(
             upColor: "rgba(8, 153, 52, 1)",
             downColor: "rgba(204, 13, 13, 1)",
@@ -266,12 +225,13 @@ class TradeDetalVC: UIViewController {
         
         let series = chart.addCandlestickSeries(options: myoptions)
         self.series = series
-   
+        
         series.setData(data: candlestickData)
         
     }
     
 }
+
 extension TradeDetalVC: WebSocketDelegate {
     func connectHistoryWebSocket() {
         //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
@@ -287,7 +247,7 @@ extension TradeDetalVC: WebSocketDelegate {
     func disconnectWebSocket() {
         webSocket?.disconnect()
     }
-
+    
     func sendSubscriptionHistoryMessage() {
         // Define the message dictionary
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
@@ -295,14 +255,14 @@ extension TradeDetalVC: WebSocketDelegate {
         let timestamps = currentAndBeforeBusinessDayTimestamps()
         print("Current Timestamp: \(timestamps.currentTimestamp)")
         print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-
+        
         
         let message: [String: Any] = [
             "event_name": "get_chart_history",
             "data": [
                 "symbol":  getSymbolData.tickMessage?.symbol ?? "",
-//                "from": timestamps.previousTimestamp,
-//                "to":  timestamps.currentTimestamp
+                //                "from": timestamps.previousTimestamp,
+                //                "to":  timestamps.currentTimestamp
                 "from": hourBeforeTimestamp,
                 "to":  currentTimestamp
             ]
@@ -337,11 +297,11 @@ extension TradeDetalVC: WebSocketDelegate {
     
     func handleHistoryWebSocketMessage(_ string: String) {
         print("\n this is history chart json: \(string)")
-         
+        
         if let jsonData = string.data(using: .utf8) {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-//                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
+                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                 for payload in response.message.payload.chartData {
                     
                     let times = Time.utc(timestamp: Double(payload.datetime))
@@ -367,7 +327,7 @@ extension TradeDetalVC: WebSocketDelegate {
                     candlestickData.append(dataPoint)
                 }
                 series.setData(data: candlestickData)
-//                setupSeries(candlestickData: candlestickData)
+                //                setupSeries(candlestickData: candlestickData)
             } catch {
                 print("Error parsing JSON: \(error)")
             }
@@ -426,7 +386,7 @@ extension TradeDetalVC: WebSocketDelegate {
         
         return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
     }
-
+    
 }
 
 //MARK: - Setup the Chart view.
@@ -458,20 +418,20 @@ extension TradeDetalVC {
             close: close
         )
         
-//        if self.series != nil {
-//            series?.update(bar: dataPoint)
-//        }
-       // Use update to add this candlestick incrementally
+        //        if self.series != nil {
+        //            series?.update(bar: dataPoint)
+        //        }
+        // Use update to add this candlestick incrementally
         series?.update(bar: dataPoint)
         
     }
-
+    
     private func setupAreaSeries(areaData: [AreaData]) {
         let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
-
+        
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
@@ -483,29 +443,29 @@ extension TradeDetalVC {
         timeScale.subscribeVisibleTimeRangeChange()
         
         let  areaSeriesOptions = AreaSeriesOptions(
-                            priceLineVisible: false,
-                            topColor: "rgba(76, 175, 80, 0.5)",
-                            bottomColor: "rgba(76, 175, 80, 0)",
-                            lineColor: "rgba(76, 175, 80, 1)",
-                            lineWidth: .one
-                        )
+            priceLineVisible: false,
+            topColor: "rgba(76, 175, 80, 0.5)",
+            bottomColor: "rgba(76, 175, 80, 0)",
+            lineColor: "rgba(76, 175, 80, 1)",
+            lineWidth: .one
+        )
         let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
         areaSeries.setData(data: areaData)
-//      
-//        let data = [
-//            AreaData(time: .string("2016-07-18"), value: 26.10),
-//            AreaData(time: .string("2016-07-25"), value: 26.19),
-//            AreaData(time: .string("2016-08-01"), value: 26.24),
-//            AreaData(time: .string("2016-08-08"), value: 26.22),
-//           
-//            AreaData(time: .string("2019-05-27"), value: 26.23)
-//        ]
-//        areaSeries.setData(data: data)
-       
+        //
+        //        let data = [
+        //            AreaData(time: .string("2016-07-18"), value: 26.10),
+        //            AreaData(time: .string("2016-07-25"), value: 26.19),
+        //            AreaData(time: .string("2016-08-01"), value: 26.24),
+        //            AreaData(time: .string("2016-08-08"), value: 26.22),
+        //
+        //            AreaData(time: .string("2019-05-27"), value: 26.23)
+        //        ]
+        //        areaSeries.setData(data: data)
+        
         // Add constraints as before
         setupChartConstraints(chart)
     }
-
+    
     private func setupBarSeries(barData: [BarData]) {
         let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
         let chart = LightweightCharts(options: options)
@@ -533,7 +493,7 @@ extension TradeDetalVC {
         // Add constraints as you did for candlestick chart
         setupChartConstraints(chart)
     }
-
+    
     private func setupChartConstraints(_ chart: LightweightCharts) {
         chart.translatesAutoresizingMaskIntoConstraints = false
         if #available(iOS 11.0, *) {
@@ -581,24 +541,24 @@ extension TradeDetalVC {
 
 extension TradeDetalVC: ChartOptionsDelegate {
     func didSelectChartType(_ chartType: ChartType) {
-          // Clear existing chart
-          clearChart()
-
-          switch chartType {
-          case .candlestick:
-              setupSeries(candlestickData: candlestickData)
-          case .area:
-              let areaData = convertToAreaData(candlestickData: candlestickData)
-              setupAreaSeries(areaData: areaData)
-          case .bar:
-              let barData = convertToBarData(candlestickData: candlestickData)
-              setupBarSeries(barData: barData)
-             
-          }
-      }
-
-      // Other chart setup methods remain the same...
-  
+        // Clear existing chart
+        clearChart()
+        
+        switch chartType {
+        case .candlestick:
+            setupSeries(candlestickData: candlestickData)
+        case .area:
+            let areaData = convertToAreaData(candlestickData: candlestickData)
+            setupAreaSeries(areaData: areaData)
+        case .bar:
+            let barData = convertToBarData(candlestickData: candlestickData)
+            setupBarSeries(barData: barData)
+            
+        }
+    }
+    
+    // Other chart setup methods remain the same...
+    
 }
 //MARK: - Setup the Overview view.
 extension TradeDetalVC {
@@ -642,21 +602,21 @@ extension TradeDetalVC {
                 scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor, constant: -10)
             ])
         }
-       
-//        if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
-//            if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-//                let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+        
+        //        if tradeDetail.symbol == getSymbolData.tickMessage?.symbol {
+        //            if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+        //                let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
         
         if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
             let volumeMin = GlobalVariable.instance.symbolDataArray[valueIndex].volumeMin
             let volumeMax = GlobalVariable.instance.symbolDataArray[valueIndex].volumeMax
             let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
             let contractSize = GlobalVariable.instance.symbolDataArray[valueIndex].contractSize
-//            let spreadSize = GlobalVariable.instance.symbolDataArray[valueIndex].spreadSize
+            //            let spreadSize = GlobalVariable.instance.symbolDataArray[valueIndex].spreadSize
             let stopLevel = GlobalVariable.instance.symbolDataArray[valueIndex].stopsLevel
             let swapLong = GlobalVariable.instance.symbolDataArray[valueIndex].swapLong
             let swapShort = GlobalVariable.instance.symbolDataArray[valueIndex].swapShort
-//            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
+            //            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
             
             let minVol = Double(volumeMin)! / 10000
             let maxVol = Double(volumeMax)! / 10000
@@ -753,7 +713,7 @@ extension TradeDetalVC {
                 
             }
         }
-      
+        
     }
     
 }

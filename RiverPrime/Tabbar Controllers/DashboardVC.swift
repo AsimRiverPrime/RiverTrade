@@ -622,6 +622,9 @@ extension DashboardVC: TradeSymbolDetailDelegate {
                             let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
                             print(" originalUrl URL: \(originalUrl)")
                             // Replace the part of the URL
+                            if originalUrl == "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/ndx100-01.svg" {
+                                
+                            }
                             let modifiedUrl = originalUrl
                                 .replacingOccurrences(of: "-01.svg", with: ".png")
                                 .replacingOccurrences(of: ".com/", with: ".com/png/")

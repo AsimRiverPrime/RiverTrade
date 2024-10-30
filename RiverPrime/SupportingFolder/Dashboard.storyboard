@@ -2139,7 +2139,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3r-V9-16T">
-                                <rect key="frame" x="30" y="30" width="30" height="30"/>
+                                <rect key="frame" x="30" y="45" width="30" height="30"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="0CU-7V-G9M"/>
@@ -2158,7 +2158,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lAJ-Pw-m1x" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="30" y="85" width="333" height="703"/>
+                                <rect key="frame" x="30" y="90" width="333" height="698"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please complete your details. It only takes a few minutes." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2N-a2-hFf">
                                         <rect key="frame" x="20" y="40" width="293" height="43"/>
@@ -2167,26 +2167,23 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-rJ-PbB">
-                                        <rect key="frame" x="20" y="134" width="293" height="138"/>
+                                        <rect key="frame" x="20" y="134" width="293" height="137.66666666666663"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="140" id="IYk-cV-7yj"/>
-                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Verification" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwf-mA-Qci">
-                                        <rect key="frame" x="20" y="303" width="293" height="30"/>
+                                        <rect key="frame" x="20" y="302.66666666666669" width="293" height="30"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="On the next screen we will ask you to upload on or two documents that can prove your name and country/ region of residence." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fls-NK-HIJ">
-                                        <rect key="frame" x="20" y="353" width="293" height="86"/>
+                                        <rect key="frame" x="20" y="352.66666666666669" width="293" height="86"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ot-Ms-Ldv">
-                                        <rect key="frame" x="66.666666666666686" y="608" width="200" height="45"/>
+                                        <rect key="frame" x="66.666666666666686" y="588.66666666666663" width="200" height="45"/>
                                         <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="Qjh-P2-JfO"/>
@@ -2194,7 +2191,7 @@
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Upload Document">
+                                        <buttonConfiguration key="configuration" style="plain" title="Scan Document">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
@@ -2209,8 +2206,8 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="6Ot-Ms-Ldv" firstAttribute="top" secondItem="fls-NK-HIJ" secondAttribute="bottom" constant="150" id="3CZ-42-cgd"/>
                                     <constraint firstItem="hwf-mA-Qci" firstAttribute="top" secondItem="MQe-rJ-PbB" secondAttribute="bottom" constant="30" id="8jk-XJ-v9I"/>
-                                    <constraint firstAttribute="bottom" secondItem="6Ot-Ms-Ldv" secondAttribute="bottom" constant="50" id="Dpn-cE-6cm"/>
                                     <constraint firstItem="MQe-rJ-PbB" firstAttribute="leading" secondItem="lAJ-Pw-m1x" secondAttribute="leading" constant="20" id="IjE-rq-0p3"/>
                                     <constraint firstAttribute="trailing" secondItem="hwf-mA-Qci" secondAttribute="trailing" constant="20" id="KJ0-vZ-zdS"/>
                                     <constraint firstItem="6Ot-Ms-Ldv" firstAttribute="centerX" secondItem="lAJ-Pw-m1x" secondAttribute="centerX" id="Y1o-Dq-gvK"/>
@@ -2221,6 +2218,7 @@
                                     <constraint firstItem="fls-NK-HIJ" firstAttribute="top" secondItem="hwf-mA-Qci" secondAttribute="bottom" constant="20" id="hGi-wA-YQY"/>
                                     <constraint firstItem="o2N-a2-hFf" firstAttribute="top" secondItem="lAJ-Pw-m1x" secondAttribute="top" constant="40" id="iGc-r9-mkl"/>
                                     <constraint firstAttribute="trailing" secondItem="o2N-a2-hFf" secondAttribute="trailing" constant="20" id="jSq-Bd-La2"/>
+                                    <constraint firstItem="MQe-rJ-PbB" firstAttribute="height" secondItem="lAJ-Pw-m1x" secondAttribute="height" multiplier="0.2" id="sLB-23-NhN"/>
                                     <constraint firstItem="hwf-mA-Qci" firstAttribute="leading" secondItem="lAJ-Pw-m1x" secondAttribute="leading" constant="20" id="xsO-NC-2Bj"/>
                                     <constraint firstItem="o2N-a2-hFf" firstAttribute="leading" secondItem="lAJ-Pw-m1x" secondAttribute="leading" constant="20" id="zWg-5U-um8"/>
                                 </constraints>
@@ -2247,8 +2245,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="lAJ-Pw-m1x" firstAttribute="leading" secondItem="MoP-ff-AZY" secondAttribute="leading" constant="30" id="0QN-bn-tub"/>
-                            <constraint firstItem="lAJ-Pw-m1x" firstAttribute="top" secondItem="E3r-V9-16T" secondAttribute="bottom" constant="25" id="Ada-dT-xRZ"/>
-                            <constraint firstItem="E3r-V9-16T" firstAttribute="top" secondItem="9nf-NT-ivJ" secondAttribute="top" constant="30" id="H7V-Ka-cRX"/>
+                            <constraint firstItem="lAJ-Pw-m1x" firstAttribute="top" secondItem="E3r-V9-16T" secondAttribute="bottom" constant="15" id="Ada-dT-xRZ"/>
+                            <constraint firstItem="E3r-V9-16T" firstAttribute="top" secondItem="9nf-NT-ivJ" secondAttribute="top" constant="45" id="H7V-Ka-cRX"/>
                             <constraint firstItem="MoP-ff-AZY" firstAttribute="trailing" secondItem="lAJ-Pw-m1x" secondAttribute="trailing" constant="30" id="QR1-eX-08C"/>
                             <constraint firstItem="MoP-ff-AZY" firstAttribute="bottom" secondItem="lAJ-Pw-m1x" secondAttribute="bottom" constant="30" id="Xfi-Db-vkO"/>
                             <constraint firstItem="E3r-V9-16T" firstAttribute="leading" secondItem="9nf-NT-ivJ" secondAttribute="leading" constant="30" id="saI-2P-4rA"/>

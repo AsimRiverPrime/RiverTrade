@@ -6340,7 +6340,7 @@
                                                 </constraints>
                                                 <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="chart.line.uptrend.xyaxis" catalog="system" title="Line Chart" imagePadding="20"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="chart.line.uptrend.xyaxis" catalog="system" title="Area Chart" imagePadding="20"/>
                                                 <connections>
                                                     <action selector="lineChart_action:" destination="6L4-2W-E5f" eventType="touchUpInside" id="FHJ-g5-AYb"/>
                                                 </connections>
