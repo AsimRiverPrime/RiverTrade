@@ -27,7 +27,39 @@ class SettingsView: UIView {
     
     
     public override func awakeFromNib() {
-        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+                
+                self.lbl_accountNumber.text = "#\(loginID)"
+                self.lbl_loginID.text = "\(loginID)"
+                
+                if isCreateDemoAccount == true {
+                    self.lbl_accountType.text = " Demo "
+                    self.lbl_serverType.text = " MT5 "
+                    self.lbl_accountGroup.text = " \(accountType) "
+                }
+                if isRealAccount == true {
+                    self.lbl_accountType.text = " Real "
+                    self.lbl_serverType.text = " MT5 "
+                    self.lbl_accountGroup.text = " \(accountType) "
+                }
+                if accountType == "Pro Account" {
+                    self.lbl_accountGroup.text = " PRO "
+                  
+                }else if accountType == "Prime Account" {
+                    self.lbl_accountGroup.text = " PRIME "
+                    
+                }else if accountType == "Premium Account" {
+                    self.lbl_accountGroup.text = " PREMIUM "
+                    
+                }
+                
+            }
+        }
+        self.lbl_serverName.text = "RiverPrimeLimited-Demo"
     }
     
     class func getView()->SettingsView {

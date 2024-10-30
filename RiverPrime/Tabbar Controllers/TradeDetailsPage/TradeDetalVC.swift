@@ -18,10 +18,6 @@ class TradeDetalVC: UIViewController {
     private var chart: LightweightCharts!
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
-    private var areaChartData: [AreaData] = []
-    private var barChartData: [BarData] = []
-//    @IBOutlet weak var symbolLabel: UILabel!
-//    @IBOutlet weak var detailsLabel: UILabel!
     
     @IBOutlet weak var lbl_sellBtn: UILabel!
 //    @IBOutlet weak var lbl_login_id: UILabel!
@@ -33,6 +29,7 @@ class TradeDetalVC: UIViewController {
     
     @IBOutlet var menuButton: [UIButton]!
     @IBOutlet weak var SellBuyView: UIView!
+    @IBOutlet weak var btn_chartType: UIButton!
     
 //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
@@ -102,6 +99,7 @@ class TradeDetalVC: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         disconnectWebSocket()
     }
     
@@ -113,7 +111,7 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = false
-            
+            self.btn_chartType.isHidden = false
             //MARK: - Add new content from here.
             setupChart()
             
@@ -123,7 +121,7 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = true
-            
+            self.btn_chartType.isHidden = true
             //MARK: - Add new content from here.
             setupOverview()
             
@@ -200,7 +198,7 @@ class TradeDetalVC: UIViewController {
    
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .tradesUpdated, object: nil)
+        NotificationCenter.default.removeObserver(self)
     }
     
     @IBAction func chartTypeBtn_action(_ sender: Any) {
@@ -338,7 +336,7 @@ extension TradeDetalVC: WebSocketDelegate {
     }
     
     func handleHistoryWebSocketMessage(_ string: String) {
-        print("\n this is history json: \(string)")
+        print("\n this is history chart json: \(string)")
          
         if let jsonData = string.data(using: .utf8) {
             do {
@@ -441,12 +439,6 @@ extension TradeDetalVC {
         self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0).trimmedTrailingZeros())"
         self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0).trimmedTrailingZeros())"
         
-        
-        // Update the UI with the latest data for the selected symbol
-        
-        //            self.tradeDetails = tradeDetail
-        
-        //            getLiveCandelStick.update(ask: getSymbolData.tickMessage?.ask, bid: getSymbolData.tickMessage?.bid, currentTimestamp: Int64(getSymbolData.tickMessage?.datetime))
         getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
         let data =  getLiveCandelStick.getLatestOhlcData()
         print("latest data: \(data)")
@@ -466,37 +458,30 @@ extension TradeDetalVC {
             close: close
         )
         
-        //            // Use update to add this candlestick incrementally
+//        if self.series != nil {
+//            series?.update(bar: dataPoint)
+//        }
+       // Use update to add this candlestick incrementally
         series?.update(bar: dataPoint)
         
     }
-//    
-//    private func setupLineSeries(lineData: [AreaData]) {
-//        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
-//        let chart = LightweightCharts(options: options)
-//        chartView.addSubview(chart)
-//        self.chart = chart
-//        
-//      let  optionss = AreaSeriesOptions(
-//                          priceLineVisible: false,
-//                          topColor: "rgba(76, 175, 80, 0.5)",
-//                          bottomColor: "rgba(76, 175, 80, 0)",
-//                          lineColor: "rgba(76, 175, 80, 1)",
-//                          lineWidth: .one
-//                      )
-//            
-//        let lineSeries = chart.addAreaSeries(options: optionss)
-//        lineSeries.setData(data: lineData)
-//        
-//        // Add constraints as you did for candlestick chart
-//        setupChartConstraints(chart)
-//    }
+
     private func setupAreaSeries(areaData: [AreaData]) {
         let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
 
+        let timeScale = chart.timeScale()
+        
+        timeScale.applyOptions(options: TimeScaleOptions(
+            borderColor: "#D1D4DC",
+            timeVisible: true,
+            secondsVisible: false
+        ))
+        
+        timeScale.subscribeVisibleTimeRangeChange()
+        
         let  areaSeriesOptions = AreaSeriesOptions(
                             priceLineVisible: false,
                             topColor: "rgba(76, 175, 80, 0.5)",
@@ -505,7 +490,7 @@ extension TradeDetalVC {
                             lineWidth: .one
                         )
         let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
-//        areaSeries.setData(data: areaData)
+        areaSeries.setData(data: areaData)
 //      
 //        let data = [
 //            AreaData(time: .string("2016-07-18"), value: 26.10),
@@ -526,6 +511,16 @@ extension TradeDetalVC {
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
+        
+        let timeScale = chart.timeScale()
+        
+        timeScale.applyOptions(options: TimeScaleOptions(
+            borderColor: "#D1D4DC",
+            timeVisible: true,
+            secondsVisible: false
+        ))
+        
+        timeScale.subscribeVisibleTimeRangeChange()
         
         let barSeriesOptions = BarSeriesOptions(
             upColor: "rgba(76, 175, 80, 1)",   // Color of bars that moved up
@@ -576,6 +571,7 @@ extension TradeDetalVC {
             )
         }
     }
+    
     private func convertToAreaData(candlestickData: [CandlestickData]) -> [AreaData] {
         return candlestickData.map { candle in
             return AreaData(time: candle.time, value: candle.close)

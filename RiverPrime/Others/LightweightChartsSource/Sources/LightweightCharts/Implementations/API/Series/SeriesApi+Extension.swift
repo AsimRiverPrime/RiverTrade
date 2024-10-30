@@ -119,5 +119,4 @@ public extension SeriesApi where Self: SeriesObject {
         context.evaluateScript(script, completion: nil)
     }
     
-    
 }

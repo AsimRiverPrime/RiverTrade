@@ -2793,6 +2793,7 @@
                     </view>
                     <connections>
                         <outlet property="SellBuyView" destination="lal-4N-Jb8" id="Okt-sp-6xG"/>
+                        <outlet property="btn_chartType" destination="aaG-td-SSC" id="S9W-ic-VTx"/>
                         <outlet property="chartView" destination="Ryp-zd-o0u" id="Thb-QN-uoA"/>
                         <outlet property="lbl_BuyBtn" destination="Zhh-Zw-VWO" id="5nF-qu-iQX"/>
                         <outlet property="lbl_amount" destination="bTJ-al-kDM" id="AU9-uf-syy"/>
@@ -6380,6 +6381,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="v3u-5m-lg5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dym-un-7vY" firstAttribute="leading" secondItem="GQ7-iP-I7P" secondAttribute="leading" constant="15" id="39s-d8-5hB"/>
