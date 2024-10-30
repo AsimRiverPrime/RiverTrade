@@ -50,6 +50,8 @@ class AccountsVC: UIView {
         //        setTableViewLayoutConstraints()
         setTableViewLayoutTopConstraints()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
+
         
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
@@ -81,6 +83,38 @@ class AccountsVC: UIView {
             })
     }
     
+    @objc func opcCallingAtStart(_ notification: NSNotification) {
+            
+            if let opc = notification.userInfo?[NotificationObserver.Constants.OPCUpdateConstant.title] as? String {
+                print("Received opc: \(opc)")
+                if opc == "Open" {
+                    
+                    switch opcList {
+                    case .open(_):
+                        
+                        let indexPath = IndexPath(row: 0, section: 1)
+    //                    self.delegateOPCNavigation?.navigateOPC(.open(openData[indexPath.row]))
+    //                    tblView.reloadData()
+                        tblView.reloadRows(at: [indexPath], with: .none)
+                        
+                        break
+                    case .pending(_):
+                        
+    //                    self.delegateOPCNavigation?.navigateOPC(.pending(pendingData[indexPath.row]))
+                        
+                        break
+                    case .close(_):
+                        
+    //                    self.delegateOPCNavigation?.navigateOPC(.close(closeData[indexPath.row]))
+                        
+                        break
+                    case .none: break
+                    }
+                    
+                }
+            }
+            
+        }
     
 }
 

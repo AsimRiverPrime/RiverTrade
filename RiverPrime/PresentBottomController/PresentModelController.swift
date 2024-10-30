@@ -21,6 +21,7 @@ class PresentModalController {
         case customSmall
         case customMedium
         case customLarge
+        case small
     }
     
     func presentBottomSheet(_ vc: UIViewController, sizeOfSheet sheetDetents: SheetDetents? = nil, VC: UIViewController) {
@@ -40,6 +41,12 @@ class PresentModalController {
                     sheet.detents = [
                         .custom { context in
                             return 300 // Custom height for small detent
+                        }
+                    ]
+                } else if sheetDetents == .small {
+                    sheet.detents = [
+                        .custom { context in
+                            return 200 // Custom height for small detent
                         }
                     ]
                 } else if sheetDetents == .customMedium {

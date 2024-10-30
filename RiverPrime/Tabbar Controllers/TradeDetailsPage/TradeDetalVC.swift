@@ -163,7 +163,7 @@ class TradeDetalVC: UIViewController {
     @IBAction func chartTypeBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
         vc.delegate = self
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
     }
     
     
