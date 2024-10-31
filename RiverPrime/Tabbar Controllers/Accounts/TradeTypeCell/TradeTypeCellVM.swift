@@ -620,12 +620,11 @@ class TradeTypeCellVM {
                 completion(nil, nil, nil, error) // Pass error to completion
             }
         }
-        
     }
     
     //only get duplicate positions list data -> time + symbol + price + profit + Close Model Complete
     
-    func getSymbolProfitList(from closes: [CloseModel]) -> [NewCloseModel] { //}[(String,[CloseModel],Int,[Double],Double,[CloseModel],Int,Int,Int,Int,Double,Double)] {
+    func getSymbolProfitList(from closes: [CloseModel]) -> [NewCloseModel] {
         var filteredOrders = closes.filter { $0.position != 0 }
         
         let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders)

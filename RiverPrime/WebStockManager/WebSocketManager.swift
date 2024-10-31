@@ -357,8 +357,8 @@ class WebSocketManager: WebSocketDelegate {
             
         case .cancelled:
             print("WebSocket cancelled... reconnect again")
-            connectWebSocket()
-            connectHistoryWebSocket()
+//            connectWebSocket()
+//            connectHistoryWebSocket()
 
         default:
             print("WebSocket received an unhandled event: \(event)")

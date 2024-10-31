@@ -27,8 +27,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     let fireStoreInstance = FirestoreServices()
     
     var selectedGender: String?
-    
-//    let days = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"]
+   
     let days = Array(1...31).map { String($0) }
     let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
    
@@ -68,54 +67,12 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     func getYear() -> Array <String> {
         let _year = Calendar.current.component(.year, from: Date())
-        let year = Array((1990..._year).reversed())
+        let year = Array((1960..._year).reversed())
         print(year)
         let yearStrings = year.map { String($0) }
         return yearStrings
     }
-    
-    // Function to calculate days in a month based on the month selected
-//    func daysInMonth(month: String, year: Int) -> [String] {
-//        switch month {
-//        case "February":
-//            // Check for leap year (29 days in February if leap year, otherwise 28)
-//            return isLeapYear(year) ? Array(1...29).map { String($0) } : Array(1...28).map { String($0) }
-//        case "April", "June", "September", "November":
-//            // These months have 30 days
-//            return Array(1...30).map { String($0) }
-//        default:
-//            // All other months have 31 days
-//            return Array(1...31).map { String($0) }
-//        }
-//    }
-//    // Function to check if a year is a leap year
-//    func isLeapYear(_ year: Int) -> Bool {
-//        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)
-//    }
-//    // Month button action to select the month and update the day options
-//    @IBAction func monthBtn_action(_ sender: UIButton) {
-//        dynamicDropDownButton(sender, list: months) { index, value in
-//            self.selectedMonth = value
-//            let currentYear = 2024  // Assume the current year
-//            let availableDays = self.daysInMonth(month: value, year: currentYear)
-//
-//            // When a month is selected, update the available days for the selected month
-//            print("Selected month: \(value)")
-//            print("Available days: \(availableDays)")
-//        }
-//    }
-//
-//    // Day button action to select the day based on the updated month
-//    @IBAction func dayBtn_action(_ sender: UIButton) {
-//        let currentYear = 2024  // Assume the current year
-//        let availableDays = daysInMonth(month: selectedMonth, year: currentYear)  // Dynamically get days based on the selected month
-//        
-//        dynamicDropDownButton(sender, list: availableDays) { index, value in
-//            self.selectedDay = value
-//            print("Selected day: \(value)")
-//        }
-//    }
-    
+   
     
     @IBAction func closeBtn_action(_ sender: UIButton) {
         self.dismiss(animated: true)
@@ -176,12 +133,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         }
         selectedGender = gender
     }
-    
-    // Store the selected gender in UserDefaults
-//    func storeGenderInUserDefaults(gender: String) {
-//        UserDefaults.standard.set(gender, forKey: "selectedGender")
-//        print("Stored gender: \(gender)")  // Log the selected gender
-//    }
+
     
     // MARK: - Store Date in UserDefaults
        func storeDateInUserDefaults(){

@@ -100,12 +100,25 @@ class KYCViewController: BaseViewController {
     
     @IBAction func uploadDocBtn(_ sender: Any) {
       
-        DispatchQueue.main.async {
-            Task {
-                await self.handleDocumentUpload()
-                }
-        }
+//        DispatchQueue.main.async {
+//            Task {
+//                await self.handleDocumentUpload()
+//                }
+//        }
 
+        Task { @MainActor in
+                   iPassSDKManger.delegate = self
+          await iPassSDKManger.startScanningProcess(
+                  userEmail: "it@salaminv.com",
+                  flowId: 10015,
+                  socialMediaEmail: "Asimprime900@gmail.com",
+                  phoneNumber: "+971561606314",
+                  controller: self,
+                  userToken: self.userToken,
+                  appToken: self.appToken
+              )
+               }
+               
     }
     
     
@@ -185,31 +198,35 @@ extension KYCViewController: iPassSDKManagerDelegate {
                 print("Scan successful. Result: \(result), Transaction ID: \(transactionId)")
                 self.ToastMessage("Data Scanned Successfully.")
                 // Convert the result string into a Data object
-                if let jsonData = result.data(using: .utf8) {
-                    do {
-                        // Parse the JSON data
-                        if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
-                           let amlData = jsonObject["data"] as? [String: Any],
-                           let status = amlData["OverAllStatus"] as? String,
-                           let amlInfo = amlData["amlData"] as? [String: Any],
-                           let sid = amlInfo["sid"] as? String {
-                            
-                            print("\n SID: \(sid) \t overall status : \(status)")
-                            UserDefaults.standard.set(sid, forKey: "SID")
-                            UserDefaults.standard.set(status, forKey: "OverAllStatus")
-                            UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
-                            self.AddUserAccountDetail()
-                            
-                        } else {
-                            print("SID not found in the result.")
+                if transactionId != "" {
+                    if let jsonData = result.data(using: .utf8) {
+                        do {
+                            // Parse the JSON data
+                            if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any],
+                                     let data = jsonObject["data"] as? [String: Any] {
+                                      
+                                      // Extracting "OverAllStatus"
+                                      if let status = data["OverAllStatus"] as? String {
+                                          print("\n Overall Status: \(status)")
+                                          UserDefaults.standard.set(status, forKey: "OverAllStatus")
+                                          print("\n SID: \(transactionId) \t overall status : \(status)")
+                                        
+                                      }
+                                
+                                UserDefaults.standard.set(transactionId, forKey: "SID")
+                                UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
+                                self.AddUserAccountDetail()
+                                
+                            } else {
+                                print("data not found in the result.")
+                            }
+                        } catch {
+                            print("Failed to parse JSON: \(error.localizedDescription)")
                         }
-                    } catch {
-                        print("Failed to parse JSON: \(error.localizedDescription)")
+                    } else {
+                        print("Failed to convert result string to data.")
                     }
-                } else {
-                    print("Failed to convert result string to data.")
                 }
-             
                 
             } else {
                 print("Scan failed. Error: \(error)")

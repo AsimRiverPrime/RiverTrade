@@ -66,7 +66,13 @@ extension TransactionCell {
             if symbolData.name == "Platinum" {
                 let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
                 symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else {
+            }else if symbolData.name == "NDX100" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else if symbolData.name == "DJI30" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else{
                 let imageUrl = URL(string: symbolData.icon_url)
                 symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
             }
@@ -75,7 +81,6 @@ extension TransactionCell {
         lbl_symbolName.text = data.symbol
 //        lbl_profitValue.text = "\(data.priceCurrent)"
      //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
-        
         
         if data.action == 0 {
             ticketName = "Buy"
@@ -100,7 +105,6 @@ extension TransactionCell {
         volume = Double(data.volume) / Double(10000)
         print("\(volume)")
         lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(data.priceOpen)"
-        
         
     }
     

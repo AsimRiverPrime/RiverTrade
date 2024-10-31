@@ -260,6 +260,9 @@
 		31D2AF462C8840B800E0CF2E /* SeriesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2AEDF2C8840B800E0CF2E /* SeriesApi.swift */; };
 		31D2AF472C8840B800E0CF2E /* TimeScaleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2AEE02C8840B800E0CF2E /* TimeScaleApi.swift */; };
 		31D2AF482C8840B800E0CF2E /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 31D2AEE22C8840B800E0CF2E /* .gitignore */; };
+		31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D993E92CD3B2EF00FC8FF9 /* TimeFrameVC.swift */; };
+		31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D993EB2CD3B33300FC8FF9 /* TimeFrameTVCell.swift */; };
+		31D993EE2CD3B33300FC8FF9 /* TimeFrameTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D993EC2CD3B33300FC8FF9 /* TimeFrameTVCell.xib */; };
 		31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19C32C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib */; };
 		31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C22C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift */; };
 		31DC19C92C4F76C0005BC2BB /* BenefitsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */; };
@@ -585,6 +588,9 @@
 		31D2AEDF2C8840B800E0CF2E /* SeriesApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesApi.swift; sourceTree = "<group>"; };
 		31D2AEE02C8840B800E0CF2E /* TimeScaleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeScaleApi.swift; sourceTree = "<group>"; };
 		31D2AEE22C8840B800E0CF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		31D993E92CD3B2EF00FC8FF9 /* TimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrameVC.swift; sourceTree = "<group>"; };
+		31D993EB2CD3B33300FC8FF9 /* TimeFrameTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrameTVCell.swift; sourceTree = "<group>"; };
+		31D993EC2CD3B33300FC8FF9 /* TimeFrameTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeFrameTVCell.xib; sourceTree = "<group>"; };
 		31DC19C22C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTopTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19C32C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTopTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsTableViewCell.swift; sourceTree = "<group>"; };
@@ -1278,6 +1284,9 @@
 				31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */,
 				318257492C76066400723A50 /* OhlcCalculator.swift */,
 				31F959FA2CD0E8A100607467 /* ChartTypeVC.swift */,
+				31D993E92CD3B2EF00FC8FF9 /* TimeFrameVC.swift */,
+				31D993EB2CD3B33300FC8FF9 /* TimeFrameTVCell.swift */,
+				31D993EC2CD3B33300FC8FF9 /* TimeFrameTVCell.xib */,
 			);
 			path = TradeDetailsPage;
 			sourceTree = "<group>";
@@ -2138,6 +2147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31D993EE2CD3B33300FC8FF9 /* TimeFrameTVCell.xib in Resources */,
 				31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */,
 				FA99B5BC2C59A87E00DD4F6D /* BenefitsTradingActivityCell.xib in Resources */,
 				FA316F8A2CC1ADEE0048B181 /* EmptyCell.xib in Resources */,
@@ -2369,6 +2379,7 @@
 				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
 				319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */,
 				FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */,
+				31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */,
 				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
 				319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */,
 				319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */,
@@ -2516,6 +2527,7 @@
 				3105DF182CB3E8A400D1B884 /* AccountDetailTableViewCell.swift in Sources */,
 				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
+				31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */,
 				FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				31D2AF242C8840B800E0CF2E /* LayoutOptions.swift in Sources */,
@@ -2688,7 +2700,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2732,7 +2744,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
-				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (

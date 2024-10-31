@@ -2183,7 +2183,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Ot-Ms-Ldv">
-                                        <rect key="frame" x="66.666666666666686" y="588.66666666666663" width="200" height="45"/>
+                                        <rect key="frame" x="66.666666666666686" y="538.66666666666663" width="200" height="45"/>
                                         <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="Qjh-P2-JfO"/>
@@ -2206,7 +2206,7 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="6Ot-Ms-Ldv" firstAttribute="top" secondItem="fls-NK-HIJ" secondAttribute="bottom" constant="150" id="3CZ-42-cgd"/>
+                                    <constraint firstItem="6Ot-Ms-Ldv" firstAttribute="top" secondItem="fls-NK-HIJ" secondAttribute="bottom" constant="100" id="3CZ-42-cgd"/>
                                     <constraint firstItem="hwf-mA-Qci" firstAttribute="top" secondItem="MQe-rJ-PbB" secondAttribute="bottom" constant="30" id="8jk-XJ-v9I"/>
                                     <constraint firstItem="MQe-rJ-PbB" firstAttribute="leading" secondItem="lAJ-Pw-m1x" secondAttribute="leading" constant="20" id="IjE-rq-0p3"/>
                                     <constraint firstAttribute="trailing" secondItem="hwf-mA-Qci" secondAttribute="trailing" constant="20" id="KJ0-vZ-zdS"/>

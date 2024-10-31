@@ -30,7 +30,7 @@ class TradeDetalVC: UIViewController {
     @IBOutlet var menuButton: [UIButton]!
     @IBOutlet weak var SellBuyView: UIView!
     @IBOutlet weak var btn_chartType: UIButton!
-    
+    @IBOutlet weak var btn_timeInterval: UIButton!
     //    var tradeDetails: TradeDetails?
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
@@ -44,6 +44,8 @@ class TradeDetalVC: UIViewController {
     
     var overviewList = [(String, String)]()
     
+    var chartType: ChartType = .candlestick
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         connectHistoryWebSocket()
@@ -53,7 +55,22 @@ class TradeDetalVC: UIViewController {
         
         addTopAndBottomBorders(menuButton[0])
         
+        buttonStyle(_button: btn_chartType)
+
+        buttonStyle(_button: btn_timeInterval)
     }
+    
+    func buttonStyle(_button: UIButton) {
+        _button.layer.cornerRadius = 5
+        _button.layer.shadowColor = UIColor.black.cgColor
+        _button.layer.shadowOpacity = 0.3
+        _button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        _button.layer.shadowRadius = 4
+        _button.layer.borderWidth = 0.1
+        _button.layer.borderColor = UIColor.darkGray.cgColor
+        _button.clipsToBounds = false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -123,10 +140,12 @@ class TradeDetalVC: UIViewController {
                 self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
                 self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
                 
-                getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-                
-                // if ChartType.candlestick {
-                
+                switch self.chartType {
+                case .candlestick:
+                    
+                    getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+
+                    
                     let data =  getLiveCandelStick.getLatestOhlcData()
                     print("latest data: \(data)")
                     
@@ -147,7 +166,15 @@ class TradeDetalVC: UIViewController {
                     
                     //            // Use update to add this candlestick incrementally
                     series?.update(bar: dataPoint)
-               
+                    
+                    
+                    break
+                case .area:
+                    break
+                case .bar:
+                    break
+                }
+                
                 
             }
             //            setupSeries(candlestickData: dataPoint)
@@ -302,32 +329,44 @@ extension TradeDetalVC: WebSocketDelegate {
             do {
                 let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
                 //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-                for payload in response.message.payload.chartData {
+                
+                switch chartType {
+                case .candlestick:
                     
-                    let times = Time.utc(timestamp: Double(payload.datetime))
-                    // Debugging output to check timestamps
+                    for payload in response.message.payload.chartData {
+                        
+                        let times = Time.utc(timestamp: Double(payload.datetime))
+                        // Debugging output to check timestamps
+                        
+                        print("\n Candlestick each array object data: \(payload)")
+                        
+                        let open = payload.open
+                        let close = payload.close
+                        let high = payload.high
+                        let low = payload.low
+                        
+                        let dataPoint = CandlestickData(
+                            time: times,
+                            open: open,
+                            high: high,
+                            low: low,
+                            close: close
+                        )
+                        
+                        // Use update to add this candlestick incrementally
+                        series?.update(bar: dataPoint)
+                        candlestickData.append(dataPoint)
+                    }
+                    series.setData(data: candlestickData)
+                    //                setupSeries(candlestickData: candlestickData)
                     
-                    print("\n Candlestick each array object data: \(payload)")
-                    
-                    let open = payload.open
-                    let close = payload.close
-                    let high = payload.high
-                    let low = payload.low
-                    
-                    let dataPoint = CandlestickData(
-                        time: times,
-                        open: open,
-                        high: high,
-                        low: low,
-                        close: close
-                    )
-                    
-                    // Use update to add this candlestick incrementally
-                    series?.update(bar: dataPoint)
-                    candlestickData.append(dataPoint)
+                    break
+                case .area:
+                    break
+                case .bar:
+                    break
                 }
-                series.setData(data: candlestickData)
-                //                setupSeries(candlestickData: candlestickData)
+                
             } catch {
                 print("Error parsing JSON: \(error)")
             }
@@ -543,6 +582,8 @@ extension TradeDetalVC: ChartOptionsDelegate {
     func didSelectChartType(_ chartType: ChartType) {
         // Clear existing chart
         clearChart()
+        
+        self.chartType = chartType
         
         switch chartType {
         case .candlestick:
