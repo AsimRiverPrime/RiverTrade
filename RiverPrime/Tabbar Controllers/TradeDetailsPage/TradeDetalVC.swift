@@ -19,6 +19,9 @@ class TradeDetalVC: UIViewController {
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
     
+    var barSeries: BarSeries!
+    var areaSeries: AreaSeries!
+    
     @IBOutlet weak var lbl_sellBtn: UILabel!
     //    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
@@ -55,22 +58,10 @@ class TradeDetalVC: UIViewController {
         
         addTopAndBottomBorders(menuButton[0])
         
-        buttonStyle(_button: btn_chartType)
-
-        buttonStyle(_button: btn_timeInterval)
+        btn_chartType.buttonStyle()
+        btn_timeInterval.buttonStyle()
     }
-    
-    func buttonStyle(_button: UIButton) {
-        _button.layer.cornerRadius = 5
-        _button.layer.shadowColor = UIColor.black.cgColor
-        _button.layer.shadowOpacity = 0.3
-        _button.layer.shadowOffset = CGSize(width: 0, height: 1)
-        _button.layer.shadowRadius = 4
-        _button.layer.borderWidth = 0.1
-        _button.layer.borderColor = UIColor.darkGray.cgColor
-        _button.clipsToBounds = false
-    }
-    
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -90,6 +81,7 @@ class TradeDetalVC: UIViewController {
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = false
             self.btn_chartType.isHidden = false
+            self.btn_timeInterval.isHidden = false
             //MARK: - Add new content from here.
             setupChart()
             
@@ -100,6 +92,7 @@ class TradeDetalVC: UIViewController {
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = true
             self.btn_chartType.isHidden = true
+            self.btn_timeInterval.isHidden = true
             //MARK: - Add new content from here.
             setupOverview()
             
@@ -140,44 +133,47 @@ class TradeDetalVC: UIViewController {
                 self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
                 self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
                 
+                getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
+
+                let data =  getLiveCandelStick.getLatestOhlcData()
+                print("latest data: \(data)")
+                
+                let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
+                
+                let open = data?.open
+                let close = data?.close
+                let high = data?.high
+                let low = data?.low
+                
+                let dataPoint = CandlestickData(
+                    time: times,
+                    open: open,
+                    high: high,
+                    low: low,
+                    close: close
+                )
+                
                 switch self.chartType {
                 case .candlestick:
                     
-                    getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-
-                    
-                    let data =  getLiveCandelStick.getLatestOhlcData()
-                    print("latest data: \(data)")
-                    
-                    let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
-                    
-                    let open = data?.open
-                    let close = data?.close
-                    let high = data?.high
-                    let low = data?.low
-                    
-                    let dataPoint = CandlestickData(
-                        time: times,
-                        open: open,
-                        high: high,
-                        low: low,
-                        close: close
-                    )
-                    
-                    //            // Use update to add this candlestick incrementally
                     series?.update(bar: dataPoint)
-                    
                     
                     break
                 case .area:
+    
+                    let areaData = convertToAreaData(candlestickData: dataPoint)
+                    self.areaSeries.update(bar: areaData)
+                    
                     break
                 case .bar:
+                 
+                    let barData = convertToBarData(candlestickData: dataPoint)
+
+                    self.barSeries.update(bar: barData)
+                    
                     break
                 }
-                
-                
             }
-            //            setupSeries(candlestickData: dataPoint)
             
         }
     }
@@ -489,6 +485,7 @@ extension TradeDetalVC {
             lineWidth: .one
         )
         let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
+        self.areaSeries = areaSeries
         areaSeries.setData(data: areaData)
         //
         //        let data = [
@@ -527,6 +524,7 @@ extension TradeDetalVC {
         )
         
         let barSeries = chart.addBarSeries(options: barSeriesOptions)
+        self.barSeries = barSeries
         barSeries.setData(data: barData)
         
         // Add constraints as you did for candlestick chart
@@ -571,10 +569,38 @@ extension TradeDetalVC {
         }
     }
     
+    private func convertToBarData(candlestickData: CandlestickData) -> BarData {
+//        return candlestickData.map { candle in
+//            return BarData(
+//                time: candle.time,
+//                open: candle.open,
+//                high: candle.high,
+//                low: candle.low,
+//                close: candle.close
+//            )
+//        }
+        
+        return BarData(
+            time: candlestickData.time,
+            open: candlestickData.open,
+            high: candlestickData.high,
+            low: candlestickData.low,
+            close: candlestickData.close
+        )
+    }
+    
     private func convertToAreaData(candlestickData: [CandlestickData]) -> [AreaData] {
         return candlestickData.map { candle in
             return AreaData(time: candle.time, value: candle.close)
         }
+    }
+    
+    private func convertToAreaData(candlestickData: CandlestickData) -> AreaData {
+//        return candlestickData.map { candle in
+//            return AreaData(time: candle.time, value: candle.close)
+//        }
+        
+        AreaData(time: candlestickData.time, value: candlestickData.close)
     }
 }
 
@@ -758,3 +784,19 @@ extension TradeDetalVC {
     }
     
 }
+
+
+
+extension UIButton {
+    func buttonStyle() {
+        self.layer.cornerRadius = 5
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.layer.shadowRadius = 4
+        self.layer.borderWidth = 0.1
+        self.layer.borderColor = UIColor.darkGray.cgColor
+        self.clipsToBounds = false
+    }
+}
+

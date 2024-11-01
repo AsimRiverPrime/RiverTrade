@@ -23,6 +23,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     @IBOutlet weak var maleButton: UIButton!
     @IBOutlet weak var femaleButton: UIButton!
+    @IBOutlet weak var btn_continue: UIButton!
     
     let fireStoreInstance = FirestoreServices()
     
@@ -63,6 +64,10 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         yearButton.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
         
         print("the profileStep value is: \(profileStep)")
+        
+        btn_continue.buttonStyle()
+        btn_continue.layer.cornerRadius = 15.0
+            
     }
     
     func getYear() -> Array <String> {

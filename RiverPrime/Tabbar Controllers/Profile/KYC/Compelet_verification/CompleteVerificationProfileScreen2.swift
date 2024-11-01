@@ -15,6 +15,10 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
     @IBOutlet weak var lbl_tradeInstrument: UILabel!
     @IBOutlet var selectedSwitch: [UISwitch]!
    
+    
+    @IBOutlet weak var btn_submit: UIButton!
+    @IBOutlet weak var btn_back: UIButton!
+    
     var selectedInstrument: [String: [String]] = [:]
 
     weak var delegateKYC: KYCVCDelegate?
@@ -28,7 +32,10 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
                switchControl.isOn = false
                switchControl.thumbTintColor = .systemGray4 // Initial thumb color for off state
            }
-        
+        btn_back.buttonStyle()
+        btn_back.layer.cornerRadius = 15.0
+        btn_submit.buttonStyle()
+        btn_submit.layer.cornerRadius = 15.0
     }
     
     @IBAction func switch_action(_ sender: UISwitch) {

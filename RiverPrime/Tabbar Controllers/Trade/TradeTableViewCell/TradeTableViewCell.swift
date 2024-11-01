@@ -106,13 +106,13 @@ class TradeTableViewCell: UITableViewCell {
 //                   lineWidth: .one
 //               )
         
-        let options2 = AreaSeriesOptions(
-            priceLineVisible: false,
-            topColor: "rgba(255, 59, 48, 0.5)",
-            bottomColor: "rgba(255, 59, 48, 0.0)",
-            lineColor: "rgba(255, 59, 48, 1.0)",
-            lineWidth: .one
-        )
+//        let options2 = AreaSeriesOptions(
+//            priceLineVisible: false,
+//            topColor: "rgba(255, 59, 48, 0.5)",
+//            bottomColor: "rgba(255, 59, 48, 0.0)",
+//            lineColor: "rgba(255, 59, 48, 1.0)",
+//            lineWidth: .one
+//        )
         
         let areaSeries = chart.addAreaSeries(options: options)
         

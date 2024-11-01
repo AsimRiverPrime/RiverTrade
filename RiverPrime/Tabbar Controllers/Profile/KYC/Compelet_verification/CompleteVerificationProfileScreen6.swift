@@ -15,6 +15,9 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     
     @IBOutlet var selectionSwitch: [UISwitch]!
     
+    
+    @IBOutlet weak var btn_submit: UIButton!
+    @IBOutlet weak var btn_back: UIButton!
     var selectedPurpose: [String: [String]] = [:]
     
     let fireStoreInstance = FirestoreServices()
@@ -28,7 +31,11 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
             switchControl.isOn = false
             switchControl.thumbTintColor = .systemGray4 // Initial thumb color for off state
         }
-        //        selectedObjective = [:]
+        btn_back.buttonStyle()
+        btn_back.layer.cornerRadius = 15.0
+        btn_submit.buttonStyle()
+        btn_submit.layer.cornerRadius = 15.0
+
     }
     @IBAction func switch_action(_ sender: UISwitch) {
         guard let question = lbl_tradeObj.text else { return }

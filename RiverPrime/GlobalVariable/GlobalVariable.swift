@@ -33,6 +33,8 @@ class GlobalVariable: NSObject {
     var isReturnToProfile = false
     var userEmail: String = ""
     
+    var chartType: ChartType = .candlestick
+    
     var socketTimer = Double()
     var socketTimerCount = 0
       

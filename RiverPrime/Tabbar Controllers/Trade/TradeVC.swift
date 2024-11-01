@@ -34,8 +34,9 @@ struct SymbolData: Codable {
     let swapShort: String
     let spreadSize: String
     let mobile_available: String
+    let yesterday_close: String
     
-    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String) {
+    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String) {
         self.id = id
         self.name = name
         self.description = description
@@ -52,7 +53,7 @@ struct SymbolData: Codable {
         self.swapShort = swapShort
         self.stopsLevel = stopsLevel
         self.mobile_available = mobile_available
-        
+        self.yesterday_close = yesterday_close
     }
     
 }
@@ -73,7 +74,7 @@ class TradeVC: UIView {
     weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
    
-    var odooClientService = OdooClient()
+//    var odooClientService = OdooClient()
     
     let vm = TradeVM()
      
@@ -82,6 +83,7 @@ class TradeVC: UIView {
     var timer: Timer?
     var timeLeft = 60 // seconds
     var isTimerRunMoreThenOnce = false
+    var symbolDataObj: SymbolData?
     
     public override func awakeFromNib() {
 //        ActivityIndicator.shared.show(in: self)
@@ -189,8 +191,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
             //MARK: - getSymbolData list is comming from symbol api.
             let trade = getSymbolData[indexPath.row].tickMessage//?[indexPath.row]
-            
-            var symbolDataObj: SymbolData?
+           
             
             //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
             if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
@@ -357,16 +358,34 @@ extension TradeVC: GetSocketMessages {
                                cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                              
                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
-                               let close = Double((getSymbolData[index].tickMessage?.close) ?? 0)
-
-                               let percentageChange = ((bid - (getSymbolData[index].tickMessage?.ask ?? 0.0) + close) * 10) + 1
-                               print("\n percentageChange: \(percentageChange)")
-                               let percent = String(percentageChange).trimmedTrailingZeros()
+                               var oldBid =  Double()
                                
-                               cell.lblPercent.text =    "0 %"
+                               if cell.lblCurrencySymbl.text == tickMessage?.symbol {
+                                   let yesterdayClose_value = GlobalVariable.instance.symbolDataArray.filter { $0.name == getSymbolData[index].tickMessage?.symbol }.map { $0.yesterday_close }
+                                    print("symbolyesterday_close = \(yesterdayClose_value)")
+                                   oldBid = Double(yesterdayClose_value[0]) ?? 0.0
+                                 
+                               }
                                
-                               if percentageChange > 0.0 {
-                                   
+                               let diff = bid - oldBid
+                               let percentageChange = (diff / oldBid) * 100
+                               let newValue = (percentageChange * 100.0) / 100.0
+                               let percent = String(newValue).trimmedTrailingZeros()
+                               print("\n new value is: \(newValue)")
+//                               double diff = newBid - oldBid;
+//                               double percentageChange = (diff / oldBid) * 100;
+//                               return Math.round(percentageChange * 100.0) / 100.0;
+                               
+                               cell.lblPercent.text = "\(percent) %"
+                               
+                               if percent.contains("inf") {
+                                   cell.lblPercent.text = "0.0 %"
+                               }
+                               
+                               if newValue > 0.0 {
+                                   cell.profitIcon.image = UIImage(systemName: "arrow.up")
+                                   cell.profitIcon.tintColor = .systemGreen
+                                   cell.lblPercent.textColor = .systemGreen
                                    //MARK: - Update options -> Green
                                    cell.options = AreaSeriesOptions(
                                     priceLineVisible: false,
@@ -377,7 +396,9 @@ extension TradeVC: GetSocketMessages {
                                    )
                                    
                                } else {
-                                   
+                                   cell.profitIcon.image = UIImage(systemName: "arrow.down")
+                                   cell.profitIcon.tintColor = .systemRed
+                                   cell.lblPercent.textColor = .systemRed
                                    //MARK: - Update options -> Red
                                    cell.options = AreaSeriesOptions(
                                     priceLineVisible: false,
@@ -393,7 +414,7 @@ extension TradeVC: GetSocketMessages {
 //                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
 //                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen
 //                             
-//                               double diff = newBid - oldBid;double percentageChange = (diff / oldBid) * 100;return Math.round(percentageChange * 100.0) / 100.0;
+//
                                
                                //MARK: - User Interface enabled, when tick flag is true.
                                cell.isUserInteractionEnabled = true

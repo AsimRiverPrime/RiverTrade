@@ -583,7 +583,7 @@ extension DashboardVC {
     private func symbolApiCalling() {
         
         //MARK: - Call Symbol Api and their delegate method to get data.
-        odooClientService.sendSymbolDetailRequest()
+        odooClientService.sendSymbolDetailRequest1()
         odooClientService.tradeSymbolDetailDelegate = self
        
     }
@@ -592,9 +592,10 @@ extension DashboardVC {
 
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension DashboardVC: TradeSymbolDetailDelegate {
-    func tradeSymbolDetailSuccess(response: String) {
-        print("\n \(response) ")
-        convertXMLIntoJson(response)
+    func tradeSymbolDetailSuccess(response: [String: Any]) {
+        print("\n symbol resposne is: \(response) ")
+//        convertXMLIntoJson(response)
+        convertJSONIntoSymbols(response)
         ActivityIndicator.shared.hide(from: self.view)
     }
     
@@ -602,62 +603,71 @@ extension DashboardVC: TradeSymbolDetailDelegate {
         print("\n the trade symbol detail Error response: \(error) ")
     }
     
-    func convertXMLIntoJson(_ xmlString: String) {
-        
-        do {
-            let xmlDoc = try AEXMLDocument(xml: xmlString)
+    func convertJSONIntoSymbols(_ jsonResponse: [String: Any]) {
+        if let resultArray = jsonResponse["result"] as? [[String: Any]] {
+            print("Result Array count: \(resultArray.count)")
+            
+            for (index, result) in resultArray.enumerated() {
+                print("\n Processing entry \(index + 1) of \(resultArray.count)")
+                
+                // Extract data, providing default values or handling optionals where needed
+                let symbolId = result["id"] as? Int ?? -1
+                let symbolName = result["name"] as? String ?? "Unknown"
+                let symbolDescription = result["description"] as? String ?? "No description"
+                let symbolIcon = result["icon_url"] as? String ?? ""
+                let symbolVolumeMin = result["volume_min"] as? Int ?? 0
+                let symbolVolumeMax = result["volume_max"] as? Int ?? 0
+                let symbolVolumeStep = result["volume_step"] as? Int ?? 0
+                let symbolContractSize = result["contract_size"] as? Int ?? 0
+                let symbolDisplayName = result["display_name"] as? String ?? symbolName
+                let symbolSector = result["sector"] as? String ?? "Unknown Sector"
+                let symbolDigits = result["digits"] as? Int ?? 0
+                let symbolMobileAvailable = result["mobile_available"] as? Int ?? 0
+                let symbolSwapLong = result["swap_long"] as? Double ?? 0.0
+                let symbolStopsLevel = result["stops_level"] as? Double ?? 0.0
+                let symbolSpreadSize = result["spread_size"] as? Double ?? 0.0
+                let symbolSwapShort = result["swap_short"] as? Double ?? 0.0
+                let symbolyesterday_close = result["yesterday_close"] as? Double ?? 0.0
 
-            if let xmlDocFile = xmlDoc.root["params"]["param"]["value"]["array"]["data"]["value"].all {
+                // Modify the icon URL if needed
+                let modifiedUrl = symbolIcon
+                    .replacingOccurrences(of: "-01.svg", with: ".png")
+                    .replacingOccurrences(of: ".com/", with: ".com/png/")
                 
+                // Append to the symbol data array
+                GlobalVariable.instance.symbolDataArray.append(
+                    SymbolData(
+                        id: String(symbolId),
+                        name: symbolName,
+                        description: symbolDescription,
+                        icon_url: modifiedUrl,
+                        volumeMin: String(symbolVolumeMin),
+                        volumeMax: String(symbolVolumeMax),
+                        volumeStep: String(symbolVolumeStep),
+                        contractSize: String(symbolContractSize),
+                        displayName: symbolDisplayName,
+                        sector: symbolSector,
+                        digits: String(symbolDigits),
+                        stopsLevel: String(symbolStopsLevel),
+                        swapLong: String(symbolSwapLong),
+                        swapShort: String(symbolSwapShort),
+                        spreadSize: String(symbolSpreadSize),
+                        mobile_available: String(symbolMobileAvailable),
+                        yesterday_close: String(symbolyesterday_close)
+                    )
+                )
                 
-                for param in xmlDocFile {
-                    if let structElement = param["struct"].first {
-                        var parsedData: [String: Any] = [:]
-                        for member in structElement["member"].all ?? [] {
-                            let name = member["name"].value ?? ""
-                            let value = member["value"].children.first?.value ?? ""
-                            parsedData[name] = value
-                        }
-                        
-                        if let symbolId = parsedData["id"] as? String, let symbolName = parsedData["name"] as? String,
-                            let symbolDescription = parsedData["description"] as? String, let symbolIcon = parsedData["icon_url"] as? String,
-                            let symbolVolumeMin = parsedData["volume_min"] as? String, let symbolVolumeMax = parsedData["volume_max"] as? String,
-                            let symbolVolumeStep = parsedData["volume_step"] as? String, let symbolContractSize = parsedData["contract_size"] as? String,
-                           let symbolDisplayName = parsedData["display_name"] as? String, let symbolSector = parsedData["sector"] as? String, let symbolDigits = parsedData["digits"] as? String, let symbolMobile_available = parsedData["mobile_available"] as? String,  let symbolSwap_long = parsedData["swap_long"] as? String , let symbolStops_level = parsedData["stops_level"] as? String,  let symbolSpread_size = parsedData["spread_size"] as? String, let symbolSwap_short = parsedData["swap_short"] as? String   {
-                         
-                            
-                            let originalUrl = symbolIcon // "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/platinum-01.svg"
-                            print(" originalUrl URL: \(originalUrl)")
-                            // Replace the part of the URL
-                            if originalUrl == "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/ndx100-01.svg" {
-                                
-                            }
-                            let modifiedUrl = originalUrl
-                                .replacingOccurrences(of: "-01.svg", with: ".png")
-                                .replacingOccurrences(of: ".com/", with: ".com/png/")
-
-                            print("\n modifiy URL: \(modifiedUrl)")
-                            
-                            GlobalVariable.instance.symbolDataArray.append(SymbolData(id: symbolId , name: symbolName , description: symbolDescription , icon_url: modifiedUrl , volumeMin: symbolVolumeMin , volumeMax: symbolVolumeMax , volumeStep: symbolVolumeStep , contractSize: symbolContractSize , displayName: symbolDisplayName , sector: symbolSector , digits: symbolDigits,  stopsLevel: symbolStops_level, swapLong: symbolSwap_long, swapShort: symbolSwap_short, spreadSize: symbolSpread_size, mobile_available: symbolMobile_available))
-                        }
-                           
-                        print("symbol data array count : \(GlobalVariable.instance.symbolDataArray.count)")
-                       
-                        print("\n the parsed value is :\(parsedData)")
-                    }
-                }
-                
-                //MARK: - Get the list and save localy and set sectors and symbols.
-                processSymbols(GlobalVariable.instance.symbolDataArray)
-                
-//                //MARK: - Reload tablview when all data set into the list at first time.
-//                self.tblView.reloadData()
+                print("Added symbol: \(symbolName) with ID: \(symbolId)")
             }
-        } catch {
-            print("Failed to parse XML: \(error.localizedDescription)")
+            
+            print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")
+//             Process and save symbols
+            processSymbols(GlobalVariable.instance.symbolDataArray)
+        } else {
+            print("Error: Invalid JSON structure")
         }
-
     }
+ 
     
     func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {
         return symbols.filter { $0.sector == sector }.map { $0.displayName }
