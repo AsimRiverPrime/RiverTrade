@@ -29,7 +29,7 @@ protocol SocketPeerClosed: AnyObject {
 
 class WebSocketManager: WebSocketDelegate {
 
-    var historyWebSocket: WebSocket?
+//    var historyWebSocket: WebSocket?
     var webSocket: WebSocket?
     static let shared = WebSocketManager() // Shared instance
     
@@ -44,7 +44,7 @@ class WebSocketManager: WebSocketDelegate {
     var isTradeDismiss = Bool()
 
     
-    private let historyQueue = DispatchQueue(label: "historyQueue", qos: .background)
+//    private let historyQueue = DispatchQueue(label: "historyQueue", qos: .background)
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
     var trades: [String: TradeDetails] = [:] {
@@ -130,22 +130,22 @@ class WebSocketManager: WebSocketDelegate {
         return GlobalVariable.instance.isConnected
     }
 
-    func connectHistoryWebSocket() {
-        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
-//        let url = URL(string: "ws://192.168.3.169:8073")!
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5
-
-        historyWebSocket = WebSocket(request: request)
-        historyWebSocket?.delegate = self
-        historyWebSocket?.connect()
-    }
-    
-    func disconnectHistoryWebSocket() {
-        if isSocketConnected() {
-            historyWebSocket?.disconnect()
-        }
-    }
+//    func connectHistoryWebSocket() {
+//        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
+////        let url = URL(string: "ws://192.168.3.169:8073")!
+//        var request = URLRequest(url: url)
+//        request.timeoutInterval = 5
+//
+//        historyWebSocket = WebSocket(request: request)
+//        historyWebSocket?.delegate = self
+//        historyWebSocket?.connect()
+//    }
+//    
+//    func disconnectHistoryWebSocket() {
+//        if isSocketConnected() {
+//            historyWebSocket?.disconnect()
+//        }
+//    }
 
     func connectWebSocket() {
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
@@ -164,78 +164,78 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
 
-    func sendHistoryWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil, isTradeDismiss: Bool? = nil) {
-        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-        
-        let timestamps = currentAndBeforeBusinessDayTimestamps()
-        print("Current Timestamp: \(timestamps.currentTimestamp)")
-        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-
-        var message: [String: Any] = [:]
-        
-        // Prepare message based on event type (trade or history)
-        if event == "subscribeTrade" {
-            
-            if symbolList != nil {
-                message = [
-                    "event_name": "subscribe",
-                    "data": [
-                        "last": 0,
-    //                    "channels": ["price_feed"]
-                        "channels": symbolList ?? [""] //["Gold","Silver"]
-                    ]
-                ]
-            } else {
-                message = [
-                    "event_name": "subscribe",
-                    "data": [
-                        "last": 0,
-    //                    "channels": ["price_feed"]
-                        "channels": [symbol ?? ""] //["Gold","Silver"]
-                    ]
-                ]
-            }
-            
-        } else if event == "subscribeHistory" {
-          
-            message = [
-                "event_name": "get_chart_history",
-                "data": [
-                    "symbol": symbol ?? "",
-//                    "from": timestamps.previousTimestamp,
-//                    "to":  timestamps.currentTimestamp
-                    "from": hourBeforeTimestamp,
-                    "to": currentTimestamp
-                ]
-            ]
-            
-        } else if event == "unsubscribeTrade" {
-//            print("symbolList = \(symbolList)")
-            
-            self.isTradeDismiss = isTradeDismiss ?? false
-            
-            message = [
-                "event_name": "unsubscribe",
-                "data": [
-                    "last": 0,
-                    "channels": symbolList ?? [""]
-                ]
-            ]
-        }
-
-        // Send the prepared message to the HistoryWebSocket
-        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            historyQueue.async {
-                if let webSocket = self.historyWebSocket {
-                    webSocket.write(string: jsonString)
-                    print("Message sent to HistoryWebSocket: \(event)")
-                } else {
-                    print("HistoryWebSocket is not connected.")
-                }
-            }
-        }
-    }
+//    func sendHistoryWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil, isTradeDismiss: Bool? = nil) {
+//        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
+//        
+//        let timestamps = currentAndBeforeBusinessDayTimestamps()
+//        print("Current Timestamp: \(timestamps.currentTimestamp)")
+//        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
+//
+//        var message: [String: Any] = [:]
+//        
+//        // Prepare message based on event type (trade or history)
+//        if event == "subscribeTrade" {
+//            
+//            if symbolList != nil {
+//                message = [
+//                    "event_name": "subscribe",
+//                    "data": [
+//                        "last": 0,
+//    //                    "channels": ["price_feed"]
+//                        "channels": symbolList ?? [""] //["Gold","Silver"]
+//                    ]
+//                ]
+//            } else {
+//                message = [
+//                    "event_name": "subscribe",
+//                    "data": [
+//                        "last": 0,
+//    //                    "channels": ["price_feed"]
+//                        "channels": [symbol ?? ""] //["Gold","Silver"]
+//                    ]
+//                ]
+//            }
+//            
+//        } else if event == "subscribeHistory" {
+//          
+//            message = [
+//                "event_name": "get_chart_history",
+//                "data": [
+//                    "symbol": symbol ?? "",
+////                    "from": timestamps.previousTimestamp,
+////                    "to":  timestamps.currentTimestamp
+//                    "from": hourBeforeTimestamp,
+//                    "to": currentTimestamp
+//                ]
+//            ]
+//            
+//        } else if event == "unsubscribeTrade" {
+////            print("symbolList = \(symbolList)")
+//            
+//            self.isTradeDismiss = isTradeDismiss ?? false
+//            
+//            message = [
+//                "event_name": "unsubscribe",
+//                "data": [
+//                    "last": 0,
+//                    "channels": symbolList ?? [""]
+//                ]
+//            ]
+//        }
+//
+//        // Send the prepared message to the HistoryWebSocket
+//        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
+//           let jsonString = String(data: jsonData, encoding: .utf8) {
+//            historyQueue.async {
+//                if let webSocket = self.historyWebSocket {
+//                    webSocket.write(string: jsonString)
+//                    print("Message sent to HistoryWebSocket: \(event)")
+//                } else {
+//                    print("HistoryWebSocket is not connected.")
+//                }
+//            }
+//        }
+//    }
     
     func sendWebSocketMessage(for event: String, symbol: String? = nil, symbolList: [String]? = nil, isTradeDismiss: Bool? = nil) {
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()

@@ -162,10 +162,14 @@ class TradeTableViewCell: UITableViewCell {
         }
     }
     
-    func configureChart(getSymbolData: SymbolCompleteList) {
-        
-        setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+    func configureChart(getSymbolData: SymbolChartData) {        
+        setupChart(for: getSymbolData.symbol, with: getSymbolData.chartData)
     }
+    
+//    func configureChart(getSymbolData: SymbolCompleteList) {
+//        
+//        setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+//    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)

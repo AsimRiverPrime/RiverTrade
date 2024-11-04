@@ -51,6 +51,10 @@ class SignInViewController: BaseViewController {
         
         self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
+        
+        username_tf.text = "asimprime900@gmail.com"
+        password_tf.text = "Asim123#" //"asdasd" //Meta trader pass: -> Test@123!
+        
         enableLoginButton()
     }
     

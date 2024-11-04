@@ -116,7 +116,7 @@ class DashboardVC: BaseViewController {
 //            webSocketManager.delegateSocketMessage = self
 //            webSocketManager.delegateSocketPeerClosed = self
             webSocketManager.connectWebSocket()
-            webSocketManager.connectHistoryWebSocket()
+//            webSocketManager.connectHistoryWebSocket()
             setAccountsButton()
         }
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
@@ -547,6 +547,7 @@ extension DashboardVC: TradeDetailTapDelegate {
         let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
        
         vc.getSymbolData = getSymbolData
+//        vc.symbolChartData = symbolChartData
         
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }

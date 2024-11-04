@@ -132,7 +132,19 @@ extension TradeVM {
 
 extension TradeVM {
     
-    func fetchChartHistory(symbol: String, completion: @escaping (Result<HistoryResponseData, Error>) -> Void) {
+    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
+        let now = Date()
+        //        let calendar = Calendar.current
+        
+        // Get current timestamp in milliseconds
+        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
+        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
+        
+        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
+        
+    }
+    
+    func fetchChartHistory(symbol: String, completion: @escaping (Result<SymbolChartData, Error>) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -140,7 +152,9 @@ extension TradeVM {
                 loginId = _loginId
             }
         }
-        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
+//        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
+        
+        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
         let params: [String: Any] = [
             "jsonrpc": "2.0",
@@ -157,20 +171,19 @@ extension TradeVM {
                         [],
                         email, // Email
                         symbol,                   // Symbol
-                        1724926194,               // Start time
-                        1724928294                // End time
+                        hourBeforeTimestamp,               // Start time
+                        currentTimestamp                // End time
                     ]
                 ]
             ]
         ]
         
-        print("params is: \(params)")
+//        print("params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
-                print(" position closed value is: \(value)")
                 
                 do {
                     // Decode the response
@@ -180,7 +193,7 @@ extension TradeVM {
                         
                         // Create HistoryResponseData from chartData
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        let historyResponseData = try JSONDecoder().decode(HistoryResponseData.self, from: jsonData)
+                        let historyResponseData = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
                         completion(.success(historyResponseData))
                     } else {
                         completion(.failure(NSError(domain: "ResponseParsingError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid response structure"])))

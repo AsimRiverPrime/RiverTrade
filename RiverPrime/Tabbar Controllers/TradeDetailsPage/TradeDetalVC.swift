@@ -13,7 +13,7 @@ class TradeDetalVC: UIViewController {
     
     @IBOutlet weak var chartView: UIView!
     
-    var webSocket : WebSocket!
+//    var webSocket : WebSocket!
     
     private var chart: LightweightCharts!
     private var series: CandlestickSeries!
@@ -38,6 +38,8 @@ class TradeDetalVC: UIViewController {
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
     
+//    var symbolChartData: SymbolChartData?
+    
     var login_Id = Int()
     var account_type = String()
     var account_group = String()
@@ -51,8 +53,47 @@ class TradeDetalVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        connectHistoryWebSocket()
+//        connectHistoryWebSocket()
+        
         setupSeries(candlestickData: [])
+        
+        switch chartType {
+        case .candlestick:
+            
+            let historychart = getSymbolData.historyMessage?.chartData ?? []
+            for payload in historychart {
+                
+                let times = Time.utc(timestamp: Double(payload.datetime))
+                // Debugging output to check timestamps
+                
+                print("\n Candlestick each array object data: \(payload)")
+                
+                let open = payload.open
+                let close = payload.close
+                let high = payload.high
+                let low = payload.low
+                
+                let dataPoint = CandlestickData(
+                    time: times,
+                    open: open,
+                    high: high,
+                    low: low,
+                    close: close
+                )
+                
+                // Use update to add this candlestick incrementally
+                series?.update(bar: dataPoint)
+                candlestickData.append(dataPoint)
+            }
+            series.setData(data: candlestickData)
+            //                setupSeries(candlestickData: candlestickData)
+            
+            break
+        case .area:
+            break
+        case .bar:
+            break
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
@@ -69,7 +110,7 @@ class TradeDetalVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        disconnectWebSocket()
+//        disconnectWebSocket()
     }
     
     @IBAction func menuButton(_ sender: UIButton) {
@@ -259,174 +300,174 @@ class TradeDetalVC: UIViewController {
     
 }
 
-extension TradeDetalVC: WebSocketDelegate {
-    func connectHistoryWebSocket() {
-        //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
-        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5
-        
-        webSocket = WebSocket(request: request)
-        webSocket.delegate = self
-        webSocket.connect()
-    }
-    
-    func disconnectWebSocket() {
-        webSocket?.disconnect()
-    }
-    
-    func sendSubscriptionHistoryMessage() {
-        // Define the message dictionary
-        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-        
-//        let timestamps = currentAndBeforeBusinessDayTimestamps()
-//        print("Current Timestamp: \(timestamps.currentTimestamp)")
-//        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
+//extension TradeDetalVC: WebSocketDelegate {
+//    func connectHistoryWebSocket() {
+//        //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
+//        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!
+//        var request = URLRequest(url: url)
+//        request.timeoutInterval = 5
 //        
-        
-        let message: [String: Any] = [
-            "event_name": "get_chart_history",
-            "data": [
-                "symbol":  getSymbolData.tickMessage?.symbol ?? "",
-                //                "from": timestamps.previousTimestamp,
-                //                "to":  timestamps.currentTimestamp
-                "from": hourBeforeTimestamp,
-                "to":  currentTimestamp
-            ]
-        ]
-        
-        // Convert the dictionary to JSON string
-        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            //            socket write(string: jsonString)
-            print("the message is \(jsonString)")
-            webSocket.write(string: jsonString)
-        }
-    }
-    
-    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
-        switch event {
-        case .connected(let headers):
-            print("\n WebSocket chart is connected: \(headers)")
-            sendSubscriptionHistoryMessage() // Send the message once connected
-        case .disconnected(let reason, let code):
-            print("WebSocket is disconnected: \(reason) with code: \(code)")
-        case .text(let string):
-            handleHistoryWebSocketMessage(string)
-        case .binary(let data):
-            print("Received data: \(data.count)")
-        case .error(let error):
-            handleHistoryError(error)
-        default:
-            break
-        }
-    }
-    
-    func handleHistoryWebSocketMessage(_ string: String) {
-        print("\n this is history chart json: \(string)")
-        
-        if let jsonData = string.data(using: .utf8) {
-            do {
-                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-                
-                switch chartType {
-                case .candlestick:
-                    
-                    for payload in response.message.payload.chartData {
-                        
-                        let times = Time.utc(timestamp: Double(payload.datetime))
-                        // Debugging output to check timestamps
-                        
-                        print("\n Candlestick each array object data: \(payload)")
-                        
-                        let open = payload.open
-                        let close = payload.close
-                        let high = payload.high
-                        let low = payload.low
-                        
-                        let dataPoint = CandlestickData(
-                            time: times,
-                            open: open,
-                            high: high,
-                            low: low,
-                            close: close
-                        )
-                        
-                        // Use update to add this candlestick incrementally
-                        series?.update(bar: dataPoint)
-                        candlestickData.append(dataPoint)
-                    }
-                    series.setData(data: candlestickData)
-                    //                setupSeries(candlestickData: candlestickData)
-                    
-                    break
-                case .area:
-                    break
-                case .bar:
-                    break
-                }
-                
-            } catch {
-                print("Error parsing JSON: \(error)")
-            }
-        }
-    }
-    func handleHistoryError(_ error: Error?) {
-        if let error = error {
-            print("History chart WebSocket encountered an error: \(error)")
-        }
-    }
-    
-    
-    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
-        let now = Date()
-        //        let calendar = Calendar.current
-        
-        // Get current timestamp in milliseconds
-        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
-        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
-        
-        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
-        
-    }
-    
-    func currentAndBeforeBusinessDayTimestamps() -> (currentTimestamp: Int, previousTimestamp: Int) {
-        let timeZone = TimeZone(identifier: "UTC")!
-        let currentDate = Date()
-        
-        // Get current date components
-        let components = Calendar.current.dateComponents(in: timeZone, from: currentDate)
-        
-        // Create the current timestamp
-        let currentTimestamp = Int(currentDate.timeIntervalSince1970)
-        
-        // Calculate previous business day
-        var previousBusinessDay = currentDate
-        
-        // Check if the current day is a business day (for this example, we'll consider weekdays only)
-        let weekday = components.weekday ?? 1 // Default to Sunday (1)
-        
-        // If today is Sunday (1), go back to Friday (5)
-        if weekday == 1 {
-            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -2, to: currentDate)!
-        }
-        // If today is Monday (2), go back to Friday (5)
-        else if weekday == 2 {
-            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!
-        }
-        // Otherwise, just go back one day
-        else {
-            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
-        }
-        
-        // Get previous timestamp
-        let previousTimestamp = Int(previousBusinessDay.timeIntervalSince1970)
-        
-        return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
-    }
-    
-}
+//        webSocket = WebSocket(request: request)
+//        webSocket.delegate = self
+//        webSocket.connect()
+//    }
+//    
+//    func disconnectWebSocket() {
+//        webSocket?.disconnect()
+//    }
+//    
+//    func sendSubscriptionHistoryMessage() {
+//        // Define the message dictionary
+//        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
+//        
+////        let timestamps = currentAndBeforeBusinessDayTimestamps()
+////        print("Current Timestamp: \(timestamps.currentTimestamp)")
+////        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
+////        
+//        
+//        let message: [String: Any] = [
+//            "event_name": "get_chart_history",
+//            "data": [
+//                "symbol":  getSymbolData.tickMessage?.symbol ?? "",
+//                //                "from": timestamps.previousTimestamp,
+//                //                "to":  timestamps.currentTimestamp
+//                "from": hourBeforeTimestamp,
+//                "to":  currentTimestamp
+//            ]
+//        ]
+//        
+//        // Convert the dictionary to JSON string
+//        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
+//           let jsonString = String(data: jsonData, encoding: .utf8) {
+//            //            socket write(string: jsonString)
+//            print("the message is \(jsonString)")
+//            webSocket.write(string: jsonString)
+//        }
+//    }
+//    
+//    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
+//        switch event {
+//        case .connected(let headers):
+//            print("\n WebSocket chart is connected: \(headers)")
+//            sendSubscriptionHistoryMessage() // Send the message once connected
+//        case .disconnected(let reason, let code):
+//            print("WebSocket is disconnected: \(reason) with code: \(code)")
+//        case .text(let string):
+//            handleHistoryWebSocketMessage(string)
+//        case .binary(let data):
+//            print("Received data: \(data.count)")
+//        case .error(let error):
+//            handleHistoryError(error)
+//        default:
+//            break
+//        }
+//    }
+//    
+//    func handleHistoryWebSocketMessage(_ string: String) {
+//        print("\n this is history chart json: \(string)")
+//        
+//        if let jsonData = string.data(using: .utf8) {
+//            do {
+//                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
+//                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
+//                
+//                switch chartType {
+//                case .candlestick:
+//                    
+//                    for payload in response.message.payload.chartData {
+//                        
+//                        let times = Time.utc(timestamp: Double(payload.datetime))
+//                        // Debugging output to check timestamps
+//                        
+//                        print("\n Candlestick each array object data: \(payload)")
+//                        
+//                        let open = payload.open
+//                        let close = payload.close
+//                        let high = payload.high
+//                        let low = payload.low
+//                        
+//                        let dataPoint = CandlestickData(
+//                            time: times,
+//                            open: open,
+//                            high: high,
+//                            low: low,
+//                            close: close
+//                        )
+//                        
+//                        // Use update to add this candlestick incrementally
+//                        series?.update(bar: dataPoint)
+//                        candlestickData.append(dataPoint)
+//                    }
+//                    series.setData(data: candlestickData)
+//                    //                setupSeries(candlestickData: candlestickData)
+//                    
+//                    break
+//                case .area:
+//                    break
+//                case .bar:
+//                    break
+//                }
+//                
+//            } catch {
+//                print("Error parsing JSON: \(error)")
+//            }
+//        }
+//    }
+//
+//    func handleHistoryError(_ error: Error?) {
+//        if let error = error {
+//            print("History chart WebSocket encountered an error: \(error)")
+//        }
+//    }
+//
+//    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
+//        let now = Date()
+//        //        let calendar = Calendar.current
+//        
+//        // Get current timestamp in milliseconds
+//        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
+//        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
+//        
+//        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
+//        
+//    }
+//    
+//    func currentAndBeforeBusinessDayTimestamps() -> (currentTimestamp: Int, previousTimestamp: Int) {
+//        let timeZone = TimeZone(identifier: "UTC")!
+//        let currentDate = Date()
+//        
+//        // Get current date components
+//        let components = Calendar.current.dateComponents(in: timeZone, from: currentDate)
+//        
+//        // Create the current timestamp
+//        let currentTimestamp = Int(currentDate.timeIntervalSince1970)
+//        
+//        // Calculate previous business day
+//        var previousBusinessDay = currentDate
+//        
+//        // Check if the current day is a business day (for this example, we'll consider weekdays only)
+//        let weekday = components.weekday ?? 1 // Default to Sunday (1)
+//        
+//        // If today is Sunday (1), go back to Friday (5)
+//        if weekday == 1 {
+//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -2, to: currentDate)!
+//        }
+//        // If today is Monday (2), go back to Friday (5)
+//        else if weekday == 2 {
+//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!
+//        }
+//        // Otherwise, just go back one day
+//        else {
+//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
+//        }
+//        
+//        // Get previous timestamp
+//        let previousTimestamp = Int(previousBusinessDay.timeIntervalSince1970)
+//        
+//        return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
+//    }
+//    
+//}
 
 //MARK: - Setup the Chart view.
 extension TradeDetalVC {

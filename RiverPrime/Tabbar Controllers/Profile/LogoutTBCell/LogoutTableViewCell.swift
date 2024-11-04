@@ -58,7 +58,7 @@ class LogoutTableViewCell: UITableViewCell {
         webSocketManager.connectionCheckTimer = nil
         
         webSocketManager.disconnectWebSocket()
-        webSocketManager.disconnectHistoryWebSocket()
+//        webSocketManager.disconnectHistoryWebSocket()
         
         //MARK: - START calling Socket message from here.
 //        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: false)
