@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class TradeVM {
     
@@ -34,6 +35,14 @@ class TradeVM {
 
     var onTradesUpdated: (() -> Void)?
     var onSymbolDataUpdated: (() -> Void)?
+    
+    
+    let odooClientService = OdooClientNew()
+    let uid = UserDefaults.standard.integer(forKey: "uid")
+    let pass = UserDefaults.standard.string(forKey: "password")
+    var email = ""
+    var loginId = 0
+    
     
      let webSocketManager = WebSocketManager.shared
     
@@ -117,6 +126,75 @@ extension TradeVM {
         print("print data of symbol: \(symbol)")
         print("print data of chart symbol: \(symbolData)")
         return symbolData[symbol]
+    }
+    
+}
+
+extension TradeVM {
+    
+    func fetchChartHistory(symbol: String, completion: @escaping (Result<HistoryResponseData, Error>) -> Void) {
+        // Retrieve the data from UserDefaults
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
+        
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,  // Database name
+                    uid,                     // UID
+                    odooClientService.dbPassword, // Password
+                    "mt.middleware",       // Model
+                    "get_chart_history",   // Method
+                    [
+                        [],
+                        email, // Email
+                        symbol,                   // Symbol
+                        1724926194,               // Start time
+                        1724928294                // End time
+                    ]
+                ]
+            ]
+        ]
+        
+        print("params is: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+                
+            case .success(let value):
+                print(" position closed value is: \(value)")
+                
+                do {
+                    // Decode the response
+                    if let json = value as? [String: Any],
+                       let result = json["result"] as? [String: Any],
+                       let chartData = result["chart_data"] as? [[String: Any]] {
+                        
+                        // Create HistoryResponseData from chartData
+                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+                        let historyResponseData = try JSONDecoder().decode(HistoryResponseData.self, from: jsonData)
+                        completion(.success(historyResponseData))
+                    } else {
+                        completion(.failure(NSError(domain: "ResponseParsingError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid response structure"])))
+                    }
+                } catch {
+                    print("Error decoding response: \(error)")
+                    completion(.failure(error))
+                }
+                
+            case .failure(let error):
+                print("Request failed with error: \(error)")
+                completion(.failure(error))
+            }
+        }
     }
     
 }

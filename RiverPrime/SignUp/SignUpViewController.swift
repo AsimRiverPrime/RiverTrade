@@ -229,7 +229,7 @@ class SignUpViewController: BaseViewController {
                         
                         
                     } else {
-                        self.odooClientService.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+                        self.odooClientService.createRecords1(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         
                         self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         
@@ -294,7 +294,7 @@ class SignUpViewController: BaseViewController {
                         ActivityIndicator.shared.show(in: self!.view)
                         
                         let name = firstName + " " + lastName
-                        self?.odooClientService.createRecords(firebase_uid: user.uid, email: email, name: name)
+                        self?.odooClientService.createRecords1(firebase_uid: user.uid, email: email, name: name)
                         
                         self?.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
@@ -351,6 +351,7 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
         odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
+        GlobalVariable.instance.userEmail = emailUser ?? ""
         Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
             self.navigateToVerifiyScreen()
         }

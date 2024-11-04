@@ -199,8 +199,7 @@ class OdooClientNew {
                     if status {
                         print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
                         self.otpDelegate?.otpSuccess(response: result)
-                    //   self.indicate.ToastMessage("Please check Your email for OTP")
-                        
+                   
                     } else {
                         let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
                         self.otpDelegate?.otpFailure(error: error)
@@ -308,7 +307,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("json params is: \(jsonrpcBody)")
+        print("json params for verifyOTP is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             

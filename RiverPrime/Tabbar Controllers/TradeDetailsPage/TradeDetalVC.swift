@@ -83,6 +83,7 @@ class TradeDetalVC: UIViewController {
             self.btn_chartType.isHidden = false
             self.btn_timeInterval.isHidden = false
             //MARK: - Add new content from here.
+            
             setupChart()
             
         } else { //tag = 1 -> For Overview
@@ -251,6 +252,9 @@ class TradeDetalVC: UIViewController {
         
         series.setData(data: candlestickData)
         
+        // Scroll to the last candle to ensure it's visible
+        timeScale.scrollToPosition(position: 0.0, animated: false)
+        
     }
     
 }
@@ -275,10 +279,10 @@ extension TradeDetalVC: WebSocketDelegate {
         // Define the message dictionary
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
-        let timestamps = currentAndBeforeBusinessDayTimestamps()
-        print("Current Timestamp: \(timestamps.currentTimestamp)")
-        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-        
+//        let timestamps = currentAndBeforeBusinessDayTimestamps()
+//        print("Current Timestamp: \(timestamps.currentTimestamp)")
+//        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
+//        
         
         let message: [String: Any] = [
             "event_name": "get_chart_history",
@@ -429,7 +433,17 @@ extension TradeDetalVC {
     
     private func setupChart() {
         
-        setupSeries(candlestickData: candlestickData)
+       
+//        switch chartType {
+//        case .candlestick:
+//            setupSeries(candlestickData: candlestickData)
+//        case .area:
+//            let areaData = convertToAreaData(candlestickData: candlestickData)
+//            setupAreaSeries(areaData: areaData)
+//        case .bar:
+//            let barData = convertToBarData(candlestickData: candlestickData)
+//            setupBarSeries(barData: barData)
+//        }
         
         self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0).trimmedTrailingZeros())"
         self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0).trimmedTrailingZeros())"
@@ -453,11 +467,28 @@ extension TradeDetalVC {
             close: close
         )
         
-        //        if self.series != nil {
-        //            series?.update(bar: dataPoint)
-        //        }
-        // Use update to add this candlestick incrementally
-        series?.update(bar: dataPoint)
+        switch self.chartType {
+        case .candlestick:
+            setupSeries(candlestickData: candlestickData)
+            series?.update(bar: dataPoint)
+            
+            break
+        case .area:
+            let areaData1 = convertToAreaData(candlestickData: candlestickData)
+            setupAreaSeries(areaData: areaData1)
+            let areaData = convertToAreaData(candlestickData: dataPoint)
+            self.areaSeries.update(bar: areaData)
+            
+            break
+        case .bar:
+            let barData1 = convertToBarData(candlestickData: candlestickData)
+            setupBarSeries(barData: barData1)
+            let barData = convertToBarData(candlestickData: dataPoint)
+
+            self.barSeries.update(bar: barData)
+            
+            break
+        }
         
     }
     
@@ -499,6 +530,8 @@ extension TradeDetalVC {
         //        areaSeries.setData(data: data)
         
         // Add constraints as before
+        timeScale.scrollToPosition(position: 0.0, animated: false)
+
         setupChartConstraints(chart)
     }
     
@@ -526,9 +559,11 @@ extension TradeDetalVC {
         let barSeries = chart.addBarSeries(options: barSeriesOptions)
         self.barSeries = barSeries
         barSeries.setData(data: barData)
-        
+        timeScale.scrollToPosition(position: 0.0, animated: false)
+
         // Add constraints as you did for candlestick chart
         setupChartConstraints(chart)
+        
     }
     
     private func setupChartConstraints(_ chart: LightweightCharts) {

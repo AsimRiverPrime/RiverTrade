@@ -123,7 +123,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                 let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
-            self.oodoService.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
+            self.oodoService.writeRecords1(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")

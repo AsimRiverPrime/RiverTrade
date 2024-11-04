@@ -249,7 +249,7 @@ class SignInViewController: BaseViewController {
                         
                         
                     } else {
-                        self.odooClientService.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+                        self.odooClientService.createRecords1(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         
                         self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         
@@ -304,6 +304,7 @@ extension SignInViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
         odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
+        GlobalVariable.instance.userEmail = emailUser ?? ""
         self.ToastMessage("Check email inbox or spam for OTP")
         self.navigateToVerifiyScreen()
     }

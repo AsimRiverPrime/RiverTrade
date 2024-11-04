@@ -65,6 +65,7 @@
 		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB72C99BFAE00B7ABF9 /* Session.swift */; };
 		3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117F78D2CBCE3500095DA19 /* HistoryVM.swift */; };
+		3128DAE32CD9040C00E9B130 /* TradeHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */; };
@@ -392,6 +393,7 @@
 		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3106BBB72C99BFAE00B7ABF9 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		3117F78D2CBCE3500095DA19 /* HistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVM.swift; sourceTree = "<group>"; };
+		3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHistoryModel.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupBottomSheet.swift; sourceTree = "<group>"; };
@@ -2073,6 +2075,7 @@
 		FAD776D52C9771F9000411F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */,
 				3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */,
 				FAD776D62C97720D000411F1 /* JSONRPCModel.swift */,
 				FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */,
@@ -2351,6 +2354,7 @@
 				31D2AF0C2C8840B800E0CF2E /* OhlcData.swift in Sources */,
 				31D2AEF12C8840B800E0CF2E /* BaselineSeries.swift in Sources */,
 				31D2AF172C8840B800E0CF2E /* PriceLineOptions.swift in Sources */,
+				3128DAE32CD9040C00E9B130 /* TradeHistoryModel.swift in Sources */,
 				31D2AEF62C8840B800E0CF2E /* SeriesObject.swift in Sources */,
 				31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */,
 				3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */,

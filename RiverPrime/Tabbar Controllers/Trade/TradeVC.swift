@@ -87,7 +87,16 @@ class TradeVC: UIView {
     
     public override func awakeFromNib() {
 //        ActivityIndicator.shared.show(in: self)
-        
+        vm.fetchChartHistory(symbol: "Gold") { result in
+                    print("result of trade history data = \(result)")
+                    switch result {
+                    case .success(let responseData):
+                        print("Symbol: \(responseData.symbol)")
+                        print("Chart Data: \(responseData.chartData)")
+                    case .failure(let error):
+                        print("Error fetching data: \(error)")
+                    }
+                }
         //MARK: - Call Symbol Api and their delegate method to get data.
 //        odooClientService.sendSymbolDetailRequest()
 //        odooClientService.tradeSymbolDetailDelegate = self

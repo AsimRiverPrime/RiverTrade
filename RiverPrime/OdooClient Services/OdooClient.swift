@@ -217,48 +217,48 @@ class OdooClient {
     //    }
     //
     //MARK: - Send request Method for fetch data
-    func sendRequest(searchEmail: String) {
-        let methodName = "execute_kw"
-        
-        // Define the domain filter and parameters
-        let domainFilter: [[Any]] = [[
-            "email_from", "=", searchEmail
-        ]]
-        let params: [Any] = [
-            dataBaseName,      // Database name
-            uid,               // UID
-            dbPassword,        // Password
-            "crm.lead",       // Model name
-            "search_read",    // Method name
-            [domainFilter],   // Domain (search criteria)
-            []                // Fields to retrieve
-        ]
-        
-        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
-            print("Error creating XML payload")
-            return
-        }
-        
-        print(String(data: payload, encoding: .utf8)!)
-        
-        var urlRequest = URLRequest(url: URL(string: objectURL)!)
-        urlRequest.httpMethod = "POST"
-        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = payload
-        
-        AF.request(urlRequest)
-            .validate()
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    if let responseString = String(data: data, encoding: .utf8) {
-                        print("Response XML: \(responseString)")
-                    }
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-    }
+//    func sendRequest(searchEmail: String) {
+//        let methodName = "execute_kw"
+//        
+//        // Define the domain filter and parameters
+//        let domainFilter: [[Any]] = [[
+//            "email_from", "=", searchEmail
+//        ]]
+//        let params: [Any] = [
+//            dataBaseName,      // Database name
+//            uid,               // UID
+//            dbPassword,        // Password
+//            "crm.lead",       // Model name
+//            "search_read",    // Method name
+//            [domainFilter],   // Domain (search criteria)
+//            []                // Fields to retrieve
+//        ]
+//        
+//        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+//            print("Error creating XML payload")
+//            return
+//        }
+//        
+//        print(String(data: payload, encoding: .utf8)!)
+//        
+//        var urlRequest = URLRequest(url: URL(string: objectURL)!)
+//        urlRequest.httpMethod = "POST"
+//        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+//        urlRequest.httpBody = payload
+//        
+//        AF.request(urlRequest)
+//            .validate()
+//            .responseData { response in
+//                switch response.result {
+//                case .success(let data):
+//                    if let responseString = String(data: data, encoding: .utf8) {
+//                        print("Response XML: \(responseString)")
+//                    }
+//                case .failure(let error):
+//                    print("Error: \(error)")
+//                }
+//            }
+//    }
     
     //    //MARK: - create trade Account Method
     //
@@ -377,269 +377,380 @@ class OdooClient {
             }
         }
     }
+    
+    //        func sendSymbolDetailRequest() {
+    //            uid = UserDefaults.standard.integer(forKey: "uid")
+    //
+    //            let methodName = "execute_kw"
+    //            // Define the domain filter and parameters
+    //            let domainFilter: [[Any]] = [[
+    //                "mobile_available", "=" , "True"
+    //            ]]
+    //
+    //            let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level"]]
+    //
+    //            let params: [Any] = [
+    //                dataBaseName,      // Database name
+    //                uid,               // UID
+    //                dbPassword,        // Password
+    //                "mt.symbol",       // Model name
+    //                "search_read",    // Method name
+    //                [domainFilter],   // Domain (search criteria)
+    //                fieldRetrieve             // Fields to retrieve
+    //            ]
+    //
+    //            guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+    //                print("Error creating XML payload")
+    //                return
+    //            }
+    //
+    //            print(String(data: payload, encoding: .utf8)!)
+    //
+    //            var urlRequest = URLRequest(url: URL(string: objectURL)!)
+    //            urlRequest.httpMethod = "POST"
+    //            urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+    //            urlRequest.httpBody = payload
+    //
+    //            AF.request(urlRequest)
+    //                .validate()
+    //                .responseData { response in
+    //                    switch response.result {
+    //                    case .success(let data):
+    //                        if let responseString = String(data: data, encoding: .utf8) {
+    //
+    //                            //                        self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: responseString)
+    //                        }
+    //                    case .failure(let error):
+    //                        print("Trade symbol detail response Error: \(error)")
+    //                        self.tradeSymbolDetailDelegate?.tradeSymbolDetailFailure(error: error)
+    //                    }
+    //                }
+    //        }
+    //MARK: - Create request (Leads to crm) Method for records
+    // working
+    func createRecords1(firebase_uid: String, email: String, name: String) {
         
-//        func sendSymbolDetailRequest() {
-//            uid = UserDefaults.standard.integer(forKey: "uid")
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               // uid
+                    dbPassword,        // password
+                    "crm.lead",       // Model name
+                    "create",         // Method name
+                    [[                // vals_list
+                        "name": name,
+                        "firebase_uid": firebase_uid,
+                        "type": "opportunity",
+                        "email_from": email
+                        
+                     ]]
+                ]
+            ]
+        ]
+        
+        print("\n params value is: \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                    
+                    UserDefaults.standard.set(result, forKey: "recordId")
+                    self.createLeadDelegate?.leadCreatSuccess(response: result)
+                    print("result is: \(result)")
+                    
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                    
+                }
+                
+            case .failure(let error):
+                self.createLeadDelegate?.leadCreatFailure(error: error)
+                print("error is :\(error)")
+                break
+                
+            }
+            
+        }
+        
+    }
+    
+    //        func createRecords(firebase_uid: String, email: String, name: String) {
+    //            self.createRequestBool = true
+    //
+    //            uid = UserDefaults.standard.integer(forKey: "uid")
+    //
+    //            let methodName = "execute_kw"
+    //
+    //            let params: [Any] = [
+    //                dataBaseName,      // Database name
+    //                uid,               // uid
+    //                dbPassword,        // password
+    //                "crm.lead",       // Model name
+    //                "create",         // Method name
+    //                [[                // vals_list
+    //                    "name": name,
+    //                    "firebase_uid": firebase_uid,
+    //                    "type": "opportunity",
+    //                    "email_from": email
+    //
+    //                 ]]
+    //            ]
+    //
+    //            guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+    //                print("Error creating XML payload")
+    //                return
+    //            }
+    //
+    //            print(String(data: payload, encoding: .utf8)!)
+    //
+    //            var urlRequest = URLRequest(url: URL(string: objectURL)!)
+    //            urlRequest.httpMethod = "POST"
+    //            urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+    //            urlRequest.httpBody = payload
+    //
+    //            AF.request(urlRequest)
+    //                .validate()
+    //                .responseData { [self] response in
+    //                    switch response.result {
+    //                    case .success(let data):
+    //                        if let responseString = String(data: data, encoding: .utf8) {
+    //                            print("create Lead Records Response XML: \(responseString)")
+    //                            createLeadDelegate?.leadCreatSuccess(response: responseString)
+    //                            // sendOTP(email: userEmail, phone: "")
+    //                        }
+    //                        self.saveUserIdFromXMLData(data)
+    //                    case .failure(let error):
+    //                        print("Error: \(error)")
+    //                        createLeadDelegate?.leadCreatFailure(error: error)
+    //                    }
+    //                }
+    //        }
+    //MARK: - Method write/update data to OdooServer
+    // working
+    
+    func writeRecords1(number: String) {
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               //   GlobalVariable.instance.uid,
+                    dbPassword,            // password
+                    "crm.lead",       // Model name
+                    "write",         // Method name
+                    [[recordedId],[                // vals_list // need record id save in userdefault
+                        "number_ids": [
+                            [0, 0, [
+                                "number": number,
+                                "type": "work"
+                            ]]
+                        ]
+                    ]]
+                ]
+            ]
+        ]
+        
+        
+        print("\n params value is: \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("write phone # record result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                    print("result is: \(result)")
+                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
+                   
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                }
+                
+            case .failure(let error):
+                self.updateNumberDelegate?.updateNumberFailure(error: error)
+                print("error is :\(error)")
+                break
+                
+            }
+            
+        }
+        
+    }
+    
+    
+//    func writeRecords(number: String) {
+//        uid = UserDefaults.standard.integer(forKey: "uid")
+//        let methodName = "execute_kw"
+//        let params: [Any] = [
+//            dataBaseName,      // Database name
+//            uid,               //   GlobalVariable.instance.uid,
+//            dbPassword,            // password
+//            "crm.lead",       // Model name
+//            "write",         // Method name
+//            [[recordedId],[                // vals_list // need record id save in userdefault
+//                "number_ids": [
+//                    [0, 0, [
+//                        "number": number,
+//                        "type": "work"
+//                    ]]
+//                ]
+//           ]]
+//        ]
+//        
+//        guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
+//            print("Error creating XML payload")
+//            return
+//        }
+//        
+//        print(String(data: payload, encoding: .utf8)!)
+//        
+//        var urlRequest = URLRequest(url: URL(string: objectURL)!)
+//        urlRequest.httpMethod = "POST"
+//        urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
+//        urlRequest.httpBody = payload
+//        
+//        AF.request(urlRequest)
+//            .validate()
+//            .responseData { response in
+//                switch response.result {
+//                case .success(let data):
+//                    if let responseString = String(data: data, encoding: .utf8) {
+//                        print("Response XML: \(responseString)")
+//                        self.updateNumberDelegate?.updateNumberSuccess(response: responseString)
+//                    }
+//                case .failure(let error):
+//                    print("Error: \(error)")
+//                    self.updateNumberDelegate?.updateNumberFailure(error: error)
+//                }
+//            }
+//    }
+    
+    //MARK: -  Method to get the version of the Odoo server
+//    func version() {
+//        let method = "version"
+//        let parameters: [Any] = []
+//        
+//        guard let xmlData2 = xmlRPCPayload(method: method, parameters: parameters) else {
+//            print("Error creating XML payload")
+//            return
+//        }
+//        
+//        AF.request(commonURL, method: .post, headers: [.contentType("text/xml")]) { urlRequest in
+//            urlRequest.httpBody = xmlData2
+//        }
+//        .validate()
+//        .responseData { response in
+//            switch response.result {
+//            case .success(let data):
+//                // Parse the XML response here
+//                if let xmlString = String(data: data, encoding: .utf8) {
+//                    print("Response XML: \(xmlString)")
+//                    // You can use an XML parser to extract specific information
+//                }
+//            case .failure(let error):
+//                print("Error: \(error)")
+//            }
+//        }
+//    }
+    
+    //MARK: - set/parse parameter as XML formate
+    
+//    func xmlRPCPayload(method: String, parameters: [Any]) -> Data? {
+//        var xmlString = "<?xml version=\"1.0\"?>\n<methodCall>\n"
+//        xmlString += "<methodName>\(method)</methodName>\n"
+//        xmlString += "<params>\n"
+//        
+//        func appendValue(_ value: Any) {
+//            xmlString += "<value>"
 //            
-//            let methodName = "execute_kw"
-//            // Define the domain filter and parameters
-//            let domainFilter: [[Any]] = [[
-//                "mobile_available", "=" , "True"
-//            ]]
-//            
-//            let fieldRetrieve: [String: [String]] = ["fields": ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level"]]
-//            
-//            let params: [Any] = [
-//                dataBaseName,      // Database name
-//                uid,               // UID
-//                dbPassword,        // Password
-//                "mt.symbol",       // Model name
-//                "search_read",    // Method name
-//                [domainFilter],   // Domain (search criteria)
-//                fieldRetrieve             // Fields to retrieve
-//            ]
-//            
-//            guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
-//                print("Error creating XML payload")
-//                return
+//            if let stringValue = value as? String {
+//                xmlString += "<string>\(stringValue)</string>"
+//            } else if let intValue = value as? Int {
+//                xmlString += "<int>\(intValue)</int>"
+//            } else if let arrayValue = value as? [Any] {
+//                xmlString += "<array><data>"
+//                for element in arrayValue {
+//                    xmlString += "<value>"
+//                    appendValue(element)
+//                    xmlString += "</value>"
+//                }
+//                xmlString += "</data></array>"
+//            } else if let dictValue = value as? [String: Any] {
+//                xmlString += "<struct>"
+//                for (key, val) in dictValue {
+//                    xmlString += "<member><name>\(key)</name><value>"
+//                    appendValue(val)
+//                    xmlString += "</value></member>"
+//                }
+//                xmlString += "</struct>"
 //            }
 //            
-//            print(String(data: payload, encoding: .utf8)!)
-//            
-//            var urlRequest = URLRequest(url: URL(string: objectURL)!)
-//            urlRequest.httpMethod = "POST"
-//            urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-//            urlRequest.httpBody = payload
-//            
-//            AF.request(urlRequest)
-//                .validate()
-//                .responseData { response in
-//                    switch response.result {
-//                    case .success(let data):
-//                        if let responseString = String(data: data, encoding: .utf8) {
-//                            
-//                            //                        self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: responseString)
-//                        }
-//                    case .failure(let error):
-//                        print("Trade symbol detail response Error: \(error)")
-//                        self.tradeSymbolDetailDelegate?.tradeSymbolDetailFailure(error: error)
-//                    }
-//                }
+//            xmlString += "</value>"
 //        }
-        //MARK: - Create request (Leads to crm) Method for records
-        // working
-        func createRecords(firebase_uid: String, email: String, name: String) {
-            self.createRequestBool = true
-            
-            uid = UserDefaults.standard.integer(forKey: "uid")
-            
-            let methodName = "execute_kw"
-            
-            let params: [Any] = [
-                dataBaseName,      // Database name
-                uid,               // uid
-                dbPassword,        // password
-                "crm.lead",       // Model name
-                "create",         // Method name
-                [[                // vals_list
-                    "name": name,
-                    "firebase_uid": firebase_uid,
-                    "type": "opportunity",
-                    "email_from": email
-                    
-                 ]]
-            ]
-            
-            guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
-                print("Error creating XML payload")
-                return
-            }
-            
-            print(String(data: payload, encoding: .utf8)!)
-            
-            var urlRequest = URLRequest(url: URL(string: objectURL)!)
-            urlRequest.httpMethod = "POST"
-            urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-            urlRequest.httpBody = payload
-            
-            AF.request(urlRequest)
-                .validate()
-                .responseData { [self] response in
-                    switch response.result {
-                    case .success(let data):
-                        if let responseString = String(data: data, encoding: .utf8) {
-                            print("create Lead Records Response XML: \(responseString)")
-                            createLeadDelegate?.leadCreatSuccess(response: responseString)
-                            // sendOTP(email: userEmail, phone: "")
-                        }
-                        self.saveUserIdFromXMLData(data)
-                    case .failure(let error):
-                        print("Error: \(error)")
-                        createLeadDelegate?.leadCreatFailure(error: error)
-                    }
-                }
-        }
-        //MARK: - Method write/update data to OdooServer
-        // working
-        func writeRecords(number: String) {
-            uid = UserDefaults.standard.integer(forKey: "uid")
-            let methodName = "execute_kw"
-            let params: [Any] = [
-                dataBaseName,      // Database name
-                uid,               //   GlobalVariable.instance.uid,
-                dbPassword,            // password
-                "crm.lead",       // Model name
-                "write",         // Method name
-                [[recordedId],[                // vals_list // need record id save in userdefault
-                    "number_ids": [
-                        [0, 0, [
-                            "number": number,
-                            "type": "work"
-                        ]]
-                    ]
-                              ]]
-            ]
-            
-            guard let payload = xmlRPCPayload(method: methodName, parameters: params) else {
-                print("Error creating XML payload")
-                return
-            }
-            
-            print(String(data: payload, encoding: .utf8)!)
-            
-            var urlRequest = URLRequest(url: URL(string: objectURL)!)
-            urlRequest.httpMethod = "POST"
-            urlRequest.setValue("text/xml", forHTTPHeaderField: "Content-Type")
-            urlRequest.httpBody = payload
-            
-            AF.request(urlRequest)
-                .validate()
-                .responseData { response in
-                    switch response.result {
-                    case .success(let data):
-                        if let responseString = String(data: data, encoding: .utf8) {
-                            print("Response XML: \(responseString)")
-                            self.updateNumberDelegate?.updateNumberSuccess(response: responseString)
-                        }
-                    case .failure(let error):
-                        print("Error: \(error)")
-                        self.updateNumberDelegate?.updateNumberFailure(error: error)
-                    }
-                }
-        }
-        
-        //MARK: -  Method to get the version of the Odoo server
-        func version() {
-            let method = "version"
-            let parameters: [Any] = []
-            
-            guard let xmlData2 = xmlRPCPayload(method: method, parameters: parameters) else {
-                print("Error creating XML payload")
-                return
-            }
-            
-            AF.request(commonURL, method: .post, headers: [.contentType("text/xml")]) { urlRequest in
-                urlRequest.httpBody = xmlData2
-            }
-            .validate()
-            .responseData { response in
-                switch response.result {
-                case .success(let data):
-                    // Parse the XML response here
-                    if let xmlString = String(data: data, encoding: .utf8) {
-                        print("Response XML: \(xmlString)")
-                        // You can use an XML parser to extract specific information
-                    }
-                case .failure(let error):
-                    print("Error: \(error)")
-                }
-            }
-        }
-        
-        //MARK: - set/parse parameter as XML formate
-        
-        func xmlRPCPayload(method: String, parameters: [Any]) -> Data? {
-            var xmlString = "<?xml version=\"1.0\"?>\n<methodCall>\n"
-            xmlString += "<methodName>\(method)</methodName>\n"
-            xmlString += "<params>\n"
-            
-            func appendValue(_ value: Any) {
-                xmlString += "<value>"
-                
-                if let stringValue = value as? String {
-                    xmlString += "<string>\(stringValue)</string>"
-                } else if let intValue = value as? Int {
-                    xmlString += "<int>\(intValue)</int>"
-                } else if let arrayValue = value as? [Any] {
-                    xmlString += "<array><data>"
-                    for element in arrayValue {
-                        xmlString += "<value>"
-                        appendValue(element)
-                        xmlString += "</value>"
-                    }
-                    xmlString += "</data></array>"
-                } else if let dictValue = value as? [String: Any] {
-                    xmlString += "<struct>"
-                    for (key, val) in dictValue {
-                        xmlString += "<member><name>\(key)</name><value>"
-                        appendValue(val)
-                        xmlString += "</value></member>"
-                    }
-                    xmlString += "</struct>"
-                }
-                
-                xmlString += "</value>"
-            }
-            
-            for param in parameters {
-                xmlString += "<param>"
-                appendValue(param)
-                xmlString += "</param>\n"
-            }
-            
-            xmlString += "</params>\n"
-            xmlString += "</methodCall>"
-            
-            return xmlString.data(using: .utf8)
-        }
-        
-        func saveUserIdFromXMLData(_ data: Data) {
-            do {
-                
-                if let rawXMLString = String(data: data, encoding: .utf8) {
-                    print("Raw XML: \(rawXMLString)")
-                    
-                }
-                
-                let xmlDoc1 = try AEXMLDocument(xml: data)
-                //            print(xmlDoc1.xml)
-                
-                if createRequestBool == false {
-                    // Adjust this based on the actual XML structure
-                    if let intValueString = xmlDoc1.root["params"]["param"]["value"]["int"].value,
-                       let intValue = Int(intValueString) {
-                        // Save the uid int value to UserDefaults
-                        UserDefaults.standard.set(intValue, forKey: "uid")
-                        print("Int value saved: \(intValue)")
-                    } else {
-                        print("Int value not found in the XML.")
-                    }
-                }
-                else {
-                    if let intValueString = xmlDoc1.root["params"]["param"]["value"]["int"].value,
-                       let intValue = Int(intValueString) {
-                        // Save the recorded id value to UserDefaults
-                        UserDefaults.standard.set(intValue, forKey: "recordId")
-                        print(" recorded Id Int value saved: \(intValue)")
-                    } else {
-                        print("recorded Id Int value not found in the XML.")
-                    }
-                    createRequestBool = false
-                }
-            } catch {
-                print("XML Parsing Error: \(error)")
-            }
-            
-        }
+//        
+//        for param in parameters {
+//            xmlString += "<param>"
+//            appendValue(param)
+//            xmlString += "</param>\n"
+//        }
+//        
+//        xmlString += "</params>\n"
+//        xmlString += "</methodCall>"
+//        
+//        return xmlString.data(using: .utf8)
+//    }
+    
+//    func saveUserIdFromXMLData(_ data: Data) {
+//        do {
+//            
+//            if let rawXMLString = String(data: data, encoding: .utf8) {
+//                print("Raw XML: \(rawXMLString)")
+//                
+//            }
+//            
+//            let xmlDoc1 = try AEXMLDocument(xml: data)
+//            //            print(xmlDoc1.xml)
+//            
+//            if createRequestBool == false {
+//                // Adjust this based on the actual XML structure
+//                if let intValueString = xmlDoc1.root["params"]["param"]["value"]["int"].value,
+//                   let intValue = Int(intValueString) {
+//                    // Save the uid int value to UserDefaults
+//                    UserDefaults.standard.set(intValue, forKey: "uid")
+//                    print("Int value saved: \(intValue)")
+//                } else {
+//                    print("Int value not found in the XML.")
+//                }
+//            }
+//            else {
+//                if let intValueString = xmlDoc1.root["params"]["param"]["value"]["int"].value,
+//                   let intValue = Int(intValueString) {
+//                    // Save the recorded id value to UserDefaults
+//                    UserDefaults.standard.set(intValue, forKey: "recordId")
+//                    print(" recorded Id Int value saved: \(intValue)")
+//                } else {
+//                    print("recorded Id Int value not found in the XML.")
+//                }
+//                createRequestBool = false
+//            }
+//        } catch {
+//            print("XML Parsing Error: \(error)")
+//        }
+//        
+//    }
     
 }
