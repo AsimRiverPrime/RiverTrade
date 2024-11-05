@@ -39,12 +39,7 @@ class TradeDetalVC: UIViewController {
     var getLiveCandelStick = OhlcCalculator()
     
 //    var symbolChartData: SymbolChartData?
-    
-    var login_Id = Int()
-    var account_type = String()
-    var account_group = String()
-    var mt5 = String()
-    
+
     var tradeDetail: TradeDetails?
     
     var overviewList = [(String, String)]()
@@ -231,6 +226,11 @@ class TradeDetalVC: UIViewController {
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
     }
     
+    @IBAction func timeFrameBtn_action(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .timeFrameVC, storyboardType: .bottomSheetPopups) as! TimeFrameVC
+        vc.delegate = self
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+    }
     
     @IBAction func buyBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
@@ -300,7 +300,13 @@ class TradeDetalVC: UIViewController {
     
 }
 
-//extension TradeDetalVC: WebSocketDelegate {
+extension TradeDetalVC: TimeFrameVCDelegate {
+    func didSelectTimeFrame(value: String) {
+        
+        btn_timeInterval.setTitle(value, for: .normal)
+       }
+}
+
 //    func connectHistoryWebSocket() {
 //        //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
 //        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!

@@ -392,7 +392,7 @@ extension TradeVC: GetSocketMessages {
                            }
                        }
                        
-   //                    //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+                //MARK: - If tick flag is true then we just update the label only not reload the tableview.
    //                    if getSymbolData[index].isTickFlag ?? false {
                            let indexPath = IndexPath(row: index, section: 2)
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
@@ -406,7 +406,6 @@ extension TradeVC: GetSocketMessages {
                                    let yesterdayClose_value = GlobalVariable.instance.symbolDataArray.filter { $0.name == getSymbolData[index].tickMessage?.symbol }.map { $0.yesterday_close }
                                     print("symbolyesterday_close = \(yesterdayClose_value)")
                                    oldBid = Double(yesterdayClose_value[0]) ?? 0.0
-                                 
                                }
                                
                                let diff = bid - oldBid
@@ -414,6 +413,7 @@ extension TradeVC: GetSocketMessages {
                                let newValue = (percentageChange * 100.0) / 100.0
                                let percent = String(newValue).trimmedTrailingZeros()
                                print("\n new value is: \(newValue)")
+                               
 //                               double diff = newBid - oldBid;
 //                               double percentageChange = (diff / oldBid) * 100;
 //                               return Math.round(percentageChange * 100.0) / 100.0;
@@ -429,6 +429,7 @@ extension TradeVC: GetSocketMessages {
                                    cell.profitIcon.tintColor = .systemGreen
                                    cell.lblPercent.textColor = .systemGreen
                                    //MARK: - Update options -> Green
+                                   
                                    cell.options = AreaSeriesOptions(
                                     priceLineVisible: false,
                                     topColor: "rgba(76, 175, 80, 0.5)",
@@ -451,12 +452,6 @@ extension TradeVC: GetSocketMessages {
                                    )
                                    
                                }
-                               
-//                               cell.lblPercent.textColor = percentageChange < 0.0 ? .systemRed : .systemGreen
-//                               cell.profitIcon.image = percentageChange < 0.0 ? UIImage(systemName: "arrow.down") : UIImage(systemName: "arrow.up")
-//                               cell.profitIcon.tintColor = percentageChange < 0.0 ? .systemRed : .systemGreen
-//                             
-//
                                
                                //MARK: - User Interface enabled, when tick flag is true.
                                cell.isUserInteractionEnabled = true

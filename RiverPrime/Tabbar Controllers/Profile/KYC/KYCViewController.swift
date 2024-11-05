@@ -288,12 +288,7 @@ extension KYCViewController: KYCVCDelegate {
                 GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: dashboardVC)
             }
-            
             break
-            
-        default: 
-            break
-            
         }
     }
     

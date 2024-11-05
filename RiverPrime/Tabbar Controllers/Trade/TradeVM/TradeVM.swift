@@ -152,7 +152,6 @@ extension TradeVM {
                 loginId = _loginId
             }
         }
-//        print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
         
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
         
@@ -169,10 +168,10 @@ extension TradeVM {
                     "get_chart_history",   // Method
                     [
                         [],
-                        email, // Email
+                        email,                     // Email
                         symbol,                   // Symbol
-                        hourBeforeTimestamp,               // Start time
-                        currentTimestamp                // End time
+                        hourBeforeTimestamp,      // Start time
+                        currentTimestamp          // End time
                     ]
                 ]
             ]

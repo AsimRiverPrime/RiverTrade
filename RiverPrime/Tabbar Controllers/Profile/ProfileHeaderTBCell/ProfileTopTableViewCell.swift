@@ -31,18 +31,6 @@ class ProfileTopTableViewCell: BaseTableViewCell {
         // Initialization code
         checkProfileStatus()
     }
-//    override func layoutSubviews() {
-//            super.layoutSubviews()
-//
-//            // Apply UIBezierPath for rounding bottom-left and bottom-right corners
-//            let path = UIBezierPath(roundedRect: btn_completeProfile.bounds,
-//                                    byRoundingCorners: [.bottomLeft, .bottomRight],
-//                                    cornerRadii: CGSize(width: 20, height: 20)) // Adjust the radius as needed
-//
-//            let mask = CAShapeLayer()
-//            mask.path = path.cgPath
-//            btn_completeProfile.layer.mask = mask
-//        }
 
     
     func checkProfileStatus() {
