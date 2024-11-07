@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  RiverPrime
+
+  Created by Ross Rostane on 06/11/2024.
+  
+*/
+
+"welcome_screen_title" = "ابدأ رحلتك في التداول مع";
+"welcome_screen_company_name" = "ريفر برايم";
+"welcome_screen_register_button" = "سجل الآن";

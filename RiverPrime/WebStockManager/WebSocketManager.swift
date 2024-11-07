@@ -268,16 +268,16 @@ class WebSocketManager: WebSocketDelegate {
             }
         } else if event == "subscribeHistory" {
             
-            message = [
-                "event_name": "get_chart_history",
-                "data": [
-                    "symbol": symbol ?? "",
-//                    "from": timestamps.previousTimestamp,
-//                    "to":  timestamps.currentTimestamp
-                    "from": hourBeforeTimestamp,
-                    "to": currentTimestamp
-                ]
-            ]
+//            message = [
+//                "event_name": "get_chart_history",
+//                "data": [
+//                    "symbol": symbol ?? "",
+////                    "from": timestamps.previousTimestamp,
+////                    "to":  timestamps.currentTimestamp
+//                    "from": hourBeforeTimestamp,
+//                    "to": currentTimestamp
+//                ]
+//            ]
             
         } else if event == "unsubscribeTrade" {
 //            print("symbolList = \(symbolList)")
@@ -412,9 +412,6 @@ class WebSocketManager: WebSocketDelegate {
                         // Access elements in the dictionary
                         if let message = jsonDictionary["message"] as? [String: Any],
                            let type = message["type"] as? String {
-                            
-                            // Print out values to verify
-//                            print("Message Type: \(type)")
                             
                             myType = type
                             

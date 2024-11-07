@@ -76,6 +76,7 @@ class LabelTranslation: Codable {
         var localized: String {
             return rawValue
         }
+        
     }
     
     //MARK: - SummaryTradingActivityCell Screen

@@ -31,12 +31,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
         // Initialization code
         checkProfileStatus()
     }
-
+ 
     
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool {
+            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool, let _uid = savedUserData["uid"] as? String {
+                UserDefaults.standard.set(_uid, forKey: "userID")
+                
                 if realAccount == true {
                     
                 }else{

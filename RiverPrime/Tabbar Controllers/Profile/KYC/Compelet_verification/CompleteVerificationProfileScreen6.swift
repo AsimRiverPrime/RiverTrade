@@ -137,15 +137,15 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
    //  print("\(questionAnswer)")
         
         let userData: [String: Any] = [
-               "uid": userId!,
-               "sId": sid!,
+               "uid": userId ?? "",
+              
                "step": profileStep,
                "profileStep": profileStep,
-               "overAllStatus": overAllStatus!,
+            
                "questionAnswer": questionAnswer
            ]
         
-        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
+        fireStoreInstance.addUserAccountData(uid: userId ?? "", data: userData) { result in
             switch result {
             case .success:
                 print("Question Answer ADD to firebase successfully!")

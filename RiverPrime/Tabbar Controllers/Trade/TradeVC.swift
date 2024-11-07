@@ -234,7 +234,9 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             
             //MARK: - When we click on the symbol list index then it should move and show history data into the detail page.
             let getSymbolData = getSymbolData[indexPath.row]
-            delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+            if getSymbolData.historyMessage?.chartData.count != 0 {
+                delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+            }
             
         }
         tableView.deselectRow(at: indexPath, animated: true)

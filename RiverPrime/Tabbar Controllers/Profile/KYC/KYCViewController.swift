@@ -85,7 +85,7 @@ class KYCViewController: BaseViewController {
                 // Ensure the async SDK method is called on the main thread
               await  iPassSDKManger.startScanningProcess(
                     userEmail: "it@salaminv.com",
-                    flowId: 10031,
+                    flowId: 10015,
                     socialMediaEmail: "Asimprime900@gmail.com",
                     phoneNumber: "+971561606314",
                     controller: self,
@@ -121,14 +121,14 @@ class KYCViewController: BaseViewController {
                
     }
     
-    
-    func getFlows() async {
-        let getList = iPassSDKManger.getWorkFlows()
-        // Ensure any UI updates happen on the main thread
-        DispatchQueue.main.async {
-            print("the get list is: \(getList)")
-        }
-    }
+//    
+//    func getFlows() async {
+//        let getList = iPassSDKManger.getWorkFlows()
+//        // Ensure any UI updates happen on the main thread
+//        DispatchQueue.main.async {
+//            print("the get list is: \(getList)")
+//        }
+//    }
     
     func AddUserAccountDetail() {
         let userId =  UserDefaults.standard.string(forKey: "userID")
@@ -141,15 +141,15 @@ class KYCViewController: BaseViewController {
         let questionAnswer: [String: [String]] = [:]
         
         let userData: [String: Any] = [
-               "uid": userId!,
-               "sId": sid!,
+               "uid": userId ?? "",
+               "sId": sid ?? "",
                "step": profileStep,
                "profileStep": profileStep,
-               "overAllStatus": overAllStatus!,
+               "overAllStatus": overAllStatus ?? "",
                "questionAnswer": questionAnswer
            ]
         
-        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
+        fireStoreInstance.addUserAccountData(uid: userId ?? "", data: userData) { result in
             switch result {
             case .success:
                 print("\n KYC detail ADD to firebase successfully!")
@@ -175,6 +175,7 @@ class KYCViewController: BaseViewController {
         
         var fieldsToUpdate: [String: Any] = [
                 "profileStep": profileStep,
+                
              ]
         
         fireStoreInstance.updateUserFields(userID: userId!, fields: fieldsToUpdate) { error in
@@ -185,6 +186,7 @@ class KYCViewController: BaseViewController {
                 print("\n User data save successfully in the fireBase")
             }
         }
+        
     }
     
 }
