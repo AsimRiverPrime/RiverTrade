@@ -78,8 +78,17 @@ class CardView: UIView {
 @IBDesignable
 class CardViewButton: UIButton {
     
-    @IBInspectable var borderWidth: CGFloat = 1
-    @IBInspectable var borderColor: UIColor = UIColor.clear
+    @IBInspectable var borderWidth: CGFloat = 1 {
+        didSet {
+            layer.borderWidth = borderWidth
+        }
+    }
+    
+    @IBInspectable var borderColor: UIColor = UIColor.clear {
+        didSet {
+            layer.borderColor = borderColor.cgColor
+        }
+    }
 
     @IBInspectable var cornerRadius: CGFloat = 8 {
         didSet {
@@ -110,11 +119,12 @@ class CardViewButton: UIButton {
             layer.shadowRadius = shadowRadius
         }
     }
+    
     @IBInspectable var titleTintColor: UIColor = .white {
-            didSet {
-                setTitleColor(titleTintColor, for: .normal)
-            }
+        didSet {
+            setTitleColor(titleTintColor, for: .normal)
         }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -137,12 +147,9 @@ class CardViewButton: UIButton {
         layer.shadowOpacity = shadowOpacity
         layer.shadowOffset = shadowOffset
         layer.shadowRadius = shadowRadius
-        setTitleColor(titleTintColor, for: .normal) // Ensure title color is set
-    }
-    
-    override func layoutSubviews() {
-        // Border.............
         layer.borderWidth = borderWidth
         layer.borderColor = borderColor.cgColor
+        setTitleColor(titleTintColor, for: .normal)
     }
 }
+

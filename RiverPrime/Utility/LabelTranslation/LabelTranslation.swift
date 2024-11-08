@@ -69,9 +69,9 @@ class LabelTranslation: Codable {
 
     //MARK: - Welcome Screens
     enum WelcomeScreen: String {
-        case Title = "Start trading journey with"
-        case CompanyNameLabel = "RIVER PRIME"
-        case RegisterNowButton = "Register Now"
+        case Title = "Welcome to River Prime.\nStart trading journey with River Prime."
+        case CompanyNameLabel = "Ready to get Started?"
+        case RegisterNowButton = "Open an Account"
 
         var localized: String {
             return rawValue

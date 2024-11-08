@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 class ViewController: BaseViewController {
     
@@ -16,20 +16,14 @@ class ViewController: BaseViewController {
     
     let vm = ViewControllerVM()
     
+    var player: AVPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        styling()
-        
-//        vm.Authentication(completion: { response in
-//            if response == nil {
-//                print("Something went wrong.")
-//                return
-//            }
-//            print("jsonRPCResponse = \(response ?? "-")")
-//           
-//        })
-        
+//        styling()
+
+        playBackgroundVideo()
     }
     
 
@@ -51,6 +45,38 @@ class ViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
+    
+    func playBackgroundVideo() {
+        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
+               print("Video file not found")
+               return
+           }
+           
+           
+           let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+           player = AVPlayer(playerItem: playerItem)
+        player?.isMuted = true
+           let playerLayer = AVPlayerLayer(player: player)
+           playerLayer.frame = view.bounds
+           playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.opacity = 0.6
+           // Insert the player layer at the bottom so it acts as a background
+           view.layer.insertSublayer(playerLayer, at: 0)
+           
+           // Start playing and set it to loop
+           player?.play()
+           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+       }
+
+       @objc func loopVideo() {
+           player?.seek(to: .zero)
+           player?.play()
+       }
+       
+       deinit {
+           NotificationCenter.default.removeObserver(self)
+       }
+    
     
     @IBAction func registerBtn(_ sender: Any) {
         if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") //SignUpViewController PasscodeFaceIDVC

@@ -445,6 +445,30 @@
         }
       }
     },
+    "dvM-cC-gGo.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Try Demo\"; ObjectID = \"dvM-cC-gGo\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Try Demo"
+          }
+        }
+      }
+    },
+    "dvM-cC-gGo.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"dvM-cC-gGo\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
+          }
+        }
+      }
+    },
     "eUz-xt-nqW.text" : {
       "comment" : "Class = \"UILabel\"; text = \"Enter Your Passcode\"; ObjectID = \"eUz-xt-nqW\";",
       "extractionState" : "extracted_with_value",
@@ -758,13 +782,13 @@
       }
     },
     "O5F-kX-ide.configuration.title" : {
-      "comment" : "Class = \"UIButton\"; configuration.title = \"Register Now\"; ObjectID = \"O5F-kX-ide\";",
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Open an Account\"; ObjectID = \"O5F-kX-ide\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Register Now"
+            "value" : "Open an Account"
           }
         }
       }
@@ -1069,6 +1093,18 @@
         }
       }
     },
+    "uAh-NS-Nqd.text" : {
+      "comment" : "Class = \"UILabel\"; text = \"Already have an account?\"; ObjectID = \"uAh-NS-Nqd\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Already have an account?"
+          }
+        }
+      }
+    },
     "UEM-W6-sIs.placeholder" : {
       "comment" : "Class = \"UITextField\"; placeholder = \"Last Name\"; ObjectID = \"UEM-W6-sIs\";",
       "extractionState" : "extracted_with_value",
@@ -1189,6 +1225,18 @@
         }
       }
     },
+    "Wsm-OG-LHP.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Continue with Google\"; ObjectID = \"Wsm-OG-LHP\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Continue with Google"
+          }
+        }
+      }
+    },
     "Wwz-BM-KNb.configuration.title" : {
       "comment" : "Class = \"UIButton\"; configuration.title = \"Continue\"; ObjectID = \"Wwz-BM-KNb\";",
       "extractionState" : "extracted_with_value",
@@ -1221,6 +1269,30 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Enter Phone Number "
+          }
+        }
+      }
+    },
+    "XxP-EN-Mw2.configuration.title" : {
+      "comment" : "Class = \"UIButton\"; configuration.title = \"Sign In\"; ObjectID = \"XxP-EN-Mw2\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Sign In"
+          }
+        }
+      }
+    },
+    "XxP-EN-Mw2.normalTitle" : {
+      "comment" : "Class = \"UIButton\"; normalTitle = \"Button\"; ObjectID = \"XxP-EN-Mw2\";",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Button"
           }
         }
       }
@@ -1286,13 +1358,13 @@
       }
     },
     "YwC-bP-FtE.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"Start trading journey with\"; ObjectID = \"YwC-bP-FtE\";",
+      "comment" : "Class = \"UILabel\"; text = \"Welcome to River Prime. Start trading journey with River Prime.\"; ObjectID = \"YwC-bP-FtE\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Start trading journey with"
+            "value" : "Welcome to River Prime. Start trading journey with River Prime."
           }
         }
       }
@@ -1334,13 +1406,13 @@
       }
     },
     "zo3-qq-gFM.text" : {
-      "comment" : "Class = \"UILabel\"; text = \"RIVER PRIME\"; ObjectID = \"zo3-qq-gFM\";",
+      "comment" : "Class = \"UILabel\"; text = \"Ready to get started?\"; ObjectID = \"zo3-qq-gFM\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "RIVER PRIME"
+            "value" : "Ready to get started?"
           }
         }
       }

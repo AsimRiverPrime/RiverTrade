@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZIg-TV-Pdq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZIg-TV-Pdq">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -26,35 +26,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xB-nq-lXT">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RhX-F9-dLn">
-                                        <rect key="frame" x="76.666666666666686" y="220.66666666666663" width="240" height="240"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="RhX-F9-dLn">
+                                        <rect key="frame" x="30" y="149" width="333" height="85.333333333333314"/>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start trading journey with" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwC-bP-FtE">
-                                        <rect key="frame" x="30" y="475.66666666666669" width="333" height="29.333333333333314"/>
-                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="24"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to River Prime. Start trading journey with River Prime." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwC-bP-FtE">
+                                        <rect key="frame" x="30" y="249.33333333333337" width="333" height="39"/>
+                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RIVER PRIME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zo3-qq-gFM">
-                                        <rect key="frame" x="70" y="520" width="253" height="36.333333333333371"/>
-                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="30"/>
-                                        <nil key="textColor"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to get started?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zo3-qq-gFM">
+                                        <rect key="frame" x="70" y="546.33333333333337" width="253" height="15"/>
+                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5F-kX-ide">
-                                        <rect key="frame" x="70" y="581.33333333333337" width="253" height="45"/>
+                                        <rect key="frame" x="35" y="576.33333333333337" width="323" height="45"/>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Nck-Ij-SC0"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Register Now">
-                                            <fontDescription key="titleFontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Open an Account">
+                                            <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="CornerRadius">
-                                                <integer key="value" value="20"/>
+                                                <integer key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -62,32 +62,113 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="O5F-kX-ide" secondAttribute="trailing" constant="35" id="2HP-34-MxU"/>
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="centerX" secondItem="YwC-bP-FtE" secondAttribute="centerX" id="3W1-zE-hWm"/>
                                     <constraint firstAttribute="trailing" secondItem="YwC-bP-FtE" secondAttribute="trailing" constant="30" id="64f-Kz-iBV"/>
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="30" id="8wL-19-Tmo"/>
-                                    <constraint firstItem="O5F-kX-ide" firstAttribute="leading" secondItem="zo3-qq-gFM" secondAttribute="leading" id="8zg-0e-lv4"/>
-                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.28169" id="Dho-MQ-7y8"/>
+                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.1" id="Dho-MQ-7y8"/>
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="70" id="FdF-zf-S73"/>
+                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.45" id="GmL-mL-G3S"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="IXj-nh-Hgk"/>
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="top" secondItem="RhX-F9-dLn" secondAttribute="bottom" constant="15" id="J7x-Qo-h92"/>
-                                    <constraint firstItem="zo3-qq-gFM" firstAttribute="top" secondItem="YwC-bP-FtE" secondAttribute="bottom" constant="15" id="LMm-dW-Yom"/>
-                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.8" id="Nd1-5X-SCT"/>
-                                    <constraint firstItem="O5F-kX-ide" firstAttribute="top" secondItem="zo3-qq-gFM" secondAttribute="bottom" constant="25" id="RDD-7Z-hfF"/>
+                                    <constraint firstItem="O5F-kX-ide" firstAttribute="top" secondItem="zo3-qq-gFM" secondAttribute="bottom" constant="15" id="RDD-7Z-hfF"/>
+                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="30" id="fC9-Bc-Sdh"/>
+                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="ftD-r6-FtS"/>
+                                    <constraint firstAttribute="trailing" secondItem="RhX-F9-dLn" secondAttribute="trailing" constant="30" id="iG7-1K-8LF"/>
                                     <constraint firstAttribute="trailing" secondItem="zo3-qq-gFM" secondAttribute="trailing" constant="70" id="lcE-af-q4q"/>
-                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="nNG-u3-2Cs"/>
-                                    <constraint firstItem="O5F-kX-ide" firstAttribute="trailing" secondItem="zo3-qq-gFM" secondAttribute="trailing" id="wre-d2-l0C"/>
-                                    <constraint firstItem="RhX-F9-dLn" firstAttribute="width" secondItem="5xB-nq-lXT" secondAttribute="width" multiplier="0.610687" id="z8d-7Y-bKG"/>
+                                    <constraint firstItem="zo3-qq-gFM" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="1.3" id="myu-Q3-RyD"/>
+                                    <constraint firstItem="O5F-kX-ide" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="35" id="rBg-75-iBD"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsm-OG-LHP" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="35" y="636.33333333333337" width="323" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <buttonConfiguration key="configuration" style="plain" image="google.png" imagePlacement="leading" title="Continue with Google" imagePadding="10">
+                                    <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueGoogleBtn:" destination="n6t-hI-qgu" eventType="touchUpInside" id="Nih-yf-R2o"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvM-cC-gGo" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="35" y="696.33333333333337" width="323" height="45"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Try Demo">
+                                    <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <integer key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                        <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
+                                        <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="continueGoogleBtn:" destination="n6t-hI-qgu" eventType="touchUpInside" id="re7-Ks-mVo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAh-NS-Nqd">
+                                <rect key="frame" x="90" y="781.33333333333337" width="166" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxP-EN-Mw2">
+                                <rect key="frame" x="256" y="774.33333333333337" width="70" height="31"/>
+                                <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign In">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="nOB-qH-EHR"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="dvM-cC-gGo" firstAttribute="height" secondItem="Wsm-OG-LHP" secondAttribute="height" id="29W-Xv-8YN"/>
+                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="leading" secondItem="O5F-kX-ide" secondAttribute="leading" id="2CR-Va-XRC"/>
+                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="height" secondItem="O5F-kX-ide" secondAttribute="height" id="4dv-YG-LQU"/>
+                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="top" secondItem="O5F-kX-ide" secondAttribute="bottom" constant="15" id="B3F-j2-sM4"/>
+                            <constraint firstItem="dvM-cC-gGo" firstAttribute="trailing" secondItem="Wsm-OG-LHP" secondAttribute="trailing" id="ELh-38-PsG"/>
+                            <constraint firstItem="uAh-NS-Nqd" firstAttribute="top" secondItem="dvM-cC-gGo" secondAttribute="bottom" constant="40" id="HDZ-QN-VjY"/>
                             <constraint firstAttribute="bottom" secondItem="5xB-nq-lXT" secondAttribute="bottom" id="LJ1-Gt-3rc"/>
+                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="trailing" secondItem="O5F-kX-ide" secondAttribute="trailing" id="Olm-4H-28T"/>
                             <constraint firstAttribute="trailing" secondItem="5xB-nq-lXT" secondAttribute="trailing" id="Z5p-ps-P9c"/>
+                            <constraint firstItem="dvM-cC-gGo" firstAttribute="top" secondItem="Wsm-OG-LHP" secondAttribute="bottom" constant="15" id="a7P-gK-KMD"/>
                             <constraint firstItem="5xB-nq-lXT" firstAttribute="leading" secondItem="oqM-iQ-cph" secondAttribute="leading" id="afx-sH-kWG"/>
+                            <constraint firstItem="dvM-cC-gGo" firstAttribute="leading" secondItem="Wsm-OG-LHP" secondAttribute="leading" id="ehJ-Iz-Eno"/>
+                            <constraint firstItem="uAh-NS-Nqd" firstAttribute="centerX" secondItem="oqM-iQ-cph" secondAttribute="centerX" multiplier="0.88" id="k45-eg-I3g"/>
+                            <constraint firstItem="XxP-EN-Mw2" firstAttribute="centerY" secondItem="uAh-NS-Nqd" secondAttribute="centerY" id="nYF-2c-c0f"/>
+                            <constraint firstItem="XxP-EN-Mw2" firstAttribute="leading" secondItem="uAh-NS-Nqd" secondAttribute="trailing" id="oM5-th-dag"/>
                             <constraint firstItem="5xB-nq-lXT" firstAttribute="top" secondItem="oqM-iQ-cph" secondAttribute="top" id="tUA-uR-tzi"/>
                         </constraints>
                     </view>
@@ -126,7 +207,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="567.33333333333337"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WSf-tu-V5R">
-                                                        <rect key="frame" x="0.0" y="0.0" width="353" height="964.33333333333337"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="353" height="964.66666666666663"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHQ-dg-WjH">
                                                                 <rect key="frame" x="15" y="15" width="323" height="1141"/>
@@ -632,7 +713,7 @@ Reach out for support or questions regarding these terms.</string>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="riverPrimeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="1Tk-6c-a2J">
-                                        <rect key="frame" x="68.666666666666671" y="719" width="255.66666666666663" height="93"/>
+                                        <rect key="frame" x="68.666666666666686" y="719" width="255.66666666666663" height="93"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -692,7 +773,7 @@ Reach out for support or questions regarding these terms.</string>
                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="577.33333333333337"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f9M-5V-Apj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="353" height="1154.6666666666667"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="353" height="1155"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfh-en-MSi">
                                                                 <rect key="frame" x="15" y="20" width="323" height="1441.3333333333333"/>
@@ -1168,7 +1249,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </constraints>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="riverPrimeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="0U6-Ip-ZId">
-                                        <rect key="frame" x="68.666666666666671" y="719" width="255.66666666666663" height="93"/>
+                                        <rect key="frame" x="68.666666666666686" y="719" width="255.66666666666663" height="93"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1222,7 +1303,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <rect key="frame" x="10" y="50" width="373" height="151"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="YQc-IP-QJ5">
-                                                        <rect key="frame" x="136.66666666666666" y="0.6666666666666643" width="100" height="98.666666666666686"/>
+                                                        <rect key="frame" x="136.66666666666663" y="0.6666666666666643" width="100.00000000000003" height="98.666666666666686"/>
                                                         <color key="tintColor" systemColor="systemYellowColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="100" id="Zig-Yo-o7c"/>
@@ -1495,7 +1576,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         <rect key="frame" x="10" y="349.66666666666674" width="373" height="389.33333333333326"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="GKN-rC-5j5">
-                                                <rect key="frame" x="19.666666666666657" y="74.333333333333314" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="74.333333333333258" width="334" height="70.000000000000057"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVV-4h-jrb">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1545,7 +1626,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="d7y-Yh-5V5">
-                                                <rect key="frame" x="19.666666666666657" y="149.33333333333331" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="149.33333333333326" width="334" height="70.000000000000057"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4f0-Wr-DGt">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1595,7 +1676,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="ipR-fZ-l8l">
-                                                <rect key="frame" x="19.666666666666657" y="224.33333333333331" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="224.33333333333326" width="334" height="70.000000000000057"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AuD-Ha-g0P">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1645,7 +1726,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="X05-cf-aIK">
-                                                <rect key="frame" x="19.666666666666657" y="299.33333333333331" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="299.33333333333326" width="334" height="70.000000000000057"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qZj-Lo-puf">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1772,7 +1853,7 @@ Reach out for questions or concerns about your privacy.</string>
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set New Passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yW7-qi-1ag">
-                                        <rect key="frame" x="101.66666666666667" y="9.9999999999999982" width="189.66666666666663" height="26.333333333333329"/>
+                                        <rect key="frame" x="101.66666666666669" y="9.9999999999999982" width="189.66666666666663" height="26.333333333333329"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1858,7 +1939,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         <rect key="frame" x="10" y="357.33333333333326" width="373" height="381.66666666666674"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="uQr-WQ-Fbe">
-                                                <rect key="frame" x="19.666666666666657" y="66.666666666666686" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="66.666666666666742" width="334" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaA-LY-x5e">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1911,7 +1992,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="qTF-20-Lzp">
-                                                <rect key="frame" x="19.666666666666657" y="141.66666666666669" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="141.66666666666674" width="334" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cae-ll-kmg">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -1964,7 +2045,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="cSC-Hz-1vE">
-                                                <rect key="frame" x="19.666666666666657" y="216.66666666666669" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="216.66666666666674" width="334" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ppk-4D-t9h">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -2017,7 +2098,7 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="62" translatesAutoresizingMaskIntoConstraints="NO" id="lLc-zK-KdK">
-                                                <rect key="frame" x="19.666666666666657" y="291.66666666666669" width="334" height="70"/>
+                                                <rect key="frame" x="19.666666666666629" y="291.66666666666674" width="334" height="70"/>
                                                 <subviews>
                                                     <button opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pr8-Xx-QR2">
                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
@@ -2150,7 +2231,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         <color key="backgroundColor" name="splashScreen"/>
                                     </view>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signInIcon" translatesAutoresizingMaskIntoConstraints="NO" id="H7V-kT-oFW">
-                                        <rect key="frame" x="98.333333333333329" y="-24" width="196.33333333333337" height="140.66666666666666"/>
+                                        <rect key="frame" x="98.333333333333314" y="-24" width="196.33333333333337" height="140.66666666666666"/>
                                         <color key="tintColor" systemColor="systemYellowColor"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fh7-D9-Pxd">
@@ -2349,6 +2430,7 @@ Reach out for questions or concerns about your privacy.</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Uid-41-fKf"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="tT3-SA-bgH" firstAttribute="leading" secondItem="Vo9-LW-Gun" secondAttribute="leading" constant="20" id="7Hg-LK-FKm"/>
@@ -2395,7 +2477,7 @@ Reach out for questions or concerns about your privacy.</string>
                                 <color key="backgroundColor" name="splashScreen"/>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forgetIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Tlg-ji-hCI">
-                                <rect key="frame" x="98.333333333333329" y="40.000000000000007" width="196.33333333333337" height="127.66666666666669"/>
+                                <rect key="frame" x="98.333333333333314" y="40.000000000000007" width="196.33333333333337" height="127.66666666666669"/>
                                 <color key="tintColor" systemColor="systemYellowColor"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Hi-Cf-Y26">
@@ -2601,13 +2683,13 @@ Reach out for questions or concerns about your privacy.</string>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zS7-sz-9wv">
-                                                                <rect key="frame" x="141.66666666666666" y="0.0" width="37" height="41"/>
+                                                                <rect key="frame" x="141.66666666666663" y="0.0" width="37" height="41"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eDs-5N-PaH">
-                                                                <rect key="frame" x="188.66666666666666" y="0.0" width="37.333333333333343" height="41"/>
+                                                                <rect key="frame" x="188.66666666666663" y="0.0" width="37.333333333333371" height="41"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -2990,12 +3072,12 @@ Reach out for questions or concerns about your privacy.</string>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeY-PF-onT">
-                                                <rect key="frame" x="156" y="381.66666666666663" width="21.333333333333343" height="18"/>
+                                                <rect key="frame" x="156" y="381.66666666666663" width="21.333333333333371" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-1o-Sfm">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-1o-Sfm" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="409.66666666666663" width="303" height="51"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3209,13 +3291,13 @@ Reach out for questions or concerns about your privacy.</string>
         </scene>
     </scenes>
     <resources>
-        <image name="VIcon" width="475" height="472"/>
         <image name="arrow.left" catalog="system" width="128" height="95"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="eye.slash" catalog="system" width="128" height="97"/>
         <image name="faceid" catalog="system" width="128" height="115"/>
         <image name="forgetIcon" width="449" height="449"/>
         <image name="google.png" width="18" height="18"/>
+        <image name="logo" width="336" height="87"/>
         <image name="phone.circle.fill" catalog="system" width="128" height="123"/>
         <image name="riverPrimeIcon" width="415" height="93"/>
         <image name="signInIcon" width="449" height="449"/>
