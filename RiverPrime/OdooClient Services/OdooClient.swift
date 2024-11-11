@@ -9,33 +9,6 @@ import Alamofire
 import Foundation
 import AEXML
 
-//protocol SendOTPDelegate: AnyObject {
-//    func otpSuccess(response: Any)
-//    func otpFailure(error: Error)
-//}
-//protocol VerifyOTPDelegate: AnyObject {
-//    func otpVerifySuccess(response: Any)
-//    func otpVerifyFailure(error: Error)
-//}
-protocol CreateLeadOdooDelegate: AnyObject {
-    func leadCreatSuccess(response: Any)
-    func leadCreatFailure(error: Error)
-}
-
-protocol UpdatePhoneNumebrDelegate: AnyObject {
-    func updateNumberSuccess(response: Any)
-    func updateNumberFailure(error: Error)
-}
-
-protocol CreateUserAccountTypeDelegate: AnyObject {
-    func createAccountSuccess(response: Any)
-    func createAccountFailure(error: Error)
-}
-
-protocol TradeSymbolDetailDelegate: AnyObject {
-    func tradeSymbolDetailSuccess(response: [String: Any])
-    func tradeSymbolDetailFailure(error: Error)
-}
 class OdooClient {
     
     //    private let baseURL = "http://192.168.3.107:8069/xmlrpc/2/"
@@ -71,7 +44,7 @@ class OdooClient {
     
     var dataBaseName: String = "mbe.riverprime.com"
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "7d2d38646cf6437034109f442596b86cbf6110c0"//"4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+    var dbPassword: String =  "7d2d38646cf6437034109f442596b86cbf6110c0"
     var userEmail: String = ""
     
     weak var delegate: SendOTPDelegate?
@@ -329,54 +302,54 @@ class OdooClient {
     //MARK: - information for trade Symbol detail
     // working
     
-    func sendSymbolDetailRequest1() {
-        
-        let domainFilter: [[Any]] = [[
-            "mobile_available", "=" , "True"
-        ]]
-        
-        let fieldRetrieve: [String] =  ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level","yesterday_close"]
-        
-        let jsonrpcBody: [String: Any] = [
-            "jsonrpc": "2.0",
-            "method":"call",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    dataBaseName,    // Your database name
-                    uid,             // Your user ID
-                    dbPassword,      // Your password
-                    "mt.symbol",     // The model you're calling
-                    "search_read",   // The method to be executed
-                    [domainFilter,    // Domain (search criteria)
-                     fieldRetrieve // Field list to retrieve
-                    ]
-                ]
-            ]
-        ]
-        
-        print("json params is: \(jsonrpcBody)")
-        
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-            
-            print("result is : \(result)")
-            
-            switch result {
-            case .success(let value):
-                if let jsonData = value as? [String: Any], let result = jsonData["result"] as? [[String: Any]] {
-                    self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: ["result": result])
-                }else {
-                    print("Unexpected response format or missing 'result' key")
-                }
-                
-            case .failure(let error):
-                self.tradeSymbolDetailDelegate?.tradeSymbolDetailFailure(error: error)
-                break
-                
-            }
-        }
-    }
+//    func sendSymbolDetailRequest() {
+//        
+//        let domainFilter: [[Any]] = [[
+//            "mobile_available", "=" , "True"
+//        ]]
+//        
+//        let fieldRetrieve: [String] =  ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level","yesterday_close"]
+//        
+//        let jsonrpcBody: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "method":"call",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,    // Your database name
+//                    uid,             // Your user ID
+//                    dbPassword,      // Your password
+//                    "mt.symbol",     // The model you're calling
+//                    "search_read",   // The method to be executed
+//                    [domainFilter,    // Domain (search criteria)
+//                     fieldRetrieve // Field list to retrieve
+//                    ]
+//                ]
+//            ]
+//        ]
+//        
+//        print("json params is: \(jsonrpcBody)")
+//        
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+//            
+//            print("result is : \(result)")
+//            
+//            switch result {
+//            case .success(let value):
+//                if let jsonData = value as? [String: Any], let result = jsonData["result"] as? [[String: Any]] {
+//                    self.tradeSymbolDetailDelegate?.tradeSymbolDetailSuccess(response: ["result": result])
+//                }else {
+//                    print("Unexpected response format or missing 'result' key")
+//                }
+//                
+//            case .failure(let error):
+//                self.tradeSymbolDetailDelegate?.tradeSymbolDetailFailure(error: error)
+//                break
+//                
+//            }
+//        }
+//    }
     
     //        func sendSymbolDetailRequest() {
     //            uid = UserDefaults.standard.integer(forKey: "uid")
@@ -428,60 +401,60 @@ class OdooClient {
     //        }
     //MARK: - Create request (Leads to crm) Method for records
     // working
-    func createRecords1(firebase_uid: String, email: String, name: String) {
-        
-        uid = UserDefaults.standard.integer(forKey: "uid")
-        
-        let jsonrpcBody: [String: Any] = [
-            "jsonrpc": "2.0",
-            "method":"call",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    dataBaseName,      // Database name
-                    uid,               // uid
-                    dbPassword,        // password
-                    "crm.lead",       // Model name
-                    "create",         // Method name
-                    [[                // vals_list
-                        "name": name,
-                        "firebase_uid": firebase_uid,
-                        "type": "opportunity",
-                        "email_from": email
-                        
-                     ]]
-                ]
-            ]
-        ]
-        
-        print("\n params value is: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-            
-            print("result is : \(result)")
-            switch result {
-            case .success(let value):
-                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-                    
-                    UserDefaults.standard.set(result, forKey: "recordId")
-                    self.createLeadDelegate?.leadCreatSuccess(response: result)
-                    print("result is: \(result)")
-                    
-                }else {
-                    print("Unexpected response format or missing 'result' key")
-                    
-                }
-                
-            case .failure(let error):
-                self.createLeadDelegate?.leadCreatFailure(error: error)
-                print("error is :\(error)")
-                break
-                
-            }
-            
-        }
-        
-    }
+//    func createRecords1(firebase_uid: String, email: String, name: String) {
+//        
+//        uid = UserDefaults.standard.integer(forKey: "uid")
+//        
+//        let jsonrpcBody: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "method":"call",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,      // Database name
+//                    uid,               // uid
+//                    dbPassword,        // password
+//                    "crm.lead",       // Model name
+//                    "create",         // Method name
+//                    [[                // vals_list
+//                        "name": name,
+//                        "firebase_uid": firebase_uid,
+//                        "type": "opportunity",
+//                        "email_from": email
+//                        
+//                     ]]
+//                ]
+//            ]
+//        ]
+//        
+//        print("\n params value is: \(jsonrpcBody)")
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+//            
+//            print("result is : \(result)")
+//            switch result {
+//            case .success(let value):
+//                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+//                    
+//                    UserDefaults.standard.set(result, forKey: "recordId")
+//                    self.createLeadDelegate?.leadCreatSuccess(response: result)
+//                    print("result is: \(result)")
+//                    
+//                }else {
+//                    print("Unexpected response format or missing 'result' key")
+//                    
+//                }
+//                
+//            case .failure(let error):
+//                self.createLeadDelegate?.leadCreatFailure(error: error)
+//                print("error is :\(error)")
+//                break
+//                
+//            }
+//            
+//        }
+//        
+//    }
     
     //        func createRecords(firebase_uid: String, email: String, name: String) {
     //            self.createRequestBool = true
@@ -537,59 +510,59 @@ class OdooClient {
     //MARK: - Method write/update data to OdooServer
     // working
     
-    func writeRecords1(number: String) {
-        uid = UserDefaults.standard.integer(forKey: "uid")
-        recordedId = UserDefaults.standard.integer(forKey: "recordId")
-        
-        let jsonrpcBody: [String: Any] = [
-            "jsonrpc": "2.0",
-            "method":"call",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    dataBaseName,      // Database name
-                    uid,               //   GlobalVariable.instance.uid,
-                    dbPassword,            // password
-                    "crm.lead",       // Model name
-                    "write",         // Method name
-                    [[recordedId],[                // vals_list // need record id save in userdefault
-                        "number_ids": [
-                            [0, 0, [
-                                "number": number,
-                                "type": "work"
-                            ]]
-                        ]
-                    ]]
-                ]
-            ]
-        ]
-        
-        
-        print("\n params value is: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-            
-            print("write phone # record result is : \(result)")
-            switch result {
-            case .success(let value):
-                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-                    print("result is: \(result)")
-                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
-                   
-                }else {
-                    print("Unexpected response format or missing 'result' key")
-                }
-                
-            case .failure(let error):
-                self.updateNumberDelegate?.updateNumberFailure(error: error)
-                print("error is :\(error)")
-                break
-                
-            }
-            
-        }
-        
-    }
+//    func writeRecords1(number: String) {
+//        uid = UserDefaults.standard.integer(forKey: "uid")
+//        recordedId = UserDefaults.standard.integer(forKey: "recordId")
+//        
+//        let jsonrpcBody: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "method":"call",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,      // Database name
+//                    uid,               //   GlobalVariable.instance.uid,
+//                    dbPassword,            // password
+//                    "crm.lead",       // Model name
+//                    "write",         // Method name
+//                    [[recordedId],[                // vals_list // need record id save in userdefault
+//                        "number_ids": [
+//                            [0, 0, [
+//                                "number": number,
+//                                "type": "work"
+//                            ]]
+//                        ]
+//                    ]]
+//                ]
+//            ]
+//        ]
+//        
+//        
+//        print("\n params value is: \(jsonrpcBody)")
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+//            
+//            print("write phone # record result is : \(result)")
+//            switch result {
+//            case .success(let value):
+//                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+//                    print("result is: \(result)")
+//                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
+//                   
+//                }else {
+//                    print("Unexpected response format or missing 'result' key")
+//                }
+//                
+//            case .failure(let error):
+//                self.updateNumberDelegate?.updateNumberFailure(error: error)
+//                print("error is :\(error)")
+//                break
+//                
+//            }
+//            
+//        }
+//        
+//    }
     
     
 //    func writeRecords(number: String) {

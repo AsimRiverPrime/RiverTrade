@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseAuth
+import Firebase
 
 
 class FirestoreServices: BaseViewController {
@@ -34,49 +35,39 @@ class FirestoreServices: BaseViewController {
            }
     }
     
-    
-//    func fetchUser(withID id: String, completion: @escaping (UserModel?, Error?) -> Void) {
-//        let userRef = db.collection("users").document(id)
-//        userRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                let data = document.data()!
-//                let user = UserModel(id: document.documentID, data: data)
-//                completion(user, nil)
-//            } else {
-//                completion(nil, error)
-//            }
-//        }
-//    }
-    
-    /**
-     
-     // Retrieve the data from UserDefaults
-     if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") as? [String: Any] {
- 
-         // Access specific values from the dictionary
-         if let uid = savedUserData["uid"] as? String,
-            let login = savedUserData["login"] as? Int,
-            let emailVerified = savedUserData["emailVerified"] as? Int {
- 
-             // Example condition based on values
-             if login == 0 {
-                 print("User is not logged in. UID: \(uid)")
-             } else {
-                 print("User is logged in. UID: \(uid)")
-             }
- 
-             if emailVerified == 0 {
-                 print("Email is not verified.")
-             }
-         }
-     }**/
-  
+    func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, userName: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
+        
+        db.collection("users").document(userId).setData([
+            "KYC" : kyc,
+            "profileStep" : profileStep,
+            "uid": userId,
+            "name": name,
+            "userName" : userName,
+            "email":email,
+            "phone": phone,
+            "loginId": loginId,
+            "emailVerified": emailVerified,
+            "phoneVerified": phoneVerified,
+            "login": login,
+            "demoAccountGroup": demoAccountGroup,
+            "pushedToCRM": pushedToCRM,
+            "realAccountCreated": realAccountCreated,
+            "demoAccountCreated": demoAccountCreated
+        ]) { error in
+            if let error = error {
+                print("Error saving user data: \(error.localizedDescription)")
+            } else {
+                print("User data saved successfully.")
+            }
+        }
+        fetchUserData(userId: userId)
+    }
+
        
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
         print("user ID is: \(userId)")
         
-//         let db = Firestore.firestore()
          let docRef = db.collection("users").document(userId)
          
          docRef.getDocument { (document, error) in

@@ -25,7 +25,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     let userId =  UserDefaults.standard.string(forKey: "userID")
     var userEmail: String = ""
     let firestoreService = FirestoreServices()
-    let oodoService = OdooClient()
+//    let oodoService = OdooClient()
     let oodoServiceNew = OdooClientNew()
    
     override func viewDidLoad() {
@@ -36,7 +36,8 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         
 //        oodoService.delegate = self
-        oodoService.updateNumberDelegate = self
+//        oodoService.updateNumberDelegate = self
+        oodoServiceNew.updateNumberDelegate = self
         oodoServiceNew.otpDelegate = self
         oodoServiceNew.updateNumberDelegate = self
         
@@ -123,7 +124,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                 let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
-            self.oodoService.writeRecords1(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
+            self.oodoServiceNew.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")

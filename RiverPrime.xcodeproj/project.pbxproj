@@ -73,6 +73,7 @@
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
 		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
+		315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */ = {isa = PBXBuildFile; fileRef = 315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
 		315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */; };
@@ -154,7 +155,6 @@
 		31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */; };
 		31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */; };
 		31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */; };
-		31BFDCF22CDDEE6A001F9F64 /* backgroundVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 31BFDCF12CDDEE6A001F9F64 /* backgroundVideo.mp4 */; };
 		31BFDCF42CDE1A58001F9F64 /* background_vedio.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 31BFDCF32CDE1A58001F9F64 /* background_vedio.mp4 */; };
 		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
 		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
@@ -405,6 +405,7 @@
 		313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupBottomSheet.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
 		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
+		315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleSignIn .swift"; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DB98B2C6C77BD00FF967C /* TicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketVC.swift; sourceTree = "<group>"; };
 		315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuppotTableViewCell.swift; sourceTree = "<group>"; };
@@ -486,7 +487,6 @@
 		31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsTableViewCell.swift; sourceTree = "<group>"; };
 		31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopNewsTableViewCell.xib; sourceTree = "<group>"; };
 		31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeDetalVC.swift; sourceTree = "<group>"; };
-		31BFDCF12CDDEE6A001F9F64 /* backgroundVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = backgroundVideo.mp4; sourceTree = "<group>"; };
 		31BFDCF32CDE1A58001F9F64 /* background_vedio.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background_vedio.mp4; sourceTree = "<group>"; };
 		31D261FE2C3BECDE00FC6651 /* RiverPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiverPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -1012,6 +1012,7 @@
 			isa = PBXGroup;
 			children = (
 				3169F23F2C53AC0C0032272A /* FireStoreServices.swift */,
+				315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */,
 			);
 			path = "Firebase Services";
 			sourceTree = "<group>";
@@ -1305,7 +1306,6 @@
 		31BFDCF02CDDEE51001F9F64 /* backgroundvideo */ = {
 			isa = PBXGroup;
 			children = (
-				31BFDCF12CDDEE6A001F9F64 /* backgroundVideo.mp4 */,
 				31BFDCF32CDE1A58001F9F64 /* background_vedio.mp4 */,
 			);
 			path = backgroundvideo;
@@ -2233,7 +2233,6 @@
 				315DDB0A2C4FA05700C4F8C0 /* ProfileVC.xib in Resources */,
 				FA12B5E52C4F10820054F8D8 /* ResultsFilterViewCell.xib in Resources */,
 				31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */,
-				31BFDCF22CDDEE6A001F9F64 /* backgroundVideo.mp4 in Resources */,
 				31D2AEE62C8840B800E0CF2E /* content-setup.js in Resources */,
 				31DC19C92C4F76C0005BC2BB /* BenefitsTableViewCell.xib in Resources */,
 				315DDB022C4F9A2900C4F8C0 /* SuppotTableViewCell.xib in Resources */,
@@ -2480,6 +2479,7 @@
 				FAD776CC2C976F4D000411F1 /* JSONRPCClient.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
+				315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */,
 				31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */,
 				31D2AF1C2C8840B800E0CF2E /* ChartOptions.swift in Sources */,
 				31D2AF392C8840B800E0CF2E /* FromToRange.swift in Sources */,

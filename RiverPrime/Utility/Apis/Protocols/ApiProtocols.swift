@@ -17,3 +17,20 @@ protocol VerifyOTPDelegate: AnyObject {
     func otpVerifyFailure(error: Error)
 }
 
+protocol CreateLeadOdooDelegate: AnyObject {
+    func leadCreatSuccess(response: Any)
+    func leadCreatFailure(error: Error)
+}
+protocol TradeSymbolDetailDelegate: AnyObject {
+    func tradeSymbolDetailSuccess(response: [String: Any])
+    func tradeSymbolDetailFailure(error: Error)
+}
+protocol UpdatePhoneNumebrDelegate: AnyObject {
+    func updateNumberSuccess(response: Any)
+    func updateNumberFailure(error: Error)
+}
+
+protocol CreateUserAccountTypeDelegate: AnyObject {
+    func createAccountSuccess(response: Any)
+    func createAccountFailure(error: Error)
+}

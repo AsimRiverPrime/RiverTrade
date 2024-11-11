@@ -61,7 +61,7 @@ class DashboardVC: BaseViewController {
     var demoAccountCreated = Bool()
     var balance = String()
     
-    var odooClientService = OdooClient()
+    var odooClientService = OdooClientNew()
     
      let webSocketManager = WebSocketManager.shared
     
@@ -690,7 +690,7 @@ extension DashboardVC {
     private func symbolApiCalling() {
         
         //MARK: - Call Symbol Api and their delegate method to get data.
-        odooClientService.sendSymbolDetailRequest1()
+        odooClientService.sendSymbolDetailRequest()
         odooClientService.tradeSymbolDetailDelegate = self
        
     }

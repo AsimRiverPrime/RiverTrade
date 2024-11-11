@@ -10,16 +10,30 @@ import TPKeyboardAvoiding
 import GoogleSignIn
 import FirebaseFirestore
 import FirebaseAuth
+import Firebase
 
 class SignUpViewController: BaseViewController {
     
     
-    @IBOutlet weak var lbl_firstName: UITextField!
-    @IBOutlet weak var lbl_lastName: UITextField!
+//    @IBOutlet weak var lbl_firstName: UITextField!
+//    @IBOutlet weak var lbl_lastName: UITextField!
     
     @IBOutlet weak var lbl_emailValid: UILabel!
     @IBOutlet weak var lbl_passValid: UILabel!
     @IBOutlet weak var lbl_reTypePassValid: UILabel!
+    
+    @IBOutlet weak var lbl_fullName: UITextField! {
+        didSet{
+            lbl_fullName.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
+            lbl_fullName.tintColor = UIColor.lightGray
+        }
+    }
+    @IBOutlet weak var lbl_userName: UITextField! {
+        didSet{
+            lbl_userName.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
+            lbl_userName.tintColor = UIColor.lightGray
+        }
+    }
     
     @IBOutlet weak var reTypePassword_tf: UITextField! {
         didSet{
@@ -42,16 +56,16 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-    @IBOutlet weak var signinbutton: UIButton!
+//    @IBOutlet weak var signinbutton: UIButton!
     @IBOutlet weak var btn_termsCondition: UIButton!
     @IBOutlet weak var btn_passowrdIcon: UIButton!
     @IBOutlet weak var btn_reTpyePassowrdIcon: UIButton!
     @IBOutlet weak var btn_contiune: UIButton!
     
     var viewModel = SignViewModel()
-    var odooClientService = OdooClient()
+//    var odooClientService = OdooClient()
     var odoClientNew = OdooClientNew()
-    
+    var googleSignIn = GoogleSignIn()
     let db = Firestore.firestore()
     let fireBaseService =  FirestoreServices()
     
@@ -60,14 +74,15 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("odoo client auth call")
-        //        odooClientService.authenticate()
+      
         odoClientNew.authenticate()
-        odooClientService.createLeadDelegate = self 
+//        odooClientService.createLeadDelegate = self
+        odoClientNew.createLeadDelegate = self
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         self.reTypePassword_tf.addTarget(self, action: #selector(reTypePasswordTextChange), for: .editingChanged)
-        self.signinbutton.setTitle("", for: .normal)
+//        self.signinbutton.setTitle("", for: .normal)
         enableLoginButton()
     }
     
@@ -137,8 +152,8 @@ class SignUpViewController: BaseViewController {
     
     @IBAction func termsConditionBtn(_ sender: Any) {
         self.btn_termsCondition.isSelected = !self.btn_termsCondition.isSelected
-        self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "square") : UIImage(systemName: "checkmark.square"), for: .normal)
-        
+        self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.btn_termsCondition.tintColor = self.btn_termsCondition.isSelected ? .systemYellow : .white
         if btn_termsCondition.isSelected == true {
             enableLoginButton()
         }else{
@@ -176,7 +191,7 @@ class SignUpViewController: BaseViewController {
             print("result user: \(result)")
             guard let user1 = result?.user else { return }
             
-            self?.authenticateWithFirebase(user: user1)
+            self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
     }
@@ -194,57 +209,57 @@ class SignUpViewController: BaseViewController {
     }
     
     
-    func authenticateWithFirebase(user: GIDGoogleUser) {
-        
-        let idToken = user.idToken?.tokenString
-        let accessToken = user.accessToken.tokenString
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
-        
-        Auth.auth().signIn(with: credential) { authResult, error in
-            if let error = error {
-                print("Firebase authentication failed: \(error.localizedDescription)")
-                return
-            }
-            
-            // User is signed in with Firebase successfuly
-            if let user = authResult?.user {
-                
-                UserDefaults.standard.set(user.uid, forKey: "userID")
-                self.emailUser = user.email ?? ""
-                
-                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
-                    if let error = error {
-                        print("Error checking for existing user: \(error.localizedDescription)")
-                    }
-                    
-                    if let snapshot = querySnapshot, !snapshot.isEmpty {
-                        print("User with this email already exists.")
-                        self.fireBaseService.fetchUserData(userId: user.uid)
-                        
-                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
-                            print("Timer fired!")
-                            self.fireBaseService.handleUserData()
-                        }
-                        
-                        
-                    } else {
-                        self.odooClientService.createRecords1(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
-                        
-                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
-                        
-                    }
-                }
-                
-                
-            }
-        }
-    }
+//    func authenticateWithFirebase(user: GIDGoogleUser) {
+//        
+//        let idToken = user.idToken?.tokenString
+//        let accessToken = user.accessToken.tokenString
+//        
+//        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
+//        
+//        Auth.auth().signIn(with: credential) { authResult, error in
+//            if let error = error {
+//                print("Firebase authentication failed: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            // User is signed in with Firebase successfuly
+//            if let user = authResult?.user {
+//                
+//                UserDefaults.standard.set(user.uid, forKey: "userID")
+//                self.emailUser = user.email ?? ""
+//                
+//                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
+//                    if let error = error {
+//                        print("Error checking for existing user: \(error.localizedDescription)")
+//                    }
+//                    
+//                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+//                        print("User with this email already exists.")
+//                        self.fireBaseService.fetchUserData(userId: user.uid)
+//                        
+//                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+//                            print("Timer fired!")
+//                            self.fireBaseService.handleUserData()
+//                        }
+//                        
+//                        
+//                    } else {
+//                        self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+//                        
+//                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+//                        
+//                    }
+//                }
+//                
+//                
+//            }
+//        }
+//    }
     
     private func signUp() {
         guard
-            let firstName = lbl_firstName.text, !firstName.isEmpty,
-            let lastName = lbl_lastName.text, !lastName.isEmpty,
+            let fullName = lbl_fullName.text, !fullName.isEmpty,
+            let userName = lbl_userName.text, !userName.isEmpty,
             let reTypePass = reTypePassword_tf.text, !reTypePass.isEmpty,
             let email = email_tf.text, !email.isEmpty,
             let password = password_tf.text, !password.isEmpty
@@ -255,8 +270,8 @@ class SignUpViewController: BaseViewController {
             self.lbl_emailValid.text = "Please fill in all fields."
             return
         }
-        UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
-        UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
+//        UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
+//        UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
         // Check if user already exists in Firestore
         
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
@@ -293,10 +308,10 @@ class SignUpViewController: BaseViewController {
                         
                         ActivityIndicator.shared.show(in: self!.view)
                         
-                        let name = firstName + " " + lastName
-                        self?.odooClientService.createRecords1(firebase_uid: user.uid, email: email, name: name)
+//                        let name = firstName + " " + lastName
+                        self?.odoClientNew.createRecords(firebase_uid: user.uid, email: email, name: fullName)
                         
-                        self?.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: name, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: fullName, userName: userName, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
                         // Navigate to the main screen or any other action
                         
                         
@@ -307,32 +322,32 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
-        
-        db.collection("users").document(userId).setData([
-            "KYC" : kyc,
-            "profileStep" : profileStep,
-            "uid": userId,
-            "name": name,
-            "email":email,
-            "phone": phone,
-            "loginId": loginId,
-            "emailVerified": emailVerified,
-            "phoneVerified": phoneVerified,
-            "login": login,
-            "demoAccountGroup": demoAccountGroup,
-            "pushedToCRM": pushedToCRM,
-            "realAccountCreated": realAccountCreated,
-            "demoAccountCreated": demoAccountCreated
-        ]) { error in
-            if let error = error {
-                print("Error saving user data: \(error.localizedDescription)")
-            } else {
-                print("User data saved successfully.")
-            }
-        }
-        fireBaseService.fetchUserData(userId: userId)
-    }
+//    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
+//        
+//        db.collection("users").document(userId).setData([
+//            "KYC" : kyc,
+//            "profileStep" : profileStep,
+//            "uid": userId,
+//            "name": name,
+//            "email":email,
+//            "phone": phone,
+//            "loginId": loginId,
+//            "emailVerified": emailVerified,
+//            "phoneVerified": phoneVerified,
+//            "login": login,
+//            "demoAccountGroup": demoAccountGroup,
+//            "pushedToCRM": pushedToCRM,
+//            "realAccountCreated": realAccountCreated,
+//            "demoAccountCreated": demoAccountCreated
+//        ]) { error in
+//            if let error = error {
+//                print("Error saving user data: \(error.localizedDescription)")
+//            } else {
+//                print("User data saved successfully.")
+//            }
+//        }
+//        fireBaseService.fetchUserData(userId: userId)
+//    }
     
      func navigateToVerifiyScreen() {
         

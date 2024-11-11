@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import GoogleSignIn
 
 class ViewController: BaseViewController {
     
@@ -15,6 +16,7 @@ class ViewController: BaseViewController {
     @IBOutlet weak var registerNowBtn: UIButton!
     
     let vm = ViewControllerVM()
+    let googleSignIn = GoogleSignIn()
     
     var player: AVPlayer?
     
@@ -45,52 +47,42 @@ class ViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
     }
-    
-    func playBackgroundVideo() {
-        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
-               print("Video file not found")
-               return
-           }
-           
-           
-           let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
-           player = AVPlayer(playerItem: playerItem)
-        player?.isMuted = true
-           let playerLayer = AVPlayerLayer(player: player)
-           playerLayer.frame = view.bounds
-           playerLayer.videoGravity = .resizeAspectFill
-        playerLayer.opacity = 0.6
-           // Insert the player layer at the bottom so it acts as a background
-           view.layer.insertSublayer(playerLayer, at: 0)
-           
-           // Start playing and set it to loop
-           player?.play()
-           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-       }
-
-       @objc func loopVideo() {
-           player?.seek(to: .zero)
-           player?.play()
-       }
        
-       deinit {
-           NotificationCenter.default.removeObserver(self)
-       }
-    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     @IBAction func registerBtn(_ sender: Any) {
         if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") //SignUpViewController PasscodeFaceIDVC
         {
             self.navigate(to: signUp)
         }
+   
+    }
+    
+    @IBAction func signInBtn(_ sender: Any) {
+        if let signInVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignInViewController"){
+            self.navigate(to: signInVC)
+        }
+    }
+    
+    @IBAction func continueGoogleBtn(_ sender: Any) {
         
-//        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC") {
-//            self.navigate(to: signUp)
-//        }
-        
-//        if let vc = instantiateViewController(fromStoryboard: "BottomSheetPopups", withIdentifier: "TradeDetalVC"){
-//            self.navigate(to: vc)
-//        }
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+            if let error = error {
+                print("Sign in failed: \(error.localizedDescription)")
+                return
+            }
+            print("google login user result : \(result)")
+            guard let user1 = result?.user else { return }
+            
+            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            
+        }
+    }
+    
+    @IBAction func tryDemo_btnAction(_ sender: Any) {
+        print("Try demo btn action: ")
     }
 }
 
@@ -112,4 +104,34 @@ extension ViewController {
           
     }
     
+}
+
+extension ViewController {
+    
+    func playBackgroundVideo() {
+        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
+               print("Video file not found")
+               return
+           }
+        
+        let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+           player = AVPlayer(playerItem: playerItem)
+        player?.isMuted = true
+           let playerLayer = AVPlayerLayer(player: player)
+           playerLayer.frame = view.bounds
+           playerLayer.videoGravity = .resizeAspectFill
+        playerLayer.opacity = 0.6
+           // Insert the player layer at the bottom so it acts as a background
+           view.layer.insertSublayer(playerLayer, at: 0)
+           
+           // Start playing and set it to loop
+           player?.play()
+           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+       }
+
+       @objc func loopVideo() {
+           player?.seek(to: .zero)
+           player?.play()
+       }
+
 }

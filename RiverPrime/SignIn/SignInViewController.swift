@@ -16,7 +16,7 @@ class SignInViewController: BaseViewController {
     
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
-            username_tf.setIcon(UIImage(systemName: "person.fill")!)
+            username_tf.setIcon(UIImage(systemName: "personIcon")!)
             username_tf.tintColor = UIColor.lightGray
         }
     }
@@ -27,6 +27,7 @@ class SignInViewController: BaseViewController {
             password_tf.setIcon(UIImage(imageLiteralResourceName: "passwordIcon"))
         }
     }
+    
     @IBOutlet weak var lbl_emailCheck: UILabel!
     @IBOutlet weak var lbl_passwordCheck: UILabel!
     @IBOutlet weak var lbl_credientailCheck: UILabel!
@@ -39,14 +40,16 @@ class SignInViewController: BaseViewController {
     let firebase = FirestoreServices()
     var viewModel = SignViewModel()
 //    var signUpVC = SignUpViewController()
-    var odooClientService = OdooClient()
+//    var odooClientService = OdooClient()
     var odoClientNew = OdooClientNew()
+    var googleSignIn = GoogleSignIn()
     var emailUser: String?
-    let db = Firestore.firestore()
+  
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        odooClientService.createLeadDelegate = self
+//        odooClientService.createLeadDelegate = self
+        odoClientNew.createLeadDelegate = self
         // Do any additional setup after loading the view.
         
         self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
@@ -66,9 +69,6 @@ class SignInViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
      
-
-//        username_tf.text = "asimprime900@gmail.com"
-//        password_tf.text = "asdasd"
         
     }
     
@@ -111,7 +111,9 @@ class SignInViewController: BaseViewController {
     }
     @IBAction func rememberMeBtn(_ sender: Any) {
         self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
-        self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "square") : UIImage(systemName: "checkmark.square"), for: .normal)
+        self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.btn_rememberMe.tintColor = self.btn_rememberMe.isSelected ? .systemYellow : .white
+       
         
         
     }
@@ -135,7 +137,7 @@ class SignInViewController: BaseViewController {
             guard let user1 = result?.user else { return }
             SVProgressHUD.show()
         
-            self?.authenticateWithFirebase(user: user1)
+            self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
         
@@ -167,8 +169,6 @@ class SignInViewController: BaseViewController {
             return
         }
         
- 
-        
         // Use Firebase Authentication to sign in
         Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
             
@@ -199,7 +199,7 @@ class SignInViewController: BaseViewController {
             }else{
                 self?.lbl_emailCheck.isHidden = true
                 self?.lbl_passwordCheck.isHidden = true
-                self?.lbl_credientailCheck.isHidden = true
+//                self?.lbl_credientailCheck.isHidden = true
                 print(" signing in successfully: \(authres ?? " no data")")
                
                 print(" signing in successfully and move to Dashboard screen ")
@@ -217,79 +217,79 @@ class SignInViewController: BaseViewController {
         
     }
     
-    func authenticateWithFirebase(user: GIDGoogleUser) {
-        
-        let idToken = user.idToken?.tokenString
-        let accessToken = user.accessToken.tokenString
-        
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
-        
-        Auth.auth().signIn(with: credential) { authResult, error in
-            if let error = error {
-                print("Firebase authentication failed: \(error.localizedDescription)")
-                return
-            }
-            
-            // User is signed in with Firebase successfuly
-            if let user = authResult?.user {
-                
-                UserDefaults.standard.set(user.uid, forKey: "userID")
-                self.emailUser = user.email ?? ""
-                
-                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
-                    if let error = error {
-                        print("Error checking for existing user: \(error.localizedDescription)")
-                    }
-                    
-                    if let snapshot = querySnapshot, !snapshot.isEmpty {
-                        print("User with this email already exists.")
-                        self.firebase.fetchUserData(userId: user.uid)
-                        
-                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                            print("Timer fired!")
-                            SVProgressHUD.dismiss()
-                            self.firebase.handleUserData()
-                        }
-                        
-                        
-                    } else {
-                        self.odooClientService.createRecords1(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
-                        
-                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
-                        
-                    }
-                }
-                
-            }
-        }
-    }
+//    func authenticateWithFirebase(user: GIDGoogleUser) {
+//        
+//        let idToken = user.idToken?.tokenString
+//        let accessToken = user.accessToken.tokenString
+//        
+//        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
+//        
+//        Auth.auth().signIn(with: credential) { authResult, error in
+//            if let error = error {
+//                print("Firebase authentication failed: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            // User is signed in with Firebase successfuly
+//            if let user = authResult?.user {
+//                
+//                UserDefaults.standard.set(user.uid, forKey: "userID")
+//                self.emailUser = user.email ?? ""
+//                
+//                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
+//                    if let error = error {
+//                        print("Error checking for existing user: \(error.localizedDescription)")
+//                    }
+//                    
+//                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+//                        print("User with this email already exists.")
+//                        self.firebase.fetchUserData(userId: user.uid)
+//                        
+//                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+//                            print("Timer fired!")
+//                            SVProgressHUD.dismiss()
+//                            self.firebase.handleUserData()
+//                        }
+//                        
+//                        
+//                    } else {
+//                        self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
+//                        
+//                        self.firebase.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
+//                        
+//                    }
+//                }
+//                
+//            }
+//        }
+//    }
     
-    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
-        
-        db.collection("users").document(userId).setData([
-            "KYC" : kyc,
-            "profileStep" : profileStep,
-            "uid": userId,
-            "name": name,
-            "email":email,
-            "phone": phone,
-            "loginId": loginId,
-            "emailVerified": emailVerified,
-            "phoneVerified": phoneVerified,
-            "login": login,
-            "demoAccountGroup": demoAccountGroup,
-            "pushedToCRM": pushedToCRM,
-            "realAccountCreated": realAccountCreated,
-            "demoAccountCreated": demoAccountCreated
-        ]) { error in
-            if let error = error {
-                print("Error saving user data: \(error.localizedDescription)")
-            } else {
-                print("User data saved successfully.")
-            }
-        }
-        firebase.fetchUserData(userId: userId)
-    }
+//    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
+//        
+//        db.collection("users").document(userId).setData([
+//            "KYC" : kyc,
+//            "profileStep" : profileStep,
+//            "uid": userId,
+//            "name": name,
+//            "email":email,
+//            "phone": phone,
+//            "loginId": loginId,
+//            "emailVerified": emailVerified,
+//            "phoneVerified": phoneVerified,
+//            "login": login,
+//            "demoAccountGroup": demoAccountGroup,
+//            "pushedToCRM": pushedToCRM,
+//            "realAccountCreated": realAccountCreated,
+//            "demoAccountCreated": demoAccountCreated
+//        ]) { error in
+//            if let error = error {
+//                print("Error saving user data: \(error.localizedDescription)")
+//            } else {
+//                print("User data saved successfully.")
+//            }
+//        }
+//        firebase.fetchUserData(userId: userId)
+//    }
     
      func navigateToVerifiyScreen() {
         

@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "Group (10).pdf",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -15,7 +16,6 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Group (10).pdf",
       "idiom" : "universal",
       "scale" : "2x"
     },

@@ -14,8 +14,8 @@
             filePath = "RiverPrime/OdooClient Services/OdooClient.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "OdooClient"
             landmarkType = "3">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "RiverPrime/SignUp/verifyPhoneVC/PhoneVerifyVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "confirmBtnAction(_:)"
             landmarkType = "7">
          </BreakpointContent>
