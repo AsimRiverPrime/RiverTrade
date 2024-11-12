@@ -16,7 +16,7 @@ class SignInViewController: BaseViewController {
     
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
-            username_tf.setIcon(UIImage(systemName: "personIcon")!)
+            username_tf.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
             username_tf.tintColor = UIColor.lightGray
         }
     }

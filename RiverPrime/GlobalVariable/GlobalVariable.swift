@@ -103,6 +103,29 @@ class GlobalVariable: NSObject {
       return url.queryItems?.first(where: { $0.name == param })?.value
     }
     
+    func isIphone() -> Bool {
+        
+//        switch UIDevice.current.userInterfaceIdiom {
+//        case .phone:
+//            // It's an iPhone
+//            heightConstraint.constant = 35
+//        case .pad:
+//            // It's an iPad (or macOS Catalyst)
+//            heightConstraint.constant = 65
+//        @unknown default: break
+//            // Uh, oh! What could it be?
+//        }
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            // iPad
+            return false
+        } else {
+            // not iPad (iPhone, mac, tv, carPlay, unspecified)
+            return true
+        }
+        
+    }
+    
 }
   
     

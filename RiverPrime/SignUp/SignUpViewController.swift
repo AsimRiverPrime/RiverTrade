@@ -15,9 +15,11 @@ import Firebase
 class SignUpViewController: BaseViewController {
     
     
-//    @IBOutlet weak var lbl_firstName: UITextField!
-//    @IBOutlet weak var lbl_lastName: UITextField!
+    //    @IBOutlet weak var lbl_firstName: UITextField!
+    //    @IBOutlet weak var lbl_lastName: UITextField!
+    @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var scrollView: TPKeyboardAvoidingScrollView!
     @IBOutlet weak var lbl_emailValid: UILabel!
     @IBOutlet weak var lbl_passValid: UILabel!
     @IBOutlet weak var lbl_reTypePassValid: UILabel!
@@ -56,14 +58,15 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-//    @IBOutlet weak var signinbutton: UIButton!
+    //    @IBOutlet weak var signinbutton: UIButton!
     @IBOutlet weak var btn_termsCondition: UIButton!
+    @IBOutlet weak var termsCondition_lbl: UILabel!
     @IBOutlet weak var btn_passowrdIcon: UIButton!
     @IBOutlet weak var btn_reTpyePassowrdIcon: UIButton!
     @IBOutlet weak var btn_contiune: UIButton!
     
     var viewModel = SignViewModel()
-//    var odooClientService = OdooClient()
+    //    var odooClientService = OdooClient()
     var odoClientNew = OdooClientNew()
     var googleSignIn = GoogleSignIn()
     let db = Firestore.firestore()
@@ -74,15 +77,15 @@ class SignUpViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("odoo client auth call")
-      
+        
         odoClientNew.authenticate()
-//        odooClientService.createLeadDelegate = self
+        //        odooClientService.createLeadDelegate = self
         odoClientNew.createLeadDelegate = self
         // Do any additional setup after loading the view.
         self.email_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         self.reTypePassword_tf.addTarget(self, action: #selector(reTypePasswordTextChange), for: .editingChanged)
-//        self.signinbutton.setTitle("", for: .normal)
+        //        self.signinbutton.setTitle("", for: .normal)
         enableLoginButton()
     }
     
@@ -91,6 +94,140 @@ class SignUpViewController: BaseViewController {
         //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        
+        //By clicking "Create Account", you agree to Terms and Service And Privacy policy
+        
+        //        let text = "By clicking Create Account, you agree to Terms and Service And Privacy policy"
+        //         let linkTextWithColor = "Privacy policy"
+        //
+        //        let range = (text as NSString).range(of: linkTextWithColor)
+        //
+        //         let attributedString = NSMutableAttributedString(string:text)
+        //        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow , range: range)
+        //
+        //         self.termsCondition_lbl.attributedText = attributedString
+        
+        
+        
+        
+        
+        
+        
+        //        let attributedWithTextColor: NSAttributedString = "By clicking Create Account, you agree to Terms and Service And Privacy policy".attributedStringWithColor(["Terms and Service", "Privacy policy"], color: UIColor.systemYellow)
+        //
+        //        self.termsCondition_lbl.attributedText = attributedWithTextColor
+        
+        
+        
+        
+        
+        
+        
+        // Text with clickable words ("Terms and Service", "Privacy policy")
+        let fullText = "By clicking Create Account, you agree to Terms and Service and Privacy policy"
+        
+        // Define clickable words and their associated actions
+        let clickableWords: [String: String] = [
+            "Terms and Service": "action://termsService",
+            "Privacy policy": "action://privacyPolicy"
+        ]
+        
+        // Generate the attributed string with clickable words
+        let attributedWithTextColor = fullText.attributedStringWithColor(
+            ["Terms and Service", "Privacy policy"],
+            color: UIColor.systemYellow,
+            clickableWords: clickableWords
+        )
+        
+        // Assign the attributed text to the UILabel
+        termsCondition_lbl.attributedText = attributedWithTextColor
+        
+        // Enable interaction on the label
+        termsCondition_lbl.isUserInteractionEnabled = true
+        
+        // Add a tap gesture recognizer to detect taps
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
+        termsCondition_lbl.addGestureRecognizer(tapGesture)
+        
+        
+        
+        
+        //        // Add tap gesture recognizer to detect clicks
+        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
+        //        termsCondition_lbl.addGestureRecognizer(tapGesture)
+        //
+        //        // Add the label to the view
+        ////        self.view.addSubview(termsCondition_lbl)
+        
+        if GlobalVariable.instance.isIphone() {
+            heightConstraint.constant = 35
+        } else {
+            heightConstraint.constant = 65
+        }
+        
+    }
+    
+    @objc func labelTapped(_ sender: UITapGestureRecognizer) {
+        guard let label = sender.view as? UILabel else { return }
+        
+        // Get the position of the tap
+        let location = sender.location(in: label)
+        
+        // Get the attributed string from the label
+        let attributedText = label.attributedText!
+        
+        // Create a layout manager to determine where the tap occurred in the text
+        let layoutManager = NSLayoutManager()
+        let textContainer = NSTextContainer(size: label.bounds.size)
+        let textStorage = NSTextStorage(attributedString: attributedText)
+        
+        layoutManager.addTextContainer(textContainer)
+        textStorage.addLayoutManager(layoutManager)
+        
+        // Adjust text container properties
+        textContainer.lineFragmentPadding = 0
+        textContainer.maximumNumberOfLines = label.numberOfLines
+        textContainer.size = label.bounds.size
+        
+        // Get the glyph index at the tapped location
+        let glyphIndex = layoutManager.glyphIndex(for: location, in: textContainer)
+        
+        // Define the clickable words and actions (same as in the method)
+        let clickableWords: [String: String] = [
+            "Terms and Service": "action://termsService",
+            "Privacy policy": "action://privacyPolicy"
+        ]
+        
+        // Check if the tapped location is within the range of a clickable word
+        for (word, action) in clickableWords {
+            let range = (attributedText.string as NSString).range(of: word)
+            if NSLocationInRange(glyphIndex, range) {
+                print("You tapped on: \(word) with action: \(action)")
+                handleAction(action)
+                break
+            }
+        }
+    }
+    
+    func handleAction(_ action: String) {
+        // Handle the action based on the URL or custom string (e.g., show alert, navigate, etc.)
+        if action == "action://termsService" {
+            print("Navigate to Terms and Service page")
+            
+            if let termConditionVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "TermsConditionsViewController") {
+                self.navigate(to: termConditionVC)
+            }
+            
+            // Perform your action (e.g., show Terms and Service page)
+        } else if action == "action://privacyPolicy" {
+            print("Navigate to Privacy Policy page")
+            // Perform your action (e.g., show Privacy Policy page)
+            
+            if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController") {
+                self.navigate(to: privcyVC)
+            }
+            
+        }
     }
     
     @objc func emailTextChanged(_ textField: UITextField) {
@@ -106,7 +243,7 @@ class SignUpViewController: BaseViewController {
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
-    
+        
         if self.viewModel.isValidatePassword(password: self.password_tf.text!) {
             self.lbl_passValid.isHidden = true
         }else{
@@ -140,7 +277,7 @@ class SignUpViewController: BaseViewController {
             self.btn_contiune.isEnabled = false
             self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
             return
-           }
+        }
     }
     
     
@@ -209,53 +346,6 @@ class SignUpViewController: BaseViewController {
     }
     
     
-//    func authenticateWithFirebase(user: GIDGoogleUser) {
-//        
-//        let idToken = user.idToken?.tokenString
-//        let accessToken = user.accessToken.tokenString
-//        
-//        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
-//        
-//        Auth.auth().signIn(with: credential) { authResult, error in
-//            if let error = error {
-//                print("Firebase authentication failed: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            // User is signed in with Firebase successfuly
-//            if let user = authResult?.user {
-//                
-//                UserDefaults.standard.set(user.uid, forKey: "userID")
-//                self.emailUser = user.email ?? ""
-//                
-//                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
-//                    if let error = error {
-//                        print("Error checking for existing user: \(error.localizedDescription)")
-//                    }
-//                    
-//                    if let snapshot = querySnapshot, !snapshot.isEmpty {
-//                        print("User with this email already exists.")
-//                        self.fireBaseService.fetchUserData(userId: user.uid)
-//                        
-//                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
-//                            print("Timer fired!")
-//                            self.fireBaseService.handleUserData()
-//                        }
-//                        
-//                        
-//                    } else {
-//                        self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
-//                        
-//                        self.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
-//                        
-//                    }
-//                }
-//                
-//                
-//            }
-//        }
-//    }
-    
     private func signUp() {
         guard
             let fullName = lbl_fullName.text, !fullName.isEmpty,
@@ -270,8 +360,8 @@ class SignUpViewController: BaseViewController {
             self.lbl_emailValid.text = "Please fill in all fields."
             return
         }
-//        UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
-//        UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
+        //        UserDefaults.standard.set(lbl_firstName.text, forKey: "firstName")
+        //        UserDefaults.standard.set(lbl_lastName.text, forKey: "lastName")
         // Check if user already exists in Firestore
         
         db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
@@ -308,7 +398,7 @@ class SignUpViewController: BaseViewController {
                         
                         ActivityIndicator.shared.show(in: self!.view)
                         
-//                        let name = firstName + " " + lastName
+                        //                        let name = firstName + " " + lastName
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: email, name: fullName)
                         
                         self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: fullName, userName: userName, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false)
@@ -322,34 +412,9 @@ class SignUpViewController: BaseViewController {
         
     }
     
-//    private func saveAdditionalUserData(userId: String, kyc: Bool, profileStep: Int, name: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, loginId: Int, login:Bool, pushedToCRM:Bool, demoAccountGroup: String, realAccountCreated: Bool, demoAccountCreated: Bool) {
-//        
-//        db.collection("users").document(userId).setData([
-//            "KYC" : kyc,
-//            "profileStep" : profileStep,
-//            "uid": userId,
-//            "name": name,
-//            "email":email,
-//            "phone": phone,
-//            "loginId": loginId,
-//            "emailVerified": emailVerified,
-//            "phoneVerified": phoneVerified,
-//            "login": login,
-//            "demoAccountGroup": demoAccountGroup,
-//            "pushedToCRM": pushedToCRM,
-//            "realAccountCreated": realAccountCreated,
-//            "demoAccountCreated": demoAccountCreated
-//        ]) { error in
-//            if let error = error {
-//                print("Error saving user data: \(error.localizedDescription)")
-//            } else {
-//                print("User data saved successfully.")
-//            }
-//        }
-//        fireBaseService.fetchUserData(userId: userId)
-//    }
     
-     func navigateToVerifiyScreen() {
+    
+    func navigateToVerifiyScreen() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
@@ -379,4 +444,4 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
         ActivityIndicator.shared.hide(from: self.view)
     }
 }
-    
+

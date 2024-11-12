@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -97,6 +97,8 @@
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
+		31710CDF2CE321C80082AB28 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31710CDE2CE321C80082AB28 /* String+Extension.swift */; };
+		31710CE12CE322160082AB28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31710CE02CE322160082AB28 /* Main.storyboard */; };
 		3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */; };
 		3171E3A62CB94CF60043203F /* HistoryTradeTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */; };
 		3173DB802CC1254200C679C4 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */; };
@@ -272,7 +274,6 @@
 		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
-		31DEBD0E2CDB477A0079E24D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31DEBD0D2CDB477A0079E24D /* Main.storyboard */; };
 		31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B2B2C7C96FD00BBB126 /* Logo.gif */; };
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
@@ -429,6 +430,8 @@
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
+		31710CDE2CE321C80082AB28 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		31710CE02CE322160082AB28 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTradeTVCell.swift; sourceTree = "<group>"; };
 		3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTradeTVCell.xib; sourceTree = "<group>"; };
 		3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
@@ -606,8 +609,6 @@
 		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
-		31DEBD0C2CDB477A0079E24D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		31DEBD0F2CDB477A0079E24D /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/Main.xcstrings; sourceTree = "<group>"; };
 		31F29B2B2C7C96FD00BBB126 /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		31F29B302C7C9B5D00BBB126 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
@@ -1001,7 +1002,7 @@
 		31566CE22C3D04DC00C8D03B /* SupportingFolder */ = {
 			isa = PBXGroup;
 			children = (
-				31DEBD0D2CDB477A0079E24D /* Main.storyboard */,
+				31710CE02CE322160082AB28 /* Main.storyboard */,
 				31566CE02C3D04D300C8D03B /* Dashboard.storyboard */,
 				319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */,
 			);
@@ -1399,6 +1400,7 @@
 			isa = PBXGroup;
 			children = (
 				FA3F70312CC70C0F00B3CE8A /* Notification+Extension.swift */,
+				31710CDE2CE321C80082AB28 /* String+Extension.swift */,
 				FA467DD02C695BDF00248A62 /* UIView+Extension.swift */,
 				31D2621C2C3BF5CE00FC6651 /* Extension.swift */,
 				FA9B00C22C4BFC1500BC57F1 /* Image+Extension.swift */,
@@ -2194,6 +2196,7 @@
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
 				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
+				31710CE12CE322160082AB28 /* Main.storyboard in Resources */,
 				FA12B5E02C4F03AB0054F8D8 /* ResultTopViewCell.xib in Resources */,
 				31BFDCF42CDE1A58001F9F64 /* background_vedio.mp4 in Resources */,
 				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
@@ -2219,7 +2222,6 @@
 				3105DEF22CB3E8A400D1B884 /* AccountDetailTableViewCell.xib in Resources */,
 				3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */,
-				31DEBD0E2CDB477A0079E24D /* Main.storyboard in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */,
@@ -2522,6 +2524,7 @@
 				3105DEFA2CB3E8A400D1B884 /* SelectAccountTypeVC.swift in Sources */,
 				3105DEFB2CB3E8A400D1B884 /* OpenTicketBottomSheetVC.swift in Sources */,
 				315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */,
+				31710CDF2CE321C80082AB28 /* String+Extension.swift in Sources */,
 				3105DEFC2CB3E8A400D1B884 /* TransactionCellVM.swift in Sources */,
 				3105DEFD2CB3E8A400D1B884 /* PendingOrderCell.swift in Sources */,
 				3105DEFE2CB3E8A400D1B884 /* DepositViewController.swift in Sources */,
@@ -2587,15 +2590,6 @@
 				31128FDE2CDB934D0083EF51 /* ar */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		31DEBD0D2CDB477A0079E24D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				31DEBD0C2CDB477A0079E24D /* Base */,
-				31DEBD0F2CDB477A0079E24D /* mul */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
