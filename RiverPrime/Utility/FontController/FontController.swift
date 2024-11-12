@@ -36,4 +36,11 @@ class FontController {
         }
     }
     
+    func dynamicFont() -> Double {
+        if GlobalVariable.instance.isIphone() {
+            return 18.0
+        }else{
+            return 24.0
+        }
+    }
 }

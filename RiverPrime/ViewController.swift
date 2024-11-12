@@ -90,17 +90,17 @@ extension ViewController {
     
     private func styling() {
         //MARK: - Fonts
-        titlelbl.font = FontController.Fonts.Inter_Regular.font
-        companyTitlelbl.font = FontController.Fonts.Inter_Medium.font
-        registerNowBtn.titleLabel?.font = FontController.Fonts.Inter_SemiBold.font
+//        titlelbl.font = FontController.Fonts.Inter_Regular.font
+//        companyTitlelbl.font = FontController.Fonts.Inter_Medium.font
+//        registerNowBtn.titleLabel?.font = FontController.Fonts.Inter_SemiBold.font
         
 //        MARK: - Labels
-        titlelbl.text = LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.Title.localized)
-        companyTitlelbl.text = LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.CompanyNameLabel.localized)
-        registerNowBtn.setTitle(LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.RegisterNowButton.localized), for: .normal)
-//        titlelbl.text = NSLocalizedString("welcome_screen_title", comment: "")
-//        companyTitlelbl.text = NSLocalizedString("welcome_screen_company_name", comment: "Welcome message on the main screen")
-//        registerNowBtn.setTitle(NSLocalizedString("welcome_screen_register_button", comment: "Register button title"), for: .normal)
+//        titlelbl.text = LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.Title.localized)
+//        companyTitlelbl.text = LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.CompanyNameLabel.localized)
+//        registerNowBtn.setTitle(LabelTranslation.labelTranslation.getLocalizedString(value: LabelTranslation.WelcomeScreen.RegisterNowButton.localized), for: .normal)
+        titlelbl.text = NSLocalizedString("welcome_screen_title", comment: "")
+        companyTitlelbl.text = NSLocalizedString("welcome_screen_company_name", comment: "Welcome message on the main screen")
+        registerNowBtn.setTitle(NSLocalizedString("welcome_screen_register_button", comment: "Register button title"), for: .normal)
           
     }
     

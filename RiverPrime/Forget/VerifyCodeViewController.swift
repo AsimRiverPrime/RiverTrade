@@ -19,9 +19,11 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     @IBOutlet weak var tf_sixthNum: UITextField!
     
     @IBOutlet weak var resendCodeButton: UIButton!
+    @IBOutlet weak var label_errorCode: UILabel!
+    @IBOutlet weak var lbl_remainingTime: UILabel!
     
     var countdownTimer: Timer?
-    var remainingSeconds = 60
+    var remainingSeconds = 25
     
     var isEmailVerification: Bool?
     var isPhoneVerification: Bool?
@@ -35,6 +37,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.label_errorCode.isHidden = true
         
         odooClientService.otpDelegate = self
         odooClientService.verifyDelegate = self
@@ -64,6 +67,11 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
     @IBAction func confirmBtn(_ sender: Any) {
+        
+        
+    }
+    
+    func callApi(){
         if ((getVerificationCode()?.isEmpty) == nil) {
             print("please enter code")
             return
@@ -75,16 +83,15 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 
                 
             }else if isPhoneVerification == true {
-                if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
-                    self.navigate(to: faceIDVC)
-                } // for testing only
+                //                if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+                //                    self.navigate(to: faceIDVC)
+                //                } // for testing only
                 
-                //                odooClientService1.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone, otp: getVerificationCode() ?? "" )    when live
+                odooClientService.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone ?? "", otp: getVerificationCode() ?? "" )   // when live
                 
             }
         }
     }
-    
     
     func updateUser(){
         guard let userId = userId else{
@@ -123,8 +130,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
-//                    self.navigateToFaceID()
-                  
+                    //                    self.navigateToFaceID()
+                    
                 }
                 
             }
@@ -139,13 +146,15 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     @IBAction func resendCodeBtn(_ sender: Any) {
         
         resendCodeButton.isEnabled = false
-        resendCodeButton.setTitle("Resend in \(remainingSeconds) seconds", for: .disabled)
+        
+        
+        //        resendCodeButton.setTitle("Resend in \(remainingSeconds) seconds", for: .disabled)
         
         // Start the countdown timer
         startCountdown()
         
         // Call your method after 60 seconds
-        DispatchQueue.main.asyncAfter(deadline: .now() + 60.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 25) {
             self.callMethodAfterDelay()
         }
     }
@@ -158,14 +167,15 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     @objc func updateButtonTitle() {
         remainingSeconds -= 1
         if remainingSeconds > 0 {
-            resendCodeButton.setTitle("Resend code in \(remainingSeconds) seconds", for: .disabled)
+            //            resendCodeButton.setTitle("Resend code in \(remainingSeconds) seconds", for: .disabled)
+            self.lbl_remainingTime.text = "00:\(remainingSeconds)"
         } else {
             // Invalidate the timer and re-enable the button when the countdown finishes
             countdownTimer?.invalidate()
             countdownTimer = nil
             resendCodeButton.isEnabled = true
-            resendCodeButton.setTitle("Resend Code", for: .normal)
-            remainingSeconds = 60 // Reset the countdown time
+            //            resendCodeButton.setTitle("Resend Code", for: .normal)
+            remainingSeconds = 25 // Reset the countdown time
         }
     }
     
@@ -206,7 +216,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             
             let verificationCode = getVerificationCode()
             print("Verification Code: \(verificationCode ?? "")")
-            
+            callApi()
         default:
             break
         }
@@ -267,10 +277,10 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     private func navigateToPhoneVerifiyScreen() {
-       
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let verifyVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
-       
+        
         self.navigate(to: verifyVC)
     }
     
@@ -284,7 +294,7 @@ extension VerifyCodeViewController: SendOTPDelegate {
     
     func otpFailure(error: Error) {
         print("this is the error  otp response: \(error)")
-        
+        self.label_errorCode.isHidden = false
     }
 }
 

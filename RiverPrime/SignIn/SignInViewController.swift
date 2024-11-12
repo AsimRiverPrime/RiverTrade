@@ -14,6 +14,7 @@ import SVProgressHUD
 
 class SignInViewController: BaseViewController {
     
+    @IBOutlet var bfView: UIView!
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
             username_tf.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
@@ -30,7 +31,7 @@ class SignInViewController: BaseViewController {
     
     @IBOutlet weak var lbl_emailCheck: UILabel!
     @IBOutlet weak var lbl_passwordCheck: UILabel!
-    @IBOutlet weak var lbl_credientailCheck: UILabel!
+//    @IBOutlet weak var lbl_credientailCheck: UILabel!
     @IBOutlet weak var btn_rememberMe: UIButton!
    
     @IBOutlet weak var btn_submit: UIButton!
@@ -58,9 +59,10 @@ class SignInViewController: BaseViewController {
         username_tf.text = "asimprime900@gmail.com"
         password_tf.text = "Asim123#" //"asdasd" //Meta trader pass: -> Test@123!
         
-        enableLoginButton()
+//        enableLoginButton()
+        
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -72,21 +74,21 @@ class SignInViewController: BaseViewController {
         
     }
     
-    private func enableLoginButton() {
-        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
-            self.btn_submit.isEnabled = true
-            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
-        } else {
-            self.btn_submit.isEnabled = false
-            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-        }
-        
-        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
-            self.btn_submit.isEnabled = false
-            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-            return
-           }
-    }
+//    private func enableLoginButton() {
+//        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
+//            self.btn_submit.isEnabled = true
+//            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
+//        } else {
+//            self.btn_submit.isEnabled = false
+//            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+//        }
+//        
+//        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
+//            self.btn_submit.isEnabled = false
+//            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+//            return
+//           }
+//    }
     
     @objc func emailTextChanged(_ textField: UITextField) {
         if self.viewModel.isValidEmail(self.username_tf.text!) {
@@ -96,7 +98,7 @@ class SignInViewController: BaseViewController {
             self.lbl_emailCheck.text = "email is not correct"
             self.lbl_emailCheck.isHidden = false
         }
-        enableLoginButton()
+//        enableLoginButton()
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
@@ -107,11 +109,11 @@ class SignInViewController: BaseViewController {
             self.lbl_passwordCheck.isHidden = false
             self.lbl_passwordCheck.text = "Password is atleast 8 character with 1 capital & 1 Special & 1 number"
         }
-        enableLoginButton()
+//        enableLoginButton()
     }
     @IBAction func rememberMeBtn(_ sender: Any) {
         self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
-        self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill"), for: .normal)
         self.btn_rememberMe.tintColor = self.btn_rememberMe.isSelected ? .systemYellow : .white
        
         

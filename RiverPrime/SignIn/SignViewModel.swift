@@ -20,14 +20,14 @@ import Foundation
     
     func isLoginFieldsValid(email: String, password: String) -> Bool {
         
-        if !email.isEmpty && self.isValidEmail(email) && !password.isEmpty && password.count >= 6 {
+        if !email.isEmpty && self.isValidEmail(email) && !password.isEmpty && isValidatePassword(password: password) {
             return true
         }
         return false
     }
     
     func isPasswordValid(_ password: String) -> Bool {
-        if !password.isEmpty && password.count >= 6 {
+        if !password.isEmpty && password.count >= 8 {
             return true
         }
         return false
@@ -35,7 +35,6 @@ import Foundation
     }
      
      func isValidatePassword(password: String) -> Bool {
-         // Condition 1: Length between 8 and 15 characters
         
          // Condition 2: At least one uppercase and one lowercase letter
          let uppercaseLetter = CharacterSet.uppercaseLetters
@@ -49,14 +48,14 @@ import Foundation
          let hasNumber = password.rangeOfCharacter(from: numbers) != nil
          let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
          
-     if password.count >= 8 && password.count <= 15 && hasUppercase && hasLowercase && hasNumber && hasSpecial {
+         // Condition 1: Length between 8 and   15 characters (&& password.count <= 15)
+     if password.count >= 8 && hasUppercase && hasLowercase && hasNumber && hasSpecial {
          return true
      } else {
          return false
      }
   
      }
-     
      
 
 }

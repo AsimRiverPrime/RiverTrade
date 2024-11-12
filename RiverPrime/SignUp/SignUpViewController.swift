@@ -256,7 +256,7 @@ class SignUpViewController: BaseViewController {
     @objc func reTypePasswordTextChange(_ textField: UITextField) {
         if self.password_tf.text == self.reTypePassword_tf.text {
             self.lbl_reTypePassValid.isHidden = true
-            
+            enableLoginButton()
         } else {
             self.lbl_reTypePassValid.isHidden = false
             self.btn_contiune.isEnabled = false
@@ -265,9 +265,10 @@ class SignUpViewController: BaseViewController {
     }
     
     private func enableLoginButton() {
-        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!), self.btn_termsCondition.isSelected == true  {
+        if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!) //, self.btn_termsCondition.isSelected == true
+        {
             self.btn_contiune.isEnabled = true
-            self.btn_contiune.setTitleColor(UIColor(named: "white"), for: .normal)
+            self.btn_contiune.setTitleColor(UIColor(named: "black"), for: .normal)
         } else {
             self.btn_contiune.isEnabled = false
             self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
