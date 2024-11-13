@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -52,7 +52,7 @@
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="reminder"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFv-qg-PHZ">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Accounts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFv-qg-PHZ">
                                         <rect key="frame" x="97" y="79" width="126.33333333333331" height="33"/>
                                         <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="27"/>
                                         <color key="textColor" systemColor="systemYellowColor"/>
@@ -77,18 +77,13 @@
                                     <constraint firstItem="M0t-wv-iCh" firstAttribute="top" secondItem="FyP-3r-BkL" secondAttribute="top" constant="45" id="zXh-at-bYK"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5A-TF-mcZ">
-                                <rect key="frame" x="0.0" y="148.33333333333334" width="320" height="15.666666666666657"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Create new or unarchive a trading account. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8AQ-wM-eRO">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="15.666666666666666"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Create new or unarchive a trading account." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8AQ-wM-eRO">
+                                <rect key="frame" x="10" y="148.33333333333334" width="300" height="17"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xfj-x5-rUK" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                                 <rect key="frame" x="24" y="174" width="272" height="126"/>
                                 <subviews>
@@ -200,7 +195,7 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="DnD-jV-hq4" firstAttribute="leading" secondItem="xfj-x5-rUK" secondAttribute="leading" constant="20" id="KjL-wh-ryG"/>
                                     <constraint firstAttribute="trailing" secondItem="DnD-jV-hq4" secondAttribute="trailing" constant="20" id="gSC-cT-Vqd"/>
@@ -222,16 +217,15 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="M5A-TF-mcZ" firstAttribute="top" secondItem="Tlu-FN-RnT" secondAttribute="bottom" id="4yF-c9-N9g"/>
+                            <constraint firstItem="8AQ-wM-eRO" firstAttribute="top" secondItem="Tlu-FN-RnT" secondAttribute="bottom" constant="5.6843418860808015e-14" id="05T-X0-NpA"/>
                             <constraint firstItem="FyP-3r-BkL" firstAttribute="height" secondItem="HMp-Sy-AGf" secondAttribute="height" multiplier="0.7" id="HGm-Fc-sQq"/>
-                            <constraint firstItem="xfj-x5-rUK" firstAttribute="top" secondItem="M5A-TF-mcZ" secondAttribute="bottom" constant="10" id="NY1-0S-uTf"/>
-                            <constraint firstItem="M5A-TF-mcZ" firstAttribute="leading" secondItem="FyP-3r-BkL" secondAttribute="leading" id="VuG-WD-WZQ"/>
                             <constraint firstItem="FyP-3r-BkL" firstAttribute="top" secondItem="HMp-Sy-AGf" secondAttribute="top" id="XPu-Ls-nhp"/>
                             <constraint firstItem="xfj-x5-rUK" firstAttribute="centerX" secondItem="HMp-Sy-AGf" secondAttribute="centerX" id="ZbY-QJ-02I"/>
                             <constraint firstAttribute="bottom" secondItem="xfj-x5-rUK" secondAttribute="bottom" constant="24" id="lfa-hS-SiT"/>
                             <constraint firstAttribute="trailing" secondItem="FyP-3r-BkL" secondAttribute="trailing" id="mk9-3s-KsI"/>
-                            <constraint firstItem="M5A-TF-mcZ" firstAttribute="trailing" secondItem="FyP-3r-BkL" secondAttribute="trailing" id="nLY-DL-VNz"/>
                             <constraint firstItem="FyP-3r-BkL" firstAttribute="leading" secondItem="HMp-Sy-AGf" secondAttribute="leading" id="ncm-ce-bC2"/>
+                            <constraint firstAttribute="trailing" secondItem="8AQ-wM-eRO" secondAttribute="trailing" constant="10" id="sz9-5J-dVw"/>
+                            <constraint firstItem="8AQ-wM-eRO" firstAttribute="leading" secondItem="HMp-Sy-AGf" secondAttribute="leading" constant="10" id="uFC-iZ-Cea"/>
                             <constraint firstItem="xfj-x5-rUK" firstAttribute="width" secondItem="HMp-Sy-AGf" secondAttribute="width" multiplier="0.850575" id="xyH-Ls-FmV"/>
                         </constraints>
                     </view>

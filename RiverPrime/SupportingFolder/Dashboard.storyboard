@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -37,8 +37,6 @@
                     <connections>
                         <segue destination="J1E-BY-wh7" kind="relationship" relationship="viewControllers" id="wN7-2K-UVi"/>
                         <segue destination="Zza-jt-nQm" kind="relationship" relationship="viewControllers" id="SBl-HY-uL5"/>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="VD6-fy-4rV"/>
-                        <segue destination="2st-27-2TI" kind="relationship" relationship="viewControllers" id="aBH-iN-8ej"/>
                         <segue destination="O48-k2-dhm" kind="relationship" relationship="viewControllers" id="dDB-AE-b1w"/>
                     </connections>
                 </tabBarController>
@@ -2567,22 +2565,22 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Growth" width="17.333333969116211" height="17.333333969116211"/>
-        <image name="Teamwork" width="17.333333969116211" height="16.666666030883789"/>
-        <image name="account" width="17.666666030883789" height="17.333333969116211"/>
+        <image name="Growth" width="52" height="52"/>
+        <image name="Teamwork" width="25" height="25"/>
+        <image name="account" width="25" height="25"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chevron.right" catalog="system" width="97" height="128"/>
-        <image name="depositIcon" width="60" height="75"/>
-        <image name="detailIcon" width="64" height="64"/>
+        <image name="depositIcon" width="65" height="65"/>
+        <image name="detailIcon" width="65" height="65"/>
         <image name="doc.viewfinder.fill" catalog="system" width="128" height="115"/>
         <image name="document.on.document" catalog="system" width="116" height="128"/>
         <image name="gearshape" catalog="system" width="128" height="123"/>
-        <image name="historyIcon" width="63" height="56"/>
-        <image name="market" width="17" height="17"/>
+        <image name="historyIcon" width="65" height="65"/>
+        <image name="market" width="51" height="51"/>
         <image name="noDataIcon" width="221" height="224"/>
-        <image name="profile" width="15.666666984558105" height="18.666666030883789"/>
-        <image name="trade" width="16.333333969116211" height="17"/>
-        <image name="withdrawIcon" width="60" height="76"/>
+        <image name="profile" width="47" height="56"/>
+        <image name="trade" width="25" height="25"/>
+        <image name="withdrawIcon" width="65" height="65"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <image name="xmark.circle" catalog="system" width="128" height="123"/>
         <namedColor name="basicTextColor">

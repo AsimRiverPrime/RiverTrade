@@ -35,7 +35,7 @@ protocol AccountInfoDelegate: AnyObject {
 class AccountTableViewCell: UITableViewCell {
 
     @IBOutlet weak var outer_view: UIView!
-    @IBOutlet weak var height_outerView: NSLayoutConstraint!
+//    @IBOutlet weak var height_outerView: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView!
     
     @IBOutlet weak var headerTitle: UILabel!
@@ -56,7 +56,7 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var Btn_view: UIView!
     @IBOutlet weak var btn_funds: UIButton!
     @IBOutlet weak var btnFundsLineView: UIView!
-    @IBOutlet weak var height_BtnView: NSLayoutConstraint!
+//    @IBOutlet weak var height_BtnView: NSLayoutConstraint!
     
     @IBOutlet weak var btn_Settings: UIButton!
     @IBOutlet weak var btnSettingsLineView: UIView!
@@ -207,7 +207,7 @@ class AccountTableViewCell: UITableViewCell {
             headerTitle.text = "Trade"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
-            height_ViewBtnStack.constant = 0
+//            height_ViewBtnStack.constant = 0
             secondTitle.text = "#\(self.login_Id)"
             lbl_MT5.text = mt5
             lbl_account.text = self.account_type
