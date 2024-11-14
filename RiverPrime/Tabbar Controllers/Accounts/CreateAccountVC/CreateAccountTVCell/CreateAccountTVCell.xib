@@ -29,7 +29,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FyP-3r-BkL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="226.66666666666666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="324"/>
                                 <subviews>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M0t-wv-iCh">
                                         <rect key="frame" x="286" y="45" width="22" height="22"/>
@@ -111,7 +111,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create new" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cBO-OS-e9L">
                                                         <rect key="frame" x="2" y="49" width="228" height="13.333333333333336"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="textColor" red="0.4941176471" green="0.50980392159999999" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -218,7 +218,7 @@
                         <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="8AQ-wM-eRO" firstAttribute="top" secondItem="Tlu-FN-RnT" secondAttribute="bottom" constant="5.6843418860808015e-14" id="05T-X0-NpA"/>
-                            <constraint firstItem="FyP-3r-BkL" firstAttribute="height" secondItem="HMp-Sy-AGf" secondAttribute="height" multiplier="0.7" id="HGm-Fc-sQq"/>
+                            <constraint firstItem="FyP-3r-BkL" firstAttribute="height" secondItem="HMp-Sy-AGf" secondAttribute="height" id="HGm-Fc-sQq"/>
                             <constraint firstItem="FyP-3r-BkL" firstAttribute="top" secondItem="HMp-Sy-AGf" secondAttribute="top" id="XPu-Ls-nhp"/>
                             <constraint firstItem="xfj-x5-rUK" firstAttribute="centerX" secondItem="HMp-Sy-AGf" secondAttribute="centerX" id="ZbY-QJ-02I"/>
                             <constraint firstAttribute="bottom" secondItem="xfj-x5-rUK" secondAttribute="bottom" constant="24" id="lfa-hS-SiT"/>

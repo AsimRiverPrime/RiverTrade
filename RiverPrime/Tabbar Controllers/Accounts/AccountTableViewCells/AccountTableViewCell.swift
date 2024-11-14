@@ -34,6 +34,8 @@ protocol AccountInfoDelegate: AnyObject {
 
 class AccountTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var outer_view: UIView!
 //    @IBOutlet weak var height_outerView: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView!
@@ -96,9 +98,11 @@ class AccountTableViewCell: UITableViewCell {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,
+               let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
                
                 self.login_Id = loginID
+                self.lbl_name.text = _name
                 
                 if isCreateDemoAccount == true {
                     self.account_type = " Demo "
@@ -128,13 +132,29 @@ class AccountTableViewCell: UITableViewCell {
                 }
             }
         }
+        
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var greeting = ""
+
+        switch currentHour {
+        case 5..<12:
+            greeting = "Good Morning,"
+        case 12..<17:
+            greeting = "Good Afternoon,"
+        case 17..<22:
+            greeting = "Good Evening,"
+        default:
+            break
+        }
+
+        lbl_greeting.text = greeting
     }
     
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "\(ammount) USD"
+            self.labelAmmount.text = "$\(ammount)"
         }
         
     }
@@ -143,7 +163,7 @@ class AccountTableViewCell: UITableViewCell {
         if let userInfo = notification.userInfo,
            let receivedString = userInfo["BalanceUpdateType"] as? String {
             print("Received string: \(receivedString)")
-            self.labelAmmount.text = "\(receivedString) USD"
+            self.labelAmmount.text = "$\(receivedString)"
         }
     }
     

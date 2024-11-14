@@ -21,6 +21,7 @@ class TradeTypeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         refreshImageButton.setTitle("", for: .normal)
+        sepratorView.isHidden = true
     }
     
     @IBAction func refreshImageButton(_ sender: UIButton) {

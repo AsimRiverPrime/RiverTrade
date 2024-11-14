@@ -150,13 +150,10 @@ class TicketVC: BottomSheetController {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String, let password = savedUserData["password"] as? String {
-                userLoginID = LoginIDs
-                userEmail = email
-                print("password:\(password)")
-//                decryptedPass = decryptPassword(password, using: GlobalVariable.instance.passwordKey)
-                print("Key is:\(GlobalVariable.instance.passwordKey)")
-                print("Key representation contains \(GlobalVariable.instance.passwordKey.withUnsafeBytes { $0.count }) bytes.")
+            if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String{
+                self.userLoginID = LoginIDs
+                self.userEmail = email
+              
             }
         }
         
@@ -170,7 +167,6 @@ class TicketVC: BottomSheetController {
             volumeMin = Int("\(obj.volumeMin)")
             digits = Int("\(obj.digits)")
             
-            print("decryptedPassword is: \(decryptedPass)")
             
             userPassword = UserDefaults.standard.string(forKey: "password")
        

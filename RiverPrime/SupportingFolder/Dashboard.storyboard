@@ -1698,7 +1698,7 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DKL-FM-g4k">
                                 <rect key="frame" x="0.0" y="770" width="393" height="82"/>
-                                <color key="backgroundColor" red="0.97565500719999998" green="0.97565500719999998" blue="0.97565500719999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UCb-bx-eyW">
                                 <rect key="frame" x="5" y="780" width="383" height="50"/>

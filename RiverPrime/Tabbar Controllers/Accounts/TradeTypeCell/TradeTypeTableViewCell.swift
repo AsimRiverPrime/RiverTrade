@@ -118,6 +118,8 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             if indexPath.row == selectedIndex {
 //            cell.selectedColorView.isHidden = false
                 cell.backgroundColor = .systemYellow
+                cell.layer.cornerRadius = 10.0
+                cell.lbl_tradetype.textColor = .black
         }else{
 //            cell.selectedColorView.isHidden = true
             cell.backgroundColor = .clear

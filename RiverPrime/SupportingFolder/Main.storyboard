@@ -2213,31 +2213,25 @@ Reach out for questions or concerns about your privacy.</string>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f6r-9p-80g">
-                                        <rect key="frame" x="39" y="249" width="312" height="35"/>
+                                        <rect key="frame" x="39" y="249" width="312" height="34"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="65" id="7z8-8c-dpA">
-                                                <variation key="heightClass=compact-widthClass=compact" constant="65"/>
-                                                <variation key="heightClass=regular-widthClass=compact" constant="35"/>
-                                            </constraint>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username is not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPk-Nk-EVW">
-                                        <rect key="frame" x="39" y="284" width="312" height="12"/>
+                                        <rect key="frame" x="39" y="283" width="312" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Agd-kf-6ti">
-                                        <rect key="frame" x="39" y="301" width="312" height="39.333333333333314"/>
+                                        <rect key="frame" x="39" y="300" width="312" height="38"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FO8-41-56t">
-                                        <rect key="frame" x="321" y="310.66666666666669" width="20" height="20"/>
+                                        <rect key="frame" x="321" y="309" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="LlV-iI-oLI"/>
                                             <constraint firstAttribute="height" constant="20" id="sIR-CD-HjB"/>
@@ -2250,13 +2244,13 @@ Reach out for questions or concerns about your privacy.</string>
                                         </connections>
                                     </button>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="password is not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7yK-lF-QFd">
-                                        <rect key="frame" x="39" y="340.33333333333331" width="312" height="12"/>
+                                        <rect key="frame" x="39" y="338" width="312" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" systemColor="systemRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="lgD-9U-L19">
-                                        <rect key="frame" x="33" y="352.33333333333331" width="324" height="34.333333333333314"/>
+                                        <rect key="frame" x="33" y="350" width="324" height="34.333333333333314"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IF5-cv-vew">
                                                 <rect key="frame" x="0.0" y="0.0" width="131.66666666666666" height="34.333333333333336"/>
@@ -2297,7 +2291,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cZE-MQ-GtS">
-                                        <rect key="frame" x="39" y="406.66666666666669" width="312" height="39.666666666666686"/>
+                                        <rect key="frame" x="39" y="404.33333333333331" width="312" height="38.666666666666686"/>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -2314,7 +2308,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-h0-7Nn" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="39" y="456.33333333333331" width="312" height="39.333333333333314"/>
+                                        <rect key="frame" x="39" y="453" width="312" height="38.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
@@ -2337,7 +2331,7 @@ Reach out for questions or concerns about your privacy.</string>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="-7" translatesAutoresizingMaskIntoConstraints="NO" id="nnC-p0-eGu">
-                                        <rect key="frame" x="53" y="595.66666666666663" width="284" height="31"/>
+                                        <rect key="frame" x="53" y="591.33333333333337" width="284" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUF-7r-glx">
                                                 <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="31"/>
@@ -2441,7 +2435,6 @@ Reach out for questions or concerns about your privacy.</string>
                         <outlet property="bfView" destination="Vo9-LW-Gun" id="BUl-SJ-w3z"/>
                         <outlet property="btn_rememberMe" destination="dsW-5K-Ijq" id="fIe-Hk-PaV"/>
                         <outlet property="btn_submit" destination="cZE-MQ-GtS" id="Xl2-YA-M1g"/>
-                        <outlet property="heightConstraint" destination="7z8-8c-dpA" id="IDN-tz-Lf4"/>
                         <outlet property="hideShowPassBtn" destination="FO8-41-56t" id="vAV-kp-Fon"/>
                         <outlet property="lbl_emailCheck" destination="qPk-Nk-EVW" id="3t7-kS-M8I"/>
                         <outlet property="lbl_passwordCheck" destination="7yK-lF-QFd" id="4Od-eh-ZL6"/>

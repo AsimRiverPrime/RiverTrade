@@ -239,23 +239,23 @@ extension DashboardVC {
             
             AccountsImage.image = UIImage(named: "account")//?.tint(with: UIColor.black)
             AccountsLabel.textColor = UIColor.systemYellow
-            AccountsView.backgroundColor = UIColor.splashScreen
+            AccountsView.backgroundColor = UIColor.clear
             
             TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
-            TradeLabel.textColor = UIColor.black
-            TradeView.backgroundColor = UIColor.lightText
+            TradeLabel.textColor = UIColor.lightGray
+            TradeView.backgroundColor = UIColor.clear
             
             MarketsImage.image = UIImage(named: "market")//?.tint(with: UIColor.black)
             MarketsLabel.textColor = UIColor.black
-            MarketsView.backgroundColor = UIColor.lightText
+            MarketsView.backgroundColor = UIColor.clear
             
             ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
             ResultsLabel.textColor = UIColor.black
-            ResultsView.backgroundColor = UIColor.lightText
+            ResultsView.backgroundColor = UIColor.clear
             
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
-            ProfileLabel.textColor = UIColor.black
-            ProfileView.backgroundColor = UIColor.lightText
+            ProfileLabel.textColor = UIColor.systemGray2
+            ProfileView.backgroundColor = UIColor.clear
             
             dismissViews(false)
             accountsVC = AccountsVC.getView()
@@ -268,24 +268,24 @@ extension DashboardVC {
         case .Trade:
             
             AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
-            AccountsLabel.textColor = UIColor.black
-            AccountsView.backgroundColor = UIColor.lightText
+            AccountsLabel.textColor = UIColor.systemGray2
+            AccountsView.backgroundColor = UIColor.clear
             
             TradeImage.image = UIImage(named: "tradeIconSelect")//?.tint(with: UIColor.black)
             TradeLabel.textColor = UIColor.systemYellow
-            TradeView.backgroundColor = UIColor.splashScreen
+            TradeView.backgroundColor = UIColor.clear
             
             MarketsImage.image = UIImage(named: "market")//?.tint(with: UIColor.black)
             MarketsLabel.textColor = UIColor.black
-            MarketsView.backgroundColor = UIColor.lightText
+            MarketsView.backgroundColor = UIColor.clear
             
             ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
             ResultsLabel.textColor = UIColor.black
-            ResultsView.backgroundColor = UIColor.lightText
+            ResultsView.backgroundColor = UIColor.clear
             
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
-            ProfileView.backgroundColor = UIColor.lightText
+            ProfileView.backgroundColor = UIColor.clear
             
             dismissViews(true)
             tradeVC = TradeVC.getView()
@@ -298,23 +298,23 @@ extension DashboardVC {
             
             AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
             AccountsLabel.textColor = UIColor.black
-            AccountsView.backgroundColor = UIColor.lightText
+            AccountsView.backgroundColor = UIColor.clear
             
             TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
             TradeLabel.textColor = UIColor.black
-            TradeView.backgroundColor = UIColor.lightText
+            TradeView.backgroundColor = UIColor.clear
             
             MarketsImage.image = UIImage(named: "marketIconSelect")//?.tint(with: UIColor.black)
             MarketsLabel.textColor = UIColor.systemYellow
-            MarketsView.backgroundColor = UIColor.splashScreen
+            MarketsView.backgroundColor = UIColor.clear
             
             ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
             ResultsLabel.textColor = UIColor.black
-            ResultsView.backgroundColor = UIColor.lightText
+            ResultsView.backgroundColor = UIColor.clear
             
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
-            ProfileView.backgroundColor = UIColor.lightText
+            ProfileView.backgroundColor = UIColor.clear
             
             dismissViews(false)
             marketsVC = MarketsVC.getView()
@@ -326,23 +326,23 @@ extension DashboardVC {
             
             AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
             AccountsLabel.textColor = UIColor.black
-            AccountsView.backgroundColor = UIColor.lightText
+            AccountsView.backgroundColor = UIColor.clear
             
             TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
             TradeLabel.textColor = UIColor.black
-            TradeView.backgroundColor = UIColor.lightText
+            TradeView.backgroundColor = UIColor.clear
             
             MarketsImage.image = UIImage(named: "market")//?.tint(with: UIColor.black)
             MarketsLabel.textColor = UIColor.black
-            MarketsView.backgroundColor = UIColor.lightText
+            MarketsView.backgroundColor = UIColor.clear
             
             ResultsImage.image = UIImage(named: "resultIconSelect")//?.tint(with: UIColor.black)
             ResultsLabel.textColor = UIColor.systemYellow
-            ResultsView.backgroundColor = UIColor.splashScreen
+            ResultsView.backgroundColor = UIColor.clear
             
             ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.black
-            ProfileView.backgroundColor = UIColor.lightText
+            ProfileView.backgroundColor = UIColor.clear
             
             dismissViews(false)
             resultVC = ResultVC.getView()
@@ -355,23 +355,23 @@ extension DashboardVC {
             
             AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
             AccountsLabel.textColor = UIColor.black
-            AccountsView.backgroundColor = UIColor.lightText
+            AccountsView.backgroundColor = UIColor.clear
             
             TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
             TradeLabel.textColor = UIColor.black
-            TradeView.backgroundColor = UIColor.lightText
+            TradeView.backgroundColor = UIColor.clear
             
             MarketsImage.image = UIImage(named: "market")//?.tint(with: UIColor.black)
-            MarketsLabel.textColor = UIColor.black
-            MarketsView.backgroundColor = UIColor.lightText
+            MarketsLabel.textColor = UIColor.systemGray2
+            MarketsView.backgroundColor = UIColor.clear
             
             ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
             ResultsLabel.textColor = UIColor.black
-            ResultsView.backgroundColor = UIColor.lightText
+            ResultsView.backgroundColor = UIColor.clear
             
             ProfileImage.image = UIImage(named: "profileIconSelect")//?.tint(with: UIColor.black)
             ProfileLabel.textColor = UIColor.systemYellow
-            ProfileView.backgroundColor = UIColor.splashScreen
+            ProfileView.backgroundColor = UIColor.clear
             
             dismissViews(false)
             profileVC = ProfileVC.getView()

@@ -31,7 +31,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TX2-Zq-yJN">
                                 <rect key="frame" x="28.666666666666664" y="18" width="41.999999999999993" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="refreshDropdown" translatesAutoresizingMaskIntoConstraints="NO" id="LCi-Ln-kUd">
@@ -50,11 +50,6 @@
                                     <action selector="refreshImageButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="AtE-ZM-Fww"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Lz-1t-BGh">
-                                <rect key="frame" x="37" y="15.666666666666664" width="25" height="25"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IRM-45-srP">
                                 <rect key="frame" x="0.0" y="43.333333333333336" width="99" height="10"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
@@ -62,53 +57,30 @@
                                     <constraint firstAttribute="height" constant="10" id="7Dy-jK-dlb"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lS4-xP-r65">
-                                <rect key="frame" x="0.0" y="49" width="99" height="2"/>
-                                <color key="backgroundColor" systemColor="systemGreenColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="2" id="peh-Rm-39L"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="3Lz-1t-BGh" firstAttribute="centerY" secondItem="LCi-Ln-kUd" secondAttribute="centerY" id="0Wm-dY-Jcr"/>
                             <constraint firstItem="IRM-45-srP" firstAttribute="leading" secondItem="dmD-cg-LXd" secondAttribute="leading" id="0gw-WN-T0E"/>
                             <constraint firstAttribute="trailing" secondItem="bYU-bv-2QS" secondAttribute="trailing" constant="-5" id="4gW-k7-C3F"/>
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerY" secondItem="dmD-cg-LXd" secondAttribute="centerY" id="Bb5-XN-cpO"/>
                             <constraint firstItem="dMr-mO-saJ" firstAttribute="centerY" secondItem="LCi-Ln-kUd" secondAttribute="centerY" id="C52-QR-aL4"/>
-                            <constraint firstItem="3Lz-1t-BGh" firstAttribute="height" secondItem="LCi-Ln-kUd" secondAttribute="height" id="L2Z-5U-Hcm"/>
                             <constraint firstItem="LCi-Ln-kUd" firstAttribute="centerY" secondItem="dmD-cg-LXd" secondAttribute="centerY" id="Qe2-uj-pOQ"/>
                             <constraint firstItem="TX2-Zq-yJN" firstAttribute="centerX" secondItem="dmD-cg-LXd" secondAttribute="centerX" id="WGi-lB-Rxf"/>
                             <constraint firstItem="dMr-mO-saJ" firstAttribute="height" secondItem="dmD-cg-LXd" secondAttribute="height" id="WbW-UK-VGZ"/>
                             <constraint firstItem="dMr-mO-saJ" firstAttribute="width" secondItem="dmD-cg-LXd" secondAttribute="width" id="Z3m-d0-zFd"/>
-                            <constraint firstItem="3Lz-1t-BGh" firstAttribute="width" secondItem="LCi-Ln-kUd" secondAttribute="width" id="eqA-Un-lSK"/>
                             <constraint firstAttribute="bottom" secondItem="bYU-bv-2QS" secondAttribute="bottom" id="fqo-d0-Yqd"/>
                             <constraint firstItem="bYU-bv-2QS" firstAttribute="top" secondItem="dmD-cg-LXd" secondAttribute="top" id="hei-C5-Fbi"/>
                             <constraint firstItem="dMr-mO-saJ" firstAttribute="centerX" secondItem="LCi-Ln-kUd" secondAttribute="centerX" id="hmY-k0-VlL"/>
                             <constraint firstItem="IRM-45-srP" firstAttribute="top" secondItem="TX2-Zq-yJN" secondAttribute="bottom" constant="5" id="iBo-cu-xrB"/>
-                            <constraint firstItem="lS4-xP-r65" firstAttribute="leading" secondItem="dmD-cg-LXd" secondAttribute="leading" id="iao-hu-5En"/>
                             <constraint firstItem="LCi-Ln-kUd" firstAttribute="centerY" secondItem="TX2-Zq-yJN" secondAttribute="centerY" id="mUe-Sl-jpV"/>
                             <constraint firstAttribute="trailing" secondItem="IRM-45-srP" secondAttribute="trailing" id="pBW-w1-y9X"/>
-                            <constraint firstItem="3Lz-1t-BGh" firstAttribute="centerX" secondItem="LCi-Ln-kUd" secondAttribute="centerX" id="py4-hD-SWq"/>
-                            <constraint firstAttribute="trailing" secondItem="lS4-xP-r65" secondAttribute="trailing" id="twm-FL-b8H"/>
                             <constraint firstItem="LCi-Ln-kUd" firstAttribute="centerX" secondItem="dmD-cg-LXd" secondAttribute="centerX" id="v6u-CH-jQU"/>
-                            <constraint firstAttribute="bottom" secondItem="lS4-xP-r65" secondAttribute="bottom" constant="5" id="vQY-2H-Ry2"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <integer key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="3Lz-1t-BGh"/>
-                                <exclude reference="lS4-xP-r65"/>
-                            </mask>
-                        </variation>
                     </view>
                 </subviews>
             </view>
@@ -132,10 +104,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="refreshDropdown" width="44" height="54"/>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="refreshDropdown" width="22" height="22"/>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
