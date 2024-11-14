@@ -30,7 +30,7 @@ class AccountsVC: UIView {
     @IBOutlet weak var tblView: UITableView!
     
     @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
     
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
@@ -269,9 +269,9 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-                return 320
+                return 250
             } else { //MARK: - if no account exist.
-                return 300.0
+                return 250
             }
         }else if indexPath.section == 1{
             return 45
@@ -560,22 +560,22 @@ extension AccountsVC {
             print("screen_height = \(screen_height)")
             if screen_height >= 667.0 && screen_height <= 736.0 {
                 //MARK: - iphone6s, iphoneSE, iphone7 plus
-                tblViewTopConstraint.constant = -20
+//                tblViewTopConstraint.constant = -20
                 
             } else if screen_height == 812.0 {
                 //MARK: - iphoneXs
                 //                tblViewTopConstraint.constant = -30
-                tblViewTopConstraint.constant = -45
+//                tblViewTopConstraint.constant = -45
                 
             } else if screen_height >= 852.0 && screen_height <= 932.0 {
                 //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
-                tblViewTopConstraint.constant = -60
+//                tblViewTopConstraint.constant = -60
                 
             }else if screen_height == 844.0 {
-                tblViewTopConstraint.constant = -55
+//                tblViewTopConstraint.constant = -55
             } else {
                 //MARK: - other iphone if not in the above check's.
-                tblViewTopConstraint.constant = 0
+//                tblViewTopConstraint.constant = 0
             }
             
         } else {

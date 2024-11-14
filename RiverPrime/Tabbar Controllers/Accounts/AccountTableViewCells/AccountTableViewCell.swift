@@ -38,8 +38,8 @@ class AccountTableViewCell: UITableViewCell {
 //    @IBOutlet weak var height_outerView: NSLayoutConstraint!
     @IBOutlet weak var headerView: UIView!
     
-    @IBOutlet weak var headerTitle: UILabel!
-    @IBOutlet weak var secondTitle: UILabel!
+//    @IBOutlet weak var headerTitle: UILabel!
+//    @IBOutlet weak var secondTitle: UILabel!
     @IBOutlet weak var labelAmmount: UILabel!
     @IBOutlet weak var labelStack: UIStackView!
     @IBOutlet weak var viewOfAccount: UIStackView!
@@ -49,17 +49,17 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
-    @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
+//    @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
     @IBOutlet weak var widthOfMainStackView: NSLayoutConstraint!
     
-    @IBOutlet weak var height_ViewBtnStack: NSLayoutConstraint!
-    @IBOutlet weak var Btn_view: UIView!
-    @IBOutlet weak var btn_funds: UIButton!
-    @IBOutlet weak var btnFundsLineView: UIView!
+//    @IBOutlet weak var height_ViewBtnStack: NSLayoutConstraint!
+//    @IBOutlet weak var Btn_view: UIView!
+//    @IBOutlet weak var btn_funds: UIButton!
+//    @IBOutlet weak var btnFundsLineView: UIView!
 //    @IBOutlet weak var height_BtnView: NSLayoutConstraint!
     
-    @IBOutlet weak var btn_Settings: UIButton!
-    @IBOutlet weak var btnSettingsLineView: UIView!
+//    @IBOutlet weak var btn_Settings: UIButton!
+//    @IBOutlet weak var btnSettingsLineView: UIView!
     
     weak var delegate: AccountInfoDelegate?
    
@@ -159,75 +159,75 @@ class AccountTableViewCell: UITableViewCell {
         switch navigation {
             
         case .deposit:
-            Btn_view.isHidden = true
+//            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Deposit"
+//            headerTitle.text = "Deposit"
             labelStack.isHidden = true
             viewOfBtnStack.isHidden = true
             
-            secondTitle.text = "Verification required"
+//            secondTitle.text = "Verification required"
 //            heightOfAccountHeaderView.constant = 1.0
-            heightOfAccountHeaderView.constant = heightOfSuperview * 1.0 // this has the same effect as multiplier
+//            heightOfAccountHeaderView.constant = heightOfSuperview * 1.0 // this has the same effect as multiplier
             
         case .account:
-            Btn_view.isHidden = true
+//            Btn_view.isHidden = true
             viewOfAccount.isHidden =  false
-            headerTitle.text = "Account"
+//            headerTitle.text = "Account"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
 //            height_ViewBtnStack.constant = 114 
-            secondTitle.text = "#\(self.login_Id)"
+//            secondTitle.text = "#\(self.login_Id)"
             lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             
         case .withdraw:
-            Btn_view.isHidden = true
+//            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Withdraw"
+//            headerTitle.text = "Withdraw"
             labelStack.isHidden = true
             viewOfBtnStack.isHidden = true
-            secondTitle.text = "All payment methods"
-            heightOfAccountHeaderView.constant = heightOfSuperview * 1.0
+//            secondTitle.text = "All payment methods"
+//            heightOfAccountHeaderView.constant = heightOfSuperview * 1.0
          
         case .detail:
-            Btn_view.isHidden = false
+//            Btn_view.isHidden = false
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Details"
+//            headerTitle.text = "Details"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
-            secondTitle.text = "#\(self.login_Id)"
+//            secondTitle.text = "#\(self.login_Id)"
             
         case .trade:
-            Btn_view.isHidden = true
+//            Btn_view.isHidden = true
 //            height_outerView.constant = 210//headerView.bounds.height
 //            height_BtnView.constant = 0
             outer_view.backgroundColor = UIColor(named: "splashScreen")
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Trade"
+//            headerTitle.text = "Trade"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
 //            height_ViewBtnStack.constant = 0
-            secondTitle.text = "#\(self.login_Id)"
+//            secondTitle.text = "#\(self.login_Id)"
             lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             
         case .market:
-            Btn_view.isHidden = true
+//            Btn_view.isHidden = true
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Market"
+//            headerTitle.text = "Market"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = false
-            secondTitle.text = "#\(self.login_Id)"
+//            secondTitle.text = "#\(self.login_Id)"
             
         case .result:
-            Btn_view.isHidden = false
+//            Btn_view.isHidden = false
             viewOfAccount.isHidden =  true
-            headerTitle.text = "Details"
+//            headerTitle.text = "Details"
             labelStack.isHidden = false
             viewOfBtnStack.isHidden = true
-            secondTitle.text = "#\(self.login_Id)"
+//            secondTitle.text = "#\(self.login_Id)"
         
         case .history:
             break

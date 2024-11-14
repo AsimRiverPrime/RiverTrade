@@ -25,7 +25,7 @@ protocol OPCDelegate: AnyObject {
 class TradeTypeTableViewCell: BaseTableViewCell {
 
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
-    var model: [String] = ["OPEN","PENDING","CLOSED","image"/*,"test","test1","test2","test3"*/]
+    var model: [String] = ["Open","Pending","Closed","image"/*,"test","test1","test2","test3"*/]
     var refreshList = ["by instrument", "by volume", "by open time"]
     var selectedIndex = 0
     
@@ -116,9 +116,11 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
        
         cell.lbl_tradetype.text = model[indexPath.row]
             if indexPath.row == selectedIndex {
-            cell.selectedColorView.isHidden = false
+//            cell.selectedColorView.isHidden = false
+                cell.backgroundColor = .systemYellow
         }else{
-            cell.selectedColorView.isHidden = true
+//            cell.selectedColorView.isHidden = true
+            cell.backgroundColor = .clear
         }
         if indexPath.row == model.count-1 {
             cell.sepratorView.isHidden = true
