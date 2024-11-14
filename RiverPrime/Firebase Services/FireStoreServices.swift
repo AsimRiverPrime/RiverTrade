@@ -183,7 +183,8 @@ class FirestoreServices: BaseViewController {
        
        private func navigateToMainScreen() {
            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+//           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+           let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
            self.navigationController?.pushViewController(mainVC, animated: true)
 //           window?.rootViewController = mainVC
 //           window?.makeKeyAndVisible()
@@ -224,7 +225,8 @@ class FirestoreServices: BaseViewController {
  
     private func navigateToDemoAccountCreationScreen() {
         
-        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .dashboardVC, storyboardType: .dashboard)
+//        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .dashboardVC, storyboardType: .dashboard)
+        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .homeTabbarViewController, storyboardType: .dashboard)
         
         let navController = UINavigationController(rootViewController: dashboardVC)
         SCENE_DELEGATE.window?.rootViewController = navController

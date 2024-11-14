@@ -8,19 +8,19 @@
 import UIKit
 import SVProgressHUD
 
-//struct OPCModel {
-//    var symbol = String()
+////struct OPCModel {
+////    var symbol = String()
+////}
+//
+//enum OPCType {
+//    case open([OpenModel])
+//    case pending([PendingModel])
+//    case close([NewCloseModel])
 //}
-
-enum OPCType {
-    case open([OpenModel])
-    case pending([PendingModel])
-    case close([NewCloseModel])
-}
-
-protocol OPCDelegate: AnyObject {
-    func getOPCData(opcType: OPCType)
-}
+//
+//protocol OPCDelegate: AnyObject {
+//    func getOPCData(opcType: OPCType)
+//}
 
 class TradeTypeTableViewCell: BaseTableViewCell {
 
@@ -118,6 +118,8 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
             if indexPath.row == selectedIndex {
 //            cell.selectedColorView.isHidden = false
                 cell.backgroundColor = .systemYellow
+                cell.layer.cornerRadius = 10.0
+                cell.lbl_tradetype.textColor = .black
         }else{
 //            cell.selectedColorView.isHidden = true
             cell.backgroundColor = .clear
@@ -156,9 +158,35 @@ extension TradeTypeTableViewCell: UICollectionViewDelegate, UICollectionViewData
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-      
+        
+        //        let data = model[indexPath.row]
+        //        return CGSize(width: data.count + 80, height: 40)
+        
         let data = model[indexPath.row]
-        return CGSize(width: data.count + 80, height: 40)
+        
+        // Get the screen width (for dynamic sizing based on device type)
+        let screenWidth = UIScreen.main.bounds.width
+        
+        // For iPhone (portrait or landscape), use a smaller item size
+        if GlobalVariable.instance.isIphone() { // iPhone typically has a screen width less than 768 points
+            return CGSize(width: data.count + 80, height: 40)
+        } else {
+//            // For iPad (larger screen), adjust the item size to fit more data
+//            // You can experiment with the values to suit your needs
+//            let itemWidth = (screenWidth - 40) / 4 // Adjust the number of items per row (e.g., 3 items per row)
+//            return CGSize(width: itemWidth, height: 40)
+            
+            // For iPad, we want all items in one row, so calculate width based on the total number of items
+            
+            let totalItems = data.count // Total number of items in the collection view
+            let padding: CGFloat = 20 // Padding between items (adjust as needed)
+            let totalPadding = Int(padding) * (totalItems + 1) // Total padding on both sides of items
+            
+            // Calculate the item width based on available screen width and padding
+            let itemWidth = (screenWidth - CGFloat(totalPadding)) / CGFloat(totalItems)
+            
+            return CGSize(width: itemWidth, height: 40)
+        }
         
     }
 }

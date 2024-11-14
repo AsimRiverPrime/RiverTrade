@@ -21,6 +21,7 @@ class TradeTypeCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         refreshImageButton.setTitle("", for: .normal)
+        refreshImage.image = UIImage(named: "refreshDropdown")?.withTintColor(.white)
     }
     
     @IBAction func refreshImageButton(_ sender: UIButton) {

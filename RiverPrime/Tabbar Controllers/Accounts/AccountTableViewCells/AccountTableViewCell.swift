@@ -28,7 +28,7 @@ enum NavigationType{
     case notification
 }
 protocol AccountInfoDelegate: AnyObject {
-    func accountInfoTap(_ accountInfo: AccountInfo)
+    func accountInfoTap1(_ accountInfo: AccountInfo)
     
 }
 
@@ -238,25 +238,25 @@ class AccountTableViewCell: UITableViewCell {
     }
     
     @IBAction func depositBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.deposit)
+        delegate?.accountInfoTap1(.deposit)
     }
     @IBAction func withDrawBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.withDraw)
+        delegate?.accountInfoTap1(.withDraw)
     }
 
     @IBAction func historyBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.history)
+        delegate?.accountInfoTap1(.history)
     }
 
     @IBAction func detailBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.detail)
+        delegate?.accountInfoTap1(.detail)
     }
     @IBAction func notificationBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.notification)
+        delegate?.accountInfoTap1(.notification)
     }
     
     @IBAction func createAcoountBtnAction(_ sender: Any) {
-        delegate?.accountInfoTap(.createAccount)
+        delegate?.accountInfoTap1(.createAccount)
     }
     
 }

@@ -7,24 +7,6 @@
 
 import UIKit
 
-protocol AccountInfoTapDelegate: AnyObject {
-    func accountInfoTap(_ accountInfo: AccountInfo)
-}
-
-protocol CreateAccountInfoTapDelegate: AnyObject {
-    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo)
-}
-
-enum OPCNavigationType {
-    case open(OpenModel)
-    case pending(PendingModel)
-    case close(NewCloseModel)
-}
-
-protocol OPCNavigationDelegate: AnyObject {
-    func navigateOPC(_ opcNavigationType: OPCNavigationType)
-}
-
 class AccountsVC: UIView {
     
     @IBOutlet weak var tblView: UITableView!
@@ -55,11 +37,11 @@ class AccountsVC: UIView {
         
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             tblView.registerCells([
-                AccountTableViewCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
+                /*AccountTableViewCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
         } else { //MARK: - if no account exist.
             tblView.registerCells([
-                CreateAccountTVCell.self, TradeTypeTableViewCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
+                /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
         }
         
@@ -128,20 +110,21 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 3 //5
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if section == 0 {
+//            return 1
+//        }else if section == 1 {
+//            return 1
+//        }else if section == 2 {
         if section == 0 {
-            return 1
-        }else if section == 1 {
-            return 1
-        }else if section == 2 {
             if emptyListCount != 0 { //TODO: If Open, Pending, Close is empty then section 2 (Total P/L) should be hide as well.
                 return 0
             }
             return 1
-        }else if section == 3 {
+        }else if section == 1 {
             switch opcList {
             case .open(let open):
                 return open.count
@@ -162,27 +145,28 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+//        if indexPath.section == 0 {
+//            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+//                let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
+//                cell.setHeaderUI(.account)
+//               
+//                cell.delegate = self
+//                return cell
+//            } else { //MARK: - if no account exist.
+//                let cell = tableView.dequeueReusableCell(with: CreateAccountTVCell.self, for: indexPath)
+//                //            cell.setHeaderUI(.account)
+//                cell.delegate = self
+//                return cell
+//            }
+//            
+//        } else if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCell(with: TradeTypeTableViewCell.self, for: indexPath)
+//            cell.delegate = self
+//            cell.backgroundColor = .clear
+//            return cell
+//            
+//        } else if indexPath.section == 2 {
         if indexPath.section == 0 {
-            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-                let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-                cell.setHeaderUI(.account)
-               
-                cell.delegate = self
-                return cell
-            } else { //MARK: - if no account exist.
-                let cell = tableView.dequeueReusableCell(with: CreateAccountTVCell.self, for: indexPath)
-                //            cell.setHeaderUI(.account)
-                cell.delegate = self
-                return cell
-            }
-            
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(with: TradeTypeTableViewCell.self, for: indexPath)
-            cell.delegate = self
-            cell.backgroundColor = .clear
-            return cell
-            
-        } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(with: Total_PLCell.self, for: indexPath)
             //            cell.delegate = self
             cell.backgroundColor = .clear
@@ -208,7 +192,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
             
             return cell
             
-        } else if indexPath.section == 3 {
+        } else if indexPath.section == 1 {
             
             switch opcList {
             case .open(let openData):
@@ -267,30 +251,31 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.section == 0 {
+//            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+//                return 250
+//            } else { //MARK: - if no account exist.
+//                return 250
+//            }
+//        }else if indexPath.section == 1{
+//            return 45
+//            
+//        }else if indexPath.section == 2{
         if indexPath.section == 0 {
-            if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-                return 250
-            } else { //MARK: - if no account exist.
-                return 250
-            }
+            return 45
+            
         }else if indexPath.section == 1{
-            return 45
-            
-        }else if indexPath.section == 2{
-            return 45
-            
-        }else if indexPath.section == 3{
             return 85.0
         } else {
             return 100.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTypeTableViewCell") as? TradeTypeTableViewCell
+//            
+//        }
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTypeTableViewCell") as? TradeTypeTableViewCell
-            
-        }
-        if indexPath.section == 3 {
             
             switch opcList {
             case .open(let openData):
@@ -317,7 +302,7 @@ extension AccountsVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension AccountsVC: AccountInfoDelegate {
-    func accountInfoTap(_ accountInfo: AccountInfo) {
+    func accountInfoTap1(_ accountInfo: AccountInfo) {
         print("delegte called  \(accountInfo)" )
         
         switch accountInfo {
@@ -360,7 +345,7 @@ extension AccountsVC: AccountInfoDelegate {
 
 extension AccountsVC: CreateAccountInfoDelegate {
     
-    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
+    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo) {
         print("delegte called  \(createAccountInfo)" )
         
         switch createAccountInfo {
@@ -471,7 +456,8 @@ extension AccountsVC: OPCDelegate {
                 
                 self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
             }
-            let indexPath = IndexPath(row: 0, section: 2)
+//            let indexPath = IndexPath(row: 0, section: 2)
+            let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
             }
@@ -493,7 +479,8 @@ extension AccountsVC: OPCDelegate {
                 self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
             }
             totalProfitOpenClose = 0.0
-            let indexPath = IndexPath(row: 0, section: 2)
+//            let indexPath = IndexPath(row: 0, section: 2)
+            let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = true
             }
@@ -523,7 +510,8 @@ extension AccountsVC: OPCDelegate {
                 totalProfitOpenClose += totalPL
                 
             }
-            let indexPath = IndexPath(row: 0, section: 2)
+//            let indexPath = IndexPath(row: 0, section: 2)
+            let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
                 totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
@@ -639,7 +627,8 @@ extension AccountsVC: GetSocketMessages {
                        if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
                            getSymbolData[index].tickMessage = tickMessage
                        
-                           let indexPath = IndexPath(row: index, section: 2)
+//                           let indexPath = IndexPath(row: index, section: 2)
+                           let indexPath = IndexPath(row: index, section: 0)
                            
                            switch opcList {
                            case .open(let openData):
@@ -650,7 +639,8 @@ extension AccountsVC: GetSocketMessages {
                                
                                for i in 0...openData.count-1 {
                                    
-                                   let myIndexPath = IndexPath(row: i, section: 3)
+//                                   let myIndexPath = IndexPath(row: i, section: 3)
+                                   let myIndexPath = IndexPath(row: i, section: 1)
                                    print("my current index \(myIndexPath)")
                                    
                                    if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
@@ -696,7 +686,8 @@ extension AccountsVC: GetSocketMessages {
                                
                                let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
                                    let (index, item) = indexValue
-                                   let myIndexPath = IndexPath(row: index, section: 3)
+//                                   let myIndexPath = IndexPath(row: index, section: 3)
+                                   let myIndexPath = IndexPath(row: index, section: 1)
    
                                    if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
                                        if GlobalVariable.instance.isAccountCreated {
@@ -718,7 +709,8 @@ extension AccountsVC: GetSocketMessages {
                                //MARK: - END Set Total P/L
                                
                                
-                               let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+//                               let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                               let indexPath = IndexPath(row: 0, section: 1)
                                if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                                    totalCell.detailTextLabel?.isHidden = false
                                    totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
