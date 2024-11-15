@@ -129,7 +129,12 @@ extension DepositViewController: KYCVCDelegate {
     func navigateToCompeletProfile(kyc: KYCType) {
         switch kyc {
         case .ProfileScreen:
-            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+////                profileVC.delegateKYC = self
+//                GlobalVariable.instance.isReturnToProfile = true
+//                self.navigate(to: profileVC)
+//            }
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
 //                profileVC.delegateKYC = self
                 GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)
@@ -171,7 +176,11 @@ extension DepositViewController: KYCVCDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .ReturnDashboard:
-            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//                GlobalVariable.instance.isReturnToProfile = true
+//                self.navigate(to: dashboardVC)
+//            }
+            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
                 GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: dashboardVC)
             }

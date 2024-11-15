@@ -14,7 +14,7 @@ enum CreateAccountInfo {
 }
 
 protocol CreateAccountInfoDelegate: AnyObject {
-    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo)
+    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo)
 }
 
 class CreateAccountTVCell: UITableViewCell {
@@ -41,15 +41,15 @@ class CreateAccountTVCell: UITableViewCell {
     }
     
     @IBAction func createNewBtnAction(_ sender: Any) {
-        delegate?.createAccountInfoTap(.createNew)
+        delegate?.createAccountInfoTap1(.createNew)
     }
     
     @IBAction func unarchiveBtnAction(_ sender: Any) {
-        delegate?.createAccountInfoTap(.unarchive)
+        delegate?.createAccountInfoTap1(.unarchive)
     }
 
     @IBAction func notificationBtnAction(_ sender: Any) {
-        delegate?.createAccountInfoTap(.notification)
+        delegate?.createAccountInfoTap1(.notification)
     }
     
 }

@@ -57,7 +57,7 @@ class SignInViewController: BaseViewController {
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         
         username_tf.text = "asimprime900@gmail.com"
-        password_tf.text = "Asim123#" //"asdasd" //Meta trader pass: -> Test@123!
+        password_tf.text = "Asim123@" //"Asim123#" //"asdasd" //Meta trader pass: -> Test@123!
         
 //        enableLoginButton()
         
@@ -127,6 +127,9 @@ class SignInViewController: BaseViewController {
     
     @IBAction func submitBtn(_ sender: Any) {
         login()
+//        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+//            self.navigate(to: dashboardVC)
+//        }
     }
     
     @IBAction func signINGoogle_action(_ sender: Any) {

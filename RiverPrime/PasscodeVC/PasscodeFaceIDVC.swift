@@ -218,7 +218,10 @@ extension PasscodeFaceIDVC {
 //        }else{
             print("Go to the desire screen")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+//                    self.navigate(to: dashboardVC)
+//                }
+                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
                     self.navigate(to: dashboardVC)
                 }
 //            }

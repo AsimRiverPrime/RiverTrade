@@ -150,8 +150,12 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         self.navigate(to: verifyVC)
     }
     private func navigateToDashboardScreen() {
+//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+//        self.navigate(to: dashboardVC)
+        
         let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
         self.navigate(to: dashboardVC)
     }
     

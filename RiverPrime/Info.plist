@@ -27,12 +27,6 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>InterVariable.ttf</string>
-		<string>InterVariable-Italic.ttf</string>
-		<string>Inter.ttc</string>
-	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -56,6 +50,11 @@
 	<array>
 		<string>NDEF</string>
 		<string>TAG</string>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

@@ -116,7 +116,7 @@ extension CreateAccountVC: UITableViewDelegate, UITableViewDataSource {
 
 extension CreateAccountVC: CreateAccountInfoDelegate {
     
-    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
+    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo) {
         print("delegte called  \(createAccountInfo)" )
         
         switch createAccountInfo {
