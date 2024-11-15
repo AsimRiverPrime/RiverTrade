@@ -7,13 +7,13 @@
 
 import UIKit
 
-protocol TradeInfoTapDelegate: AnyObject {
-    func tradeInfoTap(_ tradeInfo: SectorGroup, index: Int)
-}
-
-struct TradeInfo {
-    var name = String()
-}
+//protocol TradeInfoTapDelegate: AnyObject {
+//    func tradeInfoTap(_ tradeInfo: SectorGroup, index: Int)
+//}
+//
+//struct TradeInfo {
+//    var name = String()
+//}
 
 class TradeTVC: UITableViewCell {
 

@@ -64,10 +64,9 @@ class TradeTableViewCell: UITableViewCell {
             createdCharts[symbol] = true
 
         chart = LightweightCharts()
-      
+        chart.backgroundColor = .black
+        graphView.backgroundColor = .black  // Set this to black or any color you prefer
         graphView.addSubview(chart)
-        graphView.backgroundColor = .clear
-        
         chart.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
@@ -77,17 +76,14 @@ class TradeTableViewCell: UITableViewCell {
         ])
         // Options to hide the x-axis and y-axis
            let chartOptions = ChartOptions(
-            layout: LayoutOptions(background: .none ),
+            layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor.black)) /*SurfaceColor.color(UIColor.black)*/ /*.none*/ ),
                rightPriceScale: VisiblePriceScaleOptions(visible: false),
                timeScale: TimeScaleOptions(visible: false),
-            
             grid: GridOptions(
                 verticalLines: GridLineOptions(visible: false),
                 horizontalLines: GridLineOptions(visible: false)
             )
            )
-      
-        
            chart.applyOptions(options: chartOptions)
 
         var options = AreaSeriesOptions()
@@ -102,7 +98,7 @@ class TradeTableViewCell: UITableViewCell {
 //                   lineColor: "rgba(76, 175, 80, 1)",
 //                   lineWidth: .one
 //               )
-//        
+//
 //        //MARK: - Update options to hide the line and values -> Red
 //        options = AreaSeriesOptions(
 //                   priceLineVisible: false,
@@ -168,12 +164,12 @@ class TradeTableViewCell: UITableViewCell {
         }
     }
     
-    func configureChart(getSymbolData: SymbolChartData) {        
+    func configureChart(getSymbolData: SymbolChartData) {
         setupChart(for: getSymbolData.symbol, with: getSymbolData.chartData)
     }
     
 //    func configureChart(getSymbolData: SymbolCompleteList) {
-//        
+//
 //        setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
 //    }
     

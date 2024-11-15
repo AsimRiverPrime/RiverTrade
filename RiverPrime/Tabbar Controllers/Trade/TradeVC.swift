@@ -5,63 +5,63 @@ import Alamofire
 import AEXML
 import Foundation
 
-protocol TradeDetailTapDelegate: AnyObject {
-    func tradeDetailTap(indexPath: IndexPath, getSymbolData: SymbolCompleteList)
-}
-
-struct SymbolCompleteList {
-    var tickMessage: TradeDetails?
-    var historyMessage: SymbolChartData?
-    var isTickFlag: Bool?
-    var isHistoryFlag: Bool?
-    var isHistoryFlagTimer: Bool?
-}
-
-struct SymbolData: Codable {
-    let id: String
-    let name: String
-    let description: String
-    let icon_url: String
-    let volumeMin: String
-    let volumeMax: String
-    let volumeStep: String
-    let contractSize: String
-    let displayName: String
-    let sector: String
-    let digits: String
-    let stopsLevel: String
-    let swapLong: String
-    let swapShort: String
-    let spreadSize: String
-    let mobile_available: String
-    let yesterday_close: String
-    
-    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String) {
-        self.id = id
-        self.name = name
-        self.description = description
-        self.icon_url = icon_url
-        self.volumeMin = volumeMin
-        self.volumeMax = volumeMax
-        self.volumeStep = volumeStep
-        self.contractSize = contractSize
-        self.displayName = displayName
-        self.sector = sector
-        self.digits = digits
-        self.spreadSize = spreadSize
-        self.swapLong = swapLong
-        self.swapShort = swapShort
-        self.stopsLevel = stopsLevel
-        self.mobile_available = mobile_available
-        self.yesterday_close = yesterday_close
-    }
-    
-}
-
-struct SectorGroup {
-    let sector: String
-    let symbols: [SymbolData]
-}
+//protocol TradeDetailTapDelegate: AnyObject {
+//    func tradeDetailTap(indexPath: IndexPath, getSymbolData: SymbolCompleteList)
+//}
+//
+//struct SymbolCompleteList {
+//    var tickMessage: TradeDetails?
+//    var historyMessage: SymbolChartData?
+//    var isTickFlag: Bool?
+//    var isHistoryFlag: Bool?
+//    var isHistoryFlagTimer: Bool?
+//}
+//
+//struct SymbolData: Codable {
+//    let id: String
+//    let name: String
+//    let description: String
+//    let icon_url: String
+//    let volumeMin: String
+//    let volumeMax: String
+//    let volumeStep: String
+//    let contractSize: String
+//    let displayName: String
+//    let sector: String
+//    let digits: String
+//    let stopsLevel: String
+//    let swapLong: String
+//    let swapShort: String
+//    let spreadSize: String
+//    let mobile_available: String
+//    let yesterday_close: String
+//    
+//    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String) {
+//        self.id = id
+//        self.name = name
+//        self.description = description
+//        self.icon_url = icon_url
+//        self.volumeMin = volumeMin
+//        self.volumeMax = volumeMax
+//        self.volumeStep = volumeStep
+//        self.contractSize = contractSize
+//        self.displayName = displayName
+//        self.sector = sector
+//        self.digits = digits
+//        self.spreadSize = spreadSize
+//        self.swapLong = swapLong
+//        self.swapShort = swapShort
+//        self.stopsLevel = stopsLevel
+//        self.mobile_available = mobile_available
+//        self.yesterday_close = yesterday_close
+//    }
+//    
+//}
+//
+//struct SectorGroup {
+//    let sector: String
+//    let symbols: [SymbolData]
+//}
 
 class TradeVC: UIView {
     
