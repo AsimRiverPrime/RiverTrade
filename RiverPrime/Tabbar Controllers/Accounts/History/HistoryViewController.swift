@@ -145,7 +145,7 @@ extension HistoryViewController {
                 print("historyClose data : \(self.closeData)")
                 
                 let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
-                self.lbl_totalProfit.text = "\(String(totalProfitValue).trimmedTrailingZeros()) USD"
+                self.lbl_totalProfit.text = "$\(String(totalProfitValue).trimmedTrailingZeros())"
              
                 if totalProfitValue < 0 {
                     self.lbl_totalProfit.textColor = .systemRed

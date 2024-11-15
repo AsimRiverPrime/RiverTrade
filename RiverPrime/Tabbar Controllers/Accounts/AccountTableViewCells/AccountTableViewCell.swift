@@ -79,7 +79,7 @@ class AccountTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.outer_view.layoutIfNeeded()
-        labelAmmount.text = "\(GlobalVariable.instance.balanceUpdate) USD"
+        labelAmmount.text = "$\(GlobalVariable.instance.balanceUpdate)"
         
 //        NotificationCenter.default.addObserver(self, selector: #selector(self.BalanceUpdate(_:)), name: .BalanceUpdate, object: nil)
         

@@ -275,7 +275,7 @@ extension AccountsViewController {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "\(ammount) USD"
+            self.labelAmmount.text = "$\(ammount)"
         }
         
     }
@@ -838,7 +838,7 @@ extension AccountsViewController: OPCDelegate {
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
                 totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                totalCell.detailTextLabel?.text = String(format: "%.2f", totalProfitOpenClose) + " USD"
+                totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
                 if totalProfitOpenClose < 0.0 {
                     totalCell.detailTextLabel?.textColor = .systemRed
                 }else{
@@ -1037,7 +1037,7 @@ extension AccountsViewController: GetSocketMessages {
                                if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                                    totalCell.detailTextLabel?.isHidden = false
                                    totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                                   totalCell.detailTextLabel?.text = String(format: "%.2f", totalProfitOpenClose) + " USD"
+                                   totalCell.detailTextLabel?.text =   "$" + String(format: "%.2f", totalProfitOpenClose)
                                    if totalProfitOpenClose < 0.0 {
                                        totalCell.detailTextLabel?.textColor = .systemRed
                                    }else{
@@ -1146,9 +1146,10 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
 //            cell.selectedColorView.isHidden = false
                 cell.backgroundColor = .systemYellow
                 cell.layer.cornerRadius = 10.0
-                cell.lbl_tradetype.textColor = .white
+                cell.lbl_tradetype.textColor = .black
         }else{
 //            cell.selectedColorView.isHidden = true
+            cell.lbl_tradetype.textColor = UIColor(red: 94, green: 98, blue: 120, alpha: 1)
             cell.backgroundColor = .clear
         }
         if indexPath.row == model.count-1 {

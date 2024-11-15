@@ -22,7 +22,7 @@ class PendingOrderCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        lbl_currentPriceVolume.textColor = .white
+//        lbl_currentPriceVolume.textColor = .white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

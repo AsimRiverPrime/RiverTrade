@@ -24,7 +24,7 @@ class TransactionCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        lbl_openPriceVolume.textColor = .white
+//        lbl_openPriceVolume.textColor = .white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
