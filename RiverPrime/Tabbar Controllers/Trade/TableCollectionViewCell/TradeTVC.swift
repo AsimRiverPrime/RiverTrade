@@ -75,8 +75,11 @@ extension TradeTVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
        
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
+            cell.layer.cornerRadius = 10
+            cell.backgroundColor = .systemYellow
         }else{
             cell.selectedColorView.isHidden = true
+            cell.backgroundColor = .clear
         }
         if indexPath.row == symbolDataSector.count-1 {
             cell.sepratorView.isHidden = true

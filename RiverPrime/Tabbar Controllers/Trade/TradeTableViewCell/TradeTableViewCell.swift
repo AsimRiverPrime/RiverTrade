@@ -64,7 +64,10 @@ class TradeTableViewCell: UITableViewCell {
             createdCharts[symbol] = true
 
         chart = LightweightCharts()
+      
         graphView.addSubview(chart)
+        graphView.backgroundColor = .clear
+        
         chart.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             chart.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
@@ -77,11 +80,14 @@ class TradeTableViewCell: UITableViewCell {
             layout: LayoutOptions(background: .none ),
                rightPriceScale: VisiblePriceScaleOptions(visible: false),
                timeScale: TimeScaleOptions(visible: false),
+            
             grid: GridOptions(
                 verticalLines: GridLineOptions(visible: false),
                 horizontalLines: GridLineOptions(visible: false)
             )
            )
+      
+        
            chart.applyOptions(options: chartOptions)
 
         var options = AreaSeriesOptions()

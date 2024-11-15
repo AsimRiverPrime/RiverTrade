@@ -111,7 +111,7 @@ class TradeVC: UIView {
         setTableViewLayoutTopConstraints()
         
         tblView.registerCells([
-            AccountTableViewCell.self,TradeTVC.self, TradeTableViewCell.self
+            TradeHeaderTVCell.self,TradeTVC.self, TradeTableViewCell.self
         ])
         
         tblView.delegate = self
@@ -169,8 +169,8 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-            cell.setHeaderUI(.trade)
+            let cell = tableView.dequeueReusableCell(with: TradeHeaderTVCell.self, for: indexPath)
+//            cell.setHeaderUI(.trade)
             return cell
             
         } else if indexPath.section == 1 {
@@ -218,7 +218,7 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
             } else {
                 cell.isUserInteractionEnabled = true
                 cell.contentView.alpha = 1.0
-                cell.selectionStyle = .default
+                cell.selectionStyle = .none
             }
             
             return cell
@@ -244,9 +244,9 @@ extension TradeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return 220
+            return 100
         }else if indexPath.section == 1{
-            return 55
+            return 50
             
         }else{
             return 90.0
