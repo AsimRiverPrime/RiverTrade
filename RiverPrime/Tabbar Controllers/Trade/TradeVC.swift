@@ -439,7 +439,7 @@ extension TradeVC: GetSocketMessages {
                                     lineColor: "rgba(76, 175, 80, 1)",
                                     lineWidth: .one
                                    )
-                                   
+                               
                                } else {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.down")
                                    cell.profitIcon.tintColor = .systemRed

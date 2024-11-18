@@ -205,12 +205,15 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     .replacingOccurrences(of: "-01.svg", with: ".png")
                     .replacingOccurrences(of: ".com/", with: ".com/png/")
                 
+                let originalDescription = symbolDescription
+                let modifiedDescription = originalDescription.replacingOccurrences(of: "\\s*\\(.*\\)", with: "", options: .regularExpression)
+
                 // Append to the symbol data array
                 GlobalVariable.instance.symbolDataArray.append(
                     SymbolData(
                         id: String(symbolId),
                         name: symbolName,
-                        description: symbolDescription,
+                        description: modifiedDescription,
                         icon_url: modifiedUrl,
                         volumeMin: String(symbolVolumeMin),
                         volumeMax: String(symbolVolumeMax),

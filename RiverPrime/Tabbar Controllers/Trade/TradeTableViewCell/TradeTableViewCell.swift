@@ -36,6 +36,7 @@ class TradeTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.graphView.isUserInteractionEnabled = false
        setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+        graphView.backgroundColor = .clear
     }
    
     //let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
@@ -64,8 +65,9 @@ class TradeTableViewCell: UITableViewCell {
             createdCharts[symbol] = true
 
         chart = LightweightCharts()
-        chart.backgroundColor = .black
-        graphView.backgroundColor = .black  // Set this to black or any color you prefer
+        chart.backgroundColor = UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)
+        graphView.backgroundColor = UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)
+        
         graphView.addSubview(chart)
         chart.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -76,7 +78,7 @@ class TradeTableViewCell: UITableViewCell {
         ])
         // Options to hide the x-axis and y-axis
            let chartOptions = ChartOptions(
-            layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor.black)) /*SurfaceColor.color(UIColor.black)*/ /*.none*/ ),
+            layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0))) /*SurfaceColor.color(UIColor.black)*/ /*.none*/ ),
                rightPriceScale: VisiblePriceScaleOptions(visible: false),
                timeScale: TimeScaleOptions(visible: false),
             grid: GridOptions(

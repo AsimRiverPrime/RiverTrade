@@ -33,6 +33,7 @@ enum BottomSheetIdentifierType: String {
     case phoneVerifyVC = "PhoneVerifyVC"
     case dashboardVC = "DashboardVC"
     case homeTabbarViewController = "HomeTabbarViewController"
+    case profileViewController = "ProfileViewController"
     
     case withdrawViewController = "WithdrawViewController"
     case depositViewController = "DepositViewController"

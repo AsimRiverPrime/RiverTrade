@@ -98,7 +98,7 @@ class TradeViewController: UIViewController {
     var isTimerRunMoreThenOnce = false
     var symbolDataObj: SymbolData?
 
-    
+     
     
     @IBOutlet weak var labelAmmount: UILabel!
       
@@ -340,7 +340,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 //            return 55
 //
 //        }else{
-            return 90.0
+            return 80.0
 //        }
     }
     
@@ -515,6 +515,8 @@ extension TradeViewController: GetSocketMessages {
                                if percent.contains("inf") {
                                    cell.lblPercent.text = "0.0 %"
                                }
+                              
+//                               cell.graphView.backgroundColor = UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)
                                
                                if newValue > 0.0 {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.up")
@@ -860,16 +862,23 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeCVCCollectionViewCell", for: indexPath) as! TradeCVCCollectionViewCell
         cell.backgroundColor = .clear
-        
+        cell.lbl_tradetype.textColor = UIColor(red: 94/255.0, green: 98/255.0, blue: 120/255.0, alpha: 1.0)
+//        cell.selectedColorView.isHidden = true
 //        let data = model[indexPath.row].name
         let data = symbolDataSector[indexPath.row]
         cell.lbl_tradetype.text = data.sector
        
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
+            cell.backgroundColor = .systemYellow
+            cell.layer.cornerRadius = 20.0
+            cell.lbl_tradetype.textColor = .black
         }else{
             cell.selectedColorView.isHidden = true
+            cell.lbl_tradetype.textColor = UIColor(red: 94/255.0, green: 98/255.0, blue: 120/255.0, alpha: 1.0)
+            cell.backgroundColor = .clear
         }
+       
         if indexPath.row == symbolDataSector.count-1 {
             cell.sepratorView.isHidden = true
         } else {

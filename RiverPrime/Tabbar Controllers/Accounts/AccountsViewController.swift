@@ -37,6 +37,8 @@ protocol OPCDelegate: AnyObject {
 
 class AccountsViewController: BaseViewController {
     
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var lbl_account: UILabel!
     @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
@@ -122,7 +124,7 @@ class AccountsViewController: BaseViewController {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
                 
                 var login_Id = Int()
                 var account_type = String()
@@ -157,14 +159,29 @@ class AccountsViewController: BaseViewController {
 //                    mt5 = ""
                     
                 }
-                
+                lbl_name.text = _name
                 lbl_account.text = account_type
                 lbl_MT5.text = mt5
                 lbl_accountType.text = account_group
                 
             }
         }
-        
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        var greeting = ""
+
+        switch currentHour {
+        case 5..<12:
+            greeting = "Good Morning,"
+        case 12..<17:
+            greeting = "Good Afternoon,"
+        case 17..<22:
+            greeting = "Good Evening,"
+        default:
+            break
+        }
+
+        lbl_greeting.text = greeting
+       
     }
     
     func dashboardDatainit() {
@@ -231,6 +248,12 @@ class AccountsViewController: BaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal(_:)), name: .OPCListDismissall, object: nil)
     }
+    
+    @IBAction func profileBtnAction(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+        self.navigate(to: vc)
+    }
+    
     
     @IBAction func depositAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
@@ -468,11 +491,13 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: Total_PLCell.self, for: indexPath)
             //            cell.delegate = self
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             cell.textLabel?.text = "Total P/L"
             cell.textLabel?.font = .boldSystemFont(ofSize: 16)
             cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros()
             
-            cell.textLabel?.textColor = UIColor.darkGray
+            cell.textLabel?.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
+
             if totalProfitOpenClose < 0.0 {
                 cell.detailTextLabel?.textColor = .systemRed
             }else{
@@ -497,6 +522,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 //                    cell.symbolName.text = openData[indexPath.row].symbol
                 
                 let cell = tableView.dequeueReusableCell(with: TransactionCell.self, for: indexPath)
+                cell.selectionStyle = .none
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
                     
@@ -511,6 +537,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             case .pending(let pendingData):
                 
                 let cell = tableView.dequeueReusableCell(with: PendingOrderCell.self, for: indexPath)
+                cell.selectionStyle = .none
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
                     
@@ -524,6 +551,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             case .close(let closeData):
                 
                 let cell = tableView.dequeueReusableCell(with: CloseOrderCell.self, for: indexPath)
+                cell.selectionStyle = .none
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
                     
@@ -541,6 +569,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(with: EmptyCell.self, for: indexPath)
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             cell.emptyLabelMessage.text = "No Position Data Found."
             return cell
         }
@@ -1145,11 +1174,11 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
             if indexPath.row == selectedIndex {
 //            cell.selectedColorView.isHidden = false
                 cell.backgroundColor = .systemYellow
-                cell.layer.cornerRadius = 10.0
+                cell.layer.cornerRadius = 15.0
                 cell.lbl_tradetype.textColor = .black
         }else{
 //            cell.selectedColorView.isHidden = true
-            cell.lbl_tradetype.textColor = UIColor(red: 94, green: 98, blue: 120, alpha: 1)
+            cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
         }
         if indexPath.row == model.count-1 {
