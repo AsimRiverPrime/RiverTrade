@@ -61,10 +61,14 @@ extension TradingSignalTableViewCell: UICollectionViewDelegate, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
         let totalSpace = flowLayout.sectionInset.left + flowLayout.sectionInset.right + (flowLayout.minimumInteritemSpacing * CGFloat(numberOfItemsPerRow - 1))
-        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfItemsPerRow))
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.minimumInteritemSpacing = 0
-        return CGSize(width: size, height: size) // Adjust height as needed
+//        let size = Int((collectionView.bounds.width - totalSpace) / CGFloat(numberOfItemsPerRow))
+//        flowLayout.minimumLineSpacing = 0
+//        flowLayout.minimumInteritemSpacing = 0
+//        return CGSize(width: size, height: size) // Adjust height as needed
+        let width = collectionView.frame.width / 2 - 10 // Example: 2 columns with spacing
+                let height: CGFloat = 240 // Set the desired height
+                return CGSize(width: width, height: height)
+        
     }
     
 }

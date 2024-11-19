@@ -7,9 +7,13 @@
 
 
 import UIKit
+import SDWebImage
 
 protocol CompleteProfileButtonDelegate: AnyObject {
     func didTapCompleteProfileButtonInCell()
+}
+protocol ProfileEditButtonDelegate: AnyObject {
+    func didTapEditButtonInCell()
 }
 
 class ProfileTopTableViewCell: BaseTableViewCell {
@@ -27,6 +31,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     @IBOutlet weak var btn_completeProfile: UIButton!
     
     weak var delegate: CompleteProfileButtonDelegate?
+    weak var editDelegate: ProfileEditButtonDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,8 +43,11 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["name"] as? String, let _uid = savedUserData["uid"] as? String {
-                UserDefaults.standard.set(_uid, forKey: "userID")
+            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["name"] as? String, let _image = savedUserData["profileImageURL"] as? String {
+                
+                let imageUrl = URL(string: _image)
+                imageIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "avatarIcon"))
+               
                 lbl_title.text = _name
                 
                 if realAccount == true {
@@ -49,6 +57,10 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                 }
                 if profileStep == 3 {
 //                    self.view_profileComplete.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
+                    progreeBar.progress = 100.0
+                    self.lbl_progressPercent.text = "100%"
+                    btn_completeProfile.isUserInteractionEnabled = false
+                    btn_completeProfile.setTitle("Profile Completed", for: .normal)
                 }
             }
         }
@@ -61,11 +73,11 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     }
     
     @IBAction func editBtnAction(_ sender: Any) {
-        
+        editDelegate?.didTapEditButtonInCell()
     }
     
     @IBAction func completeBtnAction(_ sender: UIButton) {
-//        delegate?.didTapCompleteProfileButtonInCell()
+        delegate?.didTapCompleteProfileButtonInCell()
     }
     
 }

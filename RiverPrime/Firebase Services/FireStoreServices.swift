@@ -49,6 +49,7 @@ class FirestoreServices: BaseViewController {
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
             "login": login,
+            "profileImageURL":"",
             "demoAccountGroup": demoAccountGroup,
             "pushedToCRM": pushedToCRM,
             "realAccountCreated": realAccountCreated,

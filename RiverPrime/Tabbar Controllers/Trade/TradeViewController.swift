@@ -8,7 +8,7 @@
 import UIKit
 import Starscream
 import Alamofire
-import AEXML
+//import AEXML
 import Foundation
 
 protocol TradeInfoTapDelegate: AnyObject {

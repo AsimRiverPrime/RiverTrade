@@ -6,6 +6,7 @@
 //
 import Foundation
 import UIKit
+import SDWebImage
 
 protocol AccountInfoTapDelegate: AnyObject {
     func accountInfoTap(_ accountInfo: AccountInfo)
@@ -37,6 +38,7 @@ protocol OPCDelegate: AnyObject {
 
 class AccountsViewController: BaseViewController {
     
+    @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var lbl_account: UILabel!
@@ -124,8 +126,11 @@ class AccountsViewController: BaseViewController {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool,  let _image = savedUserData["profileImageURL"] as? String {
                 
+                let imageUrl = URL(string: _image)
+                userImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "avatarIcon"))
+               
                 var login_Id = Int()
                 var account_type = String()
                 var mt5 = String()

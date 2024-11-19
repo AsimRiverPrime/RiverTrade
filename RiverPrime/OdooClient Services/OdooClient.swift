@@ -7,7 +7,7 @@
 
 import Alamofire
 import Foundation
-import AEXML
+//import AEXML
 
 class OdooClient {
     

@@ -72,6 +72,7 @@
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */; };
+		31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31475AB02CEC5D13009E962B /* EditPhotoVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
 		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
@@ -429,6 +430,7 @@
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupBottomSheet.swift; sourceTree = "<group>"; };
+		31475AB02CEC5D13009E962B /* EditPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
 		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
 		315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleSignIn .swift"; sourceTree = "<group>"; };
@@ -1807,6 +1809,7 @@
 				3164C6022C47F1F20055F093 /* ProfileViewController.swift */,
 				315DDB092C4FA05700C4F8C0 /* ProfileVC.xib */,
 				315DDB0B2C4FA06700C4F8C0 /* ProfileVC.swift */,
+				31475AB02CEC5D13009E962B /* EditPhotoVC.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2442,6 +2445,7 @@
 				31D2AF462C8840B800E0CF2E /* SeriesApi.swift in Sources */,
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
+				31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */,
 				31D2AEF42C8840B800E0CF2E /* LineSeries.swift in Sources */,
 				3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */,
 				31D2AF142C8840B800E0CF2E /* LineType.swift in Sources */,
@@ -2861,7 +2865,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2905,7 +2909,7 @@
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

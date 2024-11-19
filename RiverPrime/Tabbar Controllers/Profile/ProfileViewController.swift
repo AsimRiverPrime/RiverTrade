@@ -7,8 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: BaseViewController {
-
+class ProfileViewController: BaseViewController{
         
         @IBOutlet weak var tblView: UITableView!
         
@@ -30,14 +29,16 @@ class ProfileViewController: BaseViewController {
         tblView.delegate = self
         tblView.dataSource = self
         tblView.reloadData()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Profile", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        
     }
-    }
+}
 //        public override func awakeFromNib() {
 //            
 //            //MARK: - Handle tableview constraints according to the device logical height.
@@ -88,6 +89,8 @@ class ProfileViewController: BaseViewController {
                 let cell = tableView.dequeueReusableCell(with: ProfileTopTableViewCell.self, for: indexPath)
                 
                 cell.delegate = self
+                cell.selectionStyle = .none
+                cell.editDelegate = self
                 return cell
                 
     //        } else if indexPath.section == 1 {
@@ -112,7 +115,7 @@ class ProfileViewController: BaseViewController {
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(with: RefferalProgramTableViewCell.self, for: indexPath)
                 cell.backgroundColor = .clear
-                
+                cell.selectionStyle = .none
 //                self.setNeedsLayout()
                 return cell
             }else if indexPath.section == 2 {
@@ -125,10 +128,12 @@ class ProfileViewController: BaseViewController {
     //        }else if indexPath.section == 4 {
                 let cell = tableView.dequeueReusableCell(with: SuppotTableViewCell.self, for: indexPath)
                 cell.backgroundColor = .clear
+                cell.selectionStyle = .none
                 return cell
             }else {
                 let cell = tableView.dequeueReusableCell(with: LogoutTableViewCell.self, for: indexPath)
                 cell.backgroundColor = .clear
+                cell.selectionStyle = .none
                 return cell
             }
             
@@ -163,12 +168,35 @@ class ProfileViewController: BaseViewController {
     extension ProfileViewController: CompleteProfileButtonDelegate {
         
         func didTapCompleteProfileButtonInCell() {
-            delegateCompeleteProfile?.navigateToCompeletProfile()
+//            delegateCompeleteProfile?.navigateToCompeletProfile()
+//            if profileStep == 0 {
+//                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+//                  
+//                    self.navigate(to: kycVc)
+//                }
+//            }else if profileStep == 1 {
+//                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+//                vc.delegateKYC = self
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            }else if profileStep == 2 {
+//                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+//                vc.delegateKYC = self
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            }else{
+//                self.ToastMessage("Already Done KYC")
+//            }
+//            
         }
         
     }
 
-    extension ProfileViewController {
+extension ProfileViewController: ProfileEditButtonDelegate {
+    func didTapEditButtonInCell() {
+        let vc = Utilities.shared.getViewController(identifier: .editPhotoVC, storyboardType: .dashboard) as! EditPhotoVC
+        self.navigate(to: vc)
+    }
+    
+}
         
         //MARK: - Set TableViewTopConstraint.
 //        private func setTableViewLayoutTopConstraints() {
@@ -226,5 +254,5 @@ class ProfileViewController: BaseViewController {
 //            
 //        }
         
-    }
+  
 
