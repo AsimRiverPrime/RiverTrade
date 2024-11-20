@@ -11,6 +11,13 @@ import TPKeyboardAvoiding
 
 class TradeDetalVC: UIViewController {
     
+    @IBOutlet weak var symbolImage: UIImageView!
+    @IBOutlet weak var symbolName: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblPercent: UILabel!
+    
+    var icon_url = String()
+    
     @IBOutlet weak var chartView: UIView!
     
 //    var webSocket : WebSocket!
@@ -49,6 +56,35 @@ class TradeDetalVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        connectHistoryWebSocket()
+        
+        symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
+//        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
+        lblAmount.text = "\(getSymbolData.tickMessage?.bid ?? 0.0) \(getSymbolData.tickMessage?.symbol ?? "")"
+        lblPercent.text = "$\(getSymbolData.tickMessage?.bid ?? 0.0)"
+        
+        if let imageUrl = URL(string: icon_url) {
+                    
+            print("\n Symbol: \(getSymbolData.tickMessage?.symbol) \n Image URL: \(icon_url)")
+            
+            if getSymbolData.tickMessage?.symbol == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else if getSymbolData.tickMessage?.symbol == "NDX100" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else if getSymbolData.tickMessage?.symbol == "DJI30" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else{
+                let imageUrl = URL(string: icon_url)
+                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+            
+        } else {
+//            print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
+        }
+        
+        
         
         setupSeries(candlestickData: [])
         
@@ -140,22 +176,27 @@ class TradeDetalVC: UIViewController {
     func addTopAndBottomBorders(_ sender: UIButton) {
         
         for i in 0...2 {
-            let thickness: CGFloat = 3.0
-            let bottomBorder = CALayer()
-            bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
-            bottomBorder.backgroundColor = UIColor.white.cgColor
-            
-            menuButton[i].titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            menuButton[i].layer.addSublayer(bottomBorder)
+            menuButton[i].backgroundColor = UIColor.black
         }
+        menuButton[sender.tag].backgroundColor = UIColor.systemYellow
         
-        let thickness: CGFloat = 3.0
-        let bottomBorder = CALayer()
-        bottomBorder.frame = CGRect(x:0, y: self.menuButton[sender.tag].frame.size.height - thickness, width: self.menuButton[sender.tag].frame.size.width, height:thickness)
-        bottomBorder.backgroundColor = UIColor.systemYellow.cgColor
-        menuButton[sender.tag].titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        
-        menuButton[sender.tag].layer.addSublayer(bottomBorder)
+//        for i in 0...2 {
+//            let thickness: CGFloat = 3.0
+//            let bottomBorder = CALayer()
+//            bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
+//            bottomBorder.backgroundColor = UIColor.white.cgColor
+//
+//            menuButton[i].titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//            menuButton[i].layer.addSublayer(bottomBorder)
+//        }
+//
+//        let thickness: CGFloat = 3.0
+//        let bottomBorder = CALayer()
+//        bottomBorder.frame = CGRect(x:0, y: self.menuButton[sender.tag].frame.size.height - thickness, width: self.menuButton[sender.tag].frame.size.width, height:thickness)
+//        bottomBorder.backgroundColor = UIColor.systemYellow.cgColor
+//        menuButton[sender.tag].titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+//
+//        menuButton[sender.tag].layer.addSublayer(bottomBorder)
         
     }
     
@@ -247,7 +288,37 @@ class TradeDetalVC: UIViewController {
     
     private func setupSeries(candlestickData: [CandlestickData]) {
         
-        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
+//        let options = ChartOptions(
+//            layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)))),
+//            crosshair: CrosshairOptions(mode: .normal)
+//        )
+        
+        let options = ChartOptions(            
+            crosshair: CrosshairOptions(mode: .normal)
+        )
+        
+//        // Configure the black theme
+//        let options = ChartOptions(
+//            layout: LayoutOptions(
+//                background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0))),  // Set background color to black
+//                textColor: "white"         // Set text color to white for visibility
+//            ),
+//            crosshair: CrosshairOptions(
+//                mode: .normal, // Crosshair mode
+//                vertLine: CrosshairLineOptions(
+//                    color: "rgba(255, 255, 255, 0.5)", // White crosshair line
+//                    width: LineWidth.one
+//                ),
+//                horzLine: CrosshairLineOptions(
+//                    color: "rgba(255, 255, 255, 0.5)", // White crosshair line
+//                    width: LineWidth.one
+//                )
+//            ), grid: GridOptions(
+//                verticalLines: GridLineOptions(color: "rgba(255, 255, 255, 0.1)"), // Subtle grid lines
+//                horizontalLines: GridLineOptions(color: "rgba(255, 255, 255, 0.1)") // Subtle grid lines
+//            )
+//        )
+        
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
@@ -312,25 +383,25 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!
 //        var request = URLRequest(url: url)
 //        request.timeoutInterval = 5
-//        
+//
 //        webSocket = WebSocket(request: request)
 //        webSocket.delegate = self
 //        webSocket.connect()
 //    }
-//    
+//
 //    func disconnectWebSocket() {
 //        webSocket?.disconnect()
 //    }
-//    
+//
 //    func sendSubscriptionHistoryMessage() {
 //        // Define the message dictionary
 //        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-//        
+//
 ////        let timestamps = currentAndBeforeBusinessDayTimestamps()
 ////        print("Current Timestamp: \(timestamps.currentTimestamp)")
 ////        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-////        
-//        
+////
+//
 //        let message: [String: Any] = [
 //            "event_name": "get_chart_history",
 //            "data": [
@@ -341,7 +412,7 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //                "to":  currentTimestamp
 //            ]
 //        ]
-//        
+//
 //        // Convert the dictionary to JSON string
 //        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
 //           let jsonString = String(data: jsonData, encoding: .utf8) {
@@ -350,7 +421,7 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //            webSocket.write(string: jsonString)
 //        }
 //    }
-//    
+//
 //    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
 //        switch event {
 //        case .connected(let headers):
@@ -368,30 +439,30 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //            break
 //        }
 //    }
-//    
+//
 //    func handleHistoryWebSocketMessage(_ string: String) {
 //        print("\n this is history chart json: \(string)")
-//        
+//
 //        if let jsonData = string.data(using: .utf8) {
 //            do {
 //                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
 //                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-//                
+//
 //                switch chartType {
 //                case .candlestick:
-//                    
+//
 //                    for payload in response.message.payload.chartData {
-//                        
+//
 //                        let times = Time.utc(timestamp: Double(payload.datetime))
 //                        // Debugging output to check timestamps
-//                        
+//
 //                        print("\n Candlestick each array object data: \(payload)")
-//                        
+//
 //                        let open = payload.open
 //                        let close = payload.close
 //                        let high = payload.high
 //                        let low = payload.low
-//                        
+//
 //                        let dataPoint = CandlestickData(
 //                            time: times,
 //                            open: open,
@@ -399,21 +470,21 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //                            low: low,
 //                            close: close
 //                        )
-//                        
+//
 //                        // Use update to add this candlestick incrementally
 //                        series?.update(bar: dataPoint)
 //                        candlestickData.append(dataPoint)
 //                    }
 //                    series.setData(data: candlestickData)
 //                    //                setupSeries(candlestickData: candlestickData)
-//                    
+//
 //                    break
 //                case .area:
 //                    break
 //                case .bar:
 //                    break
 //                }
-//                
+//
 //            } catch {
 //                print("Error parsing JSON: \(error)")
 //            }
@@ -429,31 +500,31 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
 //        let now = Date()
 //        //        let calendar = Calendar.current
-//        
+//
 //        // Get current timestamp in milliseconds
 //        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
 //        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
-//        
+//
 //        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
-//        
+//
 //    }
-//    
+//
 //    func currentAndBeforeBusinessDayTimestamps() -> (currentTimestamp: Int, previousTimestamp: Int) {
 //        let timeZone = TimeZone(identifier: "UTC")!
 //        let currentDate = Date()
-//        
+//
 //        // Get current date components
 //        let components = Calendar.current.dateComponents(in: timeZone, from: currentDate)
-//        
+//
 //        // Create the current timestamp
 //        let currentTimestamp = Int(currentDate.timeIntervalSince1970)
-//        
+//
 //        // Calculate previous business day
 //        var previousBusinessDay = currentDate
-//        
+//
 //        // Check if the current day is a business day (for this example, we'll consider weekdays only)
 //        let weekday = components.weekday ?? 1 // Default to Sunday (1)
-//        
+//
 //        // If today is Sunday (1), go back to Friday (5)
 //        if weekday == 1 {
 //            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -2, to: currentDate)!
@@ -466,13 +537,13 @@ extension TradeDetalVC: TimeFrameVCDelegate {
 //        else {
 //            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
 //        }
-//        
+//
 //        // Get previous timestamp
 //        let previousTimestamp = Int(previousBusinessDay.timeIntervalSince1970)
-//        
+//
 //        return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
 //    }
-//    
+//
 //}
 
 //MARK: - Setup the Chart view.

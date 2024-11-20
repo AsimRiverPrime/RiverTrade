@@ -26,6 +26,7 @@ protocol TradeDetailTapDelegate: AnyObject {
 struct SymbolCompleteList {
     var tickMessage: TradeDetails?
     var historyMessage: SymbolChartData?
+    var icon_url: String?
     var isTickFlag: Bool?
     var isHistoryFlag: Bool?
     var isHistoryFlagTimer: Bool?
@@ -828,7 +829,7 @@ extension TradeViewController {
             let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
 //            vm.trades.append(tradedetail)
 //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
-            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
+            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
         }
         
         print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
@@ -917,6 +918,7 @@ extension TradeViewController: TradeDetailTapDelegate {
        
         vc.getSymbolData = getSymbolData
 //        vc.symbolChartData = symbolChartData
+        vc.icon_url = getSymbolData.icon_url ?? ""
         
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
