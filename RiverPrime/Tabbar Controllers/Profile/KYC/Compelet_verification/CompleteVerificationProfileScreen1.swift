@@ -28,7 +28,7 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
         // Do any additional setup after loading the view.
         for switchControl in selectionSwitch {
             switchControl.isOn = false
-            switchControl.thumbTintColor = .systemGray4 // Initial thumb color for off state
+            switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
         }
         //        selectedObjective = [:]
         
@@ -60,11 +60,11 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
                     selectedObjective[question]?.removeAll()
                 }
                 // Update the thumb color for the current switch
-                switchControl.thumbTintColor = sender.isOn ? .systemYellow : .systemGray4
+                switchControl.thumbTintColor = sender.isOn ? .systemYellow : .systemGray2
             } else {
                 // Turn off all other switches
                 switchControl.setOn(false, animated: true)
-                switchControl.thumbTintColor = .systemGray4 // Ensure other switches have the off color
+                switchControl.thumbTintColor = .systemGray2 // Ensure other switches have the off color
             }
         }
         

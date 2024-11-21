@@ -441,7 +441,7 @@ class TicketVC: BottomSheetController {
                             if isEnable.2 == "SELL" {
                                 
                                 self.btn_confirm.isEnabled = false
-                                self.btn_confirm.backgroundColor = UIColor.systemGray4
+                                self.btn_confirm.backgroundColor = UIColor.systemGray2
                                 self.priceValue_view.layer.borderWidth = 1.0
                                 self.priceValue_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_currentPriceValue.textColor = UIColor.red
@@ -449,7 +449,7 @@ class TicketVC: BottomSheetController {
                             } else if isEnable.2 == "BUY" {
                                 
                                 self.btn_confirm.isEnabled = false
-                                self.btn_confirm.backgroundColor = UIColor.systemGray4
+                                self.btn_confirm.backgroundColor = UIColor.systemGray2
                                 self.priceValue_view.layer.borderWidth = 1.0
                                 self.priceValue_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_currentPriceValue.textColor = UIColor.red

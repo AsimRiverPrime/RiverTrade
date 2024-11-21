@@ -16,6 +16,9 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblPercent: UILabel!
     
+    @IBOutlet weak var view_timeFrame: UIView!
+    @IBOutlet weak var view_chartType: UIView!
+    
     var icon_url = String()
     
     @IBOutlet weak var chartView: UIView!
@@ -56,6 +59,8 @@ class TradeDetalVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        connectHistoryWebSocket()
+        self.chartView.backgroundColor = .clear
+       
         
         symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
 //        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
@@ -117,7 +122,7 @@ class TradeDetalVC: UIViewController {
                 candlestickData.append(dataPoint)
             }
             series.setData(data: candlestickData)
-            //                setupSeries(candlestickData: candlestickData)
+            // setupSeries(candlestickData: candlestickData)
             
             break
         case .area:
@@ -152,8 +157,10 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = false
-            self.btn_chartType.isHidden = false
-            self.btn_timeInterval.isHidden = false
+//            self.btn_chartType.isHidden = false
+//            self.btn_timeInterval.isHidden = false
+            self.view_chartType.isHidden = false
+            self.view_timeFrame.isHidden = false
             //MARK: - Add new content from here.
             
             setupChart()
@@ -164,8 +171,10 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = true
-            self.btn_chartType.isHidden = true
-            self.btn_timeInterval.isHidden = true
+//            self.btn_chartType.isHidden = true
+//            self.btn_timeInterval.isHidden = true
+            self.view_chartType.isHidden = true
+            self.view_timeFrame.isHidden = true
             //MARK: - Add new content from here.
             setupOverview()
             
@@ -176,10 +185,12 @@ class TradeDetalVC: UIViewController {
     func addTopAndBottomBorders(_ sender: UIButton) {
         
         for i in 0...2 {
-            menuButton[i].backgroundColor = UIColor.black
+            menuButton[i].backgroundColor = UIColor.clear
+            menuButton[i].tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
         }
         menuButton[sender.tag].backgroundColor = UIColor.systemYellow
-        
+        menuButton[sender.tag].layer.cornerRadius = 10.0
+        menuButton[sender.tag].tintColor = UIColor.black
 //        for i in 0...2 {
 //            let thickness: CGFloat = 3.0
 //            let bottomBorder = CALayer()
@@ -287,46 +298,21 @@ class TradeDetalVC: UIViewController {
     }
     
     private func setupSeries(candlestickData: [CandlestickData]) {
-        
-//        let options = ChartOptions(
-//            layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)))),
-//            crosshair: CrosshairOptions(mode: .normal)
-//        )
-        
+     
         let options = ChartOptions(            
             crosshair: CrosshairOptions(mode: .normal)
         )
-        
-//        // Configure the black theme
-//        let options = ChartOptions(
-//            layout: LayoutOptions(
-//                background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0))),  // Set background color to black
-//                textColor: "white"         // Set text color to white for visibility
-//            ),
-//            crosshair: CrosshairOptions(
-//                mode: .normal, // Crosshair mode
-//                vertLine: CrosshairLineOptions(
-//                    color: "rgba(255, 255, 255, 0.5)", // White crosshair line
-//                    width: LineWidth.one
-//                ),
-//                horzLine: CrosshairLineOptions(
-//                    color: "rgba(255, 255, 255, 0.5)", // White crosshair line
-//                    width: LineWidth.one
-//                )
-//            ), grid: GridOptions(
-//                verticalLines: GridLineOptions(color: "rgba(255, 255, 255, 0.1)"), // Subtle grid lines
-//                horizontalLines: GridLineOptions(color: "rgba(255, 255, 255, 0.1)") // Subtle grid lines
-//            )
-//        )
-        
+  
         let chart = LightweightCharts(options: options)
+        chart.translatesAutoresizingMaskIntoConstraints = false
+        chart.backgroundColor = .clear
         chartView.addSubview(chart)
         self.chart = chart
-        
+//        self.chart.alpha = 0
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
-            borderColor: "#D1D4DC",
+            borderColor: "#000000",
             timeVisible: true,
             secondsVisible: false
         ))
@@ -349,16 +335,28 @@ class TradeDetalVC: UIViewController {
                 chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
-        
-        let myoptions = CandlestickSeriesOptions(
-            upColor: "rgba(8, 153, 52, 1)",
-            downColor: "rgba(204, 13, 13, 1)",
-            borderUpColor: "rgba(8, 153, 52, 1)",
-            borderDownColor: "rgba(204, 13, 13, 1)",
-            wickUpColor: "rgba(8, 153, 52, 1)",
-            wickDownColor: "rgba(204, 13, 13, 1)"
+       
+        var optionss = ChartOptions()
+        optionss.layout = LayoutOptions(
+            background: .solid(color: ChartColor.init(UIColor(red: 19/255.0, green: 20/255.0, blue: 27/255.0, alpha: 1.0)) ),
+            textColor: ChartColor.init(UIColor.white) //"rgba(255, 255, 255, 1)" // Optional: Set text color
         )
-        
+        optionss.grid = GridOptions(
+            verticalLines: GridLineOptions(color: ChartColor.init(UIColor.clear)),
+            horizontalLines: GridLineOptions(color: ChartColor.init(UIColor.clear))
+        )
+        chart.applyOptions(options: optionss)
+       
+
+        let myoptions = CandlestickSeriesOptions(
+            upColor: "rgba(68, 173, 116, 1)",
+            downColor: "rgba(234, 85, 86, 1)",
+            borderUpColor: "rgba(68, 173, 116, 1)",
+            borderDownColor: "rgba(234, 85, 86, 1)",
+            wickUpColor: "rgba(68, 173, 116, 1)",
+            wickDownColor: "rgba(234, 85, 86, 1)"
+        )
+       
         let series = chart.addCandlestickSeries(options: myoptions)
         self.series = series
         
@@ -551,24 +549,12 @@ extension TradeDetalVC {
     
     private func setupChart() {
         
-       
-//        switch chartType {
-//        case .candlestick:
-//            setupSeries(candlestickData: candlestickData)
-//        case .area:
-//            let areaData = convertToAreaData(candlestickData: candlestickData)
-//            setupAreaSeries(areaData: areaData)
-//        case .bar:
-//            let barData = convertToBarData(candlestickData: candlestickData)
-//            setupBarSeries(barData: barData)
-//        }
-        
         self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0).trimmedTrailingZeros())"
         self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0).trimmedTrailingZeros())"
         
         getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
         let data =  getLiveCandelStick.getLatestOhlcData()
-        print("latest data: \(data)")
+  
         
         let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
         
@@ -589,7 +575,7 @@ extension TradeDetalVC {
         case .candlestick:
             setupSeries(candlestickData: candlestickData)
             series?.update(bar: dataPoint)
-            
+           
             break
         case .area:
             let areaData1 = convertToAreaData(candlestickData: candlestickData)
@@ -626,7 +612,7 @@ extension TradeDetalVC {
         
         timeScale.subscribeVisibleTimeRangeChange()
         
-        let  areaSeriesOptions = AreaSeriesOptions(
+        let areaSeriesOptions = AreaSeriesOptions(
             priceLineVisible: false,
             topColor: "rgba(76, 175, 80, 0.5)",
             bottomColor: "rgba(76, 175, 80, 0)",
@@ -636,18 +622,7 @@ extension TradeDetalVC {
         let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
         self.areaSeries = areaSeries
         areaSeries.setData(data: areaData)
-        //
-        //        let data = [
-        //            AreaData(time: .string("2016-07-18"), value: 26.10),
-        //            AreaData(time: .string("2016-07-25"), value: 26.19),
-        //            AreaData(time: .string("2016-08-01"), value: 26.24),
-        //            AreaData(time: .string("2016-08-08"), value: 26.22),
-        //
-        //            AreaData(time: .string("2019-05-27"), value: 26.23)
-        //        ]
-        //        areaSeries.setData(data: data)
         
-        // Add constraints as before
         timeScale.scrollToPosition(position: 0.0, animated: false)
 
         setupChartConstraints(chart)
@@ -658,7 +633,7 @@ extension TradeDetalVC {
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
-        
+       
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
@@ -678,7 +653,7 @@ extension TradeDetalVC {
         self.barSeries = barSeries
         barSeries.setData(data: barData)
         timeScale.scrollToPosition(position: 0.0, animated: false)
-
+       
         // Add constraints as you did for candlestick chart
         setupChartConstraints(chart)
         
@@ -723,16 +698,7 @@ extension TradeDetalVC {
     }
     
     private func convertToBarData(candlestickData: CandlestickData) -> BarData {
-//        return candlestickData.map { candle in
-//            return BarData(
-//                time: candle.time,
-//                open: candle.open,
-//                high: candle.high,
-//                low: candle.low,
-//                close: candle.close
-//            )
-//        }
-        
+
         return BarData(
             time: candlestickData.time,
             open: candlestickData.open,
@@ -749,10 +715,7 @@ extension TradeDetalVC {
     }
     
     private func convertToAreaData(candlestickData: CandlestickData) -> AreaData {
-//        return candlestickData.map { candle in
-//            return AreaData(time: candle.time, value: candle.close)
-//        }
-        
+
         AreaData(time: candlestickData.time, value: candlestickData.close)
     }
 }
@@ -777,17 +740,15 @@ extension TradeDetalVC: ChartOptionsDelegate {
         }
     }
     
-    // Other chart setup methods remain the same...
-    
 }
 //MARK: - Setup the Overview view.
 extension TradeDetalVC {
-    
+//    UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
     private func setupOverview() {
         
         lazy var scrollView: TPKeyboardAvoidingScrollView = {
             let scroll = TPKeyboardAvoidingScrollView()
-            scroll.backgroundColor = .white //.clear
+            scroll.backgroundColor = UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
             scroll.layer.cornerRadius = 10
             
             scroll.layer.masksToBounds = false
@@ -842,7 +803,7 @@ extension TradeDetalVC {
             let maxVol = Double(volumeMax)! / 10000
             let volStep = Double(volumeStep)! / 10000
             
-            overviewList = [("Minimum volume, lots","\(minVol)"), ("Maximum volume, lots","\(maxVol)"), ("Volume step","\(volStep)"), ("Contract size","\(contractSize)"), ("Stop level","\(stopLevel)"), ("Swap long","\(swapLong)"), ("Swap short","\(swapShort)")]
+            overviewList = [("INFO DETAIL",""),("Minimum volume, lots","\(minVol)"), ("Maximum volume, lots","\(maxVol)"), ("Volume step","\(volStep)"), ("Contract size","\(contractSize)"), ("Stop level","\(stopLevel)"), ("Swap long","\(swapLong)"), ("Swap short","\(swapShort)")]
             
         } else {
             overviewList = [("Minimum volume, lots","0"), ("Maximum volume, lots","0"), ("Volume step","0"), ("Contract size","0"), ("Stop level","0"), ("Swap long","0"), ("Swap short","0")]
@@ -857,7 +818,7 @@ extension TradeDetalVC {
             
             lazy var lineView: UIView = {
                 let view = UIView()
-                view.backgroundColor = .gray
+                view.backgroundColor = UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
                 view.translatesAutoresizingMaskIntoConstraints = false
                 return view
             }()
@@ -875,7 +836,7 @@ extension TradeDetalVC {
             
             lazy var title: UILabel = {
                 let label = UILabel()
-                label.textColor = .darkGray
+                label.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
                 label.font = FontController.Fonts.ListInter_Regular.font
                 label.text = item.0
                 label.tag = index
@@ -884,7 +845,7 @@ extension TradeDetalVC {
             
             lazy var detail: UILabel = {
                 let label = UILabel()
-                label.textColor = .darkGray
+                label.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
                 label.font = FontController.Fonts.ListInter_Regular.font
                 label.text = item.1
                 label.tag = index
@@ -905,7 +866,7 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
                     
                     lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
                     lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),

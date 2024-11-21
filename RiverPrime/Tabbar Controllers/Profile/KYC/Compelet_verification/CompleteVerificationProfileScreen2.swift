@@ -30,7 +30,7 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
 
         for switchControl in selectedSwitch {
                switchControl.isOn = false
-               switchControl.thumbTintColor = .systemGray4 // Initial thumb color for off state
+               switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
            }
         btn_back.buttonStyle()
         btn_back.layer.cornerRadius = 15.0
@@ -63,7 +63,7 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
                 }
                 
                 // Change the thumb color when the switch is turned on or off
-                switchControl.thumbTintColor = sender.isOn ? .systemYellow : .systemGray4
+                switchControl.thumbTintColor = sender.isOn ? .systemYellow : .systemGray2
                 
             }
         }

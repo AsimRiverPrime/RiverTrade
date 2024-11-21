@@ -872,7 +872,7 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
             cell.backgroundColor = .systemYellow
-            cell.layer.cornerRadius = 20.0
+            cell.layer.cornerRadius = 15.0
             cell.lbl_tradetype.textColor = .black
         }else{
             cell.selectedColorView.isHidden = true
@@ -907,7 +907,7 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        // get the Collection View width and height
         
-        return CGSize(width: symbolDataSector.count + 65 , height: 40)
+        return CGSize(width: symbolDataSector.count + 65 , height: 35)
         
     }
 }
