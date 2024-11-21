@@ -7,18 +7,6 @@
 
 import UIKit
 
-enum iResultVCType {
-    case SummaryAllRealAccountFilter
-    case DaysFilter
-    case BenifitAllRealAccountFilter
-    case ExnessStartTrading
-    case ExnessTrading
-}
-
-protocol iResultVCDelegate: AnyObject {
-    func resultClicks(resultVCType: iResultVCType)
-}
-
 class ResultVC: UIView {
     
     @IBOutlet weak var tblView: UITableView!
