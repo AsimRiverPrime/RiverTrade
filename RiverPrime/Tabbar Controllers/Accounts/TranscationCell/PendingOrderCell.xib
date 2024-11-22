@@ -41,7 +41,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MsS-Y9-hxc">
-                                <rect key="frame" x="10" y="50.666666666666664" width="31" height="13.333333333333336"/>
+                                <rect key="frame" x="53" y="33" width="31" height="14.333333333333336"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Label">
                                         <attributes>
@@ -59,20 +59,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.086274509799999996" green="0.098039215690000001" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="MsS-Y9-hxc" firstAttribute="leading" secondItem="bma-Lz-UWE" secondAttribute="leading" id="2Rt-BO-o0A"/>
                             <constraint firstAttribute="trailing" secondItem="YOV-vZ-YGR" secondAttribute="trailing" constant="20" id="4Ii-X2-ulq"/>
-                            <constraint firstItem="MsS-Y9-hxc" firstAttribute="top" secondItem="bma-Lz-UWE" secondAttribute="bottom" constant="5" id="6OE-zP-09o"/>
                             <constraint firstItem="YOV-vZ-YGR" firstAttribute="centerY" secondItem="x1n-Gc-f2s" secondAttribute="centerY" id="9qd-2F-ctG"/>
                             <constraint firstItem="8Bm-jG-W7H" firstAttribute="leading" secondItem="bma-Lz-UWE" secondAttribute="trailing" constant="8" id="D8H-yF-ziV"/>
+                            <constraint firstItem="MsS-Y9-hxc" firstAttribute="leading" secondItem="8Bm-jG-W7H" secondAttribute="leading" id="ELZ-em-BHV"/>
                             <constraint firstItem="bma-Lz-UWE" firstAttribute="centerY" secondItem="x1n-Gc-f2s" secondAttribute="centerY" multiplier="0.85" id="FUH-rA-A3k"/>
+                            <constraint firstItem="MsS-Y9-hxc" firstAttribute="top" secondItem="8Bm-jG-W7H" secondAttribute="bottom" constant="5" id="ZMV-xu-2Ce"/>
                             <constraint firstItem="8Bm-jG-W7H" firstAttribute="centerY" secondItem="bma-Lz-UWE" secondAttribute="centerY" id="aOl-yH-wxE"/>
                             <constraint firstItem="bma-Lz-UWE" firstAttribute="leading" secondItem="x1n-Gc-f2s" secondAttribute="leading" constant="10" id="afE-IS-nFQ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                <real key="value" value="0.0"/>
+                                <real key="value" value="0.20000000000000001"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="10"/>
@@ -82,6 +82,9 @@
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                 <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>

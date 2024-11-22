@@ -55,26 +55,27 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: MarketTopMoversTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-          
+                cell.selectionStyle = .none
             self.view.setNeedsLayout()
             return cell
             
         }else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-            
+            cell.selectionStyle = .none
             self.view.setNeedsLayout()
             return cell
         }else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(with: UpcomingEventsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-            
+            cell.selectionStyle = .none
             self.view.setNeedsLayout()
             return cell
             
         }else{
             let cell = tableView.dequeueReusableCell(with: TopNewsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             return cell
         }
        

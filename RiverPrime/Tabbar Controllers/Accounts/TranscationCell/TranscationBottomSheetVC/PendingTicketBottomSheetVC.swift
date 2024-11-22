@@ -11,7 +11,8 @@ class PendingTicketBottomSheetVC: BaseViewController {
     
     @IBOutlet weak var lbl_ticketName: UILabel!
     @IBOutlet weak var lbl_positionNumber: UILabel!
-    @IBOutlet weak var lbl_symbolName: UILabel!
+//    @IBOutlet weak var lbl_symbolName: UILabel!
+    @IBOutlet weak var image_SymbolIcon: UIImageView!
     @IBOutlet weak var lbl_dateTime: UILabel!
     @IBOutlet weak var lbl_volumePrice: UILabel!
     
@@ -47,8 +48,8 @@ class PendingTicketBottomSheetVC: BaseViewController {
         self.stopLoss_view.isUserInteractionEnabled = false
         
         
-        self.lbl_symbolName.text = pendingData?.symbol
-        self.lbl_positionNumber.text = "#\(pendingData?.order ?? 0)"
+//        self.lbl_symbolName.text = pendingData?.symbol
+        self.lbl_positionNumber.text = "#\(pendingData?.order ?? 0) |"
         
         if pendingData?.type == 0 {
             ticketName = "Buy"
@@ -73,7 +74,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
         let volume: Double = Double(pendingData?.volume ?? 0) / Double(10000)
         
         let time = timeConvert()
-        self.lbl_dateTime.text = "Time: " + time
+        self.lbl_dateTime.text = time //"Time: " + time
         self.lbl_volumePrice.text = ticketName! + " \(volume) Lots at " + "\(pendingData?.price ?? 0)"
         tf_price.text = "\(pendingData?.price ?? 0)"
         tf_stopLoss.text = "\(pendingData?.stopLoss ?? 0)"

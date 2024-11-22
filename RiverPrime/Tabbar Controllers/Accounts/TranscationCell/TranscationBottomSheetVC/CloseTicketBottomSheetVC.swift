@@ -11,7 +11,7 @@ class CloseTicketBottomSheetVC: UIViewController {
     
     @IBOutlet weak var lbl_ticketName: UILabel!
     @IBOutlet weak var lbl_positionNumber: UILabel!
-    @IBOutlet weak var lbl_symbolName: UILabel!
+//    @IBOutlet weak var lbl_symbolName: UILabel!
     @IBOutlet weak var lbl_totalPrice: UILabel!
     
     @IBOutlet weak var closeValue_TableView: UITableView!
@@ -25,7 +25,7 @@ class CloseTicketBottomSheetVC: UIViewController {
         super.viewDidLoad()
         registerCell()
         
-        self.lbl_symbolName.text = closeData?.symbol
+//        self.lbl_symbolName.text = closeData?.symbol
         self.lbl_positionNumber.text = "#\(closeData?.position ?? 0)"
         
         if closeData?.action == 0 {

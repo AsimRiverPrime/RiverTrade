@@ -105,7 +105,7 @@ extension TransactionCell {
         
         volume = Double(data.volume) / Double(10000)
         print("\(volume)")
-        lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(data.priceOpen)"
+        lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "$\(data.priceOpen)"
         
     }
     

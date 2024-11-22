@@ -280,7 +280,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-            
+            cell.selectionStyle = .none
             //MARK: - getSymbolData list is comming from symbol api.
             let trade = getSymbolData[indexPath.row].tickMessage//?[indexPath.row]
            
@@ -306,11 +306,10 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.
                 cell.isUserInteractionEnabled = false
                 cell.contentView.alpha = 0.5 // Visual cue that the cell is disabled
-                cell.selectionStyle = .none // No selection effect
+               // No selection effect
             } else {
                 cell.isUserInteractionEnabled = true
                 cell.contentView.alpha = 1.0
-                cell.selectionStyle = .default
             }
             
             return cell
@@ -551,7 +550,7 @@ extension TradeViewController: GetSocketMessages {
                                //MARK: - User Interface enabled, when tick flag is true.
                                cell.isUserInteractionEnabled = true
                                cell.contentView.alpha = 1.0
-                               cell.selectionStyle = .default
+                               
                            }
                        
                        return

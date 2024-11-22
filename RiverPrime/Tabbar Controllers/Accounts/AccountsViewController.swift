@@ -531,7 +531,6 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 if GlobalVariable.instance.isAccountCreated {
                     cell.isHidden = false
                     
-                    
                     cell.getCellData(open: openData, indexPath: indexPath/*, trade: trade!, symbolDataObj: symbolDataObj*/)
                     
                 }else{
@@ -617,7 +616,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = Utilities.shared.getViewController(identifier: .openTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! OpenTicketBottomSheetVC
                 
                 vc.openData = openData[indexPath.row]
-                
+               
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
                 
                 
@@ -977,7 +976,7 @@ extension AccountsViewController: GetSocketMessages {
     func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
                switch socketMessageType {
                case .tick:
-                   
+                   var  roundValue = String()
                    //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
                    if let getTick = tickMessage {
                         
@@ -1024,12 +1023,12 @@ extension AccountsViewController: GetSocketMessages {
                                                    cell.lbl_profitValue.textColor = .systemGreen
                                                   
                                                }
-                                               let roundValue = String(format: "%.3f", profitLoss)
+                                                roundValue = String(format: "%.3f", profitLoss)
                                                
-                                               cell.lbl_profitValue.text = "\(roundValue)"
+                                               cell.lbl_profitValue.text = "$\(roundValue)"
                                         
                                                let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                               cell.lbl_currentPrice.text = "\(bidValuess)"
+                                               cell.lbl_currentPrice.text = "$\(bidValuess)"
                                            }
                                            
                                        }else{
@@ -1051,7 +1050,7 @@ extension AccountsViewController: GetSocketMessages {
                                            cell.isHidden = false
    
                                            // Safely unwrap the profit value
-                                           let getProfit = Double(cell.lbl_profitValue.text ?? "0.0") ?? 0.0
+                                           let getProfit = Double(roundValue) ?? 0.0
                                            print("getProfit \(index) = \(getProfit)")
    
                                            return total + getProfit

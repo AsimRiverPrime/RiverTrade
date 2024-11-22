@@ -11,7 +11,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
     
     @IBOutlet weak var lbl_ticketName: UILabel!
     @IBOutlet weak var lbl_positionNumber: UILabel!
-    @IBOutlet weak var lbl_symbolName: UILabel!
+//    @IBOutlet weak var lbl_symbolName: UILabel!
+    @IBOutlet weak var img_symbolIcon: UIImageView!
     @IBOutlet weak var lbl_dateTime: UILabel!
     
     @IBOutlet weak var lbl_partialCloseValue: UILabel!
@@ -38,6 +39,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     var currentValue3: Double = 0.0
     
     var ticketName: String?
+//    var icon_url = String()
     //    var openData: OPCNavigationType?
     var openData: OpenModel?
     var vol: Double?
@@ -57,8 +59,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
         partialCose_switch.isOn = false
         
         print("openData = \(openData)")
-        self.lbl_symbolName.text = openData?.symbol
-        self.lbl_positionNumber.text = "#\(openData?.position ?? 0)"
+//        self.lbl_symbolName.text = openData?.symbol
+        self.lbl_positionNumber.text = "#\(openData?.position ?? 0) |"
        
         vol = Double(openData?.volume ?? 0) / 10000
         self.tf_partialClose.text = "\(vol ?? 0)"
@@ -87,7 +89,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         self.lbl_ticketName.text = ticketName
         
         let time = timeConvert()
-        self.lbl_dateTime.text = "Time: " + time
+        self.lbl_dateTime.text =  time
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
@@ -142,10 +144,10 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.partialClose_View.isUserInteractionEnabled = true
             self.tf_partialClose.text = "\(vol ?? 0)"
             self.currentValue1 = (vol ?? 0)
-            btn_closePosition.setTitle("Partial Close", for: .normal)
+//            btn_closePosition.setTitle("Partial Close", for: .normal)
         }else{
             self.partialClose_View.isUserInteractionEnabled = false
-            btn_closePosition.setTitle("Close Postion", for: .normal)
+//            btn_closePosition.setTitle("Close Postion", for: .normal)
         }
 //        closeBtnEnable()
     }
