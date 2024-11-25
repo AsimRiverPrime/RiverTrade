@@ -37,14 +37,16 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var lbl_BuyBtn: UILabel!
     @IBOutlet weak var lbl_amount: UILabel!
     
-    //    @IBOutlet weak var lbl_accountType: UILabel!
-    //    @IBOutlet weak var lbl_accountGroup: UILabel!
-    
     @IBOutlet var menuButton: [UIButton]!
     @IBOutlet weak var SellBuyView: UIView!
-    @IBOutlet weak var btn_chartType: UIButton!
+    @IBOutlet weak var btn_chartShowHide: UIButton!
     @IBOutlet weak var btn_timeInterval: UIButton!
     //    var tradeDetails: TradeDetails?
+    @IBOutlet weak var btn_ChartType: UIButton!
+    
+    @IBOutlet var btn_time: [UIButton]!
+    
+    
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
     
@@ -60,7 +62,8 @@ class TradeDetalVC: UIViewController {
         super.viewDidLoad()
 //        connectHistoryWebSocket()
         self.chartView.backgroundColor = .clear
-       
+        self.view_chartType.isHidden = true
+        setDefaultStyles()
         
         symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
 //        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
@@ -135,8 +138,8 @@ class TradeDetalVC: UIViewController {
         
         addTopAndBottomBorders(menuButton[0])
         
-        btn_chartType.buttonStyle()
-        btn_timeInterval.buttonStyle()
+//        btn_chartShowHide.buttonStyle()
+//        btn_timeInterval.buttonStyle()
     }
   
     override func viewWillAppear(_ animated: Bool) {
@@ -271,6 +274,42 @@ class TradeDetalVC: UIViewController {
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
+    @IBAction func time_buttonTapped(_ sender: UIButton) {
+           // Reset all buttons to default styles
+           setDefaultStyles()
+           
+           // Apply selected style to the clicked button
+           sender.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0) // Change tint color
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 14) // Make font bold
+       }
+    // Helper function to set default styles for all buttons
+       private func setDefaultStyles() {
+           for button in btn_time {
+               button.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0) // Default tint color
+               button.titleLabel?.font = UIFont.systemFont(ofSize: 12) // Default font
+           }
+       }
+    
+    @IBAction func toggleBtnChartViewTapped(_ sender: UIButton) {
+           // Toggle the visibility of the view
+        view_chartType.isHidden.toggle()
+        
+        if  view_chartType.isHidden == false {
+            btn_chartShowHide.backgroundColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
+            btn_chartShowHide.setImage(UIImage(systemName: "chevron.up.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
+            btn_chartShowHide.tintColor = UIColor.black
+            btn_chartShowHide.layer.cornerRadius = 10.0
+            
+            
+        }else{
+            btn_chartShowHide.backgroundColor = UIColor.clear
+      
+            btn_chartShowHide.setImage(UIImage(systemName: "chevron.down.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
+            btn_chartShowHide.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+        }
+        
+       }
     
     @IBAction func chartTypeBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
@@ -605,20 +644,32 @@ extension TradeDetalVC {
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
-            borderColor: "#D1D4DC",
+            borderColor: "#000000",
             timeVisible: true,
             secondsVisible: false
         ))
         
         timeScale.subscribeVisibleTimeRangeChange()
         
+        var optionss = ChartOptions()
+        optionss.layout = LayoutOptions(
+            background: .solid(color: ChartColor.init(UIColor(red: 19/255.0, green: 20/255.0, blue: 27/255.0, alpha: 1.0)) ),
+            textColor: ChartColor.init(UIColor.white) //"rgba(255, 255, 255, 1)" // Optional: Set text color
+        )
+        optionss.grid = GridOptions(
+            verticalLines: GridLineOptions(color: ChartColor.init(UIColor.clear)),
+            horizontalLines: GridLineOptions(color: ChartColor.init(UIColor.clear))
+        )
+        chart.applyOptions(options: optionss)
+        
         let areaSeriesOptions = AreaSeriesOptions(
             priceLineVisible: false,
-            topColor: "rgba(76, 175, 80, 0.5)",
-            bottomColor: "rgba(76, 175, 80, 0)",
-            lineColor: "rgba(76, 175, 80, 1)",
+            topColor: "rgba(68, 173, 116, 0.7)",
+            bottomColor: "rgba(68, 173, 116, 0.2)",
+            lineColor: "rgba(68, 173, 116, 1)",
             lineWidth: .one
         )
+        
         let areaSeries = chart.addAreaSeries(options: areaSeriesOptions)
         self.areaSeries = areaSeries
         areaSeries.setData(data: areaData)
@@ -637,16 +688,27 @@ extension TradeDetalVC {
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
-            borderColor: "#D1D4DC",
+            borderColor: "#000000",
             timeVisible: true,
             secondsVisible: false
         ))
         
         timeScale.subscribeVisibleTimeRangeChange()
         
+        var optionss = ChartOptions()
+        optionss.layout = LayoutOptions(
+            background: .solid(color: ChartColor.init(UIColor(red: 19/255.0, green: 20/255.0, blue: 27/255.0, alpha: 1.0)) ),
+            textColor: ChartColor.init(UIColor.white) //"rgba(255, 255, 255, 1)" // Optional: Set text color
+        )
+        optionss.grid = GridOptions(
+            verticalLines: GridLineOptions(color: ChartColor.init(UIColor.clear)),
+            horizontalLines: GridLineOptions(color: ChartColor.init(UIColor.clear))
+        )
+        chart.applyOptions(options: optionss)
+        
         let barSeriesOptions = BarSeriesOptions(
-            upColor: "rgba(76, 175, 80, 1)",   // Color of bars that moved up
-            downColor: "rgba(255, 82, 82, 1)" // Color of bars that moved down
+            upColor: "rgba(68, 173, 116, 1)",//"rgba(76, 175, 80, 1)",   // Color of bars that moved up
+            downColor: "rgba(234, 85, 86, 1)"//"rgba(255, 82, 82, 1)" // Color of bars that moved down
         )
         
         let barSeries = chart.addBarSeries(options: barSeriesOptions)

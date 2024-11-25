@@ -21,6 +21,7 @@ final class CustomDropDown: UIButton, iCustomDropDown {
     
     func dropDownButton(list: [String], sender: UIButton, completion: @escaping (Int, String) -> Void) {
         let dropDown = self.criteriaDropDown
+      
         dropDown.dataSource = list
         dropDown.anchorView = sender
         dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
