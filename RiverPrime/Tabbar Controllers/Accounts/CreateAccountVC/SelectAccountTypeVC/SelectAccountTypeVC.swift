@@ -79,6 +79,9 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         
         cell.textLabel?.font = FontController.Fonts.ListInter_SemiBold.font
         cell.detailTextLabel?.font = FontController.Fonts.ListInter_Regular.font
+      
+        cell.textLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+        cell.detailTextLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
         
         cell.textLabel?.numberOfLines = 0
         cell.detailTextLabel?.numberOfLines = 0

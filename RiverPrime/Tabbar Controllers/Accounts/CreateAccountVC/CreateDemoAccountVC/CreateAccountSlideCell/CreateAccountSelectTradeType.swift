@@ -30,7 +30,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        mainTitle.text = "Pro Account" //"Standard Account"
+        mainTitle.text = "PRO" //"Standard Account"
         setSwapGesture()
         counter = 0
         pageControl.currentPage = counter
@@ -93,7 +93,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
     private func getIndexValues(counter: Int) {
         
         if counter == 0 {
-            mainTitle.text = "Pro Account"
+            mainTitle.text = "PRO"
             lbl_Spread.text = "Floating/ As low as 1 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$0"
@@ -102,7 +102,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
             lbl_stopOutLevel.text = "20%"
             
         } else if counter == 1 {
-            mainTitle.text = "Prime Account"
+            mainTitle.text = "PRIME"
             lbl_Spread.text = "Floating/ As low as 0 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$6"
@@ -110,7 +110,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
             lbl_swap.text = "Free"
             lbl_stopOutLevel.text = "20%"
         } else if counter == 2 {
-            mainTitle.text = "Premium Account"
+            mainTitle.text = "PREMIUM"
             lbl_Spread.text = "Floating/ As low as 0 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$3"

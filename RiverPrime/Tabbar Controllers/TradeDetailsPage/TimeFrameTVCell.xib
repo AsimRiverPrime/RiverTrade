@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,19 +23,19 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 minute" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9e-ng-20R">
                                 <rect key="frame" x="15" y="17.666666666666668" width="56" height="17.000000000000004"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="rYE-YY-exI">
                                 <rect key="frame" x="358" y="16.666666666666664" width="20" height="18.666666666666664"/>
-                                <color key="tintColor" systemColor="labelColor"/>
+                                <color key="tintColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="7nf-qY-1iO"/>
                                     <constraint firstAttribute="width" constant="20" id="fnx-BM-32u"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="rYE-YY-exI" secondAttribute="trailing" constant="15" id="3eO-PF-Pk3"/>
                             <constraint firstItem="G9e-ng-20R" firstAttribute="leading" secondItem="1nn-PN-ZvT" secondAttribute="leading" constant="15" id="Bv2-4U-MpM"/>
@@ -45,6 +44,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstItem="1nn-PN-ZvT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="16g-NM-JWf"/>
                     <constraint firstAttribute="bottom" secondItem="1nn-PN-ZvT" secondAttribute="bottom" id="c3M-eN-11T"/>
@@ -53,6 +53,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="img_checkImage" destination="rYE-YY-exI" id="RSy-Im-XGp"/>
                 <outlet property="lbl_timeValue" destination="G9e-ng-20R" id="QaY-4Z-QnG"/>
@@ -62,11 +63,5 @@
     </objects>
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

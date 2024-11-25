@@ -372,7 +372,7 @@ class TradeDetalVC: UIViewController {
 extension TradeDetalVC: TimeFrameVCDelegate {
     func didSelectTimeFrame(value: String) {
         
-        btn_timeInterval.setTitle(value, for: .normal)
+//        btn_timeInterval.setTitle(value, for: .normal)
        }
 }
 

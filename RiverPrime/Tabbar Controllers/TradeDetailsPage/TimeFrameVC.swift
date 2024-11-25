@@ -17,7 +17,8 @@ class TimeFrameVC: UIViewController {
     
     var timeFrameValues = ["1 Minute","5 Minutes","15 Minutes","30 Minutes","1 hour","4 hours","1 day","1 week","1 month"]
     
-    var selectedIndex: IndexPath?
+    var selectedIndex: Int?
+    
     private var isInitialLoad = true
     
     weak var delegate: TimeFrameVCDelegate?
@@ -28,10 +29,10 @@ class TimeFrameVC: UIViewController {
         registerCell()
         
         // Check if this is the first time the view controller is loaded
-        if !UserDefaults.standard.bool(forKey: "hasLoadedTimeFrameVC") {
-            selectedIndex = IndexPath(row: 2, section: 0)
-            UserDefaults.standard.set(true, forKey: "hasLoadedTimeFrameVC")
-        }
+//        if !UserDefaults.standard.bool(forKey: "hasLoadedTimeFrameVC") {
+//            selectedIndex = IndexPath(row: 2, section: 0)
+//            UserDefaults.standard.set(true, forKey: "hasLoadedTimeFrameVC")
+//        }
         
     }
     
@@ -63,7 +64,7 @@ extension TimeFrameVC: UITableViewDelegate, UITableViewDataSource {
         let model = timeFrameValues[indexPath.row]
         cell.lbl_timeValue.text = model
         
-        if indexPath == selectedIndex {
+        if indexPath.row == selectedIndex {
             cell.img_checkImage?.isHidden = false // Show image for selected cell
         } else {
             cell.img_checkImage?.isHidden = true // Hide image for other cells
@@ -76,6 +77,7 @@ extension TimeFrameVC: UITableViewDelegate, UITableViewDataSource {
         //        tableView.deselectRow(at: indexPath, animated: true)
         //        let cell = tableView.dequeueReusableCell(withIdentifier: "TimeFrameTVCell") as? TimeFrameTVCell
         var values = ""
+        selectedIndex = indexPath.row
         
         var selectedValue = timeFrameValues[indexPath.row]
         if  selectedValue.contains("Minutes") {
