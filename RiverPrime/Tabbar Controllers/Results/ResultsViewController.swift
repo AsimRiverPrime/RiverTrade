@@ -19,6 +19,16 @@ protocol iResultVCDelegate: AnyObject {
     func resultClicks(resultVCType: iResultVCType)
 }
 
+protocol iResultDelegate: AnyObject {
+    func resultClicks(resultType: iResultType)
+}
+
+enum iResultType {
+    case Summary
+    case RealAccount
+    case Last7days
+}
+
 class ResultsViewController: UIViewController {
     
     @IBOutlet weak var tblView: UITableView!
@@ -28,6 +38,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet weak var LastDaysBtn: UIButton!
     
     weak var delegate: iResultVCDelegate?
+    weak var delegateResult: iResultDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +80,7 @@ class ResultsViewController: UIViewController {
         ])
         
         self.delegate = self
+        self.delegateResult = self
         
         tblView.delegate = self
         tblView.dataSource = self
@@ -77,12 +89,24 @@ class ResultsViewController: UIViewController {
     }
     
     @IBAction func SummaryBtn(_ sender: UIButton) {
+        let vc = Utilities.shared.getViewController(identifier: .resultBottomSheet, storyboardType: .bottomSheetPopups) as! ResultBottomSheet
+        vc.resultType = .Summary
+        vc.setTitle = "Results"
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
     }
     
     @IBAction func RealAccountBtn(_ sender: UIButton) {
+        let vc = Utilities.shared.getViewController(identifier: .resultBottomSheet, storyboardType: .bottomSheetPopups) as! ResultBottomSheet
+        vc.resultType = .RealAccount
+        vc.setTitle = "Show"
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
     }
     
     @IBAction func LastDaysBtn(_ sender: UIButton) {
+        let vc = Utilities.shared.getViewController(identifier: .resultBottomSheet, storyboardType: .bottomSheetPopups) as! ResultBottomSheet
+        vc.resultType = .Last7days
+        vc.setTitle = "Period"
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
     }
     
 }
@@ -201,6 +225,21 @@ extension ResultsViewController: ResultTopDelegate {
             
         }
         tblView.reloadSections([1,2], with: .none)
+    }
+    
+}
+
+extension ResultsViewController: iResultDelegate {
+    
+    func resultClicks(resultType: iResultType) {
+        switch resultType {
+        case .Summary:
+            break
+        case .RealAccount:
+            break
+        case .Last7days:
+            break
+        }
     }
     
 }

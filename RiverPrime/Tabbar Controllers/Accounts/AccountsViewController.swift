@@ -616,6 +616,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = Utilities.shared.getViewController(identifier: .openTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! OpenTicketBottomSheetVC
                 
                 vc.openData = openData[indexPath.row]
+                vc.getIndex = indexPath
                
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
                 

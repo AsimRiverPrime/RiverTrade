@@ -65,4 +65,6 @@ enum BottomSheetIdentifierType: String {
     case pendingTicketBottomSheetVC = "PendingTicketBottomSheetVC"
     case closeTicketBottomSheetVC = "CloseTicketBottomSheetVC"
     case datePickerPopupBottomSheet = "DatePickerPopupBottomSheet"
+    
+    case resultBottomSheet = "ResultBottomSheet"
 }

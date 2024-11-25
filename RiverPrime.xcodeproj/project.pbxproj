@@ -338,6 +338,7 @@
 		FA532D7C2C5721E1003A26D6 /* AlertCustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D712C5721E1003A26D6 /* AlertCustomController.swift */; };
 		FA532D7D2C5721E1003A26D6 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D732C5721E1003A26D6 /* Toast.swift */; };
 		FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */; };
+		FA6246AE2CF51B2600B5595B /* ResultBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6246AD2CF51B2500B5595B /* ResultBottomSheet.swift */; };
 		FA6D526F2C4D7D7200362F5C /* MarketsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */; };
 		FA6D52712C4D7E0900362F5C /* MarketsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA6D52702C4D7E0900362F5C /* MarketsVC.xib */; };
 		FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA99B5B52C59A87E00DD4F6D /* SummaryTradingActivityCell.xib */; };
@@ -698,6 +699,7 @@
 		FA532D712C5721E1003A26D6 /* AlertCustomController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertCustomController.swift; sourceTree = "<group>"; };
 		FA532D732C5721E1003A26D6 /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		FA532D752C5721E1003A26D6 /* RemoveScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveScrollView.swift; sourceTree = "<group>"; };
+		FA6246AD2CF51B2500B5595B /* ResultBottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultBottomSheet.swift; sourceTree = "<group>"; };
 		FA6D526E2C4D7D7200362F5C /* MarketsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsVC.swift; sourceTree = "<group>"; };
 		FA6D52702C4D7E0900362F5C /* MarketsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsVC.xib; sourceTree = "<group>"; };
 		FA99B5B52C59A87E00DD4F6D /* SummaryTradingActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryTradingActivityCell.xib; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 		315DB98A2C6C778A00FF967C /* BottomSheetVCs */ = {
 			isa = PBXGroup;
 			children = (
+				FA6246AC2CF51B2500B5595B /* ResultBottomSheets */,
 				315DB98B2C6C77BD00FF967C /* TicketVC.swift */,
 				3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */,
 			);
@@ -2076,6 +2079,14 @@
 			path = RemoveScrollView;
 			sourceTree = "<group>";
 		};
+		FA6246AC2CF51B2500B5595B /* ResultBottomSheets */ = {
+			isa = PBXGroup;
+			children = (
+				FA6246AD2CF51B2500B5595B /* ResultBottomSheet.swift */,
+			);
+			path = ResultBottomSheets;
+			sourceTree = "<group>";
+		};
 		FA99B5B42C59A87E00DD4F6D /* SummaryTradingActivityCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -2628,6 +2639,7 @@
 				31D2AEF02C8840B800E0CF2E /* BarSeries.swift in Sources */,
 				3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */,
 				31D2AEE92C8840B800E0CF2E /* Bundle+Resources.swift in Sources */,
+				FA6246AE2CF51B2600B5595B /* ResultBottomSheet.swift in Sources */,
 				31D2AEEB2C8840B800E0CF2E /* Int+ColorComponent.swift in Sources */,
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D2AF282C8840B800E0CF2E /* AreaSeriesOptions.swift in Sources */,

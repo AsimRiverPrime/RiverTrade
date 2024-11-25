@@ -31,7 +31,7 @@ final class CustomDropDown: UIButton, iCustomDropDown {
         dropDown.textFont = FontController.Fonts.ListInter_Regular.font
         dropDown.show()
         if #available(iOS 13.0, *) {
-            dropDown.backgroundColor = UIColor.white //.secondarySystemBackground
+            dropDown.backgroundColor = UIColor.black //UIColor.white //.secondarySystemBackground
         } else {
             // Fallback on earlier versions
         }

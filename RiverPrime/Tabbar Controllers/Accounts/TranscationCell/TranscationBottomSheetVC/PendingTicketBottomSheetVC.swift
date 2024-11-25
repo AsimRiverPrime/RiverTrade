@@ -38,6 +38,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     var ticketName: String?
     //    var openData: OPCNavigationType?
     var viewModel = TradeTypeCellVM()
+    var vm = TransactionCellVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +81,52 @@ class PendingTicketBottomSheetVC: BaseViewController {
         tf_stopLoss.text = "\(pendingData?.stopLoss ?? 0)"
         tf_takeProfit.text = "\(pendingData?.takeProfit ?? 0)"
         
+        getSymbolIcon()
+        
         currentValue1 = Double(pendingData?.price ?? 0)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    private func getSymbolIcon() {
+        
+        guard let data = pendingData else { return }
+        
+        // Get saved symbols as a dictionary
+        guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
+            return
+        }
+        
+        var getSymbol = ""
+        
+        if data.symbol.contains("..") {
+            getSymbol = String(data.symbol.dropLast())
+            getSymbol = String(getSymbol.dropLast())
+        } else if data.symbol.contains(".") {
+            getSymbol = String(data.symbol.dropLast())
+        } else {
+            getSymbol = data.symbol
+        }
+        
+        // Retrieve the symbol data using the name as the key
+        if let symbolData = savedSymbolsDict[getSymbol] {
+            // Return the icon_url if a match is found
+            if symbolData.name == "Platinum" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else if symbolData.name == "NDX100" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else if symbolData.name == "DJI30" {
+                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }else{
+                let imageUrl = URL(string: symbolData.icon_url)
+                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+            }
+        }
         
     }
     
