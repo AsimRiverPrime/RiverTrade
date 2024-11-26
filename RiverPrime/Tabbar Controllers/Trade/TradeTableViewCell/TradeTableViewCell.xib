@@ -35,16 +35,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BitCoin vs US Dollar" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-cw-JIT">
-                                <rect key="frame" x="45" y="36" width="206" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BitCoin vs US Dollar" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-cw-JIT">
+                                <rect key="frame" x="45" y="36" width="211" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.4941176471" green="0.50980392159999999" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7e-X0-e2j">
-                                <rect key="frame" x="271" y="23" width="157.66666666666663" height="31"/>
+                                <rect key="frame" x="271" y="18.666666666666671" width="157.66666666666663" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Rbs-8V-QOp"/>
+                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80Z-zi-xwL">
                                 <rect key="frame" x="509.33333333333343" y="24.666666666666668" width="6.6666666666666856" height="12.000000000000004"/>
@@ -79,9 +82,8 @@
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="leading" secondItem="V7L-rY-AAm" secondAttribute="trailing" constant="5" id="Jdu-Y3-39a"/>
                             <constraint firstItem="V7L-rY-AAm" firstAttribute="leading" secondItem="EL4-mf-eee" secondAttribute="leading" constant="5" id="SEK-2N-KvF"/>
                             <constraint firstItem="I7e-X0-e2j" firstAttribute="centerX" secondItem="EL4-mf-eee" secondAttribute="centerX" multiplier="1.33" id="Tuo-II-FgL"/>
-                            <constraint firstItem="I7e-X0-e2j" firstAttribute="leading" secondItem="eeP-cw-JIT" secondAttribute="trailing" constant="20" id="WIQ-EJ-ila"/>
+                            <constraint firstItem="I7e-X0-e2j" firstAttribute="leading" secondItem="eeP-cw-JIT" secondAttribute="trailing" constant="15" id="WIQ-EJ-ila"/>
                             <constraint firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" constant="10" id="a0d-bi-c5D"/>
-                            <constraint firstItem="I7e-X0-e2j" firstAttribute="height" secondItem="EL4-mf-eee" secondAttribute="height" multiplier="0.4" id="bvd-Y7-zm8"/>
                             <constraint firstItem="hZQ-2B-0cG" firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" id="gV5-No-Xiw"/>
                             <constraint firstItem="80Z-zi-xwL" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" multiplier="0.8" id="jCV-9y-FeK"/>
                             <constraint firstItem="I7e-X0-e2j" firstAttribute="width" secondItem="EL4-mf-eee" secondAttribute="width" multiplier="0.3" id="yxN-c9-jBQ"/>
