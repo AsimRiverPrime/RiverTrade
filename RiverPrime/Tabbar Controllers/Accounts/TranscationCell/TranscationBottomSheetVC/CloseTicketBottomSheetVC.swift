@@ -152,7 +152,7 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
                 self.lbl_totalPrice.textColor = .systemGreen
                 
             }else {
-                self.lbl_totalPrice.textColor = .darkGray
+                self.lbl_totalPrice.textColor = .white
                 
             }
             
@@ -161,9 +161,9 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             }else if profit > 0 {
                 cell.lbl_profit.textColor = .systemGreen
             }else{
-                cell.lbl_profit.textColor = .darkGray
+                cell.lbl_profit.textColor = .white
             }
-            self.lbl_totalPrice.text = "\(Tprofit) USD".trimmedTrailingZeros()
+            self.lbl_totalPrice.text = "$\(Tprofit)".trimmedTrailingZeros()
             
             return cell
         }

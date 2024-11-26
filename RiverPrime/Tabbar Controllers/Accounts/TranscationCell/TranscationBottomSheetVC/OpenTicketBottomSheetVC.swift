@@ -85,7 +85,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
         tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
         
-        if openData?.action == 1 {
+        if openData?.action == 0 {
             ticketName = "Buy Ticket"
         }else {
             ticketName = "Sell Ticket"
@@ -191,9 +191,13 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.tf_partialClose.text = "\(vol ?? 0)"
             self.currentValue1 = (vol ?? 0)
 //            btn_closePosition.setTitle("Partial Close", for: .normal)
+            partialCose_switch.thumbTintColor = .systemYellow
+            partialCose_switch.onTintColor = .darkGray
         }else{
             self.partialClose_View.isUserInteractionEnabled = false
 //            btn_closePosition.setTitle("Close Postion", for: .normal)
+            partialCose_switch.thumbTintColor = .white
+            partialCose_switch.onTintColor = .darkGray
         }
 //        closeBtnEnable()
     }
@@ -229,10 +233,14 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
             self.currentValue2 = openData?.takeProfit ?? 0
             takeProfit_value = openData?.takeProfit ?? 0
+            takeProfit_switch.thumbTintColor = .systemYellow
+            takeProfit_switch.onTintColor = .darkGray
         }else{
             self.takeProfit_View.isUserInteractionEnabled = false
             self.tf_takeProfit.text = ""
-            takeProfit_value = 0
+            takeProfit_value = 0.0
+            takeProfit_switch.thumbTintColor = .white
+            takeProfit_switch.onTintColor = .darkGray
         }
         closeBtnEnable()
     }
@@ -260,11 +268,15 @@ class OpenTicketBottomSheetVC: BaseViewController {
             self.tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
             self.currentValue3 = openData?.stopLoss ?? 0
             stoploss_value = openData?.stopLoss ?? 0
+            stopLoss_switch.thumbTintColor = .systemYellow
+            stopLoss_switch.onTintColor = .darkGray
            
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
             self.tf_stopLoss.text = ""
             stoploss_value = 0
+            stopLoss_switch.thumbTintColor = .white
+            stopLoss_switch.onTintColor = .darkGray
         }
         closeBtnEnable()
     }

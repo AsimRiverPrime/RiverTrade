@@ -23,8 +23,9 @@ class TradeDetalVC: UIViewController {
     
     @IBOutlet weak var chartView: UIView!
     
-//    var webSocket : WebSocket!
+    //    var webSocket : WebSocket!
     
+    @IBOutlet weak var view_liveValue: UIView!
     private var chart: LightweightCharts!
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
@@ -35,7 +36,10 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var lbl_sellBtn: UILabel!
     //    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_BuyBtn: UILabel!
-    @IBOutlet weak var lbl_amount: UILabel!
+    @IBOutlet weak var lbl_LiveAmount: UILabel!
+    @IBOutlet weak var lbl_percentage: UILabel!
+    @IBOutlet weak var lbl_SymbolLive: UILabel!
+    @IBOutlet weak var image_percent: UIImageView!
     
     @IBOutlet var menuButton: [UIButton]!
     @IBOutlet weak var SellBuyView: UIView!
@@ -50,29 +54,33 @@ class TradeDetalVC: UIViewController {
     var getSymbolData = SymbolCompleteList()
     var getLiveCandelStick = OhlcCalculator()
     
-//    var symbolChartData: SymbolChartData?
-
-    var tradeDetail: TradeDetails?
+    //    var symbolChartData: SymbolChartData?
     
+    var tradeDetail: TradeDetails?
+    var symbolDescription = String()
     var overviewList = [(String, String)]()
     
     var chartType: ChartType = .candlestick
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        connectHistoryWebSocket()
+        //        connectHistoryWebSocket()
         self.chartView.backgroundColor = .clear
         self.view_chartType.isHidden = true
         setDefaultStyles()
         
         symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
-//        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
+        //        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
         lblAmount.text = "\(getSymbolData.tickMessage?.bid ?? 0.0) \(getSymbolData.tickMessage?.symbol ?? "")"
         lblPercent.text = "$\(getSymbolData.tickMessage?.bid ?? 0.0)"
         
+        if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == symbolName.text}) {
+            lbl_SymbolLive.text = obj.description
+        }
+        
         if let imageUrl = URL(string: icon_url) {
-                    
-            print("\n Symbol: \(getSymbolData.tickMessage?.symbol) \n Image URL: \(icon_url)")
+            
+            //            print("\n Symbol: \(getSymbolData.tickMessage?.symbol) \n Image URL: \(icon_url)")
             
             if getSymbolData.tickMessage?.symbol == "Platinum" {
                 let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
@@ -89,7 +97,7 @@ class TradeDetalVC: UIViewController {
             }
             
         } else {
-//            print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
+            //            print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
         }
         
         
@@ -138,10 +146,10 @@ class TradeDetalVC: UIViewController {
         
         addTopAndBottomBorders(menuButton[0])
         
-//        btn_chartShowHide.buttonStyle()
-//        btn_timeInterval.buttonStyle()
+        //        btn_chartShowHide.buttonStyle()
+        //        btn_timeInterval.buttonStyle()
     }
-  
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -149,7 +157,7 @@ class TradeDetalVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-//        disconnectWebSocket()
+        //        disconnectWebSocket()
     }
     
     @IBAction func menuButton(_ sender: UIButton) {
@@ -160,10 +168,11 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = false
-//            self.btn_chartType.isHidden = false
-//            self.btn_timeInterval.isHidden = false
+            //            self.btn_chartType.isHidden = false
+            //            self.btn_timeInterval.isHidden = false
             self.view_chartType.isHidden = false
             self.view_timeFrame.isHidden = false
+            self.view_liveValue.isHidden = false
             //MARK: - Add new content from here.
             
             setupChart()
@@ -174,10 +183,11 @@ class TradeDetalVC: UIViewController {
             // Remove all subviews
             self.chartView.subviews.forEach { $0.removeFromSuperview() }
             self.SellBuyView.isHidden = true
-//            self.btn_chartType.isHidden = true
-//            self.btn_timeInterval.isHidden = true
+            //            self.btn_chartType.isHidden = true
+            //            self.btn_timeInterval.isHidden = true
             self.view_chartType.isHidden = true
             self.view_timeFrame.isHidden = true
+            self.view_liveValue.isHidden = true
             //MARK: - Add new content from here.
             setupOverview()
             
@@ -194,24 +204,7 @@ class TradeDetalVC: UIViewController {
         menuButton[sender.tag].backgroundColor = UIColor.systemYellow
         menuButton[sender.tag].layer.cornerRadius = 10.0
         menuButton[sender.tag].tintColor = UIColor.black
-//        for i in 0...2 {
-//            let thickness: CGFloat = 3.0
-//            let bottomBorder = CALayer()
-//            bottomBorder.frame = CGRect(x:0, y: self.menuButton[i].frame.size.height - thickness, width: self.menuButton[i].frame.size.width + 100, height:thickness)
-//            bottomBorder.backgroundColor = UIColor.white.cgColor
-//
-//            menuButton[i].titleLabel?.font = UIFont.systemFont(ofSize: 16)
-//            menuButton[i].layer.addSublayer(bottomBorder)
-//        }
-//
-//        let thickness: CGFloat = 3.0
-//        let bottomBorder = CALayer()
-//        bottomBorder.frame = CGRect(x:0, y: self.menuButton[sender.tag].frame.size.height - thickness, width: self.menuButton[sender.tag].frame.size.width, height:thickness)
-//        bottomBorder.backgroundColor = UIColor.systemYellow.cgColor
-//        menuButton[sender.tag].titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-//
-//        menuButton[sender.tag].layer.addSublayer(bottomBorder)
-        
+       
     }
     
     @objc private func handleTradesUpdated(_ notification: Notification) {
@@ -225,10 +218,49 @@ class TradeDetalVC: UIViewController {
                 self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
                 self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
                 
+                self.lbl_LiveAmount.text = "$\(String(tradeDetail.bid).trimmedTrailingZeros())"
+                
+                let bid = tradeDetail.bid
+                var oldBid =  Double()
+                
+                
+                let yesterdayClose_value = GlobalVariable.instance.symbolDataArray.filter { $0.name == getSymbolData.tickMessage?.symbol }.map { $0.yesterday_close }
+                print("symbolyesterday_close = \(yesterdayClose_value)")
+                oldBid = Double(yesterdayClose_value[0]) ?? 0.0
+                
+                
+                let diff = bid - oldBid
+                let percentageChange = (diff / oldBid) * 100
+                let newValue = (percentageChange * 100.0) / 100.0
+                let percent = String(newValue).trimmedTrailingZeros()
+                print("\n new value is: \(newValue)")
+                
+                //                               double diff = newBid - oldBid;
+                //                               double percentageChange = (diff / oldBid) * 100;
+                //                               return Math.round(percentageChange * 100.0) / 100.0;
+                
+                lbl_percentage.text = "\(percent) %"
+                
+                if percent.contains("inf") {
+                    lbl_percentage.text = "0.0 %"
+                }
+                
+                if newValue > 0.0 {
+                    image_percent.image = UIImage(systemName: "arrow.up")
+                    image_percent.tintColor = .systemGreen
+                    lbl_percentage.textColor = .systemGreen
+                    
+                } else {
+                    image_percent.image = UIImage(systemName: "arrow.down")
+                    image_percent.tintColor = .systemRed
+                    lbl_percentage.textColor = .systemRed
+                    
+                }
+                
                 getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
-
+                
                 let data =  getLiveCandelStick.getLatestOhlcData()
-                print("latest data: \(data)")
+                //                print("latest data: \(data)")
                 
                 let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
                 
@@ -252,15 +284,15 @@ class TradeDetalVC: UIViewController {
                     
                     break
                 case .area:
-    
+                    
                     let areaData = convertToAreaData(candlestickData: dataPoint)
                     self.areaSeries.update(bar: areaData)
                     
                     break
                 case .bar:
-                 
+                    
                     let barData = convertToBarData(candlestickData: dataPoint)
-
+                    
                     self.barSeries.update(bar: barData)
                     
                     break
@@ -276,23 +308,23 @@ class TradeDetalVC: UIViewController {
     }
     
     @IBAction func time_buttonTapped(_ sender: UIButton) {
-           // Reset all buttons to default styles
-           setDefaultStyles()
-           
-           // Apply selected style to the clicked button
-           sender.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0) // Change tint color
+        // Reset all buttons to default styles
+        setDefaultStyles()
+        
+        // Apply selected style to the clicked button
+        sender.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0) // Change tint color
         sender.titleLabel?.font = UIFont.systemFont(ofSize: 14) // Make font bold
-       }
+    }
     // Helper function to set default styles for all buttons
-       private func setDefaultStyles() {
-           for button in btn_time {
-               button.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0) // Default tint color
-               button.titleLabel?.font = UIFont.systemFont(ofSize: 12) // Default font
-           }
-       }
+    private func setDefaultStyles() {
+        for button in btn_time {
+            button.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0) // Default tint color
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 12) // Default font
+        }
+    }
     
     @IBAction func toggleBtnChartViewTapped(_ sender: UIButton) {
-           // Toggle the visibility of the view
+        // Toggle the visibility of the view
         view_chartType.isHidden.toggle()
         
         if  view_chartType.isHidden == false {
@@ -304,12 +336,12 @@ class TradeDetalVC: UIViewController {
             
         }else{
             btn_chartShowHide.backgroundColor = UIColor.clear
-      
+            
             btn_chartShowHide.setImage(UIImage(systemName: "chevron.down.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
             btn_chartShowHide.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
         }
         
-       }
+    }
     
     @IBAction func chartTypeBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
@@ -337,17 +369,17 @@ class TradeDetalVC: UIViewController {
     }
     
     private func setupSeries(candlestickData: [CandlestickData]) {
-     
-        let options = ChartOptions(            
+        
+        let options = ChartOptions(
             crosshair: CrosshairOptions(mode: .normal)
         )
-  
+        
         let chart = LightweightCharts(options: options)
         chart.translatesAutoresizingMaskIntoConstraints = false
         chart.backgroundColor = .clear
         chartView.addSubview(chart)
         self.chart = chart
-//        self.chart.alpha = 0
+        //        self.chart.alpha = 0
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
@@ -374,7 +406,7 @@ class TradeDetalVC: UIViewController {
                 chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
-       
+        
         var optionss = ChartOptions()
         optionss.layout = LayoutOptions(
             background: .solid(color: ChartColor.init(UIColor(red: 19/255.0, green: 20/255.0, blue: 27/255.0, alpha: 1.0)) ),
@@ -385,8 +417,8 @@ class TradeDetalVC: UIViewController {
             horizontalLines: GridLineOptions(color: ChartColor.init(UIColor.clear))
         )
         chart.applyOptions(options: optionss)
-       
-
+        
+        
         let myoptions = CandlestickSeriesOptions(
             upColor: "rgba(68, 173, 116, 1)",
             downColor: "rgba(234, 85, 86, 1)",
@@ -395,7 +427,7 @@ class TradeDetalVC: UIViewController {
             wickUpColor: "rgba(68, 173, 116, 1)",
             wickDownColor: "rgba(234, 85, 86, 1)"
         )
-       
+        
         let series = chart.addCandlestickSeries(options: myoptions)
         self.series = series
         
@@ -411,177 +443,10 @@ class TradeDetalVC: UIViewController {
 extension TradeDetalVC: TimeFrameVCDelegate {
     func didSelectTimeFrame(value: String) {
         
-//        btn_timeInterval.setTitle(value, for: .normal)
-       }
+        //        btn_timeInterval.setTitle(value, for: .normal)
+    }
 }
 
-//    func connectHistoryWebSocket() {
-//        //        let url =  URL(string:"ws://192.168.3.107:8069/websocket")!
-//        let url =  URL(string:"wss://mbe.riverprime.com/mobile_web_socket")!
-//        var request = URLRequest(url: url)
-//        request.timeoutInterval = 5
-//
-//        webSocket = WebSocket(request: request)
-//        webSocket.delegate = self
-//        webSocket.connect()
-//    }
-//
-//    func disconnectWebSocket() {
-//        webSocket?.disconnect()
-//    }
-//
-//    func sendSubscriptionHistoryMessage() {
-//        // Define the message dictionary
-//        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-//
-////        let timestamps = currentAndBeforeBusinessDayTimestamps()
-////        print("Current Timestamp: \(timestamps.currentTimestamp)")
-////        print("Previous Business Day Timestamp: \(timestamps.previousTimestamp)")
-////
-//
-//        let message: [String: Any] = [
-//            "event_name": "get_chart_history",
-//            "data": [
-//                "symbol":  getSymbolData.tickMessage?.symbol ?? "",
-//                //                "from": timestamps.previousTimestamp,
-//                //                "to":  timestamps.currentTimestamp
-//                "from": hourBeforeTimestamp,
-//                "to":  currentTimestamp
-//            ]
-//        ]
-//
-//        // Convert the dictionary to JSON string
-//        if let jsonData = try? JSONSerialization.data(withJSONObject: message, options: []),
-//           let jsonString = String(data: jsonData, encoding: .utf8) {
-//            //            socket write(string: jsonString)
-//            print("the message is \(jsonString)")
-//            webSocket.write(string: jsonString)
-//        }
-//    }
-//
-//    func didReceive(event: Starscream.WebSocketEvent, client: any Starscream.WebSocketClient) {
-//        switch event {
-//        case .connected(let headers):
-//            print("\n WebSocket chart is connected: \(headers)")
-//            sendSubscriptionHistoryMessage() // Send the message once connected
-//        case .disconnected(let reason, let code):
-//            print("WebSocket is disconnected: \(reason) with code: \(code)")
-//        case .text(let string):
-//            handleHistoryWebSocketMessage(string)
-//        case .binary(let data):
-//            print("Received data: \(data.count)")
-//        case .error(let error):
-//            handleHistoryError(error)
-//        default:
-//            break
-//        }
-//    }
-//
-//    func handleHistoryWebSocketMessage(_ string: String) {
-//        print("\n this is history chart json: \(string)")
-//
-//        if let jsonData = string.data(using: .utf8) {
-//            do {
-//                let response = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-//                //                let response = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-//
-//                switch chartType {
-//                case .candlestick:
-//
-//                    for payload in response.message.payload.chartData {
-//
-//                        let times = Time.utc(timestamp: Double(payload.datetime))
-//                        // Debugging output to check timestamps
-//
-//                        print("\n Candlestick each array object data: \(payload)")
-//
-//                        let open = payload.open
-//                        let close = payload.close
-//                        let high = payload.high
-//                        let low = payload.low
-//
-//                        let dataPoint = CandlestickData(
-//                            time: times,
-//                            open: open,
-//                            high: high,
-//                            low: low,
-//                            close: close
-//                        )
-//
-//                        // Use update to add this candlestick incrementally
-//                        series?.update(bar: dataPoint)
-//                        candlestickData.append(dataPoint)
-//                    }
-//                    series.setData(data: candlestickData)
-//                    //                setupSeries(candlestickData: candlestickData)
-//
-//                    break
-//                case .area:
-//                    break
-//                case .bar:
-//                    break
-//                }
-//
-//            } catch {
-//                print("Error parsing JSON: \(error)")
-//            }
-//        }
-//    }
-//
-//    func handleHistoryError(_ error: Error?) {
-//        if let error = error {
-//            print("History chart WebSocket encountered an error: \(error)")
-//        }
-//    }
-//
-//    func getCurrentAndNextHourTimestamps() -> (current: Int, beforeHour: Int) {
-//        let now = Date()
-//        //        let calendar = Calendar.current
-//
-//        // Get current timestamp in milliseconds
-//        let currentTimestamp = Int(now.timeIntervalSince1970) + (3 * 60 * 60)
-//        let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
-//
-//        return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
-//
-//    }
-//
-//    func currentAndBeforeBusinessDayTimestamps() -> (currentTimestamp: Int, previousTimestamp: Int) {
-//        let timeZone = TimeZone(identifier: "UTC")!
-//        let currentDate = Date()
-//
-//        // Get current date components
-//        let components = Calendar.current.dateComponents(in: timeZone, from: currentDate)
-//
-//        // Create the current timestamp
-//        let currentTimestamp = Int(currentDate.timeIntervalSince1970)
-//
-//        // Calculate previous business day
-//        var previousBusinessDay = currentDate
-//
-//        // Check if the current day is a business day (for this example, we'll consider weekdays only)
-//        let weekday = components.weekday ?? 1 // Default to Sunday (1)
-//
-//        // If today is Sunday (1), go back to Friday (5)
-//        if weekday == 1 {
-//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -2, to: currentDate)!
-//        }
-//        // If today is Monday (2), go back to Friday (5)
-//        else if weekday == 2 {
-//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -3, to: currentDate)!
-//        }
-//        // Otherwise, just go back one day
-//        else {
-//            previousBusinessDay = Calendar.current.date(byAdding: .day, value: -1, to: currentDate)!
-//        }
-//
-//        // Get previous timestamp
-//        let previousTimestamp = Int(previousBusinessDay.timeIntervalSince1970)
-//
-//        return (currentTimestamp: currentTimestamp, previousTimestamp: previousTimestamp)
-//    }
-//
-//}
 
 //MARK: - Setup the Chart view.
 extension TradeDetalVC {
@@ -593,7 +458,7 @@ extension TradeDetalVC {
         
         getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
         let data =  getLiveCandelStick.getLatestOhlcData()
-  
+        
         
         let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
         
@@ -614,7 +479,7 @@ extension TradeDetalVC {
         case .candlestick:
             setupSeries(candlestickData: candlestickData)
             series?.update(bar: dataPoint)
-           
+            
             break
         case .area:
             let areaData1 = convertToAreaData(candlestickData: candlestickData)
@@ -627,7 +492,7 @@ extension TradeDetalVC {
             let barData1 = convertToBarData(candlestickData: candlestickData)
             setupBarSeries(barData: barData1)
             let barData = convertToBarData(candlestickData: dataPoint)
-
+            
             self.barSeries.update(bar: barData)
             
             break
@@ -675,7 +540,7 @@ extension TradeDetalVC {
         areaSeries.setData(data: areaData)
         
         timeScale.scrollToPosition(position: 0.0, animated: false)
-
+        
         setupChartConstraints(chart)
     }
     
@@ -684,7 +549,7 @@ extension TradeDetalVC {
         let chart = LightweightCharts(options: options)
         chartView.addSubview(chart)
         self.chart = chart
-       
+        
         let timeScale = chart.timeScale()
         
         timeScale.applyOptions(options: TimeScaleOptions(
@@ -715,7 +580,7 @@ extension TradeDetalVC {
         self.barSeries = barSeries
         barSeries.setData(data: barData)
         timeScale.scrollToPosition(position: 0.0, animated: false)
-       
+        
         // Add constraints as you did for candlestick chart
         setupChartConstraints(chart)
         
@@ -760,7 +625,7 @@ extension TradeDetalVC {
     }
     
     private func convertToBarData(candlestickData: CandlestickData) -> BarData {
-
+        
         return BarData(
             time: candlestickData.time,
             open: candlestickData.open,
@@ -777,7 +642,7 @@ extension TradeDetalVC {
     }
     
     private func convertToAreaData(candlestickData: CandlestickData) -> AreaData {
-
+        
         AreaData(time: candlestickData.time, value: candlestickData.close)
     }
 }
@@ -805,7 +670,7 @@ extension TradeDetalVC: ChartOptionsDelegate {
 }
 //MARK: - Setup the Overview view.
 extension TradeDetalVC {
-//    UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
+    //    UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
     private func setupOverview() {
         
         lazy var scrollView: TPKeyboardAvoidingScrollView = {

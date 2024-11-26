@@ -918,7 +918,7 @@ extension TradeViewController: TradeDetailTapDelegate {
         vc.getSymbolData = getSymbolData
 //        vc.symbolChartData = symbolChartData
         vc.icon_url = getSymbolData.icon_url ?? ""
-        
+      
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     

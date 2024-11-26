@@ -179,10 +179,13 @@ class PendingTicketBottomSheetVC: BaseViewController {
             self.takeProfit_View.isUserInteractionEnabled = true
             self.tf_takeProfit.text = "\(pendingData?.takeProfit ?? 0)"
             self.currentValue2 = pendingData?.takeProfit ?? 0
-            
+            takeProfit_switch.thumbTintColor = .systemYellow
+            takeProfit_switch.onTintColor = .darkGray
         }else{
             self.takeProfit_View.isUserInteractionEnabled = false
             self.tf_takeProfit.text = ""
+            takeProfit_switch.thumbTintColor = .white
+            takeProfit_switch.onTintColor = .darkGray
         }
     }
     
@@ -207,10 +210,13 @@ class PendingTicketBottomSheetVC: BaseViewController {
             self.stopLoss_view.isUserInteractionEnabled = true
             self.tf_stopLoss.text = "\(pendingData?.stopLoss ?? 0)"
             self.currentValue3 = pendingData?.stopLoss ?? 0
-            
+            stopLoss_switch.thumbTintColor = .systemYellow
+            stopLoss_switch.onTintColor = .darkGray
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
             self.tf_stopLoss.text = ""
+            stopLoss_switch.thumbTintColor = .white
+            stopLoss_switch.onTintColor = .darkGray
         }
     }
     

@@ -32,7 +32,9 @@ class TicketVC: BottomSheetController {
     @IBOutlet weak var takeProfit_switch: UISwitch!
     @IBOutlet weak var tf_takeProfit: UITextField!
     @IBOutlet weak var lbl_takeProfitDropDown: UILabel!
-    @IBOutlet weak var takeProfit_view: UIStackView!
+//    @IBOutlet weak var takeProfit_view: UIStackView!
+    @IBOutlet weak var takeProfit_view: CardView!
+    
     @IBOutlet weak var liveValue_view: UIStackView!
     @IBOutlet weak var lbl_liveProfitLoss: UILabel!
     @IBOutlet weak var lbl_profitLossPips: UILabel!
@@ -45,7 +47,9 @@ class TicketVC: BottomSheetController {
     @IBOutlet weak var stopLoss_switch: UISwitch!
     @IBOutlet weak var tf_stopLoss: UITextField!
     @IBOutlet weak var lbl_stopLossDropDown: UILabel!
-    @IBOutlet weak var stopLoss_view: UIStackView!
+//    @IBOutlet weak var stopLoss_view: UIStackView!
+    @IBOutlet weak var stopLoss_view: CardView!
+    
     @IBOutlet weak var stopLossLiveValue_view: UIStackView!
     @IBOutlet weak var lbl_liveStopLoss: UILabel!
     @IBOutlet weak var lbl_stopLossPips: UILabel!
@@ -119,7 +123,7 @@ class TicketVC: BottomSheetController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lbl_title.text = titleString + "Ticket"
+        lbl_title.text = titleString + " Ticket"
         
         selectedVolume = "Lots"
         previousSelectedVolume = selectedVolume
@@ -443,24 +447,24 @@ class TicketVC: BottomSheetController {
                                 
                                 self.btn_confirm.isEnabled = false
 //                                self.btn_confirm.backgroundColor = UIColor.systemGray2
-                                self.priceValue_view.layer.borderWidth = 0.5
+                                self.price_view.layer.borderWidth = 0.3
                                
-                                self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+                                self.price_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_currentPriceValue.textColor = UIColor.red
                                 
                             } else if isEnable.2 == "BUY" {
                                 
                                 self.btn_confirm.isEnabled = false
 //                                self.btn_confirm.backgroundColor = UIColor.systemGray2
-                                self.priceValue_view.layer.borderWidth = 0.5
-                                self.priceValue_view.layer.borderColor = UIColor.red.cgColor
+                                self.price_view.layer.borderWidth = 0.3
+                                self.price_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_currentPriceValue.textColor = UIColor.red
                                 
                             } else if isEnable.2 == "Profit" {
                                 
                                 self.btn_confirm.isEnabled = false
 //                                self.btn_confirm.backgroundColor = UIColor.lightGray
-                                self.takeProfit_view.layer.borderWidth = 0.5
+                                self.takeProfit_view.layer.borderWidth = 0.3
                                 self.takeProfit_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_liveProfitLoss.isHidden = false
                                 self.lbl_liveProfitLoss.text = "Max. " + liveValue
@@ -470,7 +474,7 @@ class TicketVC: BottomSheetController {
                                 
                                 self.btn_confirm.isEnabled = false
 //                                self.btn_confirm.backgroundColor = UIColor.lightGray
-                                self.stopLoss_view.layer.borderWidth = 0.5
+                                self.stopLoss_view.layer.borderWidth = 0.3
                                 self.stopLoss_view.layer.borderColor = UIColor.red.cgColor
                                 self.lbl_liveStopLoss.isHidden = false
                                 self.lbl_liveStopLoss.text = "Min. " + liveValue
@@ -488,10 +492,10 @@ class TicketVC: BottomSheetController {
                     self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
                     self.lbl_liveStopLoss.isHidden = true
                     
-                    self.priceValue_view.layer.borderColor = UIColor.lightGray.cgColor
-                    self.lbl_currentPriceValue.textColor = UIColor.darkGray
+                    self.price_view.layer.borderColor = UIColor.darkGray.cgColor
+                    self.lbl_currentPriceValue.textColor = UIColor.lightGray
                     
-                    self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
+                    self.takeProfit_view.layer.borderColor = UIColor.darkGray.cgColor
                     self.lbl_liveProfitLoss.isHidden = true
                 }
 
@@ -583,7 +587,7 @@ class TicketVC: BottomSheetController {
             price_view.isHidden = false
             lbl_currentPriceValue.isHidden = false
 //            lbl_limit.isHidden = false
-            priceValue_view.layer.borderWidth = 0.5
+            price_view.layer.borderWidth = 0.3
         }
     }
     
@@ -702,13 +706,16 @@ class TicketVC: BottomSheetController {
         if sender.isOn {
             self.takeProfit_view.isUserInteractionEnabled = true
 //            lbl_TP.isHidden = false
-            
+            takeProfit_switch.thumbTintColor = .systemYellow
+            takeProfit_switch.onTintColor = .darkGray
         }else{
             self.takeProfit_view.isUserInteractionEnabled = false
 //            lbl_TP.isHidden = true
-            self.takeProfit_view.layer.borderColor = UIColor.lightGray.cgColor
+            self.takeProfit_view.layer.borderColor = UIColor.darkGray.cgColor
             self.lbl_liveProfitLoss.isHidden = true
             self.takeProfit = 0.0
+            takeProfit_switch.thumbTintColor = .white
+            takeProfit_switch.onTintColor = .darkGray
         }
     }
     
@@ -743,13 +750,16 @@ class TicketVC: BottomSheetController {
         if sender.isOn {
             self.stopLoss_view.isUserInteractionEnabled = true
 //            lbl_SL.isHidden = false
-            
+            stopLoss_switch.thumbTintColor = .systemYellow
+            stopLoss_switch.onTintColor = .darkGray
         }else{
             self.stopLoss_view.isUserInteractionEnabled = false
 //            lbl_SL.isHidden = true
-            self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
+            self.stopLoss_view.layer.borderColor = UIColor.darkGray.cgColor
             self.lbl_liveStopLoss.isHidden = true
             self.stopLoss = 0.0
+            stopLoss_switch.thumbTintColor = .white
+            stopLoss_switch.tintColor = .darkGray
         }
     }
     

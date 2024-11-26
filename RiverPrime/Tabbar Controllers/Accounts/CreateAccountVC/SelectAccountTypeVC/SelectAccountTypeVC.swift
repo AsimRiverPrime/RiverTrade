@@ -87,6 +87,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.numberOfLines = 0
         
         cell.textLabel?.text = model.title
+        cell.selectionStyle = .none
         
         if indexPath.row == 0 {//demo account
             if isAccountExist() {

@@ -75,6 +75,7 @@ extension UnarchiveAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(with: UnarchiveAccountTypeDetailTVC.self, for: indexPath)
             cell.backgroundColor = .clear
+            cell.selectionStyle = .none
             cell.textLabel?.font = FontController.Fonts.ListInter_SemiBold.font
             cell.detailTextLabel?.font = FontController.Fonts.ListInter_Regular.font
             cell.textLabel?.numberOfLines = 0

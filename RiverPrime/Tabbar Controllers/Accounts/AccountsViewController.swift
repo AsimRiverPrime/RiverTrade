@@ -641,7 +641,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 vc.closeData = closeData[indexPath.row]
                 
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
                 
                 break
             case .none: break

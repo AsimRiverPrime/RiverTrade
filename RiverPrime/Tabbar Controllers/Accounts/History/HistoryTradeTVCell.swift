@@ -127,17 +127,18 @@ extension HistoryTradeTVCell {
         lbl_symbolName.text = closeData.symbol
         
         if closeData.totalProfit < 0 {
-            lbl_totalPrice.textColor = .systemRed
-            self.lbl_price.textColor = .systemRed
-            self.image_TotatPrice.image = UIImage(systemName: "chart.line.downtrend.xyaxis")
-
+            lbl_totalPrice.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) //.systemRed
+            self.lbl_price.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)//.systemRed
+            self.image_TotatPrice.image = UIImage(systemName: "arrow.down")
+            self.image_TotatPrice.tintColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)
         }else{
-            lbl_totalPrice.textColor = .systemGreen
-            self.lbl_price.textColor = .systemGreen
-            self.image_TotatPrice.image = UIImage(systemName: "chart.line.uptrend.xyaxis")
+            lbl_totalPrice.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
+            self.lbl_price.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
+            self.image_TotatPrice.image = UIImage(systemName: "arrow.up")
+            self.image_TotatPrice.tintColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0)
         }
-        self.lbl_price.text = "\(closeData.totalProfit) USD"
-        lbl_totalPrice.text = "\(closeData.totalProfit) USD"
+        self.lbl_price.text = "$\(closeData.totalProfit)"
+        lbl_totalPrice.text = "$\(closeData.totalProfit)"
         
         orders_tableView.reloadData()
     }
@@ -164,12 +165,12 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: CloseTicketSectionCell.self, for: indexPath)
-           
+            cell.selectionStyle = .none
             return cell
         } else {
             
             let cell = tableView.dequeueReusableCell(with: CloseTicketTBCell.self, for: indexPath)
-            
+            cell.selectionStyle = .none
             let data = closeData.repeatedFilteredArray[indexPath.row]
             let volumee = Double(data.volume ) / Double(10000)
             
@@ -186,14 +187,13 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             cell.lbl_profit.text = "\(data.profit)"
             
             let profit = data.profit
-            
-            if profit < 0 {
-                cell.lbl_profit.textColor = .systemRed
-            }else if profit > 0 {
-                cell.lbl_profit.textColor = .systemGreen
-            }else{
-                cell.lbl_profit.textColor = .darkGray
-            }
+//            if profit < 0 {
+//                cell.lbl_profit.textColor = .systemRed
+//            }else if profit > 0 {
+//                cell.lbl_profit.textColor = .systemGreen
+//            }else{
+//                cell.lbl_profit.textColor = .white
+//            }
                         
             return cell
         }
