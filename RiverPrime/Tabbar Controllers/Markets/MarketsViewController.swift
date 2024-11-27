@@ -10,9 +10,13 @@ import UIKit
 class MarketsViewController: UIViewController {
 
     @IBOutlet weak var tblView: UITableView!
+    @IBOutlet weak var labelAmmount: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+        
         tblView.registerCells([
             MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
             ])
@@ -22,6 +26,19 @@ class MarketsViewController: UIViewController {
     }
     
 
+}
+
+extension MarketsViewController {
+    
+    @objc func notificationPopup(_ notification: NSNotification) {
+        
+        if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+            print("Received ammount: \(ammount)")
+            self.labelAmmount.text = "$\(ammount)"
+        }
+        
+    }
+    
 }
 
 extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {

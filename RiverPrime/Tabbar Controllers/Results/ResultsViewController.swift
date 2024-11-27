@@ -36,6 +36,7 @@ class ResultsViewController: UIViewController {
     @IBOutlet weak var SummaryBtn: UIButton!
     @IBOutlet weak var RealAccountBtn: UIButton!
     @IBOutlet weak var LastDaysBtn: UIButton!
+    @IBOutlet weak var labelAmmount: UILabel!
     
     weak var delegate: iResultVCDelegate?
     weak var delegateResult: iResultDelegate?
@@ -58,6 +59,8 @@ class ResultsViewController: UIViewController {
 //        
 //        // Set the tint color (selected segment highlight color) to yellow
 //        segmentController.tintColor = .systemYellow
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
         
         SummaryBtn.layer.borderWidth = 1
         SummaryBtn.layer.borderColor = UIColor.systemYellow.cgColor
@@ -107,6 +110,19 @@ class ResultsViewController: UIViewController {
         vc.resultType = .Last7days
         vc.setTitle = "Period"
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+    }
+    
+}
+
+extension ResultsViewController {
+    
+    @objc func notificationPopup(_ notification: NSNotification) {
+        
+        if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+            print("Received ammount: \(ammount)")
+            self.labelAmmount.text = "$\(ammount)"
+        }
+        
     }
     
 }
