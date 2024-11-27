@@ -20,7 +20,7 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var profitIcon: UIImageView!
     
 
-    private var chart: LightweightCharts!
+    private var chart = LightweightCharts()
     private var series: AreaSeries!
     var close = Double()
     // Track created charts for symbols
@@ -35,8 +35,13 @@ class TradeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.graphView.isUserInteractionEnabled = false
-       setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+        self.chart.layer.backgroundColor = .none
+        self.chart.backgroundColor = .clear
+        self.chart.layer.backgroundColor = CGColor(red: 0, green: 0, blue: 0, alpha: 0)
         graphView.backgroundColor = .clear
+        
+       setupChart(for: getSymbolData.historyMessage?.symbol ?? "", with: getSymbolData.historyMessage?.chartData ?? [])
+       
     }
    
     //let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
@@ -91,32 +96,6 @@ class TradeTableViewCell: UITableViewCell {
         var options = AreaSeriesOptions()
         
         options = self.options
-        
-//        //MARK: - Update options to hide the line and values -> Green
-//        options = AreaSeriesOptions(
-//                   priceLineVisible: false,
-//                   topColor: "rgba(76, 175, 80, 0.5)",
-//                   bottomColor: "rgba(76, 175, 80, 0)",
-//                   lineColor: "rgba(76, 175, 80, 1)",
-//                   lineWidth: .one
-//               )
-//
-//        //MARK: - Update options to hide the line and values -> Red
-//        options = AreaSeriesOptions(
-//                   priceLineVisible: false,
-//                   topColor: "rgba(255, 0, 0, 0.5)",
-//                   bottomColor: "rgba(255, 0, 0, 0)",
-//                   lineColor: "rgba(255, 0, 0, 1)",
-//                   lineWidth: .one
-//               )
-        
-//        let options2 = AreaSeriesOptions(
-//            priceLineVisible: false,
-//            topColor: "rgba(255, 59, 48, 0.5)",
-//            bottomColor: "rgba(255, 59, 48, 0.0)",
-//            lineColor: "rgba(255, 59, 48, 1.0)",
-//            lineWidth: .one
-//        )
         
         let areaSeries = chart.addAreaSeries(options: options)
         

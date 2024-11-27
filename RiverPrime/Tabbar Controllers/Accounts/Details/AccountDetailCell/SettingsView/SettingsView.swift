@@ -31,8 +31,8 @@ class SettingsView: UIView {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-                
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool, let _name = savedUserData["name"] as? String  {
+                self.lbl_acctUserName.text = _name
                 self.lbl_accountNumber.text = "#\(loginID)"
                 self.lbl_loginID.text = "\(loginID)"
                 
@@ -48,7 +48,7 @@ class SettingsView: UIView {
                 }
                 if accountType == "Pro Account" {
                     self.lbl_accountGroup.text = " PRO "
-                  
+                    
                 }else if accountType == "Prime Account" {
                     self.lbl_accountGroup.text = " PRIME "
                     
@@ -85,5 +85,30 @@ class SettingsView: UIView {
         
     }
     
-    
+    @IBAction func addCustomName(_ sender: Any) {
+        
+        Alert.showTextFieldAlertView(message: "Please enter your name", placeholder: "enter custom name", completion: { textFieldInput in
+            if let name = textFieldInput {
+                //                    self.userName = name
+                print("User entered: \(name)")
+                //                    self.customNameBtn.setTitle(name, for: .normal)
+                self.lbl_acctUserName.text = name
+            } else {
+                print("No input provided")
+            }
+        }, on: self)
+        
+    }
+}
+extension UIView {
+    func parentViewController() -> UIViewController? {
+        var responder: UIResponder? = self
+        while responder != nil {
+            responder = responder?.next
+            if let viewController = responder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
 }

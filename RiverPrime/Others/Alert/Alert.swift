@@ -72,6 +72,31 @@ public class Alert {
         alertController.addAction(okAction)
         vc?.present(alertController, animated: true, completion: nil)
     }
+    public static func showTextFieldAlertView(
+        message: String,
+        placeholder: String,
+        completion: ((_ textFieldInput: String?) -> Void)? = nil,
+        on view: UIView
+    ) {
+        guard let viewController = view.parentViewController() else {
+            print("No parent UIViewController found for the view.")
+            return
+        }
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+           alertController.addTextField { textField in
+               textField.placeholder = placeholder
+           }
+           let confirmAction = UIAlertAction(title: "Confirm", style: .default) { _ in
+               let inputText = alertController.textFields?.first?.text
+               completion?(inputText)
+           }
+           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+
+           alertController.addAction(confirmAction)
+           alertController.addAction(cancelAction)
+
+           viewController.present(alertController, animated: true, completion: nil)
+    }
     //============ Alerts ============
     // Present the alert view controller
     public static func showAlert(withMessage Message: String?, andTitle Title: String?, OKButtonText: String? = "OK", on vc: UIViewController?) {
