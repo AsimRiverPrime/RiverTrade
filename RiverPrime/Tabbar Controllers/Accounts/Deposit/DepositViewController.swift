@@ -61,6 +61,8 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(with: ProfileTopTableViewCell.self, for: indexPath)
                 cell.lbl_title.text = "Deposit"
+                cell.imageIcon.isHidden = true
+                cell.btn_edit.isHidden = true
                 cell.delegate = self
 //                cell.view_profileComplete.isHidden = true
 //               let hieght = cell.bounds.height

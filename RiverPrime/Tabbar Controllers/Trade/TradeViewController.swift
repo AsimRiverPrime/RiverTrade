@@ -122,7 +122,8 @@ class TradeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+
         //MARK: - Call Symbol Api and their delegate method to get data.
 //        odooClientService.sendSymbolDetailRequest()
 //        odooClientService.tradeSymbolDetailDelegate = self
@@ -164,6 +165,18 @@ class TradeViewController: UIViewController {
         accountData()
         
     }
+  
+        
+        @objc func notificationPopup(_ notification: NSNotification) {
+            
+            if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+                print("Received ammount: \(ammount)")
+                self.labelAmmount.text = "$\(ammount)"
+            }
+            
+        }
+        
+    
     
     override func viewDidDisappear(_ animated: Bool) {
         timer?.invalidate()
@@ -489,8 +502,8 @@ extension TradeViewController: GetSocketMessages {
                            let indexPath = IndexPath(row: index, section: 0)
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                getSymbolData[index].isTickFlag = true
-                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
-                             
+//                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, label: cell.lblAmount)
                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                                var oldBid =  Double()
                                
@@ -526,8 +539,8 @@ extension TradeViewController: GetSocketMessages {
                                    
                                    cell.options = AreaSeriesOptions(
                                     priceLineVisible: false,
-                                    topColor: "rgba(76, 175, 80, 0.5)",
-                                    bottomColor: "rgba(76, 175, 80, 0)",
+                                    topColor: "rgba(76, 175, 80, 0.6)",
+                                    bottomColor: "rgba(76, 175, 80, 0.3)",
                                     lineColor: "rgba(76, 175, 80, 1)",
                                     lineWidth: .one
                                    )
@@ -539,8 +552,8 @@ extension TradeViewController: GetSocketMessages {
                                    //MARK: - Update options -> Red
                                    cell.options = AreaSeriesOptions(
                                     priceLineVisible: false,
-                                    topColor: "rgba(255, 0, 0, 0.5)",
-                                    bottomColor: "rgba(255, 0, 0, 0)",
+                                    topColor: "rgba(255, 0, 0, 0.6)",
+                                    bottomColor: "rgba(255, 0, 0, 0.3)",
                                     lineColor: "rgba(255, 0, 0, 1)",
                                     lineWidth: .one
                                    )

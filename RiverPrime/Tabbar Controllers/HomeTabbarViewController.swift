@@ -416,7 +416,7 @@ extension HomeTabbarViewController: GetSocketData {
                                            let volume = Double(openData[i].volume) / 10000
                                            let contractSize = Double(symbolContractSize)!
                                            
-                                           profitLoss = (bid - priceOpen) * volume * contractSize
+//                                           profitLoss = (bid - priceOpen) * volume * contractSize
                                            if openData[i].action == 1 {
                                                profitLoss = (priceOpen - bid) * volume * contractSize
                                            }else {
@@ -438,9 +438,10 @@ extension HomeTabbarViewController: GetSocketData {
                                            if GlobalVariable.instance.isAccountCreated {
                                                // Safely unwrap the profit value
 //                                               let getProfit = Double(roundValue) ?? 0.0
+                                              
                                                let getProfit = Double(item.profit)
                                                print("getProfit \(index) = \(getProfit)")
-                                               
+                                              
                                                return total + getProfit
                                            }
                                            

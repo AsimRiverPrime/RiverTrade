@@ -22,31 +22,31 @@
                         <rect key="frame" x="15" y="5" width="526" height="77"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="V7L-rY-AAm">
-                                <rect key="frame" x="5" y="17.666666666666668" width="35" height="33.666666666666657"/>
+                                <rect key="frame" x="5" y="16.666666666666668" width="45" height="43.666666666666657"/>
                                 <color key="tintColor" systemColor="systemGray2Color"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="ISi-Z7-UmD"/>
-                                    <constraint firstAttribute="height" constant="35" id="RuY-af-bzd"/>
+                                    <constraint firstAttribute="width" constant="45" id="ISi-Z7-UmD"/>
+                                    <constraint firstAttribute="height" constant="45" id="RuY-af-bzd"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gQg-vP-S0o">
-                                <rect key="frame" x="45" y="20.666666666666668" width="24" height="14.333333333333332"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <rect key="frame" x="54.999999999999993" y="29.666666666666664" width="29.666666666666664" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BitCoin vs US Dollar" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-cw-JIT">
-                                <rect key="frame" x="45" y="36" width="211" height="12"/>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BitCoin vs US Dollar" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeP-cw-JIT">
+                                <rect key="frame" x="55.000000000000007" y="48.666666666666664" width="96.666666666666686" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.4941176471" green="0.50980392159999999" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I7e-X0-e2j">
-                                <rect key="frame" x="271" y="18.666666666666671" width="157.66666666666663" height="40"/>
+                                <rect key="frame" x="197.33333333333337" y="13.666666666666671" width="184" height="50"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Rbs-8V-QOp"/>
+                                    <constraint firstAttribute="height" constant="50" id="Rbs-8V-QOp"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80Z-zi-xwL">
@@ -56,37 +56,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cek-6i-93a">
-                                <rect key="frame" x="504.66666666666663" y="41.666666666666664" width="10" height="10"/>
+                                <rect key="frame" x="504.66666666666663" y="41.666666666666664" width="10" height="13"/>
                                 <color key="tintColor" systemColor="systemGreenColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="10" id="80U-iJ-jnp"/>
+                                    <constraint firstAttribute="height" constant="13" id="80U-iJ-jnp"/>
                                     <constraint firstAttribute="width" constant="10" id="WMP-kb-ng7"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-2B-0cG">
-                                <rect key="frame" x="516" y="46.666666666666664" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                <rect key="frame" x="516" y="48.333333333333336" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.086274509799999996" green="0.098039215690000001" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="gQg-vP-S0o" firstAttribute="centerY" secondItem="V7L-rY-AAm" secondAttribute="centerY" multiplier="0.8" id="0GP-wo-HIF"/>
+                            <constraint firstItem="gQg-vP-S0o" firstAttribute="centerY" secondItem="V7L-rY-AAm" secondAttribute="centerY" id="0GP-wo-HIF"/>
                             <constraint firstItem="hZQ-2B-0cG" firstAttribute="leading" secondItem="cek-6i-93a" secondAttribute="trailing" constant="1.5" id="1mM-lf-aOq"/>
                             <constraint firstItem="I7e-X0-e2j" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="2ZW-CO-cw5"/>
-                            <constraint firstItem="V7L-rY-AAm" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" multiplier="0.9" id="5gV-PL-R79"/>
+                            <constraint firstItem="V7L-rY-AAm" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="5gV-PL-R79"/>
                             <constraint firstItem="cek-6i-93a" firstAttribute="top" secondItem="80Z-zi-xwL" secondAttribute="bottom" constant="5" id="9Dh-xo-Jvv"/>
                             <constraint firstItem="eeP-cw-JIT" firstAttribute="top" secondItem="gQg-vP-S0o" secondAttribute="bottom" constant="1" id="A3h-Yv-Cz2"/>
                             <constraint firstItem="eeP-cw-JIT" firstAttribute="leading" secondItem="gQg-vP-S0o" secondAttribute="leading" id="HIf-2m-j9M"/>
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="leading" secondItem="V7L-rY-AAm" secondAttribute="trailing" constant="5" id="Jdu-Y3-39a"/>
                             <constraint firstItem="V7L-rY-AAm" firstAttribute="leading" secondItem="EL4-mf-eee" secondAttribute="leading" constant="5" id="SEK-2N-KvF"/>
-                            <constraint firstItem="I7e-X0-e2j" firstAttribute="centerX" secondItem="EL4-mf-eee" secondAttribute="centerX" multiplier="1.33" id="Tuo-II-FgL"/>
-                            <constraint firstItem="I7e-X0-e2j" firstAttribute="leading" secondItem="eeP-cw-JIT" secondAttribute="trailing" constant="15" id="WIQ-EJ-ila"/>
+                            <constraint firstItem="I7e-X0-e2j" firstAttribute="centerX" secondItem="EL4-mf-eee" secondAttribute="centerX" multiplier="1.1" id="Tuo-II-FgL"/>
                             <constraint firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" constant="10" id="a0d-bi-c5D"/>
                             <constraint firstItem="hZQ-2B-0cG" firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" id="gV5-No-Xiw"/>
                             <constraint firstItem="80Z-zi-xwL" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" multiplier="0.8" id="jCV-9y-FeK"/>
-                            <constraint firstItem="I7e-X0-e2j" firstAttribute="width" secondItem="EL4-mf-eee" secondAttribute="width" multiplier="0.3" id="yxN-c9-jBQ"/>
+                            <constraint firstItem="I7e-X0-e2j" firstAttribute="width" secondItem="EL4-mf-eee" secondAttribute="width" multiplier="0.35" id="yxN-c9-jBQ"/>
                             <constraint firstItem="cek-6i-93a" firstAttribute="centerY" secondItem="hZQ-2B-0cG" secondAttribute="centerY" id="zQJ-eO-tiJ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>

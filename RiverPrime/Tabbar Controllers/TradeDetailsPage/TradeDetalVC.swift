@@ -26,7 +26,7 @@ class TradeDetalVC: UIViewController {
     //    var webSocket : WebSocket!
     
     @IBOutlet weak var view_liveValue: UIView!
-    private var chart: LightweightCharts!
+    private var chart: LightweightCharts?
     private var series: CandlestickSeries!
     private var candlestickData: [CandlestickData] = []
     
@@ -65,8 +65,11 @@ class TradeDetalVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //        connectHistoryWebSocket()
-        self.chartView.backgroundColor = .clear
+//        self.chartView.backgroundColor = .clear
+
+        
         self.view_chartType.isHidden = true
+        
         setDefaultStyles()
         
         symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
@@ -159,6 +162,7 @@ class TradeDetalVC: UIViewController {
         super.viewDidDisappear(animated)
         //        disconnectWebSocket()
     }
+   
     
     @IBAction func menuButton(_ sender: UIButton) {
         addTopAndBottomBorders(menuButton[sender.tag])

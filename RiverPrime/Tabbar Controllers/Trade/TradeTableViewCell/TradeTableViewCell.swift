@@ -31,18 +31,98 @@ class TradeTableViewCell: UITableViewCell {
         self.graphView.isUserInteractionEnabled = false
         graphView.backgroundColor = .clear
         
-//        // Set a dark background view behind the chart to avoid flickering
-//        darkBackground = UIView()
-//        darkBackground?.backgroundColor = UIColor.black // Dark background
-//        darkBackground?.frame = graphView.bounds
-//        darkBackground?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        graphView.addSubview(darkBackground!)
-//        graphView.sendSubviewToBack(darkBackground!) // Send the dark background to back
+        // Set a dark background view behind the chart to avoid flickering
+        darkBackground = UIView()
+        darkBackground?.backgroundColor = UIColor.black // Dark background
+        darkBackground?.frame = graphView.bounds
+        darkBackground?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        graphView.addSubview(darkBackground!)
+        graphView.sendSubviewToBack(darkBackground!) // Send the dark background to back
         
         // Initially hide the chart
         graphView.isHidden = true
     }
-   
+    
+    func setStyledLabel(value: Double, label: UILabel) {
+        // Convert the value to a string with up to 5 decimal places
+        let valueString = String(format: "%.5f", value).trimmingCharacters(in: .whitespaces)
+        
+        // Split the value into integer and decimal parts
+        let parts = valueString.split(separator: ".")
+        
+        let integerPart = String(parts[0]) + "."
+        var decimalPart = String(parts[1])
+      
+        // Remove trailing zeros from the decimal part
+        while decimalPart.last == "0" {
+            decimalPart.removeLast()
+        }
+        
+        if decimalPart.isEmpty {
+            decimalPart = "0"  
+        }
+        // Attributes for normal and bold text
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15),
+            .foregroundColor: UIColor.white
+        ]
+        let boldAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 20),
+            .foregroundColor: UIColor.white
+        ]
+        
+        let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
+        
+        if decimalPart.count == 0 {
+            decimalPart = "0"
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        }else if decimalPart.count == 1 {
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        }else if decimalPart.count == 2 {
+            // For 2 digits, make the entire decimal part bold
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        } else if decimalPart.count == 3 {
+            // For 3 digits: First 2 normal, last one normal
+            let firstTwoDigits = String(decimalPart.prefix(2))
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: boldAttributes))
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        } else if decimalPart.count == 4 {
+            // For 4 digits: First 1 normal, middle 2 bold, last 1 normal
+            let firstDigit = String(decimalPart.prefix(1))
+            let middleDigits = String(decimalPart.dropFirst(1).prefix(2)) // Middle 2 digits
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            // Add the first digit as normal
+            attributedText.append(NSAttributedString(string: firstDigit, attributes: normalAttributes))
+            
+            // Add the middle 2 digits as bold
+            attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
+            
+            // Add the last digit as normal
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        } else if decimalPart.count >= 5 {
+            // For 5 or more digits: First 2 normal, middle bold, last normal
+            let firstTwoDigits = String(decimalPart.prefix(2))
+            let middleDigits = String(decimalPart.dropFirst(2).dropLast())
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            // Add the first two digits as normal
+            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: normalAttributes))
+            
+            // Add the middle digits as bold
+            if !middleDigits.isEmpty {
+                attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
+            }
+            
+            // Add the last digit as normal
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        }
+            // Set to label
+            label.attributedText = attributedText
+        
+    }
     // This function is used to configure the cell based on trades and symbol data.
     class func cellForTableView(_ tableView: UITableView, atIndexPath indexPath: IndexPath, trades: [TradeDetails]) -> TradeTableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTableViewCell", for: indexPath) as? TradeTableViewCell else {
@@ -64,7 +144,8 @@ class TradeTableViewCell: UITableViewCell {
     // Function to configure the cell's UI and chart based on trade data.
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
         lblCurrencySymbl.text = trade.symbol
-        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
+//        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
+        setStyledLabel(value: trade.bid, label: lblAmount)
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             lblCurrencyName.text = symbol.description
@@ -92,8 +173,8 @@ class TradeTableViewCell: UITableViewCell {
         if !isChartCreated {  // Check if the chart hasn't been created yet
             // Create chart and apply options only once
             chart = LightweightCharts()
-            chart?.backgroundColor = UIColor.black // Set chart background color to black
-            graphView.backgroundColor = UIColor.black
+            chart?.backgroundColor = UIColor.clear // Set chart background color to black
+            graphView.backgroundColor = UIColor.clear
             
             // Initially hide the chart while it's being setup
             chart?.isHidden = true
@@ -108,7 +189,7 @@ class TradeTableViewCell: UITableViewCell {
             
             // Chart options (e.g., hiding axis, gridlines, etc.)
             let chartOptions = ChartOptions(
-                layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor.black))),
+                layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)))),
                 rightPriceScale: VisiblePriceScaleOptions(visible: false),
                 timeScale: TimeScaleOptions(visible: false),
                 grid: GridOptions(

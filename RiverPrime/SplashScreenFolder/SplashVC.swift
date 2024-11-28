@@ -18,7 +18,7 @@ class SplashVC: UIViewController {
 //        self.gifImage.image = UIImage.gif(name: "Logo")
         self.gifImage.image = UIImage.gif(name: "Logo")
         do {
-            let imageData = try Data(contentsOf: Bundle.main.url(forResource: "Logo", withExtension: ".gif")!)
+            let imageData = try Data(contentsOf: Bundle.main.url(forResource: "Logo1", withExtension: ".gif")!)
             self.gifImage.image = UIImage.gif(data: imageData)
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 let appDelegate = UIApplication.shared.delegate as! AppDelegate

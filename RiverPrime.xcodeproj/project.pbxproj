@@ -277,6 +277,7 @@
 		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
+		31E522E62CF859B2001D4050 /* Logo1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31E522E52CF859B2001D4050 /* Logo1.gif */; };
 		31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B2B2C7C96FD00BBB126 /* Logo.gif */; };
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
@@ -637,6 +638,7 @@
 		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
+		31E522E52CF859B2001D4050 /* Logo1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo1.gif; sourceTree = "<group>"; };
 		31F29B2B2C7C96FD00BBB126 /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		31F29B302C7C9B5D00BBB126 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
@@ -1763,6 +1765,7 @@
 				31F29B302C7C9B5D00BBB126 /* SplashVC.swift */,
 				31F29B322C7C9B6300BBB126 /* SwiftGif.h */,
 				31F29B2B2C7C96FD00BBB126 /* Logo.gif */,
+				31E522E52CF859B2001D4050 /* Logo1.gif */,
 				31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */,
 				31F29B372C7CA72000BBB126 /* SplashVC.xib */,
 				FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */,
@@ -2309,6 +2312,7 @@
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
 				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
+				31E522E62CF859B2001D4050 /* Logo1.gif in Resources */,
 				31710CE12CE322160082AB28 /* Main.storyboard in Resources */,
 				FA10ECD02CE6A23F00C1980F /* Poppins-BlackItalic.ttf in Resources */,
 				FA10ECC82CE6A23F00C1980F /* Poppins-ThinItalic.ttf in Resources */,
@@ -2862,6 +2866,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "River Trade";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "We need access to NFC to scan NFC-enabled documents and tags.";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";
@@ -2906,6 +2911,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "River Trade";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "We need access to NFC to scan NFC-enabled documents and tags.";
 				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "We need Bluetooth access to connect with nearby devices.";

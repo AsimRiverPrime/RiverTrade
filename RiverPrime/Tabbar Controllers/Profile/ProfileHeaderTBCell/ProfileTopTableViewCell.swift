@@ -26,6 +26,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var imageIcon: UIImageView!
     
+    @IBOutlet weak var btn_edit: UIButton!
     @IBOutlet weak var lbl_profile: UILabel!
     
     @IBOutlet weak var btn_completeProfile: UIButton!
@@ -37,17 +38,39 @@ class ProfileTopTableViewCell: BaseTableViewCell {
         super.awakeFromNib()
         // Initialization code
         checkProfileStatus()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
+
     }
- 
+    @objc func updateProfileData(_ notification: Notification) {
+           // Retrieve the user info dictionary from the notification
+           if let userInfo = notification.userInfo {
+               if let updatedImage = userInfo["profileImage"] as? UIImage {
+                   imageIcon.image = updatedImage
+               }
+               if let updatedName = userInfo["userName"] as? String {
+                   lbl_title.text = updatedName
+               }
+           }
+       }
+       
+       deinit {
+           // Remove observer when the view controller is deallocated
+           NotificationCenter.default.removeObserver(self, name: Notification.Name("UpdateProfileData"), object: nil)
+       }
     
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["name"] as? String, let _image = savedUserData["profileImageURL"] as? String {
+            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["name"] as? String {
                 
-                let imageUrl = URL(string: _image)
-                imageIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "avatarIcon"))
-               
+                if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),
+                   let savedImage = UIImage(data: imageData) {
+                    imageIcon.image = savedImage
+                }else{
+                    imageIcon.image = UIImage(named: "avatarIcon")
+                }
+                
+                
                 lbl_title.text = _name
                 
                 if realAccount == true {
@@ -78,6 +101,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     
     @IBAction func completeBtnAction(_ sender: UIButton) {
         delegate?.didTapCompleteProfileButtonInCell()
+        
     }
     
 }

@@ -6291,7 +6291,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8i4-0j-r9e">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8i4-0j-r9e" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="5" y="102" width="404" height="45"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="SjE-X0-Y4y">
@@ -6342,6 +6342,17 @@
                                                     <constraint firstAttribute="trailing" secondItem="SjE-X0-Y4y" secondAttribute="trailing" constant="2" id="bfU-V3-zrP"/>
                                                     <constraint firstItem="SjE-X0-Y4y" firstAttribute="leading" secondItem="8i4-0j-r9e" secondAttribute="leading" constant="2" id="d19-1h-8lb"/>
                                                 </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sKD-vs-Rfr" customClass="LightweightCharts" customModule="LightweightCharts">
                                                 <rect key="frame" x="5" y="159" width="404" height="403"/>
@@ -6477,7 +6488,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="ygG-oz-TzV"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zh2-iX-ugr">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zh2-iX-ugr">
                                                 <rect key="frame" x="5" y="609" width="404" height="150"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="27e-aj-aX9">

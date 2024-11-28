@@ -85,7 +85,7 @@ class KYCViewController: BaseViewController {
                 // Ensure the async SDK method is called on the main thread
               await  iPassSDKManger.startScanningProcess(
                     userEmail: "it@salaminv.com",
-                    flowId: 10015,
+                    flowId: 10032,
                     socialMediaEmail: "Asimprime900@gmail.com",
                     phoneNumber: "+971561606314",
                     controller: self,

@@ -143,10 +143,21 @@ class TicketVC: BottomSheetController {
         updateUIBasedOnSelectedPrice()
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         fetchSymbolDetail()
+    }
+    @objc func notificationPopup(_ notification: NSNotification) {
+        
+        if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+            print("Received ammount: \(ammount)")
+            self.lbl_totalBalance.text = "$\(ammount)"
+        }
+        
     }
     
     func fetchSymbolDetail() {
