@@ -399,7 +399,7 @@ extension TradeVC: GetSocketMessages {
                            let indexPath = IndexPath(row: index, section: 2)
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                getSymbolData[index].isTickFlag = true
-                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
+//                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                              
                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                                var oldBid =  Double()

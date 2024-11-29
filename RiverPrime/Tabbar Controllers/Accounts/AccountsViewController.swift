@@ -56,6 +56,7 @@ class AccountsViewController: BaseViewController {
     @IBOutlet weak var labelAmmount: UILabel!
     @IBOutlet weak var tblView: UITableView!
 //    var model: [String] = ["Open","Pending","Close","image"]
+    @IBOutlet weak var lbl_amountPercent: UILabel!
     
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
@@ -96,26 +97,6 @@ class AccountsViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
-        
-        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
-            view_topHeader.isHidden = false
-            view_depositWithdraw.isHidden = false
-            view_CreateNewAcct.isHidden = true
-            self.tblView.isHidden = false
-            self.tradeTypeCollectionView.isHidden = false
-            tblView.registerCells([
-                /*AccountTableViewCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
-            ])
-        } else { //MARK: - if no account exist.
-            view_topHeader.isHidden = true
-            view_depositWithdraw.isHidden = true
-            view_CreateNewAcct.isHidden = false
-            self.tblView.isHidden = true
-            self.tradeTypeCollectionView.isHidden = true
-            tblView.registerCells([
-                /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, */CreateAccountTVCell.self, Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
-            ])
-        }
         
         tblView.delegate = self
         tblView.dataSource = self
@@ -239,7 +220,25 @@ class AccountsViewController: BaseViewController {
     func dashboardDatainit() {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
-        
+        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+            view_topHeader.isHidden = false
+            view_depositWithdraw.isHidden = false
+            view_CreateNewAcct.isHidden = true
+            self.tblView.isHidden = false
+            self.tradeTypeCollectionView.isHidden = false
+            tblView.registerCells([
+                /*AccountTableViewCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
+            ])
+        } else { //MARK: - if no account exist.
+            view_topHeader.isHidden = true
+            view_depositWithdraw.isHidden = true
+            view_CreateNewAcct.isHidden = false
+            self.tblView.isHidden = false
+            self.tradeTypeCollectionView.isHidden = false
+            tblView.registerCells([
+                /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, CreateAccountTVCell.self*/ Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
+            ])
+        }
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
@@ -305,7 +304,10 @@ class AccountsViewController: BaseViewController {
         let vc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
         self.navigate(to: vc)
     }
-    
+    @IBAction func profileBtnAction_CreateNewAcct(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+        self.navigate(to: vc)
+    }
     
     @IBAction func depositAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
@@ -466,6 +468,7 @@ extension AccountsViewController {
            // Perform necessary updates
            print("Add account success & notification received!")
 //            setAccountsButton()
+        dashboardDatainit()
     }
 //    deinit {
 //           NotificationCenter.default.removeObserver(self, name: NSNotification.Name("apiSuccessNotification"), object: nil)
@@ -1236,6 +1239,7 @@ extension AccountsViewController: GetSocketMessages {
                             var _totalProfitOpenClose = totalProfitOpenClose
                             _totalProfitOpenClose = 0.0
                             var profitLoss = Double()
+                            var roundValue = String()
                             //MARK: - Get All Matched Symbols data and Set accordingly.
                             
                             for i in 0...openData.count-1 {
@@ -1243,6 +1247,7 @@ extension AccountsViewController: GetSocketMessages {
                                 //                                   let myIndexPath = IndexPath(row: i, section: 3)
                                 let myIndexPath = IndexPath(row: i, section: 1)
                                 print("my current index \(myIndexPath)")
+                              
                                 
                                 if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
                                     if GlobalVariable.instance.isAccountCreated {
@@ -1275,12 +1280,12 @@ extension AccountsViewController: GetSocketMessages {
                                                 cell.lbl_profitValue.textColor = .systemGreen
                                                 
                                             }
-                                            let roundValue = String(format: "%.3f", profitLoss)
+                                             roundValue = String(format: "%.2f", profitLoss)
                                             
                                             cell.lbl_profitValue.text = "\(roundValue)"
                                             
-                                            let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                            cell.lbl_currentPrice.text = "\(bidValuess)"
+                                            let bidValuess = getSymbolData[index].tickMessage?.bid ?? 0.0 //String(format: "%.2f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+                                            cell.lbl_currentPrice.text = "$\(bidValuess)"
                                         }
                                         
                                     }else{
@@ -1302,7 +1307,7 @@ extension AccountsViewController: GetSocketMessages {
                                         cell.isHidden = false
                                         
                                         // Safely unwrap the profit value
-                                        let getProfit = Double(cell.lbl_profitValue.text ?? "0.0") ?? 0.0
+                                        let getProfit = Double(cell.lbl_profitValue.text ?? "") ?? 0.0
                                         print("getProfit \(index) = \(getProfit)")
                                         
                                         return total + getProfit
@@ -1322,7 +1327,7 @@ extension AccountsViewController: GetSocketMessages {
                             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                                 totalCell.detailTextLabel?.isHidden = false
                                 totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                                totalCell.detailTextLabel?.text = String(format: "%.2f", totalProfitOpenClose) + " USD"
+                                totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
                                 if totalProfitOpenClose < 0.0 {
                                     totalCell.detailTextLabel?.textColor = .systemRed
                                 }else{
@@ -1428,13 +1433,15 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
         cell.lbl_tradetype.text = model[indexPath.row]
             if indexPath.row == selectedIndex {
 //            cell.selectedColorView.isHidden = false
-                cell.backgroundColor = .systemYellow
+                cell.backgroundColor = .clear
                 cell.layer.cornerRadius = 15.0
-                cell.lbl_tradetype.textColor = .black
+                cell.lbl_tradetype.textColor = .systemYellow
+                cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 16)
         }else{
 //            cell.selectedColorView.isHidden = true
             cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
+            cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15) 
         }
         if indexPath.row == model.count-1 {
             cell.sepratorView.isHidden = true
@@ -1443,7 +1450,7 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
             cell.lbl_tradetype.isHidden = true
        
         } else {
-            cell.sepratorView.isHidden = false
+            cell.sepratorView.isHidden = true
             cell.refreshImage.isHidden = true
             cell.refreshImageButton.isHidden = true
             cell.lbl_tradetype.isHidden = false
@@ -1481,7 +1488,7 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
         
         // For iPhone (portrait or landscape), use a smaller item size
         if GlobalVariable.instance.isIphone() { // iPhone typically has a screen width less than 768 points
-            return CGSize(width: data.count + 80, height: 40)
+            return CGSize(width: data.count + 80, height: 25)
         } else {
 //            // For iPad (larger screen), adjust the item size to fit more data
 //            // You can experiment with the values to suit your needs

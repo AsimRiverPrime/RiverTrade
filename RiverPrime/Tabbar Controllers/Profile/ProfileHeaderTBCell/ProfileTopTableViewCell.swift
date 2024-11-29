@@ -30,6 +30,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     @IBOutlet weak var lbl_profile: UILabel!
     
     @IBOutlet weak var btn_completeProfile: UIButton!
+    @IBOutlet weak var lbl_completeProfile: UILabel!
     
     weak var delegate: CompleteProfileButtonDelegate?
     weak var editDelegate: ProfileEditButtonDelegate?
@@ -84,6 +85,8 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                     self.lbl_progressPercent.text = "100%"
                     btn_completeProfile.isUserInteractionEnabled = false
                     btn_completeProfile.setTitle("Profile Completed", for: .normal)
+                    self.btn_completeProfile.isHidden = true
+                    lbl_completeProfile.text = "Profile Completed"
                 }
             }
         }

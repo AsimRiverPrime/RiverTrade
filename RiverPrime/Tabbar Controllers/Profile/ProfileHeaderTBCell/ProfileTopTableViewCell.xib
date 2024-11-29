@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
-                                <rect key="frame" x="65" y="23" width="64" height="24.333333333333329"/>
+                                <rect key="frame" x="65" y="23" width="56.333333333333343" height="24.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -137,6 +137,7 @@
                 <outlet property="btn_completeProfile" destination="3bw-SY-Tdq" id="8n8-Xl-tMT"/>
                 <outlet property="btn_edit" destination="7bO-qy-ou1" id="Ld9-yN-V7N"/>
                 <outlet property="imageIcon" destination="TZp-2y-AMB" id="BJa-Ja-pew"/>
+                <outlet property="lbl_completeProfile" destination="d2j-0h-25G" id="mp8-xf-iNX"/>
                 <outlet property="lbl_profile" destination="fUb-Pq-J4V" id="BI3-Gn-3fo"/>
                 <outlet property="lbl_progressPercent" destination="DEV-A4-RIW" id="oIE-p1-C2Z"/>
                 <outlet property="lbl_title" destination="qFh-nM-Xbm" id="1pA-xl-CdR"/>

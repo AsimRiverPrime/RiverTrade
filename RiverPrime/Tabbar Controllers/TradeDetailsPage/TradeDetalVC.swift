@@ -74,7 +74,7 @@ class TradeDetalVC: UIViewController {
         
         symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
         //        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
-        lblAmount.text = "\(getSymbolData.tickMessage?.bid ?? 0.0) \(getSymbolData.tickMessage?.symbol ?? "")"
+//        lblAmount.text = "\(getSymbolData.tickMessage?.bid ?? 0.0) \(getSymbolData.tickMessage?.symbol ?? "")"
         lblPercent.text = "$\(getSymbolData.tickMessage?.bid ?? 0.0)"
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == symbolName.text}) {

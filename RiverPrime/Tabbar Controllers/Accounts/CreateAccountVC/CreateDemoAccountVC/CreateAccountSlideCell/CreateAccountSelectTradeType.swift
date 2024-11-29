@@ -17,6 +17,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var mainTitle: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     
+    @IBOutlet weak var img_ProRibbon: UIImageView!
     @IBOutlet weak var lbl_Spread: UILabel!
     @IBOutlet weak var lbl_leverage: UILabel!
     @IBOutlet weak var lbl_commission: UILabel!
@@ -93,30 +94,32 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
     private func getIndexValues(counter: Int) {
         
         if counter == 0 {
-            mainTitle.text = "PRO"
+            mainTitle.text = "PRO Account"
             lbl_Spread.text = "Floating/ As low as 1 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$0"
             lbl_miniDeposit.text = "$20"
             lbl_swap.text = "Free"
             lbl_stopOutLevel.text = "20%"
-            
+            img_ProRibbon.isHidden = false
         } else if counter == 1 {
-            mainTitle.text = "PRIME"
+            mainTitle.text = "PRIME Account"
             lbl_Spread.text = "Floating/ As low as 0 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$6"
             lbl_miniDeposit.text = "$250"
             lbl_swap.text = "Free"
             lbl_stopOutLevel.text = "20%"
+            img_ProRibbon.isHidden = true
         } else if counter == 2 {
-            mainTitle.text = "PREMIUM"
+            mainTitle.text = "PREMIUM Account"
             lbl_Spread.text = "Floating/ As low as 0 pips"
             lbl_leverage.text = "1:400"
             lbl_commission.text = "$3"
             lbl_miniDeposit.text = "$3000"
             lbl_swap.text = "Free"
             lbl_stopOutLevel.text = "20%"
+            img_ProRibbon.isHidden = true
         }
         
         //MARK: - get selected account values here.

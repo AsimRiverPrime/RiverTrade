@@ -128,6 +128,7 @@ class TicketVC: BottomSheetController {
         selectedVolume = "Lots"
         previousSelectedVolume = selectedVolume
 //        volume = 0.01
+       
         btn_volumeDropdown.setTitle(selectedVolume, for: .normal)
         tf_volume.delegate = self
         
@@ -204,7 +205,7 @@ class TicketVC: BottomSheetController {
             
             if tradeDetail.symbol == getSymbolDetail.tickMessage?.symbol {
                 self.getPriceLiveValue = "\(tradeDetail.bid)"
-                
+               // priceValue = bidValue
                 checkEnable(liveValue: getPriceLiveValue ?? "")
                 
             }
@@ -815,7 +816,12 @@ class TicketVC: BottomSheetController {
             let y = total / Double(contractSize ?? 0)
             volume = y
         }
-        priceValue = Double(self.tf_priceValue.text ?? "")
+        
+        priceValue =  Double(self.tf_priceValue.text ?? "")
+        
+        if priceValue == nil {
+            priceValue = bidValue
+        }
         stopLoss = Double(self.tf_stopLoss.text ?? "") ?? 0
         takeProfit = Double(self.tf_takeProfit.text ?? "") ?? 0
         
@@ -839,10 +845,42 @@ extension TicketVC {
         ActivityIndicator.shared.show(in: self.view, style: .large)
         
         var odooClient = OdooClientNew()
-        
+      
         let url = "https://mbe.riverprime.com/jsonrpc"
-        
-        let parameters: [String: Any] = [
+//        
+//        let parameters: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "method": "call",
+//            "id": 3000,
+//            "params": [
+//                "method": "execute_kw",
+//                "service": "object",
+//                "args": [
+//                    odooClient.dataBaseName, //"mbe.riverprime.com",
+//                    odooClient.uid, //6,
+//                    odooClient.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
+//                    "mt.middleware",
+//                    "create_order",
+//                    [
+//                        [],
+//                        email,
+//                        loginID,
+//                        password,
+//                        symbol,
+//                        type,
+//                        volume,
+//                        price,
+//                        stop_loss,
+//                        take_profit,
+//                        digits,
+//                        digits_currency,
+//                        contract_size,
+//                        comment
+//                    ]
+//                ]
+//            ]
+//        ]
+        let parameters1: [String: Any] = [
             "jsonrpc": "2.0",
             "method": "call",
             "id": 3000,
@@ -850,36 +888,35 @@ extension TicketVC {
                 "method": "execute_kw",
                 "service": "object",
                 "args": [
-                    odooClient.dataBaseName, //"mbe.riverprime.com",
-                    odooClient.uid, //6,
-                    odooClient.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
+                    odooClient.dataBaseName, // Replace with actual database name, e.g., "mbe.riverprime.com"
+                    odooClient.uid, // Replace with actual UID, e.g., 7
+                    odooClient.dbPassword, // Replace with actual password, e.g., "e2d21f3c686bb41e006fbbc940fc809c9841f0be"
                     "mt.middleware",
                     "create_order",
                     [
                         [],
-                        email,
-                        loginID,
-                        password,
-                        symbol,
-                        type,
-                        volume,
-                        price,
-                        stop_loss,
-                        take_profit,
-                        digits,
-                        digits_currency,
-                        contract_size,
-                        comment
+                        email,             // Replace with actual email, e.g., "must00629@gmail.com"
+                        loginID,           // Replace with actual login ID, e.g., 10002233
+                        password,          // Replace with actual password, e.g., "123456aA@"
+                        symbol,            // Replace with actual symbol, e.g., "Gold."
+                        type,              // Replace with actual type, e.g., 0
+                        volume,            // Replace with actual volume, e.g., 0.01
+                        price,             // Replace with actual price, e.g., 2664.12
+                        stop_loss,         // Replace with actual stop-loss value, e.g., 0
+                        take_profit,       // Replace with actual take-profit value, e.g., 0
+                        digits,            // Replace with actual digits, e.g., 2
+                        digits_currency,   // Replace with actual currency digits, e.g., 3
+                        contract_size,     // Replace with actual contract size, e.g., 100
+                        comment            // Replace with actual comment, e.g., "Mobile Call"
                     ]
                 ]
             ]
         ]
-        
-        print("\n parameters : \(parameters)")
+        print("\n parameters : \(parameters1)")
         
         AF.request(url,
                    method: .post,
-                   parameters: parameters,
+                   parameters: parameters1,
                    encoding: JSONEncoding.default,
                    headers: ["Content-Type": "application/json"])
         .validate()
@@ -901,6 +938,8 @@ extension TicketVC {
                             self.ToastMessage(error)
                         }
                     }
+                  
+                        
                 }
                 
             case .failure(let error):

@@ -15,9 +15,13 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var lblCurrencySymbl: UILabel!
     @IBOutlet weak var lblCurrencyName: UILabel!
     @IBOutlet weak var graphView: UIView!
-    @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lbl_bidAmount: UILabel!
     @IBOutlet weak var lblPercent: UILabel!
     @IBOutlet weak var profitIcon: UIImageView!
+    @IBOutlet weak var lbl_askAmount: UILabel!
+    @IBOutlet weak var lbl_pipsValues: UILabel!
+    @IBOutlet weak var lbl_datetime: UILabel!
+    @IBOutlet weak var lbl_pointsDiff: UILabel!
     
     private var chart: LightweightCharts? // Chart reference to keep it persistent
     private var series: AreaSeries? // The chart's area series
@@ -28,6 +32,7 @@ class TradeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.graphView.isHidden = true
         self.graphView.isUserInteractionEnabled = false
         graphView.backgroundColor = .clear
         
@@ -63,11 +68,11 @@ class TradeTableViewCell: UITableViewCell {
         }
         // Attributes for normal and bold text
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15),
+            .font: UIFont.systemFont(ofSize: 18),
             .foregroundColor: UIColor.white
         ]
         let boldAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 20),
+            .font: UIFont.boldSystemFont(ofSize: 26),
             .foregroundColor: UIColor.white
         ]
         
@@ -123,6 +128,29 @@ class TradeTableViewCell: UITableViewCell {
             label.attributedText = attributedText
         
     }
+    func calculatePips(ask: Double, bid: Double) -> Int {
+        // Determine the precision based on the number of decimal places in ask and bid
+        let askDecimalPlaces = countDecimalPlaces(for: ask)
+        let bidDecimalPlaces = countDecimalPlaces(for: bid)
+        
+        // Use the maximum precision of ask and bid
+        let precision = max(askDecimalPlaces, bidDecimalPlaces)
+        
+        // Calculate the factor based on precision
+        let factor = pow(10.0, Double(precision))
+        
+        // Calculate pips
+        let pipsValue = (ask - bid) * factor
+        return Int(round(pipsValue))
+    }
+
+    // Helper function to count decimal places in a number
+    func countDecimalPlaces(for number: Double) -> Int {
+        let numberString = String(format: "%.2f", number) // Max 10 decimal places
+        let components = numberString.split(separator: ".")
+        return components.count > 1 ? components[1].trimmingCharacters(in: .whitespaces).count : 0
+    }
+    
     // This function is used to configure the cell based on trades and symbol data.
     class func cellForTableView(_ tableView: UITableView, atIndexPath indexPath: IndexPath, trades: [TradeDetails]) -> TradeTableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TradeTableViewCell", for: indexPath) as? TradeTableViewCell else {
@@ -145,7 +173,22 @@ class TradeTableViewCell: UITableViewCell {
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
         lblCurrencySymbl.text = trade.symbol
 //        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
-        setStyledLabel(value: trade.bid, label: lblAmount)
+        let pipsValues = calculatePips(ask: trade.ask, bid: trade.bid)
+        self.lbl_pipsValues.text = "\(pipsValues)"
+        
+//        self.lbl_datetime.text = "\(Int64(trade.datetime))"
+        let createDate = Date(timeIntervalSince1970: Double(trade.datetime))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+        
+        self.lbl_datetime.text = datee
+        
+        setStyledLabel(value: trade.bid, label: lbl_bidAmount)
+        setStyledLabel(value: trade.ask, label: lbl_askAmount)
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             lblCurrencyName.text = symbol.description

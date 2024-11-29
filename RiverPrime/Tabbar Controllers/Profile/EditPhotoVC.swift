@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseStorage
+//import FirebaseStorage
 import FirebaseFirestore
 import SDWebImage
 
@@ -16,8 +16,8 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBOutlet weak var tf_username: UITextField!
     
     let imagePicker = UIImagePickerController()
-    let storage = Storage.storage()
-    let firestore = Firestore.firestore()
+//    let storage = Storage.storage()
+//    let firestore = Firestore.firestore()
     let firebase = FirestoreServices()
     var userID : String?
     
@@ -43,8 +43,13 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                
             }
         }
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(tapGesture)
     }
-    
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
     
     @IBAction func editPhoto_action(_ sender: Any) {
         let actionSheet = UIAlertController(title: "Select Image", message: "Choose an image source", preferredStyle: .actionSheet)
@@ -79,6 +84,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                   "userName": username
               ])
 //        uploadImageToFirebaseStorage(image, self.tf_username.text ?? "")
+        self.navigationController?.popViewController(animated: true)
     }
     
     func updateUser() {

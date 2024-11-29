@@ -99,8 +99,6 @@ class TradeViewController: UIViewController {
     var isTimerRunMoreThenOnce = false
     var symbolDataObj: SymbolData?
 
-     
-    
     @IBOutlet weak var labelAmmount: UILabel!
       
     @IBOutlet weak var lbl_account: UILabel!
@@ -165,7 +163,6 @@ class TradeViewController: UIViewController {
         accountData()
         
     }
-  
         
         @objc func notificationPopup(_ notification: NSNotification) {
             
@@ -440,7 +437,7 @@ extension TradeViewController {
 //                           GlobalVariable.instance.isProcessingSymbol = false
                         GlobalVariable.instance.isProcessingSymbolTimer = false
 //                            cell.configureChart(getSymbolData: getSymbolData[index])
-                        cell.configureChart(getSymbolData: responseData)
+//                        cell.configureChart(getSymbolData: responseData)
                     }
                
                     return
@@ -503,7 +500,23 @@ extension TradeViewController: GetSocketMessages {
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                getSymbolData[index].isTickFlag = true
 //                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
-                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, label: cell.lblAmount)
+                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, label: cell.lbl_bidAmount)
+                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.ask ?? 0.0, label: cell.lbl_askAmount)
+                              
+                              
+                               let pipsValues = cell.calculatePips(ask: (getSymbolData[index].tickMessage?.ask ?? 0.0), bid: (getSymbolData[index].tickMessage?.bid ?? 0.0))
+                               cell.lbl_pipsValues.text = "\(pipsValues)"
+                              
+                               let createDate = Date(timeIntervalSince1970: Double(getSymbolData[index].tickMessage?.datetime ?? 0))
+                             
+                               let dateFormatter = DateFormatter()
+                               dateFormatter.dateFormat = "hh:mm:ss"// "dd:MM:yyyy"
+                               dateFormatter.timeZone = .current
+                               
+                               let datee = dateFormatter.string(from: createDate)
+                               
+                               cell.lbl_datetime.text = datee
+                               
                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                                var oldBid =  Double()
                                
@@ -517,12 +530,14 @@ extension TradeViewController: GetSocketMessages {
                                let percentageChange = (diff / oldBid) * 100
                                let newValue = (percentageChange * 100.0) / 100.0
                                let percent = String(newValue).trimmedTrailingZeros()
-                               print("\n new value is: \(newValue)")
+                               
+                              
+                               print("\n new value is: \(newValue) \n the different in points: \(diff)")
                                
 //                               double diff = newBid - oldBid;
 //                               double percentageChange = (diff / oldBid) * 100;
 //                               return Math.round(percentageChange * 100.0) / 100.0;
-                               
+                               cell.lbl_pointsDiff.text = String(format: "%.3f", diff)
                                cell.lblPercent.text = "\(percent) %"
                                
                                if percent.contains("inf") {
@@ -537,26 +552,26 @@ extension TradeViewController: GetSocketMessages {
                                    cell.lblPercent.textColor = .systemGreen
                                    //MARK: - Update options -> Green
                                    
-                                   cell.options = AreaSeriesOptions(
-                                    priceLineVisible: false,
-                                    topColor: "rgba(76, 175, 80, 0.6)",
-                                    bottomColor: "rgba(76, 175, 80, 0.3)",
-                                    lineColor: "rgba(76, 175, 80, 1)",
-                                    lineWidth: .one
-                                   )
+//                                   cell.options = AreaSeriesOptions(
+//                                    priceLineVisible: false,
+//                                    topColor: "rgba(76, 175, 80, 0.6)",
+//                                    bottomColor: "rgba(76, 175, 80, 0.3)",
+//                                    lineColor: "rgba(76, 175, 80, 1)",
+//                                    lineWidth: .one
+//                                   )
                                    
                                } else {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.down")
                                    cell.profitIcon.tintColor = .systemRed
                                    cell.lblPercent.textColor = .systemRed
                                    //MARK: - Update options -> Red
-                                   cell.options = AreaSeriesOptions(
-                                    priceLineVisible: false,
-                                    topColor: "rgba(255, 0, 0, 0.6)",
-                                    bottomColor: "rgba(255, 0, 0, 0.3)",
-                                    lineColor: "rgba(255, 0, 0, 1)",
-                                    lineWidth: .one
-                                   )
+//                                   cell.options = AreaSeriesOptions(
+//                                    priceLineVisible: false,
+//                                    topColor: "rgba(255, 0, 0, 0.6)",
+//                                    bottomColor: "rgba(255, 0, 0, 0.3)",
+//                                    lineColor: "rgba(255, 0, 0, 1)",
+//                                    lineWidth: .one
+//                                   )
                                    
                                }
                                
@@ -875,6 +890,16 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeCVCCollectionViewCell", for: indexPath) as! TradeCVCCollectionViewCell
         cell.backgroundColor = .clear
+       
+//        if indexPath.item == 0 {
+//                // Configure the cell for "currency"
+//                cell.textLabel?.text = "currency" // Replace with your label or property
+//            } else {
+//                // Configure the cell with data from symbolDataSector
+//                let item = symbolDataSector[indexPath.item - 1]
+//                cell.textLabel?.text = item // Replace with your actual property
+//            }
+        
         cell.lbl_tradetype.textColor = UIColor(red: 94/255.0, green: 98/255.0, blue: 120/255.0, alpha: 1.0)
 //        cell.selectedColorView.isHidden = true
 //        let data = model[indexPath.row].name
@@ -883,19 +908,21 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
        
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
-            cell.backgroundColor = .systemYellow
-            cell.layer.cornerRadius = 15.0
-            cell.lbl_tradetype.textColor = .black
+            cell.backgroundColor = .clear
+//            cell.layer.cornerRadius = 15.0
+            cell.lbl_tradetype.textColor = .systemYellow
+            cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 18)
         }else{
             cell.selectedColorView.isHidden = true
             cell.lbl_tradetype.textColor = UIColor(red: 94/255.0, green: 98/255.0, blue: 120/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
+            cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 16)
         }
        
         if indexPath.row == symbolDataSector.count-1 {
             cell.sepratorView.isHidden = true
         } else {
-            cell.sepratorView.isHidden = false
+            cell.sepratorView.isHidden = true
         }
         return cell
     }

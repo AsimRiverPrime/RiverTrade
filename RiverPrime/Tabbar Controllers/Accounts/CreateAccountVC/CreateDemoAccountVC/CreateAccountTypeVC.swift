@@ -37,7 +37,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     var getSelectedAccountType = GetSelectedAccountType()
     
-    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
+//    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
     
     var  group = String()
     var demoAccountGroup = String()
@@ -45,7 +45,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UserDefaults.standard.set(aesPasswordKey, forKey: "passwordKey")
+//        UserDefaults.standard.set(aesPasswordKey, forKey: "passwordKey")
         setSelectedAccountValues()
         
         odooClientService.createUserAcctDelegate = self
@@ -101,10 +101,10 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
        
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
         
-        if self.lbl_accountTitle.text == "Pro Account" {
+        if self.lbl_accountTitle.text == "PRO Account" {
              group = "demo\\RP\\PRO"
             demoAccountGroup = "PRO"
-        }else if self.lbl_accountTitle.text == "Prime Account" {
+        }else if self.lbl_accountTitle.text == "PRIME Account" {
              group = "demo\\RP\\Prime"
             demoAccountGroup = "PRIME"
         }else {

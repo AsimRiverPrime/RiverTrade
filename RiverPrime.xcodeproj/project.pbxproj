@@ -116,6 +116,8 @@
 		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
 		3184F0832CAE8C3600BC1479 /* AccountOPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */; };
+		3186F8A52CF995BB000E7AFE /* Logo1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A42CF995BB000E7AFE /* Logo1.gif */; };
+		3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A62CF9FDB4000E7AFE /* Logo.gif */; };
 		3188EF3C2CCBA395002F47BA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188EF3B2CCBA395002F47BA /* RoundedButton.swift */; };
 		318CBF8F2C4E77F900C9B34D /* ResultVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 318CBF8E2C4E77F900C9B34D /* ResultVC.xib */; };
 		318CBF912C4E781500C9B34D /* ResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318CBF902C4E781500C9B34D /* ResultVC.swift */; };
@@ -277,8 +279,6 @@
 		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
-		31E522E62CF859B2001D4050 /* Logo1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31E522E52CF859B2001D4050 /* Logo1.gif */; };
-		31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B2B2C7C96FD00BBB126 /* Logo.gif */; };
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B372C7CA72000BBB126 /* SplashVC.xib */; };
@@ -475,6 +475,8 @@
 		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
+		3186F8A42CF995BB000E7AFE /* Logo1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo1.gif; sourceTree = "<group>"; };
+		3186F8A62CF9FDB4000E7AFE /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		3188EF3B2CCBA395002F47BA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		318CBF8E2C4E77F900C9B34D /* ResultVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResultVC.xib; sourceTree = "<group>"; };
 		318CBF902C4E781500C9B34D /* ResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultVC.swift; sourceTree = "<group>"; };
@@ -638,8 +640,6 @@
 		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
-		31E522E52CF859B2001D4050 /* Logo1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo1.gif; sourceTree = "<group>"; };
-		31F29B2B2C7C96FD00BBB126 /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		31F29B302C7C9B5D00BBB126 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
 		31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
@@ -1764,8 +1764,8 @@
 			children = (
 				31F29B302C7C9B5D00BBB126 /* SplashVC.swift */,
 				31F29B322C7C9B6300BBB126 /* SwiftGif.h */,
-				31F29B2B2C7C96FD00BBB126 /* Logo.gif */,
-				31E522E52CF859B2001D4050 /* Logo1.gif */,
+				3186F8A42CF995BB000E7AFE /* Logo1.gif */,
+				3186F8A62CF9FDB4000E7AFE /* Logo.gif */,
 				31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */,
 				31F29B372C7CA72000BBB126 /* SplashVC.xib */,
 				FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */,
@@ -2306,13 +2306,13 @@
 				FA99B5BA2C59A87E00DD4F6D /* SummaryTradingActivityCell.xib in Resources */,
 				319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */,
 				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
+				3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */,
 				FA10ECC72CE6A23F00C1980F /* Poppins-ExtraLight.ttf in Resources */,
 				FA10ECD42CE6A23F00C1980F /* Poppins-Bold.ttf in Resources */,
 				FA10ECD52CE6A23F00C1980F /* Poppins-Black.ttf in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
 				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
-				31E522E62CF859B2001D4050 /* Logo1.gif in Resources */,
 				31710CE12CE322160082AB28 /* Main.storyboard in Resources */,
 				FA10ECD02CE6A23F00C1980F /* Poppins-BlackItalic.ttf in Resources */,
 				FA10ECC82CE6A23F00C1980F /* Poppins-ThinItalic.ttf in Resources */,
@@ -2347,13 +2347,13 @@
 				3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				FA10ECD82CE6A23F00C1980F /* Poppins-Italic.ttf in Resources */,
 				3102120C2CE4D44A0064F6EF /* incomeExpenseTVCell.xib in Resources */,
+				3186F8A52CF995BB000E7AFE /* Logo1.gif in Resources */,
 				3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */,
 				FA10ECCC2CE6A23F00C1980F /* Poppins-Medium.ttf in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */,
 				FA10ECCA2CE6A23F00C1980F /* Poppins-BoldItalic.ttf in Resources */,
-				31F29B2C2C7C96FD00BBB126 /* Logo.gif in Resources */,
 				315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */,
 				31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */,
 				FA10ECCF2CE6A23F00C1980F /* Poppins-ExtraBold.ttf in Resources */,
@@ -2887,7 +2887,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RiverPrime.RiverTrade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2932,7 +2932,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RiverPrime.RiverTrade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
