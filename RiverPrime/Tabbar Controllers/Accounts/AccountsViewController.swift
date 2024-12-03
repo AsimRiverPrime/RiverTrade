@@ -106,6 +106,8 @@ class AccountsViewController: BaseViewController {
         
         accountData()
         
+        GlobalVariable.instance.lastSelectedOPCIndex = IndexPath(row: 0, section: 0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -117,23 +119,59 @@ class AccountsViewController: BaseViewController {
         delegateOPCNavigation = self
         delegateCollectionView = self
         
+        if let tabBarController = self.tabBarController as? HomeTabbarViewController {
+            tabBarController.delegateSocketMessage = self
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
+        
+        callCollectionViewAtStart()
+        
+    }
     
-    NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
+    private func callCollectionViewAtStart() {
+        
+        let indexPath = GlobalVariable.instance.lastSelectedOPCIndex //IndexPath(row: 0, section: 0)
+        
+        //if let cell = tradeTypeCollectionView.cellForItem(at: indexPath) {
+        //if tradeTypeCollectionView.cellForItem(at: indexPath) != nil {
+        if tradeTypeCollectionView.cellForItem(at: indexPath) != nil {
+            selectedIndex = indexPath.row
 
-}
-@objc func updateProfileData(_ notification: Notification) {
-       // Retrieve the user info dictionary from the notification
-       if let userInfo = notification.userInfo {
-           if let updatedImage = userInfo["profileImage"] as? UIImage {
-               userImage.image = updatedImage
-               image_createNew.image = updatedImage
-           }
-           if let updatedName = userInfo["userName"] as? String {
-               lbl_name.text = updatedName
-               lbl_userNameCreateNew.text = updatedName
-           }
-       }
-   }
+            if indexPath.row != model.count-1 {
+                fetchPositions(index: indexPath.row)
+            }
+            
+            tradeTypeCollectionView.reloadData()
+        }
+        
+//        //if let cell = tradeTVCCollectionView.cellForItem(at: indexPath) {
+//        //if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
+//        if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
+//            // Scroll to the selected item
+//            tradeTVCCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+//            
+//            let data = symbolDataSector[indexPath.row]
+//            selectedIndex = indexPath.row
+//            self.delegate?.tradeInfoTap(data, index: indexPath.row)
+//            tradeTVCCollectionView.reloadData()
+//        }
+        
+    }
+    
+    @objc func updateProfileData(_ notification: Notification) {
+        // Retrieve the user info dictionary from the notification
+        if let userInfo = notification.userInfo {
+            if let updatedImage = userInfo["profileImage"] as? UIImage {
+                userImage.image = updatedImage
+                image_createNew.image = updatedImage
+            }
+            if let updatedName = userInfo["userName"] as? String {
+                lbl_name.text = updatedName
+                lbl_userNameCreateNew.text = updatedName
+            }
+        }
+    }
    
     @IBAction func createNewAccount_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
@@ -248,28 +286,28 @@ class AccountsViewController: BaseViewController {
                 profileStep = profileStep1
                 GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
                
-                let password = UserDefaults.standard.string(forKey: "password")
-                if password == nil && isCreateDemoAccount == true {
-                    showPopup()
-                }else{
-                    print("the password is: \(password ?? "")")
-                    
-                    let getbalanceApi = TradeTypeCellVM()
-                    getbalanceApi.getBalance(completion: { response in
-                        print("response of get balance: \(response)")
-                        if response == "Invalid Response" {
-                            self.balance = "0.0"
-                            return
-                        }
-                        self.balance = response
-                        GlobalVariable.instance.balanceUpdate = self.balance
-                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
-                    
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-
-                    })
-                }
+//                let password = UserDefaults.standard.string(forKey: "password")
+//                if password == nil && isCreateDemoAccount == true {
+//                    showPopup()
+//                }else{
+//                    print("the password is: \(password ?? "")")
+//                    
+//                    let getbalanceApi = TradeTypeCellVM()
+//                    getbalanceApi.getBalance(completion: { response in
+//                        print("response of get balance: \(response)")
+//                        if response == "Invalid Response" {
+//                            self.balance = "0.0"
+//                            return
+//                        }
+//                        self.balance = response
+//                        GlobalVariable.instance.balanceUpdate = self.balance
+//                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+//                    
+//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+//
+//                    })
+//                }
             }
         }
        
@@ -399,14 +437,21 @@ extension AccountsViewController {
             print("Received string: \(receivedString)")
             if receivedString == "Open" {
                 DispatchQueue.global(qos: .background).async { [weak self] in
-                    self?.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
+                    guard let self = self else { return }
+                    
+                    self.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
                         DispatchQueue.main.async {
                             if let error = error {
                                 print("Error fetching positions: \(error)")
                                 // Handle the error (e.g., show an alert)
                             } else if let positions = openData {
                                 
-                                self?.delegateCollectionView?.getOPCData(opcType: .open(positions))
+                                GlobalVariable.instance.openSymbolList.removeAll()
+                                
+                                let symbols = positions.map { self.getSymbol(item: $0.symbol) }
+                                GlobalVariable.instance.openSymbolList = symbols
+                                
+                                self.delegateCollectionView?.getOPCData(opcType: .open(positions))
                                 
                             }
                         }
@@ -816,7 +861,7 @@ extension AccountsViewController: OPCDelegate {
         tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
-        webSocketManager.delegateSocketMessage = self
+//        webSocketManager.delegateSocketMessage = self
         webSocketManager.delegateSocketPeerClosed = self
         
         //MARK: - unsubscribeTrade first.
@@ -830,8 +875,12 @@ extension AccountsViewController: OPCDelegate {
         
         let symbolList = getFormattedSymbols(opcType: opcType)
         GlobalVariable.instance.previouseSymbolList = symbolList
+        
+        //MARK: - Merge OPEN list with the given list.
+        let getList = Array(Set(GlobalVariable.instance.openSymbolList + symbolList)) //GlobalVariable.instance.openSymbolList + symbolList
+        
         //MARK: - START calling Socket message from here.
-        webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: symbolList)
+        webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
         
         
     }
@@ -1462,6 +1511,8 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
 
+            GlobalVariable.instance.lastSelectedOPCIndex = indexPath
+            
             if indexPath.row != model.count-1 {
                 fetchPositions(index: indexPath.row)
             }
@@ -1517,15 +1568,22 @@ extension AccountsViewController {
       
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
-                self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
+                guard let self = self else { return }
+                
+                self.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
                     DispatchQueue.main.async {
                         if let error = error {
                             print("Error fetching positions: \(error)")
                             // Handle the error (e.g., show an alert)
                         } else if let positions = openData {
 //
+                            GlobalVariable.instance.openSymbolList.removeAll()
+                            
+                            let symbols = positions.map { self.getSymbol(item: $0.symbol) }
+                            GlobalVariable.instance.openSymbolList = symbols
+                            
                             GlobalVariable.instance.openList = positions
-                            self?.delegateCollectionView?.getOPCData(opcType: .open(positions))
+                            self.delegateCollectionView?.getOPCData(opcType: .open(positions))
                             
                         }
                     }

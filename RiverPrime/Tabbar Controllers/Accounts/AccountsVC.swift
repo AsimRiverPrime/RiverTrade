@@ -407,7 +407,7 @@ extension AccountsVC: OPCDelegate {
         tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
-        webSocketManager.delegateSocketMessage = self
+//        webSocketManager.delegateSocketMessage = self
         webSocketManager.delegateSocketPeerClosed = self
         
         //MARK: - unsubscribeTrade first.
@@ -789,7 +789,7 @@ extension AccountsVC: GetSocketMessages {
                    } else {
                        print("Socket is not connected")
                        //MARK: - START SOCKET.
-                       webSocketManager.delegateSocketMessage = self
+//                       webSocketManager.delegateSocketMessage = self
                        webSocketManager.connectWebSocket()
                    }
                    

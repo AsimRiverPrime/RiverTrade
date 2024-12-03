@@ -120,48 +120,138 @@ class TradeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        dashboardinit()
+        GlobalVariable.instance.lastSelectedSectorIndex = IndexPath(row: 0, section: 0)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if let tabBarController = self.tabBarController as? HomeTabbarViewController {
+            tabBarController.delegateSocketMessage = self
+        }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationTradeApiUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.TradeApiUpdateConstant.key), object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
 
-        //MARK: - Call Symbol Api and their delegate method to get data.
-//        odooClientService.sendSymbolDetailRequest()
-//        odooClientService.tradeSymbolDetailDelegate = self
-        //MARK: - if Symbol Api data is exist then we must set our list data.
-        if GlobalVariable.instance.symbolDataArray.count != 0 {
-            //MARK: - Get the list and save localy and set sectors and symbols.
-            processSymbols(GlobalVariable.instance.symbolDataArray)
+        callCollectionViewAtStart()
+        
+    }
+    
+    private func callCollectionViewAtStart() {
+        
+        let indexPath = GlobalVariable.instance.lastSelectedSectorIndex //IndexPath(row: 0, section: 0)
+        
+        //if let cell = tradeTVCCollectionView.cellForItem(at: indexPath) {
+        //if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
+        if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
+            // Scroll to the selected item
+            tradeTVCCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
             
-            //MARK: - Reload tablview when all data set into the list at first time.
-            self.tblView.reloadData()
+            let data = symbolDataSector[indexPath.row]
+            selectedIndex = indexPath.row
+            self.delegate?.tradeInfoTap(data, index: indexPath.row)
+            tradeTVCCollectionView.reloadData()
         }
-        //MARK: - START SOCKET and call delegate method to get data from socket.
-        vm.webSocketManager.delegateSocketMessage = self
-        vm.webSocketManager.delegateSocketPeerClosed = self
-//        vm.webSocketManager.connectWebSocket()
         
-        isTimerRunMoreThenOnce = false
+    }
+    
+    @objc func notificationTradeApiUpdate(_ notification: NSNotification) {
         
-//        //MARK: - Handle tableview constraints according to the device logical height.
-//        //        setTableViewLayoutConstraints()
-//        setTableViewLayoutTopConstraints()
-        
-        tblView.registerCells([
-            /*AccountTableViewCell.self,TradeTVC.self, */TradeTableViewCell.self
-        ])
-        
-        tblView.delegate = self
-        tblView.dataSource = self
-        
-        delegate = self
-        config(GlobalVariable.instance.sectors)
-        
-        delegateDetail = self
+        if let update = notification.userInfo?[NotificationObserver.Constants.TradeApiUpdateConstant.title] as? String {
+            print("update: \(update)")
+            
+            if update == "TradeApiUpdate" {
+                
+//                //MARK: - Call Symbol Api and their delegate method to get data.
+//        //        odooClientService.sendSymbolDetailRequest()
+//        //        odooClientService.tradeSymbolDetailDelegate = self
+//                //MARK: - if Symbol Api data is exist then we must set our list data.
+//                if GlobalVariable.instance.symbolDataArray.count != 0 {
+//                    //MARK: - Get the list and save localy and set sectors and symbols.
+//                    processSymbols(GlobalVariable.instance.symbolDataArray)
+//                    
+//                    //MARK: - Reload tablview when all data set into the list at first time.
+//                    self.tblView.reloadData()
+//                }
+                //MARK: - START SOCKET and call delegate method to get data from socket.
+        //        vm.webSocketManager.delegateSocketMessage = self
+                vm.webSocketManager.delegateSocketPeerClosed = self
+        //        vm.webSocketManager.connectWebSocket()
+                
+                isTimerRunMoreThenOnce = false
+                
+        //        //MARK: - Handle tableview constraints according to the device logical height.
+        //        //        setTableViewLayoutConstraints()
+        //        setTableViewLayoutTopConstraints()
+                
+                tblView.registerCells([
+                    /*AccountTableViewCell.self,TradeTVC.self, */TradeTableViewCell.self
+                ])
+                
+                tblView.delegate = self
+                tblView.dataSource = self
+                
+                //MARK: - if Symbol Api data is exist then we must set our list data.
+                if GlobalVariable.instance.symbolDataArray.count != 0 {
+                    //MARK: - Get the list and save localy and set sectors and symbols.
+                    processSymbols(GlobalVariable.instance.symbolDataArray)
+                    
+                    //MARK: - Reload tablview when all data set into the list at first time.
+                    self.tblView.reloadData()
+                }
+                
+                delegate = self
+                config(GlobalVariable.instance.sectors)
+                
+                delegateDetail = self
 
-        tradeTVCCollectionView.delegate = self
-        tradeTVCCollectionView.dataSource = self
-        tradeTVCCollectionView.register(UINib(nibName: "TradeCVCCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeCVCCollectionViewCell")
+                tradeTVCCollectionView.delegate = self
+                tradeTVCCollectionView.dataSource = self
+                tradeTVCCollectionView.register(UINib(nibName: "TradeCVCCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeCVCCollectionViewCell")
 
-        accountData()
+                accountData()
+                
+            }
+            
+        }
         
+    }
+    
+    private func dashboardinit() {
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            // Access specific values from the dictionary
+            
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+//                profileStep = profileStep1
+                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+               
+                let password = UserDefaults.standard.string(forKey: "password")
+                if password == nil && isCreateDemoAccount == true {
+                    showPopup()
+                }else{
+                    print("the password is: \(password ?? "")")
+                    
+                    let getbalanceApi = TradeTypeCellVM()
+                    getbalanceApi.getBalance(completion: { response in
+                        print("response of get balance: \(response)")
+                        if response == "Invalid Response" {
+//                            self.balance = "0.0"
+                            return
+                        }
+//                        self.balance = response
+                        GlobalVariable.instance.balanceUpdate = response //self.balance
+                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate/*self.balance*/])
+                    
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+
+                    })
+                }
+            }
+        }
     }
         
         @objc func notificationPopup(_ notification: NSNotification) {
@@ -248,6 +338,29 @@ class TradeViewController: UIViewController {
     }
     
 
+}
+
+extension TradeViewController {
+    
+    func showPopup() {
+        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+        
+        // Replace "PopupViewController" with the actual identifier of your popup view controller
+        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+            // Set modal presentation style
+            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+            
+            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            popupVC.view.alpha = 0
+            // Optional: Set modal transition style (this is for animation)
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.metaTraderType = .Balance
+            
+            // Present the popup
+            self.present(popupVC, animated: true, completion: nil)
+        }
+    }
+    
 }
 
 extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -620,7 +733,7 @@ extension TradeViewController: GetSocketMessages {
                } else {
                    print("Socket is not connected")
                    //MARK: - START SOCKET.
-                   vm.webSocketManager.delegateSocketMessage = self
+//                   vm.webSocketManager.delegateSocketMessage = self
                    vm.webSocketManager.connectWebSocket()
                }
                
@@ -868,8 +981,11 @@ extension TradeViewController {
         //MARK: - Save symbol local to unsubcibe.
         GlobalVariable.instance.previouseSymbolList = selectedSymbols
         
+        //MARK: - Merge OPEN list with the given list.
+        let getList = Array(Set(GlobalVariable.instance.openSymbolList + selectedSymbols)) //GlobalVariable.instance.openSymbolList + selectedSymbols
+        
         //MARK: - START calling Socket message from here.
-        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
+        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
         
         timer?.invalidate()
         timer = nil
@@ -933,6 +1049,7 @@ extension TradeViewController: UICollectionViewDelegate, UICollectionViewDataSou
             
             let data = symbolDataSector[indexPath.row]
             selectedIndex = indexPath.row
+            GlobalVariable.instance.lastSelectedSectorIndex = indexPath
             self.delegate?.tradeInfoTap(data, index: indexPath.row)
             collectionView.reloadData()
         }

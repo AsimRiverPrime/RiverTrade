@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -36,8 +36,8 @@
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
-                        <segue destination="J1E-BY-wh7" kind="relationship" relationship="viewControllers" id="wN7-2K-UVi"/>
                         <segue destination="Zza-jt-nQm" kind="relationship" relationship="viewControllers" id="SBl-HY-uL5"/>
+                        <segue destination="J1E-BY-wh7" kind="relationship" relationship="viewControllers" id="wN7-2K-UVi"/>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="u24-4k-jeC"/>
                         <segue destination="2st-27-2TI" kind="relationship" relationship="viewControllers" id="WVJ-Ag-ZDM"/>
                     </connections>
@@ -159,7 +159,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9aN-jc-kmL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3374.8091603053435" y="493.66197183098592"/>
+            <point key="canvasLocation" x="2527" y="494"/>
         </scene>
         <!--Home-->
         <scene sceneID="fw2-4k-mdw">
@@ -609,7 +609,7 @@
                                                         <rect key="frame" x="292" y="0.0" width="71" height="64"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="e5M-UT-S6r">
-                                                                <rect key="frame" x="5.6666666666666856" y="1.0658141036401503e-14" width="60" height="43.666666666666657"/>
+                                                                <rect key="frame" x="5.6666666666666856" y="0.33333333333334281" width="60" height="43.666666666666671"/>
                                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="cYi-eX-55f"/>
@@ -908,7 +908,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KXb-VB-Vp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2533.5877862595421" y="493.66197183098592"/>
+            <point key="canvasLocation" x="3334" y="494"/>
         </scene>
         <!--Results-->
         <scene sceneID="pxO-9W-0ve">
@@ -3258,7 +3258,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-rJ-PbB">
-                                        <rect key="frame" x="20" y="134" width="293" height="137.66666666666663"/>
+                                        <rect key="frame" x="20" y="134.33333333333337" width="293" height="137.66666666666669"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Document Verification" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwf-mA-Qci">
@@ -3667,6 +3667,14 @@
             <point key="canvasLocation" x="-318.32061068702291" y="1045.0704225352113"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="MKk-8Q-e06">
+            <size key="intrinsicContentSize" width="106.33333333333333" height="34.333333333333336"/>
+        </designable>
+        <designable name="c6e-s8-3tf">
+            <size key="intrinsicContentSize" width="123.33333333333333" height="34.333333333333336"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Growth" width="52" height="52"/>
         <image name="Teamwork" width="25" height="25"/>

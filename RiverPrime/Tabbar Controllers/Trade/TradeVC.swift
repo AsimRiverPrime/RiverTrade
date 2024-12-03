@@ -100,7 +100,7 @@ class TradeVC: UIView {
             self.tblView.reloadData()
         }
         //MARK: - START SOCKET and call delegate method to get data from socket.
-        vm.webSocketManager.delegateSocketMessage = self
+//        vm.webSocketManager.delegateSocketMessage = self
         vm.webSocketManager.delegateSocketPeerClosed = self
 //        vm.webSocketManager.connectWebSocket()
         
@@ -500,7 +500,7 @@ extension TradeVC: GetSocketMessages {
                } else {
                    print("Socket is not connected")
                    //MARK: - START SOCKET.
-                   vm.webSocketManager.delegateSocketMessage = self
+//                   vm.webSocketManager.delegateSocketMessage = self
                    vm.webSocketManager.connectWebSocket()
                }
                

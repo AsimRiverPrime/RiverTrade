@@ -32,10 +32,15 @@ public class NotificationObserver {
             static let title = "title"
         }
         //MARK: - class OPCUpdate
-                struct OPCUpdateConstant {
-                    static let key = "opcUpdate"
-                    static let title = "title"
-                }
+        struct OPCUpdateConstant {
+            static let key = "opcUpdate"
+            static let title = "title"
+        }
+        //MARK: - class OPCUpdate
+        struct TradeApiUpdateConstant {
+            static let key = "tradeApiUpdate"
+            static let title = "title"
+        }
     }
 
     func postNotificationObserver(key: String, dict: [String: Any]) {

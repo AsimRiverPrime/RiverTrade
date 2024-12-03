@@ -43,7 +43,7 @@ class WebSocketManager: WebSocketDelegate {
     private init() {}
     
     public weak var delegateSocketData: GetSocketData?
-    public weak var delegateSocketMessage: GetSocketMessages?
+//    public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateCandleSocketMessage: GetCandleData?
     public weak var delegateSocketPeerClosed: SocketPeerClosed?
     
@@ -456,7 +456,7 @@ class WebSocketManager: WebSocketDelegate {
     func handleTradeData(_ response: TradeDetails) {
         
         delegateSocketData?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
-        delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
+//        delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
         NotificationCenter.default.post(name: .tradesUpdated, object: response)
         
     }
@@ -467,7 +467,7 @@ class WebSocketManager: WebSocketDelegate {
         print("Received history data: \(response)")
         
         delegateSocketData?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
-        delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
+//        delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
         
         delegateCandleSocketMessage?.tradeHistoryUpdates(socketMessageType: .history, historyMessage: response)
       
@@ -481,7 +481,7 @@ class WebSocketManager: WebSocketDelegate {
         }
         
         delegateSocketData?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
-        delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
+//        delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
     }
 
     // Handle errors

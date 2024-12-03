@@ -42,6 +42,9 @@ class GlobalVariable: NSObject {
     
     var symbolDataArray: [SymbolData] = []
     
+    var lastSelectedSectorIndex = IndexPath()
+    var lastSelectedOPCIndex = IndexPath()
+    
     var changeSector = Bool()
     var resultTopButtonType = String()
     var isProcessingSymbol: Bool = false
@@ -68,6 +71,7 @@ class GlobalVariable: NSObject {
     var isStopTick: Bool = false
     var isStopHistory: Bool = false
     
+    var openSymbolList = [String]()
     var previouseSymbolList = [String]()
     var tempPreviouseSymbolList = [String]()
     
