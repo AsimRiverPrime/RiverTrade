@@ -369,6 +369,18 @@ extension HomeTabbarViewController {
                         // Handle the error (e.g., show an alert)
                     } else if let positions = openData {
                         
+                        //MARK: - START to update values for socket dynamic method at start.
+                        GlobalVariable.instance.openList = positions
+                        
+                        GlobalVariable.instance.getSymbolData.removeAll()
+                        for item in positions {
+                            
+                            let getSymbol = self.getSymbol(item: item.symbol)
+                            
+                            GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+                        }
+                        //MARK: - END to update values for socket dynamic method at start.
+                        
                         GlobalVariable.instance.openSymbolList.removeAll()
                         
                         let symbols = positions.map { self.getSymbol(item: $0.symbol) }
@@ -404,91 +416,485 @@ extension HomeTabbarViewController {
 
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
 extension HomeTabbarViewController: GetSocketData {
+//    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
+//               switch socketMessageType {
+//               case .tick:
+//                   var  roundValue = String()
+//                   //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
+//                   if let getTick = tickMessage {
+////                       let openData = GlobalVariable.instance.openList
+//                       
+//                       if let index = GlobalVariable.instance.getSymbolData.firstIndex(where: { /*print("$0.symbol = \(getSymbol(item: $0.symbol))"); print("getTick.symbol = \(getTick.symbol)"); return*/ getSymbol(item: $0.tickMessage?.symbol ?? "") == getTick.symbol }) {
+//                           GlobalVariable.instance.getSymbolData[index].tickMessage = tickMessage
+//                         
+//                           let openData = GlobalVariable.instance.openList
+//                           if openData.count != 0 {
+//                               var profitLoss = Double()
+//                               var myTPValue = [Double]()
+//                               for i in 0...openData.count-1 {
+////                                   let myIndexPath = IndexPath(row: i, section: 1)
+//                                   
+//                                   let x =  openData[index].symbol.dropLast()
+//                                   if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+//                                       let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+//                                       
+//                                       if GlobalVariable.instance.getSymbolData.count != 0 {
+//                                           let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
+//                                           let priceOpen = Double(openData[i].priceOpen)
+//                                           let volume = Double(openData[i].volume) / 10000
+//                                           let contractSize = Double(symbolContractSize)!
+//                                           
+////                                           profitLoss = (bid - priceOpen) * volume * contractSize
+//                                           if openData[i].action == 1 {
+//                                               profitLoss = (priceOpen - bid) * volume * contractSize
+//                                           }else {
+//                                               profitLoss = (bid - priceOpen) * volume * contractSize
+//                                           }
+//                                           
+////                                           profitLoss = (bid - priceOpen) * volume * contractSize
+//                                           
+//                                           roundValue = String(format: "%.3f", profitLoss)
+////                                           if profitLoss.isNaN {
+////                                               myTPValue.append(profitLoss)
+////                                           }
+//                                           myTPValue.append(profitLoss)
+//                                       }
+//                                       
+//                                       
+////                                       //MARK: - START Set Total P/L
+////
+////                                       let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+////                                           let (index, item) = indexValue
+////                                           let myIndexPath = IndexPath(row: index, section: 1)
+////
+////                                           if GlobalVariable.instance.isAccountCreated {
+////                                               // Safely unwrap the profit value
+//////                                               let getProfit = Double(roundValue) ?? 0.0
+////
+////                                               let getProfit = Double(item.profit)
+////                                               print("getProfit \(index) = \(getProfit)")
+////
+////                                               return total + getProfit
+////                                           }
+////
+////                                           return total
+////                                       }
+////
+////                                       print("Total Profit Open Close: \(totalProfitOpenClose)")
+////
+////                                       //MARK: - END Set Total P/L
+////
+////                                       let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
+////                                       let balance = Double(GlobalVariable.instance.balanceUpdate)
+////
+////                                       if balance == nil {
+////                                           let finalTotal = 0.0
+////
+////                                           let _finalTotal = String(format: "%.2f", finalTotal)
+////
+////                                           NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+////
+////                                       }else{
+////                                           let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
+////
+////                                           let _finalTotal = String(format: "%.2f", finalTotal)
+////
+////                                           NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+////
+////                                       }
+//                                       
+//                                       
+//                                   }
+//                                   
+//                               }
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               //MARK: - START Set Total P/L
+//
+//                               let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+//                                   let (index, item) = indexValue
+//                                   let myIndexPath = IndexPath(row: index, section: 1)
+//
+//                                   if GlobalVariable.instance.isAccountCreated {
+//                                       // Safely unwrap the profit value
+////                                               let getProfit = Double(roundValue) ?? 0.0
+//
+//                                       let getProfit = Double(item.profit)
+//                                       print("getProfit \(index) = \(getProfit)")
+//
+//                                       return total + getProfit
+//                                   }
+//
+//                                   return total
+//                               }
+//
+//                               print("Total Profit Open Close: \(totalProfitOpenClose)")
+//
+//                               //MARK: - END Set Total P/L
+//
+//                               let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
+//                               let balance = Double(GlobalVariable.instance.balanceUpdate)
+//
+//                               if balance == nil {
+//                                   let finalTotal = 0.0
+//
+//                                   let _finalTotal = String(format: "%.2f", finalTotal)
+//
+//                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+//
+//                               }else{
+//                                   let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
+//
+//                                   let _finalTotal = String(format: "%.2f", finalTotal)
+//
+//                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+//
+//                               }
+//                               
+//
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                               
+//                           }
+//                           
+//                       }
+//                        
+////                       if (self.openList.firstIndex(where: { $0.symbol == getTick.symbol }) != nil) {
+////
+////                       }
+//                       
+////                       if let index = self.openList.firstIndex(where: { $0.symbol == getTick.symbol }) {
+////                           getSymbolData[index].tickMessage = tickMessage
+////
+//////                           let indexPath = IndexPath(row: index, section: 2)
+////                           let indexPath = IndexPath(row: index, section: 0)
+////
+////
+////
+////
+////
+////
+////
+////                           totalProfitOpenClose = 0.0
+////                           var profitLoss = Double()
+////                           //MARK: - Get All Matched Symbols data and Set accordingly.
+////
+////                           for i in 0...self.openList.count-1 {
+////
+//////                                   let myIndexPath = IndexPath(row: i, section: 3)
+////                               let myIndexPath = IndexPath(row: i, section: 1)
+////                               print("my current index \(myIndexPath)")
+////
+////                               if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
+////                                   if GlobalVariable.instance.isAccountCreated {
+////                                       cell.isHidden = false
+////
+////                                       if cell.lbl_symbolName.text == self.openList[index].symbol && cell.volume == (Double(self.openList[myIndexPath.row].volume) / 10000) {
+////                                         let x =  self.openList[index].symbol.dropLast()
+////                                           if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+////                                               let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+////
+////                                               let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
+////                                               let priceOpen = Double(openData[myIndexPath.row].priceOpen)
+////                                               let volume = Double(openData[myIndexPath.row].volume) / 10000
+////                                               let contractSize = Double(symbolContractSize)!
+////
+////                                               profitLoss = (bid - priceOpen) * volume * contractSize
+////                                           }
+////
+////                                           if profitLoss < 0.0 {
+////                                               cell.lbl_profitValue.textColor = .systemRed
+////
+////                                           }else{
+////                                               cell.lbl_profitValue.textColor = .systemGreen
+////
+////                                           }
+////                                            roundValue = String(format: "%.3f", profitLoss)
+////
+////                                           cell.lbl_profitValue.text = "$\(roundValue)"
+////
+////                                           let bidValuess = String(format: "%.3f", getSymbolData[index].tickMessage?.bid ?? 0.0)
+////                                           cell.lbl_currentPrice.text = "$\(bidValuess)"
+////                                       }
+////
+////                                   }else{
+////                                       cell.isHidden = true
+////                                   }
+////                               }
+////
+////                           }
+////
+////                       //MARK: - START Set Total P/L
+////
+////                           let totalProfitOpenClose = self.openList.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+////                               let (index, item) = indexValue
+//////                                   let myIndexPath = IndexPath(row: index, section: 3)
+////                               let myIndexPath = IndexPath(row: index, section: 1)
+////
+////                               if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
+////                                   if GlobalVariable.instance.isAccountCreated {
+////                                       cell.isHidden = false
+////
+////                                       // Safely unwrap the profit value
+////                                       let getProfit = Double(roundValue) ?? 0.0
+////                                       print("getProfit \(index) = \(getProfit)")
+////
+////                                       return total + getProfit
+////                                   }
+////                               }
+////
+////                               return total
+////                           }
+////
+////                           print("Total Profit Open Close: \(totalProfitOpenClose)")
+////
+////                           //MARK: - END Set Total P/L
+////
+////
+//////                               let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+////                           let indexPath = IndexPath(row: 0, section: 0)
+////                           if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+////                               totalCell.detailTextLabel?.isHidden = false
+////                               totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+////                               totalCell.detailTextLabel?.text =   "$" + String(format: "%.2f", totalProfitOpenClose)
+////                               if totalProfitOpenClose < 0.0 {
+////                                   totalCell.detailTextLabel?.textColor = .systemRed
+////                               }else{
+////                                   totalCell.detailTextLabel?.textColor = .systemGreen
+////                               }
+////                           }
+////
+////                           let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
+////                           let balance = Double(GlobalVariable.instance.balanceUpdate)
+////
+////                           if balance == nil {
+////                               let finalTotal = 0.0
+////
+////                               let _finalTotal = String(format: "%.2f", finalTotal)
+////
+////                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+////
+////                           }else{
+////                               let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
+////
+////                               let _finalTotal = String(format: "%.2f", finalTotal)
+////
+////                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+////
+////                           }
+////
+////
+////
+////
+////
+////
+////
+////
+////
+////                           return
+////                       }
+//                   }
+//                   
+//                   delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: tickMessage, historyMessage: nil)
+//                   break
+//               case .history:
+//                   
+//                   delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: historyMessage)
+//                   break
+//                   
+//               case .Unsubscribed:
+//                   
+////                   //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
+////
+////                   GlobalVariable.instance.changeSector = true
+////
+////                   //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+////
+////                   if webSocketManager.isSocketConnected() {
+////                       print("Socket is connected")
+////                   } else {
+////                       print("Socket is not connected")
+////                       //MARK: - START SOCKET.
+////                       webSocketManager.delegateSocketMessage = self
+////                       webSocketManager.connectWebSocket()
+////                   }
+//                   
+////                   webSocketManager.delegateSocketData = self
+//                   delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
+//                   break
+//               }
+//           }
+    
     func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
                switch socketMessageType {
                case .tick:
                    var  roundValue = String()
                    //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
                    if let getTick = tickMessage {
-                       let openData = GlobalVariable.instance.openList
+//                       let openData = GlobalVariable.instance.openList
                        
                        if let index = GlobalVariable.instance.getSymbolData.firstIndex(where: { /*print("$0.symbol = \(getSymbol(item: $0.symbol))"); print("getTick.symbol = \(getTick.symbol)"); return*/ getSymbol(item: $0.tickMessage?.symbol ?? "") == getTick.symbol }) {
                            GlobalVariable.instance.getSymbolData[index].tickMessage = tickMessage
-                           
+                         
+                           let openData = GlobalVariable.instance.openList
                            if openData.count != 0 {
-                               var profitLoss = Double()
+////                               var profitLoss = Double()
+////                               var myTPValue = [Double]()
+////                               print("tickMessage = \(tickMessage)\n")
+//                               print("GlobalVariable.instance.getSymbolData = \(GlobalVariable.instance.getSymbolData)\n")
+////                               print("GlobalVariable.instance.symbolDataArray = \(GlobalVariable.instance.symbolDataArray)\n")
+//                               for i in 0...openData.count-1 {
+//                                   print("openData[\(i)] = \(openData[i])")
+//                               }
+                               
+                               var tpValue = [Double]()
+                               tpValue.removeAll()
+                               var total = 0.0
                                for i in 0...openData.count-1 {
-//                                   let myIndexPath = IndexPath(row: i, section: 1)
+                                   //                                   profitLoss += openData[i].profit
+                                   ////                                   total += profitLoss
                                    
-                                   let x =  openData[index].symbol.dropLast()
-                                   if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-                                       let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-                                       
-                                       if GlobalVariable.instance.getSymbolData.count != 0 {
+                                   //                                   let myIndexPath = IndexPath(row: i, section: 1)
+                                   
+                                   //if cell.lbl_symbolName.text == openData[index].symbol && cell.volume == (Double(openData[myIndexPath.row].volume) / 10000) {
+//                                   print("getSymbol(item: tickMessage?.symbol) = \(getSymbol(item: tickMessage?.symbol ?? ""))")
+//                                   print("getSymbol(item: openData[i].symbol) = \(getSymbol(item: openData[i].symbol))\n")
+//                                   print("Double(openData[index].volume / 10000) = \(Double(openData[index].volume / 10000))")
+//                                   print("Double(openData[i].volume) / 10000 = \(Double(openData[i].volume) / 10000)\n")
+                                   if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) /*&& Double(openData[index].volume / 10000) == Double(openData[i].volume) / 10000*/ {
+                                       let x =  openData[index].symbol.dropLast()
+                                       if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+                                           let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+                                           
                                            let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
                                            let priceOpen = Double(openData[i].priceOpen)
                                            let volume = Double(openData[i].volume) / 10000
                                            let contractSize = Double(symbolContractSize)!
                                            
-//                                           profitLoss = (bid - priceOpen) * volume * contractSize
+                                           var profitLoss = (bid - priceOpen) * volume * contractSize
                                            if openData[i].action == 1 {
                                                profitLoss = (priceOpen - bid) * volume * contractSize
-                                           }else {
-                                               profitLoss = (bid - priceOpen) * volume * contractSize
                                            }
                                            
-//                                           profitLoss = (bid - priceOpen) * volume * contractSize
+                                           total += profitLoss
+                                           print("profitLoss = \(profitLoss)\n")
+                                           print("total = \(total)\n")
                                            
-                                           roundValue = String(format: "%.3f", profitLoss)
+                                           tpValue.append(profitLoss)
+                                           
                                        }
-                                       
-                                       
-//                                       //MARK: - START Set Total P/L
+                                   } else {
+                                       tpValue.append(openData[i].profit)
+                                   }
+                               }
+                               
+                               print("tpValue = \(tpValue)\n")
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               //MARK: - START Set Total P/L
+
+//                               let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+//                                   let (index, item) = indexValue
+//                                   let myIndexPath = IndexPath(row: index, section: 1)
 //
-//                                       let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
-//                                           let (index, item) = indexValue
-//                                           let myIndexPath = IndexPath(row: index, section: 1)
-//
-//                                           if GlobalVariable.instance.isAccountCreated {
-//                                               // Safely unwrap the profit value
+//                                   if GlobalVariable.instance.isAccountCreated {
+//                                       // Safely unwrap the profit value
 ////                                               let getProfit = Double(roundValue) ?? 0.0
 //
-//                                               let getProfit = Double(item.profit)
-//                                               print("getProfit \(index) = \(getProfit)")
+//                                       let getProfit = Double(item.profit)
+//                                       print("getProfit \(index) = \(getProfit)")
 //
-//                                               return total + getProfit
-//                                           }
+//                                       return total + getProfit
+//                                   }
 //
-//                                           return total
-//                                       }
-//
-//                                       print("Total Profit Open Close: \(totalProfitOpenClose)")
-//
-//                                       //MARK: - END Set Total P/L
-//
-//                                       let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
-//                                       let balance = Double(GlobalVariable.instance.balanceUpdate)
-//
-//                                       if balance == nil {
-//                                           let finalTotal = 0.0
-//
-//                                           let _finalTotal = String(format: "%.2f", finalTotal)
-//
-//                                           NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
-//
-//                                       }else{
-//                                           let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
-//
-//                                           let _finalTotal = String(format: "%.2f", finalTotal)
-//
-//                                           NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
-//
-//                                       }
-                                       
-                                       
+//                                   return total
+//                               }
+                               
+                               
+                               let totalProfitOpenClose = tpValue.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+                                   let (index, item) = indexValue
+                                   if GlobalVariable.instance.isAccountCreated {
+                                       let getProfit = Double(item)
+                                       print("getProfit \(index) = \(getProfit)")
+                                       return total + getProfit
                                    }
-                                   
+
+                                   return total
                                }
+
+
+                               print("Total Profit Open Close: \(totalProfitOpenClose)")
+
+                               //MARK: - END Set Total P/L
+                               
+//                               let totalProfitOpenClose = total
+
+                               let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
+                               let balance = Double(GlobalVariable.instance.balanceUpdate)
+
+                               if balance == nil {
+                                   let finalTotal = 0.0
+
+                                   let _finalTotal = String(format: "%.2f", finalTotal)
+
+                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+
+                               }else{
+                                   let finalTotal = (totalProfit ?? 0.0) + (balance ?? 0.0)
+
+                                   let _finalTotal = String(format: "%.2f", finalTotal)
+
+                                   NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
+
+                               }
+                               
+
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
+                               
                            }
                            
                        }
@@ -658,7 +1064,6 @@ extension HomeTabbarViewController: GetSocketData {
                    break
                }
            }
-    
     
     private func getSymbol(item: String) -> String {
         

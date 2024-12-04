@@ -1302,6 +1302,11 @@ extension AccountsViewController: GetSocketMessages {
                                     if GlobalVariable.instance.isAccountCreated {
                                         cell.isHidden = false
                                         
+//                                        print("getSymbol(item: tickMessage?.symbol) = \(cell.lbl_symbolName.text))")
+//                                        print("getSymbol(item: openData[i].symbol) = \(openData[index].symbol)\n")
+//                                        print("Double(openData[index].volume / 10000) = \(cell.volume)")
+//                                        print("Double(openData[i].volume) / 10000 = \(Double(openData[myIndexPath.row].volume) / 10000)\n")
+                                        
                                         if cell.lbl_symbolName.text == openData[index].symbol && cell.volume == (Double(openData[myIndexPath.row].volume) / 10000) {
                                             let x =  openData[index].symbol.dropLast()
                                             if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
@@ -1384,6 +1389,7 @@ extension AccountsViewController: GetSocketMessages {
                                 }
                             }
                             
+                            /*
                             let totalProfit = Double(String(format: "%.3f", totalProfitOpenClose))
                             let balance = Double(GlobalVariable.instance.balanceUpdate)
                             
@@ -1402,6 +1408,7 @@ extension AccountsViewController: GetSocketMessages {
                                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
                                 
                             }
+                            */
                             
                         case .pending(let pendingData):
                             

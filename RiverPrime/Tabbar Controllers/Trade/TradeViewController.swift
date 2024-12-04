@@ -268,17 +268,19 @@ class TradeViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         timer?.invalidate()
         timer = nil
-//        if !trade {
-            
-            print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
-            
-            //MARK: - START calling Socket message from here.
-            vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
-            
-            //MARK: - Remove symbol local after unsubcibe.
-            GlobalVariable.instance.previouseSymbolList.removeAll()
-            
-//        }
+        
+////        if !trade {
+//            
+//            print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+//            
+//            //MARK: - START calling Socket message from here.
+//            vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
+//            
+//            //MARK: - Remove symbol local after unsubcibe.
+//            GlobalVariable.instance.previouseSymbolList.removeAll()
+//            
+////        }
+        
     }
     
     func accountData() {
