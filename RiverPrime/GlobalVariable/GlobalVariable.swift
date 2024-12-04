@@ -23,8 +23,8 @@ class GlobalVariable: NSObject {
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
-  
+//    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
+    var dbPassword: String =  "3c0ec26b14366c720cc6cc14b8dd78bd250c803e"
     var uid: Int =  0
     var changeSymbol = Bool()
     var loginID: Int = 0

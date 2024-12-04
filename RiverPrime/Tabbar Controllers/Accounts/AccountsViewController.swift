@@ -39,18 +39,18 @@ protocol OPCDelegate: AnyObject {
 class AccountsViewController: BaseViewController {
     
     @IBOutlet weak var view_topHeader: UIView!
-    @IBOutlet weak var view_depositWithdraw: UIView!
+//    @IBOutlet weak var view_depositWithdraw: UIView!
     @IBOutlet weak var view_CreateNewAcct: UIView!
     
-    @IBOutlet weak var lbl_greetingCreateNew: UILabel!
+//    @IBOutlet weak var lbl_greetingCreateNew: UILabel!
     @IBOutlet weak var image_createNew: UIImageView!
     @IBOutlet weak var lbl_userNameCreateNew: UILabel!
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
-    @IBOutlet weak var lbl_greeting: UILabel!
+//    @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var lbl_account: UILabel!
-    @IBOutlet weak var lbl_MT5: UILabel!
+//    @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
     @IBOutlet weak var labelAmmount: UILabel!
@@ -232,27 +232,27 @@ class AccountsViewController: BaseViewController {
                 lbl_userNameCreateNew.text = _name
                 
                 lbl_account.text = account_type
-                lbl_MT5.text = mt5
+//                lbl_MT5.text = mt5
                 lbl_accountType.text = account_group
                 
             }
         }
-        let currentHour = Calendar.current.component(.hour, from: Date())
-        var greeting = ""
+//        let currentHour = Calendar.current.component(.hour, from: Date())
+//        var greeting = ""
+//
+//        switch currentHour {
+//        case 5..<12:
+//            greeting = "Good Morning,"
+//        case 12..<17:
+//            greeting = "Good Afternoon,"
+//        case 17..<22:
+//            greeting = "Good Evening,"
+//        default:
+//            break
+//        }
 
-        switch currentHour {
-        case 5..<12:
-            greeting = "Good Morning,"
-        case 12..<17:
-            greeting = "Good Afternoon,"
-        case 17..<22:
-            greeting = "Good Evening,"
-        default:
-            break
-        }
-
-        lbl_greeting.text = greeting
-        lbl_greetingCreateNew.text = greeting
+//        lbl_greeting.text = greeting
+//        lbl_greetingCreateNew.text = greeting
     }
     
     func dashboardDatainit() {
@@ -260,7 +260,7 @@ class AccountsViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             view_topHeader.isHidden = false
-            view_depositWithdraw.isHidden = false
+//            view_depositWithdraw.isHidden = false
             view_CreateNewAcct.isHidden = true
             self.tblView.isHidden = false
             self.tradeTypeCollectionView.isHidden = false
@@ -269,7 +269,7 @@ class AccountsViewController: BaseViewController {
             ])
         } else { //MARK: - if no account exist.
             view_topHeader.isHidden = true
-            view_depositWithdraw.isHidden = true
+//            view_depositWithdraw.isHidden = true
             view_CreateNewAcct.isHidden = false
             self.tblView.isHidden = false
             self.tradeTypeCollectionView.isHidden = false
@@ -594,7 +594,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             //            cell.delegate = self
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
-            cell.textLabel?.text = "Total P/L"
+            cell.textLabel?.text = "Total P&L"
             cell.textLabel?.font = .boldSystemFont(ofSize: 16)
             cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros()
             
@@ -1481,13 +1481,13 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
        
         cell.lbl_tradetype.text = model[indexPath.row]
             if indexPath.row == selectedIndex {
-//            cell.selectedColorView.isHidden = false
+//                cell.selectedColorView.isHidden = true
                 cell.backgroundColor = .clear
                 cell.layer.cornerRadius = 15.0
                 cell.lbl_tradetype.textColor = .systemYellow
                 cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 16)
         }else{
-//            cell.selectedColorView.isHidden = true
+//            cell.selectedColorView.isHidden = false
             cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
             cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15) 
@@ -2147,6 +2147,7 @@ extension AccountsViewController: OPCNavigationDelegate {
 //        var greeting = ""
 //
 //        switch currentHour {
+
 //        case 5..<12:
 //            greeting = "Good Morning,"
 //        case 12..<17:

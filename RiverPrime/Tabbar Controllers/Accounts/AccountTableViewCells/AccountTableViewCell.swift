@@ -48,7 +48,7 @@ class AccountTableViewCell: UITableViewCell {
     @IBOutlet weak var viewOfBtnStack: UIView!
       
     @IBOutlet weak var lbl_account: UILabel!
-    @IBOutlet weak var lbl_MT5: UILabel!
+//    @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
 //    @IBOutlet weak var heightOfAccountHeaderView: NSLayoutConstraint!
@@ -197,7 +197,7 @@ class AccountTableViewCell: UITableViewCell {
             viewOfBtnStack.isHidden = false
 //            height_ViewBtnStack.constant = 114 
 //            secondTitle.text = "#\(self.login_Id)"
-            lbl_MT5.text = mt5
+//            lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             
@@ -229,7 +229,7 @@ class AccountTableViewCell: UITableViewCell {
             viewOfBtnStack.isHidden = true
 //            height_ViewBtnStack.constant = 0
 //            secondTitle.text = "#\(self.login_Id)"
-            lbl_MT5.text = mt5
+//            lbl_MT5.text = mt5
             lbl_account.text = self.account_type
             lbl_accountType.text = self.account_group
             

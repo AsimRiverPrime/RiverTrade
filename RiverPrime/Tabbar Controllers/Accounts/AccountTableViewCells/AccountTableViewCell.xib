@@ -446,7 +446,6 @@
                 <outlet property="headerView" destination="8hM-M5-t58" id="Iub-T0-ZOW"/>
                 <outlet property="labelAmmount" destination="BD5-sV-rf5" id="bn4-6W-Qm0"/>
                 <outlet property="labelStack" destination="YAc-Aw-oRW" id="dYB-ze-Orn"/>
-                <outlet property="lbl_MT5" destination="JE1-7k-xi2" id="UJE-Ca-HWN"/>
                 <outlet property="lbl_account" destination="hVC-67-3dm" id="aCD-7e-TU4"/>
                 <outlet property="lbl_accountType" destination="FBj-ZN-rIr" id="rnt-xj-ln4"/>
                 <outlet property="lbl_greeting" destination="rfc-YT-kkK" id="zK9-09-WoT"/>
@@ -465,7 +464,7 @@
         <image name="depositIcon" width="65" height="65"/>
         <image name="detailIcon" width="65" height="65"/>
         <image name="historyIcon" width="65" height="65"/>
-        <image name="notification" width="46" height="52"/>
+        <image name="notification" width="24" height="24"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="uptrendArrow" width="13" height="8"/>
         <image name="withdrawIcon" width="65" height="65"/>

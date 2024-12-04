@@ -30,6 +30,9 @@ class TradeTableViewCell: UITableViewCell {
     var close = Double()
     var options = AreaSeriesOptions()
     
+    var previousValue: Double?
+    var previousValueAsk: Double?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.graphView.isHidden = true
@@ -48,7 +51,26 @@ class TradeTableViewCell: UITableViewCell {
         graphView.isHidden = true
     }
     
-    func setStyledLabel(value: Double, label: UILabel) {
+    func setStyledLabelAsk(value: Double, label: UILabel) {
+      
+        let boldColor: UIColor
+        
+          if let previous = previousValueAsk {
+              if value < previous {
+                  boldColor = .systemRed // Less than previous value
+              } else if value > previous {
+                  boldColor = .systemGreen // Greater than previous value
+              } else {
+                  boldColor = .white // Equal to previous value
+              }
+          } else {
+              boldColor = .white // Default color for the first value
+          }
+          
+          // Update the previousValue for future comparisons
+        previousValueAsk = value
+          
+        
         // Convert the value to a string with up to 5 decimal places
         let valueString = String(format: "%.5f", value).trimmingCharacters(in: .whitespaces)
         
@@ -64,7 +86,7 @@ class TradeTableViewCell: UITableViewCell {
         }
         
         if decimalPart.isEmpty {
-            decimalPart = "0"  
+            decimalPart = "0"
         }
         // Attributes for normal and bold text
         let normalAttributes: [NSAttributedString.Key: Any] = [
@@ -73,7 +95,7 @@ class TradeTableViewCell: UITableViewCell {
         ]
         let boldAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.boldSystemFont(ofSize: 26),
-            .foregroundColor: UIColor.white
+            .foregroundColor: boldColor
         ]
         
         let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
@@ -128,6 +150,108 @@ class TradeTableViewCell: UITableViewCell {
             label.attributedText = attributedText
         
     }
+    
+    func setStyledLabel(value: Double, label: UILabel) {
+      
+        
+        let boldColor: UIColor
+        
+          if let previous = previousValue {
+              if value < previous {
+                  boldColor = .systemRed // Less than previous value
+              } else if value > previous {
+                  boldColor = .systemGreen // Greater than previous value
+              } else {
+                  boldColor = .white // Equal to previous value
+              }
+          } else {
+              boldColor = .white // Default color for the first value
+          }
+          
+          // Update the previousValue for future comparisons
+          previousValue = value
+          
+        
+        // Convert the value to a string with up to 5 decimal places
+        let valueString = String(format: "%.5f", value).trimmingCharacters(in: .whitespaces)
+        
+        // Split the value into integer and decimal parts
+        let parts = valueString.split(separator: ".")
+        
+        let integerPart = String(parts[0]) + "."
+        var decimalPart = String(parts[1])
+      
+        // Remove trailing zeros from the decimal part
+        while decimalPart.last == "0" {
+            decimalPart.removeLast()
+        }
+        
+        if decimalPart.isEmpty {
+            decimalPart = "0"  
+        }
+        // Attributes for normal and bold text
+        let normalAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 18),
+            .foregroundColor: UIColor.white
+        ]
+        let boldAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 26),
+            .foregroundColor: boldColor
+        ]
+        
+        let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
+        
+        if decimalPart.count == 0 {
+            decimalPart = "0"
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        }else if decimalPart.count == 1 {
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        }else if decimalPart.count == 2 {
+            // For 2 digits, make the entire decimal part bold
+            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
+        } else if decimalPart.count == 3 {
+            // For 3 digits: First 2 normal, last one normal
+            let firstTwoDigits = String(decimalPart.prefix(2))
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: boldAttributes))
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        } else if decimalPart.count == 4 {
+            // For 4 digits: First 1 normal, middle 2 bold, last 1 normal
+            let firstDigit = String(decimalPart.prefix(1))
+            let middleDigits = String(decimalPart.dropFirst(1).prefix(2)) // Middle 2 digits
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            // Add the first digit as normal
+            attributedText.append(NSAttributedString(string: firstDigit, attributes: normalAttributes))
+            
+            // Add the middle 2 digits as bold
+            attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
+            
+            // Add the last digit as normal
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        } else if decimalPart.count >= 5 {
+            // For 5 or more digits: First 2 normal, middle bold, last normal
+            let firstTwoDigits = String(decimalPart.prefix(2))
+            let middleDigits = String(decimalPart.dropFirst(2).dropLast())
+            let lastDigit = String(decimalPart.suffix(1))
+            
+            // Add the first two digits as normal
+            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: normalAttributes))
+            
+            // Add the middle digits as bold
+            if !middleDigits.isEmpty {
+                attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
+            }
+            
+            // Add the last digit as normal
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+        }
+            // Set to label
+            label.attributedText = attributedText
+        
+    }
+    
     func calculatePips(ask: Double, bid: Double) -> Int {
         // Determine the precision based on the number of decimal places in ask and bid
         let askDecimalPlaces = countDecimalPlaces(for: ask)

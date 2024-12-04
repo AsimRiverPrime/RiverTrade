@@ -102,7 +102,7 @@ class TradeViewController: UIViewController {
     @IBOutlet weak var labelAmmount: UILabel!
       
     @IBOutlet weak var lbl_account: UILabel!
-    @IBOutlet weak var lbl_MT5: UILabel!
+//    @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
     
@@ -324,7 +324,7 @@ class TradeViewController: UIViewController {
                 }
                 
                 lbl_account.text = account_type
-                lbl_MT5.text = mt5
+//                lbl_MT5.text = mt5
                 lbl_accountType.text = account_group
                 
             }
@@ -614,7 +614,7 @@ extension TradeViewController: GetSocketMessages {
                                getSymbolData[index].isTickFlag = true
 //                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                                cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, label: cell.lbl_bidAmount)
-                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.ask ?? 0.0, label: cell.lbl_askAmount)
+                               cell.setStyledLabelAsk(value: getSymbolData[index].tickMessage?.ask ?? 0.0, label: cell.lbl_askAmount)
                               
                               
                                let pipsValues = cell.calculatePips(ask: (getSymbolData[index].tickMessage?.ask ?? 0.0), bid: (getSymbolData[index].tickMessage?.bid ?? 0.0))
