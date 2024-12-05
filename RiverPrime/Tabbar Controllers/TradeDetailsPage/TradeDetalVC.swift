@@ -67,6 +67,8 @@ class TradeDetalVC: UIViewController {
         //        connectHistoryWebSocket()
 //        self.chartView.backgroundColor = .clear
 
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
         
         self.view_chartType.isHidden = true
         
@@ -137,6 +139,13 @@ class TradeDetalVC: UIViewController {
             }
             series.setData(data: candlestickData)
             // setupSeries(candlestickData: candlestickData)
+            
+            // Start a timer to delay showing the chart by 2 seconds
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                // After 2 seconds, reveal the chart and graph view
+                self.chartView.isHidden = false
+                self.chart?.isHidden = false
+            }
             
             break
         case .area:
@@ -440,6 +449,13 @@ class TradeDetalVC: UIViewController {
         // Scroll to the last candle to ensure it's visible
         timeScale.scrollToPosition(position: 0.0, animated: false)
         
+        // Start a timer to delay showing the chart by 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // After 2 seconds, reveal the chart and graph view
+            self.chartView.isHidden = false
+            self.chart?.isHidden = false
+        }
+        
     }
     
 }
@@ -606,6 +622,14 @@ extension TradeDetalVC {
                 chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor)
             ])
         }
+        
+        // Start a timer to delay showing the chart by 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // After 2 seconds, reveal the chart and graph view
+            self.chartView.isHidden = false
+            self.chart?.isHidden = false
+        }
+        
     }
     
     private func clearChart() {
@@ -656,6 +680,9 @@ extension TradeDetalVC: ChartOptionsDelegate {
         clearChart()
         
         self.chartType = chartType
+        
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
         
         switch chartType {
         case .candlestick:

@@ -25,8 +25,8 @@ class TradeTableViewCell: UITableViewCell {
     
 //    private var chart: LightweightCharts? // Chart reference to keep it persistent
 //    private var series: AreaSeries? // The chart's area series
-//    private var isChartCreated = false // Flag to ensure chart is created only once
-//    private var darkBackground: UIView? // To keep the background dark while chart loads
+    private var isChartCreated = false // Flag to ensure chart is created only once
+    private var darkBackground: UIView? // To keep the background dark while chart loads
 //    var options = AreaSeriesOptions()
     
     var close = Double()

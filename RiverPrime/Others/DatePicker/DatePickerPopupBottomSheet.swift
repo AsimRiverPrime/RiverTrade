@@ -72,8 +72,25 @@ class DatePickerPopupBottomSheet: UIViewController {
         super.viewDidLoad()
         
         hideNavBar()
+        customizeCalendar()
         showDatePicker()
         
+    }
+    
+    //MARK: - Calendar Styling.
+    func customizeCalendar() {
+        // Change the color of the day numbers
+        calendar.appearance.titleDefaultColor = .white // Set to desired color
+        
+        // Customize other appearance properties as needed
+        calendar.appearance.weekdayTextColor = .systemYellow // Weekday text (Sun, Mon, etc.)
+        calendar.appearance.selectionColor = .systemYellow // Selected day color
+        calendar.appearance.todayColor = .lightText // Today’s date color
+        calendar.appearance.todaySelectionColor = .systemYellow // Today’s selection color
+        calendar.appearance.headerTitleColor = .systemYellow // Month name color
+        
+        // Optionally, you can change the font for the day numbers as well
+        calendar.appearance.titleFont = UIFont.systemFont(ofSize: 14)
     }
     
     // MARK: - to show events.
