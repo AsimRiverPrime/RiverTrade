@@ -615,11 +615,10 @@ extension TradeViewController: GetSocketMessages {
                            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                                getSymbolData[index].isTickFlag = true
 //                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
-                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, label: cell.lbl_bidAmount)
-                               cell.setStyledLabelAsk(value: getSymbolData[index].tickMessage?.ask ?? 0.0, label: cell.lbl_askAmount)
+                               cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
+                               cell.setStyledLabelAsk(value: getSymbolData[index].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
                               
-                              
-                               let pipsValues = cell.calculatePips(ask: (getSymbolData[index].tickMessage?.ask ?? 0.0), bid: (getSymbolData[index].tickMessage?.bid ?? 0.0))
+                               let pipsValues = cell.calculatePips(ask: getSymbolData[index].tickMessage?.ask ?? 0.0, bid: getSymbolData[index].tickMessage?.bid ?? 0.0, digits: cell.digits ?? 0)
                                cell.lbl_pipsValues.text = "\(pipsValues)"
                               
                                let createDate = Date(timeIntervalSince1970: Double(getSymbolData[index].tickMessage?.datetime ?? 0))
@@ -646,17 +645,14 @@ extension TradeViewController: GetSocketMessages {
                                let newValue = (percentageChange * 100.0) / 100.0
                                let percent = String(newValue).trimmedTrailingZeros()
                                
-                              
                                print("\n new value is: \(newValue) \n the different in points: \(diff)")
-                               
-//                               double diff = newBid - oldBid;
-//                               double percentageChange = (diff / oldBid) * 100;
-//                               return Math.round(percentageChange * 100.0) / 100.0;
-                               cell.lbl_pointsDiff.text = String(format: "%.3f", diff)
-                               cell.lblPercent.text = "\(percent) %"
+                             
+                               let pointsValues = cell.calculatePointDifferencePips(currentBid: (getSymbolData[index].tickMessage?.bid ?? 0.0), lastCloseBid: oldBid, decimalPrecision: cell.digits ?? 0)
+                              
+                               cell.lblPercent.text = "\(percent)%"
                                
                                if percent.contains("inf") {
-                                   cell.lblPercent.text = "0.0 %"
+                                   cell.lblPercent.text = "0.0%"
                                }
                               
 //                               cell.graphView.backgroundColor = UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)
@@ -665,6 +661,8 @@ extension TradeViewController: GetSocketMessages {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.up")
                                    cell.profitIcon.tintColor = .systemGreen
                                    cell.lblPercent.textColor = .systemGreen
+                                   
+                                   cell.lbl_pointsDiff.text = "+\(pointsValues)"
                                    //MARK: - Update options -> Green
                                    
 //                                   cell.options = AreaSeriesOptions(
@@ -679,6 +677,8 @@ extension TradeViewController: GetSocketMessages {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.down")
                                    cell.profitIcon.tintColor = .systemRed
                                    cell.lblPercent.textColor = .systemRed
+                                   
+                                   cell.lbl_pointsDiff.text = "-\(pointsValues)"
                                    //MARK: - Update options -> Red
 //                                   cell.options = AreaSeriesOptions(
 //                                    priceLineVisible: false,

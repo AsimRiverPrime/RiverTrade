@@ -337,7 +337,7 @@ extension TradeVC {
 //                           GlobalVariable.instance.isProcessingSymbol = false
                         GlobalVariable.instance.isProcessingSymbolTimer = false
 //                            cell.configureChart(getSymbolData: getSymbolData[index])
-                        cell.configureChart(getSymbolData: responseData)
+//                        cell.configureChart(getSymbolData: responseData)
                     }
                
                     return
@@ -432,26 +432,26 @@ extension TradeVC: GetSocketMessages {
                                    cell.lblPercent.textColor = .systemGreen
                                    //MARK: - Update options -> Green
                                    
-                                   cell.options = AreaSeriesOptions(
-                                    priceLineVisible: false,
-                                    topColor: "rgba(76, 175, 80, 0.5)",
-                                    bottomColor: "rgba(76, 175, 80, 0)",
-                                    lineColor: "rgba(76, 175, 80, 1)",
-                                    lineWidth: .one
-                                   )
+//                                   cell.options = AreaSeriesOptions(
+//                                    priceLineVisible: false,
+//                                    topColor: "rgba(76, 175, 80, 0.5)",
+//                                    bottomColor: "rgba(76, 175, 80, 0)",
+//                                    lineColor: "rgba(76, 175, 80, 1)",
+//                                    lineWidth: .one
+//                                   )
                                
                                } else {
                                    cell.profitIcon.image = UIImage(systemName: "arrow.down")
                                    cell.profitIcon.tintColor = .systemRed
                                    cell.lblPercent.textColor = .systemRed
                                    //MARK: - Update options -> Red
-                                   cell.options = AreaSeriesOptions(
-                                    priceLineVisible: false,
-                                    topColor: "rgba(255, 0, 0, 0.5)",
-                                    bottomColor: "rgba(255, 0, 0, 0)",
-                                    lineColor: "rgba(255, 0, 0, 1)",
-                                    lineWidth: .one
-                                   )
+//                                   cell.options = AreaSeriesOptions(
+//                                    priceLineVisible: false,
+//                                    topColor: "rgba(255, 0, 0, 0.5)",
+//                                    bottomColor: "rgba(255, 0, 0, 0)",
+//                                    lineColor: "rgba(255, 0, 0, 1)",
+//                                    lineWidth: .one
+//                                   )
                                    
                                }
                                

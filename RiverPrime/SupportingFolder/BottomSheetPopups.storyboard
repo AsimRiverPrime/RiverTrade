@@ -6256,7 +6256,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GVd-sM-qRC" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="5" y="20" width="404" height="72"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="t58-tP-lQm">
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="photo.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="t58-tP-lQm">
                                                         <rect key="frame" x="15" y="16.5" width="40" height="39"/>
                                                         <color key="tintColor" systemColor="systemGray2Color"/>
                                                         <constraints>
@@ -6264,9 +6264,9 @@
                                                             <constraint firstAttribute="height" constant="40" id="KhA-kg-cex"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BTC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLp-lY-KRt">
-                                                        <rect key="frame" x="63" y="26.5" width="31" height="19.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLp-lY-KRt">
+                                                        <rect key="frame" x="15" y="36" width="0.0" height="0.0"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -6294,6 +6294,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="LDu-n0-64e" secondAttribute="trailing" constant="20" id="1Pp-x6-zHU"/>
                                                     <constraint firstItem="t58-tP-lQm" firstAttribute="leading" secondItem="GVd-sM-qRC" secondAttribute="leading" constant="15" id="2l1-sw-Pjw"/>
+                                                    <constraint firstItem="cLp-lY-KRt" firstAttribute="leading" secondItem="GVd-sM-qRC" secondAttribute="leading" constant="15" id="2vQ-zu-69L"/>
                                                     <constraint firstItem="EKz-fJ-cVo" firstAttribute="trailing" secondItem="LDu-n0-64e" secondAttribute="trailing" id="3fj-w0-AcU"/>
                                                     <constraint firstItem="EKz-fJ-cVo" firstAttribute="top" secondItem="LDu-n0-64e" secondAttribute="bottom" constant="2" id="Ahl-Ep-WuZ"/>
                                                     <constraint firstItem="cLp-lY-KRt" firstAttribute="centerY" secondItem="t58-tP-lQm" secondAttribute="centerY" id="KMb-EA-fKT"/>
@@ -6302,7 +6303,6 @@
                                                     <constraint firstAttribute="trailing" secondItem="dGi-bZ-8d3" secondAttribute="trailing" id="ZTq-c9-jXA"/>
                                                     <constraint firstAttribute="height" constant="72" id="e9Z-Pt-8RN"/>
                                                     <constraint firstItem="t58-tP-lQm" firstAttribute="centerY" secondItem="GVd-sM-qRC" secondAttribute="centerY" id="iGX-bK-g6Q"/>
-                                                    <constraint firstItem="cLp-lY-KRt" firstAttribute="leading" secondItem="t58-tP-lQm" secondAttribute="trailing" constant="8" id="k42-EJ-cBN"/>
                                                     <constraint firstAttribute="bottom" secondItem="dGi-bZ-8d3" secondAttribute="bottom" id="mkv-GT-A4Z"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>

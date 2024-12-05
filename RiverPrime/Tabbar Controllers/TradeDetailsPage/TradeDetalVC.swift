@@ -205,9 +205,9 @@ class TradeDetalVC: UIViewController {
             menuButton[i].backgroundColor = UIColor.clear
             menuButton[i].tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
         }
-        menuButton[sender.tag].backgroundColor = UIColor.systemYellow
+        menuButton[sender.tag].backgroundColor = UIColor.clear
         menuButton[sender.tag].layer.cornerRadius = 10.0
-        menuButton[sender.tag].tintColor = UIColor.black
+        menuButton[sender.tag].tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0) // UIColor.black
        
     }
     
@@ -219,10 +219,10 @@ class TradeDetalVC: UIViewController {
                 
                 self.tradeDetail = tradeDetail
                 
-                self.lbl_BuyBtn.text = "\(String(tradeDetail.bid).trimmedTrailingZeros())"
-                self.lbl_sellBtn.text = "\(String(tradeDetail.ask).trimmedTrailingZeros())"
+                self.lbl_BuyBtn.text = "\(String(tradeDetail.bid))"
+                self.lbl_sellBtn.text = "\(String(tradeDetail.ask))"
                 
-                self.lbl_LiveAmount.text = "$\(String(tradeDetail.bid).trimmedTrailingZeros())"
+                self.lbl_LiveAmount.text = "$\(String(tradeDetail.bid))"
                 
                 let bid = tradeDetail.bid
                 var oldBid =  Double()
@@ -332,9 +332,9 @@ class TradeDetalVC: UIViewController {
         view_chartType.isHidden.toggle()
         
         if  view_chartType.isHidden == false {
-            btn_chartShowHide.backgroundColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
+            btn_chartShowHide.backgroundColor = UIColor.clear //UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
             btn_chartShowHide.setImage(UIImage(systemName: "chevron.up.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
-            btn_chartShowHide.tintColor = UIColor.black
+            btn_chartShowHide.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
             btn_chartShowHide.layer.cornerRadius = 10.0
             
             
@@ -462,7 +462,6 @@ extension TradeDetalVC {
         
         getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
         let data =  getLiveCandelStick.getLatestOhlcData()
-        
         
         let times = Time.utc(timestamp: Double(Int64(data!.intervalStart)))
         
