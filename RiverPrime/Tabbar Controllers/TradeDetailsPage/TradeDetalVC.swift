@@ -175,6 +175,8 @@ class TradeDetalVC: UIViewController {
     
     @IBAction func menuButton(_ sender: UIButton) {
         addTopAndBottomBorders(menuButton[sender.tag])
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
         
         if sender.tag == 0 { //For Chart
             //MARK: - Remove previous button content here.
@@ -244,18 +246,15 @@ class TradeDetalVC: UIViewController {
                 
                 let diff = bid - oldBid
                 let percentageChange = (diff / oldBid) * 100
-                let newValue = (percentageChange * 100.0) / 100.0
-                let percent = String(newValue).trimmedTrailingZeros()
+                let newValue = (percentageChange * 100.0).rounded() / 100.0
+                let percent = String(newValue)
                 print("\n new value is: \(newValue)")
                 
-                //                               double diff = newBid - oldBid;
-                //                               double percentageChange = (diff / oldBid) * 100;
-                //                               return Math.round(percentageChange * 100.0) / 100.0;
-                
-                lbl_percentage.text = "\(percent) %"
+               
+                lbl_percentage.text = "\(newValue)%"
                 
                 if percent.contains("inf") {
-                    lbl_percentage.text = "0.0 %"
+                    lbl_percentage.text = "0.0%"
                 }
                 
                 if newValue > 0.0 {
@@ -267,7 +266,6 @@ class TradeDetalVC: UIViewController {
                     image_percent.image = UIImage(systemName: "arrow.down")
                     image_percent.tintColor = .systemRed
                     lbl_percentage.textColor = .systemRed
-                    
                 }
                 
                 getLiveCandelStick.update(ask: tradeDetail.ask, bid: tradeDetail.bid, currentTimestamp: Int64(tradeDetail.datetime))
@@ -342,16 +340,16 @@ class TradeDetalVC: UIViewController {
         
         if  view_chartType.isHidden == false {
             btn_chartShowHide.backgroundColor = UIColor.clear //UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
-            btn_chartShowHide.setImage(UIImage(systemName: "chevron.up.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
-            btn_chartShowHide.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
+            btn_chartShowHide.setImage(UIImage(named: "doubleArrowUp")?.tint(with: UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)),  for: .normal)
+//            btn_chartShowHide.tintColor = UIColor(red: 255/255.0, green: 202/255.0, blue: 35/255.0, alpha: 1.0)
             btn_chartShowHide.layer.cornerRadius = 10.0
             
             
         }else{
             btn_chartShowHide.backgroundColor = UIColor.clear
             
-            btn_chartShowHide.setImage(UIImage(systemName: "chevron.down.2")?.withConfiguration(UIImage.SymbolConfiguration(scale: .small)), for: .normal)
-            btn_chartShowHide.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+            btn_chartShowHide.setImage(UIImage(named: "doubleArrowDown")?.tint(with: UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)),  for: .normal)
+//            btn_chartShowHide.tintColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
         }
         
     }
@@ -473,8 +471,8 @@ extension TradeDetalVC {
     
     private func setupChart() {
         
-        self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0).trimmedTrailingZeros())"
-        self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0).trimmedTrailingZeros())"
+        self.lbl_BuyBtn.text = "\(String(tradeDetail?.bid ?? 0.0))"
+        self.lbl_sellBtn.text = "\(String(tradeDetail?.ask ?? 0.0))"
         
         getLiveCandelStick.update(ask: tradeDetail?.ask ?? 0.0, bid: tradeDetail?.bid ?? 0.0, currentTimestamp: Int64(tradeDetail?.datetime ?? 0))
         let data =  getLiveCandelStick.getLatestOhlcData()
@@ -515,6 +513,12 @@ extension TradeDetalVC {
             self.barSeries.update(bar: barData)
             
             break
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // After 2 seconds, reveal the chart and graph view
+            self.chartView.isHidden = false
+            self.chart?.isHidden = false
         }
         
     }
@@ -702,6 +706,11 @@ extension TradeDetalVC: ChartOptionsDelegate {
 extension TradeDetalVC {
     //    UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
     private func setupOverview() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // After 2 seconds, reveal the chart and graph view
+            self.chartView.isHidden = false
+            self.chart?.isHidden = false
+        }
         
         lazy var scrollView: TPKeyboardAvoidingScrollView = {
             let scroll = TPKeyboardAvoidingScrollView()

@@ -40,8 +40,6 @@ class JSONRPCClient: IJSONRPCClient {
         
         let url = baseURL + endPoint.getEndpoint()
         
-        
-        
         if showLoaderWithStatus != nil {
             let progressLoadingLabel = "Loading..."
             if showLoader {SVProgressHUD.show(withStatus: progressLoadingLabel)}

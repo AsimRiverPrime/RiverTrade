@@ -75,7 +75,6 @@
 		31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31475AB02CEC5D13009E962B /* EditPhotoVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
-		314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */; };
 		315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */ = {isa = PBXBuildFile; fileRef = 315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
@@ -113,7 +112,6 @@
 		317D7DFD2C91551200902B4A /* CompleteVerificationProfileScreen4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */; };
 		317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */; };
 		317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */; };
-		31806D192C609CD000E48730 /* OdooClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31806D182C609CD000E48730 /* OdooClient.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
 		3184F0832CAE8C3600BC1479 /* AccountOPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */; };
 		3186F8A52CF995BB000E7AFE /* Logo1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A42CF995BB000E7AFE /* Logo1.gif */; };
@@ -133,9 +131,7 @@
 		319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */; };
 		319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */; };
 		319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328D2C9C3EFB006DA077 /* TradeViewController.swift */; };
-		319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329D2C9C3F21006DA077 /* TradesViewModel.swift */; };
 		319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329E2C9C3F21006DA077 /* WebSocketManager.swift */; };
-		319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329C2C9C3F21006DA077 /* StaticResponses.swift */; };
 		319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */; };
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
@@ -472,7 +468,6 @@
 		317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen4.swift; sourceTree = "<group>"; };
 		317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen5.swift; sourceTree = "<group>"; };
 		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
-		31806D182C609CD000E48730 /* OdooClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClient.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
 		3186F8A42CF995BB000E7AFE /* Logo1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo1.gif; sourceTree = "<group>"; };
@@ -492,8 +487,6 @@
 		319A328C2C9C3EFB006DA077 /* TradeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeVC.xib; sourceTree = "<group>"; };
 		319A328D2C9C3EFB006DA077 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
 		319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
-		319A329C2C9C3F21006DA077 /* StaticResponses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticResponses.swift; sourceTree = "<group>"; };
-		319A329D2C9C3F21006DA077 /* TradesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradesViewModel.swift; sourceTree = "<group>"; };
 		319A329E2C9C3F21006DA077 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
@@ -731,7 +724,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				314B3BC82C8B317000C009A0 /* iPass2.0NativeiOS in Frameworks */,
 				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1166,7 +1158,6 @@
 		31806D172C609C9F00E48730 /* OdooClient Services */ = {
 			isa = PBXGroup;
 			children = (
-				31806D182C609CD000E48730 /* OdooClient.swift */,
 				314A69D82C94662800125CE3 /* OdooClientNew.swift */,
 			);
 			path = "OdooClient Services";
@@ -1175,8 +1166,6 @@
 		318257462C75C7B200723A50 /* WebStockManager */ = {
 			isa = PBXGroup;
 			children = (
-				319A329C2C9C3F21006DA077 /* StaticResponses.swift */,
-				319A329D2C9C3F21006DA077 /* TradesViewModel.swift */,
 				319A329E2C9C3F21006DA077 /* WebSocketManager.swift */,
 			);
 			path = WebStockManager;
@@ -2235,7 +2224,6 @@
 			);
 			name = RiverPrime;
 			packageProductDependencies = (
-				314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */,
 			);
 			productName = RiverPrime;
 			productReference = 31D261FE2C3BECDE00FC6651 /* RiverPrime.app */;
@@ -2267,7 +2255,6 @@
 			);
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
-				314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -2534,14 +2521,11 @@
 				31D2AF3C2C8840B800E0CF2E /* PriceFormat.swift in Sources */,
 				FAD776CE2C976F94000411F1 /* APIResponse.swift in Sources */,
 				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
-				31806D192C609CD000E48730 /* OdooClient.swift in Sources */,
 				31D2AEF22C8840B800E0CF2E /* CandlestickSeries.swift in Sources */,
 				319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */,
 				319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */,
 				319A32962C9C3EFB006DA077 /* TradeVC.swift in Sources */,
-				319A329F2C9C3F21006DA077 /* TradesViewModel.swift in Sources */,
 				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
-				319A32A12C9C3F21006DA077 /* StaticResponses.swift in Sources */,
 				FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */,
 				31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */,
 				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
@@ -2964,25 +2948,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/yazanalqasem/iPass2.0NativeiOS";
-			requirement = {
-				kind = exactVersion;
-				version = 1.0.3;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		314B3BC72C8B317000C009A0 /* iPass2.0NativeiOS */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 314B3BC62C8B317000C009A0 /* XCRemoteSwiftPackageReference "iPass2" */;
-			productName = iPass2.0NativeiOS;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 31D261F62C3BECDE00FC6651 /* Project object */;
 }

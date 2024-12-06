@@ -400,7 +400,7 @@ class TradeTypeCellVM {
                     uid,
                     odooClientService.dbPassword,
                     "mt.middleware",
-                    "get_balance",
+                    "get_user",
                     [
                         [],
                         email,
@@ -418,21 +418,28 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("get balance value is: \(value)")
+                print("get user detail value is: \(value)")
 //                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
-                       let success = result["success"] as? Bool,       // Success and balance are inside "result"
-                       let balance_get = result["balance"] as? Double {
+                       let success = result["success"] as? Int, // Success and balance are inside "result" ,
+
+                       let user_detail = result["user"] as? [String: Any],
+                       let balance_get = user_detail["balance"] as? Double {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(String(data: jsonData, encoding: .utf8) ?? "")")
                         
-                        if success {
+                     
+//                        let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
+                        
+                        
+                        if success == 1 {
                             // Return the balance value in the completion handler
                             completion("\(balance_get)")
+                            print("sucess")
                         } else {
                             // Handle the case where success is not 1
                             completion("No balance Found")

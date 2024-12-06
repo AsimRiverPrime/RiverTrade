@@ -40,26 +40,26 @@
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="RY1-Ps-JrY">
-                                                                    <rect key="frame" x="159" y="14" width="159" height="12"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="RY1-Ps-JrY">
+                                                                    <rect key="frame" x="149" y="-5" width="159" height="50"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Real " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BxJ-Xs-xE3">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="36.666666666666664" height="12"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BxJ-Xs-xE3">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="50"/>
                                                                             <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" MT5 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pWh-PY-Wy8">
-                                                                            <rect key="frame" x="42.666666666666671" y="0.0" width="37.666666666666671" height="12"/>
+                                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" MT5 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pWh-PY-Wy8">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="12"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                                             <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Standard " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9B-Nh-fkj">
-                                                                            <rect key="frame" x="86.333333333333314" y="0.0" width="72.666666666666686" height="12"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y9B-Nh-fkj">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="159" height="12"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -87,7 +87,7 @@
                                                                 <constraint firstAttribute="trailing" secondItem="0p4-9F-CJc" secondAttribute="trailing" id="Prl-0c-ENT"/>
                                                                 <constraint firstItem="RY1-Ps-JrY" firstAttribute="centerY" secondItem="Z4f-82-Gw9" secondAttribute="centerY" id="RvM-JE-Qn4"/>
                                                                 <constraint firstItem="GUo-RX-GoO" firstAttribute="leading" secondItem="Z4f-82-Gw9" secondAttribute="leading" constant="20" id="faA-bb-EvX"/>
-                                                                <constraint firstAttribute="trailing" secondItem="RY1-Ps-JrY" secondAttribute="trailing" constant="5" id="fk7-bR-ow4"/>
+                                                                <constraint firstAttribute="trailing" secondItem="RY1-Ps-JrY" secondAttribute="trailing" constant="15" id="fk7-bR-ow4"/>
                                                                 <constraint firstAttribute="height" constant="40" id="vOy-PL-w9f"/>
                                                                 <constraint firstItem="GUo-RX-GoO" firstAttribute="centerY" secondItem="Z4f-82-Gw9" secondAttribute="centerY" id="zcG-jf-r1E"/>
                                                             </constraints>
