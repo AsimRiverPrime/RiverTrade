@@ -38,10 +38,10 @@ class HomeTabbarViewController: UITabBarController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if GlobalVariable.instance.isReturnToProfile == true {
-            //            setProfileButton()
-            GlobalVariable.instance.isReturnToProfile = false
-        }else{
+//        if GlobalVariable.instance.isReturnToProfile == true {
+//            //            setProfileButton()
+//            GlobalVariable.instance.isReturnToProfile = false
+//        }else{
             //MARK: - START Symbol api calling.
             symbolApiCalling()
             
@@ -49,7 +49,7 @@ class HomeTabbarViewController: UITabBarController {
             webSocketManager.connectWebSocket()
             webSocketManager.delegateSocketData = self
             //            setAccountsButton()
-        }
+//        }
     }
     
 }

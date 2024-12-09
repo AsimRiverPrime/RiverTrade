@@ -540,7 +540,7 @@ class TradeTypeCellVM {
                             [],
                             email, //"asimprime900@gmail.com",
                             loginId, //1012614,
-                            fromDate ?? 1727740855, // to previous
+                            fromDate ?? 0, // to previous
                             toDate ?? newTimestampInSeconds  // from current
                           
                         ]

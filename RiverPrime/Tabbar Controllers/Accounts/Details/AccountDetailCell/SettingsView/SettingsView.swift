@@ -38,13 +38,15 @@ class SettingsView: UIView {
                 
                 if isCreateDemoAccount == true {
                     self.lbl_accountType.text = " Demo "
-                    self.lbl_serverType.text = " MT5 "
+//                    self.lbl_serverType.text = " MT5 "
                     self.lbl_accountGroup.text = " \(accountType) "
+                    self.lbl_serverName.text = "DEMO-Server"
                 }
                 if isRealAccount == true {
                     self.lbl_accountType.text = " Real "
-                    self.lbl_serverType.text = " MT5 "
+//                    self.lbl_serverType.text = " MT5 "
                     self.lbl_accountGroup.text = " \(accountType) "
+                    self.lbl_serverName.text = "REAL-Server"
                 }
                 if accountType == "Pro Account" {
                     self.lbl_accountGroup.text = " PRO "
@@ -59,7 +61,7 @@ class SettingsView: UIView {
                 
             }
         }
-        self.lbl_serverName.text = "RiverPrimeLimited-Demo"
+        
     }
     
     class func getView()->SettingsView {

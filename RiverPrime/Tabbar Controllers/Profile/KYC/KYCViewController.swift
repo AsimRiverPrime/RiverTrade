@@ -217,6 +217,7 @@ extension KYCViewController: IDWiseJourneyCallbacks {
     func onJourneyStarted(journeyStartedInfo: IDWiseSDK.JourneyStartedInfo) {
         self.journeyId = journeyStartedInfo.journeyId
         print("journeyId: \(self.journeyId)")
+        UserDefaults.standard.set(self.journeyId, forKey: "SID")
     }
     
     func onJourneyResumed(journeyResumedInfo: IDWiseSDK.JourneyResumedInfo) {
@@ -225,12 +226,14 @@ extension KYCViewController: IDWiseJourneyCallbacks {
     
     func onJourneyCompleted(journeyCompletedInfo: IDWiseSDK.JourneyCompletedInfo) {
         print("Complete Info: \(journeyCompletedInfo)")
+        UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
     }
     
     func onJourneyCancelled(journeyCancelledInfo: IDWiseSDK.JourneyCancelledInfo) {
         print("journeyCancelledInfo: \(journeyCancelledInfo)")
     }
 }
+
 // Delegate methods to handle scan completion
 //extension KYCViewController: iPassSDKManagerDelegate {
 //        

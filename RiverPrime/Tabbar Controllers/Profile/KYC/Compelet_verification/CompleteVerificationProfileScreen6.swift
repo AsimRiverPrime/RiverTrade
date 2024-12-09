@@ -88,11 +88,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     @IBAction func closeBtn_action(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    
-    func navigateToPersonalDetailScreen(){
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .SeventhScreen)
-    }
+   
     
     func updateUser() {
         let userId =  UserDefaults.standard.string(forKey: "userID")
@@ -113,6 +109,8 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     }
     
     func AddUserAccountDetail() {
+        UserDefaults.standard.set(3, forKey: "profileStepCompeleted")
+        
         let tradeObjective = UserDefaults.standard.dictionary(forKey: "SelectedTradeObjective") as? [String: [String]]
         let tradeInstruments = UserDefaults.standard.dictionary(forKey: "SelectedTradeInstruments") as? [String: [String]]
         let tradeAnticipateMonthly = UserDefaults.standard.dictionary(forKey: "SelectedTradeAnticipateMonthly") as? [String: [String]]
@@ -138,20 +136,24 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
         
         let userData: [String: Any] = [
                "uid": userId ?? "",
-              
+               "sid": sid ?? "",
                "step": profileStep,
                "profileStep": profileStep,
-            
+               
                "questionAnswer": questionAnswer
            ]
-        
-        fireStoreInstance.addUserAccountData(uid: userId ?? "", data: userData) { result in
+       
+        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
             switch result {
             case .success:
-                print("Question Answer ADD to firebase successfully!")
-               // self.ToastMessage("KYC detail add successfully!")
-                self.updateUser()
-                self.navigateToPersonalDetailScreen()
+                print("Document USER_ACCOUNT detail ADD successfully!")
+             
+                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
+                    self.updateUser()
+                    self.navigateToDashboard()
+                }
+               
+                
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.ToastMessage("\(error)")
@@ -159,4 +161,20 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
         }
     }
     
+    func showAlert(message: String, completion: (() -> Void)? = nil) {
+            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                completion?()
+               
+            }
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+        }
+    
+    func navigateToDashboard() {
+        self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
+    }
+    
+       
 }

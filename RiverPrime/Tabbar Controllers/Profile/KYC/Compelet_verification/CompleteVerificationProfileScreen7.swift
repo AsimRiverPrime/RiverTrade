@@ -120,14 +120,18 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         print("profileStepCompeleted is : \(profileStep)")
         
         updateUser()
-        AddUserAccountDetail()
+//        AddUserAccountDetail()
         
+    }
+    @IBAction func backBtn_action(_ sender: Any) {
+        self.dismiss(animated: true)
+        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
     }
     
     func updateGenderButtons(for gender: String) {
         storeDateInUserDefaults()
         
-         UserDefaults.standard.set(3, forKey: "profileStepCompeleted")
+         UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
       
         if gender == "Male" {
             maleButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)  // Selected Male

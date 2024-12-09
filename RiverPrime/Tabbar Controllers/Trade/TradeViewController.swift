@@ -166,6 +166,8 @@ class TradeViewController: UIViewController {
                 
                 //MARK: - if Symbol Api data is exist then we must set our list data.
                 if GlobalVariable.instance.symbolDataArray.count != 0 {
+//                    symbolDataObj = GlobalVariable.instance.symbolDataArray[0]
+                    
                     //MARK: - Get the list and save localy and set sectors and symbols.
                     processSymbols(GlobalVariable.instance.symbolDataArray)
                     

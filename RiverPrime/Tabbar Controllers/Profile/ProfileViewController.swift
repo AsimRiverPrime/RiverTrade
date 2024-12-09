@@ -180,24 +180,25 @@ class ProfileViewController: BaseViewController{
         func didTapCompleteProfileButtonInCell() {
 //            delegateCompeleteProfile?.navigateToCompeletProfile()
             if profileStep == 0 {
-                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-                    self.navigate(to: kycVc)
-                }
-            }else if profileStep == 1 {
-                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
                 vc.delegateKYC = self
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                
+            }else if profileStep == 1 {
+                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+                    
+                    self.navigate(to: kycVc)
+                }
             }else if profileStep == 2 {
-                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
                 vc.delegateKYC = self
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             }else{
                 self.ToastMessage("Already Done KYC")
             }
-            
         }
-        
     }
+
 extension ProfileViewController: KYCVCDelegate {
     
     func navigateToCompeletProfile(kyc: KYCType) {
