@@ -34,3 +34,7 @@ protocol CreateUserAccountTypeDelegate: AnyObject {
     func createAccountSuccess(response: Any)
     func createAccountFailure(error: Error)
 }
+protocol UpdateUserNamePassword: AnyObject {
+    func updateSuccess(response: Any)
+    func updateFailure(error: Error)
+}

@@ -72,6 +72,8 @@
 		3128DAE32CD9040C00E9B130 /* TradeHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
+		313A92322D082C4A004AC33D /* GetBalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A92312D082C4A004AC33D /* GetBalanceModel.swift */; };
+		313A92342D084BB0004AC33D /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A92332D084BB0004AC33D /* UserManager.swift */; };
 		313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */; };
 		31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31475AB02CEC5D13009E962B /* EditPhotoVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
@@ -429,6 +431,8 @@
 		3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHistoryModel.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
+		313A92312D082C4A004AC33D /* GetBalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceModel.swift; sourceTree = "<group>"; };
+		313A92332D084BB0004AC33D /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		313F4F1A2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopupBottomSheet.swift; sourceTree = "<group>"; };
 		31475AB02CEC5D13009E962B /* EditPhotoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPhotoVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
@@ -1305,6 +1309,8 @@
 			isa = PBXGroup;
 			children = (
 				31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */,
+				313A92312D082C4A004AC33D /* GetBalanceModel.swift */,
+				313A92332D084BB0004AC33D /* UserManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2470,6 +2476,7 @@
 				FA99B5BD2C59A87E00DD4F6D /* BenefitsTradingActivityCell.swift in Sources */,
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				31D2AF2F2C8840B800E0CF2E /* SeriesMarker.swift in Sources */,
+				313A92342D084BB0004AC33D /* UserManager.swift in Sources */,
 				31D2AEEF2C8840B800E0CF2E /* AreaSeries.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				3102120B2CE4D44A0064F6EF /* incomeExpenseTVCell.swift in Sources */,
@@ -2542,6 +2549,7 @@
 				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
 				319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */,
 				319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */,
+				313A92322D082C4A004AC33D /* GetBalanceModel.swift in Sources */,
 				319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */,
 				31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */,
 				FA46139E2C602D5600B472D6 /* DropDownCell.swift in Sources */,

@@ -8,12 +8,7 @@
 import UIKit
 
 class ChangeTradePasswordVC: BaseViewController {
-    
-    var userId : String = ""
-    var userName:String = ""
    
-    var userEmail : String = ""
-    
     @IBOutlet weak var tf_oldPassword: UITextField!{
         didSet{
             
@@ -38,19 +33,21 @@ class ChangeTradePasswordVC: BaseViewController {
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClientNew()
     
+    var loginID : Int?
+    var userEmail : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        odooClientService.createUserAcctDelegate = self
+        lbl_oldPassword.isHidden = true
         
         tf_newPassword.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(data)")
             
-            if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
-                print("user ID: \(userIdSave)")
-                self.userId = userIdSave
+            if let loginId = data["loginId"] as? Int, let email1 = data["email"] as? String  {
+                print("login ID: \(loginId)")
+                self.loginID = loginId
                 self.userEmail = email1
             }
         }
@@ -64,20 +61,47 @@ class ChangeTradePasswordVC: BaseViewController {
         view.endEditing(true) // This will dismiss the keyboard
     }
     
+    func isPasswordValid(inputPassword: String) -> Bool {
+        // Retrieve the stored password from UserDefaults
+        guard let storedPassword = UserDefaults.standard.string(forKey: "password") else {
+            print("No password found in UserDefaults")
+            return false
+        }
+        print("Old Password is:\(storedPassword)")
+        // Compare the input password with the stored password
+        return storedPassword == inputPassword
+    }
     
     @IBAction func submitBtnAction(_ sender: Any) {
-        print("this is given old password: \(userName)")
+        guard let inputPassword = tf_oldPassword.text, !inputPassword.isEmpty else {
+                print("Password field is empty")
+                return
+            }
+            
+            if isPasswordValid(inputPassword: inputPassword) {
+                print("Passwords match with old one:\(inputPassword)")
+                // Proceed with login
+            } else {
+                print("\nPasswords do not match!:\(inputPassword)")
+                lbl_oldPassword.isHidden = false
+                return
+            }
         
         print("this is given password: \(self.tf_newPassword.text ?? "")")
-        let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
-        let Firstname = UserDefaults.standard.string(forKey: "firstName")
-        let LastName = UserDefaults.standard.string(forKey: "lastName")
-        
-        UserDefaults.standard.set((self.tf_newPassword.text ?? ""), forKey: "password")
-        
-        
-        //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-//        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 100, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
+        if inputPassword == tf_newPassword.text {
+            lbl_oldPassword.isHidden = false
+            lbl_oldPassword.text = "Passwords should not be the same"
+            return
+        }else{
+            lbl_oldPassword.isHidden = true
+            UserDefaults.standard.set((self.tf_newPassword.text ?? ""), forKey: "password")
+            
+            odooClientService.updateMTUserNamePassword(email: userEmail, loginID: loginID ?? 0 , oldPassword: self.tf_oldPassword.text ?? "", newPassword: self.tf_newPassword.text ?? "", userName: "")
+        }
+    }
+    
+    @IBAction func close_btnAction(_ sender: Any) {
+        self.dismiss(animated: true)
     }
     
     @IBAction func pass_ShowHideOldPass_action(_ sender: Any) {
@@ -98,7 +122,7 @@ class ChangeTradePasswordVC: BaseViewController {
     
     func validatePassword(password: String) {
         // Condition 1: Length between 8 and 15 characters
-        if password.count >= 8 && password.count <= 15 {
+        if password.count >= 8 /*&& password.count <= 15*/ {
             lbl_passCaseOne.textColor = .systemGreen
         } else {
             lbl_passCaseOne.textColor = .systemRed
@@ -128,50 +152,16 @@ class ChangeTradePasswordVC: BaseViewController {
             lbl_passCasethree.textColor = .systemRed
         }
 }
-    
-func updateUser(){
-        
-        var fieldsToUpdate: [String: Any] = [:]
-        
-        fieldsToUpdate = [
-          
-            "loginId" : GlobalVariable.instance.loginID // loginID in response
-        ]
-        
-        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
-            if let error = error {
-                print("Error updating user fields: \(error.localizedDescription)")
-                return
-            } else {
-                print("User demoAccountCreated fields updated successfully!")
-                GlobalVariable.instance.isAccountCreated = true
-                self.fireStoreInstance.fetchUserData(userId: self.userId)
-                self.dismiss(animated: true, completion: {
-                    print("Bottom sheet dismissed after success")
-                    // notification send to dashboardvc
-                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                        
-                        NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
-                        NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
-                    }
-                    
-                    
-                })
-            }
-        }
-    }
 }
 
-extension ChangeTradePasswordVC : CreateUserAccountTypeDelegate {
-    func createAccountSuccess(response: Any) {
-        print("\n this is create user success response: \(response)")
-        // get loginId from the response
-        
-        updateUser()
+extension ChangeTradePasswordVC: UpdateUserNamePassword {
+    func updateSuccess(response: Any) {
+        print("sucess response of update password: \(response)")
     }
     
-    func createAccountFailure(error: any Error) {
-        print("\n this is create user error response: \(error)")
-        
+    func updateFailure(error: any Error) {
+        print("Error response of update password: \(error)")
     }
+    
+   
 }

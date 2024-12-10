@@ -100,6 +100,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         let LastName = UserDefaults.standard.string(forKey: "lastName")
        
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
+        UserDefaults.standard.set(userName, forKey: "MTUserName")
         
         if self.lbl_accountTitle.text == "PRO Account" {
              group = "demo\\RP\\PRO"
@@ -123,7 +124,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     @IBAction func customNameBtnAction(_ sender: Any) {
     
-        Alert.showTextFieldAlert(message: "Please enter your name", placeholder: "enter custom name", completion: { textFieldInput in
+        Alert.showTextFieldAlert(message: "Please enter your name for Meta Trader Account", placeholder: "enter custom name", completion: { textFieldInput in
             if let name = textFieldInput {
                 self.userName = name
                 print("User entered: \(name)")
@@ -177,8 +178,8 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     
     func updateUser(){
         
-        let encryptedPassword = encryptPassword(self.tf_password.text ?? "", using: GlobalVariable.instance.passwordKey)
-        print("the encrypted password is : \(encryptedPassword)")
+//        let encryptedPassword = encryptPassword(self.tf_password.text ?? "", using: GlobalVariable.instance.passwordKey)
+//        print("the encrypted password is : \(encryptedPassword)")
         
         var fieldsToUpdate: [String: Any] = [:]
         

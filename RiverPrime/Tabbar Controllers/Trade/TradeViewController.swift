@@ -209,6 +209,21 @@ class TradeViewController: UIViewController {
                     print("the password is: \(password ?? "")")
                     
                     let getbalanceApi = TradeTypeCellVM()
+                    getbalanceApi.getUserBalance(completion: { result in
+                        switch result {
+                        case .success(let responseModel):
+                            // Save the response model or use it as needed
+                            print("Balance: \(responseModel.result.user.balance)")
+                            print("Equity: \(responseModel.result.user.equity)")
+                            
+                            // Example: Storing in a singleton for global access
+                            UserManager.shared.currentUser = responseModel.result.user
+                            
+                        case .failure(let error):
+                            print("Failed to fetch balance: \(error.localizedDescription)")
+                        }
+                    })
+                    
                     getbalanceApi.getBalance(completion: { response in
                         print("response of get balance: \(response)")
                         if response == "Invalid Response" {
@@ -218,7 +233,7 @@ class TradeViewController: UIViewController {
                         //                        self.balance = response
                         GlobalVariable.instance.balanceUpdate = response //self.balance
                         print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate/*self.balance*/])
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
                         
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
                         

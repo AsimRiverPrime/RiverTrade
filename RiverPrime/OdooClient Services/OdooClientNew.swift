@@ -28,6 +28,7 @@ class OdooClientNew {
     weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
     weak var createLeadDelegate: CreateLeadOdooDelegate?
     weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
+    weak var updateUserNamePasswordDelegate: UpdateUserNamePassword?
     
     var uid = UserDefaults.standard.integer(forKey: "uid")
     
@@ -168,8 +169,8 @@ class OdooClientNew {
     
     //MARK: - Write records (Leads) Method for change/update phone number CRM (OdooServer) records
     func writeRecords(number: String) {
-       var uid = UserDefaults.standard.integer(forKey: "uid")
-       var recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        var uid = UserDefaults.standard.integer(forKey: "uid")
+        var recordedId = UserDefaults.standard.integer(forKey: "recordId")
         
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
@@ -190,7 +191,7 @@ class OdooClientNew {
                                 "type": "work"
                             ]]
                         ]
-                    ]]
+                                  ]]
                 ]
             ]
         ]
@@ -205,7 +206,7 @@ class OdooClientNew {
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
                     print("result is: \(result)")
                     self.updateNumberDelegate?.updateNumberSuccess(response: result)
-                   
+                    
                 }else {
                     print("Unexpected response format or missing 'result' key")
                 }
@@ -224,29 +225,29 @@ class OdooClientNew {
     
     func sendOTP(type: String, email: String, phone: String) {
         
-       
+        
         
         let jsonrpcBody: [String: Any] = [
-               "jsonrpc": "2.0",
-               
-               "params": [
-                   "service": "object",
-                   "method": "execute_kw",
-                   "args": [
-                       dataBaseName,    // Your database name
-                       uid,             // Your user ID
-                       dbPassword,      // Your password
-                       "mt.middleware", // The model you're calling
-                       "send_otp",      // The method to be executed
-                       [
-                           [],           // Empty list as per Postman
-                           email,        // Email address
-                           type,         // Type (e.g., "email")
-                           phone         // Phone number or empty string
-                       ]
-                   ]
-               ]
-           ]
+            "jsonrpc": "2.0",
+            
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,    // Your database name
+                    uid,             // Your user ID
+                    dbPassword,      // Your password
+                    "mt.middleware", // The model you're calling
+                    "send_otp",      // The method to be executed
+                    [
+                        [],           // Empty list as per Postman
+                        email,        // Email address
+                        type,         // Type (e.g., "email")
+                        phone         // Phone number or empty string
+                    ]
+                ]
+            ]
+        ]
         
         print("json params is: \(jsonrpcBody)")
         
@@ -261,7 +262,7 @@ class OdooClientNew {
                     if status {
                         print("\n this is the SUCCESS response of type: \(type) and response is \(json)\n")
                         self.otpDelegate?.otpSuccess(response: result)
-                   
+                        
                     } else {
                         let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey : "Status is not success"])
                         self.otpDelegate?.otpFailure(error: error)
@@ -339,6 +340,47 @@ class OdooClientNew {
         }
         
     }
+    
+    func updateMTUserNamePassword(email: String, loginID: Int, oldPassword: String,newPassword: String,userName: String){
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "update_user",
+                    [
+                        [],
+                        email,
+                        loginID,
+                        oldPassword,
+                        userName,
+                        newPassword
+                    ]
+                ]
+            ]
+        ]
+        
+        print("\n the parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("update username/password value is: \(value)")
+                self.updateUserNamePasswordDelegate?.updateSuccess(response: value)
+            case .failure(let error):
+                print("error update password is:\(error)")
+                self.updateUserNamePasswordDelegate?.updateFailure(error: error)
+            }
+        }
+    }
+
     
     
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {

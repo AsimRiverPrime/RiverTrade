@@ -37,6 +37,7 @@ class LoginPopupVC: BaseViewController {
     }
     @IBOutlet weak var Btn_showHidePass: UIButton!
     
+    @IBOutlet weak var lbl_wrongPassword: UILabel!
     var email: String?
     var loginId: Int?
     
@@ -45,7 +46,7 @@ class LoginPopupVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.lbl_wrongPassword.isHidden = true
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
@@ -73,9 +74,13 @@ class LoginPopupVC: BaseViewController {
         viewModel.loginForPassword(pass: self.password_tf.text ?? "", completion: { response in
             print("the login to meta Trader account response is: \(response)")
             self.ToastMessage(response)
-//            NotificationCenter.default.post(name: .MetaTraderLogin, object: nil,  userInfo: ["MetaTraderLoginType": self.metaTraderType ?? MetaTraderType.None])
-            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
-            self.dismiss(animated: true, completion: nil)
+            if response == "Login Failed" {
+                self.lbl_wrongPassword.isHidden = false
+            }else{
+                //            NotificationCenter.default.post(name: .MetaTraderLogin, object: nil,  userInfo: ["MetaTraderLoginType": self.metaTraderType ?? MetaTraderType.None])
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                self.dismiss(animated: true, completion: nil)
+            }
         })
     }
     

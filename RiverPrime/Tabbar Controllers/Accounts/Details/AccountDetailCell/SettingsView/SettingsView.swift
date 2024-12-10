@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ChangePasswordDelegate: AnyObject {
+    func didTapButton()
+}
+
 class SettingsView: UIView {
     
     @IBOutlet weak var lbl_accountType: UILabel!
@@ -24,17 +28,25 @@ class SettingsView: UIView {
     @IBOutlet weak var lbl_loginID: UILabel!
     @IBOutlet weak var lbl_serverName: UILabel!
     
+    weak var changePassDelegate : ChangePasswordDelegate?
+    let odooClientService = OdooClientNew()
+    weak var updateUserNameDelegate : UpdateUserNamePassword?
     
+    var userEmail: String?
     
     public override func awakeFromNib() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool, let _name = savedUserData["name"] as? String  {
-                self.lbl_acctUserName.text = _name
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool, let _email = savedUserData["email"] as? String  {
+//                self.lbl_acctUserName.text = _name
+                let storedUserName = UserDefaults.standard.string(forKey: "MTUserName")
+                self.lbl_acctUserName.text = storedUserName
+                
                 self.lbl_accountNumber.text = "#\(loginID)"
                 self.lbl_loginID.text = "\(loginID)"
+                self.userEmail = _email
                 
                 if isCreateDemoAccount == true {
                     self.lbl_accountType.text = " Demo "
@@ -84,23 +96,37 @@ class SettingsView: UIView {
     }
     
     @IBAction func changePassword_action(_ sender: Any) {
-        
+        changePassDelegate?.didTapButton()
     }
     
     @IBAction func addCustomName(_ sender: Any) {
+        let storedPassword = UserDefaults.standard.string(forKey: "password")
         
         Alert.showTextFieldAlertView(message: "Please enter your name", placeholder: "enter custom name", completion: { textFieldInput in
             if let name = textFieldInput {
                 //                    self.userName = name
                 print("User entered: \(name)")
-                //                    self.customNameBtn.setTitle(name, for: .normal)
+
+                self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: storedPassword ?? "", newPassword: "", userName: name)
+                UserDefaults.standard.set(name, forKey: "MTUserName")
                 self.lbl_acctUserName.text = name
+                
             } else {
                 print("No input provided")
             }
         }, on: self)
         
     }
+}
+extension SettingsView: UpdateUserNamePassword {
+    func updateSuccess(response: Any) {
+        print("update MT User Name sucess response: \(response) ")
+    }
+    
+    func updateFailure(error: any Error) {
+        print("update MT User Name failed response: \(error) ")
+    }
+    
 }
 extension UIView {
     func parentViewController() -> UIViewController? {

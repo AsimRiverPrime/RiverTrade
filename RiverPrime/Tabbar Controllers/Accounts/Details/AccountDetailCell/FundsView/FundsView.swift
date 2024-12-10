@@ -36,7 +36,6 @@ class FundsView: UIView {
             if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
                 
                 self.lbl_acctGroup.text = " \(accountType) "
-                self.lbl_mt.text = " MT5 "
                 
                 self.lbl_loginID.text = "#\(loginID)"
                 if isCreateDemoAccount {
@@ -55,6 +54,20 @@ class FundsView: UIView {
                 }
             }
         }
+        
+        if let user = UserManager.shared.currentUser {
+            print("\n User Balance: \(user)")
+            self.lbl_balance.text = "\(user.balance)"
+            self.lbl_equity.text = "\(user.equity)"
+            self.lbl_leverage.text = "\(user.leverage)"
+            self.lbl_totalPL.text = "\(user.profit)"
+            self.lbl_Margin.text = "\(user.margin)"
+            self.lbl_freeMargin.text = "\(user.marginFree)"
+            let marginLevelValue = "\(user.marginLevel)".trimmedTrailingZeros()
+            self.lbl_marginLevel.text = marginLevelValue + "%"
+            
+        }
+        
     }
     
     class func getView()->FundsView {

@@ -195,37 +195,31 @@ class AccountsViewController: BaseViewController {
                     userImage.image = UIImage(named: "avatarIcon")
                 }
                 
-                var login_Id = Int()
+//                var login_Id = Int()
                 var account_type = String()
-                var mt5 = String()
+//                var mt5 = String()
                 var account_group = String()
                
-                login_Id = loginID
+//                login_Id = loginID
                 
                 if isCreateDemoAccount == true {
                     account_type = " Demo "
-                    mt5 = " MT5 "
                     account_group = " \(accountType) "
                 }
                 if isRealAccount == true {
                     account_type = " Real "
-                    mt5 = " MT5 "
                     account_group = " \(accountType) "
                 }
                 
                 
                 if accountType == "Pro Account" {
                     account_group = " PRO "
-                    mt5 = " MT5 "
                 }else if accountType == "Prime Account" {
                     account_group = " PRIME "
-                    mt5 = " MT5 "
                 }else if accountType == "Premium Account" {
                     account_group = " PREMIUM "
-                    mt5 = " MT5 "
                 }else{
 //                    self.account_group = ""
-//                    mt5 = ""
                     
                 }
                 lbl_name.text = _name
@@ -486,6 +480,23 @@ extension AccountsViewController {
             switch receivedString {
             case .Balance:
                 let getbalanceApi = TradeTypeCellVM()
+             
+                getbalanceApi.getUserBalance(completion: { result in
+                    switch result {
+                    case .success(let responseModel):
+                        // Save the response model or use it as needed
+                        print("Balance: \(responseModel.result.user.balance)")
+                        print("Equity: \(responseModel.result.user.equity)")
+                        
+                        // Example: Storing in a singleton for global access
+                        UserManager.shared.currentUser = responseModel.result.user
+                        
+                    case .failure(let error):
+                        print("Failed to fetch balance: \(error.localizedDescription)")
+                    }
+                })
+                
+                
                 getbalanceApi.getBalance(completion: { response in
                     print("response of get balance: \(response)")
                     if response == "Invalid Response" {

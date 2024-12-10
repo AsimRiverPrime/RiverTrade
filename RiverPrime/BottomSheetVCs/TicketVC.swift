@@ -728,6 +728,7 @@ class TicketVC: BottomSheetController {
             self.takeProfit = 0.0
             takeProfit_switch.thumbTintColor = .white
             takeProfit_switch.onTintColor = .darkGray
+            self.btn_confirm.isEnabled = true
         }
     }
     
@@ -772,6 +773,7 @@ class TicketVC: BottomSheetController {
             self.stopLoss = 0.0
             stopLoss_switch.thumbTintColor = .white
             stopLoss_switch.tintColor = .darkGray
+            self.btn_confirm.isEnabled = true
         }
     }
     
@@ -833,6 +835,7 @@ class TicketVC: BottomSheetController {
         }
         
         
+        
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
         
     }
@@ -888,26 +891,26 @@ extension TicketVC {
                 "method": "execute_kw",
                 "service": "object",
                 "args": [
-                    odooClient.dataBaseName, // Replace with actual database name, e.g., "mbe.riverprime.com"
-                    odooClient.uid, // Replace with actual UID, e.g., 7
-                    odooClient.dbPassword, // Replace with actual password, e.g., "e2d21f3c686bb41e006fbbc940fc809c9841f0be"
+                    odooClient.dataBaseName,
+                    odooClient.uid,
+                    odooClient.dbPassword,
                     "mt.middleware",
                     "create_order",
                     [
                         [],
-                        email,             // Replace with actual email, e.g., "must00629@gmail.com"
-                        loginID,           // Replace with actual login ID, e.g., 10002233
-                        password,          // Replace with actual password, e.g., "123456aA@"
-                        symbol,            // Replace with actual symbol, e.g., "Gold."
-                        type,              // Replace with actual type, e.g., 0
-                        volume,            // Replace with actual volume, e.g., 0.01
-                        price,             // Replace with actual price, e.g., 2664.12
-                        stop_loss,         // Replace with actual stop-loss value, e.g., 0
-                        take_profit,       // Replace with actual take-profit value, e.g., 0
-                        digits,            // Replace with actual digits, e.g., 2
-                        digits_currency,   // Replace with actual currency digits, e.g., 3
-                        contract_size,     // Replace with actual contract size, e.g., 100
-                        comment            // Replace with actual comment, e.g., "Mobile Call"
+                        email,
+                        loginID,
+                        password,
+                        symbol,
+                        type,
+                        volume,
+                        price,
+                        stop_loss,
+                        take_profit,
+                        digits,
+                        digits_currency,
+                        contract_size,
+                        comment
                     ]
                 ]
             ]
@@ -927,10 +930,11 @@ extension TicketVC {
                 print("value is: \(value)")
                 ActivityIndicator.shared.hide(from: self.view)
                 
-                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{  // Expecting a boolean here
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{
                     if status {
                         print("success")
                         self.ToastMessage("Order Placed successfully")
+                        self.dismiss(animated: true)
                     }else {
                         if let result = json["result"] as? [String: Any], let error = result["error"] as? String {
                           
@@ -939,7 +943,6 @@ extension TicketVC {
                         }
                     }
                   
-                        
                 }
                 
             case .failure(let error):

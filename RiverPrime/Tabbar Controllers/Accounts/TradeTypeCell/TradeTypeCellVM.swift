@@ -374,6 +374,67 @@ class TradeTypeCellVM {
         }
     }
     
+    func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                email = _email
+                loginId = _loginId
+            }
+        }
+        
+        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
+            showPopup()
+            return
+        }else{
+            print("the password is: \(pass ?? "")")
+        }
+        
+        let params: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    odooClientService.dataBaseName,
+                    uid,
+                    odooClientService.dbPassword,
+                    "mt.middleware",
+                    "get_user",
+                    [
+                        [],
+                        email,
+                        loginId,
+                        pass ?? ""
+                    ]
+                ]
+            ]
+        ]
+        
+        print("Params: \(params)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+            switch result {
+            case .success(let value):
+                do {
+                    // Convert the response to Data
+                    let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
+                    
+                    // Decode the JSON into your ResponseModel
+                    let decodedResponse = try JSONDecoder().decode(ResponseModel.self, from: jsonData)
+                    
+                    // Pass the decoded model to the completion handler
+                    completion(.success(decodedResponse))
+                } catch {
+                    print("Decoding error: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }
+            case .failure(let error):
+                print("API call error: \(error.localizedDescription)")
+                completion(.failure(error))
+            }
+        }
+    }
+    
     func getBalance(completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -455,7 +516,7 @@ class TradeTypeCellVM {
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-//                completion("\(error)")
+                completion("\(error)")
             }
         }
     }

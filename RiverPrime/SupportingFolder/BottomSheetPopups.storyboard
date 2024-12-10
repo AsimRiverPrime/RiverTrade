@@ -996,7 +996,7 @@
                                                             <action selector="cancel_btnAction:" destination="ew4-AL-7tN" eventType="touchUpInside" id="3bL-rb-sUT"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lm-MN-ffu">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2lm-MN-ffu" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                         <rect key="frame" x="199.5" y="0.0" width="184.5" height="50"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1006,7 +1006,7 @@
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
+                                                                <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1147,6 +1147,25 @@
                                             <constraint firstAttribute="width" constant="40" id="lEo-07-dsc"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJw-Lp-onn">
+                                        <rect key="frame" x="319" y="25" width="80" height="40"/>
+                                        <color key="backgroundColor" red="0.85098040100000005" green="0.3686274886" blue="0.35294118520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="hk6-pk-eGL"/>
+                                            <constraint firstAttribute="height" constant="40" id="mUs-Vg-Nqx"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Close"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="closePosition_action:" destination="csY-ZL-s9K" eventType="touchUpInside" id="2OH-3L-WD1"/>
+                                        </connections>
+                                    </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy Ticket" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFg-fZ-r71">
                                         <rect key="frame" x="70" y="29" width="63.5" height="14.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -1165,24 +1184,6 @@
                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJw-Lp-onn">
-                                        <rect key="frame" x="319" y="25" width="80" height="40"/>
-                                        <color key="backgroundColor" red="0.85098040100000005" green="0.3686274886" blue="0.35294118520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="hk6-pk-eGL"/>
-                                        </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Close"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="closePosition_action:" destination="csY-ZL-s9K" eventType="touchUpInside" id="2OH-3L-WD1"/>
-                                        </connections>
-                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HbA-wb-ltd" userLabel="partialClose">
                                         <rect key="frame" x="0.0" y="90" width="414" height="90"/>
                                         <subviews>
@@ -1675,7 +1676,7 @@
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
+                                                                <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1688,7 +1689,7 @@
                                                             <action selector="cancel_action:" destination="csY-ZL-s9K" eventType="touchUpInside" id="6NM-9j-CmS"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kar-Hv-Wpr">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kar-Hv-Wpr" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                         <rect key="frame" x="202" y="0.0" width="182" height="40"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1698,7 +1699,7 @@
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
+                                                                <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2414,7 +2415,7 @@
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
+                                                                <integer key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2427,7 +2428,7 @@
                                                             <action selector="cancel_action:" destination="8cP-ma-B4W" eventType="touchUpInside" id="YuJ-9J-ADL"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWV-3U-XrA">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oWV-3U-XrA" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                         <rect key="frame" x="202" y="0.0" width="182" height="40"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2437,7 +2438,7 @@
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="0.5"/>
+                                                                <integer key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -2935,14 +2936,14 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.074509803921568626" green="0.082352941176470587" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9d-TZ-bu8">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9d-TZ-bu8" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                         <rect key="frame" x="67" y="725" width="240" height="35"/>
-                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="IgV-ii-FJ8"/>
                                             <constraint firstAttribute="height" constant="35" id="Zj5-Ns-gtI"/>
                                         </constraints>
-                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Continue">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -2950,6 +2951,12 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -3174,9 +3181,9 @@
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dUX-aM-4Jg">
                                                 <rect key="frame" x="15" y="109.5" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.70982512419999999" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
@@ -3211,10 +3218,10 @@
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etM-rT-jqR">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etM-rT-jqR" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="236.5" width="374" height="35.5"/>
-                                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Submit">
                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
@@ -3222,6 +3229,12 @@
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <integer key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -3394,8 +3407,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygF-bL-q1L">
-                                <rect key="frame" x="10" y="148" width="394" height="514"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MMM-wz-hq2" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="182" y="5" width="50" height="5"/>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="kDn-u7-P4y"/>
+                                    <constraint firstAttribute="height" constant="5" id="qXA-ca-gm8"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zoi-G9-56m">
+                                <rect key="frame" x="10" y="10" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="kC1-Uv-8E6"/>
+                                    <constraint firstAttribute="width" constant="30" id="uDh-pS-665"/>
+                                </constraints>
+                                <color key="tintColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark.circle" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="close_btnAction:" destination="nNW-wa-xzP" eventType="touchUpInside" id="Aer-dr-zlx"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ygF-bL-q1L" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="10" y="60" width="394" height="493"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Trading Password" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GbD-ai-Shu">
                                         <rect key="frame" x="15" y="10" width="207" height="21"/>
@@ -3411,9 +3455,9 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Old Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gYK-xY-ezq" userLabel="Password">
                                         <rect key="frame" x="15" y="89" width="364" height="34"/>
-                                        <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -3435,6 +3479,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small"/>
                                         </buttonConfiguration>
                                         <connections>
+                                            <action selector="pass_ShowHideOldPass_action:" destination="nNW-wa-xzP" eventType="touchUpInside" id="gsR-Ve-wXI"/>
                                             <action selector="pass_ShowHide_action:" destination="rbD-Az-Cjz" eventType="touchUpInside" id="Rcc-3y-Vyx"/>
                                         </connections>
                                     </button>
@@ -3446,9 +3491,9 @@
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" New Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZbK-0S-9oM">
                                         <rect key="frame" x="15" y="171" width="364" height="34"/>
-                                        <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
@@ -3464,6 +3509,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small"/>
                                         </buttonConfiguration>
                                         <connections>
+                                            <action selector="pass_ShowHideNewPass_action:" destination="nNW-wa-xzP" eventType="touchUpInside" id="GbL-ew-gYP"/>
                                             <action selector="pass_ShowHide_action:" destination="rbD-Az-Cjz" eventType="touchUpInside" id="00d-9a-Wzl"/>
                                         </connections>
                                     </button>
@@ -3486,15 +3532,15 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save your trading password right away as it connot be sent to your email due to security purposes." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yqm-k9-lou">
-                                        <rect key="frame" x="15" y="332.5" width="364" height="33.5"/>
+                                        <rect key="frame" x="15" y="312.5" width="364" height="33.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmO-G5-kkQ">
-                                        <rect key="frame" x="15" y="396" width="364" height="35.5"/>
-                                        <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmO-G5-kkQ" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="15" y="386" width="364" height="35.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Continue">
                                             <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="18"/>
@@ -3503,16 +3549,22 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <integer key="value" value="15"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="submitBtnAction:" destination="rbD-Az-Cjz" eventType="touchUpInside" id="VIr-uP-8wm"/>
+                                            <action selector="submitBtnAction:" destination="nNW-wa-xzP" eventType="touchUpInside" id="Yhl-S5-fOj"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="6gE-VX-VcC" firstAttribute="top" secondItem="j05-uk-YVf" secondAttribute="bottom" constant="5" id="0aV-FQ-1pd"/>
-                                    <constraint firstItem="tmO-G5-kkQ" firstAttribute="top" secondItem="Yqm-k9-lou" secondAttribute="bottom" constant="30" id="0qb-x6-9Jd"/>
                                     <constraint firstItem="Kt5-Vt-lFo" firstAttribute="trailing" secondItem="6gE-VX-VcC" secondAttribute="trailing" id="1cg-a0-SWv"/>
                                     <constraint firstItem="ZbK-0S-9oM" firstAttribute="trailing" secondItem="QYW-ew-8fZ" secondAttribute="trailing" id="2Al-Xu-Us9"/>
                                     <constraint firstItem="mIp-P8-v8b" firstAttribute="leading" secondItem="gYK-xY-ezq" secondAttribute="leading" id="2r3-Q9-b70"/>
@@ -3528,10 +3580,11 @@
                                     <constraint firstItem="Kt5-Vt-lFo" firstAttribute="leading" secondItem="6gE-VX-VcC" secondAttribute="leading" id="TGP-nv-Z3p"/>
                                     <constraint firstItem="tmO-G5-kkQ" firstAttribute="trailing" secondItem="Kt5-Vt-lFo" secondAttribute="trailing" id="Tbh-Gj-bp3"/>
                                     <constraint firstItem="olz-jR-Vde" firstAttribute="trailing" secondItem="gYK-xY-ezq" secondAttribute="trailing" constant="-15" id="Wgk-eM-Iuv"/>
+                                    <constraint firstItem="tmO-G5-kkQ" firstAttribute="top" secondItem="Yqm-k9-lou" secondAttribute="bottom" constant="40" id="a3Z-qw-qr0"/>
                                     <constraint firstItem="sII-DJ-2eM" firstAttribute="top" secondItem="GbD-ai-Shu" secondAttribute="bottom" constant="30" id="b4O-7f-hhm"/>
                                     <constraint firstItem="j05-uk-YVf" firstAttribute="trailing" secondItem="ZbK-0S-9oM" secondAttribute="trailing" id="bda-oS-f9k"/>
                                     <constraint firstItem="7Ga-QV-IU0" firstAttribute="centerY" secondItem="ZbK-0S-9oM" secondAttribute="centerY" id="d6L-y1-Mhn"/>
-                                    <constraint firstItem="Yqm-k9-lou" firstAttribute="top" secondItem="Kt5-Vt-lFo" secondAttribute="bottom" constant="50" id="epL-q9-tJx"/>
+                                    <constraint firstItem="Yqm-k9-lou" firstAttribute="top" secondItem="Kt5-Vt-lFo" secondAttribute="bottom" constant="30" id="epL-q9-tJx"/>
                                     <constraint firstItem="7Ga-QV-IU0" firstAttribute="trailing" secondItem="ZbK-0S-9oM" secondAttribute="trailing" constant="-15" id="hfF-fz-k9c"/>
                                     <constraint firstItem="QYW-ew-8fZ" firstAttribute="leading" secondItem="sII-DJ-2eM" secondAttribute="leading" id="j9T-px-eXb"/>
                                     <constraint firstAttribute="trailing" secondItem="sII-DJ-2eM" secondAttribute="trailing" constant="15" id="l8C-st-QVH"/>
@@ -3550,13 +3603,16 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="EFk-ii-qMe"/>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="ygF-bL-q1L" firstAttribute="leading" secondItem="EFk-ii-qMe" secondAttribute="leading" constant="10" id="Atf-pI-ZWQ"/>
-                            <constraint firstItem="EFk-ii-qMe" firstAttribute="trailing" secondItem="ygF-bL-q1L" secondAttribute="trailing" constant="10" id="AwI-u5-ipb"/>
-                            <constraint firstItem="EFk-ii-qMe" firstAttribute="bottom" secondItem="ygF-bL-q1L" secondAttribute="bottom" constant="200" id="dqX-2C-g2S"/>
-                            <constraint firstItem="ygF-bL-q1L" firstAttribute="top" secondItem="EFk-ii-qMe" secondAttribute="top" constant="100" id="eGz-Dt-yeA"/>
+                            <constraint firstItem="Zoi-G9-56m" firstAttribute="top" secondItem="RDi-AH-XIe" secondAttribute="top" constant="10" id="7CQ-UK-eUN"/>
+                            <constraint firstItem="Zoi-G9-56m" firstAttribute="leading" secondItem="RDi-AH-XIe" secondAttribute="leading" constant="10" id="AFc-yO-mu4"/>
+                            <constraint firstItem="ygF-bL-q1L" firstAttribute="leading" secondItem="RDi-AH-XIe" secondAttribute="leading" constant="10" id="Atf-pI-ZWQ"/>
+                            <constraint firstAttribute="trailing" secondItem="ygF-bL-q1L" secondAttribute="trailing" constant="10" id="AwI-u5-ipb"/>
+                            <constraint firstItem="MMM-wz-hq2" firstAttribute="top" secondItem="RDi-AH-XIe" secondAttribute="top" constant="5" id="PWN-mY-pFS"/>
+                            <constraint firstItem="ygF-bL-q1L" firstAttribute="top" secondItem="MMM-wz-hq2" secondAttribute="bottom" constant="50" id="Q58-20-dyv"/>
+                            <constraint firstItem="MMM-wz-hq2" firstAttribute="centerX" secondItem="RDi-AH-XIe" secondAttribute="centerX" id="jNi-31-VG0"/>
+                            <constraint firstItem="ygF-bL-q1L" firstAttribute="height" secondItem="RDi-AH-XIe" secondAttribute="height" multiplier="0.55" id="jeA-Lr-rp7"/>
                         </constraints>
                     </view>
                     <connections>
@@ -3914,7 +3970,7 @@
                                                     <constraint firstItem="63w-fX-dbv" firstAttribute="trailing" secondItem="KMN-SO-Vbz" secondAttribute="trailing" id="z7T-PS-Kri"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMW-YG-QT9">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gMW-YG-QT9" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="224" y="626" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -4269,7 +4325,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="trL-1I-Bns" secondAttribute="bottom" id="s3X-gJ-Djc"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W54-xo-TQU">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W54-xo-TQU" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="624" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -4638,7 +4694,7 @@
                                                     <constraint firstItem="qmc-2s-JBB" firstAttribute="top" secondItem="k7y-ht-JLC" secondAttribute="top" constant="20" id="xlj-Ac-Gyr"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oz8-nX-EU4">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oz8-nX-EU4" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="624" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -4989,7 +5045,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="FUu-jc-eRw" secondAttribute="trailing" id="zyz-ts-DWG"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pV7-ac-QqF">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pV7-ac-QqF" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="624" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -5338,7 +5394,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="JwC-nf-dVC" secondAttribute="trailing" id="eJ1-Dk-r9t"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNJ-Qh-tOd">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UNJ-Qh-tOd" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="624" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -5636,7 +5692,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="2iC-tU-oJu" secondAttribute="trailing" id="r2k-VZ-9GD"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNz-FN-X7e">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNz-FN-X7e" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="574" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -5986,7 +6042,7 @@
                                                     <constraint firstAttribute="trailing" secondItem="gfE-GV-KWq" secondAttribute="trailing" id="pwq-mQ-ima"/>
                                                 </constraints>
                                             </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzv-Av-DL4">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zzv-Av-DL4" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="217" y="634" width="150" height="50"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -7033,7 +7089,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Scg-kS-RPm" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="20" y="261" width="374" height="368.5"/>
+                                <rect key="frame" x="20" y="261" width="374" height="388.5"/>
                                 <color key="backgroundColor" red="0.086274509799999996" green="0.098039215690000001" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -7062,11 +7118,12 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  Login ID" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nRX-yy-3nA">
                                 <rect key="frame" x="41.5" y="435" width="331" height="40"/>
-                                <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.25362168870000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="zJ8-J5-1Lw"/>
                                 </constraints>
-                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -7078,11 +7135,18 @@
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="  Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fY9-oU-CAv">
                                 <rect key="frame" x="41.5" y="509.5" width="331" height="40"/>
-                                <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.25227649009999997" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please enter correct crediential " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KzC-09-em2">
+                                <rect key="frame" x="41.5" y="555" width="206" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.85098040100000005" green="0.3686274886" blue="0.35294118520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5v3-Jq-qVK">
                                 <rect key="frame" x="337.5" y="517" width="25" height="25"/>
                                 <constraints>
@@ -7097,15 +7161,15 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGR-mf-UNc" userLabel="buttonView">
-                                <rect key="frame" x="40" y="559.5" width="334" height="50"/>
+                                <rect key="frame" x="40" y="579.5" width="334" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="ewU-kO-SFb">
                                         <rect key="frame" x="5" y="5" width="324" height="40"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkp-a4-PQy">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kkp-a4-PQy" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="156" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Cancel">
                                                     <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
@@ -7115,7 +7179,7 @@
                                                         <real key="value" value="0.5"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                         <real key="value" value="10"/>
@@ -7125,7 +7189,7 @@
                                                     <action selector="cancel_action:" destination="0dL-RJ-gM1" eventType="touchUpInside" id="8RO-Ag-rGt"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDL-0U-t7T">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDL-0U-t7T" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                 <rect key="frame" x="168" y="0.0" width="156" height="40"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -7168,14 +7232,16 @@
                             <constraint firstItem="Ixh-qd-nAw" firstAttribute="bottom" secondItem="mIu-a5-w9B" secondAttribute="top" constant="-10" id="0SC-IW-qHT"/>
                             <constraint firstItem="hGR-mf-UNc" firstAttribute="bottom" secondItem="Scg-kS-RPm" secondAttribute="bottom" constant="-20" id="0fZ-22-SpX"/>
                             <constraint firstItem="nRX-yy-3nA" firstAttribute="top" secondItem="mIu-a5-w9B" secondAttribute="bottom" constant="5" id="5CX-li-VMi"/>
+                            <constraint firstItem="KzC-09-em2" firstAttribute="leading" secondItem="fY9-oU-CAv" secondAttribute="leading" id="6Hp-ip-a55"/>
                             <constraint firstItem="nRX-yy-3nA" firstAttribute="bottom" secondItem="tLq-FH-1tD" secondAttribute="top" constant="-10" id="8o4-c9-sPH"/>
                             <constraint firstItem="5v3-Jq-qVK" firstAttribute="trailing" secondItem="fY9-oU-CAv" secondAttribute="trailing" constant="-10" id="CbK-w2-gCt"/>
                             <constraint firstItem="Scg-kS-RPm" firstAttribute="leading" secondItem="wnL-J5-Stc" secondAttribute="leading" constant="20" id="FaC-fM-mHI"/>
                             <constraint firstItem="hGR-mf-UNc" firstAttribute="trailing" secondItem="Scg-kS-RPm" secondAttribute="trailing" constant="-20" id="Gfn-bQ-96P"/>
                             <constraint firstItem="nRX-yy-3nA" firstAttribute="width" secondItem="G8V-nC-mOy" secondAttribute="width" multiplier="0.8" id="HIo-ji-EG0"/>
-                            <constraint firstItem="hGR-mf-UNc" firstAttribute="top" secondItem="fY9-oU-CAv" secondAttribute="bottom" constant="10" id="HmT-vg-LnP"/>
+                            <constraint firstItem="hGR-mf-UNc" firstAttribute="top" secondItem="fY9-oU-CAv" secondAttribute="bottom" constant="30" id="HmT-vg-LnP"/>
                             <constraint firstItem="v0g-mN-PfO" firstAttribute="bottom" secondItem="Ixh-qd-nAw" secondAttribute="top" constant="-20" id="JhS-0G-Vsu"/>
                             <constraint firstItem="v0g-mN-PfO" firstAttribute="centerX" secondItem="wnL-J5-Stc" secondAttribute="centerX" id="MAg-Z3-s5Z"/>
+                            <constraint firstItem="KzC-09-em2" firstAttribute="top" secondItem="fY9-oU-CAv" secondAttribute="bottom" constant="5.5" id="O0f-hn-mE8"/>
                             <constraint firstItem="fY9-oU-CAv" firstAttribute="centerX" secondItem="wnL-J5-Stc" secondAttribute="centerX" id="P1z-IC-OCT"/>
                             <constraint firstItem="nRX-yy-3nA" firstAttribute="centerY" secondItem="wnL-J5-Stc" secondAttribute="centerY" id="Q1w-tz-lbV"/>
                             <constraint firstItem="tLq-FH-1tD" firstAttribute="bottom" secondItem="fY9-oU-CAv" secondAttribute="top" constant="-5" id="S6y-3E-hqs"/>
@@ -7194,6 +7260,7 @@
                     </view>
                     <connections>
                         <outlet property="Btn_showHidePass" destination="5v3-Jq-qVK" id="99J-th-Pgv"/>
+                        <outlet property="lbl_wrongPassword" destination="KzC-09-em2" id="UVW-M1-Jvo"/>
                         <outlet property="loginID_tf" destination="nRX-yy-3nA" id="JJf-0m-RyC"/>
                         <outlet property="login_popupView" destination="Scg-kS-RPm" id="hX7-5P-M8J"/>
                         <outlet property="password_tf" destination="fY9-oU-CAv" id="syq-Lp-gBc"/>
@@ -7201,7 +7268,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5MF-wo-68k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2219.0839694656488" y="703.52112676056345"/>
+            <point key="canvasLocation" x="2218.840579710145" y="703.125"/>
         </scene>
         <!--Result Bottom Sheet-->
         <scene sceneID="bZH-Zc-aYP">
@@ -7263,35 +7330,36 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="tradeIconSelect" width="25" height="25"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
+        <image name="xmark.circle" catalog="system" width="128" height="123"/>
         <namedColor name="basicTextColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

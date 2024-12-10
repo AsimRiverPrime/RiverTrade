@@ -9,11 +9,6 @@ import UIKit
 
 class DetailsViewController: UIViewController {
 
-    @IBOutlet weak var lbl_loginID: UILabel!
-    @IBOutlet weak var lbl_acctType: UILabel!
-    @IBOutlet weak var lbl_mt: UILabel!
-    @IBOutlet weak var lbl_acctGroup: UILabel!
-    
     @IBOutlet weak var fundsUnderline: UIView!
     @IBOutlet weak var settingsUnderline: UIView!
     @IBOutlet weak var fundsButton: UIButton!
@@ -28,7 +23,6 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
         fundsV()
-//        setHeaderValue()
     }
     
     
@@ -68,8 +62,17 @@ class DetailsViewController: UIViewController {
         fundsView.dismissView()
         settingsView.dismissView()
         settingsView = SettingsView.getView()
+//        settingsView.updateUserNameDelegate = self
+        settingsView.changePassDelegate = self
         self.mainUIView.addSubview(settingsView)
         
+    }
+    
+}
+extension DetailsViewController: ChangePasswordDelegate {
+    func didTapButton() {
+        let vc = Utilities.shared.getViewController(identifier: .changeTradePasswordVC, storyboardType: .bottomSheetPopups) as! ChangeTradePasswordVC
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
 }
