@@ -10,18 +10,15 @@ import Starscream
 
 enum SocketMessageType {
     case tick
-    case history
     case Unsubscribed
 }
 
 protocol GetSocketData: AnyObject {
-//    func tradeUpdates(tickMessage: TradeDetails? = nil, historyMessage: SymbolChartData? = nil)
-    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?)
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?)
 }
 
 protocol GetSocketMessages: AnyObject {
-//    func tradeUpdates(tickMessage: TradeDetails? = nil, historyMessage: SymbolChartData? = nil)
-    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?)
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?)
 }
 
 protocol GetCandleData: AnyObject {
@@ -34,7 +31,6 @@ protocol SocketPeerClosed: AnyObject {
 
 class WebSocketManager: WebSocketDelegate {
 
-//    var historyWebSocket: WebSocket?
     var webSocket: WebSocket?
     static let shared = WebSocketManager() // Shared instance
     
@@ -43,14 +39,12 @@ class WebSocketManager: WebSocketDelegate {
     private init() {}
     
     public weak var delegateSocketData: GetSocketData?
-//    public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateCandleSocketMessage: GetCandleData?
     public weak var delegateSocketPeerClosed: SocketPeerClosed?
     
     var isTradeDismiss = Bool()
 
     
-//    private let historyQueue = DispatchQueue(label: "historyQueue", qos: .background)
     private let webSocketQueue = DispatchQueue(label: "webSocketQueue", qos: .background)
   
     var trades: [String: TradeDetails] = [:] {
@@ -64,10 +58,6 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
     
-//    private func startConnectionCheckTimer() {
-//        connectionCheckTimer = Timer.scheduledTimer(timeInterval: GlobalVariable.instance.socketTimer, target: self, selector: #selector(checkConnection), userInfo: nil, repeats: true)
-//    }
-
     private func startConnectionCheckTimer() {
         // Invalidate existing timer
         connectionCheckTimer?.invalidate()
@@ -304,8 +294,8 @@ class WebSocketManager: WebSocketDelegate {
                     handleTradeData(genericResponse.message.payload)
                    
                 } else if myType == "get_chart_history" {
-                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
-                    handleHistoryData(historyResponse.message.payload)
+//                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
+//                    handleHistoryData(historyResponse.message.payload)
                 } else if myType == "Unsubscribed" {
                     handleUnsubscribedData()
                 } else {
@@ -324,24 +314,11 @@ class WebSocketManager: WebSocketDelegate {
     // Handle trade data
     func handleTradeData(_ response: TradeDetails) {
         
-        delegateSocketData?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
-//        delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: response, historyMessage: nil)
+        delegateSocketData?.tradeUpdates(socketMessageType: .tick, tickMessage: response)
         NotificationCenter.default.post(name: .tradesUpdated, object: response)
         
     }
 
-    // Handle history data
-    func handleHistoryData(_ response: SymbolChartData) {
-        // Handle history data here
-        print("Received history data: \(response)")
-        
-        delegateSocketData?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
-//        delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: response)
-        
-        delegateCandleSocketMessage?.tradeHistoryUpdates(socketMessageType: .history, historyMessage: response)
-      
-    }
-    
     func handleUnsubscribedData() {
         //Unsubscribed
         
@@ -349,8 +326,7 @@ class WebSocketManager: WebSocketDelegate {
             return
         }
         
-        delegateSocketData?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
-//        delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
+        delegateSocketData?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil)
     }
 
     // Handle errors

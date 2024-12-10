@@ -359,6 +359,9 @@
 		FAD776D42C977087000411F1 /* ViewControllerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D32C977087000411F1 /* ViewControllerVM.swift */; };
 		FAD776D72C97720D000411F1 /* JSONRPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D62C97720D000411F1 /* JSONRPCModel.swift */; };
 		FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */; };
+		FADC582D2D09031200B205A1 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FADC582B2D09031100B205A1 /* SearchTableViewCell.xib */; };
+		FADC582E2D09031200B205A1 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC582C2D09031100B205A1 /* SearchTableViewCell.swift */; };
+		FADC58302D09032E00B205A1 /* WebSocketManagerBackup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FADC582F2D09032D00B205A1 /* WebSocketManagerBackup.swift */; };
 		FAF18C5B2CB202F700AAB538 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -721,6 +724,9 @@
 		FAD776D32C977087000411F1 /* ViewControllerVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerVM.swift; sourceTree = "<group>"; };
 		FAD776D62C97720D000411F1 /* JSONRPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONRPCModel.swift; sourceTree = "<group>"; };
 		FAD776D82C9772C2000411F1 /* SymbolDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDataModel.swift; sourceTree = "<group>"; };
+		FADC582B2D09031100B205A1 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		FADC582C2D09031100B205A1 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		FADC582F2D09032D00B205A1 /* WebSocketManagerBackup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebSocketManagerBackup.swift; sourceTree = "<group>"; };
 		FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		FF8AACCD1A9092F340835619 /* Pods-RiverPrime.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.debug.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1181,6 +1187,7 @@
 		318257462C75C7B200723A50 /* WebStockManager */ = {
 			isa = PBXGroup;
 			children = (
+				FADC582F2D09032D00B205A1 /* WebSocketManagerBackup.swift */,
 				319A329E2C9C3F21006DA077 /* WebSocketManager.swift */,
 			);
 			path = WebStockManager;
@@ -1225,6 +1232,7 @@
 		319A328F2C9C3EFB006DA077 /* Trade */ = {
 			isa = PBXGroup;
 			children = (
+				FADC582A2D09031100B205A1 /* SearchTableViewCell */,
 				31F77FC82CE627130080C410 /* TradeHeader */,
 				319A32842C9C3EFB006DA077 /* TableCollectionViewCell */,
 				319A32882C9C3EFB006DA077 /* TradeTableViewCell */,
@@ -2221,6 +2229,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		FADC582A2D09031100B205A1 /* SearchTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				FADC582B2D09031100B205A1 /* SearchTableViewCell.xib */,
+				FADC582C2D09031100B205A1 /* SearchTableViewCell.swift */,
+			);
+			path = SearchTableViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2312,6 +2329,7 @@
 				319A32912C9C3EFB006DA077 /* TradeVC.xib in Resources */,
 				3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */,
 				FA10ECC72CE6A23F00C1980F /* Poppins-ExtraLight.ttf in Resources */,
+				FADC582D2D09031200B205A1 /* SearchTableViewCell.xib in Resources */,
 				FA10ECD42CE6A23F00C1980F /* Poppins-Bold.ttf in Resources */,
 				FA10ECD52CE6A23F00C1980F /* Poppins-Black.ttf in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
@@ -2537,6 +2555,7 @@
 				31D2AF212C8840B800E0CF2E /* HandleScaleOptions.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
 				31D2AF3C2C8840B800E0CF2E /* PriceFormat.swift in Sources */,
+				FADC582E2D09031200B205A1 /* SearchTableViewCell.swift in Sources */,
 				FAD776CE2C976F94000411F1 /* APIResponse.swift in Sources */,
 				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
 				31D2AEF22C8840B800E0CF2E /* CandlestickSeries.swift in Sources */,
@@ -2652,6 +2671,7 @@
 				3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */,
 				31D2AF282C8840B800E0CF2E /* AreaSeriesOptions.swift in Sources */,
 				313F4F1C2CC0EA8F00A1508A /* DatePickerPopupBottomSheet.swift in Sources */,
+				FADC58302D09032E00B205A1 /* WebSocketManagerBackup.swift in Sources */,
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				31D2AF422C8840B800E0CF2E /* ChartApi.swift in Sources */,
 				FAD776D92C9772C2000411F1 /* SymbolDataModel.swift in Sources */,

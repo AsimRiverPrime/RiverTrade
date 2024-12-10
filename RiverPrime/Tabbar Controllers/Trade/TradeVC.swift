@@ -355,7 +355,7 @@ extension TradeVC {
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
 extension TradeVC: GetSocketMessages {
   
-    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?) {
            switch socketMessageType {
            case .tick:
                
@@ -466,27 +466,7 @@ extension TradeVC: GetSocketMessages {
                }
 
                break
-           case .history:
-               
-//               if let getHistory = historyMessage {
-//                   if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getHistory.symbol }) {
-//                       getSymbolData[index].historyMessage = historyMessage
-//                       
-//                       let indexPath = IndexPath(row: index, section: 2)
-//                       if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-//                           print("getSymbolData[\(index)] = \(getSymbolData[index])")
-////   //                        getSymbolData[index].isHistoryFlag = true
-////                           GlobalVariable.instance.isProcessingSymbol = false
-//                           GlobalVariable.instance.isProcessingSymbolTimer = false
-//                           cell.configureChart(getSymbolData: getSymbolData[index])
-//                       }
-//                  
-//                       return
-//                   }
-//               }
-
-               break
-               
+           
            case .Unsubscribed:
                
                //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.

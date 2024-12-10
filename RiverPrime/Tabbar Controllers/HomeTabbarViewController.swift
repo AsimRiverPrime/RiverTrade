@@ -327,7 +327,7 @@ extension HomeTabbarViewController {
 
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
 extension HomeTabbarViewController: GetSocketData {
-    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?) {
         switch socketMessageType {
         case .tick:
             
@@ -416,16 +416,12 @@ extension HomeTabbarViewController: GetSocketData {
                 
             }
             
-            delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: tickMessage, historyMessage: nil)
+            delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: tickMessage)
             break
-        case .history:
-            
-            delegateSocketMessage?.tradeUpdates(socketMessageType: .history, tickMessage: nil, historyMessage: historyMessage)
-            break
-            
+        
         case .Unsubscribed:
             
-            delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil, historyMessage: nil)
+            delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil)
             break
         }
     }

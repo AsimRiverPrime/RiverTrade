@@ -617,7 +617,7 @@ extension AccountsVC: SocketPeerClosed {
 
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
 extension AccountsVC: GetSocketMessages {
-    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?, historyMessage: SymbolChartData?) {
+    func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?) {
                switch socketMessageType {
                case .tick:
                    
@@ -772,10 +772,7 @@ extension AccountsVC: GetSocketMessages {
                    }
                    
                    break
-               case .history:
-                   
-                   break
-                   
+               
                case .Unsubscribed:
                    
                    //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
