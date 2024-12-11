@@ -116,10 +116,20 @@ class TradeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tf_searchSymbol.attributedPlaceholder = NSAttributedString(
+            string: "Search symbol here",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
         dashboardinit()
         GlobalVariable.instance.lastSelectedSectorIndex = IndexPath(row: 0, section: 0)
+      
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
         
+    }
+    
+    @objc func dismissKeyboard(){
+        self.view.endEditing(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -193,7 +203,6 @@ class TradeViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self.tblView.reloadData()
                     }
-                    
                    
                 }
                 

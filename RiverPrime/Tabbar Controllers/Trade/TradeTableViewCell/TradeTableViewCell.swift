@@ -59,9 +59,9 @@ class TradeTableViewCell: UITableViewCell {
         
           if let previous = previousValueAsk {
               if value < previous {
-                  boldColor = .systemRed // Less than previous value
+                  boldColor = .white //.systemRed // Less than previous value
               } else if value > previous {
-                  boldColor = .systemGreen // Greater than previous value
+                  boldColor = .white //.systemGreen // Greater than previous value
               } else {
                   boldColor = .white // Equal to previous value
               }
