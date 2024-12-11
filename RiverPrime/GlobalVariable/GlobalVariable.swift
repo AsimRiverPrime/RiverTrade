@@ -41,6 +41,7 @@ class GlobalVariable: NSObject {
     var balanceUpdate = "0.0"
     
     var symbolDataArray: [SymbolData] = []
+    var symbolDataUpdatedList: [SymbolData] = []
     
     var lastSelectedSectorIndex = IndexPath()
     var lastSelectedOPCIndex = IndexPath()

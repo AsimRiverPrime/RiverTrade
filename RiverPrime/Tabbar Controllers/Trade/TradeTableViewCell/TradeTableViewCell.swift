@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import SDWebImage
+//import SDWebImage
 //import SDWebImageSVGKitPlugin
 
 class TradeTableViewCell: UITableViewCell {
@@ -37,117 +37,26 @@ class TradeTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        self.graphView.isHidden = true
-//        self.graphView.isUserInteractionEnabled = false
-//        graphView.backgroundColor = .clear
-//        
-//        // Set a dark background view behind the chart to avoid flickering
-//        darkBackground = UIView()
-//        darkBackground?.backgroundColor = UIColor.black // Dark background
-//        darkBackground?.frame = graphView.bounds
-//        darkBackground?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        graphView.addSubview(darkBackground!)
-//        graphView.sendSubviewToBack(darkBackground!) // Send the dark background to back
-//        
-//        // Initially hide the chart
-//        graphView.isHidden = true
     }
     
-    func setStyledLabelAsk(value: Double, digit: Int, label: UILabel) {
-      
+    func setStyledLabel(value: Double, digit: Int, label: UILabel) {
         let boldColor: UIColor
-        
-          if let previous = previousValueAsk {
-              if value < previous {
-                  boldColor = .white //.systemRed // Less than previous value
-              } else if value > previous {
-                  boldColor = .white //.systemGreen // Greater than previous value
-              } else {
-                  boldColor = .white // Equal to previous value
-              }
-          } else {
-              boldColor = .white // Default color for the first value
-          }
-          
-          // Update the previousValue for future comparisons
-        previousValueAsk = value
-        // Format the value to the specified number of digits
-        let format = "%.\(digit)f"
-        let valueString = String(format: format, value).trimmingCharacters(in: .whitespaces)
-
-        // Split the value into integer and decimal parts
-        let parts = valueString.split(separator: ".")
-        let integerPart = String(parts[0]) + "."
-        var decimalPart = parts.count > 1 ? String(parts[1]) : ""
-
-        // Attributes for normal and bold text
-        let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 18),
-            .foregroundColor: UIColor.white
-        ]
-        let boldAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 26),
-            .foregroundColor: boldColor
-        ]
-
-        let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
-
-        // Apply logic for decimal part styling
-        if decimalPart.isEmpty {
-            decimalPart = "0"
-            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
-        } else if decimalPart.count == 1 {
-            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
-        } else if decimalPart.count == 2 {
-            attributedText.append(NSAttributedString(string: decimalPart, attributes: boldAttributes))
-        } else if decimalPart.count == 3 {
-            let firstTwoDigits = String(decimalPart.prefix(2))
-            let lastDigit = String(decimalPart.suffix(1))
-
-            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: boldAttributes))
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
-        } else if decimalPart.count == 4 {
-            let firstDigit = String(decimalPart.prefix(1))
-            let middleDigits = String(decimalPart.dropFirst(1).prefix(2))
-            let lastDigit = String(decimalPart.suffix(1))
-
-            attributedText.append(NSAttributedString(string: firstDigit, attributes: normalAttributes))
-            attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
-        } else if decimalPart.count >= 5 {
-            let firstTwoDigits = String(decimalPart.prefix(2))
-            let middleDigits = String(decimalPart.dropFirst(2).dropLast())
-            let lastDigit = String(decimalPart.suffix(1))
-
-            attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: normalAttributes))
-            if !middleDigits.isEmpty {
-                attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
-            }
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
-        }
-            // Set to label
-            label.attributedText = attributedText
-        
-    }
-    
-   func setStyledLabel(value: Double, digit: Int, label: UILabel) {
-        let boldColor: UIColor
-
+        boldColor = .white
         // Determine the color based on value comparison
-        if let previous = previousValue {
-            if value < previous {
-                boldColor = .systemRed // Less than previous value
-            } else if value > previous {
-                boldColor = .systemGreen // Greater than previous value
-            } else {
-                boldColor = .white // Equal to previous value
-            }
-        } else {
-            boldColor = .white // Default color for the first value
-        }
+//        if let previous = previousValue {
+//            if value < previous {
+//                boldColor = .red // Less than previous value
+//            } else if value > previous {
+//                boldColor = .blue // Greater than previous value
+//            } else {
+//                boldColor = .white // Equal to previous value
+//            }
+//        } else {
+//            boldColor = .white // Default color for the first value
+//        }
 
         // Update the previousValue for future comparisons
-        previousValue = value
+//        previousValue = value
 
         // Format the value to the specified number of digits
         let format = "%.\(digit)f"
@@ -158,7 +67,7 @@ class TradeTableViewCell: UITableViewCell {
         let integerPart = String(parts[0]) + "."
         var decimalPart = parts.count > 1 ? String(parts[1]) : ""
 
-        // Attributes for normal and bold text
+        // Attributes for normal, bold, and superscript text
         let normalAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18),
             .foregroundColor: UIColor.white
@@ -166,6 +75,11 @@ class TradeTableViewCell: UITableViewCell {
         let boldAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.boldSystemFont(ofSize: 26),
             .foregroundColor: boldColor
+        ]
+        let superscriptAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 14),
+            .foregroundColor: boldColor,
+            .baselineOffset: 8 // Raise the last digit slightly
         ]
 
         let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
@@ -183,7 +97,7 @@ class TradeTableViewCell: UITableViewCell {
             let lastDigit = String(decimalPart.suffix(1))
 
             attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: boldAttributes))
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
         } else if decimalPart.count == 4 {
             let firstDigit = String(decimalPart.prefix(1))
             let middleDigits = String(decimalPart.dropFirst(1).prefix(2))
@@ -191,7 +105,7 @@ class TradeTableViewCell: UITableViewCell {
 
             attributedText.append(NSAttributedString(string: firstDigit, attributes: normalAttributes))
             attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
         } else if decimalPart.count >= 5 {
             let firstTwoDigits = String(decimalPart.prefix(2))
             let middleDigits = String(decimalPart.dropFirst(2).dropLast())
@@ -201,7 +115,7 @@ class TradeTableViewCell: UITableViewCell {
             if !middleDigits.isEmpty {
                 attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
             }
-            attributedText.append(NSAttributedString(string: lastDigit, attributes: normalAttributes))
+            attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
         }
 
         // Set the styled text to the label
@@ -265,7 +179,7 @@ class TradeTableViewCell: UITableViewCell {
         self.lbl_datetime.text = datee
         
         setStyledLabel(value: trade.bid, digit: self.digits ?? 0, label: lbl_bidAmount)
-        setStyledLabelAsk(value: trade.ask, digit: self.digits ?? 0, label: lbl_askAmount)
+        setStyledLabel(value: trade.ask, digit: self.digits ?? 0, label: lbl_askAmount)
         
         if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
             lblCurrencyName.text = symbol.description

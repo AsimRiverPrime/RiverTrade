@@ -26,6 +26,32 @@ class FundsView: UIView {
     
     public override func awakeFromNib() {
         setHeaderValue()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+    }
+    @objc func notificationPopup(_ notification: NSNotification) {
+        
+        if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
+            print("Received ammount: \(ammount)")
+           
+            
+            if let user = UserManager.shared.currentUser {
+                self.lbl_balance.text = "$\(user.balance)"
+                self.lbl_equity.text = "$\(ammount)"
+                let totalPL = (Double(ammount) ?? 0.0) - (user.balance)
+                let freeMargin = (Double(ammount) ?? 0.0) - (user.margin)
+                let marginLevel = (Double(ammount) ?? 0.0) / (user.margin) * 100
+                
+                self.lbl_leverage.text = "1:\(user.leverage)"
+                self.lbl_totalPL.text = "$"+"\(totalPL)".trimmedTrailingZeros()
+                self.lbl_Margin.text = "$\(user.margin)"
+                self.lbl_freeMargin.text = "$"+"\(freeMargin)".trimmedTrailingZeros()
+                let marginLevelValue = "\(marginLevel)".trimmedTrailingZeros()
+                self.lbl_marginLevel.text = marginLevelValue + "%"
+                
+            }
+            
+        }
+        
     }
     
     func setHeaderValue() {
@@ -53,19 +79,6 @@ class FundsView: UIView {
                     self.lbl_acctGroup.text  = " PREMIUM "
                 }
             }
-        }
-        
-        if let user = UserManager.shared.currentUser {
-            print("\n User Balance: \(user)")
-            self.lbl_balance.text = "\(user.balance)"
-            self.lbl_equity.text = "\(user.equity)"
-            self.lbl_leverage.text = "\(user.leverage)"
-            self.lbl_totalPL.text = "\(user.profit)"
-            self.lbl_Margin.text = "\(user.margin)"
-            self.lbl_freeMargin.text = "\(user.marginFree)"
-            let marginLevelValue = "\(user.marginLevel)".trimmedTrailingZeros()
-            self.lbl_marginLevel.text = marginLevelValue + "%"
-            
         }
         
     }

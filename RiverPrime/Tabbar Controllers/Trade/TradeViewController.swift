@@ -93,6 +93,7 @@ class TradeViewController: UIViewController {
     var searchSectorData = ["Currency", "Commodities", "Energy", "Indices"]
     var symbolDataSectorSelected = false
     var symbolDataSectorSelectedIndex = Int()
+    var selectedSectorGroup: SectorGroup? = nil
     
     var timer: Timer?
     var timeLeft = 60 // seconds
@@ -105,6 +106,7 @@ class TradeViewController: UIViewController {
     @IBOutlet weak var lbl_accountType: UILabel!
     
     @IBOutlet weak var tf_searchSymbol: UITextField!
+    @IBOutlet weak var searchCloseButton: UIButton!
     
     var layout = UICollectionViewFlowLayout()
     
@@ -112,32 +114,40 @@ class TradeViewController: UIViewController {
     var selectedIndex = 0
     
     weak var delegateCollectionView: TradeInfoTapDelegate?
-    var     symbolDataSector: [SectorGroup] = []
+    var symbolDataSector: [SectorGroup] = []
+    var filteredData: [SectorGroup] = []
+    
+//    var getSectorData: [SectorGroup] = {
+//        if filteredData.count != 0 {
+//            return filteredData
+//        } else {
+//            return symbolDataSector
+//        }
+//    }()
+    
+    var getSectorData: [SectorGroup] {
+        return filteredData.isEmpty ? symbolDataSector : filteredData
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tf_searchSymbol.attributedPlaceholder = NSAttributedString(
-            string: "Search symbol here",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
-        )
+        
         dashboardinit()
         GlobalVariable.instance.lastSelectedSectorIndex = IndexPath(row: 0, section: 0)
-      
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-           view.addGestureRecognizer(tapGesture)
         
     }
     
-    @objc func dismissKeyboard(){
-        self.view.endEditing(true)
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
+        
+        self.searchCloseButton.isHidden = true
+        self.searchCloseButton.setTitle("", for: .normal)
         
         self.tblSearchView.isHidden = true
         self.tblView.isHidden = false
         
         self.tf_searchSymbol.delegate = self
+        // Add a target to update search on text change
+        self.tf_searchSymbol.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
         
         if let tabBarController = self.tabBarController as? HomeTabbarViewController {
             tabBarController.delegateSocketMessage = self
@@ -151,6 +161,19 @@ class TradeViewController: UIViewController {
         
     }
     
+    @IBAction func searchCloseButton(_ sender: UIButton) {
+        
+        symbolDataSector.removeAll()
+        //MARK: - Set all sectors by default.
+        symbolDataSector = GlobalVariable.instance.sectors
+        self.symbolDataSectorSelected = false
+        self.searchCloseButton.isHidden = true
+        self.tblView.isHidden = false
+        self.tblSearchView.isHidden = true
+        self.tf_searchSymbol.resignFirstResponder()
+        
+    }
+    
     private func callCollectionViewAtStart() {
         
         let indexPath = GlobalVariable.instance.lastSelectedSectorIndex //IndexPath(row: 0, section: 0)
@@ -158,7 +181,7 @@ class TradeViewController: UIViewController {
 //        if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
 //            // Scroll to the selected item
 //            tradeTVCCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-//            
+//
 //            let data = symbolDataSector[indexPath.row]
 //            selectedIndex = indexPath.row
 //            self.delegate?.tradeInfoTap(data, index: indexPath.row)
@@ -196,6 +219,31 @@ class TradeViewController: UIViewController {
                 if GlobalVariable.instance.symbolDataArray.count != 0 {
 //                    symbolDataObj = GlobalVariable.instance.symbolDataArray[0]
                     
+                    GlobalVariable.instance.symbolDataUpdatedList = GlobalVariable.instance.symbolDataArray
+                    
+                    symbolDataSector = GlobalVariable.instance.sectors
+                    
+                    
+                    
+                    
+//                    let symbols = GlobalVariable.instance.symbolDataArray
+//                    let sectors = GlobalVariable.instance.sectors
+//
+//                    // Get the sector at the given index
+//                    let selectedSector = sectors[collectionViewIndex]
+//
+//                    // Filter symbols that belong to the selected sector
+//                    let filteredSymbols = symbols.filter { $0.sector == selectedSector.sector }
+//
+//                    // Create a SectorGroup for the selected sector and its symbols
+//                    let sectorGroup = SectorGroup(sector: selectedSector.sector, symbols: filteredSymbols)
+//
+//                    selectedSectorGroup = sectorGroup
+                    
+                    
+                    
+                    
+                    
                     //MARK: - Get the list and save localy and set sectors and symbols.
                     processSymbols(GlobalVariable.instance.symbolDataArray)
                     
@@ -203,6 +251,7 @@ class TradeViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         self.tblView.reloadData()
                     }
+                    
                    
                 }
                 
@@ -356,7 +405,8 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         } else {
             if symbolDataSectorSelected {
-                return symbolDataSector[0/*symbolDataSectorSelectedIndex*/].symbols.count
+//                return symbolDataSector[0/*symbolDataSectorSelectedIndex*/].symbols.count
+                return getSectorData[0].symbols.count
             } else {
                 return 1
             }
@@ -372,7 +422,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             //MARK: - get this list data from symbol api.
             return getSymbolData.count
         } else {
-            return symbolDataSector.count
+            return getSectorData.count //symbolDataSector.count
         }
 //        //MARK: - get this list data from symbol api.
 //        return getSymbolData.count
@@ -413,7 +463,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(with: SearchTableViewCell.self, for: indexPath)
             
-            let data = symbolDataSector[indexPath.row]
+            let data = getSectorData[indexPath.row] //symbolDataSector[indexPath.row]
             
             if symbolDataSectorSelected {
                 cell.textLabel?.text = data.symbols[indexPath.section].name
@@ -435,16 +485,16 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.selectionStyle = .none
 //        //MARK: - getSymbolData list is comming from symbol api.
 //        let trade = getSymbolData[indexPath.row].tickMessage//?[indexPath.row]
-//        
-//        
+//
+//
 //        //MARK: - Get selected sector value and compare with repeated sector values and show the list of symbols with in this sector.
 //        if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == trade?.symbol}) {
 //            symbolDataObj = obj
 //        }
-//        
+//
 //        //MARK: - Showing the list of Symbols according to the selected sector in else statement.
 //        cell.configure(with: trade! , symbolDataObj: symbolDataObj)
-//        
+//
 //        // Disable interaction for specific cells
 //        if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.
 //            cell.isUserInteractionEnabled = false
@@ -454,7 +504,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 //            cell.isUserInteractionEnabled = true
 //            cell.contentView.alpha = 1.0
 //        }
-//        
+//
 //        return cell
     }
     
@@ -481,20 +531,25 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 tblSearchView.isHidden = true
                 tf_searchSymbol.resignFirstResponder()
                 
-                let item = symbolDataSector[indexPath.row].symbols[indexPath.section]
+                let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
                 
                 let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
                 let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
                 getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
+                
+                GlobalVariable.instance.symbolDataUpdatedList.append(item)
                 
                 GlobalVariable.instance.previouseSymbolList.append(item.name)
                 
                 //MARK: - START calling Socket message from here.
                 vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbol: item.name)
                 
-                tblView.reloadData()
+                let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
+                tblView.insertRows(at: [newIndexPath], with: .automatic)
+//                tblView.reloadData()
                 
             } else {
+                self.tf_searchSymbol.resignFirstResponder()
                 getTradeSector(collectionViewIndex: indexPath.row)
             }
             
@@ -507,7 +562,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 //        if getSymbolData.historyMessage?.chartData.count != 0 {
 //            delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
 //        }
-//        
+//
 //        //        }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -521,6 +576,48 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
 //        return 80.0
+    }
+    
+    // MARK: - Table View Delegate (Delete Action)
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            removeDeletedSymbolFromList(indexPath: indexPath)
+            
+            // Animate the deletion of the row
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+    
+    // UIScrollViewDelegate method to hide the keyboard when the table view scrolls
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            // Dismiss the keyboard when scrolling begins
+////            view.endEditing(true)
+//            symbolDataSectorSelected = false
+//            tblView.isHidden = false
+//            tblSearchView.isHidden = true
+            tf_searchSymbol.resignFirstResponder()
+        }
+    
+    private func removeDeletedSymbolFromList(indexPath: IndexPath) {
+        var getDeletedSymbol = getSymbolData[indexPath.row].tickMessage?.symbol ?? ""
+        
+        //MARK: - START calling Socket message from here.
+        vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: [getDeletedSymbol])
+        
+        if GlobalVariable.instance.symbolDataUpdatedList.count != 0 {
+            for i in 0...GlobalVariable.instance.symbolDataUpdatedList.count-1 {
+                if GlobalVariable.instance.symbolDataUpdatedList[i].name == getDeletedSymbol {
+                    GlobalVariable.instance.symbolDataUpdatedList.remove(at: i)
+                    break
+                }
+            }
+        }
+        
+        GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
+        // Remove the item from the data source
+        getSymbolData.remove(at: indexPath.row)
+        
+        //GlobalVariable.instance.symbolDataArray
     }
     
     //MARK: - Just reload the given tableview section.
@@ -538,7 +635,8 @@ extension TradeViewController: SocketPeerClosed {
         
         GlobalVariable.instance.changeSector = true
         
-        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+//        setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+        setTradeModel()
     }
 }
 
@@ -618,7 +716,7 @@ extension TradeViewController: GetSocketMessages {
                         getSymbolData[index].isTickFlag = true
                         //                               cell.lblAmount.text = "\(getSymbolData[index].tickMessage?.bid ?? 0.0)".trimmedTrailingZeros()
                         cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
-                        cell.setStyledLabelAsk(value: getSymbolData[index].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
+                        cell.setStyledLabel(value: getSymbolData[index].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
                         
                         let pipsValues = cell.calculatePips(ask: getSymbolData[index].tickMessage?.ask ?? 0.0, bid: getSymbolData[index].tickMessage?.bid ?? 0.0, digits: cell.digits ?? 0)
                         cell.lbl_pipsValues.text = "\(pipsValues)"
@@ -690,7 +788,8 @@ extension TradeViewController: GetSocketMessages {
             
             GlobalVariable.instance.changeSector = true
             
-            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+            setTradeModel()
             
             if vm.webSocketManager.isSocketConnected() {
                 print("Socket is connected")
@@ -788,6 +887,7 @@ extension TradeViewController {
         // Initialize with the first index
 //        setTradeModel(collectionViewIndex: 0)
         setTradeModel()
+        refreshSection(at: 0)
     }
     
     
@@ -918,7 +1018,8 @@ extension TradeViewController {
         
         // Combined filtered data and names
         var filteredSymbolsData: (data: [SymbolData], names: [String]) {
-            let filtered = GlobalVariable.instance.symbolDataArray.filter { focusedSymbols.contains($0.name) }
+//            let filtered = GlobalVariable.instance.symbolDataArray.filter { focusedSymbols.contains($0.name) }
+            let filtered = GlobalVariable.instance.symbolDataUpdatedList.filter { focusedSymbols.contains($0.name) }
             let names = filtered.map { $0.name }
             return (data: filtered, names: names)
         }
@@ -933,7 +1034,7 @@ extension TradeViewController {
         
         GlobalVariable.instance.isProcessingSymbol = false
         
-        refreshSection(at: 0)
+//        refreshSection(at: 0)
         
         //MARK: - Save symbol local to unsubcibe.
         GlobalVariable.instance.previouseSymbolList = filteredSymbolsData.names //filteredSymbolNames
@@ -967,6 +1068,8 @@ extension TradeViewController {
         // Create a SectorGroup for the selected sector and its symbols
         let sectorGroup = SectorGroup(sector: selectedSector.sector, symbols: filteredSymbols)
         
+        selectedSectorGroup = sectorGroup
+        
         symbolDataSector.removeAll()
         // Append the sector group to symbolDataSector
         symbolDataSector.append(sectorGroup)
@@ -979,30 +1082,30 @@ extension TradeViewController {
         
         
 //        var filteredSector: [[SymbolData]] = [[]]
-//        
+//
 //        // Clear previous data
 //        //        vm.trades.removeAll()
 //        GlobalVariable.instance.filteredSymbols.removeAll()
 //        GlobalVariable.instance.filteredSymbolsUrl.removeAll()
-//        
+//
 //        // Populate filteredSymbols and filteredSymbolsUrl for each sector
 //        for sector in sectors {
 ////            let filteredSymbols = filterSymbolsBySector(symbols: symbols, sector: sector.sector)
 ////            let filteredSymbolsUrl = filterSymbolsImageBySector(symbols: symbols, sector: sector.sector)
-////            
+////
 ////            GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
 ////            GlobalVariable.instance.filteredSymbolsUrl.append(filteredSymbolsUrl)
-//            
+//
 //            let selectedSector = filterSector(symbols: symbols, sector: sector.sector)
 //            filteredSector.append(selectedSector)
 //        }
-//        
+//
 ////        // Append trades for the selected collectionViewIndex
 ////        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
 ////        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
-//        
+//
 //        let selectedSectors = filteredSector[safe: collectionViewIndex] ?? []
-//        
+//
 //        var count = 0
 //        for (sector) in selectedSectors {
 ////            count += 1
@@ -1012,12 +1115,12 @@ extension TradeViewController {
 ////            //            vm.trades.append(tradedetail)
 ////            //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
 ////            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
-//            
+//
 //            let data = SectorGroup(sector: sector.sector, symbols: <#T##[SymbolData]#>)
-//            
+//
 //            symbolDataSector.append(SectorGroup(sector: sector.sector, symbols: sector.symbols))
 //        }
-//        
+//
 ////        GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
 ////        symbolDataSector.removeAll()
 ////        var count = 0
@@ -1030,22 +1133,22 @@ extension TradeViewController {
 ////            //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
 ////            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
 ////        }
-//        
+//
 //        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
-//        
+//
 //        GlobalVariable.instance.isProcessingSymbol = false
-//        
+//
 //        refreshSection(at: 0)
-//        
+//
 //        //MARK: - Save symbol local to unsubcibe.
 //        GlobalVariable.instance.previouseSymbolList = selectedSymbols
-//        
+//
 //        //MARK: - Merge OPEN list with the given list.
 //        let getList = Array(Set(GlobalVariable.instance.openSymbolList + selectedSymbols)) //GlobalVariable.instance.openSymbolList + selectedSymbols
-//        
+//
 //        //MARK: - START calling Socket message from here.
 //        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
-//        
+//
 //        timer?.invalidate()
 //        timer = nil
 //        GlobalVariable.instance.isProcessingSymbolTimer = false
@@ -1061,16 +1164,16 @@ extension TradeViewController {
 //        //  return 10 // Number of items in the collection view
 //        return symbolDataSector.count
 //    }
-//    
+//
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeCVCCollectionViewCell", for: indexPath) as! TradeCVCCollectionViewCell
 //        cell.backgroundColor = .clear
-//        
+//
 //        cell.lbl_tradetype.textColor = UIColor(red: 94/255.0, green: 98/255.0, blue: 120/255.0, alpha: 1.0)
-//        
+//
 //        let data = symbolDataSector[indexPath.row]
 //        cell.lbl_tradetype.text = data.sector
-//        
+//
 //        if indexPath.row == selectedIndex {
 //            cell.selectedColorView.isHidden = false
 //            cell.backgroundColor = .clear
@@ -1083,7 +1186,7 @@ extension TradeViewController {
 //            cell.backgroundColor = .clear
 //            cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 16)
 //        }
-//        
+//
 //        if indexPath.row == symbolDataSector.count-1 {
 //            cell.sepratorView.isHidden = true
 //        } else {
@@ -1095,7 +1198,7 @@ extension TradeViewController {
 //        if let cell = collectionView.cellForItem(at: indexPath){
 //            // Scroll to the selected item
 //            collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-//            
+//
 //            let data = symbolDataSector[indexPath.row]
 //            selectedIndex = indexPath.row
 //            GlobalVariable.instance.lastSelectedSectorIndex = indexPath
@@ -1106,14 +1209,14 @@ extension TradeViewController {
 //    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 //        if let cell = collectionView.cellForItem(at: indexPath){
 //            cell.backgroundColor = .clear
-//            
+//
 //        }
 //    }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        //        // get the Collection View width and height
-//        
+//
 //        return CGSize(width: symbolDataSector.count + 65 , height: 35)
-//        
+//
 //    }
 //}
 //MARK: - TradeVC cell Taps is handle here.
@@ -1135,12 +1238,57 @@ extension TradeViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == tf_searchSymbol {
-            //MARK: - Set all sectors by default.
-            symbolDataSector = GlobalVariable.instance.sectors
+//            symbolDataSector.removeAll()
+//            //MARK: - Set all sectors by default.
+//            symbolDataSector = GlobalVariable.instance.sectors
             tblView.isHidden = true
             tblSearchView.isHidden = false
+            self.searchCloseButton.isHidden = false
             tblSearchView.reloadData()
         }
     }
     
+    // UITextField target method to handle text changes
+    @objc func searchTextChanged() {
+        // Filter the data based on the search text
+        let searchText = tf_searchSymbol.text?.lowercased() ?? ""
+        
+        if searchText.isEmpty {
+            filteredData = [] // If the search text is empty, show all data
+        } else {
+////            filteredData = selectedSectorGroup?.symbols.filter { $0.name.lowercased().contains(searchText) } as! [SectorGroup]
+//
+//            // Filter the symbolDataSector array based on the search text
+//            filteredData = symbolDataSector.map { sectorGroup in
+//                let filteredSymbols = sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+//                return SectorGroup(sector: sectorGroup.sector, symbols: filteredSymbols)
+//            }.filter { !$0.symbols.isEmpty } // Remove empty sectors with no matching symbols
+            
+            // Filter the SymbolData across all sectors by name
+            let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
+                sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+            }
+            
+            // Re-group the filtered symbols into sectors
+            // You may want to group them by sector, for example
+            let groupedBySector = symbolDataSector.compactMap { sectorGroup in
+                let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
+                return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
+            }
+            
+            // Update filteredData with the grouped sectors containing filtered symbols
+            filteredData = groupedBySector
+        }
+        
+        // Reload the table view to show the filtered data
+        tblSearchView.reloadData()
+    }
+    
+    // Optional: Dismiss the keyboard when the user taps 'Return'
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
 }
+

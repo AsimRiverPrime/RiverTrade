@@ -18,7 +18,7 @@ class MarketsViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
         
         tblView.registerCells([
-            MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self, UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
+            /*MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self,*/ UpcomingEventsTableViewCell.self, TopNewsTableViewCell.self
             ])
         tblView.reloadData()
         tblView.dataSource = self
@@ -44,15 +44,16 @@ extension MarketsViewController {
 extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-            return 4
+            return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        if section == 0 {
+//            return 1
+//        }else if section == 1 {
+//            return 1
+//        }else
         if section == 0 {
-            return 1
-        }else if section == 1 {
-            return 1
-        }else if section == 2 {
             return 1
 //        }else if section == 3 {
 //            return 1
@@ -62,27 +63,22 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if indexPath.section == 0 {
-//            let cell = tableView.dequeueReusableCell(with: AccountTableViewCell.self, for: indexPath)
-//            cell.setHeaderUI(.market)
-////            cell.delegate = self
+//
+//            if indexPath.section == 0 {
+//            let cell = tableView.dequeueReusableCell(with: MarketTopMoversTableViewCell.self, for: indexPath)
+//            cell.backgroundColor = .clear
+//                cell.selectionStyle = .none
+//            self.view.setNeedsLayout()
 //            return cell
-            
-//        } else
-            if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(with: MarketTopMoversTableViewCell.self, for: indexPath)
-            cell.backgroundColor = .clear
-                cell.selectionStyle = .none
-            self.view.setNeedsLayout()
-            return cell
-            
-        }else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-            self.view.setNeedsLayout()
-            return cell
-        }else if indexPath.section == 2 {
+//            
+//        }else if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCell(with: TradingSignalTableViewCell.self, for: indexPath)
+//            cell.backgroundColor = .clear
+//            cell.selectionStyle = .none
+//            self.view.setNeedsLayout()
+//            return cell
+//        }else
+        if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(with: UpcomingEventsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
@@ -93,6 +89,12 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: TopNewsTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.viewAllAction  = { [unowned self] in
+                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TopNewsViewController") {
+                    self.navigate(to: vc)
+                }
+              
+              }
             return cell
         }
        
@@ -100,16 +102,15 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.section == 0 {
+//            return 250
+//        }else if indexPath.section == 1 {
+//            return 330
+//            
+//        }else
         if indexPath.section == 0 {
-            return 250
-        }else if indexPath.section == 1 {
-            return 330
-            
-        }else if indexPath.section == 2 {
             return 300
             
-//        }else if indexPath.section == 3 {
-//            return 350
         }else{
             return 300
         }

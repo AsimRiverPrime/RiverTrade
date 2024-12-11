@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,6 +33,9 @@
                                 <buttonConfiguration key="configuration" style="plain" title="View All">
                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="10"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="viewAll_btnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xJO-J3-Zp4"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Brs-fE-zhU" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                                 <rect key="frame" x="15" y="42" width="290" height="250"/>
@@ -250,6 +254,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="viewAllButton" destination="y5d-k7-rta" id="zSe-Wy-WHP"/>
+            </connections>
             <point key="canvasLocation" x="61.068702290076331" y="-49.295774647887328"/>
         </tableViewCell>
     </objects>

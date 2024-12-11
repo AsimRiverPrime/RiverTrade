@@ -12,7 +12,7 @@ import UIKit
 enum CustomTabBarType {
     case Accounts
     case Trade
-    case Markets
+//    case Markets
     case Results
     case Profile
 }
@@ -53,7 +53,7 @@ class DashboardVC: BaseViewController {
     var createAccountVC = CreateAccountVC()
     var accountsVC = AccountsVC()
     var tradeVC = TradeVC()
-    var marketsVC = MarketsVC()
+//    var marketsVC = MarketsVC()
     var resultVC = ResultVC()
     var profileVC = ProfileVC()
     
@@ -174,7 +174,7 @@ class DashboardVC: BaseViewController {
         createAccountVC.frame = self.view.bounds
         accountsVC.frame = self.view.bounds
         tradeVC.frame = self.view.bounds
-        marketsVC.frame = self.view.bounds
+//        marketsVC.frame = self.view.bounds
         resultVC.frame = self.view.bounds
         profileVC.frame = self.view.bounds
         //        bookFragment.frame = self.view.bounds
@@ -192,10 +192,10 @@ class DashboardVC: BaseViewController {
         setTradeButton()
     }
     
-    @IBAction func MarketsButton(_ sender: UIButton) {
-        
-        setMarketsButton()
-    }
+//    @IBAction func MarketsButton(_ sender: UIButton) {
+//        
+//        setMarketsButton()
+//    }
     
     @IBAction func ResultsButton(_ sender: UIButton) {
         setResultsButton()
@@ -219,9 +219,9 @@ extension DashboardVC {
         CustomBarStatus(customTabBarType: .Trade)
     }
     
-    private func setMarketsButton() {
-        CustomBarStatus(customTabBarType: .Markets)
-    }
+//    private func setMarketsButton() {
+//        CustomBarStatus(customTabBarType: .Markets)
+//    }
     
     private func setResultsButton() {
         CustomBarStatus(customTabBarType: .Results)
@@ -294,34 +294,34 @@ extension DashboardVC {
             addView(customTabBarType: .Trade)
             
             break
-        case .Markets:
-            
-            AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
-            AccountsLabel.textColor = UIColor.black
-            AccountsView.backgroundColor = UIColor.clear
-            
-            TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
-            TradeLabel.textColor = UIColor.black
-            TradeView.backgroundColor = UIColor.clear
-            
-            MarketsImage.image = UIImage(named: "marketIconSelect")//?.tint(with: UIColor.black)
-            MarketsLabel.textColor = UIColor.systemYellow
-            MarketsView.backgroundColor = UIColor.clear
-            
-            ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
-            ResultsLabel.textColor = UIColor.black
-            ResultsView.backgroundColor = UIColor.clear
-            
-            ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
-            ProfileLabel.textColor = UIColor.black
-            ProfileView.backgroundColor = UIColor.clear
-            
-            dismissViews(false)
-            marketsVC = MarketsVC.getView()
-            //            tradeVC.delegate = self
-            addView(customTabBarType: .Markets)
-            
-            break
+//        case .Markets:
+//            
+//            AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
+//            AccountsLabel.textColor = UIColor.black
+//            AccountsView.backgroundColor = UIColor.clear
+//            
+//            TradeImage.image = UIImage(named: "trade")//?.tint(with: UIColor.black)
+//            TradeLabel.textColor = UIColor.black
+//            TradeView.backgroundColor = UIColor.clear
+//            
+//            MarketsImage.image = UIImage(named: "marketIconSelect")//?.tint(with: UIColor.black)
+//            MarketsLabel.textColor = UIColor.systemYellow
+//            MarketsView.backgroundColor = UIColor.clear
+//            
+//            ResultsImage.image = UIImage(named: "Growth")//?.tint(with: UIColor.black)
+//            ResultsLabel.textColor = UIColor.black
+//            ResultsView.backgroundColor = UIColor.clear
+//            
+//            ProfileImage.image = UIImage(named: "profile")//?.tint(with: UIColor.black)
+//            ProfileLabel.textColor = UIColor.black
+//            ProfileView.backgroundColor = UIColor.clear
+//            
+//            dismissViews(false)
+////            marketsVC = MarketsVC.getView()
+//            //            tradeVC.delegate = self
+//            addView(customTabBarType: .Markets)
+//            
+//            break
         case .Results:
             
             AccountsImage.image = UIImage(named: "Teamwork")//?.tint(with: UIColor.black)
@@ -387,7 +387,7 @@ extension DashboardVC {
         createAccountVC.dismissView()
         accountsVC.dismissView()
         tradeVC.dismissView(isTrade)
-        marketsVC.dismissView()
+//        marketsVC.dismissView()
         resultVC.dismissView()
         profileVC.dismissView()
     }
@@ -399,8 +399,8 @@ extension DashboardVC {
             self.myViewFragment.addSubview(accountsVC)
         case .Trade:
             self.myViewFragment.addSubview(tradeVC)
-        case .Markets:
-            self.myViewFragment.addSubview(marketsVC)
+//        case .Markets:
+//            self.myViewFragment.addSubview(marketsVC)
         case .Results:
             self.myViewFragment.addSubview(resultVC)
         case .Profile:
