@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TopNewsSection" id="KGk-i7-Jjw" customClass="TopNewsSection" customModule="RiverPrime" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okk-xi-S4X">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TOP NEWS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yal-HG-Psy">
+                                <rect key="frame" x="10" y="13" width="78" height="18"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EsZ-gN-7Xs">
+                                <rect key="frame" x="246.66666666666666" y="9" width="63.333333333333343" height="26"/>
+                                <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="View All">
+                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="10"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="viewAll_btnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="gB7-qQ-7dq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yal-HG-Psy" firstAttribute="leading" secondItem="okk-xi-S4X" secondAttribute="leading" constant="10" id="2Q0-cL-ZVK"/>
+                            <constraint firstItem="Yal-HG-Psy" firstAttribute="centerY" secondItem="okk-xi-S4X" secondAttribute="centerY" id="8oM-8l-0Yr"/>
+                            <constraint firstItem="EsZ-gN-7Xs" firstAttribute="centerY" secondItem="okk-xi-S4X" secondAttribute="centerY" id="Frq-zM-ocz"/>
+                            <constraint firstAttribute="trailing" secondItem="EsZ-gN-7Xs" secondAttribute="trailing" constant="10" id="ZHx-R8-EcC"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="okk-xi-S4X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0FI-V6-r8f"/>
+                    <constraint firstAttribute="bottom" secondItem="okk-xi-S4X" secondAttribute="bottom" id="3Ma-aQ-tdF"/>
+                    <constraint firstItem="okk-xi-S4X" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="XVP-ho-f9E"/>
+                    <constraint firstAttribute="trailing" secondItem="okk-xi-S4X" secondAttribute="trailing" id="lza-Er-l2r"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="viewAllButton" destination="EsZ-gN-7Xs" id="Ynp-is-BGt"/>
+            </connections>
+            <point key="canvasLocation" x="-85" y="-1"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -253,7 +253,7 @@ class WebSocketManager: WebSocketDelegate {
         let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
         let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
         
-        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+       // print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
         
         //MARK: - Save symbol local to unsubcibe.
         GlobalVariable.instance.previouseSymbolList = selectedSymbols

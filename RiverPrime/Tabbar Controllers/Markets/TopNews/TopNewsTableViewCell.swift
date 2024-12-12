@@ -9,16 +9,12 @@ import UIKit
 
 class TopNewsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var viewAllButton: UIButton!
-    
-    var viewAllAction : () -> () = {}
+
+    @IBOutlet weak var btn_favirate: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-       // self.viewAllButton.addTarget(self, action: #selector(viewAll_btnAction(_:)), for: .touchUpInside)
-
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -27,8 +23,10 @@ class TopNewsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    @IBAction func viewAll_btnAction(_ sender: UIButton) {
-        viewAllAction()
+    @IBAction func favirateBtn_action(_ sender: Any) {
+        self.btn_favirate.isSelected = !self.btn_favirate.isSelected
+        self.btn_favirate.setImage(!self.btn_favirate.isSelected ? UIImage(systemName: "star") : UIImage(systemName: "star.fill"), for: .normal)
+        self.btn_favirate.tintColor = self.btn_favirate.isSelected ? .systemYellow : .lightGray
     }
     
 }

@@ -29,6 +29,7 @@ class OdooClientNew {
     weak var createLeadDelegate: CreateLeadOdooDelegate?
     weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
     weak var updateUserNamePasswordDelegate: UpdateUserNamePassword?
+    weak var topNewsDelegate: TopNewsProtocol?
     
     var uid = UserDefaults.standard.integer(forKey: "uid")
     
@@ -169,8 +170,8 @@ class OdooClientNew {
     
     //MARK: - Write records (Leads) Method for change/update phone number CRM (OdooServer) records
     func writeRecords(number: String) {
-        var uid = UserDefaults.standard.integer(forKey: "uid")
-        var recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        let uid = UserDefaults.standard.integer(forKey: "uid")
+        let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
@@ -191,7 +192,7 @@ class OdooClientNew {
                                 "type": "work"
                             ]]
                         ]
-                                  ]]
+                      ]]
                 ]
             ]
         ]
@@ -381,7 +382,106 @@ class OdooClientNew {
         }
     }
 
+    func getNewsRecords(){
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let email = savedUserData["email"] as? String{
+                self.userEmail = email
+            }
+        }
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "id":"685",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "te.middleware",
+                    "get_news",
+                    [
+                    [],
+                    userEmail,
+                    1,
+                    3
+                    ]]
+                ]
+            ]
+        
+        print("\n the parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+            case .success(let value):
+                print("get news value is: \(value)")
+                
+                if let responseDict = value as? [String: Any] {
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: responseDict, options: [])
+
+                        let decodedResponse = try JSONDecoder().decode(TopNewsModel.self, from: jsonData)
+                        print("THE VALUES IS: \(decodedResponse)")
+                        self.topNewsDelegate?.topNewsSuccess(response: decodedResponse)
+                    } catch {
+                        print("Failed to decode JSON: \(error)")
+                        self.topNewsDelegate?.topNewsFailure(error: error)
+                    }
+                } else {
+                    print("The value is not a valid String.")
+                }
+            case .failure(let error):
+                print("news value Request failed: \(error)")
+                self.topNewsDelegate?.topNewsFailure(error: error)
+            }
+        }
+        
+    }
     
+    func getCalendarDataRecords(fromDate: String , toDate: String) {
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let email = savedUserData["email"] as? String{
+                self.userEmail = email
+            }
+        }
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "te.middleware",
+                    "get_calendar_data",
+                    [
+                    [],
+                    userEmail,
+                    fromDate,
+                    toDate
+                    ]]
+                ]
+            ]
+        
+        print("\n the parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+            case .success(let value):
+                print("get economic calendar value is: \(value)")
+            case .failure(let error):
+                print("economic calendar Request failed: \(error)")
+            }
+        }
+        
+    }
     
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
   

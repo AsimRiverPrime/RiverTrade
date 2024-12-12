@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TopNewsViewController: UIViewController {
+class TopNewsViewController: BaseViewController {
 
     @IBOutlet weak var btn_allNews: UIButton!
     @IBOutlet weak var btn_favorites: UIButton!
@@ -23,6 +23,16 @@ class TopNewsViewController: UIViewController {
        
         tableView_News.dataSource = self
         tableView_News.delegate = self
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .lightGray, barColor: .clear)
+    }
+    @IBAction func backBtnAction(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func allNews_btnAction(_ sender: Any) {
@@ -57,9 +67,7 @@ extension TopNewsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      
-            return 300
-       
+            return 80
     }
     
 }

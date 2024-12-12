@@ -38,3 +38,8 @@ protocol UpdateUserNamePassword: AnyObject {
     func updateSuccess(response: Any)
     func updateFailure(error: Error)
 }
+
+protocol TopNewsProtocol: AnyObject {
+    func topNewsSuccess(response: Any)
+    func topNewsFailure(error: Error)
+}

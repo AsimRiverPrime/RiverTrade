@@ -702,7 +702,7 @@ extension DashboardVC: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: [String: Any]) {
         print("\n symbol resposne is: \(response) ")
 //        convertXMLIntoJson(response)
-        convertJSONIntoSymbols(response)
+//        convertJSONIntoSymbols(response)
         ActivityIndicator.shared.hide(from: self.view)
     }
     
@@ -710,70 +710,70 @@ extension DashboardVC: TradeSymbolDetailDelegate {
         print("\n the trade symbol detail Error response: \(error) ")
     }
     
-    func convertJSONIntoSymbols(_ jsonResponse: [String: Any]) {
-        if let resultArray = jsonResponse["result"] as? [[String: Any]] {
-            print("Result Array count: \(resultArray.count)")
-            
-            for (index, result) in resultArray.enumerated() {
-                print("\n Processing entry \(index + 1) of \(resultArray.count)")
-                
-                // Extract data, providing default values or handling optionals where needed
-                let symbolId = result["id"] as? Int ?? -1
-                let symbolName = result["name"] as? String ?? "Unknown"
-                let symbolDescription = result["description"] as? String ?? "No description"
-                let symbolIcon = result["icon_url"] as? String ?? ""
-                let symbolVolumeMin = result["volume_min"] as? Int ?? 0
-                let symbolVolumeMax = result["volume_max"] as? Int ?? 0
-                let symbolVolumeStep = result["volume_step"] as? Int ?? 0
-                let symbolContractSize = result["contract_size"] as? Int ?? 0
-                let symbolDisplayName = result["display_name"] as? String ?? symbolName
-                let symbolSector = result["sector"] as? String ?? "Unknown Sector"
-                let symbolDigits = result["digits"] as? Int ?? 0
-                let symbolMobileAvailable = result["mobile_available"] as? Int ?? 0
-                let symbolSwapLong = result["swap_long"] as? Double ?? 0.0
-                let symbolStopsLevel = result["stops_level"] as? Double ?? 0.0
-                let symbolSpreadSize = result["spread_size"] as? Double ?? 0.0
-                let symbolSwapShort = result["swap_short"] as? Double ?? 0.0
-                let symbolyesterday_close = result["yesterday_close"] as? Double ?? 0.0
-
-                // Modify the icon URL if needed
-                let modifiedUrl = symbolIcon
-                    .replacingOccurrences(of: "-01.svg", with: ".png")
-                    .replacingOccurrences(of: ".com/", with: ".com/png/")
-                
-                // Append to the symbol data array
-                GlobalVariable.instance.symbolDataArray.append(
-                    SymbolData(
-                        id: String(symbolId),
-                        name: symbolName,
-                        description: symbolDescription,
-                        icon_url: modifiedUrl,
-                        volumeMin: String(symbolVolumeMin),
-                        volumeMax: String(symbolVolumeMax),
-                        volumeStep: String(symbolVolumeStep),
-                        contractSize: String(symbolContractSize),
-                        displayName: symbolDisplayName,
-                        sector: symbolSector,
-                        digits: String(symbolDigits),
-                        stopsLevel: String(symbolStopsLevel),
-                        swapLong: String(symbolSwapLong),
-                        swapShort: String(symbolSwapShort),
-                        spreadSize: String(symbolSpreadSize),
-                        mobile_available: String(symbolMobileAvailable),
-                        yesterday_close: String(symbolyesterday_close)
-                    )
-                )
-                
-                print("Added symbol: \(symbolName) with ID: \(symbolId)")
-            }
-            
-            print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")
-//             Process and save symbols
-            processSymbols(GlobalVariable.instance.symbolDataArray)
-        } else {
-            print("Error: Invalid JSON structure")
-        }
-    }
+//    func convertJSONIntoSymbols(_ jsonResponse: [String: Any]) {
+//        if let resultArray = jsonResponse["result"] as? [[String: Any]] {
+//            print("Result Array count: \(resultArray.count)")
+//            
+//            for (index, result) in resultArray.enumerated() {
+//                print("\n Processing entry \(index + 1) of \(resultArray.count)")
+//                
+//                // Extract data, providing default values or handling optionals where needed
+//                let symbolId = result["id"] as? Int ?? -1
+//                let symbolName = result["name"] as? String ?? "Unknown"
+//                let symbolDescription = result["description"] as? String ?? "No description"
+//                let symbolIcon = result["icon_url"] as? String ?? ""
+//                let symbolVolumeMin = result["volume_min"] as? Int ?? 0
+//                let symbolVolumeMax = result["volume_max"] as? Int ?? 0
+//                let symbolVolumeStep = result["volume_step"] as? Int ?? 0
+//                let symbolContractSize = result["contract_size"] as? Int ?? 0
+//                let symbolDisplayName = result["display_name"] as? String ?? symbolName
+//                let symbolSector = result["sector"] as? String ?? "Unknown Sector"
+//                let symbolDigits = result["digits"] as? Int ?? 0
+//                let symbolMobileAvailable = result["mobile_available"] as? Int ?? 0
+//                let symbolSwapLong = result["swap_long"] as? Double ?? 0.0
+//                let symbolStopsLevel = result["stops_level"] as? Double ?? 0.0
+//                let symbolSpreadSize = result["spread_size"] as? Double ?? 0.0
+//                let symbolSwapShort = result["swap_short"] as? Double ?? 0.0
+//                let symbolyesterday_close = result["yesterday_close"] as? Double ?? 0.0
+//
+//                // Modify the icon URL if needed
+//                let modifiedUrl = symbolIcon
+//                    .replacingOccurrences(of: "-01.svg", with: ".png")
+//                    .replacingOccurrences(of: ".com/", with: ".com/png/")
+//                
+//                // Append to the symbol data array
+//                GlobalVariable.instance.symbolDataArray.append(
+//                    SymbolData(
+//                        id: String(symbolId),
+//                        name: symbolName,
+//                        description: symbolDescription,
+//                        icon_url: modifiedUrl,
+//                        volumeMin: String(symbolVolumeMin),
+//                        volumeMax: String(symbolVolumeMax),
+//                        volumeStep: String(symbolVolumeStep),
+//                        contractSize: String(symbolContractSize),
+//                        displayName: symbolDisplayName,
+//                        sector: symbolSector,
+//                        digits: String(symbolDigits),
+//                        stopsLevel: String(symbolStopsLevel),
+//                        swapLong: String(symbolSwapLong),
+//                        swapShort: String(symbolSwapShort),
+//                        spreadSize: String(symbolSpreadSize),
+//                        mobile_available: String(symbolMobileAvailable),
+//                        yesterday_close: String(symbolyesterday_close)
+//                    )
+//                )
+//                
+//                print("Added symbol: \(symbolName) with ID: \(symbolId)")
+//            }
+//            
+//            print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")
+////             Process and save symbols
+//            processSymbols(GlobalVariable.instance.symbolDataArray)
+//        } else {
+//            print("Error: Invalid JSON structure")
+//        }
+//    }
  
     
     func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {

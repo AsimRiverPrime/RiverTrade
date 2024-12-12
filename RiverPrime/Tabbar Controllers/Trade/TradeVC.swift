@@ -719,7 +719,7 @@ extension TradeVC {
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
         }
         
-        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+      //  print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
         
         GlobalVariable.instance.isProcessingSymbol = false
         

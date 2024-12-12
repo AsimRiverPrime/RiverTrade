@@ -49,8 +49,10 @@ struct SymbolData: Codable {
     let spreadSize: String
     let mobile_available: String
     let yesterday_close: String
+    let is_mobile_favorite: Bool
+    let trading_sessions_ids: [Int]
     
-    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String) {
+    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String,is_mobile_favorite:Bool,trading_sessions_ids: [Int] ) {
         self.id = id
         self.name = name
         self.description = description
@@ -68,6 +70,8 @@ struct SymbolData: Codable {
         self.stopsLevel = stopsLevel
         self.mobile_available = mobile_available
         self.yesterday_close = yesterday_close
+        self.is_mobile_favorite = is_mobile_favorite
+        self.trading_sessions_ids = trading_sessions_ids
     }
     
 }
@@ -131,6 +135,10 @@ class TradeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tf_searchSymbol.attributedPlaceholder = NSAttributedString(
+            string: "Search symbol here",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
         
         dashboardinit()
         GlobalVariable.instance.lastSelectedSectorIndex = IndexPath(row: 0, section: 0)
@@ -139,7 +147,8 @@ class TradeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.searchCloseButton.isHidden = true
+//        self.searchCloseButton.isHidden = true
+        self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         self.searchCloseButton.setTitle("", for: .normal)
         
         self.tblSearchView.isHidden = true
@@ -167,7 +176,8 @@ class TradeViewController: UIViewController {
         //MARK: - Set all sectors by default.
         symbolDataSector = GlobalVariable.instance.sectors
         self.symbolDataSectorSelected = false
-        self.searchCloseButton.isHidden = true
+//        self.searchCloseButton.isHidden = true
+        self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         self.tblView.isHidden = false
         self.tblSearchView.isHidden = true
         self.tf_searchSymbol.resignFirstResponder()
@@ -239,6 +249,10 @@ class TradeViewController: UIViewController {
 //                    let sectorGroup = SectorGroup(sector: selectedSector.sector, symbols: filteredSymbols)
 //
 //                    selectedSectorGroup = sectorGroup
+                    
+//                    for item in GlobalVariable.instance.symbolDataArray {
+//                        selectedSectorGroup
+//                    }
                     
                     
                     
@@ -529,6 +543,10 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 symbolDataSectorSelected = false
                 tblView.isHidden = false
                 tblSearchView.isHidden = true
+                tf_searchSymbol.text = ""
+//                searchCloseButton.isHidden = true
+                self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+
                 tf_searchSymbol.resignFirstResponder()
                 
                 let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
@@ -724,12 +742,12 @@ extension TradeViewController: GetSocketMessages {
                         let createDate = Date(timeIntervalSince1970: Double(getSymbolData[index].tickMessage?.datetime ?? 0))
                         
                         let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "hh:mm:ss"// "dd:MM:yyyy"
+                        dateFormatter.dateFormat = "HH:mm:ss"
                         dateFormatter.timeZone = .current
                         
                         let datee = dateFormatter.string(from: createDate)
                         
-                        cell.lbl_datetime.text = "hh:mm:ss"//datee
+                        cell.lbl_datetime.text = datee
                         
                         let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                         var oldBid =  Double()
@@ -952,7 +970,7 @@ extension TradeViewController {
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
         }
         
-        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+      //  print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
         
         GlobalVariable.instance.isProcessingSymbol = false
         
@@ -1030,7 +1048,7 @@ extension TradeViewController {
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
         }
         
-        print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
+      //  print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
         
         GlobalVariable.instance.isProcessingSymbol = false
         
@@ -1238,12 +1256,14 @@ extension TradeViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == tf_searchSymbol {
-//            symbolDataSector.removeAll()
-//            //MARK: - Set all sectors by default.
-//            symbolDataSector = GlobalVariable.instance.sectors
+            symbolDataSector.removeAll()
+            //MARK: - Set all sectors by default.
+            symbolDataSector = GlobalVariable.instance.sectors
+            filteredData = []
             tblView.isHidden = true
             tblSearchView.isHidden = false
-            self.searchCloseButton.isHidden = false
+//            self.searchCloseButton.isHidden = false
+            self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
             tblSearchView.reloadData()
         }
     }
@@ -1255,29 +1275,54 @@ extension TradeViewController: UITextFieldDelegate {
         
         if searchText.isEmpty {
             filteredData = [] // If the search text is empty, show all data
+            symbolDataSectorSelected = false
         } else {
-////            filteredData = selectedSectorGroup?.symbols.filter { $0.name.lowercased().contains(searchText) } as! [SectorGroup]
+//////            filteredData = selectedSectorGroup?.symbols.filter { $0.name.lowercased().contains(searchText) } as! [SectorGroup]
+////
+////            // Filter the symbolDataSector array based on the search text
+////            filteredData = symbolDataSector.map { sectorGroup in
+////                let filteredSymbols = sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+////                return SectorGroup(sector: sectorGroup.sector, symbols: filteredSymbols)
+////            }.filter { !$0.symbols.isEmpty } // Remove empty sectors with no matching symbols
 //
-//            // Filter the symbolDataSector array based on the search text
-//            filteredData = symbolDataSector.map { sectorGroup in
-//                let filteredSymbols = sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
-//                return SectorGroup(sector: sectorGroup.sector, symbols: filteredSymbols)
-//            }.filter { !$0.symbols.isEmpty } // Remove empty sectors with no matching symbols
+//            // Filter the SymbolData across all sectors by name
+//            let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
+//                sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+//            }
+//
+//            // Re-group the filtered symbols into sectors
+//            // You may want to group them by sector, for example
+//            let groupedBySector = symbolDataSector.compactMap { sectorGroup in
+//                let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
+//                return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
+//            }
+//
+//            // Update filteredData with the grouped sectors containing filtered symbols
+//            filteredData = groupedBySector
             
-            // Filter the SymbolData across all sectors by name
-            let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
-                sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+            
+            
+            
+            
+            // Check if a sector is selected (this depends on how your sector is selected, assuming it's saved in `selectedSectorGroup`)
+            if let selectedSector = selectedSectorGroup {
+                // If a sector is selected, filter only the symbols in that sector by name
+                filteredData = [SectorGroup(sector: selectedSector.sector, symbols: selectedSector.symbols.filter {
+                    $0.name.lowercased().contains(searchText)
+                })]
+            } else {
+                // If no sector is selected, filter symbols across all sectors
+                let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
+                    sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
+                }
+                
+                // Regroup filtered symbols into their respective sectors
+                filteredData = symbolDataSector.compactMap { sectorGroup in
+                    let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
+                    return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
+                }
             }
-            
-            // Re-group the filtered symbols into sectors
-            // You may want to group them by sector, for example
-            let groupedBySector = symbolDataSector.compactMap { sectorGroup in
-                let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
-                return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
-            }
-            
-            // Update filteredData with the grouped sectors containing filtered symbols
-            filteredData = groupedBySector
+            symbolDataSectorSelected = true
         }
         
         // Reload the table view to show the filtered data
@@ -1291,4 +1336,3 @@ extension TradeViewController: UITextFieldDelegate {
     }
     
 }
-

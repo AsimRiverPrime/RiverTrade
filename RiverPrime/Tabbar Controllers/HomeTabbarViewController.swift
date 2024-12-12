@@ -104,7 +104,7 @@ extension HomeTabbarViewController {
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension HomeTabbarViewController: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: [String: Any]) {
-        print("\n symbol resposne is: \(response) ")
+     //   print("\n symbol resposne is: \(response) ")
         //        convertXMLIntoJson(response)
         convertJSONIntoSymbols(response)
         ActivityIndicator.shared.hide(from: self.view)
@@ -139,6 +139,8 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                 let symbolSpreadSize = result["spread_size"] as? Double ?? 0.0
                 let symbolSwapShort = result["swap_short"] as? Double ?? 0.0
                 let symbolyesterday_close = result["yesterday_close"] as? Double ?? 0.0
+                let symbolis_mobile_favorite = result["is_mobile_favorite"] as? Bool ?? false
+                let symboltrade_session = result["trading_sessions_ids"] as? [Int] 
                 
                 // Modify the icon URL if needed
                 let modifiedUrl = symbolIcon
@@ -167,7 +169,9 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                         swapShort: String(symbolSwapShort),
                         spreadSize: String(symbolSpreadSize),
                         mobile_available: String(symbolMobileAvailable),
-                        yesterday_close: String(symbolyesterday_close)
+                        yesterday_close: String(symbolyesterday_close),
+                        is_mobile_favorite: Bool(symbolis_mobile_favorite),
+                        trading_sessions_ids: symboltrade_session ?? []
                     )
                 )
                 

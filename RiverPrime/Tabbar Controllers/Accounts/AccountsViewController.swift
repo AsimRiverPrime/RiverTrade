@@ -683,6 +683,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             cell.emptyLabelMessage.text = "No Position Data Found."
+            
             return cell
         }
         
