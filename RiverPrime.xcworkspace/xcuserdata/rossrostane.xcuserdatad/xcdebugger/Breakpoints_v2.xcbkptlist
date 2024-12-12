@@ -183,52 +183,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "23141105-C5A9-478E-BD57-AA69C9A64639"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/AccountsViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
-            landmarkName = "MetaTraderLogin(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "23141105-C5A9-478E-BD57-AA69C9A64639 - 9ef4f84588237f13"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RiverPrime.AccountsViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/AccountsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "484"
-                  endingLineNumber = "484">
-               </Location>
-               <Location
-                  uuid = "23141105-C5A9-478E-BD57-AA69C9A64639 - 86e43f803c69a907"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;RiverPrime.ResponseModel, Swift.Error&gt;) -&gt; () in RiverPrime.AccountsViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/AccountsViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "486"
-                  endingLineNumber = "486">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A88E4F63-3F6E-4EF0-B3DC-0973255643A2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -255,70 +209,6 @@
             startingLineNumber = "163"
             endingLineNumber = "163"
             landmarkName = "updateFailure(error:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D0145353-398E-460D-90D2-84606DC944E6"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/OdooClient Services/OdooClientNew.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
-            landmarkName = "getNewsRecords()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CE6D2225-3CDD-499E-A763-E2B6345624DD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/OdooClient Services/OdooClientNew.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "422"
-            endingLineNumber = "422"
-            landmarkName = "getNewsRecords()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A71EA255-C3E7-4EF8-B6E6-874109B1C91A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/OdooClient Services/OdooClientNew.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
-            landmarkName = "getNewsRecords()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D370F782-F0C8-46BF-B5B6-369FAC8C1615"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/OdooClient Services/OdooClientNew.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "431"
-            endingLineNumber = "431"
-            landmarkName = "getNewsRecords()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

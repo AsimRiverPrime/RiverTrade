@@ -387,6 +387,9 @@ extension AccountsViewController {
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
             self.labelAmmount.text = "$\(ammount)"
+            
+            let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
+            self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
         }
         
     }
@@ -1306,20 +1309,20 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
        
         cell.lbl_tradetype.text = model[indexPath.row]
             if indexPath.row == selectedIndex {
-//                cell.selectedColorView.isHidden = true
+                cell.selectedColorView.isHidden = false
                 cell.backgroundColor = .clear
                 cell.layer.cornerRadius = 15.0
                 cell.lbl_tradetype.textColor = .systemYellow
-                cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 16)
+                cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 17)
         }else{
-//            cell.selectedColorView.isHidden = false
+            cell.selectedColorView.isHidden = true
             cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
             cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15) 
         }
         if indexPath.row == model.count-1 {
             cell.sepratorView.isHidden = true
-            cell.refreshImage.isHidden = false
+            cell.refreshImage.isHidden = true
             cell.refreshImageButton.isHidden = false
             cell.lbl_tradetype.isHidden = true
        

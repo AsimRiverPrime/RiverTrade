@@ -19,7 +19,7 @@ class MarketsViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
        
-        odooServer.getCalendarDataRecords(fromDate: "2024-12-11", toDate: "2024-12-12")
+//        odooServer.getCalendarDataRecords(fromDate: "2024-12-11", toDate: "2024-12-12")
        
         
         tblView.registerCells([
@@ -122,7 +122,17 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     
 
 }
-
+extension MarketsViewController: TopNewsProtocol {
+    func topNewsSuccess(response: Any) {
+        print(response)
+    }
+    
+    func topNewsFailure(error: any Error) {
+        print(error)
+    }
+    
+    
+}
 //
 //extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
 //    

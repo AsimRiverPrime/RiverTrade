@@ -419,19 +419,29 @@ class OdooClientNew {
             case .success(let value):
                 print("get news value is: \(value)")
                 
-                if let responseDict = value as? [String: Any] {
+                if var responseDict = value as? [String: Any] {
+                    if var resultDict = responseDict["result"] as? [String: Any],
+                       var payloadArray = resultDict["payload"] as? [[String: Any]] {
+                        payloadArray = payloadArray.map { item in
+                            var modifiedItem = item
+                            if let id = modifiedItem["id"] as? String, id == "<null>" || Int(id) == nil {
+                                modifiedItem["id"] = nil // Replace with `nil` or default `0`
+                            }
+                            return modifiedItem
+                        }
+                        resultDict["payload"] = payloadArray
+                        responseDict["result"] = resultDict
+                    }
+
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: responseDict, options: [])
-
                         let decodedResponse = try JSONDecoder().decode(TopNewsModel.self, from: jsonData)
-                        print("THE VALUES IS: \(decodedResponse)")
+                        print("Decoded Response: \(decodedResponse)")
                         self.topNewsDelegate?.topNewsSuccess(response: decodedResponse)
                     } catch {
                         print("Failed to decode JSON: \(error)")
                         self.topNewsDelegate?.topNewsFailure(error: error)
                     }
-                } else {
-                    print("The value is not a valid String.")
                 }
             case .failure(let error):
                 print("news value Request failed: \(error)")

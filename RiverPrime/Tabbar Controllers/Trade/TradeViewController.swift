@@ -444,7 +444,18 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        tableView.keyboardDismissMode = .onDrag
+//        
+//        if tf_searchSymbol.text == "" {
+//            tf_searchSymbol.resignFirstResponder()
+//        }
+        
         if tblView.isHidden == false {
+            
+            // Register the nib for the table view cell
+            let nib = UINib(nibName: "TradeTableViewCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "TradeTableViewCell")
+            
             
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
@@ -474,6 +485,11 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         } else {
+            
+            // Register the nib for the table view cell
+            let nib = UINib(nibName: "SearchTableViewCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "SearchTableViewCell")
+            
             
             let cell = tableView.dequeueReusableCell(with: SearchTableViewCell.self, for: indexPath)
             
@@ -540,6 +556,19 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 //            self.delegate?.tradeInfoTap(data, index: indexPath.row)
             
             if symbolDataSectorSelected {
+                
+                // Ensure we update the table view on the main thread
+                DispatchQueue.main.async { [self] in
+                    
+                let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
+                
+                // Check if the symbol already exists
+                if getSymbolData.contains(where: { $0.tickMessage?.symbol == item.name }) {
+//                    self.navigationController?.view.makeToast("Symbol is already exist.")
+                    Alert.showAlert(withMessage: "Symbol is already exist.", andTitle: item.name, on: self)
+                    return
+                }
+                
                 symbolDataSectorSelected = false
                 tblView.isHidden = false
                 tblSearchView.isHidden = true
@@ -548,8 +577,6 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
 
                 tf_searchSymbol.resignFirstResponder()
-                
-                let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
                 
                 let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
                 let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
@@ -562,8 +589,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 //MARK: - START calling Socket message from here.
                 vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbol: item.name)
                 
-                let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
-                tblView.insertRows(at: [newIndexPath], with: .automatic)
+                    let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
+                    tblView.insertRows(at: [newIndexPath], with: .automatic)
+                }
 //                tblView.reloadData()
                 
             } else {
@@ -599,10 +627,17 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Table View Delegate (Delete Action)
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            removeDeletedSymbolFromList(indexPath: indexPath)
-            
-            // Animate the deletion of the row
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            // Ensure we update the table view on the main thread
+            DispatchQueue.main.async { [self] in
+                removeDeletedSymbolFromList(indexPath: indexPath)
+                
+                // Animate the deletion of the row
+//                tableView.deleteRows(at: [indexPath], with: .automatic)
+                // Perform batch updates on the table view to delete rows
+                    tableView.beginUpdates()
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.endUpdates()
+            }
         }
     }
     
@@ -619,8 +654,19 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     private func removeDeletedSymbolFromList(indexPath: IndexPath) {
         var getDeletedSymbol = getSymbolData[indexPath.row].tickMessage?.symbol ?? ""
         
+////        print("Before GlobalVariable.instance.symbolDataUpdatedList = \(GlobalVariable.instance.symbolDataUpdatedList)")
+//        print("Before getSymbolData = \(getSymbolData.count)")
+        
         //MARK: - START calling Socket message from here.
         vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: [getDeletedSymbol])
+        
+        GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
+        // Remove the item from the data source
+        getSymbolData.remove(at: indexPath.row)
+        symbolDataSectorSelected = false
+        
+//        getSectorData
+//        symbolDataSector
         
         if GlobalVariable.instance.symbolDataUpdatedList.count != 0 {
             for i in 0...GlobalVariable.instance.symbolDataUpdatedList.count-1 {
@@ -631,9 +677,8 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
-        // Remove the item from the data source
-        getSymbolData.remove(at: indexPath.row)
+////        print("After GlobalVariable.instance.symbolDataUpdatedList = \(GlobalVariable.instance.symbolDataUpdatedList)")
+//        print("After getSymbolData = \(getSymbolData.count)")
         
         //GlobalVariable.instance.symbolDataArray
     }
