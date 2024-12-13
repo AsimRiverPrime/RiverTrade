@@ -1,3 +1,4 @@
+
 //
 //  TradeViewController.swift
 //  RiverPrime
@@ -420,7 +421,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             if symbolDataSectorSelected {
 //                return symbolDataSector[0/*symbolDataSectorSelectedIndex*/].symbols.count
-                return getSectorData[0].symbols.count
+                return getSectorData.count //[0].symbols.count
             } else {
                 return 1
             }
@@ -436,7 +437,13 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             //MARK: - get this list data from symbol api.
             return getSymbolData.count
         } else {
-            return getSectorData.count //symbolDataSector.count
+//            return getSectorData.count //symbolDataSector.count
+            
+            if symbolDataSectorSelected {
+                return getSectorData[section].symbols.count
+            } else {
+                return getSectorData.count
+            }
         }
 //        //MARK: - get this list data from symbol api.
 //        return getSymbolData.count
@@ -445,7 +452,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         tableView.keyboardDismissMode = .onDrag
-//        
+//
 //        if tf_searchSymbol.text == "" {
 //            tf_searchSymbol.resignFirstResponder()
 //        }
@@ -493,12 +500,16 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(with: SearchTableViewCell.self, for: indexPath)
             
-            let data = getSectorData[indexPath.row] //symbolDataSector[indexPath.row]
+//            let data = getSectorData[indexPath.row] //symbolDataSector[indexPath.row]
             
             if symbolDataSectorSelected {
-                cell.textLabel?.text = data.symbols[indexPath.section].name
-                cell.detailTextLabel?.text = data.symbols[indexPath.section].description
+                let data = getSectorData[indexPath.section]
+                
+                cell.textLabel?.text = data.symbols[indexPath.row].name
+                cell.detailTextLabel?.text = data.symbols[indexPath.row].description
             } else {
+                let data = getSectorData[indexPath.row]
+                
                 cell.textLabel?.text = data.sector
                 cell.detailTextLabel?.text = ""
             }
@@ -560,7 +571,8 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 // Ensure we update the table view on the main thread
                 DispatchQueue.main.async { [self] in
                     
-                let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
+//                let item = getSectorData[indexPath.row].symbols[indexPath.section] //symbolDataSector[indexPath.row].symbols[indexPath.section]
+                let item = getSectorData[indexPath.section].symbols[indexPath.row]
                 
                 // Check if the symbol already exists
                 if getSymbolData.contains(where: { $0.tickMessage?.symbol == item.name }) {
@@ -632,11 +644,11 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 removeDeletedSymbolFromList(indexPath: indexPath)
                 
                 // Animate the deletion of the row
-//                tableView.deleteRows(at: [indexPath], with: .automatic)
-                // Perform batch updates on the table view to delete rows
-                    tableView.beginUpdates()
-                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                    tableView.endUpdates()
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+//                // Perform batch updates on the table view to delete rows
+//                    tableView.beginUpdates()
+//                    tableView.deleteRows(at: [indexPath], with: .automatic)
+//                    tableView.endUpdates()
             }
         }
     }
@@ -851,8 +863,24 @@ extension TradeViewController: GetSocketMessages {
             
             GlobalVariable.instance.changeSector = true
             
-//            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
-            setTradeModel()
+////            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+//            setTradeModel()
+            
+            
+            
+            if GlobalVariable.instance.previouseSymbolList.count == 0 {
+                //MARK: - Merge OPEN list with the given list.
+                let getList = Array(Set(GlobalVariable.instance.openSymbolList))
+                
+                //MARK: - Save symbol local to unsubcibe.
+                GlobalVariable.instance.previouseSymbolList = getList
+                
+                //MARK: - START calling Socket message from here.
+                vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
+            }
+            
+            
+            
             
             if vm.webSocketManager.isSocketConnected() {
                 print("Socket is connected")
@@ -1310,6 +1338,18 @@ extension TradeViewController: UITextFieldDelegate {
 //            self.searchCloseButton.isHidden = false
             self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
             tblSearchView.reloadData()
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tf_searchSymbol {
+            if textField.text == "" {
+                symbolDataSector.removeAll()
+                //MARK: - Set all sectors by default.
+                symbolDataSector = GlobalVariable.instance.sectors
+                
+                tblSearchView.reloadData()
+            }
         }
     }
     

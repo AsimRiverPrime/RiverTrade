@@ -11,14 +11,8 @@ class ProfileViewController: BaseViewController{
         
         @IBOutlet weak var tblView: UITableView!
         
-//        @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
-//        @IBOutlet weak var tblViewTopConstraint: NSLayoutConstraint!
-        
-        //    weak var delegate: AccountInfoTapDelegate?
         weak var delegateCompeleteProfile: DashboardVCDelegate?
-        //    var model: [String] = ["Open","Pending","Close","image"]
-        //weak var delegateKYC: KYCVCDelegate?
-    var profileStep = Int()
+        var profileStep = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,31 +43,6 @@ class ProfileViewController: BaseViewController{
         
     }
 }
-//        public override func awakeFromNib() {
-//            
-//            //MARK: - Handle tableview constraints according to the device logical height.
-//            setTableViewLayoutTopConstraints()
-//            
-//           
-//        
-//        
-//        class func getView()->ProfileVC {
-//            return Bundle.main.loadNibNamed("ProfileVC", owner: self, options: nil)?.first as! ProfileVC
-//        }
-//        
-//        func dismissView() {
-//            UIView.animate(
-//                withDuration: 0.4,
-//                delay: 0.04,
-//                animations: {
-//                    self.alpha = 0
-//                }, completion: { (complete) in
-//                    self.removeFromSuperview()
-//                })
-//        }
-//        
-        
-//    }
 
     extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
@@ -102,26 +71,7 @@ class ProfileViewController: BaseViewController{
                 cell.selectionStyle = .none
                 cell.editDelegate = self
                 return cell
-                
-    //        } else if indexPath.section == 1 {
-    //            let cell = tableView.dequeueReusableCell(with: BenefitsTableViewCell.self, for: indexPath)
-    //            cell.backgroundColor = .clear
-    ////
-    ////            cell.onAllRealAccountsFilterButtonClick = {
-    ////                [self] in
-    ////                print("Click on onAllRealAccountsFilterButtonClick")
-    ////
-    ////            }
-    ////
-    ////            cell.onDaysFilterButton = {
-    ////                [self] in
-    ////                print("Click on onDaysFilterButton")
-    ////
-    ////            }
-    //
-    //            self.setNeedsLayout()
-    //            return cell
-                
+      
             } else if indexPath.section == 1 {
                 let cell = tableView.dequeueReusableCell(with: RefferalProgramTableViewCell.self, for: indexPath)
                 cell.backgroundColor = .clear
@@ -129,13 +79,7 @@ class ProfileViewController: BaseViewController{
 //                self.setNeedsLayout()
                 return cell
             }else if indexPath.section == 2 {
-    //            let cell = tableView.dequeueReusableCell(with: SocialTradeTableViewCell.self, for: indexPath)
-    //            cell.backgroundColor = .clear
-    //
-    //            self.setNeedsLayout()
-    //            return cell
-    //
-    //        }else if indexPath.section == 4 {
+   
                 let cell = tableView.dequeueReusableCell(with: SuppotTableViewCell.self, for: indexPath)
                 cell.backgroundColor = .clear
                 cell.selectionStyle = .none
@@ -166,15 +110,6 @@ class ProfileViewController: BaseViewController{
         
     }
 
-//    extension ProfileViewController: ResultTopDelegate {
-//        
-//        func resultTopTap(_ resultTopButtonType: ResultTopButtonType, index: Int) {
-//            print("resultTopButtonType = \(resultTopButtonType)")
-//        }
-//        
-//    }
-
-
     extension ProfileViewController: CompleteProfileButtonDelegate {
         
         func didTapCompleteProfileButtonInCell() {
@@ -204,11 +139,7 @@ extension ProfileViewController: KYCVCDelegate {
     func navigateToCompeletProfile(kyc: KYCType) {
         switch kyc {
         case .ProfileScreen:
-//            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-////                profileVC.delegateKYC = self
-//                GlobalVariable.instance.isReturnToProfile = true
-//                self.navigate(to: profileVC)
-//            }
+
             if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
 //                profileVC.delegateKYC = self
                 GlobalVariable.instance.isReturnToProfile = true
@@ -251,10 +182,7 @@ extension ProfileViewController: KYCVCDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .ReturnDashboard:
-//            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//                GlobalVariable.instance.isReturnToProfile = true
-//                self.navigate(to: dashboardVC)
-//            }
+
             if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
                 GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: dashboardVC)
@@ -271,62 +199,4 @@ extension ProfileViewController: ProfileEditButtonDelegate {
     }
     
 }
-        
-        //MARK: - Set TableViewTopConstraint.
-//        private func setTableViewLayoutTopConstraints() {
-//            
-//            if UIDevice.isPhone {
-//                print("screen_height = \(screen_height)")
-//                if screen_height >= 667.0 && screen_height <= 736.0 {
-//                    //MARK: - iphone6s, iphoneSE, iphone7 plus
-//                    tblViewTopConstraint.constant = -20
-//                    
-//                } else if screen_height == 812.0 {
-//                    //MARK: - iphoneXs
-//                    tblViewTopConstraint.constant = -45
-//                    
-//                } else if screen_height >= 852.0 && screen_height <= 932.0 {
-//                    //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
-//                    tblViewTopConstraint.constant = -60
-//                    
-//                }else if screen_height == 844.0 {
-//                    tblViewTopConstraint.constant = -55
-//                }  else {
-//                    //MARK: - other iphone if not in the above check's.
-//                    tblViewTopConstraint.constant = 0
-//                }
-//                
-//            } else {
-//                //MARK: - iPad
-//                
-//            }
-//            
-//        }
-        
-//        private func setTableViewLayoutConstraints() {
-//            
-//            if UIDevice.isPhone {
-//                print("screen_height = \(screen_height)")
-//                if screen_height >= 667.0 && screen_height <= 736.0 {
-//                    //MARK: - iphone6s, iphoneSE, iphone7 plus
-//                    tableViewBottomConstraint.constant = 145
-//                    
-//                } else if screen_height == 812.0 {
-//                    //MARK: - iphoneXs
-//                    tableViewBottomConstraint.constant = 165
-//                    
-//                } else if screen_height >= 852.0 && screen_height <= 932.0 {
-//                    //MARK: - iphone14 pro, iphone14, iphone14 Plus, iphone14 Pro Max
-//                    tableViewBottomConstraint.constant = 175
-//                    
-//                } else {
-//                    //MARK: - other iphone if not in the above check's.
-//                    tableViewBottomConstraint.constant = 165
-//                }
-//                
-//            }
-//            
-//        }
-        
-  
-
+   

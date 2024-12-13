@@ -158,6 +158,7 @@
 		31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */; };
 		31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */; };
 		31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */; };
+		31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */; };
 		31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */; };
 		31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */; };
 		31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D122C3FC81700A7A0D2 /* BottomSheetController.swift */; };
@@ -525,6 +526,7 @@
 		31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDetailsModel.swift; sourceTree = "<group>"; };
 		31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventsTableViewCell.xib; sourceTree = "<group>"; };
+		31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseCache.swift; sourceTree = "<group>"; };
 		31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentModelController.swift; sourceTree = "<group>"; };
 		31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
 		31B90D122C3FC81700A7A0D2 /* BottomSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetController.swift; sourceTree = "<group>"; };
@@ -1352,6 +1354,14 @@
 			path = UpcommingEvents;
 			sourceTree = "<group>";
 		};
+		31B8722B2D0C419700024E8A /* CacheApiResponse */ = {
+			isa = PBXGroup;
+			children = (
+				31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */,
+			);
+			path = CacheApiResponse;
+			sourceTree = "<group>";
+		};
 		31B90D0C2C3FC0B000A7A0D2 /* CustomBottomSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1444,6 +1454,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				31B8722B2D0C419700024E8A /* CacheApiResponse */,
 				31B6C53A2CC91740000DF849 /* Models */,
 				319871612CAD4991007FE3DA /* passwordSecure */,
 				3137AE702C77471A00B5A83B /* PasscodeVC */,
@@ -2747,6 +2758,7 @@
 				3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */,
 				3105DF122CB3E8A400D1B884 /* CloseTicketBottomSheetVC.swift in Sources */,
 				3105DF132CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift in Sources */,
+				31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */,
 				3105DF142CB3E8A400D1B884 /* TradeTypeCellVM.swift in Sources */,
 				3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */,
 				3105DF162CB3E8A400D1B884 /* DetailsViewController.swift in Sources */,

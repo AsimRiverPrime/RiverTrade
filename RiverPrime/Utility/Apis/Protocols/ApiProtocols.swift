@@ -40,6 +40,6 @@ protocol UpdateUserNamePassword: AnyObject {
 }
 
 protocol TopNewsProtocol: AnyObject {
-    func topNewsSuccess(response: Any)
+    func topNewsSuccess(response: [PayloadItem])
     func topNewsFailure(error: Error)
 }

@@ -39,7 +39,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
 //        oodoService.updateNumberDelegate = self
         oodoServiceNew.updateNumberDelegate = self
         oodoServiceNew.otpDelegate = self
-        oodoServiceNew.updateNumberDelegate = self
+//        oodoServiceNew.updateNumberDelegate = self
         
         view_countryCode.delegate = self
         view_countryCode.showPhoneCodeInView = false

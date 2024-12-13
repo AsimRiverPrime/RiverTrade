@@ -26,62 +26,51 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ahc-oJ-2yP">
                                         <rect key="frame" x="0.0" y="0.0" width="290" height="95"/>
                                         <subviews>
-                                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="topNewsIcon" translatesAutoresizingMaskIntoConstraints="NO" id="emJ-aA-H2r">
-                                                <rect key="frame" x="10" y="17.666666666666671" width="60" height="60"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="spa-NW-naq">
+                                                <rect key="frame" x="5" y="15" width="50" height="15"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIconSelect" translatesAutoresizingMaskIntoConstraints="NO" id="WNN-Km-sy0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="14.666666666666666" height="15"/>
+                                                        <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIconSelect" translatesAutoresizingMaskIntoConstraints="NO" id="LDh-pU-PiX">
+                                                        <rect key="frame" x="17.666666666666664" y="0.0" width="14.666666666666664" height="15"/>
+                                                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                    </imageView>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fireIconSelect" translatesAutoresizingMaskIntoConstraints="NO" id="8Tg-PX-d3a">
+                                                        <rect key="frame" x="35.333333333333336" y="0.0" width="14.666666666666664" height="15"/>
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
+                                                    </imageView>
+                                                </subviews>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="Xkk-3U-h8w"/>
-                                                    <constraint firstAttribute="width" constant="60" id="yDC-mI-B6Y"/>
+                                                    <constraint firstAttribute="height" constant="15" id="tIR-Pg-KEF"/>
                                                 </constraints>
-                                            </imageView>
+                                            </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HCOB Germany Manufacturing PMI Nvidia rises premarket, Bitcoin Nvidia rises premarket, Bitcoin" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vIz-Jb-qi9">
-                                                <rect key="frame" x="10" y="17.666666666666671" width="270" height="36"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <rect key="frame" x="60" y="15" width="220" height="43"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue, Jun 25, 2024, 8:37 AM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLH-EI-LWL">
-                                                <rect key="frame" x="10" y="58.666666666666664" width="97.333333333333329" height="8.6666666666666643"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                                                <rect key="frame" x="60" y="63" width="133.33333333333334" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ie7-MU-FTP">
-                                                <rect key="frame" x="260" y="50.333333333333336" width="20" height="20.000000000000007"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20" id="euq-xG-OeY"/>
-                                                    <constraint firstAttribute="width" constant="20" id="tJl-aR-C8K"/>
-                                                </constraints>
-                                                <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system">
-                                                    <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
-                                                </buttonConfiguration>
-                                                <connections>
-                                                    <action selector="favirateBtn_action:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="2ee-n9-fXC"/>
-                                                </connections>
-                                            </button>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Joa-rf-udo">
-                                                <rect key="frame" x="10" y="95" width="270" height="0.0"/>
-                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" id="2fI-KS-qBs"/>
-                                                </constraints>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Joa-rf-udo" secondAttribute="bottom" id="3ar-xB-fJT"/>
-                                            <constraint firstItem="Joa-rf-udo" firstAttribute="leading" secondItem="emJ-aA-H2r" secondAttribute="leading" id="8uS-cj-TcB"/>
-                                            <constraint firstItem="emJ-aA-H2r" firstAttribute="centerY" secondItem="ahc-oJ-2yP" secondAttribute="centerY" id="8y1-1y-wF8"/>
+                                            <constraint firstItem="vIz-Jb-qi9" firstAttribute="top" secondItem="ahc-oJ-2yP" secondAttribute="top" constant="15" id="04H-89-t8t"/>
                                             <constraint firstItem="eLH-EI-LWL" firstAttribute="top" secondItem="vIz-Jb-qi9" secondAttribute="bottom" constant="5" id="ATc-2T-hM6"/>
-                                            <constraint firstItem="emJ-aA-H2r" firstAttribute="leading" secondItem="ahc-oJ-2yP" secondAttribute="leading" constant="10" id="FF9-en-VNY"/>
+                                            <constraint firstItem="spa-NW-naq" firstAttribute="leading" secondItem="ahc-oJ-2yP" secondAttribute="leading" constant="5" id="BHN-cF-SEv"/>
                                             <constraint firstItem="eLH-EI-LWL" firstAttribute="leading" secondItem="vIz-Jb-qi9" secondAttribute="leading" id="IX4-N0-r5m"/>
-                                            <constraint firstAttribute="trailing" secondItem="ie7-MU-FTP" secondAttribute="trailing" constant="10" id="Ik6-pZ-RmQ"/>
-                                            <constraint firstItem="ie7-MU-FTP" firstAttribute="centerY" secondItem="eLH-EI-LWL" secondAttribute="centerY" multiplier="0.96" id="KDW-7n-J78"/>
-                                            <constraint firstItem="vIz-Jb-qi9" firstAttribute="leading" secondItem="ahc-oJ-2yP" secondAttribute="leading" constant="10" id="YNt-ZN-MY8"/>
-                                            <constraint firstItem="Joa-rf-udo" firstAttribute="trailing" secondItem="vIz-Jb-qi9" secondAttribute="trailing" id="aYV-7d-5fv"/>
-                                            <constraint firstItem="vIz-Jb-qi9" firstAttribute="top" secondItem="emJ-aA-H2r" secondAttribute="top" id="eBs-UE-fWb"/>
+                                            <constraint firstItem="vIz-Jb-qi9" firstAttribute="leading" secondItem="ahc-oJ-2yP" secondAttribute="leading" constant="60" id="YNt-ZN-MY8"/>
+                                            <constraint firstItem="vIz-Jb-qi9" firstAttribute="leading" secondItem="spa-NW-naq" secondAttribute="trailing" constant="5" id="iyi-Pf-fx9"/>
                                             <constraint firstAttribute="trailing" secondItem="vIz-Jb-qi9" secondAttribute="trailing" constant="10" id="o7r-hM-VG0"/>
+                                            <constraint firstItem="spa-NW-naq" firstAttribute="top" secondItem="ahc-oJ-2yP" secondAttribute="top" constant="15" id="rgi-gk-5cw"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -122,13 +111,16 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="btn_favirate" destination="ie7-MU-FTP" id="RS8-kP-ffG"/>
+                <outlet property="firstIcon" destination="WNN-Km-sy0" id="je8-4o-TN5"/>
+                <outlet property="lbl_date" destination="eLH-EI-LWL" id="7Pc-Ug-fBU"/>
+                <outlet property="lbl_title" destination="vIz-Jb-qi9" id="LHH-wE-MJd"/>
+                <outlet property="secondIcon" destination="LDh-pU-PiX" id="Rb2-4H-0PM"/>
+                <outlet property="thridIcon" destination="8Tg-PX-d3a" id="8qj-WI-8GK"/>
             </connections>
             <point key="canvasLocation" x="61.068702290076331" y="-118.66197183098592"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="star" catalog="system" width="128" height="116"/>
-        <image name="topNewsIcon" width="165" height="110"/>
+        <image name="fireIconSelect" width="252.33332824707031" height="341.33334350585938"/>
     </resources>
 </document>
