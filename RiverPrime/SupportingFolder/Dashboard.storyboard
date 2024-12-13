@@ -358,6 +358,9 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="20"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
+                                                        <connections>
+                                                            <action selector="percentAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="wWz-Ex-BmK"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.16862745100000001" green="0.37647058820000001" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

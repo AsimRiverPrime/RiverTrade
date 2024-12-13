@@ -41,12 +41,21 @@ class TopNewsViewController: BaseViewController {
             return date1 > date2
         }
     }
+    
     func convertToDate(from dateString: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS" // Match your API time format
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") // Ensure it's in UTC
+        
+        // Try parsing with milliseconds first
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateString) {
+            return date
+        }
+        
+        // If that fails, try parsing without milliseconds
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return dateFormatter.date(from: dateString)
     }
+    
     func timeAgo(from dateString: String) -> String {
         guard let apiDate = convertToDate(from: dateString) else {
             return "Invalid Date"

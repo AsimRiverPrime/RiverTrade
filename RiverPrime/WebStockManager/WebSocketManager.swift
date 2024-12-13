@@ -29,6 +29,10 @@ protocol SocketPeerClosed: AnyObject {
     func peerClosed()
 }
 
+protocol SocketConnectionInitDelegate: AnyObject {
+    func SocketConnectionInit()
+}
+
 class WebSocketManager: WebSocketDelegate {
 
     var webSocket: WebSocket?
@@ -41,6 +45,7 @@ class WebSocketManager: WebSocketDelegate {
     public weak var delegateSocketData: GetSocketData?
     public weak var delegateCandleSocketMessage: GetCandleData?
     public weak var delegateSocketPeerClosed: SocketPeerClosed?
+    public weak var delegateSocketConnectionInit: SocketConnectionInitDelegate?
     
     var isTradeDismiss = Bool()
 
@@ -188,6 +193,8 @@ class WebSocketManager: WebSocketDelegate {
             print("WebSocket is connected: \(headers)")
             GlobalVariable.instance.isConnected = true // Update connection state
 
+            self.delegateSocketConnectionInit?.SocketConnectionInit()
+            
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "true"])
            
         case .text(let string):
@@ -390,3 +397,4 @@ class WebSocketManager: WebSocketDelegate {
     }
 
 }
+

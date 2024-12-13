@@ -135,10 +135,18 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
   
     func convertToDate(from dateString: String) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS" // Match API format
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC") // Parse as UTC
+        
+        // Try parsing with milliseconds first
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        if let date = dateFormatter.date(from: dateString) {
+            return date
+        }
+        
+        // If that fails, try parsing without milliseconds
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
         return dateFormatter.date(from: dateString)
     }
+    
     func timeAgo(from dateString: String) -> String {
         guard let apiDate = convertToDate(from: dateString) else {
             return "Invalid Date"
@@ -172,7 +180,7 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 extension MarketsViewController: TopNewsProtocol {
-    func topNewsSuccess(response: [PayloadItem]) {
+    func topNewsSuccess(response: TopNewsModel/*[PayloadItem]*/) {
         print(response)
         let topNewsModel = response
         handleResponse(topNewsModel)
@@ -187,9 +195,9 @@ extension MarketsViewController: TopNewsProtocol {
         print("filteredPayloads: \(filteredPayloads)")
     }
     
-    func handleResponse(_ model: [PayloadItem]) {
-//        allPayloads = model.result.payload
-        allPayloads = model
+    func handleResponse(_ model: TopNewsModel/*[PayloadItem]*/) {
+        allPayloads = model.result.payload
+//        allPayloads = model
         print("allPayloads: \(allPayloads)")
         
         updateUI()

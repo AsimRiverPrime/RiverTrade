@@ -79,7 +79,7 @@ class AccountsViewController: BaseViewController {
     //MARK: - START CollectionView work.
     @IBOutlet weak var tradeTypeCollectionView: UICollectionView!
     var model: [String] = ["Open","Pending","Closed","image"/*,"test","test1","test2","test3"*/]
-    var refreshList = ["by instrument", "by volume", "by open time"]
+    var refreshList = ["Month", "Year", "Today"]
     var selectedIndex = 0
     
     var vm = TradeTypeCellVM()
@@ -294,6 +294,17 @@ class AccountsViewController: BaseViewController {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
     }
+    
+    @IBAction func percentAction(_ sender: UIButton) {
+       
+                    self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+                        print("drop down index = \(index)")
+                        print("drop down item = \(item)")
+                        sender.setTitle("", for: .normal)
+                    }
+                
+    }
+    
     
     deinit {
         // Remove observer when the view controller is deallocated

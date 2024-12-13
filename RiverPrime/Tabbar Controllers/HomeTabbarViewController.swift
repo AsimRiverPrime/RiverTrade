@@ -35,22 +35,25 @@ class HomeTabbarViewController: UITabBarController {
         tabBar.standardAppearance = tabBarAppearance
         tabBar.scrollEdgeAppearance = tabBarAppearance
         
+        //MARK: - START Symbol api calling.
+        symbolApiCalling()
+        
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-//        if GlobalVariable.instance.isReturnToProfile == true {
-//            //            setProfileButton()
-//            GlobalVariable.instance.isReturnToProfile = false
-//        }else{
-            //MARK: - START Symbol api calling.
-            symbolApiCalling()
-            
-            //MARK: - START SOCKET and call delegate method to get data from socket.
-            webSocketManager.connectWebSocket()
-            webSocketManager.delegateSocketData = self
-            //            setAccountsButton()
-//        }
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+////        if GlobalVariable.instance.isReturnToProfile == true {
+////            //            setProfileButton()
+////            GlobalVariable.instance.isReturnToProfile = false
+////        }else{
+//            //MARK: - START Symbol api calling.
+//            symbolApiCalling()
+//
+//            //MARK: - START SOCKET and call delegate method to get data from socket.
+//            webSocketManager.connectWebSocket()
+//            webSocketManager.delegateSocketData = self
+//            //            setAccountsButton()
+////        }
+//    }
     
 }
 
@@ -140,7 +143,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                 let symbolSwapShort = result["swap_short"] as? Double ?? 0.0
                 let symbolyesterday_close = result["yesterday_close"] as? Double ?? 0.0
                 let symbolis_mobile_favorite = result["is_mobile_favorite"] as? Bool ?? false
-                let symboltrade_session = result["trading_sessions_ids"] as? [Int] 
+                let symboltrade_session = result["trading_sessions_ids"] as? [Int]
                 
                 // Modify the icon URL if needed
                 let modifiedUrl = symbolIcon
@@ -237,6 +240,15 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
     
 }
 
+extension HomeTabbarViewController: SocketConnectionInitDelegate {
+    
+    func SocketConnectionInit() {
+        //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
+        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
+    }
+    
+}
+
 //MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
 extension HomeTabbarViewController {
     func showPopup() {
@@ -320,8 +332,14 @@ extension HomeTabbarViewController {
                         GlobalVariable.instance.openSymbolList = symbols
                         
                     }
-                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
+                    
+                    //MARK: - START SOCKET and call delegate method to get data from socket.
+                    self.webSocketManager.connectWebSocket()
+                    self.webSocketManager.delegateSocketData = self
+                    self.webSocketManager.delegateSocketConnectionInit = self
+                    
+//                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
+//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
                 }
             }
         }
@@ -447,3 +465,4 @@ extension HomeTabbarViewController: GetSocketData {
         
     }
 }
+
