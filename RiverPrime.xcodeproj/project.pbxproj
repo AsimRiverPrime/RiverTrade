@@ -123,6 +123,10 @@
 		317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
 		3184F0832CAE8C3600BC1479 /* AccountOPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */; };
+		3185C58A2D0FF55100FC996F /* EconomicCalendarListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */; };
+		3185C58C2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */; };
+		3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C58D2D0FFB7300FC996F /* EconomicCalendarModel.swift */; };
+		3185C5912D10571100FC996F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5902D10571100FC996F /* DateHelper.swift */; };
 		3186F8A52CF995BB000E7AFE /* Logo1.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A42CF995BB000E7AFE /* Logo1.gif */; };
 		3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A62CF9FDB4000E7AFE /* Logo.gif */; };
 		3188EF3C2CCBA395002F47BA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188EF3B2CCBA395002F47BA /* RoundedButton.swift */; };
@@ -491,6 +495,10 @@
 		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
+		3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarListVC.swift; sourceTree = "<group>"; };
+		3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarDetailVC.swift; sourceTree = "<group>"; };
+		3185C58D2D0FFB7300FC996F /* EconomicCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarModel.swift; sourceTree = "<group>"; };
+		3185C5902D10571100FC996F /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		3186F8A42CF995BB000E7AFE /* Logo1.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo1.gif; sourceTree = "<group>"; };
 		3186F8A62CF9FDB4000E7AFE /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		3188EF3B2CCBA395002F47BA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -1213,6 +1221,23 @@
 			path = WebStockManager;
 			sourceTree = "<group>";
 		};
+		3185C5882D0FF51A00FC996F /* EconomicCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */,
+				3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */,
+			);
+			path = EconomicCalendar;
+			sourceTree = "<group>";
+		};
+		3185C58F2D1056FF00FC996F /* DateHelper */ = {
+			isa = PBXGroup;
+			children = (
+				3185C5902D10571100FC996F /* DateHelper.swift */,
+			);
+			path = DateHelper;
+			sourceTree = "<group>";
+		};
 		319871612CAD4991007FE3DA /* passwordSecure */ = {
 			isa = PBXGroup;
 			children = (
@@ -1346,6 +1371,7 @@
 		31B830442C491DA20050F3DD /* UpcommingEvents */ = {
 			isa = PBXGroup;
 			children = (
+				3185C5882D0FF51A00FC996F /* EconomicCalendar */,
 				31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */,
 				31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */,
 				3172C9E62D0AC2230098BBEC /* EconomicCalendarSection.swift */,
@@ -1429,6 +1455,7 @@
 			isa = PBXGroup;
 			children = (
 				31C619D92D0AED97004FA259 /* TopNewsModel.swift */,
+				3185C58D2D0FFB7300FC996F /* EconomicCalendarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2052,6 +2079,7 @@
 		FA532D642C5721E1003A26D6 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				3185C58F2D1056FF00FC996F /* DateHelper */,
 				FA3F70332CC70C2300B3CE8A /* NotificationObserver */,
 				3106BBB62C99BF9A00B7ABF9 /* Session */,
 				FAD776C92C976F2F000411F1 /* Apis */,
@@ -2564,6 +2592,7 @@
 				31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */,
 				315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */,
 				31B90D152C3FCA3D00A7A0D2 /* Utilities.swift in Sources */,
+				3185C58C2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift in Sources */,
 				31D2AF1D2C8840B800E0CF2E /* CrosshairLineOptions.swift in Sources */,
 				317D7DF92C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift in Sources */,
 				FA4613992C602D5600B472D6 /* DPDKeyboardListener.swift in Sources */,
@@ -2644,6 +2673,7 @@
 				31D2AEFC2C8840B800E0CF2E /* TimeScale.swift in Sources */,
 				31D2AF1F2C8840B800E0CF2E /* GridLineOptions.swift in Sources */,
 				31D2AF1A2C8840B800E0CF2E /* Rectangle.swift in Sources */,
+				3185C5912D10571100FC996F /* DateHelper.swift in Sources */,
 				FA316F892CC1ADEE0048B181 /* EmptyCell.swift in Sources */,
 				31D2AF3B2C8840B800E0CF2E /* Point.swift in Sources */,
 				31D2AF012C8840B800E0CF2E /* PromptHandler.swift in Sources */,
@@ -2748,6 +2778,7 @@
 				3105DF072CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.swift in Sources */,
 				3105DF082CB3E8A400D1B884 /* AccountsViewController.swift in Sources */,
 				3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */,
+				3185C58A2D0FF55100FC996F /* EconomicCalendarListVC.swift in Sources */,
 				3105DF092CB3E8A400D1B884 /* CreateDemoAccountVC.swift in Sources */,
 				3105DF0A2CB3E8A400D1B884 /* TradeTypeTableViewCell.swift in Sources */,
 				3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */,
@@ -2759,6 +2790,7 @@
 				3105DF122CB3E8A400D1B884 /* CloseTicketBottomSheetVC.swift in Sources */,
 				3105DF132CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift in Sources */,
 				31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */,
+				3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */,
 				3105DF142CB3E8A400D1B884 /* TradeTypeCellVM.swift in Sources */,
 				3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */,
 				3105DF162CB3E8A400D1B884 /* DetailsViewController.swift in Sources */,

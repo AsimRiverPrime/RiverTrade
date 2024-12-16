@@ -59,6 +59,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="emptyLabelMessage" destination="zTi-2i-6sj" id="vDE-Ch-z9S"/>
+                <outlet property="lbl_secondMessage" destination="6wy-yW-Ry9" id="b98-Ut-UbZ"/>
             </connections>
             <point key="canvasLocation" x="30.534351145038165" y="49.647887323943664"/>
         </tableViewCell>

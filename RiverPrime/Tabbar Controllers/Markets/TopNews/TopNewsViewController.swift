@@ -36,52 +36,9 @@ class TopNewsViewController: BaseViewController {
     }
     func sortLatestDate () {
         allPayloads.sort { payload1, payload2 in
-            guard let date1 = convertToDate(from: payload1.date),
-                  let date2 = convertToDate(from: payload2.date) else { return false }
+            guard let date1 = DateHelper.convertToDate(from: payload1.date),
+                  let date2 = DateHelper.convertToDate(from: payload2.date) else { return false }
             return date1 > date2
-        }
-    }
-    
-    func convertToDate(from dateString: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        
-        // Try parsing with milliseconds first
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        if let date = dateFormatter.date(from: dateString) {
-            return date
-        }
-        
-        // If that fails, try parsing without milliseconds
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return dateFormatter.date(from: dateString)
-    }
-    
-    func timeAgo(from dateString: String) -> String {
-        guard let apiDate = convertToDate(from: dateString) else {
-            return "Invalid Date"
-        }
-
-        // Use UTC for current date as well to normalize the comparison
-        let currentDate = Date()
-          let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
-          
-          let difference = utcCurrentDate.timeIntervalSince(apiDate) // Time difference in seconds
-          print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate), Difference: \(difference)")
-
-          if difference < 0 {
-              return "In the future" // Optional: Handle future dates explicitly
-          } else if difference < 60 {
-            return "\(Int(difference))s ago" // Less than 1 minute
-        } else if difference < 3600 {
-            let minutes = Int(difference) / 60
-            return "\(minutes)m ago" // Less than 1 hour
-        } else if difference < 86400 {
-            let hours = Int(difference) / 3600
-            let minutes = (Int(difference) % 3600) / 60
-            return "\(hours)h \(minutes)m ago" // Less than 1 day
-        } else {
-            let days = Int(difference) / 86400
-            return "\(days)d ago" // More than 1 day
         }
     }
     
@@ -108,7 +65,7 @@ extension TopNewsViewController: UITableViewDelegate, UITableViewDataSource {
         let payload = allPayloads[indexPath.row]
         cell.lbl_title.text = payload.title
         
-        cell.lbl_date.text = timeAgo(from: payload.date)
+        cell.lbl_date.text = DateHelper.timeAgo(from: payload.date)
         
         switch payload.importance {
         case 1:
@@ -137,5 +94,15 @@ extension TopNewsViewController: UITableViewDelegate, UITableViewDataSource {
             return 80
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      
+        let selectedItem = allPayloads[indexPath.row]
+        if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TopNewsDetailVC") as? TopNewsDetailVC {
+            
+            vc.selectedItem = selectedItem
+            self.navigate(to: vc)
+        }
+       
+    }
 }
 

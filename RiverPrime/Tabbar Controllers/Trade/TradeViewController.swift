@@ -235,30 +235,6 @@ class TradeViewController: UIViewController {
                     symbolDataSector = GlobalVariable.instance.sectors
                     
                     
-                    
-                    
-//                    let symbols = GlobalVariable.instance.symbolDataArray
-//                    let sectors = GlobalVariable.instance.sectors
-//
-//                    // Get the sector at the given index
-//                    let selectedSector = sectors[collectionViewIndex]
-//
-//                    // Filter symbols that belong to the selected sector
-//                    let filteredSymbols = symbols.filter { $0.sector == selectedSector.sector }
-//
-//                    // Create a SectorGroup for the selected sector and its symbols
-//                    let sectorGroup = SectorGroup(sector: selectedSector.sector, symbols: filteredSymbols)
-//
-//                    selectedSectorGroup = sectorGroup
-                    
-//                    for item in GlobalVariable.instance.symbolDataArray {
-//                        selectedSectorGroup
-//                    }
-                    
-                    
-                    
-                    
-                    
                     //MARK: - Get the list and save localy and set sectors and symbols.
                     processSymbols(GlobalVariable.instance.symbolDataArray)
                     

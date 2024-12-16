@@ -10,6 +10,7 @@ import UIKit
 class EmptyCell: UITableViewCell {
 
     @IBOutlet weak var emptyLabelMessage: UILabel!
+    @IBOutlet weak var lbl_secondMessage: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

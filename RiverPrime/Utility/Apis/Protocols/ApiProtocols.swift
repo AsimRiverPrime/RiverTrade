@@ -44,3 +44,10 @@ protocol TopNewsProtocol: AnyObject {
 //    func topNewsSuccess(response: [PayloadItem])
     func topNewsFailure(error: Error)
 }
+
+protocol EconomicCalendarProtocol: AnyObject {
+    func economicCalendarSuccess(response: EconomicCalendarModel)
+//    func topNewsSuccess(response: [PayloadItem])
+    func economicCalendarFailure(error: Error)
+}
+

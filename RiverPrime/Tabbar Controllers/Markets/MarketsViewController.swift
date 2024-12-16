@@ -16,13 +16,18 @@ class MarketsViewController: UIViewController {
     var allPayloads: [PayloadItem] = []
     var filteredPayloads: [PayloadItem] = []
     
+    var allEvents: [Event] = []
+    var filteredEvents: [Event] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         odooServer.topNewsDelegate = self
+        odooServer.economicCalendarDelegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
-        
-        //        odooServer.getCalendarDataRecords(fromDate: "2024-12-11", toDate: "2024-12-12")
+        let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
+        print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
+        odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
         
         
         tblView.registerCells([
@@ -35,6 +40,20 @@ class MarketsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         odooServer.getNewsRecords()
     }
+    
+    func getCurrentAndTomorrowDate() -> (String, String) {
+        let currentDate = Date() // Current date and time
+        let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)! // Add 1 day
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd" // Format to match your API requirement
+        
+        let currentDateString = dateFormatter.string(from: currentDate)
+        let tomorrowDateString = dateFormatter.string(from: tomorrowDate)
+        
+        return (currentDateString, tomorrowDateString)
+    }
+    
 }
 
 extension MarketsViewController {
@@ -59,7 +78,7 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
         
         if section == 0 {
             // Economic Calendar Section
-            return 4 // One row for `EconomicCalendarSection` and 3 for `UpcomingEventsTableViewCell`
+            return 1 + filteredEvents.count // One row for `EconomicCalendarSection` and 3 for `UpcomingEventsTableViewCell`
         } else if section == 1 {
             // Top News Section
             return 1 + filteredPayloads.count // One row for `TopNewsSection` and others for `TopNewsTableViewCell`
@@ -75,13 +94,22 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "EconomicCalendarSection", for: indexPath) as! EconomicCalendarSection
                 cell.selectionStyle = .none
-                cell.viewAllAction = {
-                    // Handle View All Action
+                cell.viewAllAction = { [unowned self] in
+                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "EconomicCalendarListVC") as? EconomicCalendarListVC {
+                        
+                        vc.allEvents = self.allEvents
+                        self.navigate(to: vc)
+                    }
                 }
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingEventsTableViewCell", for: indexPath) as! UpcomingEventsTableViewCell
                 cell.selectionStyle = .none
+                
+                let payloadIndex = indexPath.row - 1 // Subtract 1 for the header row
+                let payload = filteredEvents[payloadIndex]
+            
+                cell.configure(with: payload)
                 return cell
             }
         } else if indexPath.section == 1 {
@@ -106,7 +134,7 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
                 cell.lbl_title.text = payload.title
                 
-                cell.lbl_date.text = timeAgo(from: payload.date)
+                cell.lbl_date.text = DateHelper.timeAgo(from: payload.date)
                                 
                 return cell
             }
@@ -132,51 +160,79 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return UITableView.automaticDimension
     }
-  
-    func convertToDate(from dateString: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        
-        // Try parsing with milliseconds first
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        if let date = dateFormatter.date(from: dateString) {
-            return date
-        }
-        
-        // If that fails, try parsing without milliseconds
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return dateFormatter.date(from: dateString)
-    }
     
-    func timeAgo(from dateString: String) -> String {
-        guard let apiDate = convertToDate(from: dateString) else {
-            return "Invalid Date"
-        }
-
-        // Get the current date and adjust to UTC
-        let currentDate = Date()
-        let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
-
-        print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate)") // Debugging
-
-        // Time difference in seconds
-        let difference = utcCurrentDate.timeIntervalSince(apiDate)
-        
-        if difference < 0 {
-            return "In the future" // Handle future dates explicitly
-        } else if difference < 60 {
-            return "\(Int(difference))s ago" // Less than 1 minute
-        } else if difference < 3600 {
-            let minutes = Int(difference) / 60
-            return "\(minutes)m ago" // Less than 1 hour
-        } else if difference < 86400 {
-            let hours = Int(difference) / 3600
-            let minutes = (Int(difference) % 3600) / 60
-            return "\(hours)h \(minutes)m ago" // Less than 1 day
-        } else {
-            let days = Int(difference) / 86400
-            return "\(days)d ago" // More than 1 day
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                
+            }else{
+                let index = indexPath.row - 1
+                let selectedItem = filteredEvents[index]
+                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "EconomicCalendarDetailVC") as? EconomicCalendarDetailVC {
+                    
+                    vc.selectedItem = selectedItem
+                    self.navigate(to: vc)
+                }
+            }
+        }else if indexPath.section == 1 {
+            
+            if indexPath.row == 0 {
+                
+            }else{
+                let index = indexPath.row - 1
+                let selectedItem = filteredPayloads[index]
+                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TopNewsDetailVC") as? TopNewsDetailVC {
+                    
+                    vc.selectedItem = selectedItem
+                    self.navigate(to: vc)
+                }
+            }
         }
     }
+//    func convertToDate(from dateString: String) -> Date? {
+//        let dateFormatter = DateFormatter()
+//        
+//        // Try parsing with milliseconds first
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+//        if let date = dateFormatter.date(from: dateString) {
+//            return date
+//        }
+//        
+//        // If that fails, try parsing without milliseconds
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//        return dateFormatter.date(from: dateString)
+//    }
+    
+//    func timeAgo(from dateString: String) -> String {
+//        guard let apiDate = convertToDate(from: dateString) else {
+//            return "Invalid Date"
+//        }
+//
+//        // Get the current date and adjust to UTC
+//        let currentDate = Date()
+//        let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
+//
+//        print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate)") // Debugging
+//
+//        // Time difference in seconds
+//        let difference = utcCurrentDate.timeIntervalSince(apiDate)
+//        
+//        if difference < 0 {
+//            return "In the future" // Handle future dates explicitly
+//        } else if difference < 60 {
+//            return "\(Int(difference))s ago" // Less than 1 minute
+//        } else if difference < 3600 {
+//            let minutes = Int(difference) / 60
+//            return "\(minutes)m ago" // Less than 1 hour
+//        } else if difference < 86400 {
+//            let hours = Int(difference) / 3600
+//            let minutes = (Int(difference) % 3600) / 60
+//            return "\(hours)h \(minutes)m ago" // Less than 1 day
+//        } else {
+//            let days = Int(difference) / 86400
+//            return "\(days)d ago" // More than 1 day
+//        }
+//    }
 
 }
 extension MarketsViewController: TopNewsProtocol {
@@ -191,7 +247,7 @@ extension MarketsViewController: TopNewsProtocol {
     }
     
     func filterImportantNews() {
-        filteredPayloads = allPayloads.filter { $0.importance == 3 }
+        filteredPayloads = allPayloads.filter { $0.importance == 1}
         print("filteredPayloads: \(filteredPayloads)")
     }
     
@@ -205,10 +261,57 @@ extension MarketsViewController: TopNewsProtocol {
     func updateUI() {
         filterImportantNews()
         filteredPayloads.sort { payload1, payload2 in
-            guard let date1 = convertToDate(from: payload1.date),
-                  let date2 = convertToDate(from: payload2.date) else { return false }
+            guard let date1 = DateHelper.convertToDate(from: payload1.date),
+                  let date2 = DateHelper.convertToDate(from: payload2.date) else { return false }
             return date1 > date2
         }
         tblView.reloadData()
+    }
+}
+
+extension MarketsViewController: EconomicCalendarProtocol {
+    func economicCalendarSuccess(response: EconomicCalendarModel) {
+        print("economic events result\(response)")
+        let economicCalendarModel = response
+        handleResponse(economicCalendarModel)
+    }
+    
+    func economicCalendarFailure(error: any Error) {
+        print(error)
+    }
+  
+    func calendarFilterImportantEvents() {
+        filteredEvents = allEvents.filter { $0.importance == 3 }
+        print("filtered Events: \(filteredEvents)")
+    }
+    
+    func handleResponse(_ model: EconomicCalendarModel/*[PayloadItem]*/) {
+        allEvents = model.result.payload
+//        allPayloads = model
+        print("all Events: \(allEvents)")
+        
+        updateEconomicUI()
+    }
+    func updateEconomicUI() {
+        calendarFilterImportantEvents()
+        filteredPayloads.sort { payload1, payload2 in
+            guard let date1 = DateHelper.convertToDate(from: payload1.date),
+                  let date2 = DateHelper.convertToDate(from: payload2.date) else { return false }
+            return date1 > date2
+        }
+        tblView.reloadData()
+    }
+}
+extension String {
+    /// Returns the flag emoji for the given country code.
+    func flagEmoji() -> String {
+        let base: UInt32 = 127397
+        var flag = ""
+        for scalar in self.uppercased().unicodeScalars {
+            if let scalarValue = UnicodeScalar(base + scalar.value) {
+                flag.unicodeScalars.append(scalarValue)
+            }
+        }
+        return flag
     }
 }

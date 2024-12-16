@@ -9,7 +9,7 @@ import UIKit
 
 class EconomicCalendarSection: UITableViewCell {
 
-    @IBOutlet weak var viewAllButton: UIButton!
+    @IBOutlet weak var btn_viewAll: UIButton!
     
     var viewAllAction : () -> () = {}
     
@@ -25,7 +25,7 @@ class EconomicCalendarSection: UITableViewCell {
     }
     
     @IBAction func viewAll_btnAction(_ sender: UIButton) {
-        viewAllAction()
+        self.viewAllAction()
     }
     
 }
