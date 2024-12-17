@@ -88,11 +88,25 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                     self.btn_completeProfile.isHidden = true
                     lbl_completeProfile.text = "Profile Completed"
                 }else if profileStep == 2 {
-                    
+                    progreeBar.progress = 67.0
+                    self.lbl_progressPercent.text = "67%"
+                    btn_completeProfile.isUserInteractionEnabled = true
+                    btn_completeProfile.setTitle("", for: .normal)
+                    self.btn_completeProfile.isHidden = false
+                    lbl_completeProfile.text = "Welldone complete your Profile for last step KYC"
                 }else if profileStep == 1 {
-                    
+                    progreeBar.progress = 33.0
+                    self.lbl_progressPercent.text = "33%"
+                    btn_completeProfile.isUserInteractionEnabled = true
+                    btn_completeProfile.setTitle("", for: .normal)
+                    self.btn_completeProfile.isHidden = false
+                    lbl_completeProfile.text = "Complete your Profile"
                 }else{
-                    
+                    progreeBar.progress = 0.0
+                    self.lbl_progressPercent.text = "0%"
+                    btn_completeProfile.isUserInteractionEnabled = true
+                    btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+                    self.btn_completeProfile.isHidden = false
                 }
                 
             }
