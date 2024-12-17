@@ -54,6 +54,7 @@ enum BottomSheetIdentifierType: String {
     case ticketVC = "TicketVC"
     case changeTradePasswordVC = "ChangeTradePasswordVC"
     
+    case kycViewController = "KYCViewController"
     case completeVerificationProfileScreen1 = "CompleteVerificationProfileScreen1"
     case completeVerificationProfileScreen2 = "CompleteVerificationProfileScreen2" 
     case completeVerificationProfileScreen3 = "CompleteVerificationProfileScreen3"

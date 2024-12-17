@@ -765,6 +765,9 @@ extension TradeDetalVC {
             let swapShort = GlobalVariable.instance.symbolDataArray[valueIndex].swapShort
             //            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
             
+            let session_trade = GlobalVariable.instance.symbolDataArray[valueIndex].trading_sessions_ids
+            print("session_trade: \(session_trade)")
+            
             let minVol = Double(volumeMin)! / 10000
             let maxVol = Double(volumeMax)! / 10000
             let volStep = Double(volumeStep)! / 10000

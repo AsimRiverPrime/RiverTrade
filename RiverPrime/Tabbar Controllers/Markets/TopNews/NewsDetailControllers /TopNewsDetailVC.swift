@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 class TopNewsDetailVC: BaseViewController {
 
@@ -18,33 +19,50 @@ class TopNewsDetailVC: BaseViewController {
 
     @IBOutlet weak var lbl_symbol: UILabel!
 
-    @IBOutlet weak var lbl_description: UILabel!
+    @IBOutlet weak var textView_description: UITextView!
 
     var selectedItem: PayloadItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupData()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //MARK: - Hide Navigation Bar
-        setupData()
-//        
-//        self.setNavBar(vc: self, isBackButton: false, isBar: false)
-//        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .darkGray, barColor: .clear)
+
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "NEWS Detail", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
    
    func setupData() {
        lbl_title.text = selectedItem?.title
        lbl_date.text = DateHelper.timeAgo(from: selectedItem?.date ?? "")
-       lbl_symbol.text = " " + (selectedItem?.symbol ?? "") + " "
-       lbl_symbol.layer.cornerRadius = 2
-       lbl_category.text = " " + (selectedItem?.category ?? "") + " "
-       lbl_category.layer.cornerRadius = 2
-       lbl_description.text = selectedItem?.description
+       lbl_symbol.text = "  " + (selectedItem?.symbol ?? "") + "  "
+       lbl_symbol.layer.cornerRadius = 10.0
+       self.lbl_category.layer.borderWidth = 0.2
+       self.lbl_category.layer.borderColor = UIColor.lightGray.cgColor
+       lbl_symbol.layer.masksToBounds = true
+       if lbl_symbol.text == "" {
+           lbl_symbol.text = ""
+           self.lbl_symbol.layer.backgroundColor = UIColor.clear.cgColor
+       }
+
+       lbl_category.text = "  " + (selectedItem?.category ?? "") + "  "
+       self.lbl_category.layer.cornerRadius = 10.0
+//       self.lbl_category.layer.backgroundColor = UIColor.red.cgColor
+       self.lbl_category.layer.borderWidth = 0.2
+       self.lbl_category.layer.borderColor = UIColor.lightGray.cgColor
+       self.lbl_category.layer.masksToBounds = true
+       if lbl_category.text == "" {
+           lbl_category.text = ""
+           self.lbl_category.layer.backgroundColor = UIColor.clear.cgColor
+           
+       }
+       
+       self.textView_description.text = selectedItem?.description
        
        switch selectedItem?.importance ?? 0 {
        case 1:

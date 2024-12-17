@@ -188,6 +188,11 @@ extension DepositViewController: KYCVCDelegate {
                 self.navigate(to: dashboardVC)
             }
             break
+        case .KycScreen:
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+            vc.delegateKYC = self
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
         }
     }
     

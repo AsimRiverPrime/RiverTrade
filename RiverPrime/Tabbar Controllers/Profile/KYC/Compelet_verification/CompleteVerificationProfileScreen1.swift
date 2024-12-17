@@ -31,11 +31,8 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
             switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
         }
         //        selectedObjective = [:]
-        
-        btn_back.buttonStyle()
-        btn_back.layer.cornerRadius = 15.0
-        btn_submit.buttonStyle()
-        btn_submit.layer.cornerRadius = 15.0
+        self.navigationController?.navigationBar.isHidden = true
+
         
     }
     @IBAction func switch_action(_ sender: UISwitch) {

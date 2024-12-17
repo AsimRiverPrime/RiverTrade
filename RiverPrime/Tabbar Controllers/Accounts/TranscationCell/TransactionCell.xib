@@ -45,10 +45,16 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-Hf-AyL">
-                                <rect key="frame" x="15" y="42" width="25" height="13.333333333333336"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WQR-Hf-AyL">
+                                <rect key="frame" x="15" y="42" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.45490193369999998" green="0.79215681550000006" blue="0.56078433989999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dj8-o0-0V0">
+                                <rect key="frame" x="20" y="42" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P&amp;L($)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETo-JC-GpK">
@@ -78,6 +84,8 @@
                             <constraint firstItem="6Ef-jo-cSO" firstAttribute="leading" secondItem="1iU-cM-WKL" secondAttribute="leading" constant="15" id="fcy-iU-h3v"/>
                             <constraint firstItem="JcQ-0R-e7c" firstAttribute="centerY" secondItem="6Ef-jo-cSO" secondAttribute="centerY" id="iNf-vS-r5x"/>
                             <constraint firstAttribute="trailing" secondItem="xT2-rt-7jp" secondAttribute="trailing" constant="20" id="ltm-RT-ElG"/>
+                            <constraint firstItem="Dj8-o0-0V0" firstAttribute="leading" secondItem="WQR-Hf-AyL" secondAttribute="trailing" constant="5" id="xoc-ql-FSz"/>
+                            <constraint firstItem="Dj8-o0-0V0" firstAttribute="centerY" secondItem="WQR-Hf-AyL" secondAttribute="centerY" id="ylV-Lk-y0u"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -110,6 +118,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="lbl_currentPrice" destination="JcQ-0R-e7c" id="4JZ-Q3-DwN"/>
+                <outlet property="lbl_openPrice" destination="Dj8-o0-0V0" id="Stv-WI-t5E"/>
                 <outlet property="lbl_openPriceVolume" destination="WQR-Hf-AyL" id="xgo-0n-85k"/>
                 <outlet property="lbl_profitValue" destination="xT2-rt-7jp" id="gDF-p2-hFP"/>
                 <outlet property="lbl_symbolName" destination="6Ef-jo-cSO" id="rPD-4q-CaK"/>

@@ -24,6 +24,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     @IBOutlet weak var maleButton: UIButton!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var btn_continue: UIButton!
+    @IBOutlet weak var lbl_errorMessage: UILabel!
     
     let fireStoreInstance = FirestoreServices()
     
@@ -55,9 +56,11 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        self.lbl_errorMessage.isHidden = true
         self.tf_firstName.text = Firstname
         self.tf_lastName.text = LastName
+        
+        self.navigationController?.navigationBar.isHidden = true
         
         monthButton.setContentHuggingPriority(UILayoutPriority.defaultLow, for: .horizontal)
         dayButton.setContentHuggingPriority(UILayoutPriority.defaultHigh, for: .horizontal)
@@ -65,8 +68,20 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         
         print("the profileStep value is: \(profileStep)")
         
-        btn_continue.buttonStyle()
-        btn_continue.layer.cornerRadius = 15.0
+        tf_address.attributedPlaceholder = NSAttributedString(
+            string: "City,Street,House#",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        tf_lastName.attributedPlaceholder = NSAttributedString(
+            string: "Enter last name",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+        tf_firstName.attributedPlaceholder = NSAttributedString(
+            string: "Enter first name",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        )
+//        btn_continue.buttonStyle()
+//        btn_continue.layer.cornerRadius = 15.0
             
     }
     
@@ -117,15 +132,22 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     @IBAction func continueBtn_action(_ sender: UIButton) {
         profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
-        print("profileStepCompeleted is : \(profileStep)")
-        
-        updateUser()
-//        AddUserAccountDetail()
-        
+        print("profileStep for Compelete is : \(profileStep)")
+       
+        if let dob = dob, !dob.isEmpty, !selectedGender!.isEmpty,
+           !tf_address.text!.isEmpty,
+           !tf_firstName.text!.isEmpty,
+           !tf_lastName.text!.isEmpty {
+            self.lbl_errorMessage.isHidden = true
+            updateUser()
+        } else {
+            self.lbl_errorMessage.isHidden = false
+        }
+ 
     }
     @IBAction func backBtn_action(_ sender: Any) {
         self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
+        delegateKYC?.navigateToCompeletProfile(kyc: .ProfileScreen)
     }
     
     func updateGenderButtons(for gender: String) {
@@ -155,45 +177,45 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
           
        }
     
-    func AddUserAccountDetail() {
-        // Merge all dictionaries into one dictionary
-           var questionAnswer: [String: [String]] = [:]
-           
-           // Merge all individual dictionaries into questionAnswer
-           questionAnswer.merge(tradeObjective!) { (current, _) in current }
-           questionAnswer.merge(tradeInstruments!) { (current, _) in current }
-           questionAnswer.merge(tradeAnticipateMonthly!) { (current, _) in current }
-           questionAnswer.merge(tradeSourceIncome!) { (current, _) in current }
-           questionAnswer.merge(tradeExprience!) { (current, _) in current }
-           questionAnswer.merge(tradePurpose!) { (current, _) in current }
-      //  print("\(questionAnswer)")
-        
-        
-        let userData: [String: Any] = [
-               "uid": userId!,
-               "sId": sid!,
-               "step": profileStep,
-               "profileStep": profileStep,
-               "overAllStatus": overAllStatus! ,
-               "questionAnswer": questionAnswer
-           ]
-        
-        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
-            switch result {
-            case .success:
-                print("Document USER_ACCOUNT detail ADD successfully!")
-             
-                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
-                    self.navigateToDashboard()
-                }
-               
-                
-            case .failure(let error):
-                print("Error adding/updating document: \(error)")
-                self.ToastMessage("\(error)")
-            }
-        }
-    }
+//    func AddUserAccountDetail() {
+//        // Merge all dictionaries into one dictionary
+//           var questionAnswer: [String: [String]] = [:]
+//           
+//           // Merge all individual dictionaries into questionAnswer
+//           questionAnswer.merge(tradeObjective!) { (current, _) in current }
+//           questionAnswer.merge(tradeInstruments!) { (current, _) in current }
+//           questionAnswer.merge(tradeAnticipateMonthly!) { (current, _) in current }
+//           questionAnswer.merge(tradeSourceIncome!) { (current, _) in current }
+//           questionAnswer.merge(tradeExprience!) { (current, _) in current }
+//           questionAnswer.merge(tradePurpose!) { (current, _) in current }
+//      //  print("\(questionAnswer)")
+//        
+//        
+//        let userData: [String: Any] = [
+//               "uid": userId!,
+//               "sId": sid!,
+//               "step": profileStep,
+//               "profileStep": profileStep,
+//               "overAllStatus": overAllStatus! ,
+//               "questionAnswer": questionAnswer
+//           ]
+//        
+//        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
+//            switch result {
+//            case .success:
+//                print("Document USER_ACCOUNT detail ADD successfully!")
+//             
+//                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
+//                    self.navigateToDashboard()
+//                }
+//               
+//                
+//            case .failure(let error):
+//                print("Error adding/updating document: \(error)")
+//                self.ToastMessage("\(error)")
+//            }
+//        }
+//    }
     
     func showAlert(message: String, completion: (() -> Void)? = nil) {
             let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
@@ -205,9 +227,9 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
             present(alertController, animated: true, completion: nil)
         }
     
-    func navigateToDashboard() {
+    func navigateToKYC() {
         self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
+        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
     }
     
     func updateUser() {
@@ -215,10 +237,10 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
             return
         }
         var fieldsToUpdate: [String: Any] = [
-                "KYC": true,
+                "KYC": false,
                 "address" : self.tf_address.text ?? "",
-                "dob" : self.dob! ,
-                "gender": self.selectedGender! ,
+                "dob" : self.dob ?? "" ,
+                "gender": self.selectedGender ?? "" ,
                 "profileStep": profileStep,
              ]
         
@@ -228,6 +250,9 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
                 return
             } else {
                 print("\n User data save successfully in the fireBase")
+                self.fireStoreInstance.fetchUserData(userId: userId)
+                self.navigateToKYC()
+                
             }
         }
     }

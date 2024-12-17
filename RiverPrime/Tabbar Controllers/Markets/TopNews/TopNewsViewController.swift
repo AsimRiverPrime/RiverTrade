@@ -9,9 +9,6 @@ import UIKit
 
 class TopNewsViewController: BaseViewController {
 
-    @IBOutlet weak var btn_allNews: UIButton!
-    @IBOutlet weak var btn_favorites: UIButton!
-
     @IBOutlet weak var tableView_News: UITableView!
    
     var allPayloads : [PayloadItem] = []
@@ -32,7 +29,7 @@ class TopNewsViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .lightGray, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "NEWS", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
     func sortLatestDate () {
         allPayloads.sort { payload1, payload2 in

@@ -91,7 +91,7 @@ class AccountsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.setGradientBackground()
         dashboardDatainit()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
@@ -712,10 +712,7 @@ extension AccountsViewController: OPCDelegate {
         
         switch opcType {
         case .open(let open):
-            // Calculate the total priceOpen
-            //            let totalPriceOpen = open.map { $0.profit }.reduce(0, +)
-            //            totalProfitOpenClose = totalPriceOpen
-            //            refreshSection(at: 2)
+         
             if open.count == 0 {
                 emptyListCount = 1
             } else {
@@ -723,19 +720,14 @@ extension AccountsViewController: OPCDelegate {
             }
             
         case .pending(let pending):
-            //            // Calculate the total priceOpen
-            //            let totalPriceOpen = pending.map { $0.price }.reduce(0, +)
-            //            refreshSection(at: 2)
+        
             if pending.count == 0 {
                 emptyListCount = 1
             } else {
                 emptyListCount = 0
             }
         case .close(let close):
-            // Calculate the total priceOpen
-            //            let totalPriceClose = close.map { $0.totalProfit }.reduce(0, +)
-            //            totalProfitOpenClose = totalPriceClose
-            //            refreshSection(at: 2)
+           
             if close.count == 0 {
                 emptyListCount = 1
             } else {
@@ -743,8 +735,6 @@ extension AccountsViewController: OPCDelegate {
             }
             
         }
-        
-        //        refreshSection(at: 3)
         tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
@@ -1361,4 +1351,26 @@ extension AccountsViewController: OPCNavigationDelegate {
         
     }
     
+}
+extension UIView {
+    func setGradientBackground() {
+        let gradientLayer = CAGradientLayer()
+        
+        // Define the colors of the gradient
+        gradientLayer.colors = [
+            UIColor(red: 20/255, green: 0, blue: 40/255, alpha: 1).cgColor, // start color (dark purple)
+            UIColor.black.cgColor               // end color
+            
+        ]
+        
+        // Define the gradient direction (top to bottom)
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        
+        gradientLayer.frame = self.bounds
+        gradientLayer.cornerRadius = self.layer.cornerRadius
+        
+        // Insert the gradient below all other sublayers
+        self.layer.insertSublayer(gradientLayer, at: 0)
+    }
 }

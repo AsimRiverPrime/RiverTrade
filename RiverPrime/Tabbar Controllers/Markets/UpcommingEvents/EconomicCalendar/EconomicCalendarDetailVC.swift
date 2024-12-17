@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EconomicCalendarDetailVC: UIViewController {
+class EconomicCalendarDetailVC: BaseViewController {
 
     @IBOutlet weak var countryFlagIcon: UIImageView!
     @IBOutlet weak var lbl_event: UILabel!
@@ -40,8 +40,8 @@ class EconomicCalendarDetailVC: UIViewController {
         //MARK: - Hide Navigation Bar
         setupData()
 //
-//        self.setNavBar(vc: self, isBackButton: false, isBar: false)
-//        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .darkGray, barColor: .clear)
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "Economic Calendar Detail", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
    
    func setupData() {
@@ -55,7 +55,7 @@ class EconomicCalendarDetailVC: UIViewController {
        lbl_previous.text = selectedItem?.previous
        lbl_teforecast.text = selectedItem?.teForecast
        if selectedItem?.forecast == "" {
-           lbl_forecast.text = "-"
+           lbl_forecast.text = "--"
        }
        lbl_Category.text = selectedItem?.category ?? ""
        

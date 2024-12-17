@@ -166,12 +166,9 @@ class TradeTableViewCell: UITableViewCell {
         lblCurrencySymbl.text = trade.symbol
 //        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
        
-        
-//        self.lbl_datetime.text = "\(Int64(trade.datetime))"
         let createDate = Date(timeIntervalSince1970: Double(trade.datetime))
-        
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
+        dateFormatter.dateFormat = "HH:mm:ss"
         dateFormatter.timeZone = .current
         
         let datee = dateFormatter.string(from: createDate)

@@ -87,7 +87,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                     btn_completeProfile.setTitle("Profile Completed", for: .normal)
                     self.btn_completeProfile.isHidden = true
                     lbl_completeProfile.text = "Profile Completed"
+                }else if profileStep == 2 {
+                    
+                }else if profileStep == 1 {
+                    
+                }else{
+                    
                 }
+                
             }
         }
     }

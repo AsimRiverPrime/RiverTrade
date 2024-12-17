@@ -97,12 +97,13 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                 
              ]
         
-        firebase.updateUserFields(userID: userID!, fields: fieldsToUpdate) { error in
+        firebase.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
             if let error = error {
                 print("Error updating user fields: \(error.localizedDescription)")
                 return
             } else {
                 print("\n Data Update successfully to fireBase")
+                self.firebase.fetchUserData(userId: userId )
             }
         }
     }

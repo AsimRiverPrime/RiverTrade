@@ -81,7 +81,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
         //        }else if openData?.action == 5 {
         //            ticketName = "Sell Ticket"
         //        }
-        
+        self.navigationController?.navigationBar.isHidden = true
+
         tf_stopLoss.text = "\(openData?.stopLoss ?? 0)"
         tf_takeProfit.text = "\(openData?.takeProfit ?? 0)"
         
@@ -295,7 +296,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         })
     }
     
-    @IBAction func closePosition_action(_ sender: Any) {
+    @IBAction func closePosition_action(_ sender: UIButton) {
       
        // vol = Double("\(tf_partialClose.text ?? "")")
         

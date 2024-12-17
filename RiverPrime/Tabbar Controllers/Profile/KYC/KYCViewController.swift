@@ -6,11 +6,11 @@
 //
 
 import UIKit
-//import iPass2_0NativeiOS
 import SVProgressHUD
 import IDWiseSDK
 
 enum KYCType {
+    case KycScreen
     case ProfileScreen
     case FirstScreen
     case SecondScreen
@@ -28,7 +28,9 @@ protocol KYCVCDelegate: AnyObject {
 
 class KYCViewController: BaseViewController{
     
-    
+    var dob: String?
+    var userName: String?
+    var gender: String?
 //    var appToken = "eyJhbGciOiJIUzI1NiJ9.aXRAc2FsYW1pbnYuY29tWmFpZCAgT2RlaCAgIGQ3NDU5ZjBlLTdmNWItNDhlNC04ZDAzLWE0YmJjNzMyNzE3Mg.QzQR-QHQM2kyYkdqUF9x0Te2L4m8aCQvU4E6bL_9KrY"
 //    var userToken = ""
     
@@ -37,9 +39,20 @@ class KYCViewController: BaseViewController{
     let clientKey = "QmFzaWMgVkMxaE1qWTBOVGt5Wmkxak9EZGhMVFExTnpndFlqSTRNUzFsTVRBNE1XRTJZemRoT0RZNlRHdGpibUYwTkRSWFMxRnlkRkJhV0RKTGIyZHdUMmhrYzNneFVrTk9hVlZFVTFsNk5rRktUUT09"
     let flowId = "a264592f-c87a-4578-b281-e1081a6c7a86"
     var journeyId = ""
+    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let _gender = savedUserData["gender"] as? String,let _name = savedUserData["name"] as? String, let _dob = savedUserData["dob"] as? String {
+                self.dob = _dob
+                self.userName = _name
+                self.gender = _gender
+            }
+        }
         
 //        ActivityIndicator.shared.show(in: self.view)
         
@@ -60,23 +73,11 @@ class KYCViewController: BaseViewController{
 //        iPassSDKManger.delegate = self
 //       
 //        login()
-        IDWise.initialize(clientKey: clientKey,theme: .dark) { err in
-                       // Deal with error here
-                   if let error = err {
-                     // handle error, show some alert or any other logic
-                   }
-               }
-        let applicantDetailssss: [String:String] = [
-            ApplicantDetailsKeys.FULL_NAME: "Asim Doe",
-            ApplicantDetailsKeys.BIRTH_DATE: "2000-02-01",
-            ApplicantDetailsKeys.SEX: "male"
-        ]
-//        IDWise.startJourney(journeyDefinitionId: flowId, referenceNumber: "0o9bz50Y63XlI25auIbm0B2zJt42", locale: "en", journeyDelegate: self)
-        IDWise.startJourney(flowId: flowId, applicantDetails: applicantDetailssss, journeyCallbacks: self)
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
 //    func login() {
@@ -94,7 +95,8 @@ class KYCViewController: BaseViewController{
 //    }
     
     @IBAction func closeBtn_action(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+//        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
 //    func handleDocumentUpload() async {
@@ -117,7 +119,23 @@ class KYCViewController: BaseViewController{
 //    }
     
     @IBAction func uploadDocBtn(_ sender: Any) {
-      
+        
+        IDWise.initialize(clientKey: clientKey,theme: .dark) { err in
+                       // Deal with error here
+                   if let error = err {
+                     // handle error, show some alert or any other logic
+                   }
+               }
+        
+        
+        let applicantDetailssss: [String:String] = [
+            ApplicantDetailsKeys.FULL_NAME: self.userName ?? "",
+            ApplicantDetailsKeys.BIRTH_DATE: self.dob ?? "",
+            ApplicantDetailsKeys.SEX: self.gender ?? ""
+        ]
+//        IDWise.startJourney(journeyDefinitionId: flowId, referenceNumber: "0o9bz50Y63XlI25auIbm0B2zJt42", locale: "en", journeyDelegate: self)
+        IDWise.startJourney(flowId: flowId, applicantDetails: applicantDetailssss, journeyCallbacks: self)
+        
 //        DispatchQueue.main.async {
 //            Task {
 //                await self.handleDocumentUpload()
@@ -192,6 +210,7 @@ class KYCViewController: BaseViewController{
         let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
         
         var fieldsToUpdate: [String: Any] = [
+           
                 "profileStep": profileStep,
                 
              ]
@@ -226,7 +245,9 @@ extension KYCViewController: IDWiseJourneyCallbacks {
     
     func onJourneyCompleted(journeyCompletedInfo: IDWiseSDK.JourneyCompletedInfo) {
         print("Complete Info: \(journeyCompletedInfo)")
+        self.ToastMessage("Scanning completed successfully")
         UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
+        self.navigateToQuestionScreen()
     }
     
     func onJourneyCancelled(journeyCancelledInfo: IDWiseSDK.JourneyCancelledInfo) {
@@ -293,7 +314,7 @@ extension KYCViewController: KYCVCDelegate {
 //                GlobalVariable.instance.isReturnToProfile = true
 //                self.navigate(to: profileVC)
 //            }
-            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController"){
 //                profileVC.delegateKYC = self
                 GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)
@@ -344,6 +365,11 @@ extension KYCViewController: KYCVCDelegate {
                 self.navigate(to: dashboardVC)
             }
             break
+        case .KycScreen:
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+            vc.delegateKYC = self
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            
         }
     }
     

@@ -30,10 +30,9 @@ class CompleteVerificationProfileScreen3: BottomSheetController {
             switchControl.isOn = false
             switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
         }
-        btn_back.buttonStyle()
-        btn_back.layer.cornerRadius = 15.0
-        btn_submit.buttonStyle()
-        btn_submit.layer.cornerRadius = 15.0
+       
+        self.navigationController?.navigationBar.isHidden = true
+
     }
     @IBAction func switch_action(_ sender: UISwitch) {
         guard let question = lbl_tradeObj.text else { return }

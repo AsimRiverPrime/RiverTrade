@@ -15,7 +15,7 @@ class TransactionCell: UITableViewCell {
     @IBOutlet weak var lbl_profitValue: UILabel!
     @IBOutlet weak var lbl_currentPrice: UILabel!
     @IBOutlet weak var lbl_openPriceVolume: UILabel!
-    
+    @IBOutlet weak var lbl_openPrice: UILabel!
 //    var opcDataList: OPCType?
     var volume = Double()
     var vm = TransactionCellVM()
@@ -105,8 +105,8 @@ extension TransactionCell {
         
         volume = Double(data.volume) / Double(10000)
         print("\(volume)")
-        lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "$\(data.priceOpen)"
-        
+        lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at "
+        lbl_openPrice.text = "$\(data.priceOpen)"
     }
     
 }

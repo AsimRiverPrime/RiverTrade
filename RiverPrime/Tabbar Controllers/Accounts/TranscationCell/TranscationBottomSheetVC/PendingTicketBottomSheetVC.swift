@@ -42,6 +42,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.isHidden = true
         
         stopLoss_switch.isOn = false
         takeProfit_switch.isOn = false

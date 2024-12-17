@@ -13,6 +13,7 @@ class EconomicCalendarListVC: BaseViewController {
     @IBOutlet weak var secondIcon: UIImageView!
     @IBOutlet weak var thridIcon: UIImageView!
     
+    @IBOutlet weak var starView: UIStackView!
     @IBOutlet weak var lbl_impactValue: UILabel!
     @IBOutlet weak var btn_impact: UIButton!
     @IBOutlet weak var tableView_economic: UITableView!
@@ -27,6 +28,8 @@ class EconomicCalendarListVC: BaseViewController {
         print("Received Payloads: \(allEvents)")
         
         filteredEvents = allEvents
+//        starView.isHidden = true
+        
         tableView_economic.registerCells([
             UpcomingEventsTableViewCell.self
         ])
@@ -39,7 +42,7 @@ class EconomicCalendarListVC: BaseViewController {
         //MARK: - Hide Navigation Bar
         
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .lightGray, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "Economic Calendar", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
     func sortLatestDate () {
         filteredEvents.sort { payload1, payload2 in
@@ -48,49 +51,6 @@ class EconomicCalendarListVC: BaseViewController {
             return date1 > date2
         }
     }
-    
-//    func convertToDate(from dateString: String) -> Date? {
-//        let dateFormatter = DateFormatter()
-//        
-//        // Try parsing with milliseconds first
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-//        if let date = dateFormatter.date(from: dateString) {
-//            return date
-//        }
-//        
-//        // If that fails, try parsing without milliseconds
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-//        return dateFormatter.date(from: dateString)
-//    }
-    
-//    func timeAgo(from dateString: String) -> String {
-//        guard let apiDate = convertToDate(from: dateString) else {
-//            return "Invalid Date"
-//        }
-//        
-//        // Use UTC for current date as well to normalize the comparison
-//        let currentDate = Date()
-//        let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
-//        
-//        let difference = utcCurrentDate.timeIntervalSince(apiDate) // Time difference in seconds
-//        print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate), Difference: \(difference)")
-//        
-//        if difference < 0 {
-//            return "In the future" // Optional: Handle future dates explicitly
-//        } else if difference < 60 {
-//            return "\(Int(difference))s ago" // Less than 1 minute
-//        } else if difference < 3600 {
-//            let minutes = Int(difference) / 60
-//            return "\(minutes)m ago" // Less than 1 hour
-//        } else if difference < 86400 {
-//            let hours = Int(difference) / 3600
-//            let minutes = (Int(difference) % 3600) / 60
-//            return "\(hours)h \(minutes)m ago" // Less than 1 day
-//        } else {
-//            let days = Int(difference) / 86400
-//            return "\(days)d ago" // More than 1 day
-//        }
-//    }
     
     @IBAction func impactButtonAction(_ sender: UIButton) {
         self.dynamicDropDownButton(sender, list: impactList) { index, item in
@@ -118,6 +78,7 @@ class EconomicCalendarListVC: BaseViewController {
                 self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
                 self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
             }else {
+//                self.starView.isHidden = true
                 self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
                 self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
                 self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
@@ -129,7 +90,9 @@ class EconomicCalendarListVC: BaseViewController {
        func filterEvents(byImpact impact: String) {
            if impact == "All" {
                filteredEvents = allEvents
+//               self.starView.isHidden = true
            } else {
+//               self.starView.isHidden = false
                filteredEvents = allEvents.filter { event in
                    let eventImpact = mapImpactValue(impactLevel: event.importance)
                    return eventImpact == impact
