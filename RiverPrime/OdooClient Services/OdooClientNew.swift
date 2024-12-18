@@ -157,7 +157,18 @@ class OdooClientNew {
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any], let result = jsonData["result"] as? [[String: Any]] {
-                    self.tradeSessionDelegate?.tradeSessionRequestSuccess(response: ["result": result])
+                do {
+                    let decoder = JSONDecoder()
+//                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let jsonData1 = try JSONSerialization.data(withJSONObject: jsonData, options: [])
+                    let response = try decoder.decode(TradeSessionModel.self, from: jsonData1)
+                    self.tradeSessionDelegate?.tradeSessionRequestSuccess(response: response )
+//                    print(response.result)
+                } catch {
+                    print("Failed to decode JSON: \(error)")
+                    self.tradeSessionDelegate?.tradeSessionRequestFailure(error: error)
+                }
+                
                 }else {
                     print("Unexpected response format or missing 'result' key")
                 }

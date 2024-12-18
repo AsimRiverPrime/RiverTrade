@@ -62,7 +62,18 @@ class TradeDetalVC: UIViewController {
     
     var chartType: ChartType = .candlestick
     let OdooClientObject = OdooClientNew()
+
+    var tradingSessions: TradeSessionModel?
     
+       let daysMap: [Int: String] = [
+           1: "Monday",
+           2: "Tuesday",
+           3: "Wednesday",
+           4: "Thursday",
+           5: "Friday",
+           6: "Saturday",
+           7: "Sunday"
+       ]
     override func viewDidLoad() {
         super.viewDidLoad()
         OdooClientObject.tradeSessionDelegate = self
@@ -874,17 +885,33 @@ extension TradeDetalVC {
 }
 
 extension TradeDetalVC: TradeSessionRequestDelegate {
-    func tradeSessionRequestSuccess(response: [String : Any]) {
+    func tradeSessionRequestSuccess(response: TradeSessionModel) {
         print("trade session result: \(response)")
+        tradingSessions = response
     }
     
     func tradeSessionRequestFailure(error: any Error) {
         print("trade session failure: \(error)")
     }
-    
-    
+   
 }
-
+// MARK: - TradingSession Struct
+struct TradingSession: Codable {
+    let day: Int
+    let openHours: Int
+    let openMinutes: Int
+    let closeHours: Int
+    let closeMinutes: Int
+    
+    // Decoding keys based on your response
+    enum CodingKeys: String, CodingKey {
+        case day
+        case openHours = "open_hours"
+        case openMinutes = "open_minutes"
+        case closeHours = "close_hours"
+        case closeMinutes = "close_minutes"
+    }
+}
 
 extension UIButton {
     func buttonStyle() {

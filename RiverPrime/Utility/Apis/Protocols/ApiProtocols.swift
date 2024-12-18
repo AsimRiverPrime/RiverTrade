@@ -26,7 +26,7 @@ protocol TradeSymbolDetailDelegate: AnyObject {
     func tradeSymbolDetailFailure(error: Error)
 }
 protocol TradeSessionRequestDelegate: AnyObject {
-    func tradeSessionRequestSuccess(response: [String: Any])
+    func tradeSessionRequestSuccess(response: TradeSessionModel)
     func tradeSessionRequestFailure(error: Error)
 }
 

@@ -288,6 +288,7 @@
 		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
+		31F119472D1309A900D6D275 /* TradeSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F119462D1309A900D6D275 /* TradeSessionModel.swift */; };
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F29B382C7CA72000BBB126 /* SplashVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31F29B372C7CA72000BBB126 /* SplashVC.xib */; };
@@ -660,6 +661,7 @@
 		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
+		31F119462D1309A900D6D275 /* TradeSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSessionModel.swift; sourceTree = "<group>"; };
 		31F29B302C7C9B5D00BBB126 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
 		31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
@@ -1429,6 +1431,7 @@
 		31BE553D2C492AA200DE2640 /* TradeDetailsPage */ = {
 			isa = PBXGroup;
 			children = (
+				31F119452D13099000D6D275 /* TradeSessionModel */,
 				31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */,
 				318257492C76066400723A50 /* OhlcCalculator.swift */,
 				31F959FA2CD0E8A100607467 /* ChartTypeVC.swift */,
@@ -1828,6 +1831,14 @@
 				31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */,
 			);
 			path = ReferralTBCell;
+			sourceTree = "<group>";
+		};
+		31F119452D13099000D6D275 /* TradeSessionModel */ = {
+			isa = PBXGroup;
+			children = (
+				31F119462D1309A900D6D275 /* TradeSessionModel.swift */,
+			);
+			path = TradeSessionModel;
 			sourceTree = "<group>";
 		};
 		31F29B2F2C7C9B2100BBB126 /* SplashScreenFolder */ = {
@@ -2618,6 +2629,7 @@
 				31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */,
 				319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */,
 				319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */,
+				31F119472D1309A900D6D275 /* TradeSessionModel.swift in Sources */,
 				319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */,
 				313A92322D082C4A004AC33D /* GetBalanceModel.swift in Sources */,
 				319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */,
