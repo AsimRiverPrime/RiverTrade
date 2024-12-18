@@ -596,7 +596,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 1{
             return 85.0
         } else {
-            return 100.0
+            return 85.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -910,13 +910,13 @@ extension AccountsViewController: GetSocketMessages {
                             var profitLoss = Double()
                             var roundValue = String()
                             //MARK: - Get All Matched Symbols data and Set accordingly.
-                            
+                            if openData.count != 0 {
                             for i in 0...openData.count-1 {
                                 
                                 //                                   let myIndexPath = IndexPath(row: i, section: 3)
                                 let myIndexPath = IndexPath(row: i, section: 1)
                                 print("my current index \(myIndexPath)")
-                              
+                                
                                 
                                 if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
                                     if GlobalVariable.instance.isAccountCreated {
@@ -939,7 +939,7 @@ extension AccountsViewController: GetSocketMessages {
                                                     profitLoss = (bid - priceOpen) * volume * contractSize
                                                 }
                                                 
-    //                                            profitLoss = (bid - priceOpen)  volume  contractSize
+                                                //                                            profitLoss = (bid - priceOpen)  volume  contractSize
                                             }
                                             
                                             if profitLoss < 0.0 {
@@ -949,7 +949,7 @@ extension AccountsViewController: GetSocketMessages {
                                                 cell.lbl_profitValue.textColor = .systemGreen
                                                 
                                             }
-                                             roundValue = String(format: "%.2f", profitLoss)
+                                            roundValue = String(format: "%.2f", profitLoss)
                                             
                                             cell.lbl_profitValue.text = "\(roundValue)"
                                             
@@ -963,7 +963,7 @@ extension AccountsViewController: GetSocketMessages {
                                 }
                                 
                             }
-                            
+                        }
                             //MARK: - START Set Total P/L
                             
                             let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in

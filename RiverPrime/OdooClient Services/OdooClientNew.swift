@@ -28,6 +28,7 @@ class OdooClientNew {
     weak var createUserAcctDelegate: CreateUserAccountTypeDelegate?
     weak var createLeadDelegate: CreateLeadOdooDelegate?
     weak var tradeSymbolDetailDelegate: TradeSymbolDetailDelegate?
+    weak var tradeSessionDelegate: TradeSessionRequestDelegate?
     weak var updateUserNamePasswordDelegate: UpdateUserNamePassword?
     weak var topNewsDelegate: TopNewsProtocol?
     weak var economicCalendarDelegate: EconomicCalendarProtocol?
@@ -71,8 +72,9 @@ class OdooClientNew {
             "mobile_available", "=" , "True"
         ]]
         
-        let fieldRetrieve: [String] =  ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level","yesterday_close"]
-        
+        let fieldRetrieve: [String] =  ["id","name","description","icon_url","volume_min","volume_max","volume_step","contract_size","display_name","sector","digits","mobile_available","spread_size","swap_short","swap_long","stops_level","yesterday_close","is_mobile_favorite","trading_sessions_ids"]
+       
+
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "method":"call",
@@ -113,6 +115,62 @@ class OdooClientNew {
             }
         }
     }
+    
+    func requestSymbolTrade_session(sessionIds: [Int]) {
+       
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method": "call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "context": [
+                    "uid": 0 // Context if required
+                ],
+                "args": [
+                    dataBaseName,        // Your database name
+                    uid,                 // Your user ID
+                    dbPassword,          // Your password
+                    "mt.symbol.trading_session", // The model you're calling
+                    "search_read",       // The method to be executed
+                    [
+                        [
+                            [
+                                "id",
+                                "in",   // Search criteria
+                                sessionIds // Field list to retrieve
+                            ]
+                        ],
+                        [] // Empty list for additional options
+                    ]
+                ]
+            ],
+            "id": 5263 // ID for the JSON-RPC request
+        ]
+        
+        print("json params is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("result is : \(result)")
+            
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any], let result = jsonData["result"] as? [[String: Any]] {
+                    self.tradeSessionDelegate?.tradeSessionRequestSuccess(response: ["result": result])
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                }
+                
+            case .failure(let error):
+                self.tradeSessionDelegate?.tradeSessionRequestFailure(error: error)
+                break
+                
+            }
+        }
+    }
+    
+    
     //MARK: - Create request (Leads) Method for records
     func createRecords(firebase_uid: String, email: String, name: String) {
         

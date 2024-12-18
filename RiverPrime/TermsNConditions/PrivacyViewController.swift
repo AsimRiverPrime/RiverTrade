@@ -12,7 +12,7 @@ class PrivacyViewController: BaseViewController {
     @IBOutlet weak var lbl_policyText: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.setGradientBackground()
         // Do any additional setup after loading the view.
     }
     

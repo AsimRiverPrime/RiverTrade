@@ -174,11 +174,11 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                         mobile_available: String(symbolMobileAvailable),
                         yesterday_close: String(symbolyesterday_close),
                         is_mobile_favorite: Bool(symbolis_mobile_favorite),
-                        trading_sessions_ids: symboltrade_session ?? []
+                        trading_sessions_ids: [Int](symboltrade_session ?? [])
                     )
                 )
                 
-                print("Added symbol: \(symbolName) with ID: \(symbolId)")
+                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
             
             print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")

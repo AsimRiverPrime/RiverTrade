@@ -154,6 +154,10 @@ class TradeViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
         
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
+        
+        
         callCollectionViewAtStart()
         
     }
@@ -240,6 +244,54 @@ class TradeViewController: UIViewController {
                 delegateDetail = self
                 
                 accountData()
+            }
+        }
+    }
+    
+    @objc private func MetaTraderLogin(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.MetaTraderLoginConstant.title] as? MetaTraderType {
+            print("Received string: \(receivedString)")
+            switch receivedString {
+            case .Balance:
+                let getbalanceApi = TradeTypeCellVM()
+             
+                getbalanceApi.getUserBalance(completion: { result in
+                    switch result {
+                    case .success(let responseModel):
+                        // Save the response model or use it as needed
+                        print("Balance: \(responseModel.result.user.balance)")
+                        print("Equity: \(responseModel.result.user.equity)")
+                        
+                        // Example: Storing in a singleton for global access
+                        UserManager.shared.currentUser = responseModel.result.user
+                        
+                    case .failure(let error):
+                        print("Failed to fetch balance: \(error.localizedDescription)")
+                    }
+                })
+                
+                
+                getbalanceApi.getBalance(completion: { response in
+                    print("response of get balance: \(response)")
+                    if response == "Invalid Response" {
+//                        self.balance = "0.0"
+                        return
+                    }
+//                    self.balance = response
+//                    GlobalVariable.instance.balanceUpdate = self.balance
+                    GlobalVariable.instance.balanceUpdate = response
+//                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                 
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+
+                })
+                break
+            case .GetBalance:
+                break
+            case .None:
+                break
             }
         }
     }
@@ -604,25 +656,25 @@ extension TradeViewController {
     
     private func fetchHistoryChartData(_ symbol: String) {
         
-        //        vm.fetchChartHistory(symbol: symbol) { result in
-        //            switch result {
-        //            case .success(let responseData):
-        //
-        //                if let index = self.getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == responseData.symbol }) {
-        //                    self.getSymbolData[index].historyMessage = responseData
-        //
-        //                    let indexPath = IndexPath(row: index, section: 0)
-        //                    if let cell = self.tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-        //
-        //                        GlobalVariable.instance.isProcessingSymbolTimer = false
-        //                    }
-        //                    return
-        //                }
-        //
-        //            case .failure(let error):
-        //                print("Error fetching data: \(error)")
-        //            }
-        //        }
+        vm.fetchChartHistory(symbol: symbol) { result in
+            switch result {
+            case .success(let responseData):
+                
+                if let index = self.getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == responseData.symbol }) {
+                    self.getSymbolData[index].historyMessage = responseData
+                    
+                    let indexPath = IndexPath(row: index, section: 0)
+                    if let cell = self.tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                        
+                        GlobalVariable.instance.isProcessingSymbolTimer = false
+                    }
+                    return
+                }
+                
+            case .failure(let error):
+                print("Error fetching data: \(error)")
+            }
+        }
     }
     
 }
@@ -701,11 +753,11 @@ extension TradeViewController: GetSocketMessages {
                         }
                             
 //                            let createDate = Date(timeIntervalSince1970: Double(getSymbolData[index].tickMessage?.datetime ?? 0))
-//                            
+//
 //                            let dateFormatter = DateFormatter()
 //                            dateFormatter.dateFormat = "HH:mm:ss"
 //                            dateFormatter.timeZone = .current
-//                            
+//
 //                            let datee = dateFormatter.string(from: createDate)
                             
                             //                        cell.lbl_datetime.text = datee

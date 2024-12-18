@@ -61,12 +61,17 @@ class TradeDetalVC: UIViewController {
     var overviewList = [(String, String)]()
     
     var chartType: ChartType = .candlestick
+    let OdooClientObject = OdooClientNew()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        connectHistoryWebSocket()
-//        self.chartView.backgroundColor = .clear
-
+        OdooClientObject.tradeSessionDelegate = self
+        if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
+            let session_trade = GlobalVariable.instance.symbolDataArray[valueIndex].trading_sessions_ids
+            print("session_trade: \(session_trade)")
+            self.OdooClientObject.requestSymbolTrade_session(sessionIds: session_trade)
+        }
+       
         self.chartView.isHidden = true
         self.chart?.isHidden = true
         
@@ -868,6 +873,17 @@ extension TradeDetalVC {
     
 }
 
+extension TradeDetalVC: TradeSessionRequestDelegate {
+    func tradeSessionRequestSuccess(response: [String : Any]) {
+        print("trade session result: \(response)")
+    }
+    
+    func tradeSessionRequestFailure(error: any Error) {
+        print("trade session failure: \(error)")
+    }
+    
+    
+}
 
 
 extension UIButton {

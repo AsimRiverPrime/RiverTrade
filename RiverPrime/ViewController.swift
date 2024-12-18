@@ -24,8 +24,7 @@ class ViewController: BaseViewController {
         super.viewDidLoad()
         
 //        styling()
-
-        playBackgroundVideo()
+//        playBackgroundVideo()
     }
     
 

@@ -30,7 +30,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        self.view.setGradientBackground()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()

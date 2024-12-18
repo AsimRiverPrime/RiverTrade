@@ -22,6 +22,7 @@ class ForgotViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.lbl_emailvalidation.isHidden = true
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {

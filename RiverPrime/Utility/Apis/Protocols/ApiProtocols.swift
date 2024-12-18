@@ -25,6 +25,11 @@ protocol TradeSymbolDetailDelegate: AnyObject {
     func tradeSymbolDetailSuccess(response: [String: Any])
     func tradeSymbolDetailFailure(error: Error)
 }
+protocol TradeSessionRequestDelegate: AnyObject {
+    func tradeSessionRequestSuccess(response: [String: Any])
+    func tradeSessionRequestFailure(error: Error)
+}
+
 protocol UpdatePhoneNumebrDelegate: AnyObject {
     func updateNumberSuccess(response: Any)
     func updateNumberFailure(error: Error)

@@ -37,6 +37,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.setGradientBackground()
         self.label_errorCode.isHidden = true
         
         odooClientService.otpDelegate = self
