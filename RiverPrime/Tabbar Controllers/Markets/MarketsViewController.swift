@@ -24,12 +24,6 @@ class MarketsViewController: UIViewController {
         odooServer.topNewsDelegate = self
         odooServer.economicCalendarDelegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
-        let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
-        print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
-        odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
-        
-        
         tblView.registerCells([
             /*MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self,*/ EconomicCalendarSection.self, UpcomingEventsTableViewCell.self, TopNewsSection.self, TopNewsTableViewCell.self
         ])
@@ -37,8 +31,14 @@ class MarketsViewController: UIViewController {
         tblView.dataSource = self
         tblView.delegate = self
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
+        print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
+        odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
         odooServer.getNewsRecords()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+
     }
     
     func getCurrentAndTomorrowDate() -> (String, String) {

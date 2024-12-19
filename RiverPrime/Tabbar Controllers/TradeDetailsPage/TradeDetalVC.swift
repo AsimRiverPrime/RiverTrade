@@ -62,27 +62,28 @@ class TradeDetalVC: UIViewController {
     
     var chartType: ChartType = .candlestick
     let OdooClientObject = OdooClientNew()
-
+    
+    var stackViewList = [UIStackView]()
+    
     var tradingSessions: TradeSessionModel?
     
-       let daysMap: [Int: String] = [
-           1: "Monday",
-           2: "Tuesday",
-           3: "Wednesday",
-           4: "Thursday",
-           5: "Friday",
-           6: "Saturday",
-           7: "Sunday"
-       ]
+    let openData = GlobalVariable.instance.openList
+    var getSymbol = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         OdooClientObject.tradeSessionDelegate = self
-        if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
-            let session_trade = GlobalVariable.instance.symbolDataArray[valueIndex].trading_sessions_ids
-            print("session_trade: \(session_trade)")
-            self.OdooClientObject.requestSymbolTrade_session(sessionIds: session_trade)
-        }
-       
+//        if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
+//            let session_trade = GlobalVariable.instance.symbolDataArray[valueIndex].trading_sessions_ids
+//            print("session_trade: \(session_trade)")
+//            self.OdooClientObject.requestSymbolTrade_session(sessionIds: session_trade)
+//        }
+        
+        let trading_sessions_ids = getSymbolData.trading_sessions_ids
+        print("trading_sessions_ids: \(trading_sessions_ids ?? [])")
+        self.OdooClientObject.requestSymbolTrade_session(sessionIds: trading_sessions_ids ?? [])
+        
         self.chartView.isHidden = true
         self.chart?.isHidden = true
         
@@ -90,10 +91,34 @@ class TradeDetalVC: UIViewController {
         
         setDefaultStyles()
         
-        symbolName.text = getSymbolData.tickMessage?.symbol //tradeDetail?.symbol
+        symbolName.text = getSymbolData.tickMessage?.symbol
+        
+        if openData.count != 0 {
+            // Symbol to filter
+            let targetSymbol = getSymbolData.tickMessage?.symbol
+            
+            // Remove trailing dot from symbols in `openData` and filter for the target symbol
+            let filteredOpenData = openData.filter { open in
+                let cleanSymbol = open.symbol.trimmingCharacters(in: ["."])
+                return cleanSymbol == targetSymbol
+            }
+            
+            // Calculate total volume for the filtered data
+            let totalVolume = filteredOpenData.reduce(0) { $0 + $1.volume }
+            
+            // Debug print results
+            print("Filtered Data: \(filteredOpenData)")
+            print("Total Volume for \(targetSymbol ?? ""): \(totalVolume)")
+            
+           let volume = Double(totalVolume) / Double(10000)
+            print("\(volume)")
+            lblAmount.text = "\(volume)" + " Lots of " + "\(targetSymbol ?? "")"
+        }
+//
+        //tradeDetail?.symbol
         //        symbolImage.image = UIImage(named: getSymbolData.tickMessage?.url ?? "")
 //        lblAmount.text = "\(getSymbolData.tickMessage?.bid ?? 0.0) \(getSymbolData.tickMessage?.symbol ?? "")"
-        lblPercent.text = "$\(getSymbolData.tickMessage?.bid ?? 0.0)"
+//        lblPercent.text = "$\(getSymbolData.tickMessage?.bid ?? 0.0)"
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == symbolName.text}) {
             lbl_SymbolLive.text = obj.description
@@ -479,6 +504,7 @@ extension TradeDetalVC: TimeFrameVCDelegate {
         
         //        btn_timeInterval.setTitle(value, for: .normal)
     }
+
 }
 
 
@@ -744,7 +770,6 @@ extension TradeDetalVC {
             return scroll
         }()
         
-        
         self.chartView.addSubview(scrollView)
         
         scrollView.isScrollEnabled = false
@@ -781,9 +806,6 @@ extension TradeDetalVC {
             let swapShort = GlobalVariable.instance.symbolDataArray[valueIndex].swapShort
             //            let volumeStep = GlobalVariable.instance.symbolDataArray[valueIndex].volumeStep
             
-            let session_trade = GlobalVariable.instance.symbolDataArray[valueIndex].trading_sessions_ids
-            print("session_trade: \(session_trade)")
-            
             let minVol = Double(volumeMin)! / 10000
             let maxVol = Double(volumeMax)! / 10000
             let volStep = Double(volumeStep)! / 10000
@@ -795,6 +817,133 @@ extension TradeDetalVC {
         }
         
         
+        
+//        var stackViewList = [UIStackView]()
+        stackViewList.removeAll()
+        
+        for (index, item) in overviewList.enumerated() {
+            
+            lazy var lineView: UIView = {
+                let view = UIView()
+                view.backgroundColor = UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            lazy var stackView: UIStackView = {
+                let view = UIStackView()
+                view.axis = .horizontal        // Arrange views horizontally
+                view.spacing = 10              // Space between labels
+                view.distribution = .equalSpacing  // Equal spacing between items
+                view.alignment = .center       // Align labels in the center
+                view.tag = index
+                view.translatesAutoresizingMaskIntoConstraints = false
+                return view
+            }()
+            
+            lazy var title: UILabel = {
+                let label = UILabel()
+                label.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+                label.font = FontController.Fonts.ListInter_Regular.font
+                label.text = item.0
+                label.tag = index
+                return label
+            }()
+            
+            lazy var detail: UILabel = {
+                let label = UILabel()
+                label.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+                label.font = FontController.Fonts.ListInter_Regular.font
+                label.text = item.1
+                label.tag = index
+                return label
+            }()
+            
+            scrollView.addSubview(stackView)
+            
+            stackViewList.append(stackView)
+            
+            stackView.addArrangedSubview(title)
+            stackView.addArrangedSubview(detail)
+            
+            scrollView.addSubview(lineView)
+            
+            if index == 0 {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
+                    
+                    lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                    lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                    lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                ])
+            } else if index == 1 {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 20),
+                ])
+                if index == overviewList.count-1 {
+//                    NSLayoutConstraint.activate([
+//                        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+//                    ])
+                } else {
+                    
+                    NSLayoutConstraint.activate([
+                        lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                        lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                        lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                    ])
+                }
+            } else {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
+                ])
+                if index == overviewList.count-1 {
+//                    NSLayoutConstraint.activate([
+//                        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+//                    ])
+                } else {
+                    
+                    NSLayoutConstraint.activate([
+                        lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                        lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                        lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                    ])
+                }
+                
+            }
+        }
+        
+        otherView(scrollView: scrollView)
+        
+    }
+    
+    private func otherView(scrollView: TPKeyboardAvoidingScrollView) {
+        
+//        let day: Int
+//        let openHours: Int
+//        let openMinutes: Int
+//        let closeHours: Int
+//        let closeMinutes: Int
+        
+        let monday = "0\(tradingSessions?.result[0].openHours ?? ""):0\(tradingSessions?.result[0].openMinutes ?? "") - \(tradingSessions?.result[0].closeHours ?? ""):\(tradingSessions?.result[0].closeMinutes ?? "")"
+        
+        let tuesday = "0\(tradingSessions?.result[1].openHours ?? ""):0\(tradingSessions?.result[1].openMinutes ?? "") - \(tradingSessions?.result[1].closeHours ?? ""):\(tradingSessions?.result[1].closeMinutes ?? "")"
+        
+        let wednesday = "0\(tradingSessions?.result[2].openHours ?? ""):0\(tradingSessions?.result[2].openMinutes ?? "") - \(tradingSessions?.result[2].closeHours ?? ""):\(tradingSessions?.result[2].closeMinutes ?? "")"
+        
+        let thursday = "0\(tradingSessions?.result[3].openHours ?? ""):0\(tradingSessions?.result[3].openMinutes ?? "") - \(tradingSessions?.result[3].closeHours ?? ""):\(tradingSessions?.result[3].closeMinutes ?? "")"
+        
+        let friday = "0\(tradingSessions?.result[4].openHours ?? ""):0\(tradingSessions?.result[4].openMinutes ?? "") - \(tradingSessions?.result[4].closeHours ?? ""):\(tradingSessions?.result[4].closeMinutes ?? "")"
+        
+        let overviewList = [("TRADES SESSIONS",""),("Sunday",""), ("Monday","\(monday)"), ("Tuesday","\(tuesday)"), ("Wednesday","\(wednesday)"), ("Thursday","\(thursday)"), ("Friday","\(friday)"), ("Saturday","")]
         
         var stackViewList = [UIStackView]()
         stackViewList.removeAll()
@@ -851,18 +1000,37 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
+                    stackView.topAnchor.constraint(equalTo: self.stackViewList[self.stackViewList.count-1].bottomAnchor, constant: 30),
                     
                     lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
                     lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
                     lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
                 ])
-            } else {
+            } else if index == 1 {
                 NSLayoutConstraint.activate([
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
                     stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 20),
+                ])
+                if index == overviewList.count-1 {
+                    NSLayoutConstraint.activate([
+                        stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
+                    ])
+                } else {
+                    
+                    NSLayoutConstraint.activate([
+                        lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
+                        lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                        lineView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+                    ])
+                }
+            } else {
+                NSLayoutConstraint.activate([
+                    stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                    stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
+                    stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
                 ])
                 if index == overviewList.count-1 {
                     NSLayoutConstraint.activate([

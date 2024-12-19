@@ -135,24 +135,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3D10C0EE-8AC0-44E4-8FF6-0EE001D4A61C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/TradeDetailsPage/TradeDetalVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "889"
-            endingLineNumber = "889"
-            landmarkName = "tradeSessionRequestSuccess(response:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "CD707DB1-6659-4B39-8509-F06722DAA209"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/OdooClient Services/OdooClientNew.swift"
@@ -210,36 +194,6 @@
             endingLineNumber = "129"
             landmarkName = "closeApiCalling(fromDate:toDate:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2F3B3327-1720-49BD-8DF0-0585F690F236 - 24a589592ed2dcd9"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "RiverPrime.HistoryViewController.closeApiCalling(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/HistoryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "129"
-                  endingLineNumber = "129">
-               </Location>
-               <Location
-                  uuid = "2F3B3327-1720-49BD-8DF0-0585F690F236 - 7fd60f89cbb77b99"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in RiverPrime.HistoryViewController.closeApiCalling(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/HistoryViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -256,36 +210,6 @@
             endingLineNumber = "24"
             landmarkName = "fetchPositions(fromDate:toDate:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "241E5836-C2FB-48B4-9C61-4A8906B7776E - 63bec34f6b75b580"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Sendable () -&gt; () in RiverPrime.HistoryVM.fetchPositions(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/ViewModel/HistoryVM.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "24"
-                  endingLineNumber = "24">
-               </Location>
-               <Location
-                  uuid = "241E5836-C2FB-48B4-9C61-4A8906B7776E - dec25434f4850f15"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;RiverPrime.OpenModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.PendingModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 @Sendable () -&gt; () in RiverPrime.HistoryVM.fetchPositions(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/ViewModel/HistoryVM.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,36 +226,22 @@
             endingLineNumber = "27"
             landmarkName = "fetchPositions(fromDate:toDate:completion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "7C4CBF4E-39B4-49AB-A7DC-383D4AE0B8A1 - dec25434f4850cd7"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Array&lt;RiverPrime.OpenModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.PendingModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 @Sendable () -&gt; () in RiverPrime.HistoryVM.fetchPositions(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/ViewModel/HistoryVM.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27">
-               </Location>
-               <Location
-                  uuid = "7C4CBF4E-39B4-49AB-A7DC-383D4AE0B8A1 - 96332d5b229df75c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 @Swift.MainActor () -&gt; () in closure #1 (Swift.Optional&lt;Swift.Array&lt;RiverPrime.OpenModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.PendingModel&gt;&gt;, Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 @Sendable () -&gt; () in RiverPrime.HistoryVM.fetchPositions(fromDate: Swift.Optional&lt;Swift.Int&gt;, toDate: Swift.Optional&lt;Swift.Int&gt;, completion: (Swift.Optional&lt;Swift.Array&lt;RiverPrime.NewCloseModel&gt;&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
-                  moduleName = "RiverPrime.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/History/ViewModel/HistoryVM.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "28"
-                  endingLineNumber = "28">
-               </Location>
-            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "339B29CD-73C8-44DF-A7CF-101015F58E2C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/BottomSheetVCs/TicketVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "904"
+            endingLineNumber = "904"
+            landmarkName = "createOrder(email:loginID:password:symbol:type:volume:price:stop_loss:take_profit:digits:digits_currency:contract_size:comment:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

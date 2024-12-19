@@ -850,39 +850,7 @@ extension TicketVC {
         var odooClient = OdooClientNew()
       
         let url = "https://mbe.riverprime.com/jsonrpc"
-//        
-//        let parameters: [String: Any] = [
-//            "jsonrpc": "2.0",
-//            "method": "call",
-//            "id": 3000,
-//            "params": [
-//                "method": "execute_kw",
-//                "service": "object",
-//                "args": [
-//                    odooClient.dataBaseName, //"mbe.riverprime.com",
-//                    odooClient.uid, //6,
-//                    odooClient.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
-//                    "mt.middleware",
-//                    "create_order",
-//                    [
-//                        [],
-//                        email,
-//                        loginID,
-//                        password,
-//                        symbol,
-//                        type,
-//                        volume,
-//                        price,
-//                        stop_loss,
-//                        take_profit,
-//                        digits,
-//                        digits_currency,
-//                        contract_size,
-//                        comment
-//                    ]
-//                ]
-//            ]
-//        ]
+
         let parameters1: [String: Any] = [
             "jsonrpc": "2.0",
             "method": "call",
@@ -927,12 +895,12 @@ extension TicketVC {
             switch response.result {
                 
             case .success(let value):
-                print("value is: \(value)")
+                print("value of create order is: \(value)")
                 ActivityIndicator.shared.hide(from: self.view)
                 
                 if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{
                     if status {
-                        print("success")
+                        print("order place success")
                         self.ToastMessage("Order Placed successfully")
                         self.dismiss(animated: true)
                     }else {

@@ -25,6 +25,7 @@ protocol TradeDetailTapDelegate: AnyObject {
 
 struct SymbolCompleteList {
     var tickMessage: TradeDetails?
+    var trading_sessions_ids: [Int]?
     var historyMessage: SymbolChartData?
     var icon_url: String?
     var isTickFlag: Bool?
@@ -555,7 +556,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
                     let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-                    getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
+                    getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
                     //                    getSymbolData.insert((SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false)), at: getSymbolData.count)
                     
                     GlobalVariable.instance.symbolDataUpdatedList.append(item)
@@ -1074,7 +1075,7 @@ extension TradeViewController: GetSocketMessages {
             for item in filteredSymbolsData.data {
                 let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
                 let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
+                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
             }
             
             GlobalVariable.instance.isProcessingSymbol = false

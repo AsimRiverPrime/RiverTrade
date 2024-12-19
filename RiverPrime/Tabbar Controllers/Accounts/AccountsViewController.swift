@@ -58,6 +58,12 @@ class AccountsViewController: BaseViewController {
 //    var model: [String] = ["Open","Pending","Close","image"]
     @IBOutlet weak var lbl_amountPercent: UILabel!
     
+    @IBOutlet weak var btn_deposit: CardViewButton!
+    @IBOutlet weak var btn_withdraw: CardViewButton!
+    @IBOutlet weak var btn_history: CardViewButton!
+    @IBOutlet weak var btn_details: CardViewButton!
+    @IBOutlet weak var btn_creat: CardViewButton!
+    
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
@@ -212,10 +218,15 @@ class AccountsViewController: BaseViewController {
     
     func dashboardDatainit() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             view_topHeader.isHidden = false
 //            view_depositWithdraw.isHidden = false
+            btn_creat.isHidden = false
+            btn_deposit.isHidden = false
+            btn_details.isHidden = false
+            btn_history.isHidden = false
+            btn_withdraw.isHidden = false
             view_CreateNewAcct.isHidden = true
             self.tblView.isHidden = false
             self.tradeTypeCollectionView.isHidden = false
@@ -224,10 +235,15 @@ class AccountsViewController: BaseViewController {
             ])
         } else { //MARK: - if no account exist.
             view_topHeader.isHidden = true
+            btn_creat.isHidden = true
+            btn_deposit.isHidden = true
+            btn_details.isHidden = true
+            btn_history.isHidden = true
+            btn_withdraw.isHidden = true
 //            view_depositWithdraw.isHidden = true
             view_CreateNewAcct.isHidden = false
-            self.tblView.isHidden = false
-            self.tradeTypeCollectionView.isHidden = false
+            self.tblView.isHidden = true
+            self.tradeTypeCollectionView.isHidden = true
             tblView.registerCells([
                 /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, CreateAccountTVCell.self*/ Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
@@ -715,6 +731,8 @@ extension AccountsViewController: OPCDelegate {
          
             if open.count == 0 {
                 emptyListCount = 1
+                
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
             } else {
                 emptyListCount = 0
             }

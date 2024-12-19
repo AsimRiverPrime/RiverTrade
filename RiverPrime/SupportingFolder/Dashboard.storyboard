@@ -822,6 +822,11 @@
                     <tabBarItem key="tabBarItem" title="Home" image="Teamwork" selectedImage="account" id="DNW-01-bbS"/>
                     <navigationItem key="navigationItem" id="GG9-9G-0Km"/>
                     <connections>
+                        <outlet property="btn_creat" destination="Acr-v4-XV4" id="fEB-Bu-gPx"/>
+                        <outlet property="btn_deposit" destination="K7n-jy-epf" id="3Yf-rd-p3r"/>
+                        <outlet property="btn_details" destination="0L7-xw-AIf" id="Qub-mL-PPY"/>
+                        <outlet property="btn_history" destination="AdN-V7-MV2" id="h7f-yE-a8K"/>
+                        <outlet property="btn_withdraw" destination="YBc-7T-U0j" id="Is6-q7-Emt"/>
                         <outlet property="image_createNew" destination="zBe-Mo-QFi" id="gB1-td-Xes"/>
                         <outlet property="labelAmmount" destination="Eud-1l-Qiy" id="tpc-vO-yDQ"/>
                         <outlet property="lbl_account" destination="Rr5-Vs-bBE" id="1gb-h6-IB4"/>
@@ -4213,19 +4218,19 @@
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
