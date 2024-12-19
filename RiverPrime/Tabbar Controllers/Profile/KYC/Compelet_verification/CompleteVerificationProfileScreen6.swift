@@ -173,7 +173,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     
     func navigateToDashboard() {
         self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
+        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
     }
     
        

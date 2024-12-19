@@ -229,7 +229,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     func navigateToKYC() {
         self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
+        delegateKYC?.navigateToCompeletProfile(kyc: .FirstScreen)
     }
     
     func updateUser() {

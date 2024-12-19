@@ -247,7 +247,8 @@ extension KYCViewController: IDWiseJourneyCallbacks {
         print("Complete Info: \(journeyCompletedInfo)")
         self.ToastMessage("Scanning completed successfully")
         UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
-        self.navigateToQuestionScreen()
+//        self.navigateToQuestionScreen()
+        delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
     }
     
     func onJourneyCancelled(journeyCancelledInfo: IDWiseSDK.JourneyCancelledInfo) {
@@ -366,7 +367,7 @@ extension KYCViewController: KYCVCDelegate {
             }
             break
         case .KycScreen:
-            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! CompleteVerificationProfileScreen1
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
             vc.delegateKYC = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             
