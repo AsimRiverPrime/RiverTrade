@@ -901,7 +901,8 @@ extension TicketVC {
                 if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{
                     if status {
                         print("order place success")
-                        self.ToastMessage("Order Placed successfully")
+                        self.showTimeAlert(str: "Order Placed successfully")
+//                        self.ToastMessage("Order Placed successfully")
                         self.dismiss(animated: true)
                     }else {
                         if let result = json["result"] as? [String: Any], let error = result["error"] as? String {

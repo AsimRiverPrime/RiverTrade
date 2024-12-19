@@ -151,56 +151,8 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D48DC547-86FE-4A7B-9CC1-F8B14621D427"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/History/HistoryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "searchBtn_action(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9D548846-CC42-4430-969A-16DB20B605A5"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/History/HistoryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
-            landmarkName = "closeApiCalling(fromDate:toDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2F3B3327-1720-49BD-8DF0-0585F690F236"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/History/HistoryViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
-            landmarkName = "closeApiCalling(fromDate:toDate:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "241E5836-C2FB-48B4-9C61-4A8906B7776E"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Tabbar Controllers/Accounts/History/ViewModel/HistoryVM.swift"
@@ -216,7 +168,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "7C4CBF4E-39B4-49AB-A7DC-383D4AE0B8A1"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "RiverPrime/Tabbar Controllers/Accounts/History/ViewModel/HistoryVM.swift"
@@ -231,16 +183,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "339B29CD-73C8-44DF-A7CF-101015F58E2C"
-            shouldBeEnabled = "Yes"
+            uuid = "FF853907-0A74-4352-A170-2C0CA3EE6662"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/BottomSheetVCs/TicketVC.swift"
+            filePath = "RiverPrime/Tabbar Controllers/Accounts/History/ViewModel/HistoryVM.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "904"
-            endingLineNumber = "904"
-            landmarkName = "createOrder(email:loginID:password:symbol:type:volume:price:stop_loss:take_profit:digits:digits_currency:contract_size:comment:)"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "fetchPositions(fromDate:toDate:completion:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

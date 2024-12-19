@@ -76,9 +76,7 @@ class HistoryViewController: BaseViewController {
 
 //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
-        
     }
-    
     
     @IBAction func searchBtn_action(_ sender: Any) {
         
@@ -94,9 +92,7 @@ class HistoryViewController: BaseViewController {
         }else{
             Alert.showAlert(withMessage: "Please enter date", andTitle: "Message!", on: self )
         }
-        
     }
-    
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -266,40 +262,69 @@ extension HistoryViewController: didSelectBtnDelegate {
             _getSelectedDate = "\(startDate)"
         }
     }
-
-
     func doneDatePickerButton(_ sender: UIButton) {
         print("done")
-
         print("_getSelectedDate = \(_getSelectedDate)")
         
+        // Create a date formatter
         let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .medium
         dateFormatter.dateFormat = "dd-MM-yyyy"
         
+        // Convert the selected date string to a Date object
         guard let date = dateFormatter.date(from: _getSelectedDate) else {
             print("ERROR: Date conversion failed due to mismatched format.")
             return
         }
         
-        let _date = dateFormatter.string(from: date)
-        print("Current date: \(_date)")
+        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+        if isFromOrToDate == "To" {
+            // Add specific time (e.g., 23:59:59) to the date
+            dateComponents.hour = 23
+            dateComponents.minute = 59
+            dateComponents.second = 59
+        }
         
-        let timestamp = date.timeIntervalSince1970
+        guard let updatedDate = Calendar.current.date(from: dateComponents) else {
+            print("ERROR: Failed to create updated date with time.")
+            return
+        }
+        
+        // Format the updated date with time back into a string
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let _date = dateFormatter.string(from: updatedDate)
+        print("Current date with time: \(_date)")
+        
+        // Get the timestamp for the updated date
+        let timestamp = updatedDate.timeIntervalSince1970
         print("Selected timestamp: \(timestamp)")
         
+        // Handle "From" and "To" date selection
         if isFromOrToDate == "From" {
             btn_fromDate.setTitle(_getSelectedDate, for: .normal)
             btn_fromDate.titleLabel?.text = _getSelectedDate
             fromTimestamp = Int(timestamp)
         } else if isFromOrToDate == "To" {
+            // Check if "From" date exists
+            if fromTimestamp != 0 {
+                let fromDate = Date(timeIntervalSince1970: TimeInterval(fromTimestamp))
+                
+                // Calculate the difference in months
+                let monthsDifference = Calendar.current.dateComponents([.month], from: fromDate, to: updatedDate).month ?? 0
+                if monthsDifference > 2 {
+                    print("ERROR: The difference between From and To dates cannot exceed 2 months.")
+                    self.showTimeAlert(str: "The difference between From and To dates cannot exceed 2 months.")
+                    // Optionally, show an alert to the user
+                    return
+                }
+            }
+            
             btn_toDate.setTitle(_getSelectedDate, for: .normal)
             btn_toDate.titleLabel?.text = _getSelectedDate
             toTimestamp = Int(timestamp)
         }
         isFromOrToDate = ""
         
-//        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
+        // Dismiss the bottom sheet
         PresentModalController.instance.dismisBottomSheet(self)
     }
 
