@@ -129,7 +129,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
                 let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
                 vc.preferredSheetSizing = .large
                 //            PresentModalController.instance.presentBottomSheet(self, VC: vc)
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             }
             
         } else if indexPath.row == 1 {

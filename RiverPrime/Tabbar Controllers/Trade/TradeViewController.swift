@@ -741,6 +741,7 @@ extension TradeViewController: GetSocketMessages {
                             // Step 2: Format the Date into local time
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "HH:mm:ss" // Desired time format
+                            dateFormatter.locale = Locale(identifier: "en_GB") //  en_GB for 24 hours en_US for 12 hours
                             dateFormatter.timeZone =  .current //TimeZone(identifier: "Asia/Dubai")   // Use local time zone (UTC+4, etc.)
 
                             let localTimeString = dateFormatter.string(from: adjustedDate)

@@ -850,6 +850,7 @@ class OdooClientNew {
                 case .success(let value):
                     print("get economic calendar value is: \(String(describing: value))")
                     do {
+                        
                         let jsonData = try JSONSerialization.data(withJSONObject: value!, options: [])
                         let decodedResponse = try JSONDecoder().decode(EconomicCalendarModel.self, from: jsonData)
                         print("Decoded Economic Calendar Response: \(decodedResponse)")

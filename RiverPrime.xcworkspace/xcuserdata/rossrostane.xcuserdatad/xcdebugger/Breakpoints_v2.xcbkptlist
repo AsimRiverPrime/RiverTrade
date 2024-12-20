@@ -183,32 +183,94 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1A63759F-25D0-4BCC-9C90-81EDC6B06EED"
+            uuid = "DB1AF963-76BA-4F93-B49A-372FCBE77AEC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/CreateAccountVC/CreateDemoAccountVC/CreateAccountSlideCell/CreateAccountSelectTradeType.swift"
+            filePath = "RiverPrime/Tabbar Controllers/Accounts/CreateAccountVC/CreateDemoAccountVC/CreateAccountTypeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "50"
-            endingLineNumber = "50"
-            landmarkName = "fetchData()"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EB01F64E-0EB0-4BE3-B4B4-3AB370A0CC0B"
+            uuid = "00FE73CC-9B17-4B01-81A9-1F0FA15573E2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/CreateAccountVC/CreateDemoAccountVC/CreateAccountSlideCell/CreateAccountSelectTradeType.swift"
+            filePath = "RiverPrime/Tabbar Controllers/Markets/MarketsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "fetchData()"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "calendarFilterImportantEvents()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "00FE73CC-9B17-4B01-81A9-1F0FA15573E2 - 3bc6192765df4d48"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RiverPrime.MarketsViewController.calendarFilterImportantEvents() -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Markets/MarketsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241">
+               </Location>
+               <Location
+                  uuid = "00FE73CC-9B17-4B01-81A9-1F0FA15573E2 - 20ab49396d2bedb7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (RiverPrime.Event) -&gt; Swift.Bool in RiverPrime.MarketsViewController.calendarFilterImportantEvents() -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Markets/MarketsViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A1AA6FC-25A9-4EF3-B6B0-2E7C6F9F6ADC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/Markets/MarketsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
+            landmarkName = "economicCalendarSuccess(response:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6DD6B4A-AC93-4517-904B-6E2FE174FA6A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/Markets/MarketsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "237"
+            endingLineNumber = "237"
+            landmarkName = "economicCalendarFailure(error:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

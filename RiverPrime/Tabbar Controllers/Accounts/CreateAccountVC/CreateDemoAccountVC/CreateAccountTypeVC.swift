@@ -36,7 +36,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
 //    let signViewModel = SignViewModel()
     
     var getSelectedAccountType = GetSelectedAccountType()
-    
+    var account: AccountModel?
 //    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
     
     var  group = String()
@@ -45,6 +45,10 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if let account = account {
+                    print("Received Account info: \(account.name)")
+                    // Use account data to update UI
+                }
 //        UserDefaults.standard.set(aesPasswordKey, forKey: "passwordKey")
         setSelectedAccountValues()
         

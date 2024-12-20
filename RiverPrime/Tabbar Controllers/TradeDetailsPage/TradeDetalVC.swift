@@ -22,6 +22,7 @@ class TradeDetalVC: UIViewController {
     var icon_url = String()
     
     @IBOutlet weak var chartView: UIView!
+    @IBOutlet weak var overviewView: UIView!
     
     //    var webSocket : WebSocket!
     
@@ -72,6 +73,12 @@ class TradeDetalVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.overviewView.isHidden = true
+        
+        if DateHelper.getCurrentWeekDay() == "Saturday" || DateHelper.getCurrentWeekDay() == "Sunday" {
+            self.SellBuyView.isHidden = true
+        }
         
         OdooClientObject.tradeSessionDelegate = self
 //        if let valueIndex = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbolData.tickMessage?.symbol })) {
@@ -229,6 +236,10 @@ class TradeDetalVC: UIViewController {
             self.view_chartType.isHidden = false
             self.view_timeFrame.isHidden = false
             self.view_liveValue.isHidden = false
+            
+            self.chartView.isHidden = false
+            self.overviewView.isHidden = true
+            
             //MARK: - Add new content from here.
             
             setupChart()
@@ -244,6 +255,10 @@ class TradeDetalVC: UIViewController {
             self.view_chartType.isHidden = true
             self.view_timeFrame.isHidden = true
             self.view_liveValue.isHidden = true
+            
+            self.chartView.isHidden = true
+            self.overviewView.isHidden = false
+            
             //MARK: - Add new content from here.
             setupOverview()
             
@@ -748,11 +763,11 @@ extension TradeDetalVC: ChartOptionsDelegate {
 extension TradeDetalVC {
     //    UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
     private func setupOverview() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            // After 2 seconds, reveal the chart and graph view
-            self.chartView.isHidden = false
-            self.chart?.isHidden = false
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+//            // After 2 seconds, reveal the chart and graph view
+//            self.chartView.isHidden = false
+//            self.chart?.isHidden = false
+//        }
         
         lazy var scrollView: TPKeyboardAvoidingScrollView = {
             let scroll = TPKeyboardAvoidingScrollView()
@@ -770,24 +785,31 @@ extension TradeDetalVC {
             return scroll
         }()
         
-        self.chartView.addSubview(scrollView)
+        lazy var bgView: UIView = {
+            let view = UIView()
+            view.backgroundColor = UIColor(red: 19/255.0, green: 21/255.0, blue: 26/255.0, alpha: 1.0)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+        
+        self.overviewView.addSubview(scrollView)
         
         scrollView.isScrollEnabled = false
         scrollView.isUserInteractionEnabled = false
         
         if #available(iOS 11.0, *) {
             NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-                scrollView.trailingAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-                scrollView.topAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.topAnchor, constant: 20),
-                scrollView.bottomAnchor.constraint(equalTo: chartView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
+                scrollView.leadingAnchor.constraint(equalTo: overviewView.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+                scrollView.trailingAnchor.constraint(equalTo: overviewView.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+                scrollView.topAnchor.constraint(equalTo: overviewView.safeAreaLayoutGuide.topAnchor, constant: 20),
+                scrollView.bottomAnchor.constraint(equalTo: overviewView.safeAreaLayoutGuide.bottomAnchor, constant: -10)
             ])
         } else {
             NSLayoutConstraint.activate([
-                scrollView.leadingAnchor.constraint(equalTo: chartView.leadingAnchor, constant: 10),
-                scrollView.trailingAnchor.constraint(equalTo: chartView.trailingAnchor, constant: -20),
-                scrollView.topAnchor.constraint(equalTo: chartView.topAnchor, constant: 20),
-                scrollView.bottomAnchor.constraint(equalTo: chartView.bottomAnchor, constant: -10)
+                scrollView.leadingAnchor.constraint(equalTo: overviewView.leadingAnchor, constant: 10),
+                scrollView.trailingAnchor.constraint(equalTo: overviewView.trailingAnchor, constant: -20),
+                scrollView.topAnchor.constraint(equalTo: overviewView.topAnchor, constant: 20),
+                scrollView.bottomAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: -10)
             ])
         }
         
@@ -873,7 +895,7 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 0),
+                    stackView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10),
                     
                     lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
                     lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
@@ -884,7 +906,7 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 20),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
                 ])
                 if index == overviewList.count-1 {
 //                    NSLayoutConstraint.activate([
@@ -933,17 +955,25 @@ extension TradeDetalVC {
 //        let closeHours: Int
 //        let closeMinutes: Int
         
-        let monday = "0\(tradingSessions?.result[0].openHours ?? ""):0\(tradingSessions?.result[0].openMinutes ?? "") - \(tradingSessions?.result[0].closeHours ?? ""):\(tradingSessions?.result[0].closeMinutes ?? "")"
+        var overviewList: [(String, String)] = [("", "")]
         
-        let tuesday = "0\(tradingSessions?.result[1].openHours ?? ""):0\(tradingSessions?.result[1].openMinutes ?? "") - \(tradingSessions?.result[1].closeHours ?? ""):\(tradingSessions?.result[1].closeMinutes ?? "")"
-        
-        let wednesday = "0\(tradingSessions?.result[2].openHours ?? ""):0\(tradingSessions?.result[2].openMinutes ?? "") - \(tradingSessions?.result[2].closeHours ?? ""):\(tradingSessions?.result[2].closeMinutes ?? "")"
-        
-        let thursday = "0\(tradingSessions?.result[3].openHours ?? ""):0\(tradingSessions?.result[3].openMinutes ?? "") - \(tradingSessions?.result[3].closeHours ?? ""):\(tradingSessions?.result[3].closeMinutes ?? "")"
-        
-        let friday = "0\(tradingSessions?.result[4].openHours ?? ""):0\(tradingSessions?.result[4].openMinutes ?? "") - \(tradingSessions?.result[4].closeHours ?? ""):\(tradingSessions?.result[4].closeMinutes ?? "")"
-        
-        let overviewList = [("TRADES SESSIONS",""),("Sunday",""), ("Monday","\(monday)"), ("Tuesday","\(tuesday)"), ("Wednesday","\(wednesday)"), ("Thursday","\(thursday)"), ("Friday","\(friday)"), ("Saturday","")]
+        if tradingSessions?.result.count != 0 {
+            
+            let monday = "0\(tradingSessions?.result[0].openHours ?? ""):0\(tradingSessions?.result[0].openMinutes ?? "") - \(tradingSessions?.result[0].closeHours ?? ""):\(tradingSessions?.result[0].closeMinutes ?? "")"
+            
+            let tuesday = "0\(tradingSessions?.result[1].openHours ?? ""):0\(tradingSessions?.result[1].openMinutes ?? "") - \(tradingSessions?.result[1].closeHours ?? ""):\(tradingSessions?.result[1].closeMinutes ?? "")"
+            
+            let wednesday = "0\(tradingSessions?.result[2].openHours ?? ""):0\(tradingSessions?.result[2].openMinutes ?? "") - \(tradingSessions?.result[2].closeHours ?? ""):\(tradingSessions?.result[2].closeMinutes ?? "")"
+            
+            let thursday = "0\(tradingSessions?.result[3].openHours ?? ""):0\(tradingSessions?.result[3].openMinutes ?? "") - \(tradingSessions?.result[3].closeHours ?? ""):\(tradingSessions?.result[3].closeMinutes ?? "")"
+            
+            let friday = "0\(tradingSessions?.result[4].openHours ?? ""):0\(tradingSessions?.result[4].openMinutes ?? "") - \(tradingSessions?.result[4].closeHours ?? ""):\(tradingSessions?.result[4].closeMinutes ?? "")"
+            
+            overviewList = [("TRADES SESSIONS",""),("Sunday",""), ("Monday","\(monday)"), ("Tuesday","\(tuesday)"), ("Wednesday","\(wednesday)"), ("Thursday","\(thursday)"), ("Friday","\(friday)"), ("Saturday","")]
+            
+        } else {
+            overviewList = [("TRADES SESSIONS",""),("Sunday",""), ("Monday",""), ("Tuesday",""), ("Wednesday",""), ("Thursday",""), ("Friday",""), ("Saturday","")]
+        }
         
         var stackViewList = [UIStackView]()
         stackViewList.removeAll()
@@ -1000,7 +1030,7 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: self.stackViewList[self.stackViewList.count-1].bottomAnchor, constant: 30),
+                    stackView.topAnchor.constraint(equalTo: self.stackViewList[self.stackViewList.count-1].bottomAnchor, constant: 20),
                     
                     lineView.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 0),
                     lineView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
@@ -1011,7 +1041,7 @@ extension TradeDetalVC {
                     stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                     stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 30),
                     stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -30),
-                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 20),
+                    stackView.topAnchor.constraint(equalTo: stackViewList[index-1].bottomAnchor, constant: 10),
                 ])
                 if index == overviewList.count-1 {
                     NSLayoutConstraint.activate([

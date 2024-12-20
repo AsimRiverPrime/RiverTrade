@@ -59,4 +59,19 @@ class DateHelper {
         
         return timeAgoString.isEmpty ? "Just now" : "\(timeAgoString)ago"
     }
+    
+    static func getCurrentWeekDay() -> String {
+        // Get the current date
+        let currentDate = Date()
+
+        // Create a DateFormatter to format the date as a weekday name
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"  // "EEEE" gives full weekday name (e.g., "Monday")
+
+        // Get the weekday name
+        let weekdayName = dateFormatter.string(from: currentDate)
+        print("weekdayName = \(weekdayName)")
+        
+        return weekdayName
+    }
 }
