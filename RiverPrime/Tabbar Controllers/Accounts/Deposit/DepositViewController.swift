@@ -17,6 +17,7 @@ class DepositViewController: BaseViewController {
     weak var delegate2 : CompleteProfileButtonDelegate?
     
     var profileStep = Int()
+    var realAccount = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,9 @@ class DepositViewController: BaseViewController {
 
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
-            if let _profileStep = savedUserData["profileStep"] as? Int{
+            if let _profileStep = savedUserData["profileStep"] as? Int,  let _realAccount = savedUserData["realAccountCreated"] as? Bool{
                 profileStep = _profileStep
+                realAccount = _realAccount
             }
         }
     }
@@ -96,7 +98,7 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
 extension DepositViewController: DashboardVCDelegate {
     func navigateToCompeletProfile() {
         print("move to completeprofile screen")
-            
+        if realAccount == true {
             if profileStep == 0 {
                 let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
                 vc.delegateKYC = self
@@ -114,7 +116,9 @@ extension DepositViewController: DashboardVCDelegate {
             }else{
                 self.ToastMessage("Already Done KYC")
             }
-            
+        }else{
+            Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
+        }
     }
 }
 

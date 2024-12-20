@@ -22,6 +22,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     @IBOutlet weak var label_errorCode: UILabel!
     @IBOutlet weak var lbl_remainingTime: UILabel!
     
+    @IBOutlet weak var lbl_toComplete: UILabel!
+    
     var countdownTimer: Timer?
     var remainingSeconds = 25
     
@@ -37,7 +39,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.setGradientBackground()
+      
+//        self.view.setGradientBackground()
         self.label_errorCode.isHidden = true
         
         odooClientService.otpDelegate = self
@@ -58,11 +61,16 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             if self.isEmailVerification == true {
                 self.ToastMessage( "check email inbox/spam for OTP")
             }else{
-                self.ToastMessage("check message for OTP")
+                self.ToastMessage("check mobile message for OTP")
             }
         }
     }
     override func viewWillAppear(_ animated: Bool) {
+        if isPhoneVerification == false {
+            lbl_toComplete.text = "We have sent you code to the provided Email.\n\nTo complete your Email verification, please enter the 6-digit activation code."
+        }else{
+            lbl_toComplete.text = "We have sent you code to the provided Number.\n\nTo complete your phone number verification, please enter the 6-digit activation code."
+        }
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
@@ -145,8 +153,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     @IBAction func resendCodeBtn(_ sender: Any) {
-        
-        resendCodeButton.isEnabled = false
+        callMethodAfterDelay()
+//        resendCodeButton.isEnabled = false
         
         
         //        resendCodeButton.setTitle("Resend in \(remainingSeconds) seconds", for: .disabled)
@@ -183,7 +191,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     // Method to be called after the delay
     func callMethodAfterDelay() {
         // Add your method logic here
-        print("Method called after 1 minute")
+        print("Method called after 25 Second")
         
         if isEmailVerification == true {
             odooClientService.sendOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "")

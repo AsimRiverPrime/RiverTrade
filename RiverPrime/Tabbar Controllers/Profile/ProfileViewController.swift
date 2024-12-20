@@ -14,6 +14,8 @@ class ProfileViewController: BaseViewController{
         weak var delegateCompeleteProfile: DashboardVCDelegate?
         var profileStep = Int()
     
+    var realAccount: Bool?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tblView.isScrollEnabled = false
@@ -22,8 +24,9 @@ class ProfileViewController: BaseViewController{
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let profileStep1 = savedUserData["profileStep"] as? Int {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _realAccount = savedUserData["realAccountCreated"] as? Bool {
                 profileStep = profileStep1
+                realAccount = _realAccount
             }
         }
         tblView.registerCells([
@@ -114,22 +117,26 @@ class ProfileViewController: BaseViewController{
         
         func didTapCompleteProfileButtonInCell() {
 //            delegateCompeleteProfile?.navigateToCompeletProfile()
-            if profileStep == 0 {
-                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-                vc.delegateKYC = self
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                
-            }else if profileStep == 1 {
-                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+            if realAccount == true {
+                if profileStep == 0 {
+                    let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+                    vc.delegateKYC = self
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                     
-                    self.navigate(to: kycVc)
+                }else if profileStep == 1 {
+                    if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
+                        
+                        self.navigate(to: kycVc)
+                    }
+                }else if profileStep == 2 {
+                    let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+                    vc.delegateKYC = self
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }else{
+                    self.ToastMessage("Already Done KYC")
                 }
-            }else if profileStep == 2 {
-                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-                vc.delegateKYC = self
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             }else{
-                self.ToastMessage("Already Done KYC")
+                Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
             }
         }
     }

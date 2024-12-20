@@ -288,16 +288,16 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-    @IBAction func termsConditionBtn(_ sender: Any) {
-        self.btn_termsCondition.isSelected = !self.btn_termsCondition.isSelected
-        self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        self.btn_termsCondition.tintColor = self.btn_termsCondition.isSelected ? .systemYellow : .white
-        if btn_termsCondition.isSelected == true {
-            enableLoginButton()
-        }else{
-            enableLoginButton()
-        }
-    }
+//    @IBAction func termsConditionBtn(_ sender: Any) {
+//        self.btn_termsCondition.isSelected = !self.btn_termsCondition.isSelected
+//        self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+//        self.btn_termsCondition.tintColor = self.btn_termsCondition.isSelected ? .systemYellow : .white
+//        if btn_termsCondition.isSelected == true {
+//            enableLoginButton()
+//        }else{
+//            enableLoginButton()
+//        }
+//    }
     
     @IBAction func continueBtn(_ sender: Any) {
         signUp()
@@ -397,7 +397,7 @@ class SignUpViewController: BaseViewController {
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
-                        ActivityIndicator.shared.show(in: self!.view)
+//                        ActivityIndicator.shared.show(in: self!.view)
                         
                         //                        let name = firstName + " " + lastName
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: email, name: fullName)
@@ -437,7 +437,7 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
             self.navigateToVerifiyScreen()
         }
         
-        ActivityIndicator.shared.hide(from: self.view)
+//        ActivityIndicator.shared.hide(from: self.view)
     }
     
     func leadCreatFailure(error: any Error) {

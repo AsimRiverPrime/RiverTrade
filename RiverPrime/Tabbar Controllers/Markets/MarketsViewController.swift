@@ -189,50 +189,7 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-//    func convertToDate(from dateString: String) -> Date? {
-//        let dateFormatter = DateFormatter()
-//        
-//        // Try parsing with milliseconds first
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-//        if let date = dateFormatter.date(from: dateString) {
-//            return date
-//        }
-//        
-//        // If that fails, try parsing without milliseconds
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-//        return dateFormatter.date(from: dateString)
-//    }
-    
-//    func timeAgo(from dateString: String) -> String {
-//        guard let apiDate = convertToDate(from: dateString) else {
-//            return "Invalid Date"
-//        }
-//
-//        // Get the current date and adjust to UTC
-//        let currentDate = Date()
-//        let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
-//
-//        print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate)") // Debugging
-//
-//        // Time difference in seconds
-//        let difference = utcCurrentDate.timeIntervalSince(apiDate)
-//        
-//        if difference < 0 {
-//            return "In the future" // Handle future dates explicitly
-//        } else if difference < 60 {
-//            return "\(Int(difference))s ago" // Less than 1 minute
-//        } else if difference < 3600 {
-//            let minutes = Int(difference) / 60
-//            return "\(minutes)m ago" // Less than 1 hour
-//        } else if difference < 86400 {
-//            let hours = Int(difference) / 3600
-//            let minutes = (Int(difference) % 3600) / 60
-//            return "\(hours)h \(minutes)m ago" // Less than 1 day
-//        } else {
-//            let days = Int(difference) / 86400
-//            return "\(days)d ago" // More than 1 day
-//        }
-//    }
+
 
 }
 extension MarketsViewController: TopNewsProtocol {
@@ -281,7 +238,7 @@ extension MarketsViewController: EconomicCalendarProtocol {
     }
   
     func calendarFilterImportantEvents() {
-        filteredEvents = allEvents.filter { $0.importance == 3 }
+        filteredEvents = allEvents.filter { $0.importance == 1 }
         print("filtered Events: \(filteredEvents)")
     }
     

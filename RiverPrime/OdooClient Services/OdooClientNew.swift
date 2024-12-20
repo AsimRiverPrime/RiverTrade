@@ -548,325 +548,323 @@ class OdooClientNew {
     //        }
     //    }
     
-    func getCalendarDataRecords(fromDate: String , toDate: String) {
-        let calendarSampleData = """
-                    {
-                        "jsonrpc": "2.0",
-                        "id": 685,
-                        "result": {
-                            "success": true, 
-                            "payload": [
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-06-16T06:00:00",
-                                                "Country": "Costa Rica",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "Costa Rica Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-12-16T10:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 3,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            },
-
-                                {
-                                    "CalendarId": "353036",
-                                    "Date": "2024-06-16T06:00:00",
-                                    "Country": "Saudi Arabia",
-                                    "Category": "Producer Prices Change",
-                                    "Event": "Wholesale Prices YoY",
-                                    "Reference": "May",
-                                    "ReferenceDate": "2024-05-31T00:00:00",
-                                    "Source": "General Authority for Statistics, Saudi Arabia",
-                                    "SourceURL": "https://www.stats.gov.sa",
-                                    "Actual": "3.2%",
-                                    "Previous": "3.4%",
-                                    "Forecast": "",
-                                    "TEForecast": "4.0%",
-                                    "URL": "/saudi-arabia/producer-prices-change",
-                                    "DateSpan": "0",
-                                    "Importance": 1,
-                                    "LastUpdate": "2024-06-16T05:45:23.34",
-                                    "Revised": "",
-                                    "Currency": "",
-                                    "Unit": "%",
-                                    "Ticker": "SAUDIARABPROPRICHA",
-                                    "Symbol": "SAUDIARABPROPRICHA"
-                                },
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-12-16T09:00:00",
-                                                "Country": "Pakistan",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "Testing Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-05-31T00:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 3,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            },
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-12-15T06:00:00",
-                                                "Country":"India",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "India Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-05-31T00:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 3,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            },
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-12-14T06:00:00",
-                                                "Country": "Sudan",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "Sudan Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-05-31T00:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 3,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            },
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-12-16T06:00:00",
-                                                "Country": "Saudi Arabia",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "Testinggg Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-05-31T00:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 2,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            },
-                                            {
-                                                "CalendarId": "353036",
-                                                "Date": "2024-12-16T06:00:00",
-                                                "Country": "Saudi Arabia",
-                                                "Category": "Producer Prices Change",
-                                                "Event": "Saudi Arabai Wholesale Prices YoY",
-                                                "Reference": "May",
-                                                "ReferenceDate": "2024-05-31T00:00:00",
-                                                "Source": "General Authority for Statistics, Saudi Arabia",
-                                                "SourceURL": "https://www.stats.gov.sa",
-                                                "Actual": "3.2%",
-                                                "Previous": "3.4%",
-                                                "Forecast": "",
-                                                "TEForecast": "4.0%",
-                                                "URL": "/saudi-arabia/producer-prices-change",
-                                                "DateSpan": "0",
-                                                "Importance": 2,
-                                                "LastUpdate": "2024-06-16T05:45:23.34",
-                                                "Revised": "",
-                                                "Currency": "",
-                                                "Unit": "%",
-                                                "Ticker": "SAUDIARABPROPRICHA",
-                                                "Symbol": "SAUDIARABPROPRICHA"
-                                            }, {
-                                    "CalendarId": "353036",
-                                    "Date": "2024-12-16T06:00:00",
-                                    "Country": "Pakistan",
-                                    "Category": "Producer Prices Change",
-                                    "Event": "Pakistan Wholesale Prices YoY",
-                                    "Reference": "May",
-                                    "ReferenceDate": "2024-05-31T00:00:00",
-                                    "Source": "General Authority for Statistics, Saudi Arabia",
-                                    "SourceURL": "https://www.stats.gov.sa",
-                                    "Actual": "3.2%",
-                                    "Previous": "3.4%",
-                                    "Forecast": "",
-                                    "TEForecast": "4.0%",
-                                    "URL": "/saudi-arabia/producer-prices-change",
-                                    "DateSpan": "0",
-                                    "Importance": 0,
-                                    "LastUpdate": "2024-06-16T05:45:23.34",
-                                    "Revised": "",
-                                    "Currency": "",
-                                    "Unit": "%",
-                                    "Ticker": "SAUDIARABPROPRICHA",
-                                    "Symbol": "SAUDIARABPROPRICHA"
-                                },
-                                {
-                                    "CalendarId": "352893",
-                                    "Date": "2024-06-16T06:00:00",
-                                    "Country": "Saudi Arabia",
-                                    "Category": "Inflation Rate Mom",
-                                    "Event": "Inflation Rate MoM",
-                                    "Reference": "May",
-                                    "ReferenceDate": "2024-05-31T00:00:00",
-                                    "Source": "General Authority for Statistics, Saudi Arabia",
-                                    "SourceURL": "https://www.stats.gov.sa",
-                                    "Actual": "0.2%",
-                                    "Previous": "0.3%",
-                                    "Forecast": "0.2%",
-                                    "TEForecast": "0.1%",
-                                    "URL": "/saudi-arabia/inflation-rate-mom",
-                                    "DateSpan": "0",
-                                    "Importance": 1,
-                                    "LastUpdate": "2024-06-16T05:49:12.277",
-                                    "Revised": "",
-                                    "Currency": "",
-                                    "Unit": "%",
-                                    "Ticker": "SAUDIARABINFRATMOM",
-                                    "Symbol": "SAUDIARABINFRATMOM"
-                                },
-                                {
-                                    "CalendarId": "352892",
-                                    "Date": "2024-06-16T06:00:00",
-                                    "Country": "Saudi Arabia",
-                                    "Category": "Inflation Rate",
-                                    "Event": "Inflation Rate YoY",
-                                    "Reference": "May",
-                                    "ReferenceDate": "2024-05-31T00:00:00",
-                                    "Source": "General Authority for Statistics, Saudi Arabia",
-                                    "SourceURL": "https://www.stats.gov.sa",
-                                    "Actual": "1.6%",
-                                    "Previous": "1.6%",
-                                    "Forecast": "1.6%",
-                                    "TEForecast": "1.5%",
-                                    "URL": "/saudi-arabia/inflation-cpi",
-                                    "DateSpan": "0",
-                                    "Importance": 1,
-                                    "LastUpdate": "2024-06-16T05:42:39.697",
-                                    "Revised": "",
-                                    "Currency": "",
-                                    "Unit": "%",
-                                    "Ticker": "SRCPIYOY",
-                                    "Symbol": "SRCPIYOY"
-                                }
-                            ]
-                        }
+//    func getCalendarDataRecords(fromDate: String , toDate: String) {
+//        let calendarSampleData = """
+//                    {
+//                        "jsonrpc": "2.0",
+//                        "id": 685,
+//                        "result": {
+//                            "success": true, 
+//                            "payload": [
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-06-16T06:00:00",
+//                                                "Country": "Costa Rica",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "Costa Rica Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-12-16T10:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 3,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            },
+//
+//                                {
+//                                    "CalendarId": "353036",
+//                                    "Date": "2024-06-16T06:00:00",
+//                                    "Country": "Saudi Arabia",
+//                                    "Category": "Producer Prices Change",
+//                                    "Event": "Wholesale Prices YoY",
+//                                    "Reference": "May",
+//                                    "ReferenceDate": "2024-05-31T00:00:00",
+//                                    "Source": "General Authority for Statistics, Saudi Arabia",
+//                                    "SourceURL": "https://www.stats.gov.sa",
+//                                    "Actual": "3.2%",
+//                                    "Previous": "3.4%",
+//                                    "Forecast": "",
+//                                    "TEForecast": "4.0%",
+//                                    "URL": "/saudi-arabia/producer-prices-change",
+//                                    "DateSpan": "0",
+//                                    "Importance": 1,
+//                                    "LastUpdate": "2024-06-16T05:45:23.34",
+//                                    "Revised": "",
+//                                    "Currency": "",
+//                                    "Unit": "%",
+//                                    "Ticker": "SAUDIARABPROPRICHA",
+//                                    "Symbol": "SAUDIARABPROPRICHA"
+//                                },
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-12-16T09:00:00",
+//                                                "Country": "Pakistan",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "Testing Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-05-31T00:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 3,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            },
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-12-15T06:00:00",
+//                                                "Country":"India",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "India Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-05-31T00:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 3,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            },
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-12-14T06:00:00",
+//                                                "Country": "Sudan",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "Sudan Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-05-31T00:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 3,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            },
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-12-16T06:00:00",
+//                                                "Country": "Saudi Arabia",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "Testinggg Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-05-31T00:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 2,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            },
+//                                            {
+//                                                "CalendarId": "353036",
+//                                                "Date": "2024-12-16T06:00:00",
+//                                                "Country": "Saudi Arabia",
+//                                                "Category": "Producer Prices Change",
+//                                                "Event": "Saudi Arabai Wholesale Prices YoY",
+//                                                "Reference": "May",
+//                                                "ReferenceDate": "2024-05-31T00:00:00",
+//                                                "Source": "General Authority for Statistics, Saudi Arabia",
+//                                                "SourceURL": "https://www.stats.gov.sa",
+//                                                "Actual": "3.2%",
+//                                                "Previous": "3.4%",
+//                                                "Forecast": "",
+//                                                "TEForecast": "4.0%",
+//                                                "URL": "/saudi-arabia/producer-prices-change",
+//                                                "DateSpan": "0",
+//                                                "Importance": 2,
+//                                                "LastUpdate": "2024-06-16T05:45:23.34",
+//                                                "Revised": "",
+//                                                "Currency": "",
+//                                                "Unit": "%",
+//                                                "Ticker": "SAUDIARABPROPRICHA",
+//                                                "Symbol": "SAUDIARABPROPRICHA"
+//                                            }, {
+//                                    "CalendarId": "353036",
+//                                    "Date": "2024-12-16T06:00:00",
+//                                    "Country": "Pakistan",
+//                                    "Category": "Producer Prices Change",
+//                                    "Event": "Pakistan Wholesale Prices YoY",
+//                                    "Reference": "May",
+//                                    "ReferenceDate": "2024-05-31T00:00:00",
+//                                    "Source": "General Authority for Statistics, Saudi Arabia",
+//                                    "SourceURL": "https://www.stats.gov.sa",
+//                                    "Actual": "3.2%",
+//                                    "Previous": "3.4%",
+//                                    "Forecast": "",
+//                                    "TEForecast": "4.0%",
+//                                    "URL": "/saudi-arabia/producer-prices-change",
+//                                    "DateSpan": "0",
+//                                    "Importance": 0,
+//                                    "LastUpdate": "2024-06-16T05:45:23.34",
+//                                    "Revised": "",
+//                                    "Currency": "",
+//                                    "Unit": "%",
+//                                    "Ticker": "SAUDIARABPROPRICHA",
+//                                    "Symbol": "SAUDIARABPROPRICHA"
+//                                },
+//                                {
+//                                    "CalendarId": "352893",
+//                                    "Date": "2024-06-16T06:00:00",
+//                                    "Country": "Saudi Arabia",
+//                                    "Category": "Inflation Rate Mom",
+//                                    "Event": "Inflation Rate MoM",
+//                                    "Reference": "May",
+//                                    "ReferenceDate": "2024-05-31T00:00:00",
+//                                    "Source": "General Authority for Statistics, Saudi Arabia",
+//                                    "SourceURL": "https://www.stats.gov.sa",
+//                                    "Actual": "0.2%",
+//                                    "Previous": "0.3%",
+//                                    "Forecast": "0.2%",
+//                                    "TEForecast": "0.1%",
+//                                    "URL": "/saudi-arabia/inflation-rate-mom",
+//                                    "DateSpan": "0",
+//                                    "Importance": 1,
+//                                    "LastUpdate": "2024-06-16T05:49:12.277",
+//                                    "Revised": "",
+//                                    "Currency": "",
+//                                    "Unit": "%",
+//                                    "Ticker": "SAUDIARABINFRATMOM",
+//                                    "Symbol": "SAUDIARABINFRATMOM"
+//                                },
+//                                {
+//                                    "CalendarId": "352892",
+//                                    "Date": "2024-06-16T06:00:00",
+//                                    "Country": "Saudi Arabia",
+//                                    "Category": "Inflation Rate",
+//                                    "Event": "Inflation Rate YoY",
+//                                    "Reference": "May",
+//                                    "ReferenceDate": "2024-05-31T00:00:00",
+//                                    "Source": "General Authority for Statistics, Saudi Arabia",
+//                                    "SourceURL": "https://www.stats.gov.sa",
+//                                    "Actual": "1.6%",
+//                                    "Previous": "1.6%",
+//                                    "Forecast": "1.6%",
+//                                    "TEForecast": "1.5%",
+//                                    "URL": "/saudi-arabia/inflation-cpi",
+//                                    "DateSpan": "0",
+//                                    "Importance": 1,
+//                                    "LastUpdate": "2024-06-16T05:42:39.697",
+//                                    "Revised": "",
+//                                    "Currency": "",
+//                                    "Unit": "%",
+//                                    "Ticker": "SRCPIYOY",
+//                                    "Symbol": "SRCPIYOY"
+//                                }
+//                            ]
+//                        }
+//                    }
+//            """.data(using: .utf8)!
+//        do {
+//            //            let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
+//            let decodedResponse = try JSONDecoder().decode(EconomicCalendarModel.self, from: calendarSampleData)
+//            print("Decoded Economic Calendar Response: \(decodedResponse)")
+//            self.economicCalendarDelegate?.economicCalendarSuccess(response: decodedResponse)
+//        } catch {
+//            print("Failed to decode Economic Calendar  JSON: \(error)")
+//            self.economicCalendarDelegate?.economicCalendarFailure(error: error)
+//        }
+//        
+//        
+//    }
+    
+        func getCalendarDataRecords(fromDate: String , toDate: String) {
+            if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+                print("saved User Data: \(savedUserData)")
+                if let email = savedUserData["email"] as? String{
+                    self.userEmail = email
+                }
+            }
+    
+            let jsonrpcBody: [String: Any] = [
+                "jsonrpc": "2.0",
+                "id":685,
+                "params": [
+                    "service": "object",
+                    "method": "execute_kw",
+                    "args": [
+                        dataBaseName,
+                        uid,
+                        dbPassword,
+                        "te.middleware",
+                        "get_calendar_data",
+                        [
+                        [],
+                        userEmail,
+                        fromDate,
+                        toDate
+                        ]]
+                    ]
+                ]
+    
+            print("\n the parameters is: \(jsonrpcBody)")
+    
+            JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+    
+                switch result {
+                case .success(let value):
+                    print("get economic calendar value is: \(String(describing: value))")
+                    do {
+                        let jsonData = try JSONSerialization.data(withJSONObject: value!, options: [])
+                        let decodedResponse = try JSONDecoder().decode(EconomicCalendarModel.self, from: jsonData)
+                        print("Decoded Economic Calendar Response: \(decodedResponse)")
+                        self.economicCalendarDelegate?.economicCalendarSuccess(response: decodedResponse)
+                    } catch {
+                        print("Failed to decode JSON: \(error)")
+                        self.economicCalendarDelegate?.economicCalendarFailure(error: error)
                     }
-            """.data(using: .utf8)!
-        do {
-            //            let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
-            let decodedResponse = try JSONDecoder().decode(EconomicCalendarModel.self, from: calendarSampleData)
-            print("Decoded Economic Calendar Response: \(decodedResponse)")
-            self.economicCalendarDelegate?.economicCalendarSuccess(response: decodedResponse)
-        } catch {
-            print("Failed to decode Economic Calendar  JSON: \(error)")
-            self.economicCalendarDelegate?.economicCalendarFailure(error: error)
+    
+                case .failure(let error):
+                    print("economic calendar Request failed: \(error)")
+                }
+            }
+    
         }
-        
-        
-    }
-    
-    
-    
-    //    func getCalendarDataRecords(fromDate: String , toDate: String) {
-    //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-    //            print("saved User Data: \(savedUserData)")
-    //            if let email = savedUserData["email"] as? String{
-    //                self.userEmail = email
-    //            }
-    //        }
-    //
-    //        let jsonrpcBody: [String: Any] = [
-    //            "jsonrpc": "2.0",
-    //            "id":685,
-    //            "params": [
-    //                "service": "object",
-    //                "method": "execute_kw",
-    //                "args": [
-    //                    dataBaseName,
-    //                    uid,
-    //                    dbPassword,
-    //                    "te.middleware",
-    //                    "get_calendar_data",
-    //                    [
-    //                    [],
-    //                    userEmail,
-    //                    fromDate,
-    //                    toDate
-    //                    ]]
-    //                ]
-    //            ]
-    //
-    //        print("\n the parameters is: \(jsonrpcBody)")
-    //
-    //        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-    //
-    //            switch result {
-    //            case .success(let value):
-    //                print("get economic calendar value is: \(value)")
-    //                do {
-    //                    let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
-    //                    let decodedResponse = try JSONDecoder().decode(EconomicCalendarModel.self, from: jsonData)
-    //                    print("Decoded Economic Calendar Response: \(decodedResponse)")
-    //                    self.economicCalendarDelegate?.economicCalendarSuccess(response: decodedResponse)
-    //                } catch {
-    //                    print("Failed to decode JSON: \(error)")
-    //                    self.economicCalendarDelegate?.economicCalendarFailure(error: error)
-    //                }
-    //
-    //            case .failure(let error):
-    //                print("economic calendar Request failed: \(error)")
-    //            }
-    //        }
-    //
-    //    }
     
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
         

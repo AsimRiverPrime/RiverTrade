@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 struct GetSelectedAccountType {
     var title = String()
@@ -27,10 +28,11 @@ class CreateAccountSelectTradeType: BottomSheetController {
         
     var counter = 0
     var getSelectedAccountType = GetSelectedAccountType()
+    let db = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        fetchData()
         mainTitle.text = "PRO" //"Standard Account"
         setSwapGesture()
         counter = 0
@@ -38,6 +40,19 @@ class CreateAccountSelectTradeType: BottomSheetController {
         
         getIndexValues(counter: counter)
         
+    }
+    
+    func fetchData() {
+        db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    print("Document ID: \(document.documentID), Data: \(data)")
+                }
+            }
+        }
     }
     
     @IBAction func continusBtnAction(_ sender: UIButton) {
@@ -92,7 +107,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
     }
     
     private func getIndexValues(counter: Int) {
-        
+       
         if counter == 0 {
             mainTitle.text = "PRO Account"
             lbl_Spread.text = "Floating/ As low as 1 pips"
@@ -121,7 +136,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
             lbl_stopOutLevel.text = "20%"
             img_ProRibbon.isHidden = true
         }
-        
+      
         //MARK: - get selected account values here.
         getSelectedAccountType.title = mainTitle.text ?? ""
         
