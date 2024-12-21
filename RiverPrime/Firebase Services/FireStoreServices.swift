@@ -128,7 +128,10 @@ class FirestoreServices: BaseViewController {
            let userRef = db.collection("users").document(userID)
            userRef.updateData(fields, completion: completion)
        }
-    
+    func updateUserAccountFields(userID: String, fields: [String: Any], completion: @escaping (Error?) -> Void) {
+           let userRef = db.collection("userAccounts").document(userID)
+           userRef.updateData(fields, completion: completion)
+       }
     //MARK: Get data from the Firebase Firestore by email and UserID
     func getUserDataByEmail(email: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         let usersRef = db.collection("users")

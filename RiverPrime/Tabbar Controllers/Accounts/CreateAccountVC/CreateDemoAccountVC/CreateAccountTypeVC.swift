@@ -35,7 +35,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     let odooClientService = OdooClientNew()
 //    let signViewModel = SignViewModel()
     
-    var getSelectedAccountType = GetSelectedAccountType()
+//    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
 //    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
     
@@ -46,23 +46,17 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         super.viewDidLoad()
         
         if let account = account {
-                    print("Received Account info: \(account.name)")
+                    print("Received Account info: \(account.name)  and with account!.leverage: \(account.leverage)\n with all account detail is \(account)")
                     // Use account data to update UI
                 }
-//        UserDefaults.standard.set(aesPasswordKey, forKey: "passwordKey")
-        setSelectedAccountValues()
-        
+      
+//        lbl_accountTitle.text = getSelectedAccountType.title
+        lbl_accountTitle.text = "\(account!.name.uppercased()) Account"
         odooClientService.createUserAcctDelegate = self
         
         selectCurrencyBtn.addTarget(self, action: #selector(showCurrencies), for: .touchUpInside)
         tf_password.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
-        
-        // Do any additional setup after loading the view.
-//        if let user = Auth.auth().currentUser {
-//            self.userEmail = user.email ?? ""
-//            self.userId = user.uid
-//        }
-        
+    
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(data)")
             
@@ -102,7 +96,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
         let Firstname = UserDefaults.standard.string(forKey: "firstName")
         let LastName = UserDefaults.standard.string(forKey: "lastName")
-       
+        print("this is honeNumber:\(phone) firstName:\(Firstname) lastName:\(LastName)")
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
         UserDefaults.standard.set(userName, forKey: "MTUserName")
         
@@ -118,7 +112,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         }
         
 //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 100, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: Int(account!.leverage) ?? 0, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {
@@ -217,47 +211,62 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         }
     }
 
-    func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
-        let passwordData = Data(password.utf8)
+    func updateUserAccount(){
         
-        do {
-            // Encrypt the password
-            let sealedBox = try AES.GCM.seal(passwordData, using: key)
-            
-            // Combine the nonce, ciphertext, and tag into a single Data object
-            let combinedData = sealedBox.nonce + sealedBox.ciphertext + sealedBox.tag
-            
-            // Convert the Data to base64 string for storing in Firestore
-            return combinedData.base64EncodedString()
-        } catch {
-            print("Encryption failed: \(error)")
-            return nil
-        }
+        var fieldsToUpdate: [String:Any] = [
+            "name" : self.userName,
+            "currency": self.currencyCode,
+            "userID" : userId,
+            "groupID": account?.id ?? "",
+            "isDefault" : true,
+            "isReal": false,
+            "groupName" : self.demoAccountGroup,
+            "accountNumber" : GlobalVariable.instance.loginID // loginID in response
+        ]
+        
+        fireStoreInstance.updateUserAccountFields(userID: userId, fields: fieldsToUpdate, completion: { error in
+            if let error = error {
+                print("Error updating UserAccounts fields: \(error.localizedDescription)")
+                return
+            } else {
+                print("User Accounts fields updated successfully!")
+                GlobalVariable.instance.isAccountCreated = true
+            }
+        })
+    
     }
+//    func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
+//        let passwordData = Data(password.utf8)
+//        
+//        do {
+//            // Encrypt the password
+//            let sealedBox = try AES.GCM.seal(passwordData, using: key)
+//            
+//            // Combine the nonce, ciphertext, and tag into a single Data object
+//            let combinedData = sealedBox.nonce + sealedBox.ciphertext + sealedBox.tag
+//            
+//            // Convert the Data to base64 string for storing in Firestore
+//            return combinedData.base64EncodedString()
+//        } catch {
+//            print("Encryption failed: \(error)")
+//            return nil
+//        }
+//    }
     
 }
 
-//MARK: - Set the selected account values here.
-extension CreateAccountTypeVC {
-    
-    private func setSelectedAccountValues() {
-        
-        lbl_accountTitle.text = getSelectedAccountType.title
-        
-    }
-    
-}
 
 extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     func createAccountSuccess(response: Any) {
         print("\n this is create user success response: \(response)")
         // get loginId from the response
-        
+        updateUserAccount()
         updateUser()
+        showTimeAlert(str: "Account Create Sucessfully.")
     }
     
     func createAccountFailure(error: any Error) {
         print("\n this is create user error response: \(error)")
-        
+        showTimeAlert(str: "Account Create Failed.")
     }
 }

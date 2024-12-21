@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol DashboardVCDelegate: AnyObject {
+    func navigateToCompeletProfile()
+}
+
 class ProfileViewController: BaseViewController{
         
         @IBOutlet weak var tblView: UITableView!

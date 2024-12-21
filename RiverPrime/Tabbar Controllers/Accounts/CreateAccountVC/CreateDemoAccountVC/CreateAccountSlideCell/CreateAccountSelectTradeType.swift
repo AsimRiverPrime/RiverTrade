@@ -8,9 +8,9 @@
 import UIKit
 import FirebaseFirestore
 
-struct GetSelectedAccountType {
-    var title = String()
-}
+//struct GetSelectedAccountType {
+//    var title = String()
+//}
 
 class CreateAccountSelectTradeType: BottomSheetController {
 
@@ -26,8 +26,8 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_swap: UILabel!
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
-    var counter = 0
-    var getSelectedAccountType = GetSelectedAccountType()
+    var counter = 0 
+//    var getSelectedAccountType = GetSelectedAccountType()
     let db = Firestore.firestore()
     var accounts: [AccountModel] = []
     
@@ -62,10 +62,11 @@ class CreateAccountSelectTradeType: BottomSheetController {
         let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .bottomSheetPopups) as! CreateAccountTypeVC
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
         let selectedAccount = accounts[counter]
-        vc.preferredSheetSizing = .large
-        vc.getSelectedAccountType = getSelectedAccountType
+//        vc.preferredSheetSizing = .large
+//        vc.getSelectedAccountType = getSelectedAccountType
         vc.account = selectedAccount
-        PresentModalController.instance.presentBottomSheet(self, VC: vc)
+//        PresentModalController.instance.presentBottomSheet(self, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 //        self.dismiss(animated: true, completion: {
 //            print("Bottom sheet dismissed after Move to next screen")
 //        })
@@ -183,7 +184,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         img_ProRibbon.isHidden = account.recommended != 1
 
         // Update selected account type
-        getSelectedAccountType.title = mainTitle.text ?? ""
+//        getSelectedAccountType.title = mainTitle.text ?? ""
     }
     
 }
@@ -207,105 +208,3 @@ struct AccountModel: Codable {
     let hedging: Int
     let leverage: String
 }
-
-
-
-//    private func getIndexValues1(counter: Int) {
-//
-//        if counter == 0 {
-//            mainTitle.text = "PRO Account"
-//            lbl_Spread.text = "Floating/ As low as 1 pips"
-//            lbl_leverage.text = "1:400"
-//            lbl_commission.text = "$0"
-//            lbl_miniDeposit.text = "$20"
-//            lbl_swap.text = "Free"
-//            lbl_stopOutLevel.text = "20%"
-//            img_ProRibbon.isHidden = false
-//        } else if counter == 1 {
-//            mainTitle.text = "PRIME Account"
-//            lbl_Spread.text = "Floating/ As low as 0 pips"
-//            lbl_leverage.text = "1:400"
-//            lbl_commission.text = "$6"
-//            lbl_miniDeposit.text = "$250"
-//            lbl_swap.text = "Free"
-//            lbl_stopOutLevel.text = "20%"
-//            img_ProRibbon.isHidden = true
-//        } else if counter == 2 {
-//            mainTitle.text = "PREMIUM Account"
-//            lbl_Spread.text = "Floating/ As low as 0 pips"
-//            lbl_leverage.text = "1:400"
-//            lbl_commission.text = "$3"
-//            lbl_miniDeposit.text = "$3000"
-//            lbl_swap.text = "Free"
-//            lbl_stopOutLevel.text = "20%"
-//            img_ProRibbon.isHidden = true
-//        }
-//
-//        //MARK: - get selected account values here.
-//        getSelectedAccountType.title = mainTitle.text ?? ""
-//
-//    }
-//
-//    func fetchData() {
-//        db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
-//            if let error = error {
-//                print("Error fetching documents: \(error.localizedDescription)")
-//            } else {
-//                for document in querySnapshot!.documents {
-//                    let data = document.data()
-//                    print("Document ID: \(document.documentID), Data: \(data)")
-//                    do {
-//                                 let account = try AccountModel(
-//                                     id: document.documentID,
-//                                     tradingInstruments: data["tradingInstruments"] as? String ?? "",
-//                                     spreadsFrom: data["spreadsFrom"] as? String ?? "",
-//                                     startingDeposit: data["startingDeposit"] as? Int ?? 0,
-//                                     order: data["order"] as? Int ?? 0,
-//                                     accountCurrency: data["accountCurrency"] as? String ?? "",
-//                                     EA: data["EA"] as? Int ?? 0,
-//                                     minimumOrderSize: data["minimumOrderSize"] as? Double ?? 0.0,
-//                                     islamicAccounts: data["islamicAccounts"] as? Int ?? 0,
-//                                     name: data["name"] as? String ?? "",
-//                                     platform: data["platform"] as? String ?? "",
-//                                     stopOutLevel: data["stopOutLevel"] as? String ?? "",
-//                                     orderExecution: data["orderExecution"] as? String ?? "",
-//                                     commission: data["commission"] as? Int ?? 0,
-//                                     recommended: data["recommended"] as? Int ?? 0,
-//                                     hedging: data["hedging"] as? Int ?? 0,
-//                                     leverage: data["leverage"] as? String ?? ""
-//                                 )
-//                        self.accounts.append(account)
-//                             } catch {
-//                                 print("Error parsing document \(document.documentID): \(error)")
-//                             }
-//                         }
-//
-//                         // Use the accounts array
-//                print(self.accounts)
-//                }
-//            }
-//        }
-
-//    @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
-//        if gestureRecognizer.direction == .left {
-//            // Handle left swipe
-//            print("left")
-//            if counter < 2 {
-//                counter += 1
-//                self.view.inoutAnimation(to: -self.view.frame.width, sView: self.bgView)
-//            }
-//            getIndexValues(counter: counter, accounts: self.accounts)
-//        } else if gestureRecognizer.direction == .right {
-//            // Handle right swipe
-//            print("right")
-//            if counter > 0 {
-//                counter -= 1
-//                self.view.inoutAnimation(to: self.view.frame.width, sView: self.bgView)
-//            }
-//            getIndexValues(counter: counter, accounts: self.accounts)
-//        } else {
-//            print("Swipe")
-//        }
-//        print("counter = \(counter)")
-//        pageControl.currentPage = counter
-//    }
