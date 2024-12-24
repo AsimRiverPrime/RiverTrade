@@ -39,23 +39,23 @@ protocol OPCDelegate: AnyObject {
 class AccountsViewController: BaseViewController {
     
     @IBOutlet weak var view_topHeader: UIView!
-//    @IBOutlet weak var view_depositWithdraw: UIView!
+    //    @IBOutlet weak var view_depositWithdraw: UIView!
     @IBOutlet weak var view_CreateNewAcct: UIView!
     
-//    @IBOutlet weak var lbl_greetingCreateNew: UILabel!
+    //    @IBOutlet weak var lbl_greetingCreateNew: UILabel!
     @IBOutlet weak var image_createNew: UIImageView!
     @IBOutlet weak var lbl_userNameCreateNew: UILabel!
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
-//    @IBOutlet weak var lbl_greeting: UILabel!
+    //    @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var lbl_account: UILabel!
-//    @IBOutlet weak var lbl_MT5: UILabel!
+    //    @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
     @IBOutlet weak var labelAmmount: UILabel!
     @IBOutlet weak var tblView: UITableView!
-//    var model: [String] = ["Open","Pending","Close","image"]
+    //    var model: [String] = ["Open","Pending","Close","image"]
     @IBOutlet weak var lbl_amountPercent: UILabel!
     
     @IBOutlet weak var btn_deposit: CardViewButton!
@@ -75,6 +75,7 @@ class AccountsViewController: BaseViewController {
     var profileStep = 0
     var demoAccountCreated = Bool()
     var balance = String()
+    var isRealAcount = Bool()
     
     var odooClientService = OdooClientNew()
     
@@ -101,13 +102,13 @@ class AccountsViewController: BaseViewController {
         dashboardDatainit()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
         
         tblView.delegate = self
         tblView.dataSource = self
         tblView.reloadData()
-
+        
         collectionViewinit()
         
         accountData()
@@ -120,7 +121,7 @@ class AccountsViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         
-        delegate = self
+//        delegate = self
         delegateCreateAccount = self
         delegateOPCNavigation = self
         delegateCollectionView = self
@@ -141,14 +142,14 @@ class AccountsViewController: BaseViewController {
         
         if tradeTypeCollectionView.cellForItem(at: indexPath) != nil {
             selectedIndex = indexPath.row
-
+            
             if indexPath.row != model.count-1 {
                 fetchPositions(index: indexPath.row)
             }
             
             tradeTypeCollectionView.reloadData()
         }
-
+        
     }
     
     @objc func updateProfileData(_ notification: Notification) {
@@ -164,7 +165,7 @@ class AccountsViewController: BaseViewController {
             }
         }
     }
-   
+    
     @IBAction func createNewAccount_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
@@ -176,8 +177,8 @@ class AccountsViewController: BaseViewController {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool {
-
+            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let _isRealAccount = savedUserData["realAccountCreated"] as? Bool {
+                
                 if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),
                    let savedImage = UIImage(data: imageData) {
                     userImage.image = savedImage
@@ -187,12 +188,14 @@ class AccountsViewController: BaseViewController {
                 
                 var account_type = String()
                 var account_group = String()
-               
+                
                 if isCreateDemoAccount == true {
                     account_type = " Demo "
                     account_group = " \(accountType) "
                 }
-                if isRealAccount == true {
+                
+                isRealAcount =  _isRealAccount
+                if _isRealAccount == true {
                     account_type = " Real "
                     account_group = " \(accountType) "
                 }
@@ -205,7 +208,7 @@ class AccountsViewController: BaseViewController {
                 }else if accountType == "Premium Account" {
                     account_group = " PREMIUM "
                 }else{
-                    }
+                }
                 lbl_name.text = _name
                 lbl_userNameCreateNew.text = _name
                 
@@ -218,10 +221,10 @@ class AccountsViewController: BaseViewController {
     
     func dashboardDatainit() {
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
+        //        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             view_topHeader.isHidden = false
-//            view_depositWithdraw.isHidden = false
+            //            view_depositWithdraw.isHidden = false
             btn_creat.isHidden = false
             btn_deposit.isHidden = false
             btn_details.isHidden = false
@@ -240,7 +243,7 @@ class AccountsViewController: BaseViewController {
             btn_details.isHidden = true
             btn_history.isHidden = true
             btn_withdraw.isHidden = true
-//            view_depositWithdraw.isHidden = true
+            //            view_depositWithdraw.isHidden = true
             view_CreateNewAcct.isHidden = false
             self.tblView.isHidden = true
             self.tradeTypeCollectionView.isHidden = true
@@ -256,10 +259,10 @@ class AccountsViewController: BaseViewController {
             if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
                 profileStep = profileStep1
                 GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-           
+                
             }
         }
-      
+        
         NotificationCenter.default.addObserver(self, selector: #selector(apiSuccessHandler), name: NSNotification.Name("accountCreate"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: .MetaTraderLogin, object: nil) // NSNotification.Name("metaTraderLogin")
         
@@ -270,7 +273,7 @@ class AccountsViewController: BaseViewController {
         tradeTypeCollectionView.dataSource = self
         tradeTypeCollectionView.register(UINib(nibName: "TradeTypeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "TradeTypeCollectionViewCell")
         tradeTypeCollectionView.isScrollEnabled = false
-
+        
         fetchPositions(index: 0)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal(_:)), name: .OPCListDismissall, object: nil)
@@ -286,21 +289,37 @@ class AccountsViewController: BaseViewController {
     }
     
     @IBAction func depositAction(_ sender: Any) {
-        let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-       // vc.delegateCompeleteProfile = self
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        if isRealAcount{
+            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+            // vc.delegateCompeleteProfile = self
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }else{
+            if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
+                
+                self.navigate(to: vc)
+            }
+        }
     }
     
     @IBAction func withDrawAction(_ sender: Any) {
-//            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        
+        if isRealAcount{
+            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }else{
+            if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoWithdrawalVC") as? DemoWithdrawalVC {
+                
+                self.navigate(to: vc)
+            }
+        }
+        
     }
-
+    
     @IBAction func historyAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
-
+    
     @IBAction func detailAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
@@ -308,17 +327,17 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func createAcoountAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func percentAction(_ sender: UIButton) {
-       
-                    self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-                        print("drop down index = \(index)")
-                        print("drop down item = \(item)")
-                        sender.setTitle("", for: .normal)
-                    }
-                
+        
+        self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            sender.setTitle("", for: .normal)
+        }
+        
     }
     
     
@@ -427,7 +446,7 @@ extension AccountsViewController {
             switch receivedString {
             case .Balance:
                 let getbalanceApi = TradeTypeCellVM()
-             
+                
                 getbalanceApi.getUserBalance(completion: { result in
                     switch result {
                     case .success(let responseModel):
@@ -452,11 +471,11 @@ extension AccountsViewController {
                     }
                     self.balance = response
                     GlobalVariable.instance.balanceUpdate = self.balance
-//                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+                    //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
-                 
+                    
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-
+                    
                 })
                 break
             case .GetBalance:
@@ -468,12 +487,12 @@ extension AccountsViewController {
     }
     
     @objc func apiSuccessHandler() {
-           // Perform necessary updates
-           print("Add account success & notification received!")
-//            setAccountsButton()
+        // Perform necessary updates
+        print("Add account success & notification received!")
+        //            setAccountsButton()
         dashboardDatainit()
     }
-
+    
 }
 
 extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -490,7 +509,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
+        
         if section == 0 {
             if emptyListCount != 0 { //TODO: If Open, Pending, Close is empty then section 2 (Total P/L) should be hide as well.
                 return 0
@@ -525,7 +544,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros()
             
             cell.textLabel?.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
-
+            
             if totalProfitOpenClose < 0.0 {
                 cell.detailTextLabel?.textColor = .systemRed
             }else{
@@ -605,7 +624,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
+        
         if indexPath.section == 0 {
             return 45
             
@@ -616,7 +635,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+        
         if indexPath.section == 1 {
             
             switch opcList {
@@ -626,7 +645,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 vc.openData = openData[indexPath.row]
                 vc.getIndex = indexPath
-               
+                
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
                 
                 
@@ -664,15 +683,15 @@ extension AccountsViewController: AccountInfoDelegate {
         switch accountInfo {
             
         case .deposit:
-         
+            
             delegate?.accountInfoTap(.deposit)
             break
         case .withDraw:
-           
+            
             delegate?.accountInfoTap(.withDraw)
             break
         case .history:
-           
+            
             delegate?.accountInfoTap(.history)
             break
         case .detail:
@@ -680,7 +699,7 @@ extension AccountsViewController: AccountInfoDelegate {
             delegate?.accountInfoTap(.detail)
             break
         case .notification:
-          
+            
             delegate?.accountInfoTap(.notification)
             break
         case .createAccount:
@@ -728,7 +747,7 @@ extension AccountsViewController: OPCDelegate {
         
         switch opcType {
         case .open(let open):
-         
+            
             if open.count == 0 {
                 emptyListCount = 1
                 
@@ -738,14 +757,14 @@ extension AccountsViewController: OPCDelegate {
             }
             
         case .pending(let pending):
-        
+            
             if pending.count == 0 {
                 emptyListCount = 1
             } else {
                 emptyListCount = 0
             }
         case .close(let close):
-           
+            
             if close.count == 0 {
                 emptyListCount = 1
             } else {
@@ -756,7 +775,7 @@ extension AccountsViewController: OPCDelegate {
         tblView.reloadData()
         
         //MARK: - START SOCKET and call delegate method to get data from socket.
-//        webSocketManager.delegateSocketMessage = self
+        //        webSocketManager.delegateSocketMessage = self
         webSocketManager.delegateSocketPeerClosed = self
         
         //MARK: - unsubscribeTrade first.
@@ -811,7 +830,7 @@ extension AccountsViewController: OPCDelegate {
                 self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
                 GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
             }
-//            let indexPath = IndexPath(row: 0, section: 2)
+            //            let indexPath = IndexPath(row: 0, section: 2)
             let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
@@ -834,7 +853,7 @@ extension AccountsViewController: OPCDelegate {
                 self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
             }
             totalProfitOpenClose = 0.0
-//            let indexPath = IndexPath(row: 0, section: 2)
+            //            let indexPath = IndexPath(row: 0, section: 2)
             let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = true
@@ -865,7 +884,7 @@ extension AccountsViewController: OPCDelegate {
                 totalProfitOpenClose += totalPL
                 
             }
-//            let indexPath = IndexPath(row: 0, section: 2)
+            //            let indexPath = IndexPath(row: 0, section: 2)
             let indexPath = IndexPath(row: 0, section: 0)
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
@@ -908,27 +927,27 @@ extension AccountsViewController: SocketPeerClosed {
 extension AccountsViewController: GetSocketMessages {
     
     func tradeUpdates(socketMessageType: SocketMessageType, tickMessage: TradeDetails?) {
-            switch socketMessageType {
-            case .tick:
+        switch socketMessageType {
+        case .tick:
+            
+            //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
+            if let getTick = tickMessage {
                 
-                //MARK: - Compare the symbol which is coming from Socket with our Selected Sector symbol list and update our list (getSymbolData).
-                if let getTick = tickMessage {
+                if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
+                    getSymbolData[index].tickMessage = tickMessage
                     
-                    if let index = getSymbolData.firstIndex(where: { $0.tickMessage?.symbol == getTick.symbol }) {
-                        getSymbolData[index].tickMessage = tickMessage
+                    //                           let indexPath = IndexPath(row: index, section: 2)
+                    let indexPath = IndexPath(row: index, section: 0)
+                    
+                    switch opcList {
+                    case .open(let openData):
                         
-                        //                           let indexPath = IndexPath(row: index, section: 2)
-                        let indexPath = IndexPath(row: index, section: 0)
-                        
-                        switch opcList {
-                        case .open(let openData):
-                            
-                            var _totalProfitOpenClose = totalProfitOpenClose
-                            _totalProfitOpenClose = 0.0
-                            var profitLoss = Double()
-                            var roundValue = String()
-                            //MARK: - Get All Matched Symbols data and Set accordingly.
-                            if openData.count != 0 {
+                        var _totalProfitOpenClose = totalProfitOpenClose
+                        _totalProfitOpenClose = 0.0
+                        var profitLoss = Double()
+                        var roundValue = String()
+                        //MARK: - Get All Matched Symbols data and Set accordingly.
+                        if openData.count != 0 {
                             for i in 0...openData.count-1 {
                                 
                                 //                                   let myIndexPath = IndexPath(row: i, section: 3)
@@ -982,138 +1001,138 @@ extension AccountsViewController: GetSocketMessages {
                                 
                             }
                         }
-                            //MARK: - START Set Total P/L
+                        //MARK: - START Set Total P/L
+                        
+                        let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
+                            let (index, item) = indexValue
+                            //                                   let myIndexPath = IndexPath(row: index, section: 3)
+                            let myIndexPath = IndexPath(row: index, section: 1)
                             
-                            let totalProfitOpenClose = openData.enumerated().reduce(0.0) { (total, indexValue) -> Double in
-                                let (index, item) = indexValue
-                                //                                   let myIndexPath = IndexPath(row: index, section: 3)
-                                let myIndexPath = IndexPath(row: index, section: 1)
-                                
-                                if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
-                                    if GlobalVariable.instance.isAccountCreated {
-                                        cell.isHidden = false
-                                        
-                                        // Safely unwrap the profit value
-                                        let getProfit = Double(cell.lbl_profitValue.text ?? "") ?? 0.0
-                                        print("getProfit \(index) = \(getProfit)")
-                                        
-                                        return total + getProfit
-                                    }
-                                }
-                                
-                                return total
-                            }
-                            
-                            print("Total Profit Open Close: \(totalProfitOpenClose)")
-                            
-                            //MARK: - END Set Total P/L
-                            
-                            
-                            //                               let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
-                            let indexPath = IndexPath(row: 0, section: 0)
-                            if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
-                                totalCell.detailTextLabel?.isHidden = false
-                                totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                                totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
-                                if totalProfitOpenClose < 0.0 {
-                                    totalCell.detailTextLabel?.textColor = .systemRed
-                                }else{
-                                    totalCell.detailTextLabel?.textColor = .systemGreen
-                                }
-                            }
-                    
-                        case .pending(let pendingData):
-                            
-                            if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
+                            if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
                                 if GlobalVariable.instance.isAccountCreated {
                                     cell.isHidden = false
                                     
-                                }else{
-                                    cell.isHidden = true
-                                }
-                            }
-                            
-                        case .close(let closeData):
-                            
-                            if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
-                                if GlobalVariable.instance.isAccountCreated {
-                                    cell.isHidden = false
+                                    // Safely unwrap the profit value
+                                    let getProfit = Double(cell.lbl_profitValue.text ?? "") ?? 0.0
+                                    print("getProfit \(index) = \(getProfit)")
                                     
-                                }else{
-                                    cell.isHidden = true
+                                    return total + getProfit
                                 }
                             }
                             
-                        case .none:break
-                            
+                            return total
                         }
                         
-                        return
+                        print("Total Profit Open Close: \(totalProfitOpenClose)")
+                        
+                        //MARK: - END Set Total P/L
+                        
+                        
+                        //                               let indexPath = IndexPath(row: 0, section: 2) // Adjust to the section and row where the total is displayed
+                        let indexPath = IndexPath(row: 0, section: 0)
+                        if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
+                            totalCell.detailTextLabel?.isHidden = false
+                            totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
+                            totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
+                            if totalProfitOpenClose < 0.0 {
+                                totalCell.detailTextLabel?.textColor = .systemRed
+                            }else{
+                                totalCell.detailTextLabel?.textColor = .systemGreen
+                            }
+                        }
+                        
+                    case .pending(let pendingData):
+                        
+                        if let cell = tblView.cellForRow(at: indexPath) as? PendingOrderCell {
+                            if GlobalVariable.instance.isAccountCreated {
+                                cell.isHidden = false
+                                
+                            }else{
+                                cell.isHidden = true
+                            }
+                        }
+                        
+                    case .close(let closeData):
+                        
+                        if let cell = tblView.cellForRow(at: indexPath) as? CloseOrderCell {
+                            if GlobalVariable.instance.isAccountCreated {
+                                cell.isHidden = false
+                                
+                            }else{
+                                cell.isHidden = true
+                            }
+                        }
+                        
+                    case .none:break
+                        
                     }
+                    
+                    return
                 }
-                
-                break
-            
-            case .Unsubscribed:
-                
-                //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
-                
-                GlobalVariable.instance.changeSector = true
-                
-                //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
-                
-                if webSocketManager.isSocketConnected() {
-                    print("Socket is connected")
-                } else {
-                    print("Socket is not connected")
-                    //MARK: - START SOCKET.
-    //                webSocketManager.delegateSocketMessage = self
-                    webSocketManager.connectWebSocket()
-                }
-                
-                break
             }
+            
+            break
+            
+        case .Unsubscribed:
+            
+            //MARK: - Before change any sector we must unsubcribe already selected and then again update according to the new selected sector.
+            
+            GlobalVariable.instance.changeSector = true
+            
+            //            setTradeModel(collectionViewIndex: GlobalVariable.instance.getSectorIndex)
+            
+            if webSocketManager.isSocketConnected() {
+                print("Socket is connected")
+            } else {
+                print("Socket is not connected")
+                //MARK: - START SOCKET.
+                //                webSocketManager.delegateSocketMessage = self
+                webSocketManager.connectWebSocket()
+            }
+            
+            break
         }
+    }
 }
 
 //MARK: - START CollectionView work.
 extension AccountsViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-      //  return 10 // Number of items in the collection view
+        //  return 10 // Number of items in the collection view
         return model.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
-       
-//        cell.onRefreshImageButtonClick = {
-//            [self] sender in
-//            print("onRefreshImageButtonClick")
-//            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-//                print("drop down index = \(index)")
-//                print("drop down item = \(item)")
-//            }
-//        }
-       
+        
+        //        cell.onRefreshImageButtonClick = {
+        //            [self] sender in
+        //            print("onRefreshImageButtonClick")
+        //            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+        //                print("drop down index = \(index)")
+        //                print("drop down item = \(item)")
+        //            }
+        //        }
+        
         cell.lbl_tradetype.text = model[indexPath.row]
-            if indexPath.row == selectedIndex {
-                cell.selectedColorView.isHidden = false
-                cell.backgroundColor = .clear
-                cell.layer.cornerRadius = 15.0
-                cell.lbl_tradetype.textColor = .systemYellow
-                cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 17)
+        if indexPath.row == selectedIndex {
+            cell.selectedColorView.isHidden = false
+            cell.backgroundColor = .clear
+            cell.layer.cornerRadius = 15.0
+            cell.lbl_tradetype.textColor = .systemYellow
+            cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 17)
         }else{
             cell.selectedColorView.isHidden = true
             cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
-            cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15) 
+            cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15)
         }
         if indexPath.row == model.count-1 {
             cell.sepratorView.isHidden = true
             cell.refreshImage.isHidden = true
             cell.refreshImageButton.isHidden = false
             cell.lbl_tradetype.isHidden = true
-       
+            
         } else {
             cell.sepratorView.isHidden = true
             cell.refreshImage.isHidden = true
@@ -1126,7 +1145,7 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             selectedIndex = indexPath.row
-
+            
             GlobalVariable.instance.lastSelectedOPCIndex = indexPath
             
             if indexPath.row != model.count-1 {
@@ -1140,7 +1159,7 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath){
             cell.backgroundColor = .clear
-//            self.delegate?.getOPCData(opcType: .open, opcModel: .init(symbol: "Gold"))
+            //            self.delegate?.getOPCData(opcType: .open, opcModel: .init(symbol: "Gold"))
         }
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -1157,10 +1176,10 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
         if GlobalVariable.instance.isIphone() { // iPhone typically has a screen width less than 768 points
             return CGSize(width: data.count + 80, height: 25)
         } else {
-//            // For iPad (larger screen), adjust the item size to fit more data
-//            // You can experiment with the values to suit your needs
-//            let itemWidth = (screenWidth - 40) / 4 // Adjust the number of items per row (e.g., 3 items per row)
-//            return CGSize(width: itemWidth, height: 40)
+            //            // For iPad (larger screen), adjust the item size to fit more data
+            //            // You can experiment with the values to suit your needs
+            //            let itemWidth = (screenWidth - 40) / 4 // Adjust the number of items per row (e.g., 3 items per row)
+            //            return CGSize(width: itemWidth, height: 40)
             
             // For iPad, we want all items in one row, so calculate width based on the total number of items
             
@@ -1181,7 +1200,7 @@ extension AccountsViewController {
     
     func fetchPositions(index: Int) {
         if index == 0 {
-      
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 guard let self = self else { return }
@@ -1192,7 +1211,7 @@ extension AccountsViewController {
                             print("Error fetching positions: \(error)")
                             // Handle the error (e.g., show an alert)
                         } else if let positions = openData {
-//
+                            //
                             GlobalVariable.instance.openSymbolList.removeAll()
                             
                             let symbols = positions.map { self.getSymbol(item: $0.symbol) }
@@ -1207,11 +1226,11 @@ extension AccountsViewController {
             }
             
         } else if index == 1 {
-    
+            
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-
+                    
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
@@ -1225,19 +1244,19 @@ extension AccountsViewController {
             }
             
         } else if index == 2 {
-   
+            
             
             // Execute the fetch on a background thread
             DispatchQueue.global(qos: .background).async { [weak self] in
                 self?.vm.OPCApi(index: index) { openData, pendingData, closeData, error in
-
+                    
                     // Switch back to the main thread to update the UI
                     DispatchQueue.main.async {
                         if let error = error {
                             print("Error fetching positions: \(error)")
                             // Handle the error (e.g., show an alert)
                         } else if let orders = closeData {
-                          
+                            
                             self?.delegateCollectionView?.getOPCData(opcType: .close(orders))
                         }
                     }
@@ -1258,7 +1277,7 @@ extension AccountsViewController {
         if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
             // Set modal presentation style
             popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-           
+            
             popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
@@ -1272,40 +1291,40 @@ extension AccountsViewController {
 }
 
 //MARK: - AccountInfo Button Taps is here.
-extension AccountsViewController: AccountInfoTapDelegate {
-    func accountInfoTap(_ accountInfo: AccountInfo) {
-        print("delegte called  \(accountInfo)" )
-        
-        switch accountInfo {
-            
-        case .deposit:
-            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-           // vc.delegateCompeleteProfile = self
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .withDraw:
-//            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+//extension AccountsViewController: AccountInfoTapDelegate {
+//    func accountInfoTap(_ accountInfo: AccountInfo) {
+//        print("delegte called  \(accountInfo)" )
+//        
+//        switch accountInfo {
+//            
+//        case .deposit:
+//            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+//            // vc.delegateCompeleteProfile = self
 //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .history:
-            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .detail:
-            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .notification:
-            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .createAccount:
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-            break
-        }
-    }
-}
+//            break
+//        case .withDraw:
+//            //            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+//            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        case .history:
+//            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        case .detail:
+//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        case .notification:
+//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        case .createAccount:
+//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+//            break
+//        }
+//    }
+//}
 
 extension AccountsViewController: CreateAccountInfoTapDelegate {
     

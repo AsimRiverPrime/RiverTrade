@@ -49,7 +49,7 @@ class FirestoreServices: BaseViewController {
             "emailVerified": emailVerified,
             "phoneVerified": phoneVerified,
             "login": login,
-            "profileImageURL":"",
+            
             "demoAccountGroup": demoAccountGroup,
             "pushedToCRM": pushedToCRM,
             "realAccountCreated": realAccountCreated,
@@ -85,6 +85,36 @@ class FirestoreServices: BaseViewController {
              }
          }
      }
+    
+    func fetchUserAccountsData(userId: String) {
+        // Save userID in UserDefaults
+        UserDefaults.standard.set(userId, forKey: "userID")
+        print("User ID is: \(userId)")
+        
+        // Firestore query with `where` clause
+        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching user accounts: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                print("No user accounts found for the given userID.")
+                return
+            }
+            
+            for document in documents {
+                let data = document.data()
+                print("User Accounts data is: \(data)")
+                
+                // Save data in UserDefaults
+                UserDefaults.standard.set(data, forKey: "userAccountsData")
+            }
+        }
+    }
+
     
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -128,10 +158,13 @@ class FirestoreServices: BaseViewController {
            let userRef = db.collection("users").document(userID)
            userRef.updateData(fields, completion: completion)
        }
-    func updateUserAccountFields(userID: String, fields: [String: Any], completion: @escaping (Error?) -> Void) {
-           let userRef = db.collection("userAccounts").document(userID)
-           userRef.updateData(fields, completion: completion)
+    
+    func updateUserAccountsFields(fields: [String: Any], completion: @escaping (Error?) -> Void) {
+        let uniqueId = db.collection("userAccounts").document().documentID
+           let userRef = db.collection("userAccounts").document(uniqueId)
+            userRef.setData(fields, completion: completion)
        }
+    
     //MARK: Get data from the Firebase Firestore by email and UserID
     func getUserDataByEmail(email: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         let usersRef = db.collection("users")

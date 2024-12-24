@@ -18,9 +18,10 @@ class OdooClientNew {
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "3c0ec26b14366c720cc6cc14b8dd78bd250c803e"
+    var dbPassword: String =  "d2dbc51edfc5631a959c7694287d1e1fb28ffe44"
     
     var userEmail: String = ""
+    var loginId = Int()
     
     weak var otpDelegate: SendOTPDelegate?
     weak var updateNumberDelegate: UpdatePhoneNumebrDelegate?
@@ -32,6 +33,9 @@ class OdooClientNew {
     weak var updateUserNamePasswordDelegate: UpdateUserNamePassword?
     weak var topNewsDelegate: TopNewsProtocol?
     weak var economicCalendarDelegate: EconomicCalendarProtocol?
+    weak var demoDepositProtocolDelegate : DemoDepositProtocol?
+    weak var demoWithdrawProtocolDelegate : DemoWithdrawProtocol?
+    
     
     var uid = UserDefaults.standard.integer(forKey: "uid")
     
@@ -924,6 +928,129 @@ class OdooClientNew {
             }
         }
         
+    }
+    
+    func demoDeposit(amount: Int) {
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                self.userEmail = email
+                self.loginId = _loginId
+            }
+        }
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "deposit",
+                    [
+                        [],
+                        userEmail,
+                        loginId,
+                        UserDefaults.standard.string(forKey: "password") ?? "",
+                        amount
+                    ]
+                ]
+            ]
+        ]
+        
+        print("\n the deposit parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("demo deposit response value is: \(value)")
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{  // Expecting a boolean here
+                    if status {
+                        
+            
+                        self.demoDepositProtocolDelegate?.demoDepositSuccess(response: result)
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        self.demoDepositProtocolDelegate?.demoDepositFailure(error: error)
+                        print("Error response: \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    self.demoDepositProtocolDelegate?.demoDepositFailure(error: error)
+                    print("Error response: \(error)")
+                }
+            case .failure(let error):
+                self.demoDepositProtocolDelegate?.demoDepositFailure(error: error)
+                print("Request failed: \(error)")
+            }
+        }
+    }
+    
+    func demoWithdrawal(amount: Int) {
+        let password = UserDefaults.standard.string(forKey: "password")
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("saved User Data: \(savedUserData)")
+            if let email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+                self.userEmail = email
+                self.loginId = _loginId
+            }
+        }
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "withdraw",
+                    [
+                        [],
+                        userEmail,
+                        loginId,
+                        password ?? "",
+                        amount
+                    ]
+                ]
+            ]
+        ]
+        
+        print("\n the withdraw parameters is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("demo withdraw response value is: \(value)")
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Int{
+                    if status == 1 {
+                        
+            
+                        self.demoWithdrawProtocolDelegate?.demoWithdrawSuccess(response: result)
+                    } else {
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        self.demoWithdrawProtocolDelegate?.demoWithdrawFailure(error: error)
+                        print("Error response: \(error)")
+                    }
+                } else {
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    self.demoWithdrawProtocolDelegate?.demoWithdrawFailure(error: error)
+                    print("Error response: \(error)")
+                }
+            case .failure(let error):
+                self.demoWithdrawProtocolDelegate?.demoWithdrawFailure(error: error)
+                print("Request failed: \(error)")
+            }
+        }
     }
     
     

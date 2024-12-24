@@ -155,6 +155,7 @@ extension SceneDelegate {
             if let uid = savedUserData["uid"] as? String {
                 print("UID is: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
+                self.fireStoreInstance.fetchUserAccountsData(userId: uid)
             }
                 // Access specific values from the dictionary
             if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {

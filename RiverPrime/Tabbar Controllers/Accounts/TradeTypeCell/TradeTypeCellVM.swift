@@ -375,6 +375,7 @@ class TradeTypeCellVM {
     }
     
     func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
+        let pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
@@ -410,7 +411,7 @@ class TradeTypeCellVM {
             ]
         ]
         
-        print("Params: \(params)")
+        print("get balance Params: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
@@ -436,7 +437,7 @@ class TradeTypeCellVM {
     }
     
     func getBalance(completion: @escaping (String) -> Void) {
-        
+        let pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
@@ -448,7 +449,7 @@ class TradeTypeCellVM {
             showPopup()
             return
         }else{
-            print("the password is: \(pass ?? "")")
+            print("the MT login password is: \(pass ?? "")")
         }
         
         let params: [String: Any] = [
@@ -473,14 +474,13 @@ class TradeTypeCellVM {
             ]
         ]
         
-        print("params is: \(params)")
+        print("\nget balance params is: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
                 
             case .success(let value):
-                print("get user detail value is: \(value)")
-//                completion("Order update successfully")
+                print("get user MT balance value is: \(value)")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -492,10 +492,6 @@ class TradeTypeCellVM {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData: \(String(data: jsonData, encoding: .utf8) ?? "")")
-                        
-                     
-//                        let positions = try JSONDecoder().decode([OpenModel].self, from: jsonData)
-                        
                         
                         if success == 1 {
                             // Return the balance value in the completion handler
@@ -509,6 +505,7 @@ class TradeTypeCellVM {
                     } else {
                         print("Error: Invalid JSON structure")
                         completion("Invalid Response")
+                    
                     }
                 } catch {
                     print("Error decoding response: \(error)")

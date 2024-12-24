@@ -10,8 +10,6 @@
 		3102120B2CE4D44A0064F6EF /* incomeExpenseTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310212092CE4D44A0064F6EF /* incomeExpenseTVCell.swift */; };
 		3102120C2CE4D44A0064F6EF /* incomeExpenseTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3102120A2CE4D44A0064F6EF /* incomeExpenseTVCell.xib */; };
 		3105DEE22CB3E8A400D1B884 /* ListingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEB72CB3E8A400D1B884 /* ListingTableViewCell.xib */; };
-		3105DEE32CB3E8A400D1B884 /* SelectAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEA22CB3E8A400D1B884 /* SelectAccountTypeCell.xib */; };
-		3105DEE42CB3E8A400D1B884 /* SelectAccountTypeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEA42CB3E8A400D1B884 /* SelectAccountTypeVC.xib */; };
 		3105DEE52CB3E8A400D1B884 /* TradeTypeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEC72CB3E8A400D1B884 /* TradeTypeTableViewCell.xib */; };
 		3105DEE62CB3E8A400D1B884 /* CreateAccountTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DE962CB3E8A400D1B884 /* CreateAccountTVCell.xib */; };
 		3105DEE72CB3E8A400D1B884 /* CreateAccountSlideCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DE9C2CB3E8A400D1B884 /* CreateAccountSlideCell.xib */; };
@@ -31,7 +29,6 @@
 		3105DEF62CB3E8A400D1B884 /* CreateAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE9E2CB3E8A400D1B884 /* CreateAccountTypeVC.swift */; };
 		3105DEF72CB3E8A400D1B884 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB62CB3E8A400D1B884 /* ListingTableViewCell.swift */; };
 		3105DEF82CB3E8A400D1B884 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB32CB3E8A400D1B884 /* CreateAccountVC.swift */; };
-		3105DEF92CB3E8A400D1B884 /* SelectAccountTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEA12CB3E8A400D1B884 /* SelectAccountTypeCell.swift */; };
 		3105DEFA2CB3E8A400D1B884 /* SelectAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEA32CB3E8A400D1B884 /* SelectAccountTypeVC.swift */; };
 		3105DEFB2CB3E8A400D1B884 /* OpenTicketBottomSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DECF2CB3E8A400D1B884 /* OpenTicketBottomSheetVC.swift */; };
 		3105DEFC2CB3E8A400D1B884 /* TransactionCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEC92CB3E8A400D1B884 /* TransactionCellVM.swift */; };
@@ -85,8 +82,12 @@
 		315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB002C4F9A2900C4F8C0 /* SuppotTableViewCell.swift */; };
 		315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */; };
 		315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */; };
+		315EE9392D193C2200EA96DC /* DemoDepositVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315EE9382D193C2200EA96DC /* DemoDepositVC.swift */; };
+		315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */; };
 		315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */; };
 		315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */; };
+		31643B8B2D1AED58000054F9 /* SelectAccountTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31643B892D1AED58000054F9 /* SelectAccountTypeCell.swift */; };
+		31643B8C2D1AED58000054F9 /* SelectAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31643B8A2D1AED58000054F9 /* SelectAccountTypeCell.xib */; };
 		3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EC2C47D0540055F093 /* MarketsViewController.swift */; };
 		3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */; };
 		3164C5F22C47D0B00055F093 /* MarketsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */; };
@@ -378,10 +379,7 @@
 		3105DE9C2CB3E8A400D1B884 /* CreateAccountSlideCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreateAccountSlideCell.xib; sourceTree = "<group>"; };
 		3105DE9E2CB3E8A400D1B884 /* CreateAccountTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountTypeVC.swift; sourceTree = "<group>"; };
 		3105DE9F2CB3E8A400D1B884 /* CreateDemoAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDemoAccountVC.swift; sourceTree = "<group>"; };
-		3105DEA12CB3E8A400D1B884 /* SelectAccountTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeCell.swift; sourceTree = "<group>"; };
-		3105DEA22CB3E8A400D1B884 /* SelectAccountTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountTypeCell.xib; sourceTree = "<group>"; };
 		3105DEA32CB3E8A400D1B884 /* SelectAccountTypeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeVC.swift; sourceTree = "<group>"; };
-		3105DEA42CB3E8A400D1B884 /* SelectAccountTypeVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountTypeVC.xib; sourceTree = "<group>"; };
 		3105DEA62CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeDetailTVC.swift; sourceTree = "<group>"; };
 		3105DEA72CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnarchiveAccountTypeDetailTVC.xib; sourceTree = "<group>"; };
 		3105DEA92CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnarchiveAccountTypeCVC.swift; sourceTree = "<group>"; };
@@ -446,8 +444,12 @@
 		315DDB012C4F9A2900C4F8C0 /* SuppotTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SuppotTableViewCell.xib; sourceTree = "<group>"; };
 		315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutTableViewCell.swift; sourceTree = "<group>"; };
 		315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
+		315EE9382D193C2200EA96DC /* DemoDepositVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDepositVC.swift; sourceTree = "<group>"; };
+		315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoWithdrawalVC.swift; sourceTree = "<group>"; };
 		315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketSectionCell.swift; sourceTree = "<group>"; };
 		315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseTicketSectionCell.xib; sourceTree = "<group>"; };
+		31643B892D1AED58000054F9 /* SelectAccountTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeCell.swift; sourceTree = "<group>"; };
+		31643B8A2D1AED58000054F9 /* SelectAccountTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountTypeCell.xib; sourceTree = "<group>"; };
 		3164C5EC2C47D0540055F093 /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
 		3164C5EF2C47D0B00055F093 /* MarketsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsCollectionViewCell.swift; sourceTree = "<group>"; };
 		3164C5F02C47D0B00055F093 /* MarketsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarketsCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -800,10 +802,9 @@
 		3105DEA52CB3E8A400D1B884 /* SelectAccountTypeVC */ = {
 			isa = PBXGroup;
 			children = (
-				3105DEA12CB3E8A400D1B884 /* SelectAccountTypeCell.swift */,
-				3105DEA22CB3E8A400D1B884 /* SelectAccountTypeCell.xib */,
 				3105DEA32CB3E8A400D1B884 /* SelectAccountTypeVC.swift */,
-				3105DEA42CB3E8A400D1B884 /* SelectAccountTypeVC.xib */,
+				31643B892D1AED58000054F9 /* SelectAccountTypeCell.swift */,
+				31643B8A2D1AED58000054F9 /* SelectAccountTypeCell.xib */,
 			);
 			path = SelectAccountTypeVC;
 			sourceTree = "<group>";
@@ -882,6 +883,7 @@
 			children = (
 				3105DEB82CB3E8A400D1B884 /* TableViewCell */,
 				3105DEB92CB3E8A400D1B884 /* DepositViewController.swift */,
+				315EE9382D193C2200EA96DC /* DemoDepositVC.swift */,
 			);
 			path = Deposit;
 			sourceTree = "<group>";
@@ -992,13 +994,14 @@
 			path = withdrawTableCell;
 			sourceTree = "<group>";
 		};
-		3105DEDD2CB3E8A400D1B884 /* withDraw */ = {
+		3105DEDD2CB3E8A400D1B884 /* AmountWithdrawal */ = {
 			isa = PBXGroup;
 			children = (
 				3105DEDB2CB3E8A400D1B884 /* withdrawTableCell */,
 				3105DEDC2CB3E8A400D1B884 /* WithdrawViewController.swift */,
+				315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */,
 			);
-			path = withDraw;
+			path = AmountWithdrawal;
 			sourceTree = "<group>";
 		};
 		3105DEE12CB3E8A400D1B884 /* Accounts */ = {
@@ -1014,7 +1017,7 @@
 				FA316F812CC1ADED0048B181 /* Total_PLCell */,
 				3105DEC82CB3E8A400D1B884 /* TradeTypeCell */,
 				3105DED82CB3E8A400D1B884 /* TranscationCell */,
-				3105DEDD2CB3E8A400D1B884 /* withDraw */,
+				3105DEDD2CB3E8A400D1B884 /* AmountWithdrawal */,
 				3105DEE02CB3E8A400D1B884 /* AccountsViewController.swift */,
 			);
 			path = Accounts;
@@ -2370,11 +2373,10 @@
 				3164C5F72C47D7520055F093 /* MarketTopMoversTableViewCell.xib in Resources */,
 				31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */,
 				3105DEE22CB3E8A400D1B884 /* ListingTableViewCell.xib in Resources */,
-				3105DEE32CB3E8A400D1B884 /* SelectAccountTypeCell.xib in Resources */,
-				3105DEE42CB3E8A400D1B884 /* SelectAccountTypeVC.xib in Resources */,
 				3105DEE52CB3E8A400D1B884 /* TradeTypeTableViewCell.xib in Resources */,
 				3105DEE62CB3E8A400D1B884 /* CreateAccountTVCell.xib in Resources */,
 				3105DEE72CB3E8A400D1B884 /* CreateAccountSlideCell.xib in Resources */,
+				31643B8C2D1AED58000054F9 /* SelectAccountTypeCell.xib in Resources */,
 				3105DEE82CB3E8A400D1B884 /* PendingOrderCell.xib in Resources */,
 				3105DEEA2CB3E8A400D1B884 /* AccountTableViewCell.xib in Resources */,
 				3105DEEB2CB3E8A400D1B884 /* withDrawTableViewCell.xib in Resources */,
@@ -2520,6 +2522,7 @@
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				31D2AF2F2C8840B800E0CF2E /* SeriesMarker.swift in Sources */,
 				313A92342D084BB0004AC33D /* UserManager.swift in Sources */,
+				315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */,
 				31D2AEEF2C8840B800E0CF2E /* AreaSeries.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				3102120B2CE4D44A0064F6EF /* incomeExpenseTVCell.swift in Sources */,
@@ -2581,6 +2584,7 @@
 				31D2AF032C8840B800E0CF2E /* JavaScriptMessageProducer.swift in Sources */,
 				31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */,
 				31D2AF212C8840B800E0CF2E /* HandleScaleOptions.swift in Sources */,
+				315EE9392D193C2200EA96DC /* DemoDepositVC.swift in Sources */,
 				3164C5F12C47D0B00055F093 /* MarketsCollectionViewCell.swift in Sources */,
 				31D2AF3C2C8840B800E0CF2E /* PriceFormat.swift in Sources */,
 				FADC582E2D09031200B205A1 /* SearchTableViewCell.swift in Sources */,
@@ -2683,6 +2687,7 @@
 				31D2AF132C8840B800E0CF2E /* LineStyle.swift in Sources */,
 				31B90D132C3FC81700A7A0D2 /* BottomSheetController.swift in Sources */,
 				31D2AF2C2C8840B800E0CF2E /* HistogramSeriesOptions.swift in Sources */,
+				31643B8B2D1AED58000054F9 /* SelectAccountTypeCell.swift in Sources */,
 				31D2AF252C8840B800E0CF2E /* LocalizationOptions.swift in Sources */,
 				31D2AF2B2C8840B800E0CF2E /* CandlestickSeriesOptions.swift in Sources */,
 				31D2AF152C8840B800E0CF2E /* LineWidth.swift in Sources */,
@@ -2705,7 +2710,6 @@
 				3105DEF62CB3E8A400D1B884 /* CreateAccountTypeVC.swift in Sources */,
 				3105DEF72CB3E8A400D1B884 /* ListingTableViewCell.swift in Sources */,
 				3105DEF82CB3E8A400D1B884 /* CreateAccountVC.swift in Sources */,
-				3105DEF92CB3E8A400D1B884 /* SelectAccountTypeCell.swift in Sources */,
 				3105DEFA2CB3E8A400D1B884 /* SelectAccountTypeVC.swift in Sources */,
 				3105DEFB2CB3E8A400D1B884 /* OpenTicketBottomSheetVC.swift in Sources */,
 				3172C9E42D0AC0FB0098BBEC /* TopNewsSection.swift in Sources */,

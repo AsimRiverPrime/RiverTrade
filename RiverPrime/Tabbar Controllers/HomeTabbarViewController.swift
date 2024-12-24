@@ -289,7 +289,6 @@ extension HomeTabbarViewController {
             GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
             GlobalVariable.instance.filteredSymbolsUrl.append(filteredSymbolsUrl)
             
-            //            tickMessage.append(TradeDetails(datetime: 0, symbol: <#T##String#>, ask: <#T##Double#>, bid: <#T##Double#>, url: <#T##String?#>, close: <#T##Int?#>))
         }
         //tickMessage
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()

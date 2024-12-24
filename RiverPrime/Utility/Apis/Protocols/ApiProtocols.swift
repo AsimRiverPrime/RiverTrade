@@ -56,3 +56,12 @@ protocol EconomicCalendarProtocol: AnyObject {
     func economicCalendarFailure(error: Error)
 }
 
+protocol DemoDepositProtocol: AnyObject {
+    func demoDepositSuccess(response: [String: Any])
+    func demoDepositFailure(error: Error)
+}
+
+protocol DemoWithdrawProtocol: AnyObject {
+    func demoWithdrawSuccess(response: [String: Any])
+    func demoWithdrawFailure(error: Error)
+}

@@ -81,34 +81,36 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                         self.lbl_progressPercent.text = "100%"
                         btn_completeProfile.isUserInteractionEnabled = false
                         btn_completeProfile.setTitle("Profile Completed", for: .normal)
-                        self.btn_completeProfile.isHidden = true
+//                        self.btn_completeProfile.isHidden = true
                         lbl_completeProfile.text = "Profile Completed"
                     }else if profileStep == 2 {
                         progreeBar.progress = 0.67
                         self.lbl_progressPercent.text = "67%"
                         btn_completeProfile.isUserInteractionEnabled = true
                         btn_completeProfile.setTitle("", for: .normal)
-                        self.btn_completeProfile.isHidden = false
+//                        self.btn_completeProfile.isHidden = false
                         lbl_completeProfile.text = "Welldone you complete your Profile almost.The last step KYC remaining."
                     }else if profileStep == 1 {
                         progreeBar.progress = 0.33
                         self.lbl_progressPercent.text = "33%"
                         btn_completeProfile.isUserInteractionEnabled = true
                         btn_completeProfile.setTitle("", for: .normal)
-                        self.btn_completeProfile.isHidden = false
+//                        self.btn_completeProfile.isHidden = false
                         lbl_completeProfile.text = "Complete your Profile"
                     }else{
                         progreeBar.progress = 0.0
                         self.lbl_progressPercent.text = "0%"
                         btn_completeProfile.isUserInteractionEnabled = true
                         btn_completeProfile.setTitle("Complete your Profile", for: .normal)
-                        self.btn_completeProfile.isHidden = false
+//                        self.btn_completeProfile.isHidden = false
+                        lbl_completeProfile.text = ""
                     }
                 }else{
                     progreeBar.progress = 0.0
                     self.lbl_progressPercent.text = "0%"
                     btn_completeProfile.isUserInteractionEnabled = true
                     btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+                    lbl_completeProfile.text = ""
                 }
             }
         }

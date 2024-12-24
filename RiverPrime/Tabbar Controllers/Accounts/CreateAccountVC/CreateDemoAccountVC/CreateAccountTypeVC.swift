@@ -38,7 +38,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
 //    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
 //    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
-    
+    var getbalanceApi = TradeTypeCellVM()
     var  group = String()
     var demoAccountGroup = String()
     
@@ -88,7 +88,31 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         selectCurrencyBtn.setTitle(currencyCode, for: .normal)
     }
     
+    func validateInputs() -> Bool {
+        guard !userName.trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.ToastMessage("Please enter your username.")
+            return false
+        }
+        
+        guard !currencyCode.trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.ToastMessage("Please select a currency code.")
+            return false
+        }
+        
+        guard !(self.tf_password.text ?? "").trimmingCharacters(in: .whitespaces).isEmpty else {
+            self.ToastMessage("Please enter your password.")
+            return false
+        }
+        
+        return true
+    }
+    
+    
     @IBAction func submitBtnAction(_ sender: Any) {
+        if !validateInputs() {
+            return
+        }
+        
         print("this is given name: \(userName)")
         print("this is select Currency: \(currencyCode)")
         print("this is given email: \(userEmail)")
@@ -96,7 +120,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
         let Firstname = UserDefaults.standard.string(forKey: "firstName")
         let LastName = UserDefaults.standard.string(forKey: "lastName")
-        print("this is honeNumber:\(phone) firstName:\(Firstname) lastName:\(LastName)")
+        print("this is phoneNumber:\(phone) firstName:\(Firstname) lastName:\(LastName): leravage: \(account!.leverage)")
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
         UserDefaults.standard.set(userName, forKey: "MTUserName")
         
@@ -112,7 +136,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         }
         
 //        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: Int(account!.leverage) ?? 0, first_name: Firstname ?? "", last_name: LastName ?? "", password: (self.tf_password.text ?? ""))
+        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""))
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {
@@ -214,6 +238,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     func updateUserAccount(){
         
         var fieldsToUpdate: [String:Any] = [
+            "KycStatus": "Not Started",
             "name" : self.userName,
             "currency": self.currencyCode,
             "userID" : userId,
@@ -224,41 +249,44 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             "accountNumber" : GlobalVariable.instance.loginID // loginID in response
         ]
         
-        fireStoreInstance.updateUserAccountFields(userID: userId, fields: fieldsToUpdate, completion: { error in
+        print("updating fields are: \(fieldsToUpdate)")
+        fireStoreInstance.updateUserAccountsFields(fields: fieldsToUpdate, completion: { error in
             if let error = error {
                 print("Error updating UserAccounts fields: \(error.localizedDescription)")
                 return
             } else {
                 print("User Accounts fields updated successfully!")
                 GlobalVariable.instance.isAccountCreated = true
+              
+                _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                   
+                    self.getbalanceApi.getBalance(completion: { response in
+                        print("response of get balance: \(response)")
+                        if response == "Invalid Response" {
+                            //                            self.balance = "0.0"
+                            return
+                        }
+                        //                        self.balance = response
+                        GlobalVariable.instance.balanceUpdate = response //self.balance
+                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                    })
+                    
+                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+                }
+                self.dismiss(animated: true)
             }
         })
     
     }
-//    func encryptPassword(_ password: String, using key: SymmetricKey) -> String? {
-//        let passwordData = Data(password.utf8)
-//        
-//        do {
-//            // Encrypt the password
-//            let sealedBox = try AES.GCM.seal(passwordData, using: key)
-//            
-//            // Combine the nonce, ciphertext, and tag into a single Data object
-//            let combinedData = sealedBox.nonce + sealedBox.ciphertext + sealedBox.tag
-//            
-//            // Convert the Data to base64 string for storing in Firestore
-//            return combinedData.base64EncodedString()
-//        } catch {
-//            print("Encryption failed: \(error)")
-//            return nil
-//        }
-//    }
-    
+
 }
 
 
 extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     func createAccountSuccess(response: Any) {
-        print("\n this is create user success response: \(response)")
+        print("\nthis is create user success response: \(response)")
         // get loginId from the response
         updateUserAccount()
         updateUser()

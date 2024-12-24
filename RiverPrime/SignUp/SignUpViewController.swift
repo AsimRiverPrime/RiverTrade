@@ -95,43 +95,9 @@ class SignUpViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         
-        //By clicking "Create Account", you agree to Terms and Service And Privacy policy
-        
-        //        let text = "By clicking Create Account, you agree to Terms and Service And Privacy policy"
-        //         let linkTextWithColor = "Privacy policy"
-        //
-        //        let range = (text as NSString).range(of: linkTextWithColor)
-        //
-        //         let attributedString = NSMutableAttributedString(string:text)
-        //        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.systemYellow , range: range)
-        //
-        //         self.termsCondition_lbl.attributedText = attributedString
-        
-        
-        
-        
-        
-        
-        
-        //        let attributedWithTextColor: NSAttributedString = "By clicking Create Account, you agree to Terms and Service And Privacy policy".attributedStringWithColor(["Terms and Service", "Privacy policy"], color: UIColor.systemYellow)
-        //
-        //        self.termsCondition_lbl.attributedText = attributedWithTextColor
-        
-        
-        
-        
-        
-        
-        
-        // Text with clickable words ("Terms and Service", "Privacy policy")
         let fullText = "By clicking Create Account, you agree to Terms and Service and Privacy policy"
-        
-        // Define clickable words and their associated actions
-        let clickableWords: [String: String] = [
-            "Terms and Service": "action://termsService",
-            "Privacy policy": "action://privacyPolicy"
-        ]
-        
+       
+        let clickableWords = ["Terms and Service", "Privacy policy"]
         // Generate the attributed string with clickable words
         let attributedWithTextColor = fullText.attributedStringWithColor(
             ["Terms and Service", "Privacy policy"],
@@ -149,15 +115,6 @@ class SignUpViewController: BaseViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
         termsCondition_lbl.addGestureRecognizer(tapGesture)
         
-        
-        
-        
-        //        // Add tap gesture recognizer to detect clicks
-        //        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(labelTapped(_:)))
-        //        termsCondition_lbl.addGestureRecognizer(tapGesture)
-        //
-        //        // Add the label to the view
-        ////        self.view.addSubview(termsCondition_lbl)
         
         if GlobalVariable.instance.isIphone() {
             heightConstraint.constant = 35
@@ -287,17 +244,7 @@ class SignUpViewController: BaseViewController {
             self.navigate(to: signInVC)
         }
     }
-    
-//    @IBAction func termsConditionBtn(_ sender: Any) {
-//        self.btn_termsCondition.isSelected = !self.btn_termsCondition.isSelected
-//        self.btn_termsCondition.setImage(!self.btn_termsCondition.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
-//        self.btn_termsCondition.tintColor = self.btn_termsCondition.isSelected ? .systemYellow : .white
-//        if btn_termsCondition.isSelected == true {
-//            enableLoginButton()
-//        }else{
-//            enableLoginButton()
-//        }
-//    }
+  
     
     @IBAction func continueBtn(_ sender: Any) {
         signUp()
@@ -334,17 +281,17 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-    @IBAction func termConditionBtn(_ sender: Any) {
-        if let termConditionVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "TermsConditionsViewController") {
-            self.navigate(to: termConditionVC)
-        }
-        
-    }
-    @IBAction func privacyPolicyBtn(_ sender: Any) {
-        if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController") {
-            self.navigate(to: privcyVC)
-        }
-    }
+//    @IBAction func termConditionBtn(_ sender: Any) {
+//        if let termConditionVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "TermsConditionsViewController") {
+//            self.navigate(to: termConditionVC)
+//        }
+//        
+//    }
+//    @IBAction func privacyPolicyBtn(_ sender: Any) {
+//        if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController") {
+//            self.navigate(to: privcyVC)
+//        }
+//    }
     
     
     private func signUp() {

@@ -21,7 +21,10 @@ class FundsView: UIView {
     @IBOutlet weak var lbl_freeMargin: UILabel!
     @IBOutlet weak var lbl_marginLevel: UILabel!
     @IBOutlet weak var lbl_leverage: UILabel!
-    
+    @IBOutlet weak var lbl_spreadFrom: UILabel!
+    @IBOutlet weak var lbl_commission: UILabel!
+    @IBOutlet weak var lbl_startDeposit: UILabel!
+    @IBOutlet weak var lbl_stepOut: UILabel!
     
     
     public override func awakeFromNib() {

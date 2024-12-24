@@ -342,8 +342,8 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIt-ag-pV0">
-                                                        <rect key="frame" x="24" y="4" width="44" height="12"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="10"/>
+                                                        <rect key="frame" x="24" y="4.3333333333333428" width="44" height="11"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="9"/>
                                                         <color key="textColor" red="0.31372549020000001" green="0.80392156859999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1826,6 +1826,79 @@
             </objects>
             <point key="canvasLocation" x="4139.6946564885493" y="493.66197183098592"/>
         </scene>
+        <!--Demo DepositVC-->
+        <scene sceneID="9nR-iw-gyE">
+            <objects>
+                <viewController storyboardIdentifier="DemoDepositVC" id="OX4-1N-FCg" customClass="DemoDepositVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5fk-x2-une">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tw9-O9-j3q">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Deposit Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xa3-Vu-gEI">
+                                        <rect key="frame" x="25" y="30" width="176.66666666666666" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOz-00-sXs">
+                                        <rect key="frame" x="25" y="62" width="343" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vtk-pF-eq7" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="78.666666666666671" y="121" width="235.66666666666663" height="35"/>
+                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Submit"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="submit_action:" destination="OX4-1N-FCg" eventType="touchUpInside" id="DyV-9U-cZz"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="vOz-00-sXs" firstAttribute="leading" secondItem="tw9-O9-j3q" secondAttribute="leading" constant="25" id="39R-au-I99"/>
+                                    <constraint firstItem="Vtk-pF-eq7" firstAttribute="centerX" secondItem="tw9-O9-j3q" secondAttribute="centerX" id="6Lh-WX-2Hh"/>
+                                    <constraint firstItem="Xa3-Vu-gEI" firstAttribute="leading" secondItem="tw9-O9-j3q" secondAttribute="leading" constant="25" id="Tu3-sf-PDP"/>
+                                    <constraint firstItem="Xa3-Vu-gEI" firstAttribute="top" secondItem="tw9-O9-j3q" secondAttribute="top" constant="30" id="YxK-xf-1rC"/>
+                                    <constraint firstItem="vOz-00-sXs" firstAttribute="top" secondItem="Xa3-Vu-gEI" secondAttribute="bottom" constant="10" id="m7k-Cm-iLP"/>
+                                    <constraint firstItem="Vtk-pF-eq7" firstAttribute="top" secondItem="vOz-00-sXs" secondAttribute="bottom" constant="25" id="pRM-Ba-Qpf"/>
+                                    <constraint firstAttribute="trailing" secondItem="vOz-00-sXs" secondAttribute="trailing" constant="25" id="pih-6O-soW"/>
+                                    <constraint firstItem="Vtk-pF-eq7" firstAttribute="width" secondItem="tw9-O9-j3q" secondAttribute="width" multiplier="0.6" id="yNz-Dm-1hJ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="SKD-at-U9r"/>
+                        <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="tw9-O9-j3q" firstAttribute="leading" secondItem="SKD-at-U9r" secondAttribute="leading" id="F2p-SY-d4y"/>
+                            <constraint firstItem="SKD-at-U9r" firstAttribute="trailing" secondItem="tw9-O9-j3q" secondAttribute="trailing" id="HMB-JR-egh"/>
+                            <constraint firstItem="SKD-at-U9r" firstAttribute="bottom" secondItem="tw9-O9-j3q" secondAttribute="bottom" id="X48-Z2-qEZ"/>
+                            <constraint firstItem="tw9-O9-j3q" firstAttribute="top" secondItem="SKD-at-U9r" secondAttribute="top" id="dUN-PO-e6m"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tf_amount" destination="vOz-00-sXs" id="Hk8-wj-jo0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K94-Ce-MWI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1538.1679389312976" y="1275.3521126760563"/>
+        </scene>
         <!--Deposit View Controller-->
         <scene sceneID="jUi-bZ-kyl">
             <objects>
@@ -1903,6 +1976,7 @@
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="mhd-EL-nIf"/>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="BtI-TX-qAU" secondAttribute="bottom" id="A3w-O3-qu9"/>
@@ -3087,6 +3161,79 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6vA-85-Epw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1384" y="1213"/>
+        </scene>
+        <!--Demo WithdrawalVC-->
+        <scene sceneID="dXt-fb-DUM">
+            <objects>
+                <viewController storyboardIdentifier="DemoWithdrawalVC" id="xrI-Ow-hG1" customClass="DemoWithdrawalVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4W7-bK-Xil">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2e-7m-Ik1">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Withdrawal Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NfT-GM-dic">
+                                        <rect key="frame" x="25" y="30" width="204.33333333333334" height="22"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Amount" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ePS-8E-P1b">
+                                        <rect key="frame" x="25" y="62" width="343" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYA-Qq-vkQ" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="78.666666666666671" y="121" width="235.66666666666663" height="35"/>
+                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Submit"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="submit_withdrawAction:" destination="xrI-Ow-hG1" eventType="touchUpInside" id="P7u-Xx-tUD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ePS-8E-P1b" secondAttribute="trailing" constant="25" id="4Fn-fW-hDl"/>
+                                    <constraint firstItem="NfT-GM-dic" firstAttribute="leading" secondItem="K2e-7m-Ik1" secondAttribute="leading" constant="25" id="8jc-zK-wIO"/>
+                                    <constraint firstItem="ePS-8E-P1b" firstAttribute="leading" secondItem="K2e-7m-Ik1" secondAttribute="leading" constant="25" id="Bb7-bJ-6I2"/>
+                                    <constraint firstItem="fYA-Qq-vkQ" firstAttribute="centerX" secondItem="K2e-7m-Ik1" secondAttribute="centerX" id="KhC-6V-leu"/>
+                                    <constraint firstItem="NfT-GM-dic" firstAttribute="top" secondItem="K2e-7m-Ik1" secondAttribute="top" constant="30" id="SOR-0B-kn7"/>
+                                    <constraint firstItem="fYA-Qq-vkQ" firstAttribute="width" secondItem="K2e-7m-Ik1" secondAttribute="width" multiplier="0.6" id="YA7-WV-xhU"/>
+                                    <constraint firstItem="fYA-Qq-vkQ" firstAttribute="top" secondItem="ePS-8E-P1b" secondAttribute="bottom" constant="25" id="YJx-Et-MX1"/>
+                                    <constraint firstItem="ePS-8E-P1b" firstAttribute="top" secondItem="NfT-GM-dic" secondAttribute="bottom" constant="10" id="mZF-3B-dHz"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="s72-u6-O0Y"/>
+                        <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="K2e-7m-Ik1" firstAttribute="leading" secondItem="s72-u6-O0Y" secondAttribute="leading" id="W2j-b1-AmZ"/>
+                            <constraint firstItem="K2e-7m-Ik1" firstAttribute="top" secondItem="s72-u6-O0Y" secondAttribute="top" id="brf-9n-edM"/>
+                            <constraint firstItem="s72-u6-O0Y" firstAttribute="trailing" secondItem="K2e-7m-Ik1" secondAttribute="trailing" id="iAt-QX-jTQ"/>
+                            <constraint firstItem="s72-u6-O0Y" firstAttribute="bottom" secondItem="K2e-7m-Ik1" secondAttribute="bottom" id="urM-HW-9Pd"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tf_amount" destination="ePS-8E-P1b" id="7U3-AE-ykM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NfF-qU-Cxn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2208" y="1275"/>
         </scene>
     </scenes>
     <resources>

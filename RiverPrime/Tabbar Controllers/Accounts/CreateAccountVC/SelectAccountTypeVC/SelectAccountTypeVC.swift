@@ -9,6 +9,9 @@ import UIKit
 
 struct SelectAccountType {
     var title = String()
+    var name = String()
+    var loginID = String()
+    var balance = String()
     var detail = String()
 }
 
@@ -16,6 +19,8 @@ class SelectAccountTypeVC: BaseViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var btn_createAccount: CardViewButton!
+    @IBOutlet weak var lbl_accountDescription: UILabel!
     
     var selectAccountType = [SelectAccountType]()
     
@@ -43,8 +48,17 @@ class SelectAccountTypeVC: BaseViewController {
     private func setModel() {
         selectAccountType.removeAll()
         
-        selectAccountType.append(SelectAccountType(title: "Demo account", detail: "Risk-free account. Trade with Virtual money."))
-        selectAccountType.append(SelectAccountType(title: "Real account", detail: "Trade with real money and withdraw any profit you make."))
+        selectAccountType.append(SelectAccountType(title: "Demo account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Risk-free account. Trade with Virtual money."))
+        selectAccountType.append(SelectAccountType(title: "Real account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Trade with real money and withdraw any profit you make."))
+        
+        selectAccountType.append(SelectAccountType(title: "Demo account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Risk-free account. Trade with Virtual money."))
+        selectAccountType.append(SelectAccountType(title: "Real account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Trade with real money and withdraw any profit you make."))
+        
+        selectAccountType.append(SelectAccountType(title: "Demo account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Risk-free account. Trade with Virtual money."))
+        selectAccountType.append(SelectAccountType(title: "Real account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Trade with real money and withdraw any profit you make."))
+       
+        selectAccountType.append(SelectAccountType(title: "Demo account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Risk-free account. Trade with Virtual money."))
+        selectAccountType.append(SelectAccountType(title: "Real account", name: "Asim", loginID:"123456", balance: "$10000", detail: "Trade with real money and withdraw any profit you make."))
     }
     
     private func registerCell() {
@@ -52,7 +66,7 @@ class SelectAccountTypeVC: BaseViewController {
         tableView.registerCells([
             SelectAccountTypeCell.self
         ])
-        tableView.isScrollEnabled = false
+//        tableView.isScrollEnabled = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
@@ -77,27 +91,30 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         
         let model = selectAccountType[indexPath.row]
         
-        cell.textLabel?.font = FontController.Fonts.ListInter_SemiBold.font
-        cell.detailTextLabel?.font = FontController.Fonts.ListInter_Regular.font
-      
-        cell.textLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
-        cell.detailTextLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+//        cell.textLabel?.font = FontController.Fonts.ListInter_SemiBold.font
+//        cell.detailTextLabel?.font = FontController.Fonts.ListInter_Regular.font
+//      
+//        cell.textLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+//        cell.detailTextLabel?.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)
+//        
+//        cell.textLabel?.numberOfLines = 0
+//        cell.detailTextLabel?.numberOfLines = 0
         
-        cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.numberOfLines = 0
-        
-        cell.textLabel?.text = model.title
+        cell.lbl_name.text = model.name
+        cell.lbl_group.text = model.title
+        cell.lbl_loginID.text = model.loginID
+        cell.lbl_balance.text = model.balance
         cell.selectionStyle = .none
         
-        if indexPath.row == 0 {//demo account
-            if isAccountExist() {
-                cell.detailTextLabel?.text = " # \(self.loginID)\n"  + "\n\(self.accountType) Account"
-                cell.accessoryType = .none
-            } else {
-                cell.detailTextLabel?.text = model.detail
-                cell.accessoryType = .disclosureIndicator
-            }
-        } else if indexPath.row == 1 {//real account
+//        if indexPath.row == 0 {//demo account
+//            if isAccountExist() {
+//                cell.detailTextLabel?.text = " # \(self.loginID)\n"  + "\n\(self.accountType) Account"
+//                cell.accessoryType = .none
+//            } else {
+//                cell.detailTextLabel?.text = model.detail
+//                cell.accessoryType = .disclosureIndicator
+//            }
+//        } else if indexPath.row == 1 {//real account
 //            if isAccountExist() {
 //                cell.detailTextLabel?.text = self.realAccount + "\t\(self.accountType)"
 //                cell.accessoryType = .none
@@ -105,9 +122,9 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
 //                cell.detailTextLabel?.text = model.detail
 //                cell.accessoryType = .disclosureIndicator
 //            }
-            cell.detailTextLabel?.text = model.detail
-            cell.accessoryType = .disclosureIndicator
-        }
+//            cell.detailTextLabel?.text = model.detail
+//            cell.accessoryType = .disclosureIndicator
+//        }
         
 //        cell.detailTextLabel?.text = model.detail
         
