@@ -53,8 +53,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z4-5z-2fp">
-                                <rect key="frame" x="20" y="63.999999999999993" width="14.333333333333336" height="26.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2z4-5z-2fp">
+                                <rect key="frame" x="20" y="63.999999999999993" width="28.666666666666671" height="26.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="22"/>
                                 <color key="textColor" systemColor="systemYellowColor"/>
                                 <nil key="highlightedColor"/>
@@ -87,22 +87,28 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dcn-3L-Dba">
-                                <rect key="frame" x="358" y="67.333333333333329" width="20" height="20"/>
+                                <rect key="frame" x="348" y="62.333333333333343" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="RwG-sC-HzD"/>
-                                    <constraint firstAttribute="width" constant="20" id="hmS-QI-iKY"/>
+                                    <constraint firstAttribute="height" constant="30" id="RwG-sC-HzD"/>
+                                    <constraint firstAttribute="width" constant="30" id="hmS-QI-iKY"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="notification"/>
+                                <connections>
+                                    <action selector="notificationBtnAction:" destination="Zza-jt-nQm" eventType="touchUpInside" id="LNZ-0S-wuJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kjm-E9-vn2">
-                                <rect key="frame" x="328" y="67.333333333333329" width="20" height="20"/>
+                                <rect key="frame" x="308" y="62.333333333333343" width="30" height="30"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="6us-tg-Mk6"/>
-                                    <constraint firstAttribute="width" constant="20" id="kDF-Wp-fhu"/>
+                                    <constraint firstAttribute="height" constant="30" id="6us-tg-Mk6"/>
+                                    <constraint firstAttribute="width" constant="30" id="kDF-Wp-fhu"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="alarmIcon"/>
+                                <connections>
+                                    <action selector="alaramBtnAction:" destination="Zza-jt-nQm" eventType="touchUpInside" id="rhl-zC-Xw9"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search symbol here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSx-FD-v4b">
                                 <rect key="frame" x="19.666666666666657" y="118" width="353.66666666666674" height="51"/>
@@ -853,8 +859,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdO-PT-RHW">
-                                <rect key="frame" x="24.999999999999996" y="63.999999999999993" width="14.333333333333332" height="26.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdO-PT-RHW">
+                                <rect key="frame" x="25" y="63.999999999999993" width="28.666666666666671" height="26.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="22"/>
                                 <color key="textColor" systemColor="systemYellowColor"/>
                                 <nil key="highlightedColor"/>
@@ -1765,8 +1771,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB9-to-Pbp">
-                                <rect key="frame" x="24.999999999999996" y="63.999999999999993" width="14.333333333333332" height="26.666666666666664"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lB9-to-Pbp">
+                                <rect key="frame" x="25" y="63.999999999999993" width="28.666666666666671" height="26.666666666666664"/>
                                 <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="22"/>
                                 <color key="textColor" systemColor="systemYellowColor"/>
                                 <nil key="highlightedColor"/>

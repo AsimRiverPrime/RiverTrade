@@ -42,15 +42,20 @@ class FundsView: UIView {
                 self.lbl_equity.text = "$\(ammount)"
                 let totalPL = (Double(ammount) ?? 0.0) - (user.balance)
                 let freeMargin = (Double(ammount) ?? 0.0) - (user.margin)
-                let marginLevel = (Double(ammount) ?? 0.0) / (user.margin) * 100
-                
+               
                 self.lbl_leverage.text = "1:\(user.leverage)"
                 self.lbl_totalPL.text = "$"+"\(totalPL)".trimmedTrailingZeros()
                 self.lbl_Margin.text = "$\(user.margin)"
                 self.lbl_freeMargin.text = "$"+"\(freeMargin)".trimmedTrailingZeros()
-                let marginLevelValue = "\(marginLevel)".trimmedTrailingZeros()
-                self.lbl_marginLevel.text = marginLevelValue + "%"
                 
+                
+                if user.margin == 0.0 {
+                    self.lbl_marginLevel.text = "0%"
+                }else{
+                    let marginLevel = (Double(ammount) ?? 0.0) / (user.margin) * 100
+                    let marginLevelValue = "\(marginLevel)".trimmedTrailingZeros()
+                    self.lbl_marginLevel.text = marginLevelValue + "%"
+                }
             }
             
         }

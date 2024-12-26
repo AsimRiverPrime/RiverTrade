@@ -281,6 +281,7 @@
 		31DC19CA2C4F76C0005BC2BB /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19C72C4F76C0005BC2BB /* BenefitsTableViewCell.swift */; };
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
+		31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */; };
 		31F119472D1309A900D6D275 /* TradeSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F119462D1309A900D6D275 /* TradeSessionModel.swift */; };
 		31F29B342C7C9B6500BBB126 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B302C7C9B5D00BBB126 /* SplashVC.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
@@ -645,6 +646,7 @@
 		31DC19C82C4F76C0005BC2BB /* BenefitsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BenefitsTableViewCell.xib; sourceTree = "<group>"; };
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
+		31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidencVC.swift; sourceTree = "<group>"; };
 		31F119462D1309A900D6D275 /* TradeSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSessionModel.swift; sourceTree = "<group>"; };
 		31F29B302C7C9B5D00BBB126 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
@@ -1490,6 +1492,7 @@
 				3169F23C2C5387CE0032272A /* UserModel */,
 				31A5225B2C525AE3001DB906 /* verifyPhoneVC */,
 				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
+				31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -2648,6 +2651,7 @@
 				317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */,
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,
 				31D2AEFB2C8840B800E0CF2E /* PriceScale.swift in Sources */,
+				31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */,
 				31F959FB2CD0E8A100607467 /* ChartTypeVC.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,

@@ -21,7 +21,24 @@ class DetailsViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        //MARK: - START Call balance api
         
+        let getbalanceApi = TradeTypeCellVM()
+        
+        getbalanceApi.getBalance(completion: { response in
+            print("response of get balance: \(response)")
+            if response == "Invalid Response" {
+              
+                return
+            }
+//            self.balance = response
+            GlobalVariable.instance.balanceUpdate = response
+            //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: response])
+                    
+        })
+        
+        //MARK: - END Call balance api
         fundsV()
     }
     

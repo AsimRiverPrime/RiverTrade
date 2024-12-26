@@ -173,6 +173,25 @@ class AccountsViewController: BaseViewController {
     
     func accountData() {
         
+        if let savedUserAccountsData = UserDefaults.standard.dictionary(forKey: "userAccountsData") {
+            print("saved User Accounts Data: \(savedUserAccountsData)")
+            for (_, accountData) in savedUserAccountsData {
+                    if let accountDict = accountData as? [String: Any],
+                       let isDefault = accountDict["isDefault"] as? Int, // Assuming `isDefault` is stored as an Int (1 for true, 0 for false)
+                       let isReal = accountDict["isReal"] as? Int, // Assuming `isReal` is also stored as an Int
+                       let groupName = accountDict["groupName"] as? String {
+                        
+                        if isDefault == 1 {
+                            // Update your labels only for the default account
+                            lbl_account.text = isReal == 1 ? "Real" : "Demo"
+                            lbl_accountType.text = " " + groupName
+                            break // Exit the loop after updating the labels for the default account
+                        }
+                    }
+                }
+        }
+        
+        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
@@ -186,34 +205,33 @@ class AccountsViewController: BaseViewController {
                     userImage.image = UIImage(named: "avatarIcon")
                 }
                 
-                var account_type = String()
-                var account_group = String()
-                
-                if isCreateDemoAccount == true {
-                    account_type = " Demo "
-                    account_group = " \(accountType) "
-                }
-                
-                isRealAcount =  _isRealAccount
-                if _isRealAccount == true {
-                    account_type = " Real "
-                    account_group = " \(accountType) "
-                }
-                
-                
-                if accountType == "Pro Account" {
-                    account_group = " PRO "
-                }else if accountType == "Prime Account" {
-                    account_group = " PRIME "
-                }else if accountType == "Premium Account" {
-                    account_group = " PREMIUM "
-                }else{
-                }
+//                var account_type = String()
+//                var account_group = String()
+//                
+//                if isCreateDemoAccount == true {
+//                    account_type = " Demo "
+//                    account_group = " \(accountType) "
+//                }
+//                
+//                isRealAcount =  _isRealAccount
+//                if _isRealAccount == true {
+//                    account_type = " Real "
+//                    account_group = " \(accountType) "
+//                }
+//                
+//                
+//                if accountType == "Pro Account" {
+//                    account_group = " PRO "
+//                }else if accountType == "Prime Account" {
+//                    account_group = " PRIME "
+//                }else if accountType == "Premium Account" {
+//                    account_group = " PREMIUM "
+//                }else{
+//                }
                 lbl_name.text = _name
                 lbl_userNameCreateNew.text = _name
                 
-                lbl_account.text = account_type
-                lbl_accountType.text = account_group
+               
                 
             }
         }
@@ -321,6 +339,7 @@ class AccountsViewController: BaseViewController {
     }
     
     @IBAction func detailAction(_ sender: Any) {
+        
         let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
@@ -354,11 +373,12 @@ extension AccountsViewController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount in Home screen: \(ammount)")
+            print("Received ammount: \(ammount)")
             self.labelAmmount.text = "$\(ammount)"
             
             let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
             self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
+            accountData()
         }
         
     }
@@ -416,6 +436,32 @@ extension AccountsViewController {
                             }
                         }
                     }
+                    
+                    
+                    
+                    //MARK: - START Call balance api
+                    
+                    let getbalanceApi = TradeTypeCellVM()
+                    
+                    getbalanceApi.getBalance(completion: { response in
+                        print("response of get balance: \(response)")
+                        if response == "Invalid Response" {
+                            self.balance = "0.0"
+                            return
+                        }
+                        self.balance = response
+                        GlobalVariable.instance.balanceUpdate = self.balance
+                        //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                        
+                    })
+                    
+                    //MARK: - END Call balance api
+                    
+                    
+                    
                 }
             }else if receivedString == "Pending" {
                 DispatchQueue.global(qos: .background).async { [weak self] in
@@ -616,7 +662,23 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: EmptyCell.self, for: indexPath)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
-            cell.emptyLabelMessage.text = "No Position Data Found."
+//            cell.emptyLabelMessage.text = "No Position Data Found."
+//            cell.lbl_secondMessage.text = ""
+            
+            switch opcList {
+            case .open(let open):
+                cell.emptyLabelMessage.text = "Open Data Not Found."
+                cell.lbl_secondMessage.text = "Message type here"
+            case .pending(let pending):
+                cell.emptyLabelMessage.text = "Pending Data Not Found."
+                cell.lbl_secondMessage.text = "Message type here"
+            case .close(let close):
+                cell.emptyLabelMessage.text = "Close Data Not Found."
+                cell.lbl_secondMessage.text = "Message type here"
+            case .none:
+                cell.emptyLabelMessage.text = "No Data Found."
+                cell.lbl_secondMessage.text = ""
+            }
             
             return cell
         }
@@ -631,7 +693,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         }else if indexPath.section == 1{
             return 85.0
         } else {
-            return 85.0
+            return 185.0
         }
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -713,31 +775,31 @@ extension AccountsViewController: AccountInfoDelegate {
     
 }
 
-extension AccountsViewController: CreateAccountInfoDelegate {
-    
-    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo) {
-        print("delegte called  \(createAccountInfo)" )
-        
-        switch createAccountInfo {
-        case .createNew:
-            print("Create new")
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-            
-            break
-        case .unarchive:
-            print("Unarchive")
-            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-            break
-        case .notification:
-            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        }
-    }
-    
-}
+//extension AccountsViewController: CreateAccountInfoDelegate {
+//    
+//    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo) {
+//        print("delegte called  \(createAccountInfo)" )
+//        
+//        switch createAccountInfo {
+//        case .createNew:
+//            print("Create new")
+//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+//            
+//            break
+//        case .unarchive:
+//            print("Unarchive")
+//            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+//            break
+//        case .notification:
+//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        }
+//    }
+//    
+//}
 
 extension AccountsViewController: OPCDelegate {
     func getOPCData(opcType: OPCType) {
@@ -1294,9 +1356,9 @@ extension AccountsViewController {
 //extension AccountsViewController: AccountInfoTapDelegate {
 //    func accountInfoTap(_ accountInfo: AccountInfo) {
 //        print("delegte called  \(accountInfo)" )
-//        
+//
 //        switch accountInfo {
-//            
+//
 //        case .deposit:
 //            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
 //            // vc.delegateCompeleteProfile = self

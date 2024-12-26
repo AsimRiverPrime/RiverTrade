@@ -18,6 +18,7 @@ class FirestoreServices: BaseViewController {
     let db = Firestore.firestore()
    
     var odoClientNew = OdooClientNew()
+    var accounts: [AccountModel] = []
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
         let userRef = db.collection("users").document(user.uid)
@@ -242,7 +243,42 @@ class FirestoreServices: BaseViewController {
 //            }
 //        }
 //    }
-    
+    func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
+        db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching documents: \(error.localizedDescription)")
+                completion([])
+                return
+            }
+
+            for document in querySnapshot!.documents {
+                let data = document.data()
+                if let account = try? AccountModel(
+                    id: document.documentID,
+                    tradingInstruments: data["tradingInstruments"] as? String ?? "",
+                    spreadsFrom: data["spreadsFrom"] as? String ?? "",
+                    startingDeposit: data["startingDeposit"] as? Int ?? 0,
+                    order: data["order"] as? Int ?? 0,
+                    accountCurrency: data["accountCurrency"] as? String ?? "",
+                    EA: data["EA"] as? Int ?? 0,
+                    minimumOrderSize: data["minimumOrderSize"] as? Double ?? 0.0,
+                    islamicAccounts: data["islamicAccounts"] as? Int ?? 0,
+                    name: data["name"] as? String ?? "",
+                    platform: data["platform"] as? String ?? "",
+                    stopOutLevel: data["stopOutLevel"] as? String ?? "",
+                    orderExecution: data["orderExecution"] as? String ?? "",
+                    commission: data["commission"] as? Int ?? 0,
+                    recommended: data["recommended"] as? Int ?? 0,
+                    hedging: data["hedging"] as? Int ?? 0,
+                    leverage: data["leverage"] as? String ?? ""
+                ) {
+                    self.accounts.append(account)
+                }
+            }
+            print("accountGroup data:\(self.accounts)")
+            completion(self.accounts)
+        }
+    }
     
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {

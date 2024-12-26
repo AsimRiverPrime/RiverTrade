@@ -78,6 +78,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                   
                   // Access the flag and country code
                   if let currentCountry = country {
+                      CountryManager.shared.selectedCountry = currentCountry
                       print("Country Flag: \(currentCountry.flag)")
                       print("Country Code: \(currentCountry.code)")
                       print("Country Phone Code: \(currentCountry.phoneCode)")
@@ -150,13 +151,13 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         self.navigate(to: verifyVC)
     }
     private func navigateToDashboardScreen() {
-//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-//        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-//        self.navigate(to: dashboardVC)
-        
         let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
+        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "ResidencVC") as! ResidencVC
         self.navigate(to: dashboardVC)
+        
+//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
+//        self.navigate(to: dashboardVC)
     }
     
 }
@@ -216,4 +217,11 @@ extension PhoneVerifyVC: CountryPickerViewDelegate, UITextFieldDelegate {
         }
     }
     
+}
+
+class CountryManager {
+    static let shared = CountryManager()
+    var selectedCountry: Country?
+
+    private init() {} // Prevent initialization from outside
 }

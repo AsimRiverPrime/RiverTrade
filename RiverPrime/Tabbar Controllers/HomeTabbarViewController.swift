@@ -18,6 +18,7 @@ class HomeTabbarViewController: UITabBarController {
     var vm = TradeTypeCellVM()
     
     public weak var delegateSocketMessage: GetSocketMessages?
+    public weak var delegateSocketNotSendData: SocketNotSendDataDelegate?
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -317,6 +318,7 @@ extension HomeTabbarViewController {
                         GlobalVariable.instance.openList = positions
                         
                         GlobalVariable.instance.getSymbolData.removeAll()
+                        
                         for item in positions {
                             
                             let getSymbol = self.getSymbol(item: item.symbol)
@@ -336,6 +338,7 @@ extension HomeTabbarViewController {
                     self.webSocketManager.connectWebSocket()
                     self.webSocketManager.delegateSocketData = self
                     self.webSocketManager.delegateSocketConnectionInit = self
+                    self.webSocketManager.delegateSocketNotSendData = self
                     
 //                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
 //                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
@@ -343,6 +346,16 @@ extension HomeTabbarViewController {
             }
         }
     }
+    
+}
+
+extension HomeTabbarViewController: SocketNotSendDataDelegate {
+    func socketNotSendData() {
+        
+        delegateSocketNotSendData?.socketNotSendData()
+        
+    }
+    
     
 }
 
@@ -464,4 +477,5 @@ extension HomeTabbarViewController: GetSocketData {
         
     }
 }
+
 

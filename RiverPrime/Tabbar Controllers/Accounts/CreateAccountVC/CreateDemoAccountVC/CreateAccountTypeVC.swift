@@ -293,7 +293,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             }
         }
     }
-
+ // MARK: - New work flow
     func updateUserAccount(){
         
         var fieldsToUpdate: [String:Any] = [
@@ -344,6 +344,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                     self.dismiss(animated: true)
                 }else{
                     self.dismiss(animated: true)
+                    
                 }
             }
         })

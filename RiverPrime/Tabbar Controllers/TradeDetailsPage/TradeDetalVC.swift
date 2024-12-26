@@ -34,9 +34,7 @@ class TradeDetalVC: UIViewController {
     var barSeries: BarSeries!
     var areaSeries: AreaSeries!
     
-    @IBOutlet weak var lbl_sellBtn: UILabel!
     //    @IBOutlet weak var lbl_login_id: UILabel!
-    @IBOutlet weak var lbl_BuyBtn: UILabel!
     @IBOutlet weak var lbl_LiveAmount: UILabel!
     @IBOutlet weak var lbl_percentage: UILabel!
     @IBOutlet weak var lbl_SymbolLive: UILabel!
@@ -50,6 +48,16 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var btn_ChartType: UIButton!
     
     @IBOutlet var btn_time: [UIButton]!
+    
+    
+    
+    @IBOutlet weak var sellBtn: UIButton!
+    @IBOutlet weak var sellLblTitle: UILabel!
+    @IBOutlet weak var lbl_sellBtn: UILabel!
+    
+    @IBOutlet weak var buyBtn: UIButton!
+    @IBOutlet weak var buyLblTitle: UILabel!
+    @IBOutlet weak var lbl_BuyBtn: UILabel!
     
     
     var getSymbolData = SymbolCompleteList()
@@ -77,7 +85,30 @@ class TradeDetalVC: UIViewController {
         self.overviewView.isHidden = true
         
         if DateHelper.getCurrentWeekDay() == "Saturday" || DateHelper.getCurrentWeekDay() == "Sunday" {
-            self.SellBuyView.isHidden = true
+//            self.SellBuyView.isHidden = true
+            
+            self.sellBtn.isEnabled = false
+            self.sellLblTitle.isEnabled = false
+            self.lbl_sellBtn.isEnabled = false
+            self.lbl_sellBtn.isHidden = true
+            
+            self.buyBtn.isEnabled = false
+            self.buyLblTitle.isEnabled = false
+            self.lbl_BuyBtn.isEnabled = false
+            self.lbl_BuyBtn.isHidden = true
+            
+        } else {
+            
+            self.sellBtn.isEnabled = true
+            self.sellLblTitle.isEnabled = true
+            self.lbl_sellBtn.isEnabled = true
+            self.lbl_sellBtn.isHidden = false
+            
+            self.buyBtn.isEnabled = true
+            self.buyLblTitle.isEnabled = true
+            self.lbl_BuyBtn.isEnabled = true
+            self.lbl_BuyBtn.isHidden = false
+            
         }
         
         OdooClientObject.tradeSessionDelegate = self
@@ -237,7 +268,7 @@ class TradeDetalVC: UIViewController {
             self.view_timeFrame.isHidden = false
             self.view_liveValue.isHidden = false
             
-            self.chartView.isHidden = false
+            self.chartView.isHidden = true //false
             self.overviewView.isHidden = true
             
             //MARK: - Add new content from here.

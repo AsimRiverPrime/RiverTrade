@@ -33,6 +33,10 @@ protocol SocketConnectionInitDelegate: AnyObject {
     func SocketConnectionInit()
 }
 
+protocol SocketNotSendDataDelegate: AnyObject {
+    func socketNotSendData()
+}
+
 class WebSocketManager: WebSocketDelegate {
 
     var webSocket: WebSocket?
@@ -46,6 +50,7 @@ class WebSocketManager: WebSocketDelegate {
     public weak var delegateCandleSocketMessage: GetCandleData?
     public weak var delegateSocketPeerClosed: SocketPeerClosed?
     public weak var delegateSocketConnectionInit: SocketConnectionInitDelegate?
+    public weak var delegateSocketNotSendData: SocketNotSendDataDelegate?
     
     var isTradeDismiss = Bool()
 
@@ -94,6 +99,8 @@ class WebSocketManager: WebSocketDelegate {
         sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
         //MARK: - START calling Socket message from here.
         sendWebSocketMessage(for: "subscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList)
+        
+//        delegateSocketNotSendData?.socketNotSendData(isCalled: <#T##Bool#>)
     }
 
     // Check if the socket is connected
@@ -193,7 +200,10 @@ class WebSocketManager: WebSocketDelegate {
             print("WebSocket is connected: \(headers)")
             GlobalVariable.instance.isConnected = true // Update connection state
 
-            self.delegateSocketConnectionInit?.SocketConnectionInit()
+            //MARK: - This Check is handle for Offline data.
+            if !GlobalVariable.instance.socketNotSendData {
+                self.delegateSocketConnectionInit?.SocketConnectionInit()
+            }
             
             NotificationCenter.default.post(name: .checkSocketConnectivity, object: nil, userInfo: ["isConnect": "true"])
            
@@ -234,6 +244,12 @@ class WebSocketManager: WebSocketDelegate {
 
         default:
             print("WebSocket received an unhandled event: \(event)")
+            //MARK: - This Check is handle for Offline data.
+            if !GlobalVariable.instance.socketNotSendData {
+//                GlobalVariable.instance.socketNotSendData = true
+                delegateSocketNotSendData?.socketNotSendData()
+            }
+//            delegateSocketNotSendData?.socketNotSendData()
         }
     }
     
@@ -397,4 +413,5 @@ class WebSocketManager: WebSocketDelegate {
     }
 
 }
+
 

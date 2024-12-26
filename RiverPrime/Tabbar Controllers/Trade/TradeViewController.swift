@@ -25,6 +25,7 @@ protocol TradeDetailTapDelegate: AnyObject {
 
 struct SymbolCompleteList {
     var tickMessage: TradeDetails?
+    var yesterday_close: String?
     var trading_sessions_ids: [Int]?
     var historyMessage: SymbolChartData?
     var icon_url: String?
@@ -149,6 +150,7 @@ class TradeViewController: UIViewController {
         
         if let tabBarController = self.tabBarController as? HomeTabbarViewController {
             tabBarController.delegateSocketMessage = self
+            tabBarController.delegateSocketNotSendData = self
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationTradeApiUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.TradeApiUpdateConstant.key), object: nil)
@@ -161,6 +163,13 @@ class TradeViewController: UIViewController {
         
         callCollectionViewAtStart()
         
+    }
+    @IBAction func alaramBtnAction(_ sender: Any) {
+        Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
+    }
+    
+    @IBAction func notificationBtnAction(_ sender: Any) {
+        Alert.showAlert(withMessage: "Notification Screen available soon", andTitle: "Notification", on: self)
     }
     
     @IBAction func searchCloseButton(_ sender: UIButton) {
@@ -222,20 +231,24 @@ class TradeViewController: UIViewController {
                 //MARK: - if Symbol Api data is exist then we must set our list data.
                 if GlobalVariable.instance.symbolDataArray.count != 0 {
                     
-                    GlobalVariable.instance.symbolDataUpdatedList = GlobalVariable.instance.symbolDataArray
-                    
-                    symbolDataSector = GlobalVariable.instance.sectors
-                    
-                    //MARK: - Get the list and save localy and set sectors and symbols.
-                    processSymbols(GlobalVariable.instance.symbolDataArray)
-                    
-                    //MARK: - Reload tablview when all data set into the list at first time.
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.tblView.delegate = self
-                        self.tblView.dataSource = self
-                        self.tblView.reloadData()
+                    //MARK: - This Check is handle for Offline data.
+                    if !GlobalVariable.instance.socketNotSendData {
+                        
+                        GlobalVariable.instance.symbolDataUpdatedList = GlobalVariable.instance.symbolDataArray
+                        
+                        symbolDataSector = GlobalVariable.instance.sectors
+                        
+                        //MARK: - Get the list and save localy and set sectors and symbols.
+                        processSymbols(GlobalVariable.instance.symbolDataArray)
+                        
+                        //MARK: - Reload tablview when all data set into the list at first time.
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.tblView.delegate = self
+                            self.tblView.dataSource = self
+                            self.tblView.reloadData()
+                        }
+                        
                     }
-                    
                     
                 }
                 
@@ -680,6 +693,84 @@ extension TradeViewController {
     
 }
 
+//MARK: - This Func is handle for Offline data.
+extension TradeViewController: SocketNotSendDataDelegate {
+    
+    func socketNotSendData() {
+        
+        getSymbolData.removeAll()
+        
+        self.focusedSymbols.removeAll()
+        let filterfavoriteSymbols = GlobalVariable.instance.symbolDataArray.filter { $0.is_mobile_favorite }
+        
+        self.focusedSymbols = filterfavoriteSymbols.map { $0.name }
+        
+        // Combined filtered data and names
+        var filteredSymbolsData: (data: [SymbolData], names: [String]) {
+            //            let filtered = GlobalVariable.instance.symbolDataArray.filter { focusedSymbols.contains($0.name) }
+            let filtered = GlobalVariable.instance.symbolDataUpdatedList.filter { focusedSymbols.contains($0.name) }
+            let names = filtered.map { $0.name }
+            return (data: filtered, names: names)
+        }
+        
+        for item in filteredSymbolsData.data {
+            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
+            let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
+            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
+        }
+        
+        GlobalVariable.instance.isProcessingSymbol = false
+        
+        //MARK: - Save symbol local to unsubcibe.
+        GlobalVariable.instance.previouseSymbolList = filteredSymbolsData.names
+        
+        //MARK: - Merge OPEN list with the given list.
+        let getList = Array(Set(GlobalVariable.instance.openSymbolList + filteredSymbolsData.names))
+        
+        //MARK: - START calling Socket message from here.
+        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
+        
+        timer?.invalidate()
+        timer = nil
+        GlobalVariable.instance.isProcessingSymbolTimer = false
+        start60SecondsCountdown()
+        
+        
+        
+        
+        
+        if getSymbolData.count == 0 {
+            return
+        }
+        
+        for i in 0...getSymbolData.count-1 {
+            
+            //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+            let indexPath = IndexPath(row: i, section: 0)
+            if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                getSymbolData[i].isTickFlag = true
+                
+                getSymbolData[i].isHistoryFlag = true
+                fetchHistoryChartData(getSymbolData[i].tickMessage?.symbol ?? "")
+                
+                print("getSymbolData[\(i)].yesterday_close = \(getSymbolData[i].yesterday_close ?? "0.0")")
+                cell.setStyledLabel(value: Double(getSymbolData[i].yesterday_close ?? "0.0") ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
+                cell.setStyledLabel(value: Double(getSymbolData[i].yesterday_close ?? "0.0") ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
+              
+                    //MARK: - User Interface enabled, when tick flag is true.
+                    cell.isUserInteractionEnabled = true
+                    cell.contentView.alpha = 1.0
+                
+                GlobalVariable.instance.socketNotSendData = true
+                    
+                }
+            
+        }
+        
+    }
+    
+}
+
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
 extension TradeViewController: GetSocketMessages {
     
@@ -875,41 +966,13 @@ extension TradeViewController: GetSocketMessages {
     extension TradeViewController: TradeInfoTapDelegate {
         
         func tradeInfoTap(_ tradeInfo: SectorGroup, index: Int) {
-            
-            //        //MARK: - When click on sector to change the values then it should unsubcribe first and then update new selected sector.
-            //
-            //        print("tradeInfo = \(tradeInfo)")
-            //
-            //        GlobalVariable.instance.getSectorIndex = index
-            //
-            //        //MARK: - START calling Socket message from here.
-            //        vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList)
-            //
-            //        //MARK: - Remove symbol local after unsubcibe.
-            //        GlobalVariable.instance.previouseSymbolList.removeAll()
-            //
-            //        if vm.webSocketManager.isSocketConnected() {
-            //            print("Socket is connected")
-            //        } else {
-            //            print("Socket is not connected")
-            //        }
+          
         }
     }
     
     //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
     extension TradeViewController {
-        //    func filterSymbolsBySector(symbols: [SymbolData], sector: String) -> [String] {
-        //        return symbols.filter { $0.sector == sector }.map { $0.displayName }
-        //    }
-        //
-        //    func filterSector(symbols: [SymbolData], sector: String) -> [SymbolData] {
-        //        return symbols.filter { $0.sector == sector }.map { $0 }
-        //    }
-        //
-        //    func filterSymbolsImageBySector(symbols: [SymbolData], sector: String) -> [String] {
-        //        return symbols.filter { $0.sector == sector }.map { $0.icon_url }
-        //    }
-        //
+       
         private func processSymbols(_ symbols: [SymbolData]) {
             var sectorDict = [String: [SymbolData]]()
             
@@ -941,129 +1004,21 @@ extension TradeViewController: GetSocketMessages {
                 UserDefaults.standard.set(encoded, forKey: savedSymbolsKey)
             }
         }
-        //
-        //    func getSavedSymbols() -> [SymbolData]? {
-        //        let savedSymbolsKey = "savedSymbolsKey"
-        //        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
-        //            let decoder = JSONDecoder()
-        //            return try? decoder.decode([SymbolData].self, from: savedSymbols)
-        //        }
-        //        return nil
-        //    }
-        //
+       
     }
     
     //MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
     extension TradeViewController {
-        
-        //    //MARK: - Update all list when selector will change, and update tick socket message according to the selected sector.
-        //    private func setTradeModel(collectionViewIndex: Int) {
-        //
-        //        GlobalVariable.instance.tradeCollectionViewIndex.0 = collectionViewIndex
-        //
-        //        let symbols = GlobalVariable.instance.symbolDataArray
-        //        let sectors = GlobalVariable.instance.sectors
-        //
-        //        // Clear previous data
-        //        //        vm.trades.removeAll()
-        //        GlobalVariable.instance.filteredSymbols.removeAll()
-        //        GlobalVariable.instance.filteredSymbolsUrl.removeAll()
-        //
-        //        // Populate filteredSymbols and filteredSymbolsUrl for each sector
-        //        for sector in sectors {
-        //            let filteredSymbols = filterSymbolsBySector(symbols: symbols, sector: sector.sector)
-        //            let filteredSymbolsUrl = filterSymbolsImageBySector(symbols: symbols, sector: sector.sector)
-        //
-        //            GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
-        //            GlobalVariable.instance.filteredSymbolsUrl.append(filteredSymbolsUrl)
-        //        }
-        //
-        //        // Append trades for the selected collectionViewIndex
-        //        let selectedSymbols = GlobalVariable.instance.filteredSymbols[safe: collectionViewIndex] ?? []
-        //        let selectedUrls = GlobalVariable.instance.filteredSymbolsUrl[safe: collectionViewIndex] ?? []
-        //
-        //        GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
-        //        getSymbolData.removeAll()
-        //        var count = 0
-        //        for (symbol, url) in zip(selectedSymbols, selectedUrls) {
-        //            count += 1
-        //            GlobalVariable.instance.tradeCollectionViewIndex.1.append(count)
-        //            let tradedetail = TradeDetails(datetime: 0, symbol: symbol, ask: 0.0, bid: 0.0, url: url, close: nil)
-        //            let symbolChartData = SymbolChartData(symbol: symbol, chartData: [])
-        //            //            vm.trades.append(tradedetail)
-        //            //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData))
-        //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
-        //        }
-        //
-        //      //  print("GlobalVariable.instance.filteredSymbolsUrl = \(GlobalVariable.instance.filteredSymbolsUrl)")
-        //
-        //        GlobalVariable.instance.isProcessingSymbol = false
-        //
-        //        refreshSection(at: 0)
-        //
-        //        //MARK: - Save symbol local to unsubcibe.
-        //        GlobalVariable.instance.previouseSymbolList = selectedSymbols
-        //
-        //        //MARK: - Merge OPEN list with the given list.
-        //        let getList = Array(Set(GlobalVariable.instance.openSymbolList + selectedSymbols)) //GlobalVariable.instance.openSymbolList + selectedSymbols
-        //
-        //        //MARK: - START calling Socket message from here.
-        //        vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
-        //
-        //        timer?.invalidate()
-        //        timer = nil
-        //        GlobalVariable.instance.isProcessingSymbolTimer = false
-        //        start60SecondsCountdown()
-        //
-        //    }
-        //
+       
         private func setTradeModel() {
             
-            /*
-             
-             //        GlobalVariable.instance.tradeCollectionViewIndex.0 = collectionViewIndex
-             
-             let symbols = GlobalVariable.instance.symbolDataArray
-             let sectors = GlobalVariable.instance.sectors
-             
-             // Clear previous data
-             //        vm.trades.removeAll()
-             GlobalVariable.instance.filteredSymbols.removeAll()
-             GlobalVariable.instance.filteredSymbolsUrl.removeAll()
-             
-             // Populate filteredSymbols and filteredSymbolsUrl for each sector
-             for sector in sectors {
-             let filteredSymbols = filterSymbolsBySector(symbols: symbols, sector: sector.sector)
-             let filteredSymbolsUrl = filterSymbolsImageBySector(symbols: symbols, sector: sector.sector)
-             
-             GlobalVariable.instance.filteredSymbols.append(filteredSymbols)
-             GlobalVariable.instance.filteredSymbolsUrl.append(filteredSymbolsUrl)
-             }
-             
-             GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
-             getSymbolData.removeAll()
-             
-             //        // Filtered array based on the focusedSymbols
-             //        var filteredSymbolDataArray: [SymbolData] {
-             //            return GlobalVariable.instance.symbolDataArray.filter { focusedSymbols.contains($0.name) }
-             //        }
-             //
-             //        // Filtered names based on focusedSymbols
-             //        var filteredSymbolNames: [String] {
-             //            return GlobalVariable.instance.symbolDataArray
-             //                .filter { focusedSymbols.contains($0.name) }  // Filter based on names
-             //                .map { $0.name }  // Map to just the names
-             //        }
-             //
-             //        for item in filteredSymbolDataArray {
-             //            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
-             //            let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-             //            getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
-             //        }
-             
-             */
             
             getSymbolData.removeAll()
+            
+            self.focusedSymbols.removeAll()
+            let filterfavoriteSymbols = GlobalVariable.instance.symbolDataArray.filter { $0.is_mobile_favorite }
+            
+            self.focusedSymbols = filterfavoriteSymbols.map { $0.name }
             
             // Combined filtered data and names
             var filteredSymbolsData: (data: [SymbolData], names: [String]) {
@@ -1076,7 +1031,7 @@ extension TradeViewController: GetSocketMessages {
             for item in filteredSymbolsData.data {
                 let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
                 let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
+                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
             }
             
             GlobalVariable.instance.isProcessingSymbol = false
@@ -1184,25 +1139,6 @@ extension TradeViewController: GetSocketMessages {
                 symbolDataSectorSelected = false
             } else {
                 
-                //            // Check if a sector is selected (this depends on how your sector is selected, assuming it's saved in `selectedSectorGroup`)
-                //            if let selectedSector = selectedSectorGroup {
-                //                // If a sector is selected, filter only the symbols in that sector by name
-                //                filteredData = [SectorGroup(sector: selectedSector.sector, symbols: selectedSector.symbols.filter {
-                //                    $0.name.lowercased().contains(searchText)
-                //                })]
-                //            } else {
-                //                // If no sector is selected, filter symbols across all sectors
-                //                let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
-                //                    sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
-                //                }
-                //
-                //                // Regroup filtered symbols into their respective sectors
-                //                filteredData = symbolDataSector.compactMap { sectorGroup in
-                //                    let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
-                //                    return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
-                //                }
-                //            }
-                
                 // If no sector is selected, filter symbols across all sectors
                 let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
                     sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
@@ -1231,3 +1167,4 @@ extension TradeViewController: GetSocketMessages {
         
     }
     
+

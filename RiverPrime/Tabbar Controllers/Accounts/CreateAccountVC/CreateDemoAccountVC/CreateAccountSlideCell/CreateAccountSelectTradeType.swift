@@ -31,11 +31,11 @@ class CreateAccountSelectTradeType: BottomSheetController {
 //    var getSelectedAccountType = GetSelectedAccountType()
     let db = Firestore.firestore()
     var accounts: [AccountModel] = []
-    
+    var firebaseObj = FirestoreServices()
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        mainTitle.text = "PRO" //"Standard Account"
+//        mainTitle.text = "PRO" //"Standard Account"
         setSwapGesture()
         counter = 0
         pageControl.currentPage = counter
@@ -121,7 +121,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
 
     
     func fetchAccountsAndSetupPageControl() {
-        fetchAccounts { [weak self] fetchedAccounts in
+        firebaseObj.fetchAccountsGroup { [weak self] fetchedAccounts in
             guard let self = self else { return }
             self.accounts = fetchedAccounts
 
@@ -135,42 +135,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         }
     }
 
-    func fetchAccounts(completion: @escaping ([AccountModel]) -> Void) {
-        db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching documents: \(error.localizedDescription)")
-                completion([])
-                return
-            }
-
-            for document in querySnapshot!.documents {
-                let data = document.data()
-                if let account = try? AccountModel(
-                    id: document.documentID,
-                    tradingInstruments: data["tradingInstruments"] as? String ?? "",
-                    spreadsFrom: data["spreadsFrom"] as? String ?? "",
-                    startingDeposit: data["startingDeposit"] as? Int ?? 0,
-                    order: data["order"] as? Int ?? 0,
-                    accountCurrency: data["accountCurrency"] as? String ?? "",
-                    EA: data["EA"] as? Int ?? 0,
-                    minimumOrderSize: data["minimumOrderSize"] as? Double ?? 0.0,
-                    islamicAccounts: data["islamicAccounts"] as? Int ?? 0,
-                    name: data["name"] as? String ?? "",
-                    platform: data["platform"] as? String ?? "",
-                    stopOutLevel: data["stopOutLevel"] as? String ?? "",
-                    orderExecution: data["orderExecution"] as? String ?? "",
-                    commission: data["commission"] as? Int ?? 0,
-                    recommended: data["recommended"] as? Int ?? 0,
-                    hedging: data["hedging"] as? Int ?? 0,
-                    leverage: data["leverage"] as? String ?? ""
-                ) {
-                    self.accounts.append(account)
-                }
-            }
-            print("accountGroup data:\(self.accounts)")
-            completion(self.accounts)
-        }
-    }
+  
     private func getIndexValues(counter: Int, accounts: [AccountModel]) {
         guard counter >= 0 && counter < accounts.count else { return }
 
