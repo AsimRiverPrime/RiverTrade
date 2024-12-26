@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 import Firebase
 import CryptoKit
 import CommonCrypto
@@ -22,6 +23,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     var userName:String = ""
     var currencyCode: String = ""
     var userEmail : String = ""
+    var isReal = Bool()
     
     @IBOutlet weak var tf_password: UITextField!
     
@@ -107,6 +109,53 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         return true
     }
     
+
+    func canCreateNewAccount(for userID: String) -> Bool {
+        // Retrieve the saved data from UserDefaults
+        guard let accountsData = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
+            print("No accounts found in UserDefaults.")
+            return true
+        }
+        
+        // Filter accounts for the given userID
+        let userAccounts = accountsData.values.filter { account in
+            account["userID"] as? String == userID
+        }
+        
+        // Define required groups
+        let requiredGroups: Set<String> = ["PREMIUM", "PRO", "PRIME"]
+        
+        // Check if the user already has accounts with `isReal = 1` in all required groups
+        let realAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 1 }
+        let realGroupNames = realAccounts.compactMap { $0["groupName"] as? String }
+        let realGroupsSet = Set(realGroupNames)
+        if requiredGroups.isSubset(of: realGroupsSet) {
+            showAlert(message: "You already have Real accounts with PREMIUM, PRO, and PRIME Types.")
+            return false
+        }
+        
+        // Check if the user already has accounts with `isReal = 0` in all required groups
+        let demoAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 0 }
+        let demoGroupNames = demoAccounts.compactMap { $0["groupName"] as? String }
+        let demoGroupsSet = Set(demoGroupNames)
+        if requiredGroups.isSubset(of: demoGroupsSet) {
+            showAlert(message: "You already have Demo accounts in PREMIUM, PRO, and PRIME Types.")
+            return false
+        }
+        
+        return true
+    }
+
+    func showAlert(message: String) {
+        print("Alert: \(message)") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
+//        Alert.showAlert(withMessage: message, andTitle: "Warraning!", on: UIViewController?.none)
+        
+        let alert = UIAlertController(title: "Warraning!", message: message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (_) in
+             }))
+        self.present(alert, animated: true, completion: nil)
+    }
+
     
     @IBAction func submitBtnAction(_ sender: Any) {
         if !validateInputs() {
@@ -135,8 +184,20 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             demoAccountGroup = "PREMIUM"
         }
         
-//        odooClientService.createAccount(isDemo: true, group: self.lbl_accountTitle.text ?? "" , email: userEmail, currency: currencyCode, name: userName, password: (self.tf_password.text ?? ""))
-        odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""))
+        if canCreateNewAccount(for: userId) {
+              // Allowed to create a new account
+            if isReal {
+                odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
+            }else{
+                odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
+            }
+              print("Account created successfully!")
+          } else {
+              // Not allowed to create a new account (Alert is already shown by `canCreateNewAccount`)
+              print("Failed to create account due to restrictions.")
+          }
+        
+       
     }
     
     @IBAction func pass_ShowHide_action(_ sender: Any) {
@@ -195,21 +256,18 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             lbl_passCasethree.textColor = .red
         }
     }
-    
-  
+
     
     func updateUser(){
-        
-//        let encryptedPassword = encryptPassword(self.tf_password.text ?? "", using: GlobalVariable.instance.passwordKey)
-//        print("the encrypted password is : \(encryptedPassword)")
         
         var fieldsToUpdate: [String: Any] = [:]
         
         fieldsToUpdate = [
-            "demoAccountCreated" : true,
-           // "" : true,
+            "demoAccountCreated" : !isReal,
+            "realAccountCreated" : isReal,
             "demoAccountGroup" : self.demoAccountGroup ,
-            "loginId" : GlobalVariable.instance.loginID // loginID in response
+            "loginId" : GlobalVariable.instance.loginID, // loginID in response
+            "registrationType": 1
         ]
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -220,7 +278,8 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                 print("User demoAccountCreated fields updated successfully!")
                 GlobalVariable.instance.isAccountCreated = true
                 self.fireStoreInstance.fetchUserData(userId: self.userId)
-                self.dismiss(animated: true, completion: {
+                self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+              //  self.dismiss(animated: true, completion: {
                     print("Bottom sheet dismissed after success")
                     // notification send to dashboardvc
                     let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
@@ -230,7 +289,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                     }
                     
                        
-                })
+//                })
             }
         }
     }
@@ -244,11 +303,11 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             "userID" : userId,
             "groupID": account?.id ?? "",
             "isDefault" : true,
-            "isReal": false,
+            "isReal": isReal,
             "groupName" : self.demoAccountGroup,
-            "accountNumber" : GlobalVariable.instance.loginID // loginID in response
+            "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
         ]
-        
+       
         print("updating fields are: \(fieldsToUpdate)")
         fireStoreInstance.updateUserAccountsFields(fields: fieldsToUpdate, completion: { error in
             if let error = error {
@@ -257,7 +316,10 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             } else {
                 print("User Accounts fields updated successfully!")
                 GlobalVariable.instance.isAccountCreated = true
-              
+                
+                self.fireStoreInstance.updateDefaultAccount(for: "\(GlobalVariable.instance.loginID)", isNewAccount:  true , newAccountData: fieldsToUpdate)
+                
+                self.fireStoreInstance.fetchUserData(userId: self.userId)
                 _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
                    
                     self.getbalanceApi.getBalance(completion: { response in
@@ -272,15 +334,21 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
                     })
                     
-                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
                     NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
                 }
-                self.dismiss(animated: true)
+               
+                if self.isReal {
+                    let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
+                    self.dismiss(animated: true)
+                }else{
+                    self.dismiss(animated: true)
+                }
             }
         })
-    
     }
-
+    
 }
 
 

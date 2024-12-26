@@ -3662,6 +3662,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Demo Account Found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z1p-lx-8qc">
+                                <rect key="frame" x="106" y="444.5" width="202" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wEV-Q6-Yam">
                                 <rect key="frame" x="60.5" y="113" width="293" height="30"/>
                                 <subviews>
@@ -3675,6 +3681,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Demo Accounts">
                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="demoButtonTapped:" destination="Ych-Tk-EFo" eventType="touchUpInside" id="fkq-JV-qBS"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WbZ-ph-xPN">
                                                 <rect key="frame" x="0.0" y="25" width="142" height="5"/>
@@ -3718,6 +3727,9 @@
                                                 <buttonConfiguration key="configuration" style="plain" title="Real Accounts">
                                                     <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="realButtonTapped:" destination="Ych-Tk-EFo" eventType="touchUpInside" id="GBg-fM-CrC"/>
+                                                </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXB-W1-J3T">
                                                 <rect key="frame" x="0.0" y="25" width="130" height="5"/>
@@ -3745,14 +3757,14 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk-free account. Trade with Virtual money." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tE-bL-0rp">
-                                <rect key="frame" x="50" y="153" width="314" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Risk-free account. Trade with Virtual money." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tE-bL-0rp">
+                                <rect key="frame" x="50" y="158" width="314" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="iBu-vI-1nq">
-                                <rect key="frame" x="15" y="185" width="384" height="597"/>
+                                <rect key="frame" x="15" y="190" width="384" height="592"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -3779,6 +3791,9 @@
                                         <real key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="createAccount:" destination="Ych-Tk-EFo" eventType="touchUpInside" id="me5-CY-h1z"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2hk-ZH-GV2"/>
@@ -3794,9 +3809,11 @@
                             <constraint firstItem="ccK-u0-YXD" firstAttribute="centerX" secondItem="2hk-ZH-GV2" secondAttribute="centerX" id="Uzq-1Q-d18"/>
                             <constraint firstItem="0tE-bL-0rp" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="50" id="XUA-hA-BUA"/>
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="width" secondItem="oYg-Ng-Ok4" secondAttribute="width" multiplier="0.5" id="ZNw-3D-MP2"/>
-                            <constraint firstItem="0tE-bL-0rp" firstAttribute="top" secondItem="wEV-Q6-Yam" secondAttribute="bottom" constant="10" id="afq-Cw-NpL"/>
+                            <constraint firstItem="0tE-bL-0rp" firstAttribute="top" secondItem="wEV-Q6-Yam" secondAttribute="bottom" constant="15" id="afq-Cw-NpL"/>
                             <constraint firstItem="wEV-Q6-Yam" firstAttribute="top" secondItem="cz2-qw-rB9" secondAttribute="bottom" constant="20" id="cPN-Bf-da9"/>
+                            <constraint firstItem="z1p-lx-8qc" firstAttribute="centerX" secondItem="2hk-ZH-GV2" secondAttribute="centerX" id="h3e-c0-Dl2"/>
                             <constraint firstItem="cz2-qw-rB9" firstAttribute="top" secondItem="ccK-u0-YXD" secondAttribute="bottom" constant="15" id="i9a-Zb-onf"/>
+                            <constraint firstItem="z1p-lx-8qc" firstAttribute="centerY" secondItem="2hk-ZH-GV2" secondAttribute="centerY" id="jJx-uO-nWJ"/>
                             <constraint firstItem="iBu-vI-1nq" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="15" id="mL5-vX-Gwx"/>
                             <constraint firstAttribute="trailing" secondItem="cz2-qw-rB9" secondAttribute="trailing" constant="10" id="owy-et-qtV"/>
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="centerX" secondItem="oYg-Ng-Ok4" secondAttribute="centerX" id="pnG-Ga-ZzO"/>
@@ -3805,14 +3822,19 @@
                     </view>
                     <connections>
                         <outlet property="btn_createAccount" destination="EDQ-oI-AqI" id="Lqe-fY-Qop"/>
+                        <outlet property="demoButton" destination="Yd1-C4-ICC" id="WEF-th-F3T"/>
+                        <outlet property="demo_undelineView" destination="WbZ-ph-xPN" id="Xo4-dZ-y13"/>
                         <outlet property="lbl_accountDescription" destination="0tE-bL-0rp" id="Hph-GN-rxH"/>
+                        <outlet property="nodata_label" destination="z1p-lx-8qc" id="ezf-uk-5ps"/>
+                        <outlet property="realButton" destination="8WX-X7-FHh" id="aGw-92-GWh"/>
+                        <outlet property="real_undelineView" destination="TXB-W1-J3T" id="N5e-5D-Dtm"/>
                         <outlet property="tableView" destination="iBu-vI-1nq" id="3mx-5o-IcG"/>
                         <outlet property="titleLabel" destination="cz2-qw-rB9" id="na3-bW-JWk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="keJ-OT-hZa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2094" y="-699"/>
+            <point key="canvasLocation" x="-2095.6521739130435" y="-699.10714285714278"/>
         </scene>
         <!--Complete Verification Profile Screen7-->
         <scene sceneID="wG9-Gl-biS">

@@ -34,7 +34,7 @@ class FundsView: UIView {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received amount in Funds: \(ammount)")
            
             
             if let user = UserManager.shared.currentUser {

@@ -26,7 +26,8 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_swap: UILabel!
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
-    var counter = 0 
+    var isRealAccount: Bool?
+    var counter = 0
 //    var getSelectedAccountType = GetSelectedAccountType()
     let db = Firestore.firestore()
     var accounts: [AccountModel] = []
@@ -65,6 +66,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
 //        vc.preferredSheetSizing = .large
 //        vc.getSelectedAccountType = getSelectedAccountType
         vc.account = selectedAccount
+        vc.isReal = isRealAccount ?? false
 //        PresentModalController.instance.presentBottomSheet(self, VC: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 //        self.dismiss(animated: true, completion: {

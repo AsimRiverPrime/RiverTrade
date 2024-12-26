@@ -122,7 +122,7 @@ class AccountsViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         
 //        delegate = self
-        delegateCreateAccount = self
+//        delegateCreateAccount = self
         delegateOPCNavigation = self
         delegateCollectionView = self
         
@@ -168,7 +168,7 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func createNewAccount_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     func accountData() {
@@ -354,7 +354,7 @@ extension AccountsViewController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received ammount in Home screen: \(ammount)")
             self.labelAmmount.text = "$\(ammount)"
             
             let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
@@ -1326,31 +1326,31 @@ extension AccountsViewController {
 //    }
 //}
 
-extension AccountsViewController: CreateAccountInfoTapDelegate {
-    
-    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
-        print("delegte called  \(createAccountInfo)" )
-        
-        switch createAccountInfo {
-        case .createNew:
-            print("Create new")
-            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-            
-            break
-        case .unarchive:
-            print("Unarchive")
-            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-            break
-        case .notification:
-            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        }
-    }
-    
-}
+//extension AccountsViewController: CreateAccountInfoTapDelegate {
+//    
+//    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
+//        print("delegte called  \(createAccountInfo)" )
+//        
+//        switch createAccountInfo {
+//        case .createNew:
+//            print("Create new")
+//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
+//            
+//            break
+//        case .unarchive:
+//            print("Unarchive")
+//            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
+//            break
+//        case .notification:
+//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            break
+//        }
+//    }
+//    
+//}
 
 extension AccountsViewController: OPCNavigationDelegate {
     

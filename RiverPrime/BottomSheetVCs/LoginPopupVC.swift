@@ -39,7 +39,7 @@ class LoginPopupVC: BaseViewController {
     
     @IBOutlet weak var lbl_wrongPassword: UILabel!
     var email: String?
-    var loginId: Int?
+    var loginId = Int()
     
     var viewModel = TradeTypeCellVM()
     var metaTraderType: MetaTraderType? = .None
@@ -51,11 +51,11 @@ class LoginPopupVC: BaseViewController {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
                 email = _email
-                loginId = _loginId
-                self.loginID_tf.text = "\(loginId ?? 0)"
+//                loginId = _loginId
+               
             }
         }
-        
+        self.loginID_tf.text = "\(loginId)"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
         

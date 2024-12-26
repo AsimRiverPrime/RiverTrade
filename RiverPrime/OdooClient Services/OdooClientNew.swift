@@ -871,7 +871,7 @@ class OdooClientNew {
     
         }
     
-    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String) {
+    func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String, is_demo: Bool) {
         
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
@@ -892,7 +892,8 @@ class OdooClientNew {
                         leverage,
                         first_name,
                         last_name,
-                        password
+                        password,
+                        is_demo
                     ]
                 ]
             ]

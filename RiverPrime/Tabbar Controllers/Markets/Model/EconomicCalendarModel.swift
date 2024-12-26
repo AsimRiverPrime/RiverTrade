@@ -26,7 +26,7 @@ struct Event: Codable {
     let category: String
     let event: String
     let reference: String
-    let referenceDate: String
+    let referenceDate: Bool
     let source: String
     let sourceURL: String
     let actual: String
@@ -34,7 +34,7 @@ struct Event: Codable {
     let forecast: String
     let teForecast: String
     let url: String
-    let dateSpan: String
+    let dateSpan: Int
     let importance: Int
     let lastUpdate: String
     let revised: String
