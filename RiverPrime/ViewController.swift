@@ -17,12 +17,13 @@ class ViewController: BaseViewController {
     
     let vm = ViewControllerVM()
     let googleSignIn = GoogleSignIn()
+    var odoClientNew = OdooClientNew()
     
     var player: AVPlayer?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        odoClientNew.createLeadDelegate = self
 //        styling()
 //        playBackgroundVideo()
     }
@@ -74,7 +75,10 @@ class ViewController: BaseViewController {
             }
             print("google login user result : \(result)")
             guard let user1 = result?.user else { return }
-            
+            let _email = result?.user.profile?.email ?? ""
+            print("_email : \(_email)")
+//            GlobalVariable.instance.userEmail = _email
+            self?.googleSignIn.odoClientNew.createLeadDelegate = self
             self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
@@ -103,34 +107,66 @@ extension ViewController {
           
     }
     
-}
-
-extension ViewController {
-    
-    func playBackgroundVideo() {
-        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
-               print("Video file not found")
-               return
-           }
+    func navigateToVerifiyScreen() {
         
-        let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
-           player = AVPlayer(playerItem: playerItem)
-        player?.isMuted = true
-           let playerLayer = AVPlayerLayer(player: player)
-           playerLayer.frame = view.bounds
-           playerLayer.videoGravity = .resizeAspectFill
-        playerLayer.opacity = 0.6
-           // Insert the player layer at the bottom so it acts as a background
-           view.layer.insertSublayer(playerLayer, at: 0)
-           
-           // Start playing and set it to loop
-           player?.play()
-           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-       }
-
-       @objc func loopVideo() {
-           player?.seek(to: .zero)
-           player?.play()
-       }
-
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "VerifyCodeViewController") as! VerifyCodeViewController
+        //        verifyVC.userEmail = self.email_tf.text ?? ""
+//        GlobalVariable.instance.userEmail = self.emailUser ?? ""
+        verifyVC.isEmailVerification = true
+        verifyVC.isPhoneVerification = false
+        self.navigate(to: verifyVC)
+    }
+    
+    
 }
+
+//extension ViewController {
+//    
+//    func playBackgroundVideo() {
+//        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
+//               print("Video file not found")
+//               return
+//           }
+//        
+//        let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
+//           player = AVPlayer(playerItem: playerItem)
+//        player?.isMuted = true
+//           let playerLayer = AVPlayerLayer(player: player)
+//           playerLayer.frame = view.bounds
+//           playerLayer.videoGravity = .resizeAspectFill
+//        playerLayer.opacity = 0.6
+//           // Insert the player layer at the bottom so it acts as a background
+//           view.layer.insertSublayer(playerLayer, at: 0)
+//           
+//           // Start playing and set it to loop
+//           player?.play()
+//           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
+//       }
+//
+//       @objc func loopVideo() {
+//           player?.seek(to: .zero)
+//           player?.play()
+//       }
+
+//}
+
+extension ViewController:  CreateLeadOdooDelegate {
+    func leadCreatSuccess(response: Any) {
+        print("this is success response from create Lead :\(response)")
+         
+        odoClientNew.sendOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "")
+        
+//        Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
+//          
+//        }
+        self.navigateToVerifiyScreen()
+//        ActivityIndicator.shared.hide(from: self.view)
+    }
+    
+    func leadCreatFailure(error: any Error) {
+        print("this is error response:\(error)")
+        ActivityIndicator.shared.hide(from: self.view)
+    }
+}
+

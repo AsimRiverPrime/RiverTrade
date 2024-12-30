@@ -40,13 +40,14 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     let odooClientService = OdooClientNew()
 //    let signViewModel = SignViewModel()
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
-    
+    weak var dismissDelegate : BottomSheetDismissDelegate?
 //    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
 //    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
-    var getbalanceApi = TradeTypeCellVM()
+//    var getbalanceApi = TradeTypeCellVM()
     var  group = String()
     var demoAccountGroup = String()
+    var userAccountsPasswordData : [String: [String: String]] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -325,40 +326,55 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                                print("Error updating default account: \(error.localizedDescription)")
                                return
                            }
+                      
+                           // Update the nested dictionary for the given loginID
+                           var accounts = userAccountsPasswordData[String(GlobalVariable.instance.loginID)] ?? [:]
+                           accounts[String(GlobalVariable.instance.loginID)] = self.tf_password.text
+
+                           // Save the updated data back to the dictionary
+                           userAccountsPasswordData[String(GlobalVariable.instance.loginID)] = accounts
+
+                           // Save it to UserDefaults
+                           UserDefaults.standard.set(userAccountsPasswordData, forKey: "userPasswordData")
+                           print("Password saved successfully for loginID: \(GlobalVariable.instance.loginID), accountNumber: \(accounts)")
+                         
+                           print("User Accounts Password data saved: \(userAccountsPasswordData)")
                            
                            self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+                           NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
                        }
-                      
-                       _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                        
-                           self.getbalanceApi.getBalance(completion: { response in
-                               print("response of get balance: \(response)")
-                               if response == "Invalid Response" {
-                                   
-                                   return
-                               }
-                               
-                               GlobalVariable.instance.balanceUpdate = response //self.balance
-                               print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                           })
+                       
+                       if self.isReal {
+                           let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
                            
-                           NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
-                           NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+                           PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
+                           
+                           self.dismiss(animated: true)
+                       }else{
+               //            self.newAccoutDelegate?.updateAccountBalance(isNewAccount: true)
+                           self.dismiss(animated: true)
+                           
+
                        }
+//                       _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+//                        
+//                           self.getbalanceApi.getBalance(completion: { response in
+//                               print("response of get balance: \(response)")
+//                               if response == "Invalid Response" {
+//                                   
+//                                   return
+//                               }
+//                               
+//                               GlobalVariable.instance.balanceUpdate = response //self.balance
+//                               print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+//                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+//                           })
+//                           
+//                           NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
+//                           NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+//                       }
+                       
                    }
-       
-        if self.isReal {
-            let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
-            
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
-            
-            self.dismiss(animated: true)
-        }else{
-//            self.newAccoutDelegate?.updateAccountBalance(isNewAccount: true)
-            self.dismiss(animated: true)
-            
-        }
         })
        
     }

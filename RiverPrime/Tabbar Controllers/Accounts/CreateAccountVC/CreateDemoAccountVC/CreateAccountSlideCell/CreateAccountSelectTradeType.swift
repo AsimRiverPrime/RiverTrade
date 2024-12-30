@@ -27,8 +27,9 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
+    weak var dismissDelegate: BottomSheetDismissDelegate?
     
-    var isRealAccount: Bool?
+    var isRealAccount = Bool()
     var counter = 0
 //    var getSelectedAccountType = GetSelectedAccountType()
     let db = Firestore.firestore()
@@ -47,7 +48,13 @@ class CreateAccountSelectTradeType: BottomSheetController {
            // Fetch data and update UI
            fetchAccountsAndSetupPageControl()
 
+        NotificationCenter.default.addObserver(self, selector: #selector(self.dismissScreens), name: NSNotification.Name(rawValue: "dismissCreateAccountScreen"), object: nil)
         
+    }
+    
+    @objc func dismissScreens(){
+        self.dismiss(animated: true)
+        NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
     }
     
     func setupPageControl() {
@@ -62,20 +69,17 @@ class CreateAccountSelectTradeType: BottomSheetController {
     }
     
     @IBAction func continusBtnAction(_ sender: UIButton) {
+//        self.dismiss(animated: true)
+        let selectedAccount = accounts
+      
+//        dismissDelegate?.presentNextBottomSheet(screen: .createAccount, AccountReal: isRealAccount, accounts: selectedAccount, index: counter)
+
         let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .bottomSheetPopups) as! CreateAccountTypeVC
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-        let selectedAccount = accounts[counter]
-//        vc.preferredSheetSizing = .large
-//        vc.getSelectedAccountType = getSelectedAccountType
-        vc.account = selectedAccount
-        vc.newAccoutDelegate = self.newAccoutDelegate
-        
-        vc.isReal = isRealAccount ?? false
-//        PresentModalController.instance.presentBottomSheet(self, VC: vc)
+//        vc.dismissDelegate = self
+        vc.account = accounts[counter]
+        vc.isReal = isRealAccount
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//        self.dismiss(animated: true, completion: {
-//            print("Bottom sheet dismissed after Move to next screen")
-//        })
+        
     }
 }
 

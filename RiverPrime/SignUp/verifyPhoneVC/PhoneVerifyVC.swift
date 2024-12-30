@@ -166,7 +166,10 @@ extension PhoneVerifyVC:  SendOTPDelegate {
     
     func otpSuccess(response: Any) {
         print("this is the phone send otp response: \(response)")
-        navigateToVerifiyScreen()
+//        navigateToVerifiyScreen()
+        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
+            self.navigate(to: residencVC)
+        }
     }
     
     func otpFailure(error: any Error) {
@@ -183,8 +186,8 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-//        navigateToDashboardScreen()
-        navigateToVerifiyScreen()
+        navigateToDashboardScreen()
+//        navigateToVerifiyScreen()
     }
     
     func updateNumberFailure(error: any Error) {

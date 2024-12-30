@@ -307,7 +307,8 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func createAcoountAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-        vc.newAccoutDelegate = self
+//        vc.newAccoutDelegate = self
+        vc.dismissDelegate = self
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
@@ -330,6 +331,37 @@ class AccountsViewController: BaseViewController {
     }
 }
 
+extension AccountsViewController: BottomSheetDismissDelegate {
+  
+    func presentNextBottomSheet(screen: createAccountType, AccountReal : Bool, accounts: [AccountModel], index: Int) {
+        switch screen {
+        case .selectAccountType:
+           
+                let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
+            if AccountReal {
+                      vc.isRealAccount = true
+                  }else{
+                      vc.isRealAccount = false
+                  }
+            vc.dismissDelegate = self
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            
+        case .selectAccount:
+          
+            break
+        case .createAccount:
+           
+            let vc = Utilities.shared.getViewController(identifier: .createAccountTypeVC, storyboardType: .bottomSheetPopups) as! CreateAccountTypeVC
+            vc.dismissDelegate = self
+            vc.account = accounts[index]
+            vc.isReal = AccountReal
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
+    }
+  
+    
+}
+
 extension AccountsViewController {
     
     @objc func notificationPopup(_ notification: NSNotification) {
@@ -338,8 +370,13 @@ extension AccountsViewController {
             print("Received ammount: \(ammount)")
             self.labelAmmount.text = "$\(ammount)"
             
-            let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
-            self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
+            if ammount == "0.0" {
+                self.lbl_amountPercent.text = "0.0%"
+            }else{
+                let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
+                self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
+              
+            }
             accountData()
         }
         
@@ -658,14 +695,14 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             
             switch opcList {
             case .open(let open):
-                cell.emptyLabelMessage.text = "Open Data Not Found."
-                cell.lbl_secondMessage.text = "Message type here"
+                cell.emptyLabelMessage.text = "No Open Order."
+                cell.lbl_secondMessage.text = "No orders Use the opportunity to trade on the world’s major financial markets"
             case .pending(let pending):
-                cell.emptyLabelMessage.text = "Pending Data Not Found."
-                cell.lbl_secondMessage.text = "Message type here"
+                cell.emptyLabelMessage.text = "No Pending Order."
+                cell.lbl_secondMessage.text = "Use the oppottunity to trade on the word’s major financial markets"
             case .close(let close):
-                cell.emptyLabelMessage.text = "Close Data Not Found."
-                cell.lbl_secondMessage.text = "Message type here"
+                cell.emptyLabelMessage.text = "No Close Order."
+                cell.lbl_secondMessage.text = "for the last 30 days"
             case .none:
                 cell.emptyLabelMessage.text = "No Data Found."
                 cell.lbl_secondMessage.text = ""

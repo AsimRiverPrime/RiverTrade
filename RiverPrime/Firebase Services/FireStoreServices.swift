@@ -228,14 +228,58 @@ class FirestoreServices: BaseViewController {
     
     func updateUserAccountsFields(fields: [String: Any], completion: @escaping (Error?) -> Void) {
         let uniqueId = db.collection("userAccounts").document().documentID
-           let userRef = db.collection("userAccounts").document(uniqueId)
-            userRef.setData(fields, completion: completion)
-       }
+        let userRef = db.collection("userAccounts").document(uniqueId)
+        userRef.setData(fields, completion: completion)
+//        fetchUserAccountsData(userId: fields["userID"] as! String)
+    }
     
    func updateDefaultAccount(for accountKey: String, userId: String, completion: @escaping (Error?) -> Void) {
         // Retrieve accounts from UserDefaults
         guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             print("No accounts found in UserDefaults")
+            fetchUserAccountsData(userId: userId)
+            
+            guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
+                return
+            }
+            guard let targetUserID = userId as? String else {
+                print("Account key not found in UserDefaults")
+                return
+            }
+
+            // Update the `isDefault` flag in UserDefaults
+            for (key, account) in accountsDict {
+                if let accountUserID = account["userID"] as? String {
+                    accountsDict[key]?["isDefault"] = (accountUserID == targetUserID && key == accountKey) ? 1 : 0
+                }
+            }
+
+            // Save updated accounts back to UserDefaults
+            UserDefaults.standard.set(accountsDict, forKey: "userAccountsData")
+            UserDefaults.standard.synchronize()
+
+            // Update the `isDefault` flag in Firebase
+            let db = Firestore.firestore()
+            let batch = db.batch()
+
+            // Update `isDefault` for all accounts in Firebase with the same `userID`
+            for (key, account) in accountsDict {
+                if let accountUserID = account["userID"] as? String, accountUserID == targetUserID {
+                    let docRef = db.collection("userAccounts").document(key)
+                    batch.setData(["isDefault": account["isDefault"] ?? 0], forDocument: docRef, merge: true)
+                }
+            }
+
+            // Commit the batch
+            batch.commit { error in
+                if let error = error {
+                    print("Error updating Firebase: \(error.localizedDescription)")
+                    completion(error)
+                } else {
+                    print("Successfully updated isDefault in Firebase")
+                    completion(nil)
+                }
+            }
             return
         }
 

@@ -22,11 +22,7 @@ class SelectAccountTypeCell: UITableViewCell {
     weak var delegate: SelectAccountCellDelegate?
     
        var accountNumber: Int?
-       var isDefault: Bool = false {
-           didSet {
-               updateButtonState()
-           }
-       }
+       var isDefault = Bool()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,18 +48,24 @@ class SelectAccountTypeCell: UITableViewCell {
            if let groupName = account["groupName"] as? String {
                lbl_group.text = groupName
            }
-//           if let isDefault = account["isDefault"] as? Int {
-//               self.isDefault = isDefault == 1
-//           }
+        
+        if let isDefault = account["isDefault"] as? Bool {
+               if !isDefault  {
+                   self.isDefault = false
+               }else{
+                   self.isDefault = true
+               }
+           }
            updateButtonState()
        }
 
        private func updateButtonState() {
           
-           btn_checkAccount.isHidden = isDefault ? true : false
-          
            if isDefault {
                btn_checkAccount.tintColor = .systemYellow
+               btn_checkAccount.isHidden = false
+           }else{
+               btn_checkAccount.isHidden = true
            }
        }
 

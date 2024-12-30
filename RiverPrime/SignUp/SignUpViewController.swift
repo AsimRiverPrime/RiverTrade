@@ -280,7 +280,7 @@ class SignUpViewController: BaseViewController {
             }
             print("result user: \(result)")
             guard let user1 = result?.user else { return }
-            
+//            self?.odoClientNew.createLeadDelegate = self
             self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
@@ -367,8 +367,6 @@ class SignUpViewController: BaseViewController {
         
     }
     
-    
-    
     func navigateToVerifiyScreen() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -387,10 +385,10 @@ extension SignUpViewController:  CreateLeadOdooDelegate {
         print("this is success response from create Lead :\(response)")
         odoClientNew.sendOTP(type: "email", email: emailUser ?? "", phone: "")
         GlobalVariable.instance.userEmail = emailUser ?? ""
-        Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
-            self.navigateToVerifiyScreen()
-        }
-        
+//        Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
+//          
+//        }
+        self.navigateToVerifiyScreen()
 //        ActivityIndicator.shared.hide(from: self.view)
     }
     

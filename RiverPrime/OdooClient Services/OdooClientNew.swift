@@ -214,7 +214,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("\n params value is: \(jsonrpcBody)")
+        print("\n params create records value is: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("result is : \(result)")
