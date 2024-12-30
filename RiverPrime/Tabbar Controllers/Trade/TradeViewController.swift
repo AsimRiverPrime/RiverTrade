@@ -312,7 +312,7 @@ class TradeViewController: UIViewController {
     
     private func dashboardinit() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
@@ -380,7 +380,7 @@ class TradeViewController: UIViewController {
         //        var login_Id = Int()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {

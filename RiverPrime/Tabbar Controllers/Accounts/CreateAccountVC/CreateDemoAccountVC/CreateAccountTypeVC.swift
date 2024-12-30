@@ -11,6 +11,9 @@ import Firebase
 import CryptoKit
 import CommonCrypto
 
+protocol CreateAccountUpdateProtocol : AnyObject {
+    func updateAccountBalance(isNewAccount: Bool)
+}
 
 class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelegate {
     
@@ -36,6 +39,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClientNew()
 //    let signViewModel = SignViewModel()
+    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     
 //    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
@@ -62,7 +66,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(data)")
             
-           if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
+           if let userIdSave = data["id"] as? String, let email1 = data["email"] as? String  {
                print("user ID: \(userIdSave)")
                self.userId = userIdSave
                self.userEmail = email1
@@ -184,7 +188,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             demoAccountGroup = "PREMIUM"
         }
         
-        if canCreateNewAccount(for: userId) {
+//        if canCreateNewAccount(for: userId) {
               // Allowed to create a new account
             if isReal {
                 odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
@@ -192,10 +196,10 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                 odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
             }
               print("Account created successfully!")
-          } else {
-              // Not allowed to create a new account (Alert is already shown by `canCreateNewAccount`)
-              print("Failed to create account due to restrictions.")
-          }
+//          } else {
+//              // Not allowed to create a new account (Alert is already shown by `canCreateNewAccount`)
+//              print("Failed to create account due to restrictions.")
+//          }
         
        
     }
@@ -256,43 +260,41 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             lbl_passCasethree.textColor = .red
         }
     }
-
-    
-    func updateUser(){
-        
-        var fieldsToUpdate: [String: Any] = [:]
-        
-        fieldsToUpdate = [
-            "demoAccountCreated" : !isReal,
-            "realAccountCreated" : isReal,
-            "demoAccountGroup" : self.demoAccountGroup ,
-            "loginId" : GlobalVariable.instance.loginID, // loginID in response
-            "registrationType": 1
-        ]
-        
-        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
-            if let error = error {
-                print("Error updating user fields: \(error.localizedDescription)")
-                return
-            } else {
-                print("User demoAccountCreated fields updated successfully!")
-                GlobalVariable.instance.isAccountCreated = true
-                self.fireStoreInstance.fetchUserData(userId: self.userId)
-                self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
-              //  self.dismiss(animated: true, completion: {
-                    print("Bottom sheet dismissed after success")
-                    // notification send to dashboardvc
-                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                      
-                        NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
-                        NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
-                    }
-                    
-                       
-//                })
-            }
-        }
-    }
+//    func updateUser(){
+//        
+//        var fieldsToUpdate: [String: Any] = [:]
+//        
+//        fieldsToUpdate = [
+//            "demoAccountCreated" : !isReal,
+//            "realAccountCreated" : isReal,
+//            "demoAccountGroup" : self.demoAccountGroup ,
+//            "loginId" : GlobalVariable.instance.loginID, // loginID in response
+//            "registrationType": 1
+//        ]
+//        
+//        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
+//            if let error = error {
+//                print("Error updating user fields: \(error.localizedDescription)")
+//                return
+//            } else {
+//                print("User demoAccountCreated fields updated successfully!")
+//                GlobalVariable.instance.isAccountCreated = true
+//                self.fireStoreInstance.fetchUserData(userId: self.userId)
+//                self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+//              //  self.dismiss(animated: true, completion: {
+//                    print("Bottom sheet dismissed after success")
+//                    // notification send to dashboardvc
+//                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+//                      
+//                        NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
+//                        NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+//                    }
+//                    
+//                       
+////                })
+//            }
+//        }
+//    }
  // MARK: - New work flow
     func updateUserAccount(){
         
@@ -309,45 +311,56 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         ]
        
         print("updating fields are: \(fieldsToUpdate)")
+       
         fireStoreInstance.updateUserAccountsFields(fields: fieldsToUpdate, completion: { error in
-            if let error = error {
-                print("Error updating UserAccounts fields: \(error.localizedDescription)")
-                return
-            } else {
-                print("User Accounts fields updated successfully!")
-                GlobalVariable.instance.isAccountCreated = true
-                
-                self.fireStoreInstance.updateDefaultAccount(for: "\(GlobalVariable.instance.loginID)", isNewAccount:  true , newAccountData: fieldsToUpdate)
-                
-                self.fireStoreInstance.fetchUserData(userId: self.userId)
-                _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                   
-                    self.getbalanceApi.getBalance(completion: { response in
-                        print("response of get balance: \(response)")
-                        if response == "Invalid Response" {
-                            //                            self.balance = "0.0"
-                            return
-                        }
-                        //                        self.balance = response
-                        GlobalVariable.instance.balanceUpdate = response //self.balance
-                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                    })
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
-                    NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
-                }
-               
-                if self.isReal {
-                    let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
-                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
-                    self.dismiss(animated: true)
-                }else{
-                    self.dismiss(animated: true)
-                    
-                }
-            }
+                   if let error = error {
+                       print("Error updating UserAccounts fields: \(error.localizedDescription)")
+                       return
+                   } else {
+                       print("User Accounts fields updated successfully!")
+                       self.fireStoreInstance.updateDefaultAccount(for: "\(GlobalVariable.instance.loginID)", userId: self.userId){ [weak self] error in
+                           guard let self = self else { return }
+                           
+                           if let error = error {
+                               print("Error updating default account: \(error.localizedDescription)")
+                               return
+                           }
+                           
+                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+                       }
+                      
+                       _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                        
+                           self.getbalanceApi.getBalance(completion: { response in
+                               print("response of get balance: \(response)")
+                               if response == "Invalid Response" {
+                                   
+                                   return
+                               }
+                               
+                               GlobalVariable.instance.balanceUpdate = response //self.balance
+                               print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                           })
+                           
+                           NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
+                           NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
+                       }
+                   }
+       
+        if self.isReal {
+            let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+            
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
+            
+            self.dismiss(animated: true)
+        }else{
+//            self.newAccoutDelegate?.updateAccountBalance(isNewAccount: true)
+            self.dismiss(animated: true)
+            
+        }
         })
+       
     }
     
 }
@@ -358,7 +371,7 @@ extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
         print("\nthis is create user success response: \(response)")
         // get loginId from the response
         updateUserAccount()
-        updateUser()
+//        updateUser()
         showTimeAlert(str: "Account Create Sucessfully.")
     }
     

@@ -14,9 +14,6 @@ import Firebase
 
 class SignUpViewController: BaseViewController {
     
-    
-    //    @IBOutlet weak var lbl_firstName: UITextField!
-    //    @IBOutlet weak var lbl_lastName: UITextField!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var scrollView: TPKeyboardAvoidingScrollView!
@@ -104,7 +101,7 @@ class SignUpViewController: BaseViewController {
             color: UIColor.systemYellow,
             clickableWords: clickableWords
         )
-        
+       
         // Assign the attributed text to the UILabel
         termsCondition_lbl.attributedText = attributedWithTextColor
         
@@ -216,24 +213,32 @@ class SignUpViewController: BaseViewController {
             enableLoginButton()
         } else {
             self.lbl_reTypePassValid.isHidden = false
-            self.btn_contiune.isEnabled = false
-            self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+            self.btn_contiune.isUserInteractionEnabled = false
+//            self.btn_contiune.setTitleColor(UIColor.lightGray, for: .normal)
+            self.btn_contiune.layer.borderColor =  CGColor.init(red: 107/255, green: 107/255, blue: 107/255, alpha: 1.0)
+            self.btn_contiune.tintColor = .systemGray
         }
     }
     
     private func enableLoginButton() {
         if self.viewModel.isLoginFieldsValid(email: self.email_tf.text!, password: self.reTypePassword_tf.text!) //, self.btn_termsCondition.isSelected == true
         {
-            self.btn_contiune.isEnabled = true
-            self.btn_contiune.setTitleColor(UIColor(named: "black"), for: .normal)
+            self.btn_contiune.isUserInteractionEnabled = true
+//            self.btn_contiune.setTitleColor(UIColor.systemYellow, for: .normal)
+            self.btn_contiune.layer.borderColor = CGColor.init(red: 255/255, green: 202/255, blue: 35/255, alpha: 1.0)
+            self.btn_contiune.tintColor = .systemYellow
         } else {
-            self.btn_contiune.isEnabled = false
-            self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+            self.btn_contiune.isUserInteractionEnabled = false
+            self.btn_contiune.layer.borderColor =  CGColor.init(red: 107/255, green: 107/255, blue: 107/255, alpha: 1.0)
+//            self.btn_contiune.setTitleColor(UIColor.lightGray, for: .normal)
+            self.btn_contiune.tintColor = .systemGray
         }
         
         guard let email = email_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
-            self.btn_contiune.isEnabled = false
-            self.btn_contiune.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+            self.btn_contiune.isUserInteractionEnabled = false
+//            self.btn_contiune.setTitleColor(UIColor.lightGray, for: .normal)
+            self.btn_contiune.layer.borderColor = CGColor.init(red: 107/255, green: 107/255, blue: 107/255, alpha: 1.0)
+            self.btn_contiune.tintColor = .systemGray
             return
         }
     }
@@ -349,7 +354,9 @@ class SignUpViewController: BaseViewController {
                         //                        let name = firstName + " " + lastName
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: email, name: fullName)
                         
-                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: fullName, userName: userName, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false, registrationType: 1)
+                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: fullName, gender: "", phone: "", email: email, emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 1)
+                        
+//                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: fullName, userName: userName, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false, registrationType: 1)
                         // Navigate to the main screen or any other action
                         
                         

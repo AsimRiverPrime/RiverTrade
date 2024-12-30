@@ -35,7 +35,7 @@ class DepositViewController: BaseViewController {
         self.deposit_tableView.dataSource = self
 
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             if let _profileStep = savedUserData["profileStep"] as? Int,  let _realAccount = savedUserData["realAccountCreated"] as? Bool{
                 profileStep = _profileStep
                 realAccount = _realAccount

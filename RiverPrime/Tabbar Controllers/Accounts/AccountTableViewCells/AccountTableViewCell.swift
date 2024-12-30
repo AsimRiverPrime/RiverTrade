@@ -95,11 +95,11 @@ class AccountTableViewCell: UITableViewCell {
             widthOfMainStackView.constant = -300
         }
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,
-               let _name = savedUserData["name"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+               let _name = savedUserData["fullName"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
                
                 self.login_Id = loginID
                 self.lbl_name.text = _name

@@ -49,12 +49,11 @@ class LoginPopupVC: BaseViewController {
         self.lbl_wrongPassword.isHidden = true
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String {
                 email = _email
-//                loginId = _loginId
-               
             }
         }
+        
         self.loginID_tf.text = "\(loginId)"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)

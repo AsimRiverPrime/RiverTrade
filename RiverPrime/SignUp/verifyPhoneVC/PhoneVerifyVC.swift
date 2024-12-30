@@ -151,7 +151,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         self.navigate(to: verifyVC)
     }
     private func navigateToDashboardScreen() {
-        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let dashboardVC = storyboard.instantiateViewController(withIdentifier: "ResidencVC") as! ResidencVC
         self.navigate(to: dashboardVC)
         
@@ -183,8 +183,8 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-        navigateToDashboardScreen()
-        
+//        navigateToDashboardScreen()
+        navigateToVerifiyScreen()
     }
     
     func updateNumberFailure(error: any Error) {

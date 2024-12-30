@@ -2708,19 +2708,6 @@
                                         <rect key="frame" x="0.0" y="75" width="414" height="821"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuM-9N-FnA">
-                                        <rect key="frame" x="80" y="72.5" width="35" height="35"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="Whm-3l-IUY"/>
-                                            <constraint firstAttribute="width" constant="35" id="aVZ-zn-lP5"/>
-                                        </constraints>
-                                        <color key="tintColor" name="basicTextColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
-                                        <connections>
-                                            <action selector="closeBtnAction:" destination="vd5-SE-LnP" eventType="touchUpInside" id="R7V-BH-WXC"/>
-                                        </connections>
-                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Laz-gK-o5E">
                                         <rect key="frame" x="132.5" y="418.5" width="149" height="134"/>
                                         <subviews>
@@ -2745,7 +2732,6 @@
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="ZWG-Ks-aBu" secondAttribute="bottom" id="7ZB-4F-vVO"/>
                                     <constraint firstAttribute="trailing" secondItem="zKC-Rl-p2S" secondAttribute="trailing" id="9FT-ll-06q"/>
-                                    <constraint firstItem="RuM-9N-FnA" firstAttribute="centerY" secondItem="zKC-Rl-p2S" secondAttribute="centerY" multiplier="2" id="9ZX-0B-fft"/>
                                     <constraint firstItem="zKC-Rl-p2S" firstAttribute="leading" secondItem="Syj-Oo-hDV" secondAttribute="leading" id="FMo-Pi-ZZ5"/>
                                     <constraint firstItem="ZWG-Ks-aBu" firstAttribute="leading" secondItem="Syj-Oo-hDV" secondAttribute="leading" id="OYn-YF-YVm"/>
                                     <constraint firstItem="SMk-Cz-OUs" firstAttribute="top" secondItem="Syj-Oo-hDV" secondAttribute="top" constant="8" id="Rhl-2C-T4S"/>
@@ -2754,7 +2740,6 @@
                                     <constraint firstItem="SMk-Cz-OUs" firstAttribute="centerX" secondItem="Syj-Oo-hDV" secondAttribute="centerX" id="hkk-GF-uCE"/>
                                     <constraint firstItem="Laz-gK-o5E" firstAttribute="centerX" secondItem="ZWG-Ks-aBu" secondAttribute="centerX" id="jHs-FA-wdx"/>
                                     <constraint firstItem="ZWG-Ks-aBu" firstAttribute="top" secondItem="zKC-Rl-p2S" secondAttribute="bottom" id="qAc-2Z-udT"/>
-                                    <constraint firstItem="RuM-9N-FnA" firstAttribute="leading" secondItem="zKC-Rl-p2S" secondAttribute="leading" constant="80" id="wZf-zU-aWg"/>
                                     <constraint firstAttribute="trailing" secondItem="ZWG-Ks-aBu" secondAttribute="trailing" id="ywe-eK-PFm"/>
                                 </constraints>
                             </view>
@@ -3773,13 +3758,14 @@
                                 </userDefinedRuntimeAttributes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDQ-oI-AqI" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="103.5" y="802" width="207" height="40"/>
+                                <rect key="frame" x="83" y="802" width="248" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Mfp-hK-uMn"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Create Demo Account"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Create Another Demo Account"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="1"/>
@@ -3795,6 +3781,20 @@
                                     <action selector="createAccount:" destination="Ych-Tk-EFo" eventType="touchUpInside" id="me5-CY-h1z"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dl-pi-h7r">
+                                <rect key="frame" x="10" y="851" width="75" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="FfK-dT-Kr2"/>
+                                    <constraint firstAttribute="width" constant="75" id="x5H-x1-3TJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Delete all acct"/>
+                                <connections>
+                                    <action selector="deleteAll:" destination="Ych-Tk-EFo" eventType="touchUpInside" id="93e-h5-xHk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2hk-ZH-GV2"/>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -3806,14 +3806,16 @@
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="top" secondItem="iBu-vI-1nq" secondAttribute="bottom" constant="20" id="Gy1-MR-FkW"/>
                             <constraint firstItem="wEV-Q6-Yam" firstAttribute="centerX" secondItem="oYg-Ng-Ok4" secondAttribute="centerX" id="Lh6-qa-IxB"/>
                             <constraint firstItem="ccK-u0-YXD" firstAttribute="top" secondItem="2hk-ZH-GV2" secondAttribute="top" constant="5" id="NgF-kJ-ySz"/>
+                            <constraint firstItem="2dl-pi-h7r" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="10" id="On2-kE-Wv4"/>
                             <constraint firstItem="ccK-u0-YXD" firstAttribute="centerX" secondItem="2hk-ZH-GV2" secondAttribute="centerX" id="Uzq-1Q-d18"/>
                             <constraint firstItem="0tE-bL-0rp" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="50" id="XUA-hA-BUA"/>
-                            <constraint firstItem="EDQ-oI-AqI" firstAttribute="width" secondItem="oYg-Ng-Ok4" secondAttribute="width" multiplier="0.5" id="ZNw-3D-MP2"/>
+                            <constraint firstItem="EDQ-oI-AqI" firstAttribute="width" secondItem="oYg-Ng-Ok4" secondAttribute="width" multiplier="0.6" id="ZNw-3D-MP2"/>
                             <constraint firstItem="0tE-bL-0rp" firstAttribute="top" secondItem="wEV-Q6-Yam" secondAttribute="bottom" constant="15" id="afq-Cw-NpL"/>
                             <constraint firstItem="wEV-Q6-Yam" firstAttribute="top" secondItem="cz2-qw-rB9" secondAttribute="bottom" constant="20" id="cPN-Bf-da9"/>
                             <constraint firstItem="z1p-lx-8qc" firstAttribute="centerX" secondItem="2hk-ZH-GV2" secondAttribute="centerX" id="h3e-c0-Dl2"/>
                             <constraint firstItem="cz2-qw-rB9" firstAttribute="top" secondItem="ccK-u0-YXD" secondAttribute="bottom" constant="15" id="i9a-Zb-onf"/>
                             <constraint firstItem="z1p-lx-8qc" firstAttribute="centerY" secondItem="2hk-ZH-GV2" secondAttribute="centerY" id="jJx-uO-nWJ"/>
+                            <constraint firstAttribute="bottom" secondItem="2dl-pi-h7r" secondAttribute="bottom" constant="10" id="kZv-HZ-sLx"/>
                             <constraint firstItem="iBu-vI-1nq" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="15" id="mL5-vX-Gwx"/>
                             <constraint firstAttribute="trailing" secondItem="cz2-qw-rB9" secondAttribute="trailing" constant="10" id="owy-et-qtV"/>
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="centerX" secondItem="oYg-Ng-Ok4" secondAttribute="centerX" id="pnG-Ga-ZzO"/>
@@ -3941,7 +3943,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter first name here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vMM-L4-LVT">
                                                         <rect key="frame" x="0.0" y="96.5" width="334" height="34"/>
-                                                        <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.70982512419999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -3954,7 +3956,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter first name here..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="f5w-iQ-v7O">
                                                         <rect key="frame" x="0.0" y="170" width="334" height="34"/>
-                                                        <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.70982512419999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -4018,7 +4020,7 @@
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City, Street, House" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UHL-Yb-dy0">
                                                         <rect key="frame" x="0.0" y="341.5" width="334" height="34"/>
-                                                        <color key="backgroundColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="0.70982512419999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits"/>
@@ -4130,7 +4132,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -4486,7 +4488,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -4855,7 +4857,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -5206,7 +5208,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -5555,7 +5557,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -5854,7 +5856,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -6204,7 +6206,7 @@
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" title="Continue">
+                                                <buttonConfiguration key="configuration" style="plain" title="Next">
                                                     <fontDescription key="titleFontDescription" name="Inter-SemiBold" family="Inter" pointSize="18"/>
                                                 </buttonConfiguration>
                                                 <userDefinedRuntimeAttributes>
@@ -7121,7 +7123,20 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z4h-xN-TR7">
                                                 <rect key="frame" x="5" y="555" width="404" height="40"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zbG-KA-bX1">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SQA-Ub-5Sn">
+                                                        <rect key="frame" x="10" y="4" width="42" height="32"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain">
+                                                            <imageReference key="image" image="doubleArrowDown" symbolScale="small"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="medium"/>
+                                                        </buttonConfiguration>
+                                                        <connections>
+                                                            <action selector="toggleBtnChartViewTapped:" destination="Z3L-8w-oZr" eventType="touchUpInside" id="CX9-Tp-qmf"/>
+                                                        </connections>
+                                                    </button>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zbG-KA-bX1">
                                                         <rect key="frame" x="0.0" y="0.0" width="404" height="40"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="34y-fH-heY">
@@ -7201,46 +7216,49 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="zbG-KA-bX1" secondAttribute="bottom" id="7O6-iz-YXK"/>
                                                     <constraint firstItem="zbG-KA-bX1" firstAttribute="top" secondItem="Z4h-xN-TR7" secondAttribute="top" id="He5-Q5-yD4"/>
+                                                    <constraint firstItem="SQA-Ub-5Sn" firstAttribute="leading" secondItem="Z4h-xN-TR7" secondAttribute="leading" constant="10" id="JOl-9g-X6S"/>
                                                     <constraint firstAttribute="height" constant="40" id="KoK-iW-3OJ"/>
                                                     <constraint firstAttribute="trailing" secondItem="zbG-KA-bX1" secondAttribute="trailing" id="LhN-pt-IPQ"/>
                                                     <constraint firstItem="zbG-KA-bX1" firstAttribute="leading" secondItem="Z4h-xN-TR7" secondAttribute="leading" id="OP4-ov-OE9"/>
+                                                    <constraint firstItem="SQA-Ub-5Sn" firstAttribute="centerY" secondItem="Z4h-xN-TR7" secondAttribute="centerY" id="Ty7-4X-RUm"/>
                                                 </constraints>
                                             </view>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hqj-qz-xj6">
                                                 <rect key="frame" x="5" y="597" width="404" height="150"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q66-NV-6U3">
-                                                        <rect key="frame" x="20" y="5" width="364" height="30"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q66-NV-6U3">
+                                                        <rect key="frame" x="20" y="10" width="364" height="120"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQn-tG-Qfa">
-                                                                <rect key="frame" x="0.0" y="0.0" width="118" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zQn-tG-Qfa">
+                                                                <rect key="frame" x="0.0" y="0.0" width="364" height="37"/>
+                                                                <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" image="tradeIconSelect">
+                                                                <buttonConfiguration key="configuration" style="plain" image="tradeIconSelect" title="Candel Chart" imagePadding="10">
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" scale="small" weight="thin"/>
                                                                 </buttonConfiguration>
                                                                 <connections>
                                                                     <action selector="chartTypeBtn_action:" destination="Z3L-8w-oZr" eventType="touchUpInside" id="waF-DF-Mcn"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzd-dS-ujq">
-                                                                <rect key="frame" x="123" y="0.0" width="118" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dzd-dS-ujq">
+                                                                <rect key="frame" x="0.0" y="42" width="364" height="36.5"/>
                                                                 <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Area Chart" imagePadding="10">
                                                                     <imageReference key="image" image="chart.xyaxis.line" catalog="system" symbolScale="medium"/>
                                                                 </buttonConfiguration>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUS-5Z-rQj">
-                                                                <rect key="frame" x="246" y="0.0" width="118" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cUS-5Z-rQj">
+                                                                <rect key="frame" x="0.0" y="83.5" width="364" height="36.5"/>
                                                                 <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain">
+                                                                <buttonConfiguration key="configuration" style="plain" title="Line Chart" imagePadding="10">
                                                                     <imageReference key="image" image="eye" catalog="system" symbolScale="medium"/>
                                                                 </buttonConfiguration>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="30" id="LOR-aC-k2C"/>
+                                                            <constraint firstAttribute="height" constant="120" id="LOR-aC-k2C"/>
                                                         </constraints>
                                                     </stackView>
                                                 </subviews>
@@ -7249,7 +7267,7 @@
                                                     <constraint firstItem="q66-NV-6U3" firstAttribute="leading" secondItem="Hqj-qz-xj6" secondAttribute="leading" constant="20" id="4qo-Me-0hM"/>
                                                     <constraint firstAttribute="height" constant="150" id="5Dv-se-MMy"/>
                                                     <constraint firstAttribute="trailing" secondItem="q66-NV-6U3" secondAttribute="trailing" constant="20" id="Efz-na-La9"/>
-                                                    <constraint firstItem="q66-NV-6U3" firstAttribute="top" secondItem="Hqj-qz-xj6" secondAttribute="top" constant="5" id="f3X-In-I47"/>
+                                                    <constraint firstItem="q66-NV-6U3" firstAttribute="top" secondItem="Hqj-qz-xj6" secondAttribute="top" constant="10" id="f3X-In-I47"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Hw-hU-2PI">
@@ -7439,7 +7457,7 @@
                     <connections>
                         <outlet property="SellBuyView" destination="9Hw-hU-2PI" id="GIs-bQ-yj8"/>
                         <outlet property="btn_ChartType" destination="zQn-tG-Qfa" id="nul-Cu-XOh"/>
-                        <outlet property="btn_chartShowHide" destination="34y-fH-heY" id="C3m-oi-xhC"/>
+                        <outlet property="btn_chartShowHide" destination="SQA-Ub-5Sn" id="Jo3-7I-HIf"/>
                         <outlet property="btn_timeInterval" destination="Sqb-Bm-08g" id="Ik3-CU-kQv"/>
                         <outlet property="buyBtn" destination="W0X-Ma-sUV" id="MzF-a6-p35"/>
                         <outlet property="buyLblTitle" destination="bYM-VV-OCW" id="gFE-f5-Mdj"/>

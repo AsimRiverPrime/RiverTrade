@@ -67,6 +67,7 @@ class AccountsViewController: BaseViewController {
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
+    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     
     var opcList: OPCType? = .open([])
     var totalProfitOpenClose = Double()
@@ -110,8 +111,6 @@ class AccountsViewController: BaseViewController {
         tblView.reloadData()
         
         collectionViewinit()
-        
-        accountData()
         
         GlobalVariable.instance.lastSelectedOPCIndex = IndexPath(row: 0, section: 0)
         
@@ -173,30 +172,17 @@ class AccountsViewController: BaseViewController {
     
     func accountData() {
         
-        if let savedUserAccountsData = UserDefaults.standard.dictionary(forKey: "userAccountsData") {
-            print("saved User Accounts Data: \(savedUserAccountsData)")
-            for (_, accountData) in savedUserAccountsData {
-                    if let accountDict = accountData as? [String: Any],
-                       let isDefault = accountDict["isDefault"] as? Int, // Assuming `isDefault` is stored as an Int (1 for true, 0 for false)
-                       let isReal = accountDict["isReal"] as? Int, // Assuming `isReal` is also stored as an Int
-                       let groupName = accountDict["groupName"] as? String {
-                        
-                        if isDefault == 1 {
-                            // Update your labels only for the default account
-                            lbl_account.text = isReal == 1 ? "Real" : "Demo"
-                            lbl_accountType.text = " " + groupName
-                            break // Exit the loop after updating the labels for the default account
-                        }
-                    }
-                }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user: \(defaultAccount)")
+           
+            lbl_account.text = defaultAccount.isReal == true ? "Real" : "Demo"
+            lbl_accountType.text = defaultAccount.groupName
         }
-        
-        
+                           
+                          
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String,let _name = savedUserData["name"] as? String, let _isRealAccount = savedUserData["realAccountCreated"] as? Bool {
+         
+            if let _name = savedUserData["fullName"] as? String {
                 
                 if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),
                    let savedImage = UIImage(data: imageData) {
@@ -205,33 +191,8 @@ class AccountsViewController: BaseViewController {
                     userImage.image = UIImage(named: "avatarIcon")
                 }
                 
-//                var account_type = String()
-//                var account_group = String()
-//                
-//                if isCreateDemoAccount == true {
-//                    account_type = " Demo "
-//                    account_group = " \(accountType) "
-//                }
-//                
-//                isRealAcount =  _isRealAccount
-//                if _isRealAccount == true {
-//                    account_type = " Real "
-//                    account_group = " \(accountType) "
-//                }
-//                
-//                
-//                if accountType == "Pro Account" {
-//                    account_group = " PRO "
-//                }else if accountType == "Prime Account" {
-//                    account_group = " PRIME "
-//                }else if accountType == "Premium Account" {
-//                    account_group = " PREMIUM "
-//                }else{
-//                }
                 lbl_name.text = _name
                 lbl_userNameCreateNew.text = _name
-                
-               
                 
             }
         }
@@ -271,7 +232,7 @@ class AccountsViewController: BaseViewController {
         }
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
@@ -346,6 +307,7 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func createAcoountAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+        vc.newAccoutDelegate = self
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
@@ -540,7 +502,36 @@ extension AccountsViewController {
     }
     
 }
-
+extension AccountsViewController: CreateAccountUpdateProtocol {
+    func updateAccountBalance(isNewAccount: Bool) {
+        let getbalanceApi = TradeTypeCellVM()
+        
+        getbalanceApi.getUserBalance(completion: { result in
+            switch result {
+            case .success(let responseModel):
+                // Save the response model or use it as needed
+                print("Balance: \(responseModel.result.user.balance)")
+                print("Equity: \(responseModel.result.user.equity)")
+                
+                // Example: Storing in a singleton for global access
+                UserManager.shared.currentUser = responseModel.result.user
+                
+                self.balance = String(responseModel.result.user.balance)
+                GlobalVariable.instance.balanceUpdate = self.balance
+                //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+                
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                
+            case .failure(let error):
+                print("Failed to fetch balance: \(error.localizedDescription)")
+            }
+        })
+        
+    }
+    
+    
+}
 extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - Just reload the given tableview section.

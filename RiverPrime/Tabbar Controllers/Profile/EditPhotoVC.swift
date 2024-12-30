@@ -28,8 +28,8 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         userImage.clipsToBounds = true
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-           if let _name = savedUserData["name"] as? String , let _id = savedUserData["uid"] as? String{
+            //print("saved User Data: \(savedUserData)")
+           if let _name = savedUserData["fullName"] as? String , let _id = savedUserData["id"] as? String{
                
                self.tf_username.text = _name
                self.userID = _id
@@ -93,7 +93,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             return
         }
         var fieldsToUpdate: [String: Any] = [
-            "name": self.tf_username.text
+            "fullName": self.tf_username.text
                 
              ]
         

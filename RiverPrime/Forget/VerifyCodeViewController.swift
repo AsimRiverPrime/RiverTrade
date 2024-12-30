@@ -55,7 +55,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         }
         
-        resendCodeButton.isEnabled = true
+//        resendCodeButton.isEnabled = true
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if self.isEmailVerification == true {
@@ -117,7 +117,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
             fieldsToUpdate = [
                 "phone": self.userPhone,
                 "phoneVerified" : true,
-                "login" : true,
+                "isLogin" : true,
                 "pushedToCRM": true
             ]
             
@@ -139,7 +139,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
-                    //                    self.navigateToFaceID()
+                    self.navigateToResidence()
                     
                 }
                 
@@ -147,11 +147,12 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     
-    func navigateToFaceID(){
-        if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
-            self.navigate(to: faceIDVC)
+    func navigateToResidence(){
+        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
+            self.navigate(to: residencVC)
         }
     }
+    
     @IBAction func resendCodeBtn(_ sender: Any) {
         callMethodAfterDelay()
 //        resendCodeButton.isEnabled = false
@@ -298,12 +299,17 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
 extension VerifyCodeViewController: SendOTPDelegate {
     func otpSuccess(response: Any) {
         print("this is the email send otp response: \(response)")
-        self.ToastMessage("Check your email inbox or spam for OTP")
+        if isEmailVerification == true {
+            self.ToastMessage("Check your email inbox or spam for OTP")
+        }else{
+            self.ToastMessage("Check your message for OTP")
+        }
     }
     
     func otpFailure(error: Error) {
         print("this is the error  otp response: \(error)")
-        self.label_errorCode.isHidden = false
+//        self.label_errorCode.isHidden = false
+       
     }
 }
 
@@ -313,11 +319,26 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
         
         if isEmailVerification == true {
             updateUser()
-            self.ToastMessage("OTP Correct. Verify Phone#")
-            
+            self.ToastMessage("Email OTP Correct. Verify Phone Number")
             ActivityIndicator.shared.hide(from: self.view)
+            
+            self.tf_firstNum.backgroundColor = .systemGreen
+            self.tf_SecondNum.backgroundColor = .systemGreen
+            self.tf_thirdNum.backgroundColor = .systemGreen
+            self.tf_fourthNum.backgroundColor = .systemGreen
+            self.tf_fivethNum.backgroundColor = .systemGreen
+            self.tf_sixthNum.backgroundColor = .systemGreen
+            
             navigateToPhoneVerifiyScreen()
         }else{
+            self.tf_firstNum.backgroundColor = .systemGreen
+            self.tf_SecondNum.backgroundColor = .systemGreen
+            self.tf_thirdNum.backgroundColor = .systemGreen
+            self.tf_fourthNum.backgroundColor = .systemGreen
+            self.tf_fivethNum.backgroundColor = .systemGreen
+            self.tf_sixthNum.backgroundColor = .systemGreen
+            
+            self.ToastMessage("Phone# OTP Correct.")
             updateUser()
         }
     }
@@ -325,5 +346,13 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
     func otpVerifyFailure(error: Error) {
         
         print("this is the error from verify otp response: \(error)")
+        self.label_errorCode.isHidden = false
+        
+        self.tf_firstNum.backgroundColor = .systemRed
+        self.tf_SecondNum.backgroundColor = .systemRed
+        self.tf_thirdNum.backgroundColor = .systemRed
+        self.tf_fourthNum.backgroundColor = .systemRed
+        self.tf_fivethNum.backgroundColor = .systemRed
+        self.tf_sixthNum.backgroundColor = .systemRed
     }
 }

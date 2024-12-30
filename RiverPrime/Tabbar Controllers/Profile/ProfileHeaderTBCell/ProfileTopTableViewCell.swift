@@ -61,8 +61,8 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["name"] as? String {
+            //print("saved User Data: \(savedUserData)")
+            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["fullName"] as? String {
                 
                 if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),
                    let savedImage = UIImage(data: imageData) {

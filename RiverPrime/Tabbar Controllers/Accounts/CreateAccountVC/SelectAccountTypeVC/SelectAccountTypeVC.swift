@@ -39,7 +39,9 @@ class SelectAccountTypeVC: BaseViewController {
     var demoData: [[String: Any]] = []
     var realData: [[String: Any]] = []
     var currentData: [[String: Any]] = []
+    
     var  AccountReal = Bool()
+    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,22 +52,9 @@ class SelectAccountTypeVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("\n saved User Data: create account list \(savedUserData)")
-            if let uid = savedUserData["uid"] as? String {
-                
-//                firestoreObject.fetchUserAccountsData(userId: uid)
-                
-                let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData")
-                print("userAccountsData new is:\(savedList)")
-                               
+
                 if let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] {
-                    // if not working directly move to convert dictionary into json like
-//                    if let savedData = UserDefaults.standard.data(forKey: "userAccountsData"),
-//                    let jsonObject = try? JSONSerialization.jsonObject(with: savedData, options: []),
-//                    let savedList = jsonObject as? [String: [String: Any]] {
-                        
-                    print("userAccountsData new is:\(savedList)")
+                    print("user AccountsData create Account Screen is:\(savedList)")
                     // Clear the arrays to avoid duplicate data
                     demoData.removeAll()
                     realData.removeAll()
@@ -81,18 +70,20 @@ class SelectAccountTypeVC: BaseViewController {
                     print("Demo Data: \(demoData)")
                     print("Real Data: \(realData)")
                 }
-            }
-        }
         
-        if demoData.count == 0 {
-            self.nodata_label.isHidden = false
-        }else{
-            self.nodata_label.isHidden = true
-        }
+   
         registerCell()
     }
-    
-    
+    @IBAction func deleteAll(_ sender: Any) {
+        firestoreObject.deleteAllUserAccounts(for: "eKE8LvfAxNOrucfHf475pLBK9xG3") { error in
+            if let error = error {
+                print("Failed to delete user accounts: \(error.localizedDescription)")
+            } else {
+                print("Successfully deleted all user accounts for the specified userID.")
+            }
+        }
+        firestoreObject.fetchUserAccountsData(userId: "eKE8LvfAxNOrucfHf475pLBK9xG3")
+    }
     
     private func registerCell() {
         
@@ -105,11 +96,16 @@ class SelectAccountTypeVC: BaseViewController {
         tableView.dataSource = self
         tableView.reloadData()
         updateButtonStyles(selectedButton: demoButton)
+        if demoData.count == 0 {
+            self.nodata_label.isHidden = false
+        }else{
+            self.nodata_label.isHidden = true
+        }
     }
     
     @IBAction func demoButtonTapped(_ sender: UIButton) {
         currentData = demoData
-        if realData.count == 0 {
+        if demoData.count == 0 {
             nodata_label.isHidden = false
             nodata_label.text = "No Demo Account Found"
         }else{
@@ -138,7 +134,13 @@ class SelectAccountTypeVC: BaseViewController {
             demo_undelineView.backgroundColor = .systemYellow
             real_undelineView.backgroundColor = .lightGray
             self.lbl_accountDescription.text = "Risk-free account. Trade with Virtual money."
-            self.btn_createAccount.setTitle("Create Demo Account", for: .normal)
+            if demoData.count == 0 {
+                self.btn_createAccount.setTitle("Create New Demo Account", for: .normal)
+                
+            }else{
+                self.btn_createAccount.setTitle("Create Another Demo Account", for: .normal)
+                
+            }
             AccountReal = false
         }else{
             realButton.tintColor = .systemYellow
@@ -146,7 +148,13 @@ class SelectAccountTypeVC: BaseViewController {
             real_undelineView.backgroundColor = .systemYellow
             demo_undelineView.backgroundColor = .lightGray
             self.lbl_accountDescription.text = "Trade with real money and withdraw any profit you make."
-            self.btn_createAccount.setTitle("Create Real Account", for: .normal)
+          
+            if realData.count == 0 {
+                self.btn_createAccount.setTitle("Create New Real Account", for: .normal)
+            }else{
+                self.btn_createAccount.setTitle("Create Another Real Account", for: .normal)
+            }
+            
             AccountReal = true
         }
         
@@ -154,6 +162,7 @@ class SelectAccountTypeVC: BaseViewController {
     
     @IBAction func createAccount(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
+        vc.newAccoutDelegate = self.newAccoutDelegate
         vc.preferredSheetSizing = .large
       
         if AccountReal {
@@ -163,7 +172,10 @@ class SelectAccountTypeVC: BaseViewController {
         }
         
         //            PresentModalController.instance.presentBottomSheet(self, VC: vc)
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        present(vc, animated: true) {
+                   self.dismiss(animated: false, completion: nil)
+               }
     }
 }
 
@@ -201,6 +213,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
            }
     }
 }
+
 extension SelectAccountTypeVC: SelectAccountCellDelegate {
     func didTapButton(accountNumber: Int) {
         // Navigate to the login screen
@@ -219,71 +232,73 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
         }
     }
 }
-extension SelectAccountTypeVC {
-    func showPopup() {
-        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-        
-        // Replace "PopupViewController" with the actual identifier of your popup view controller
-        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-            // Set modal presentation style
-            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-            
-            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-            popupVC.view.alpha = 0
-            // Optional: Set modal transition style (this is for animation)
-            popupVC.modalTransitionStyle = .crossDissolve
-            popupVC.metaTraderType = .Balance
-            
-            // Present the popup
-            self.present(popupVC, animated: true, completion: nil)
-        }
-    }
-    
-}
-extension SelectAccountTypeVC {
-    
-    private func isAccountExist() -> Bool {
-        
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-                
-                self.loginID = loginID
-                
-                if isCreateDemoAccount == true {
-                    self.createDemoAccount = " Demo "
-                }else {
-                    return false
-                }
-                
-                if isRealAccount == true {
-                    self.realAccount = " Real "
-                }
-                self.accountType = " \(accountType) "
-                self.mt5 = " MT5 "
-                
-                
-                if accountType == "Pro Account" {
-                    self.accountType = " PRO "
-                    self.mt5 = " MT5 "
-                }else if accountType == "Prime Account" {
-                    self.accountType = " PRIME "
-                    self.mt5 = " MT5 "
-                }else if accountType == "Premium Account" {
-                    self.accountType = " PREMIUM "
-                    self.mt5 = " MT5 "
-                }else{
-                    self.accountType = ""
-                    self.mt5 = ""
-                    
-                }
-                return true
-            }
-            return false
-        }
-        return false
-    }
-    
-}
+
+//extension SelectAccountTypeVC {
+//    func showPopup() {
+//        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+//        
+//        // Replace "PopupViewController" with the actual identifier of your popup view controller
+//        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+//            // Set modal presentation style
+//            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+//            
+//            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+//            popupVC.view.alpha = 0
+//            // Optional: Set modal transition style (this is for animation)
+//            popupVC.modalTransitionStyle = .crossDissolve
+//            popupVC.metaTraderType = .Balance
+//            
+//            // Present the popup
+//            self.present(popupVC, animated: true, completion: nil)
+//        }
+//    }
+//    
+//}
+
+//extension SelectAccountTypeVC {
+//    
+//    private func isAccountExist() -> Bool {
+//        
+//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+//            //print("saved User Data: \(savedUserData)")
+//            // Access specific values from the dictionary
+//            
+//            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
+//                
+//                self.loginID = loginID
+//                
+//                if isCreateDemoAccount == true {
+//                    self.createDemoAccount = " Demo "
+//                }else {
+//                    return false
+//                }
+//                
+//                if isRealAccount == true {
+//                    self.realAccount = " Real "
+//                }
+//                self.accountType = " \(accountType) "
+//                self.mt5 = " MT5 "
+//                
+//                
+//                if accountType == "Pro Account" {
+//                    self.accountType = " PRO "
+//                    self.mt5 = " MT5 "
+//                }else if accountType == "Prime Account" {
+//                    self.accountType = " PRIME "
+//                    self.mt5 = " MT5 "
+//                }else if accountType == "Premium Account" {
+//                    self.accountType = " PREMIUM "
+//                    self.mt5 = " MT5 "
+//                }else{
+//                    self.accountType = ""
+//                    self.mt5 = ""
+//                    
+//                }
+//                return true
+//            }
+//            return false
+//        }
+//        return false
+//    }
+//    
+//}

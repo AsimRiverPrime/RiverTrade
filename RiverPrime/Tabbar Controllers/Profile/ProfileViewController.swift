@@ -25,7 +25,7 @@ class ProfileViewController: BaseViewController{
         tblView.isScrollEnabled = false
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let profileStep1 = savedUserData["profileStep"] as? Int, let _realAccount = savedUserData["realAccountCreated"] as? Bool {

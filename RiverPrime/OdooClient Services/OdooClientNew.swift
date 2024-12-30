@@ -458,7 +458,7 @@ class OdooClientNew {
     
     func getNewsRecords(){
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             if let email = savedUserData["email"] as? String{
                 self.userEmail = email
             }
@@ -819,7 +819,7 @@ class OdooClientNew {
     
         func getCalendarDataRecords(fromDate: String , toDate: String) {
             if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-                print("saved User Data: \(savedUserData)")
+                //print("saved User Data: \(savedUserData)")
                 if let email = savedUserData["email"] as? String{
                     self.userEmail = email
                 }
@@ -934,12 +934,17 @@ class OdooClientNew {
     func demoDeposit(amount: Int) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            if let email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            //print("saved User Data: \(savedUserData)")
+            if let email = savedUserData["email"] as? String{
                 self.userEmail = email
-                self.loginId = _loginId
             }
         }
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
+        }
+        
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "params": [
@@ -995,11 +1000,14 @@ class OdooClientNew {
     func demoWithdrawal(amount: Int) {
         let password = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            if let email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            print("saved User Data in withdrawl: \(savedUserData)")
+            if let email = savedUserData["email"] as? String{
                 self.userEmail = email
-                self.loginId = _loginId
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         let jsonrpcBody: [String: Any] = [

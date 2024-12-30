@@ -52,15 +52,19 @@ class SelectAccountTypeCell: UITableViewCell {
            if let groupName = account["groupName"] as? String {
                lbl_group.text = groupName
            }
-           if let isDefault = account["isDefault"] as? Int {
-               self.isDefault = isDefault == 1
-           }
+//           if let isDefault = account["isDefault"] as? Int {
+//               self.isDefault = isDefault == 1
+//           }
            updateButtonState()
        }
 
        private func updateButtonState() {
-           let buttonTintColor: UIColor = isDefault ? .systemYellow : .white
-              btn_checkAccount.tintColor = buttonTintColor
+          
+           btn_checkAccount.isHidden = isDefault ? true : false
+          
+           if isDefault {
+               btn_checkAccount.tintColor = .systemYellow
+           }
        }
 
        @IBAction func checkButtonTapped(_ sender: UIButton) {

@@ -23,11 +23,16 @@ class TradeTypeCellVM {
     func positionClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
+               
             }
         }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
+        }
+        
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
         //close_order([], email, loginId, password, symbol, type, volume, price, position)
         let params: [String: Any] = [
@@ -100,10 +105,14 @@ class TradeTypeCellVM {
     func positionUpdate(takeProfit: Double, stopLoss: Double, position: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
+               
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t  position: \(position) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
         
@@ -173,10 +182,14 @@ class TradeTypeCellVM {
     func deletePendingOrder(order_Id: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
+             
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) ")
         
@@ -241,12 +254,15 @@ class TradeTypeCellVM {
     func UpdatePendingOrder(order_Id: Int, takeProfit: Double, stopLoss: Double, price: Double, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String {
                 email = _email
-                loginId = _loginId
+               
             }
         }
-        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
+        }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) \t  price: \(price) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
         
         let params: [String: Any] = [
@@ -311,10 +327,14 @@ class TradeTypeCellVM {
     func loginForPassword (pass: String, completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
+               
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         let params: [String: Any] = [
@@ -377,10 +397,14 @@ class TradeTypeCellVM {
     func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
         let pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String {
                 email = _email
-                loginId = _loginId
             }
+        }
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
@@ -439,10 +463,13 @@ class TradeTypeCellVM {
     func getBalance(completion: @escaping (String) -> Void) {
         let pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String {
                 email = _email
-                loginId = _loginId
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
@@ -476,7 +503,7 @@ class TradeTypeCellVM {
         
         print("\nget balance params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -525,10 +552,14 @@ class TradeTypeCellVM {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
             }
+        }
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         if index == 0 {
@@ -610,11 +641,11 @@ class TradeTypeCellVM {
         
         print("\n parameter is : \(jsonrpcBody)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
-                print(" closed LIST value is: \(value)")
+                print(" Open/Close/Pending LIST value is: \(value)")
                 
                 do {
                     // Decode the response
@@ -659,7 +690,7 @@ class TradeTypeCellVM {
                             }
                             
                             //TODO: Without sort.
-                            //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
+                            //completion(nil, nil, newCloseModel, nil) // Pass positions to completion
                             
                             //TODO: With sort.
                             // Sort orders before passing them to the completion handler

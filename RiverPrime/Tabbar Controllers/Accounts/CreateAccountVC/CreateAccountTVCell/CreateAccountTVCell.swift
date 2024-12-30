@@ -35,11 +35,11 @@ class CreateAccountTVCell: UITableViewCell {
         super.awakeFromNib()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
         if let loginID = savedUserData["loginId"] as? Int,
-           let _name = savedUserData["name"] as? String {
+           let _name = savedUserData["fullName"] as? String {
            
 //            self.login_Id = loginID
             self.headerTitle.text = _name

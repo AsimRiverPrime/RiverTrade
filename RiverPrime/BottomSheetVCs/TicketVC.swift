@@ -164,7 +164,7 @@ class TicketVC: BottomSheetController {
     func fetchSymbolDetail() {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
+            //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
             if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String{

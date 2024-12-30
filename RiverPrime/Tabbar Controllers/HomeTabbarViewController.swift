@@ -179,7 +179,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     )
                 )
                 
-                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
+//                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
             
             print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")

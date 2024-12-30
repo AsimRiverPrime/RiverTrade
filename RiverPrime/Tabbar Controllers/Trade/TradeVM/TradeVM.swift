@@ -147,10 +147,13 @@ extension TradeVM {
     func fetchChartHistory(symbol: String, completion: @escaping (Result<SymbolChartData, Error>) -> Void) {
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _loginId = savedUserData["loginId"] as? Int {
+            if let _email = savedUserData["email"] as? String{
                 email = _email
-                loginId = _loginId
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account User: \(defaultAccount)")
+            loginId = defaultAccount.accountNumber
         }
         
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()

@@ -141,6 +141,7 @@
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
+		31AAD94F2D1EF3F800733D78 /* UserAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */; };
 		31B102D92C44FAAB0006E8EB /* SignViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102D82C44FAAB0006E8EB /* SignViewModel.swift */; };
 		31B102DC2C4514B10006E8EB /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B102DB2C4514B10006E8EB /* NotificationViewController.swift */; };
 		31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248B2C3D461F0058C9DD /* InterVariable-Italic.ttf */; };
@@ -504,6 +505,7 @@
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
+		31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountManager.swift; sourceTree = "<group>"; };
 		31B102D82C44FAAB0006E8EB /* SignViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignViewModel.swift; sourceTree = "<group>"; };
 		31B102DB2C4514B10006E8EB /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		31B1248B2C3D461F0058C9DD /* InterVariable-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "InterVariable-Italic.ttf"; sourceTree = "<group>"; };
@@ -1309,6 +1311,14 @@
 			path = verifyPhoneVC;
 			sourceTree = "<group>";
 		};
+		31AAD94D2D1EF3D700733D78 /* UserManager */ = {
+			isa = PBXGroup;
+			children = (
+				31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */,
+			);
+			path = UserManager;
+			sourceTree = "<group>";
+		};
 		31B102DA2C45144E0006E8EB /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -1451,6 +1461,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				31AAD94D2D1EF3D700733D78 /* UserManager */,
 				31B8722B2D0C419700024E8A /* CacheApiResponse */,
 				31B6C53A2CC91740000DF849 /* Models */,
 				319871612CAD4991007FE3DA /* passwordSecure */,
@@ -2647,6 +2658,7 @@
 				31D2AF202C8840B800E0CF2E /* GridOptions.swift in Sources */,
 				31D2AF0D2C8840B800E0CF2E /* SeriesData.swift in Sources */,
 				31D2AF072C8840B800E0CF2E /* BarData.swift in Sources */,
+				31AAD94F2D1EF3F800733D78 /* UserAccountManager.swift in Sources */,
 				31D2AEEA2C8840B800E0CF2E /* Encodable+JSONString.swift in Sources */,
 				317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */,
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,

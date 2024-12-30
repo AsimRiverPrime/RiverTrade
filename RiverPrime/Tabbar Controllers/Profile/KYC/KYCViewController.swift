@@ -46,8 +46,8 @@ class KYCViewController: BaseViewController{
         self.navigationController?.navigationBar.isHidden = true
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(savedUserData)")
-            if let _gender = savedUserData["gender"] as? String,let _name = savedUserData["name"] as? String, let _dob = savedUserData["dob"] as? String {
+            //print("saved User Data: \(savedUserData)")
+            if let _gender = savedUserData["gender"] as? String,let _name = savedUserData["fullName"] as? String, let _dob = savedUserData["dateOfBirth"] as? String {
                 self.dob = _dob
                 self.userName = _name
                 self.gender = _gender

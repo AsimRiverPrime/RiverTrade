@@ -26,6 +26,8 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_swap: UILabel!
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
+    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
+    
     var isRealAccount: Bool?
     var counter = 0
 //    var getSelectedAccountType = GetSelectedAccountType()
@@ -66,6 +68,8 @@ class CreateAccountSelectTradeType: BottomSheetController {
 //        vc.preferredSheetSizing = .large
 //        vc.getSelectedAccountType = getSelectedAccountType
         vc.account = selectedAccount
+        vc.newAccoutDelegate = self.newAccoutDelegate
+        
         vc.isReal = isRealAccount ?? false
 //        PresentModalController.instance.presentBottomSheet(self, VC: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)

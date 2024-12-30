@@ -152,16 +152,16 @@ extension SceneDelegate {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n saved User Data: scenceDelegate \(savedUserData)")
-            if let uid = savedUserData["uid"] as? String {
+            if let uid = savedUserData["id"] as? String {
                 print("UID is: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
                 self.fireStoreInstance.fetchUserAccountsData(userId: uid)
             }
                 // Access specific values from the dictionary
-            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
-                   
-                    GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-                }
+//            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+//                   
+//                    GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+//                }
             
             fireStoreInstance.handleUserData()
 //            let storyboard = UIStoryboard(name: "Main", bundle: nil)
