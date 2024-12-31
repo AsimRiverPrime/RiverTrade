@@ -12,6 +12,9 @@ class MarketsViewController: UIViewController {
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var labelAmmount: UILabel!
     
+    @IBOutlet weak var lbl_accountType: UILabel!
+    @IBOutlet weak var lbl_accountGroup: UILabel!
+
     let odooServer = OdooClientNew()
     var allPayloads: [PayloadItem] = []
     var filteredPayloads: [PayloadItem] = []
@@ -37,6 +40,7 @@ class MarketsViewController: UIViewController {
         print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
         odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
         odooServer.getNewsRecords()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
 
     }
@@ -59,6 +63,11 @@ class MarketsViewController: UIViewController {
 extension MarketsViewController {
     
     @objc func notificationPopup(_ notification: NSNotification) {
+    
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            self.lbl_accountGroup.text = defaultAccount.groupName
+            lbl_accountType.text = defaultAccount.isReal == true ? "Real" : "Demo"
+        }
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")

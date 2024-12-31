@@ -173,17 +173,36 @@ class TradeViewController: UIViewController {
     }
     
     @IBAction func searchCloseButton(_ sender: UIButton) {
-        
-        symbolDataSector.removeAll()
-        //MARK: - Set all sectors by default.
-        symbolDataSector = GlobalVariable.instance.sectors
-        //        self.symbolDataSectorSelected = false
-        filteredData = []
-        self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        self.tblView.isHidden = false
-        self.tblSearchView.isHidden = true
-        self.tf_searchSymbol.text = ""
-        self.tf_searchSymbol.resignFirstResponder()
+            
+            if let currentImage = self.searchCloseButton.image(for: .normal),
+               currentImage.isEqual(UIImage(systemName: "magnifyingglass")) {
+                print("The button image is magnifyingglass.")
+                symbolDataSector.removeAll()
+                //MARK: - Set all sectors by default.
+                symbolDataSector = GlobalVariable.instance.sectors
+                filteredData = []
+                tblView.isHidden = true
+                tblSearchView.isHidden = false
+                self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+                tblSearchView.delegate = self
+                tblSearchView.dataSource = self
+                tblSearchView.reloadData()
+            }else{
+                
+                symbolDataSector.removeAll()
+                //MARK: - Set all sectors by default.
+                symbolDataSector = GlobalVariable.instance.sectors
+                //        self.symbolDataSectorSelected = false
+                filteredData = []
+                self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+                self.tblView.isHidden = false
+                self.tblSearchView.isHidden = true
+                self.tf_searchSymbol.text = ""
+                self.tf_searchSymbol.resignFirstResponder()
+                
+            }
+            
+           
         
     }
     
@@ -287,7 +306,7 @@ class TradeViewController: UIViewController {
                 
                 
                 getbalanceApi.getBalance(completion: { response in
-                    print("response of get balance: \(response)")
+                    print("response of get balance in trade Vc: \(response)")
                     if response == "Invalid Response" {
 //                        self.balance = "0.0"
                         return
@@ -312,51 +331,80 @@ class TradeViewController: UIViewController {
     
     private func dashboardinit() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //print("saved User Data: \(savedUserData)")
+//            print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
-                //                profileStep = profileStep1
-                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-                
-                let password = UserDefaults.standard.string(forKey: "password")
-                if password == nil && isCreateDemoAccount == true {
-                    showPopup()
-                }else{
-                    print("the password is: \(password ?? "")")
+            
+            //MARK: - START Update Change.
+            let getbalanceApi = TradeTypeCellVM()
+            getbalanceApi.getUserBalance(completion: { result in
+                switch result {
+                case .success(let responseModel):
+                    // Save the response model or use it as needed
+                    print("Balance: \(responseModel.result.user.balance)")
+                    print("Equity: \(responseModel.result.user.equity)")
                     
-                    let getbalanceApi = TradeTypeCellVM()
-                    getbalanceApi.getUserBalance(completion: { result in
-                        switch result {
-                        case .success(let responseModel):
-                            // Save the response model or use it as needed
-                            print("Balance: \(responseModel.result.user.balance)")
-                            print("Equity: \(responseModel.result.user.equity)")
-                            
-                            // Example: Storing in a singleton for global access
-                            UserManager.shared.currentUser = responseModel.result.user
-                            
-                        case .failure(let error):
-                            print("Failed to fetch balance: \(error.localizedDescription)")
-                        }
-                    })
+                    // Example: Storing in a singleton for global access
+                    UserManager.shared.currentUser = responseModel.result.user
                     
-                    getbalanceApi.getBalance(completion: { response in
-                        print("response of get balance: \(response)")
-                        if response == "Invalid Response" {
-                            //                            self.balance = "0.0"
-                            return
-                        }
-                        //                        self.balance = response
-                        GlobalVariable.instance.balanceUpdate = response //self.balance
-                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                        
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-                        
-                    })
+                    GlobalVariable.instance.balanceUpdate = String(responseModel.result.user.balance) //self.balance
+                    print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                    
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                    
+                case .failure(let error):
+                    print("Failed to fetch balance: \(error.localizedDescription)")
                 }
-            }
+            })
+            
+            
+            
+            
+            
+//            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+//                //                profileStep = profileStep1
+//                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+//
+//                let password = UserDefaults.standard.string(forKey: "password")
+//                if password == nil && isCreateDemoAccount == true {
+//                    showPopup()
+//                }else{
+//                    print("the password is: \(password ?? "")")
+//
+//                    let getbalanceApi = TradeTypeCellVM()
+//                    getbalanceApi.getUserBalance(completion: { result in
+//                        switch result {
+//                        case .success(let responseModel):
+//                            // Save the response model or use it as needed
+//                            print("Balance: \(responseModel.result.user.balance)")
+//                            print("Equity: \(responseModel.result.user.equity)")
+//
+//                            // Example: Storing in a singleton for global access
+//                            UserManager.shared.currentUser = responseModel.result.user
+//
+//                        case .failure(let error):
+//                            print("Failed to fetch balance: \(error.localizedDescription)")
+//                        }
+//                    })
+//
+//                    getbalanceApi.getBalance(completion: { response in
+//                        print("response of get balance: \(response)")
+//                        if response == "Invalid Response" {
+//                            //                            self.balance = "0.0"
+//                            return
+//                        }
+//                        //                        self.balance = response
+//                        GlobalVariable.instance.balanceUpdate = response //self.balance
+//                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+//
+//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+//
+//                    })
+//                }
+//            }
+            //MARK: - END Update Change.
         }
     }
     
@@ -375,68 +423,17 @@ class TradeViewController: UIViewController {
     }
     
     func accountData() {
-        var account_type = String()
-        var account_group = String()
-        //        var login_Id = Int()
-        
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool  {
-                
-                //                login_Id = loginID
-                
-                if isCreateDemoAccount == true {
-                    account_type = " Demo "
-                    account_group = " \(accountType) "
-                }
-                if isRealAccount == true {
-                    account_type = " Real "
-                    account_group = " \(accountType) "
-                }
-                
-                if accountType == "Pro Account" {
-                    account_group = " PRO "
-                }else if accountType == "Prime Account" {
-                    account_group = " PRIME "
-                }else if accountType == "Premium Account" {
-                    account_group = " PREMIUM "
-                }else{
-                }
-                lbl_account.text = account_type
-                lbl_accountType.text = account_group
-            }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            self.lbl_accountType.text = defaultAccount.groupName
+            lbl_account.text = defaultAccount.isReal == true ? "Real" : "Demo"
         }
+       
     }
     
     func config(_ symbolData: [SectorGroup]){
         self.symbolDataSector = symbolData
         //        self.tradeTVCCollectionView.reloadData()
     }
-}
-
-extension TradeViewController {
-    
-    func showPopup() {
-        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-        
-        // Replace "PopupViewController" with the actual identifier of your popup view controller
-        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-            // Set modal presentation style
-            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-            
-            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-            popupVC.view.alpha = 0
-            // Optional: Set modal transition style (this is for animation)
-            popupVC.modalTransitionStyle = .crossDissolve
-            popupVC.metaTraderType = .Balance
-            
-            // Present the popup
-            self.present(popupVC, animated: true, completion: nil)
-        }
-    }
-    
 }
 
 extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -1166,5 +1163,4 @@ extension TradeViewController: GetSocketMessages {
         }
         
     }
-    
-
+   

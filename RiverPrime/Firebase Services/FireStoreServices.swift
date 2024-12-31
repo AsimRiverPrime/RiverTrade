@@ -96,6 +96,55 @@ class FirestoreServices: BaseViewController {
          }
      }
     
+    func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
+        // Save userID in UserDefaults
+        UserDefaults.standard.set(userId, forKey: "userID")
+        print("User ID is: \(userId)")
+        
+        // Firestore query with `where` clause
+        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
+        
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching user accounts: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                print("No user accounts found for the given userID.")
+                GlobalVariable.instance.isAccountCreated = false
+                return
+            }
+            
+            var userAccountsData = [String: [String: Any]]() // Dictionary to store all documents' data
+            
+            for document in documents {
+                let documentId = document.documentID
+                let data = document.data()
+                userAccountsData[documentId] = data
+            }
+            
+            // Save the combined data in UserDefaults
+            UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
+            print("Combined User Accounts data saved: \(userAccountsData)")
+            // Update accounts
+            UserAccountManager.shared.updateAccounts(from: userAccountsData)
+
+            // Retrieve and print the default account
+            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+                print("\n Default user Account : \(defaultAccount)")
+               
+            }
+            
+            if userAccountsData.count == 0 {
+                GlobalVariable.instance.isAccountCreated = false
+            }else{
+                GlobalVariable.instance.isAccountCreated = true
+            }
+            completion()
+        }
+    }
+    
     func fetchUserAccountsData(userId: String) {
         // Save userID in UserDefaults
         UserDefaults.standard.set(userId, forKey: "userID")
@@ -230,84 +279,54 @@ class FirestoreServices: BaseViewController {
         let uniqueId = db.collection("userAccounts").document().documentID
         let userRef = db.collection("userAccounts").document(uniqueId)
         userRef.setData(fields, completion: completion)
-//        fetchUserAccountsData(userId: fields["userID"] as! String)
     }
     
-   func updateDefaultAccount(for accountKey: String, userId: String, completion: @escaping (Error?) -> Void) {
+    func updateDefaultAccount(for accountKey: String, userId: String, completion: @escaping (Error?) -> Void) {
+        print("Updating default account for accountKey: \(accountKey), userId: \(userId)")
+
         // Retrieve accounts from UserDefaults
         guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
-            print("No accounts found in UserDefaults")
-            fetchUserAccountsData(userId: userId)
-            
-            guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
-                return
+            print("No accounts found in UserDefaults. Fetching data...")
+            fetchUserAccountsData(userId: userId){
+                self.updateDefaultAccount(for: accountKey, userId: userId, completion: completion)
             }
-            guard let targetUserID = userId as? String else {
-                print("Account key not found in UserDefaults")
-                return
-            }
-
-            // Update the `isDefault` flag in UserDefaults
-            for (key, account) in accountsDict {
-                if let accountUserID = account["userID"] as? String {
-                    accountsDict[key]?["isDefault"] = (accountUserID == targetUserID && key == accountKey) ? 1 : 0
-                }
-            }
-
-            // Save updated accounts back to UserDefaults
-            UserDefaults.standard.set(accountsDict, forKey: "userAccountsData")
-            UserDefaults.standard.synchronize()
-
-            // Update the `isDefault` flag in Firebase
-            let db = Firestore.firestore()
-            let batch = db.batch()
-
-            // Update `isDefault` for all accounts in Firebase with the same `userID`
-            for (key, account) in accountsDict {
-                if let accountUserID = account["userID"] as? String, accountUserID == targetUserID {
-                    let docRef = db.collection("userAccounts").document(key)
-                    batch.setData(["isDefault": account["isDefault"] ?? 0], forDocument: docRef, merge: true)
-                }
-            }
-
-            // Commit the batch
-            batch.commit { error in
-                if let error = error {
-                    print("Error updating Firebase: \(error.localizedDescription)")
-                    completion(error)
-                } else {
-                    print("Successfully updated isDefault in Firebase")
-                    completion(nil)
-                }
-            }
-            return
-        }
-
-        guard let targetUserID = userId as? String else {
-            print("Account key not found in UserDefaults")
+           
             return
         }
 
         // Update the `isDefault` flag in UserDefaults
+//        print("Before update in UserDefaults: \(accountsDict)")
         for (key, account) in accountsDict {
-            if let accountUserID = account["userID"] as? String {
-                accountsDict[key]?["isDefault"] = (accountUserID == targetUserID && key == accountKey) ? 1 : 0
+            if var accountData = account as? [String: Any],
+               let accountUserID = accountData["userID"] as? String,
+               let accountNumber = accountData["accountNumber"] as? Int {
+                
+                let isMatchingAccount = (accountNumber == Int(accountKey))
+                let isMatchingUser = (accountUserID == userId)
+
+                print("Key: \(key), accountNumber: \(accountNumber), isMatchingAccount: \(isMatchingAccount), accountUserID: \(accountUserID), isMatchingUser: \(isMatchingUser)")
+
+                accountData["isDefault"] = (isMatchingAccount && isMatchingUser) ? 1 : 0
+                accountsDict[key] = accountData
+            } else {
+                print("Key \(key) is missing accountNumber, userID, or account data.")
             }
         }
+//        print("After update in UserDefaults: \(accountsDict)")
 
         // Save updated accounts back to UserDefaults
         UserDefaults.standard.set(accountsDict, forKey: "userAccountsData")
         UserDefaults.standard.synchronize()
 
         // Update the `isDefault` flag in Firebase
-        let db = Firestore.firestore()
-        let batch = db.batch()
+        let batch = self.db.batch()
 
-        // Update `isDefault` for all accounts in Firebase with the same `userID`
         for (key, account) in accountsDict {
-            if let accountUserID = account["userID"] as? String, accountUserID == targetUserID {
-                let docRef = db.collection("userAccounts").document(key)
-                batch.setData(["isDefault": account["isDefault"] ?? 0], forDocument: docRef, merge: true)
+            if let accountUserID = account["userID"] as? String, accountUserID == userId {
+                let isDefault = account["isDefault"] as? Int ?? 0
+                print("Setting isDefault in Firebase for accountKey \(key): \(isDefault)")
+                let docRef = self.db.collection("userAccounts").document(key)
+                batch.setData(["isDefault": isDefault], forDocument: docRef, merge: true)
             }
         }
 
@@ -318,11 +337,17 @@ class FirestoreServices: BaseViewController {
                 completion(error)
             } else {
                 print("Successfully updated isDefault in Firebase")
-                completion(nil)
+                self.fetchUserAccountsData(userId: userId) {
+                    completion(nil)
+                }
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                  
+//                }
             }
         }
     }
-    
+
+
     func deleteAllUserAccounts(for userId: String, completion: @escaping (Error?) -> Void) {
         let userAccountsCollection = db.collection("userAccounts")
         

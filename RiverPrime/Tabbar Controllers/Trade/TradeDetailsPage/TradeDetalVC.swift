@@ -25,6 +25,9 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var overviewView: UIView!
     
     //    var webSocket : WebSocket!
+//    @IBOutlet weak var btn_candalChart: UIButton!
+    @IBOutlet weak var btn_areaChart: UIButton!
+    @IBOutlet weak var btn_lineChart: UIButton!
     
     @IBOutlet weak var view_liveValue: UIView!
     private var chart: LightweightCharts?
@@ -441,12 +444,65 @@ class TradeDetalVC: UIViewController {
         
     }
     
-    @IBAction func chartTypeBtn_action(_ sender: Any) {
-        let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
-        vc.delegate = self
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
+    @IBAction func chartTypeBtn_action(_ sender: UIButton) {
+//        let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
+//        vc.delegate = self
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
+        btn_areaChart.tintColor = .systemGray
+        btn_ChartType.tintColor = .systemYellow
+        btn_lineChart.tintColor = .systemGray
+        
+        clearChart()
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
+        
+        setupSeries(candlestickData: candlestickData)
+        
+        if sender.isSelected {
+          
+        }else{
+            
+        }
     }
     
+    @IBAction func areaChartBtn_action(_ sender: UIButton) {
+//        btn_areaChart.isSelected = true
+//        btn_ChartType.isSelected = false
+//        btn_lineChart.isSelected = false
+        
+        btn_areaChart.tintColor = .systemYellow
+        btn_ChartType.tintColor = .systemGray
+        btn_lineChart.tintColor = .systemGray
+        
+        if sender.isSelected {
+            
+        }else{
+            
+        }
+        clearChart()
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
+        let areaData = convertToAreaData(candlestickData: candlestickData)
+        setupAreaSeries(areaData: areaData)
+}
+
+@IBAction func lineChartBtn_action(_ sender: UIButton) {
+    btn_areaChart.tintColor = .systemGray
+    btn_ChartType.tintColor = .systemGray
+    btn_lineChart.tintColor = .systemYellow
+    
+    if sender.isSelected {
+       
+    }else{
+        
+    }
+    clearChart()
+    self.chartView.isHidden = true
+    self.chart?.isHidden = true
+    let barData = convertToBarData(candlestickData: candlestickData)
+    setupBarSeries(barData: barData)
+}
+
     
 //    @IBAction func lineChart_action(_ sender: Any) {
 //        print("Area Chart btn clicked")
@@ -801,10 +857,10 @@ extension TradeDetalVC {
 extension TradeDetalVC: ChartOptionsDelegate {
     func didSelectChartType(_ chartType: ChartType) {
         // Clear existing chart
-        clearChart()
+       
         
         self.chartType = chartType
-        
+        clearChart()
         self.chartView.isHidden = true
         self.chart?.isHidden = true
         

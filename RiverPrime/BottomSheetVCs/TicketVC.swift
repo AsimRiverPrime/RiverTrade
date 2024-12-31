@@ -164,14 +164,13 @@ class TicketVC: BottomSheetController {
     func fetchSymbolDetail() {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let LoginIDs = savedUserData["loginId"] as? Int, let email = savedUserData["email"] as? String{
-                self.userLoginID = LoginIDs
+            if let email = savedUserData["email"] as? String{
                 self.userEmail = email
-              
             }
+        }
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            self.userLoginID = defaultAccount.accountNumber
         }
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
@@ -883,7 +882,7 @@ extension TicketVC {
                 ]
             ]
         ]
-        print("\n parameters : \(parameters1)")
+        print("\n parameters for create order : \(parameters1)")
         
         AF.request(url,
                    method: .post,
@@ -905,15 +904,19 @@ extension TicketVC {
 //                        self.ToastMessage("Order Placed successfully")
                         self.dismiss(animated: true)
                     }else {
-                        if let result = json["result"] as? [String: Any], let error = result["error"] as? String {
+                        if let result = json["result"] as? [String: Any], let error = result["Error"] as? String {
                           
                             print("Error response: \(error)")
-                            self.ToastMessage(error)
+                            self.showTimeAlert(str: "\(error)")
                         }
                     }
                   
-                }
-                
+                }else{
+                    
+                    self.showTimeAlert(str: "Order not Placed")
+                    self.dismiss(animated: true)
+                    }
+            
             case .failure(let error):
                 // Handle the error
                 ActivityIndicator.shared.hide(from: self.view)

@@ -38,39 +38,18 @@ class SettingsView: UIView {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
+            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+                print("\n Default Account user: \(defaultAccount)")
+//                self.lbl_acctUserName.text = "#\(defaultAccount.accountNumber)"
+                self.lbl_loginID.text = "\(defaultAccount.accountNumber)"
+                lbl_accountType.text = defaultAccount.isReal == true ? "Real" : "Demo"
+                self.lbl_serverName.text = defaultAccount.isReal == true ? "MT5-Server" : "DEMO-Server"
+                self.lbl_accountGroup.text = defaultAccount.groupName
+                self.lbl_acctUserName.text = defaultAccount.name
+            }
             
-            if let loginID = savedUserData["loginId"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool, let accountType = savedUserData["demoAccountGroup"] as? String, let isRealAccount = savedUserData["realAccountCreated"] as? Bool, let _email = savedUserData["email"] as? String  {
-//                self.lbl_acctUserName.text = _name
-                let storedUserName = UserDefaults.standard.string(forKey: "MTUserName")
-                self.lbl_acctUserName.text = storedUserName
-                
-                self.lbl_accountNumber.text = "#\(loginID)"
-                self.lbl_loginID.text = "\(loginID)"
+            if let _email = savedUserData["email"] as? String  {
                 self.userEmail = _email
-                
-                if isCreateDemoAccount == true {
-                    self.lbl_accountType.text = " Demo "
-//                    self.lbl_serverType.text = " MT5 "
-                    self.lbl_accountGroup.text = " \(accountType) "
-                    self.lbl_serverName.text = "DEMO-Server"
-                }
-                if isRealAccount == true {
-                    self.lbl_accountType.text = " Real "
-//                    self.lbl_serverType.text = " MT5 "
-                    self.lbl_accountGroup.text = " \(accountType) "
-                    self.lbl_serverName.text = "REAL-Server"
-                }
-                if accountType == "Pro Account" {
-                    self.lbl_accountGroup.text = " PRO "
-                    
-                }else if accountType == "Prime Account" {
-                    self.lbl_accountGroup.text = " PRIME "
-                    
-                }else if accountType == "Premium Account" {
-                    self.lbl_accountGroup.text = " PREMIUM "
-                    
-                }
-                
             }
         }
         
@@ -109,6 +88,7 @@ class SettingsView: UIView {
 
                 self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: storedPassword ?? "", newPassword: "", userName: name)
                 UserDefaults.standard.set(name, forKey: "MTUserName")
+                
                 self.lbl_acctUserName.text = name
                 
             } else {

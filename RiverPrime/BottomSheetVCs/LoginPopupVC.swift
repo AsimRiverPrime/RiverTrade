@@ -43,6 +43,8 @@ class LoginPopupVC: BaseViewController {
     
     var viewModel = TradeTypeCellVM()
     var metaTraderType: MetaTraderType? = .None
+    let passwordManager = PasswordManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +72,19 @@ class LoginPopupVC: BaseViewController {
     
     @IBAction func login_action(_ sender: Any) {
       
-        viewModel.loginForPassword(pass: self.password_tf.text ?? "", completion: { response in
+        viewModel.loginForPassword(loginID: loginId, pass: self.password_tf.text ?? "", completion: { response in
             print("the login to meta Trader account response is: \(response)")
+        
+            if self.passwordManager.savePassword(for: String(self.loginId), password: self.password_tf.text ?? "") {
+                print("Password successfully saved from loginScreen.")
+            } else {
+                print("ID already exists. Cannot save password.")
+            }
+            
+            let allPasswords = self.passwordManager.getAllPasswords()
+            print("All Saved Passwords on from loginScreen: \(allPasswords)")
+              
+            
             self.ToastMessage(response)
             if response == "Login Failed" {
                 self.lbl_wrongPassword.isHidden = false

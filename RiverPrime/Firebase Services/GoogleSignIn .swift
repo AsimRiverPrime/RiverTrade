@@ -50,6 +50,7 @@ class GoogleSignIn {
                     if let snapshot = querySnapshot, !snapshot.isEmpty {
                         print("User with this email already exists.")
                         self.fireBaseService.fetchUserData(userId: user.uid)
+                        self.fireBaseService.fetchUserAccountsData(userId: user.uid)
                         
                         let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
                             print("Timer fired!")

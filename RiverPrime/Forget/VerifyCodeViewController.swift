@@ -62,6 +62,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 self.ToastMessage( "check email inbox/spam for OTP")
             }else{
                 self.ToastMessage("check mobile message for OTP")
+                
             }
         }
     }
@@ -75,6 +76,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
+    
     @IBAction func confirmBtn(_ sender: Any) {
         
         
@@ -96,7 +98,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 //                    self.navigate(to: faceIDVC)
                 //                } // for testing only
                 
-                odooClientService.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone ?? "", otp: getVerificationCode() ?? "" )   // when live
+//                odooClientService.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone ?? "", otp: getVerificationCode() ?? "" )   // when live
                 
             }
         }

@@ -101,6 +101,7 @@
 		3164C6052C47F2050055F093 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C6042C47F2050055F093 /* ResultsViewController.swift */; };
 		3169F23E2C5387F00032272A /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23D2C5387F00032272A /* UserModel.swift */; };
 		3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3169F23F2C53AC0C0032272A /* FireStoreServices.swift */; };
+		316CDF912D23BE1F00CA3050 /* PasswordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316CDF902D23BE1F00CA3050 /* PasswordManager.swift */; };
 		31710CDF2CE321C80082AB28 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31710CDE2CE321C80082AB28 /* String+Extension.swift */; };
 		31710CE12CE322160082AB28 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31710CE02CE322160082AB28 /* Main.storyboard */; };
 		3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3171E3A42CB94CF60043203F /* HistoryTradeTVCell.xib */; };
@@ -465,6 +466,7 @@
 		3164C6042C47F2050055F093 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		3169F23D2C5387F00032272A /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		3169F23F2C53AC0C0032272A /* FireStoreServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreServices.swift; sourceTree = "<group>"; };
+		316CDF902D23BE1F00CA3050 /* PasswordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordManager.swift; sourceTree = "<group>"; };
 		31710CDE2CE321C80082AB28 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		31710CE02CE322160082AB28 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		3171E3A32CB94CF60043203F /* HistoryTradeTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTradeTVCell.swift; sourceTree = "<group>"; };
@@ -1011,6 +1013,7 @@
 		3105DEE12CB3E8A400D1B884 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				316CDF8F2D23BDF100CA3050 /* PasswordHandleLocaly */,
 				3105DE942CB3E8A400D1B884 /* AccountTableViewCells */,
 				3105DEB52CB3E8A400D1B884 /* CreateAccountVC */,
 				3102120D2CE4D4540064F6EF /* IncomesExpenseTVCell */,
@@ -1178,6 +1181,14 @@
 			path = UserModel;
 			sourceTree = "<group>";
 		};
+		316CDF8F2D23BDF100CA3050 /* PasswordHandleLocaly */ = {
+			isa = PBXGroup;
+			children = (
+				316CDF902D23BE1F00CA3050 /* PasswordManager.swift */,
+			);
+			path = PasswordHandleLocaly;
+			sourceTree = "<group>";
+		};
 		3176F33E2C4F97E300FEF92A /* SocialTradeTBCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1259,6 +1270,7 @@
 		319A328F2C9C3EFB006DA077 /* Trade */ = {
 			isa = PBXGroup;
 			children = (
+				31BE553D2C492AA200DE2640 /* TradeDetailsPage */,
 				FADC582A2D09031100B205A1 /* SearchTableViewCell */,
 				31F77FC82CE627130080C410 /* TradeHeader */,
 				319A32842C9C3EFB006DA077 /* TableCollectionViewCell */,
@@ -1273,7 +1285,6 @@
 		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				31BE553D2C492AA200DE2640 /* TradeDetailsPage */,
 				31B102DA2C45144E0006E8EB /* Notifications */,
 				3105DEE12CB3E8A400D1B884 /* Accounts */,
 				31F3BAD62C3FAB49009A2A12 /* Profile */,
@@ -2684,6 +2695,7 @@
 				31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */,
 				FAD776CC2C976F4D000411F1 /* JSONRPCClient.swift in Sources */,
 				31D2621A2C3BF58200FC6651 /* SignUpViewController.swift in Sources */,
+				316CDF912D23BE1F00CA3050 /* PasswordManager.swift in Sources */,
 				3147D4A82D09B5F300B3F468 /* TopNewsViewController.swift in Sources */,
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
 				315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */,

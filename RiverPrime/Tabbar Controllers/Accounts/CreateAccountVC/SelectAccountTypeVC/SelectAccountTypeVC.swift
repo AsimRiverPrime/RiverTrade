@@ -38,12 +38,13 @@ class SelectAccountTypeVC: BottomSheetController {
     
     var selectAccountType = [SelectAccountType]()
     var getbalanceApi = TradeTypeCellVM()
-    
-    var loginID = Int()
-    var createDemoAccount = String()
-    var realAccount = String()
-    var accountType = String()
-    var mt5 = String()
+    var metaTraderType: MetaTraderType? = .None
+
+//    var loginID = Int()
+//    var createDemoAccount = String()
+//    var realAccount = String()
+//    var accountType = String()
+//    var mt5 = String()
     var firestoreObject = FirestoreServices()
     
     var demoData: [[String: Any]] = []
@@ -54,8 +55,10 @@ class SelectAccountTypeVC: BottomSheetController {
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
     
-    var accountsPassword: [String: String] = [:]
+    var accountsPassword: [String: [String: String]] = [:]
+    let passwordManager = PasswordManager()
     
+    var userID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,8 +67,9 @@ class SelectAccountTypeVC: BottomSheetController {
         
         self.btn_createAccount.titleTintColor = .systemYellow
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "dismissCreateAccountScreen"), object: nil)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
+        registerCell()
+
     }
     
     @objc func updateAccountList(){
@@ -85,33 +89,37 @@ class SelectAccountTypeVC: BottomSheetController {
             NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
             NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
        
-        registerCell()
+        self.dismiss(animated: true)
+//        registerCell()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
-        passwordLoadFromUserDefaults()
-        registerCell()
+        
+        let allPasswords = passwordManager.getAllPasswords()
+        print("All Saved Passwords on create Account: \(allPasswords)")
     }
     @IBAction func deleteAll(_ sender: Any) {
-        firestoreObject.deleteAllUserAccounts(for: "CT9RjofmaSM5cPwHG5QmKk9tCMu1") { error in
+        firestoreObject.deleteAllUserAccounts(for: "wMmWmODl5cUTVYZFR4B6XBy981I2") { error in
             if let error = error {
                 print("Failed to delete user accounts: \(error.localizedDescription)")
             } else {
                 print("Successfully deleted all user accounts for the specified userID.")
             }
         }
-        firestoreObject.fetchUserAccountsData(userId: "CT9RjofmaSM5cPwHG5QmKk9tCMu1")
+        firestoreObject.fetchUserAccountsData(userId: "wMmWmODl5cUTVYZFR4B6XBy981I2")
     }
     
     private func registerCell() {
         if let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] {
             print("user AccountsData create Account Screen is:\(savedList)")
             // Clear the arrays to avoid duplicate data
+           
             demoData.removeAll()
             realData.removeAll()
             for (_, account) in savedList {
+                self.userID = account["userID"] as! String
                 if let isReal = account["isReal"] as? Int {
                     if isReal == 0 {
                         demoData.append(account)
@@ -120,6 +128,10 @@ class SelectAccountTypeVC: BottomSheetController {
                     }
                 }
             }
+            
+            demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+            realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+               
             print("Demo Data: \(demoData)")
             print("Real Data: \(realData)")
         }
@@ -130,7 +142,7 @@ class SelectAccountTypeVC: BottomSheetController {
         ])
 
         currentData = demoData
-        sortCurrentData()
+//        sortCurrentData()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -162,23 +174,7 @@ class SelectAccountTypeVC: BottomSheetController {
                return accountNumber1 < accountNumber2 // Otherwise, sort by account number
            }
     }
-    
-    func passwordLoadFromUserDefaults() {
-      
-        if let savedPasswordAccounts = UserDefaults.standard.dictionary(forKey: "userPasswordData") as? [String: String] {
-        
-            accountsPassword = savedPasswordAccounts
-            print("Accounts Password fetch from UserDefaults: \(accountsPassword)")
-        } else {
-            print("No saved accounts Password found")
-        }
-    }
-
-    // Fetch password for a loginID
-    func fetchPassword(for loginID: String) -> String? {
-        return accountsPassword[loginID]
-    }
-    
+ 
     @IBAction func demoButtonTapped(_ sender: UIButton) {
         currentData = demoData
         if demoData.count == 0 {
@@ -291,19 +287,52 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
 
 extension SelectAccountTypeVC: SelectAccountCellDelegate {
     func didTapButton(accountNumber: Int) {
-        // Navigate to the login screen
-       if let mtLoginVC = UIStoryboard(name: "BottomSheetPopups", bundle: nil).instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-           mtLoginVC.loginId = accountNumber
-           mtLoginVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+        // Convert accountNumber to a String (since dictionary keys are strings)
+        let accountNumberKey = String(accountNumber)
+        
+        // Get the stored passwords dictionary
+      
+        let allPasswords = passwordManager.getAllPasswords()
+        
+        // Check if the accountNumber exists in the dictionary
+        if let passwordEntry = allPasswords[accountNumberKey], let password = passwordEntry[accountNumberKey] {
+            print("Account found with password: \(password)")
             
-            mtLoginVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-            mtLoginVC.view.alpha = 0
-            // Optional: Set modal transition style (this is for animation)
-            mtLoginVC.modalTransitionStyle = .crossDissolve
-            mtLoginVC.metaTraderType = .Balance
+            // Call the login API directly
+//            loginAPI(accountNumber: accountNumber, password: password)
+            getbalanceApi.loginForPassword(loginID: accountNumber, pass: password, completion: { response in
+                print("the login to meta Trader account response is: \(response)")
+                self.firestoreObject.updateDefaultAccount(for: "\(accountNumber)", userId: self.userID){ [weak self] error in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        print("Error updating default account: \(error.localizedDescription)")
+                        return
+                    }
+                    print("\n updating isDefault account success: ")
+                   
+                    self.metaTraderType = .Balance
+                    
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                    self.dismiss(animated: true, completion: nil)
+                }
+                
+               
+            })
+        } else {
+            print("Account not found. Navigating to login screen.")
             
-            // Present the popup
-            self.present(mtLoginVC, animated: true, completion: nil)
+            // Navigate to the LoginPopupVC screen
+            if let mtLoginVC = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+                .instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+                mtLoginVC.loginId = accountNumber
+                mtLoginVC.modalPresentationStyle = .overFullScreen
+                mtLoginVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+                mtLoginVC.view.alpha = 0
+                mtLoginVC.modalTransitionStyle = .crossDissolve
+                mtLoginVC.metaTraderType = .Balance
+                self.present(mtLoginVC, animated: true, completion: nil)
+            }
         }
     }
 }

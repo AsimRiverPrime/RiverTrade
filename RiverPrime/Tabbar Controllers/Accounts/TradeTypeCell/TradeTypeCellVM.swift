@@ -74,7 +74,7 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any], let success = result["success"] as? Bool {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
+                        print("jsonData for position closed : \(jsonData)")
                         
                         print("success = \(success)")
                         
@@ -140,7 +140,7 @@ class TradeTypeCellVM {
             ]
         ]
         
-        print("params is: \(params)")
+        print("params for positionUpdate is: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
@@ -154,7 +154,7 @@ class TradeTypeCellVM {
                        let result = json["result"] as? [String: Any],
                        let success = result["success"] as? Bool {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
+                        print("jsonData for positionUpdate: \(jsonData)")
                         if success {
 //                            self.forToast.showTimeAlert(str: "Position update successfully")
                             completion("Position update successfully")
@@ -216,7 +216,7 @@ class TradeTypeCellVM {
             ]
         ]
         
-        print("params is: \(params)")
+        print("params for deletePendingOrder is: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
@@ -230,7 +230,7 @@ class TradeTypeCellVM {
                        let result = json["result"] as? [String: Any],
                        let success = result["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
+                        print("jsonData for deletePendingOrder: \(jsonData)")
                         if success == 1 {
                             completion("Delete order successfully")
                         }else{
@@ -293,7 +293,7 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print(" order  update value is: \(value)")
+                print("pending order update value is: \(value)")
 //                completion("Order update successfully")
                 do {
                     // Decode the response
@@ -301,10 +301,10 @@ class TradeTypeCellVM {
                        let result = json["result"] as? [[String: Any]],
                        let success = json["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(jsonData)")
+                        print("jsonData for pending order : \(jsonData)")
                         if success == 1 {
                            
-                            completion("Order update successfully")
+                            completion("Pending Order update successfully")
                         }else{
                             completion("Order Not Found")
                         }
@@ -324,7 +324,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func loginForPassword (pass: String, completion: @escaping (String) -> Void) {
+    func loginForPassword (loginID: Int, pass: String, completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
@@ -332,10 +332,11 @@ class TradeTypeCellVM {
                
             }
         }
-        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
-            loginId = defaultAccount.accountNumber
-        }
+//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//            print("\n Default Account User: \(defaultAccount)")
+//            if 
+//            loginId = defaultAccount.accountNumber
+//        }
         
         let params: [String: Any] = [
             "jsonrpc": "2.0",
@@ -351,7 +352,7 @@ class TradeTypeCellVM {
                     [
                         [],
                         email,
-                        loginId,
+                        loginID,
                         pass
                        
                     ]
@@ -518,7 +519,7 @@ class TradeTypeCellVM {
                        let balance_get = user_detail["balance"] as? Double {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData: \(String(data: jsonData, encoding: .utf8) ?? "")")
+                        print("jsonData for user MT balance: \(String(data: jsonData, encoding: .utf8) ?? "")")
                         
                         if success == 1 {
                             // Return the balance value in the completion handler

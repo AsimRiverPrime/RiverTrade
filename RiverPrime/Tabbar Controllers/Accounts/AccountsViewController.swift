@@ -443,7 +443,7 @@ extension AccountsViewController {
                     let getbalanceApi = TradeTypeCellVM()
                     
                     getbalanceApi.getBalance(completion: { response in
-                        print("response of get balance: \(response)")
+                        print("response of get balance in Account home vc: \(response)")
                         if response == "Invalid Response" {
                             self.balance = "0.0"
                             return
@@ -509,7 +509,7 @@ extension AccountsViewController {
                 
                 
                 getbalanceApi.getBalance(completion: { response in
-                    print("response of get balance: \(response)")
+                    print("response of get balance in HomeAccount vc : \(response)")
                     if response == "Invalid Response" {
                         self.balance = "0.0"
                         return

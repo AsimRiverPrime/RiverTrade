@@ -166,10 +166,10 @@ extension PhoneVerifyVC:  SendOTPDelegate {
     
     func otpSuccess(response: Any) {
         print("this is the phone send otp response: \(response)")
-//        navigateToVerifiyScreen()
-        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
-            self.navigate(to: residencVC)
-        }
+        navigateToVerifiyScreen()
+//        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
+//            self.navigate(to: residencVC)
+//        }
     }
     
     func otpFailure(error: any Error) {

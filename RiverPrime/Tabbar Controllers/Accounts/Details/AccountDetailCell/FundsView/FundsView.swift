@@ -62,6 +62,7 @@ class FundsView: UIView {
                     let marginLevelValue = "\(marginLevel)".trimmedTrailingZeros()
                     self.lbl_marginLevel.text = marginLevelValue + "%"
                 }
+                print("user balance values: \(user)")
             }
             
         }

@@ -52,7 +52,7 @@ extension DemoWithdrawalVC: DemoWithdrawProtocol {
         if let success = response["success"] as? Int {
             if success == 1 {
                 tradeTypeVM.getBalance(completion: { response in
-                    print("response of get balance: \(response)")
+                    print("response of get balance for demo withdrawal: \(response)")
                     if response == "Invalid Response" {
                         
                         return

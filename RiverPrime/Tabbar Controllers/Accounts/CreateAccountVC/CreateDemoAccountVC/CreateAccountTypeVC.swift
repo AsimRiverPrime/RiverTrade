@@ -115,41 +115,41 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     }
     
 
-    func canCreateNewAccount(for userID: String) -> Bool {
-        // Retrieve the saved data from UserDefaults
-        guard let accountsData = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
-            print("No accounts found in UserDefaults.")
-            return true
-        }
-        
-        // Filter accounts for the given userID
-        let userAccounts = accountsData.values.filter { account in
-            account["userID"] as? String == userID
-        }
-        
-        // Define required groups
-        let requiredGroups: Set<String> = ["PREMIUM", "PRO", "PRIME"]
-        
-        // Check if the user already has accounts with `isReal = 1` in all required groups
-        let realAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 1 }
-        let realGroupNames = realAccounts.compactMap { $0["groupName"] as? String }
-        let realGroupsSet = Set(realGroupNames)
-        if requiredGroups.isSubset(of: realGroupsSet) {
-            showAlert(message: "You already have Real accounts with PREMIUM, PRO, and PRIME Types.")
-            return false
-        }
-        
-        // Check if the user already has accounts with `isReal = 0` in all required groups
-        let demoAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 0 }
-        let demoGroupNames = demoAccounts.compactMap { $0["groupName"] as? String }
-        let demoGroupsSet = Set(demoGroupNames)
-        if requiredGroups.isSubset(of: demoGroupsSet) {
-            showAlert(message: "You already have Demo accounts in PREMIUM, PRO, and PRIME Types.")
-            return false
-        }
-        
-        return true
-    }
+//    func canCreateNewAccount(for userID: String) -> Bool {
+//        // Retrieve the saved data from UserDefaults
+//        guard let accountsData = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
+//            print("No accounts found in UserDefaults.")
+//            return true
+//        }
+//        
+//        // Filter accounts for the given userID
+//        let userAccounts = accountsData.values.filter { account in
+//            account["userID"] as? String == userID
+//        }
+//        
+//        // Define required groups
+//        let requiredGroups: Set<String> = ["PREMIUM", "PRO", "PRIME"]
+//        
+//        // Check if the user already has accounts with `isReal = 1` in all required groups
+//        let realAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 1 }
+//        let realGroupNames = realAccounts.compactMap { $0["groupName"] as? String }
+//        let realGroupsSet = Set(realGroupNames)
+//        if requiredGroups.isSubset(of: realGroupsSet) {
+//            showAlert(message: "You already have Real accounts with PREMIUM, PRO, and PRIME Types.")
+//            return false
+//        }
+//        
+//        // Check if the user already has accounts with `isReal = 0` in all required groups
+//        let demoAccounts = userAccounts.filter { ($0["isReal"] as? Int ?? 0) == 0 }
+//        let demoGroupNames = demoAccounts.compactMap { $0["groupName"] as? String }
+//        let demoGroupsSet = Set(demoGroupNames)
+//        if requiredGroups.isSubset(of: demoGroupsSet) {
+//            showAlert(message: "You already have Demo accounts in PREMIUM, PRO, and PRIME Types.")
+//            return false
+//        }
+//        
+//        return true
+//    }
 
     func showAlert(message: String) {
         print("Alert: \(message)") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
@@ -326,21 +326,20 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                                print("Error updating default account: \(error.localizedDescription)")
                                return
                            }
-                      
-                           // Update the nested dictionary for the given loginID
-                           var accounts = userAccountsPasswordData[String(GlobalVariable.instance.loginID)] ?? [:]
-                           accounts[String(GlobalVariable.instance.loginID)] = self.tf_password.text
-
-                           // Save the updated data back to the dictionary
-                           userAccountsPasswordData[String(GlobalVariable.instance.loginID)] = accounts
-
-                           // Save it to UserDefaults
-                           UserDefaults.standard.set(userAccountsPasswordData, forKey: "userPasswordData")
-                           print("Password saved successfully for loginID: \(GlobalVariable.instance.loginID), accountNumber: \(accounts)")
-                         
-                           print("User Accounts Password data saved: \(userAccountsPasswordData)")
+                           print("\n updating isDefault account success: ")
+//                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                            
-                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+                           let passwordManager = PasswordManager()
+                           if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: tf_password.text ?? "") {
+                               print("Password successfully saved.")
+                           } else {
+                               print("ID already exists. Cannot save password.")
+                           }
+                           
+                           let allPasswords = passwordManager.getAllPasswords()
+                           print("All Saved Passwords on create Account: \(allPasswords)")
+                                                    
+                          
                            NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
                        }
                        
@@ -351,34 +350,14 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                            
                            self.dismiss(animated: true)
                        }else{
-               //            self.newAccoutDelegate?.updateAccountBalance(isNewAccount: true)
                            self.dismiss(animated: true)
-                           
 
                        }
-//                       _ = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-//                        
-//                           self.getbalanceApi.getBalance(completion: { response in
-//                               print("response of get balance: \(response)")
-//                               if response == "Invalid Response" {
-//                                   
-//                                   return
-//                               }
-//                               
-//                               GlobalVariable.instance.balanceUpdate = response //self.balance
-//                               print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-//                               NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-//                           })
-//                           
-//                           NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
-//                           NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
-//                       }
-                       
+                     
                    }
         })
        
     }
-    
 }
 
 

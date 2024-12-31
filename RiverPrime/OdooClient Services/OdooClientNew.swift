@@ -846,7 +846,7 @@ class OdooClientNew {
                     ]
                 ]
     
-            print("\n the parameters is: \(jsonrpcBody)")
+            print("\n the economic calander parameters is: \(jsonrpcBody)")
     
             JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
     

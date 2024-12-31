@@ -26,7 +26,7 @@ class DetailsViewController: UIViewController {
         let getbalanceApi = TradeTypeCellVM()
         
         getbalanceApi.getBalance(completion: { response in
-            print("response of get balance: \(response)")
+            print("response of get balance detail screen: \(response)")
             if response == "Invalid Response" {
               
                 return
