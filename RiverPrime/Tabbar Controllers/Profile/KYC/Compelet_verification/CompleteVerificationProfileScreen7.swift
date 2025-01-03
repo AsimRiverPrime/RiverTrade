@@ -48,7 +48,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     let Firstname = UserDefaults.standard.string(forKey: "firstName")
     let LastName = UserDefaults.standard.string(forKey: "lastName")
   
-    var profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
+    var profileStep = Int()
     let overAllStatus = UserDefaults.standard.string(forKey: "OverAllStatus")
     let sid = UserDefaults.standard.string(forKey: "SID")
     
@@ -131,6 +131,8 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     }
     
     @IBAction func continueBtn_action(_ sender: UIButton) {
+      
+        UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
         profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
         print("profileStep for Compelete is : \(profileStep)")
        
@@ -237,9 +239,9 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
             return
         }
         var fieldsToUpdate: [String: Any] = [
-                "KYC": false,
+                "KycStatus": "Not Started",
                 "address" : self.tf_address.text ?? "",
-                "dob" : self.dob ?? "" ,
+                "dateOfBirth" : self.dob ?? "" ,
                 "gender": self.selectedGender ?? "" ,
                 "profileStep": profileStep,
              ]

@@ -14,7 +14,6 @@ protocol ChangePasswordDelegate: AnyObject {
 class SettingsView: UIView {
     
     @IBOutlet weak var lbl_accountType: UILabel!
-    @IBOutlet weak var lbl_serverType: UILabel!
     @IBOutlet weak var lbl_accountGroup: UILabel!
     
     @IBOutlet weak var lbl_accountNumber: UILabel!
@@ -39,9 +38,10 @@ class SettingsView: UIView {
             //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-                print("\n Default Account user: \(defaultAccount)")
+                print("\n Default Account user in setting : \(defaultAccount)")
 //                self.lbl_acctUserName.text = "#\(defaultAccount.accountNumber)"
                 self.lbl_loginID.text = "\(defaultAccount.accountNumber)"
+                self.lbl_accountNumber.text = "#\(defaultAccount.accountNumber)"
                 lbl_accountType.text = defaultAccount.isReal == true ? "Real" : "Demo"
                 self.lbl_serverName.text = defaultAccount.isReal == true ? "MT5-Server" : "DEMO-Server"
                 self.lbl_accountGroup.text = defaultAccount.groupName

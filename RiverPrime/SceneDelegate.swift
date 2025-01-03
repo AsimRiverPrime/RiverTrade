@@ -94,6 +94,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        navigateToFaceScreen()
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
@@ -107,7 +108,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     
     private func navigateToFaceScreen() {
-        //        UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
+//                UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
         
         if let face = Session.instance.isFaceIDEnabled {
             
@@ -119,7 +120,8 @@ extension SceneDelegate {
                 
                 let navController = UINavigationController(rootViewController: loginVC)
                 SCENE_DELEGATE.window?.rootViewController = navController
-                SCENE_DELEGATE.window?.makeKeyAndVisible()            }
+                SCENE_DELEGATE.window?.makeKeyAndVisible()
+            }
         }
         
     }
@@ -156,7 +158,9 @@ extension SceneDelegate {
                 print("UID is: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
                 self.fireStoreInstance.fetchUserAccountsData(userId: uid)
+              
             }
+            
                 // Access specific values from the dictionary
 //            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
 //                   

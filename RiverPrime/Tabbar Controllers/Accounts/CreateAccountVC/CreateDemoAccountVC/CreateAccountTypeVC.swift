@@ -339,21 +339,14 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                            let allPasswords = passwordManager.getAllPasswords()
                            print("All Saved Passwords on create Account: \(allPasswords)")
                                                     
-                          
-                           NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+                           if self.isReal {
+                               let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+                               PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
+                           }else{
+                               NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+                               self.dismiss(animated: true)
+                           }
                        }
-                       
-                       if self.isReal {
-                           let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
-                           
-                           PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
-                           
-                           self.dismiss(animated: true)
-                       }else{
-                           self.dismiss(animated: true)
-
-                       }
-                     
                    }
         })
        

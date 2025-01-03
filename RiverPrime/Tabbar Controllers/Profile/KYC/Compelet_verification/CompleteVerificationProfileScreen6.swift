@@ -95,7 +95,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
         let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
         
         var fieldsToUpdate: [String: Any] = [
-                "profileStep": profileStep,
+                "profileStep": profileStep
              ]
         
         fireStoreInstance.updateUserFields(userID: userId!, fields: fieldsToUpdate) { error in
@@ -109,7 +109,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     }
     
     func AddUserAccountDetail() {
-        UserDefaults.standard.set(3, forKey: "profileStepCompeleted")
+        UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
         
         let tradeObjective = UserDefaults.standard.dictionary(forKey: "SelectedTradeObjective") as? [String: [String]]
         let tradeInstruments = UserDefaults.standard.dictionary(forKey: "SelectedTradeInstruments") as? [String: [String]]
@@ -136,7 +136,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
         
         let userData: [String: Any] = [
                "uid": userId ?? "",
-               "sid": sid ?? "",
+               "userId": userId ?? "",
                "step": profileStep,
                "profileStep": profileStep,
                
@@ -147,11 +147,11 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
             switch result {
             case .success:
                 print("Document USER_ACCOUNT detail ADD successfully!")
-             
-                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
-                    self.updateUser()
-                    self.navigateToDashboard()
-                }
+                self.updateUser()
+                self.navigateToDashboard()
+//                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
+//
+//                }
                
                 
             case .failure(let error):

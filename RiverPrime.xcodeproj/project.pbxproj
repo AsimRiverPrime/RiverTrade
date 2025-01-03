@@ -22,7 +22,6 @@
 		3105DEEF2CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEAA2CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.xib */; };
 		3105DEF02CB3E8A400D1B884 /* TradeTypeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEC32CB3E8A400D1B884 /* TradeTypeCollectionViewCell.xib */; };
 		3105DEF12CB3E8A400D1B884 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DED72CB3E8A400D1B884 /* TransactionCell.xib */; };
-		3105DEF22CB3E8A400D1B884 /* AccountDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEBC2CB3E8A400D1B884 /* AccountDetailTableViewCell.xib */; };
 		3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEA72CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib */; };
 		3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DECC2CB3E8A400D1B884 /* CloseTicketTBCell.xib */; };
 		3105DEF52CB3E8A400D1B884 /* withDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DED92CB3E8A400D1B884 /* withDrawTableViewCell.swift */; };
@@ -57,13 +56,13 @@
 		3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE9B2CB3E8A400D1B884 /* CreateAccountSlideCell.swift */; };
 		3105DF162CB3E8A400D1B884 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEBE2CB3E8A400D1B884 /* DetailsViewController.swift */; };
 		3105DF172CB3E8A400D1B884 /* CloseOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DED22CB3E8A400D1B884 /* CloseOrderCell.swift */; };
-		3105DF182CB3E8A400D1B884 /* AccountDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEBB2CB3E8A400D1B884 /* AccountDetailTableViewCell.swift */; };
 		3106BBB32C993B7100B7ABF9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */; };
 		3106BBB52C998A3600B7ABF9 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB42C998A3600B7ABF9 /* NavigationController.swift */; };
 		3106BBB82C99BFAE00B7ABF9 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3106BBB72C99BFAE00B7ABF9 /* Session.swift */; };
 		31128FDD2CDB92F90083EF51 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31128FDB2CDB92F90083EF51 /* Localizable.strings */; };
 		3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117F78D2CBCE3500095DA19 /* HistoryVM.swift */; };
 		311B31232D06F54F00AA856B /* ChangeTradePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311B31222D06F54F00AA856B /* ChangeTradePasswordVC.swift */; };
+		31231D412D266FB700053FC2 /* NationalityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31231D402D266FB700053FC2 /* NationalityVC.swift */; };
 		3128DAE32CD9040C00E9B130 /* TradeHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
@@ -396,8 +395,6 @@
 		3105DEB62CB3E8A400D1B884 /* ListingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewCell.swift; sourceTree = "<group>"; };
 		3105DEB72CB3E8A400D1B884 /* ListingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListingTableViewCell.xib; sourceTree = "<group>"; };
 		3105DEB92CB3E8A400D1B884 /* DepositViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepositViewController.swift; sourceTree = "<group>"; };
-		3105DEBB2CB3E8A400D1B884 /* AccountDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailTableViewCell.swift; sourceTree = "<group>"; };
-		3105DEBC2CB3E8A400D1B884 /* AccountDetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailTableViewCell.xib; sourceTree = "<group>"; };
 		3105DEBE2CB3E8A400D1B884 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		3105DEC02CB3E8A400D1B884 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		3105DEC22CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTypeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -429,6 +426,7 @@
 		31128FDF2CDB934D0083EF51 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3117F78D2CBCE3500095DA19 /* HistoryVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVM.swift; sourceTree = "<group>"; };
 		311B31222D06F54F00AA856B /* ChangeTradePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTradePasswordVC.swift; sourceTree = "<group>"; };
+		31231D402D266FB700053FC2 /* NationalityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationalityVC.swift; sourceTree = "<group>"; };
 		3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHistoryModel.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
@@ -900,8 +898,6 @@
 				311B31212D06F52B00AA856B /* ChangeTradePassword */,
 				31B2632D2CCF5C5E006D4DF4 /* FundsView */,
 				31B263302CCF5C5E006D4DF4 /* SettingsView */,
-				3105DEBB2CB3E8A400D1B884 /* AccountDetailTableViewCell.swift */,
-				3105DEBC2CB3E8A400D1B884 /* AccountDetailTableViewCell.xib */,
 			);
 			path = AccountDetailCell;
 			sourceTree = "<group>";
@@ -1515,6 +1511,7 @@
 				31A5225B2C525AE3001DB906 /* verifyPhoneVC */,
 				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
 				31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */,
+				31231D402D266FB700053FC2 /* NationalityVC.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -2418,7 +2415,6 @@
 				3105DEF02CB3E8A400D1B884 /* TradeTypeCollectionViewCell.xib in Resources */,
 				3105DEF12CB3E8A400D1B884 /* TransactionCell.xib in Resources */,
 				FA10ECC92CE6A23F00C1980F /* Poppins-ExtraLightItalic.ttf in Resources */,
-				3105DEF22CB3E8A400D1B884 /* AccountDetailTableViewCell.xib in Resources */,
 				3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */,
 				FA10ECD82CE6A23F00C1980F /* Poppins-Italic.ttf in Resources */,
 				3102120C2CE4D44A0064F6EF /* incomeExpenseTVCell.xib in Resources */,
@@ -2706,6 +2702,7 @@
 				31D2AF402C8840B800E0CF2E /* Time.swift in Sources */,
 				31D2AEEE2C8840B800E0CF2E /* UIColor+ColorComponents.swift in Sources */,
 				FAD776D22C976FD8000411F1 /* JsonRpcEndpoint.swift in Sources */,
+				31231D412D266FB700053FC2 /* NationalityVC.swift in Sources */,
 				314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */,
 				3164C6002C47F1620055F093 /* TradingSignalCollectionViewCell.swift in Sources */,
 				317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */,
@@ -2775,7 +2772,6 @@
 				3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */,
 				3105DF162CB3E8A400D1B884 /* DetailsViewController.swift in Sources */,
 				3105DF172CB3E8A400D1B884 /* CloseOrderCell.swift in Sources */,
-				3105DF182CB3E8A400D1B884 /* AccountDetailTableViewCell.swift in Sources */,
 				FA532D782C5721E1003A26D6 /* LabelTranslation.swift in Sources */,
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
 				31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */,

@@ -404,7 +404,7 @@ class TradeTypeCellVM {
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            print("\n Default Account User in get user balance: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         
@@ -441,6 +441,7 @@ class TradeTypeCellVM {
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
             case .success(let value):
+                print("/\n get user balance Value: \(value)")
                 do {
                     // Convert the response to Data
                     let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
@@ -501,7 +502,6 @@ class TradeTypeCellVM {
                 ]
             ]
         ]
-        
         print("\n get balance params is: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
@@ -651,13 +651,11 @@ class TradeTypeCellVM {
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
-                       let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai as pe thost lagana hai
+                       let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai.. as pe toast lagana hai
                         
-//                                                 let error = result["error"] as? String {
-//                        
-//                                                }
-                        //
-                        //                        print("error comes")
+//                        let error = result["error"] as? String {
+//                        }
+//                        print("error comes")
                         
                         if index == 0 {
                             

@@ -27,7 +27,7 @@ class FirestoreServices: BaseViewController {
     
     func addUserAccountData(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
            // Add a new document in collection "userAccount"
-           db.collection("userAccount").document(uid).setData(data, merge: true) { error in
+           db.collection("userKYCdata").document(uid).setData(data, merge: true) { error in
                if let error = error {
                    completion(.failure(error))
                } else {
@@ -194,7 +194,6 @@ class FirestoreServices: BaseViewController {
     }
 
    
-    
     func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
         db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
             if let error = error {

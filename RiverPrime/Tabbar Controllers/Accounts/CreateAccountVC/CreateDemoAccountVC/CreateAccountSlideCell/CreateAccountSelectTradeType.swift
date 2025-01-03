@@ -35,6 +35,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     let db = Firestore.firestore()
     var accounts: [AccountModel] = []
     var firebaseObj = FirestoreServices()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
       
@@ -133,7 +134,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
             guard let self = self else { return }
             self.accounts = fetchedAccounts
 
-            // Set up the first account view
+            // Set up the first account group view
             if let firstAccount = self.accounts.first {
                 self.getIndexValues(counter: 0, accounts: self.accounts)
             }
@@ -182,4 +183,5 @@ struct AccountModel: Codable {
     let recommended: Int
     let hedging: Int
     let leverage: String
+   
 }

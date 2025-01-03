@@ -1719,7 +1719,7 @@
             </objects>
             <point key="canvasLocation" x="6635.8778625954192" y="493.66197183098592"/>
         </scene>
-        <!--Markets-->
+        <!--News-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MarketsViewController" id="Y6W-OH-hqX" customClass="MarketsViewController" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
@@ -1771,7 +1771,7 @@
                             <constraint firstItem="xuA-4J-LYH" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="zwm-WS-oep"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Markets" image="market" springLoaded="YES" id="Oag-N4-bHE"/>
+                    <tabBarItem key="tabBarItem" title="News" image="newspaper" catalog="system" springLoaded="YES" id="Oag-N4-bHE"/>
                     <connections>
                         <outlet property="labelAmmount" destination="lB9-to-Pbp" id="wwR-nQ-JkI"/>
                         <outlet property="lbl_accountGroup" destination="I6U-hG-Xir" id="kAJ-Vs-JwZ"/>
@@ -3210,6 +3210,7 @@
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <image name="historyIcon" width="36" height="36"/>
         <image name="market" width="25" height="25"/>
+        <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="noDataIcon" width="90" height="120"/>
         <image name="notification" width="24" height="24"/>
         <image name="plus" catalog="system" width="128" height="113"/>

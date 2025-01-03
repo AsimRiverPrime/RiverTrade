@@ -28,7 +28,7 @@ class MarketsViewController: UIViewController {
         odooServer.economicCalendarDelegate = self
         
         tblView.registerCells([
-            /*MarketTopMoversTableViewCell.self, TradingSignalTableViewCell.self,*/ EconomicCalendarSection.self, UpcomingEventsTableViewCell.self, TopNewsSection.self, TopNewsTableViewCell.self
+           EconomicCalendarSection.self, UpcomingEventsTableViewCell.self, TopNewsSection.self, TopNewsTableViewCell.self
         ])
         tblView.reloadData()
         tblView.dataSource = self
@@ -43,6 +43,8 @@ class MarketsViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
 
+        getinitialBalance()
+        
     }
     
     func getCurrentAndTomorrowDate() -> (String, String) {
@@ -61,6 +63,33 @@ class MarketsViewController: UIViewController {
 }
 
 extension MarketsViewController {
+    func getinitialBalance(){
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            self.lbl_accountGroup.text = defaultAccount.groupName
+            lbl_accountType.text = defaultAccount.isReal == true ? "Real" : "Demo"
+        }
+        let getbalanceApi = TradeTypeCellVM()
+        getbalanceApi.getUserBalance(completion: { result in
+            switch result {
+            case .success(let responseModel):
+                // Save the response model or use it as needed
+                print("Balance: \(responseModel.result.user.balance)")
+                print("Equity: \(responseModel.result.user.equity)")
+                self.labelAmmount.text = "$\(responseModel.result.user.balance)"
+                // Example: Storing in a singleton for global access
+                UserManager.shared.currentUser = responseModel.result.user
+                
+                GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)" //self.balance
+                print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                
+            case .failure(let error):
+                print("Failed to fetch balance: \(error.localizedDescription)")
+            }
+        })
+    }
     
     @objc func notificationPopup(_ notification: NSNotification) {
     

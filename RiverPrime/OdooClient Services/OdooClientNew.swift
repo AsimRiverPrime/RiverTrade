@@ -98,7 +98,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("json params is: \(jsonrpcBody)")
+        print("json params for search_read is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
@@ -183,6 +183,66 @@ class OdooClientNew {
                 
             }
         }
+    }
+    
+    
+    //MARK: - search request from records to fetch KYC status
+    func SearchRecord(email: String, completion: @escaping (String?, Error?) -> Void) {
+        
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               // uid
+                    dbPassword,        // password
+                    "crm.lead",       // Model name
+                    "search_read",         // Method name
+                    [[[                // vals_list
+                        "email_from",
+                        "=",
+                        email
+                        
+                     ]],
+                    []
+                ]
+            ]
+        ]
+    ]
+        
+        print("\n params create records value is: \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let json = value as? [String: Any],
+                          let resultArray = json["result"] as? [[String: Any]],
+                          let firstItem = resultArray.first, // Assuming we need the first object
+                          let idwiseDecision = firstItem["idwise_decision"] as? String {
+                    
+                    print("_idwise_decision is: \(idwiseDecision)")
+                    completion(idwiseDecision, nil)
+                    
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                    completion("", nil)
+                }
+                
+            case .failure(let error):
+                completion(nil, error)
+                print("error is :\(error)")
+                break
+                
+            }
+            
+        }
+        
     }
     
     

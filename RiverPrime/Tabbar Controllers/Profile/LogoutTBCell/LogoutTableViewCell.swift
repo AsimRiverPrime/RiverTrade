@@ -86,7 +86,7 @@ class LogoutTableViewCell: UITableViewCell {
 //        GlobalVariable.instance.loginID = 0
 //        GlobalVariable.instance.isAppBecomeActive = false
        
-        GlobalVariable.instance.isReturnToProfile = false
+//        GlobalVariable.instance.isReturnToProfile = false
         GlobalVariable.instance.userEmail = ""
         
 //        GlobalVariable.instance.socketTimer = Double()

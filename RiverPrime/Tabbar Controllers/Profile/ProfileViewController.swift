@@ -19,27 +19,15 @@ class ProfileViewController: BaseViewController{
         var profileStep = Int()
     
     var realAccount: Bool?
+    weak var delegateKYC : KYCVCDelegate?
+    
+    var userEmail = String()
+    var odooClientService = OdooClientNew()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tblView.isScrollEnabled = false
-        // Do any additional setup after loading the view.
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-            if let profileStep1 = savedUserData["profileStep"] as? Int, let _realAccount = savedUserData["realAccountCreated"] as? Bool {
-                profileStep = profileStep1
-                realAccount = _realAccount
-            }
-        }
-        tblView.registerCells([
-            ProfileTopTableViewCell.self, RefferalProgramTableViewCell.self,  SuppotTableViewCell.self, LogoutTableViewCell.self
-        ])
-        
-        tblView.delegate = self
-        tblView.dataSource = self
-        tblView.reloadData()
+//        initTableView_CheckData()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +35,33 @@ class ProfileViewController: BaseViewController{
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Profile", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        initTableView_CheckData()
+    }
+    
+    func initTableView_CheckData(){
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String  {
+                profileStep = profileStep1
+                userEmail = _email
+            }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user: \(defaultAccount)")
+           
+            realAccount = defaultAccount.isReal == true ? true : false
+        }
+        
+        odooClientService.SearchRecord(email: self.userEmail ?? "") { data, error in
+            print("id_waise decision is: \(data) : error is: \(error)")
+        }
+        
+        tblView.registerCells([
+            ProfileTopTableViewCell.self, RefferalProgramTableViewCell.self,  SuppotTableViewCell.self, LogoutTableViewCell.self
+        ])
+        
+        tblView.delegate = self
+        tblView.dataSource = self
+        tblView.reloadData()
         
     }
 }
@@ -128,14 +143,16 @@ class ProfileViewController: BaseViewController{
                     PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                     
                 }else if profileStep == 1 {
-                    if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-                        
-                        self.navigate(to: kycVc)
-                    }
-                }else if profileStep == 2 {
                     let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
                     vc.delegateKYC = self
                     PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }else if profileStep == 2 {
+                  
+                    let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+                    vc.delegateKYC = self
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                  
+                    
                 }else{
                     self.ToastMessage("Already Done KYC")
                 }
@@ -153,7 +170,7 @@ extension ProfileViewController: KYCVCDelegate {
 
             if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
 //                profileVC.delegateKYC = self
-                GlobalVariable.instance.isReturnToProfile = true
+//                GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)
             }
             break
@@ -194,10 +211,16 @@ extension ProfileViewController: KYCVCDelegate {
             break
         case .ReturnDashboard:
 
-            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
-                GlobalVariable.instance.isReturnToProfile = true
-                self.navigate(to: dashboardVC)
+//            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+//                GlobalVariable.instance.isReturnToProfile = true
+//                self.navigate(to: dashboardVC)
+//            }
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController") as? ProfileViewController {
+//                GlobalVariable.instance.isReturnToProfile = true
+                profileVC.delegateKYC = self
+                self.navigate(to: profileVC)
             }
+            
             break
         case .KycScreen:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController

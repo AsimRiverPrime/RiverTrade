@@ -35,6 +35,8 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     weak var delegate: CompleteProfileButtonDelegate?
     weak var editDelegate: ProfileEditButtonDelegate?
     
+    var profileStep = Int()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -61,58 +63,64 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     
     func checkProfileStatus() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            //print("saved User Data: \(savedUserData)")
-            if let profileStep = savedUserData["profileStep"] as? Int, let realAccount = savedUserData["realAccountCreated"] as? Bool,let _name = savedUserData["fullName"] as? String {
-                
+            print("saved User Data Profile screen: \(savedUserData)")
+            if let _profileStep = savedUserData["profileStep"] as? Int, let _name = savedUserData["fullName"] as? String {
+                profileStep = _profileStep
                 if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),
                    let savedImage = UIImage(data: imageData) {
                     imageIcon.image = savedImage
                 }else{
                     imageIcon.image = UIImage(named: "avatarIcon")
                 }
-               
                 
                 lbl_title.text = _name
                 
-                if realAccount == true {
-                    if profileStep == 3 {
-                        //self.view_profileComplete.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
-                        progreeBar.progress = 1.0
-                        self.lbl_progressPercent.text = "100%"
-                        btn_completeProfile.isUserInteractionEnabled = false
-                        btn_completeProfile.setTitle("Profile Completed", for: .normal)
-//                        self.btn_completeProfile.isHidden = true
-                        lbl_completeProfile.text = "Profile Completed"
-                    }else if profileStep == 2 {
-                        progreeBar.progress = 0.67
-                        self.lbl_progressPercent.text = "67%"
-                        btn_completeProfile.isUserInteractionEnabled = true
-                        btn_completeProfile.setTitle("", for: .normal)
-//                        self.btn_completeProfile.isHidden = false
-                        lbl_completeProfile.text = "Welldone you complete your Profile almost.The last step KYC remaining."
-                    }else if profileStep == 1 {
-                        progreeBar.progress = 0.33
-                        self.lbl_progressPercent.text = "33%"
-                        btn_completeProfile.isUserInteractionEnabled = true
-                        btn_completeProfile.setTitle("", for: .normal)
-//                        self.btn_completeProfile.isHidden = false
-                        lbl_completeProfile.text = "Complete your Profile"
+            }
+        }
+      //  public final static String Not_Started="Not Started";public final static String Wait ="in progress";public final static String Complete ="Complete";//allow to deposit and withdrawpublic final static String Refer ="Refer";//allow to deposit and not withdrawpublic final static String Rejected = "Rejected";//allow only open real accountpublic final static String Approved ="Approved";//allow to deposit and not withdrawpublic final static String Incomplete ="Incomplete";//allow to deposit and not withdraw
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user in profile screen: \(defaultAccount)")
+           
+           let realAccount = defaultAccount.isReal == true ? true : false
+            if realAccount == true {
+                        if profileStep == 3 {
+                            //self.view_profileComplete.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
+                            progreeBar.progress = 0.9
+                            self.lbl_progressPercent.text = "90%"
+                            btn_completeProfile.isUserInteractionEnabled = false
+                            btn_completeProfile.setTitle("", for: .normal)
+    //                        self.btn_completeProfile.isHidden = true
+                            lbl_completeProfile.text = "Profile inProgress"
+                        }else if profileStep == 2 {
+                            progreeBar.progress = 0.67
+                            self.lbl_progressPercent.text = "67%"
+                            btn_completeProfile.isUserInteractionEnabled = true
+                            btn_completeProfile.setTitle("", for: .normal)
+    //                        self.btn_completeProfile.isHidden = false
+                            lbl_completeProfile.text = "Okay you complete your Profile almost.The last step KYC remaining."
+                        }else if profileStep == 1 {
+                            progreeBar.progress = 0.33
+                            self.lbl_progressPercent.text = "33%"
+                            btn_completeProfile.isUserInteractionEnabled = true
+                            btn_completeProfile.setTitle("", for: .normal)
+    //                        self.btn_completeProfile.isHidden = false
+                            lbl_completeProfile.text = "Complete your Profile"
+                        }else{
+                            progreeBar.progress = 0.0
+                            self.lbl_progressPercent.text = "0%"
+                            btn_completeProfile.isUserInteractionEnabled = true
+                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+    //                        self.btn_completeProfile.isHidden = false
+                            lbl_completeProfile.text = ""
+                        }
                     }else{
                         progreeBar.progress = 0.0
                         self.lbl_progressPercent.text = "0%"
                         btn_completeProfile.isUserInteractionEnabled = true
                         btn_completeProfile.setTitle("Complete your Profile", for: .normal)
-//                        self.btn_completeProfile.isHidden = false
                         lbl_completeProfile.text = ""
                     }
-                }else{
-                    progreeBar.progress = 0.0
-                    self.lbl_progressPercent.text = "0%"
-                    btn_completeProfile.isUserInteractionEnabled = true
-                    btn_completeProfile.setTitle("Complete your Profile", for: .normal)
-                    lbl_completeProfile.text = ""
-                }
-            }
         }
     }
     

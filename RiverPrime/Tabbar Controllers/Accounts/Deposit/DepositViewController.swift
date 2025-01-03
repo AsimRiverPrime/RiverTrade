@@ -36,10 +36,16 @@ class DepositViewController: BaseViewController {
 
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
-            if let _profileStep = savedUserData["profileStep"] as? Int,  let _realAccount = savedUserData["realAccountCreated"] as? Bool{
+            if let _profileStep = savedUserData["profileStep"] as? Int{
                 profileStep = _profileStep
-                realAccount = _realAccount
+//                realAccount = _realAccount
             }
+            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+                print("\n Default Account user in Deposit screen: \(defaultAccount)")
+                
+                 realAccount = defaultAccount.isReal == true ? true : false
+            }
+            
         }
     }
 }
@@ -103,16 +109,18 @@ extension DepositViewController: DashboardVCDelegate {
                 let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
                 vc.delegateKYC = self
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                
+               
             }else if profileStep == 1 {
-                if let kycVc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "KYCViewController") {
-                    
-                    self.navigate(to: kycVc)
-                }
+                
+                let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+                vc.delegateKYC = self
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                
             }else if profileStep == 2 {
                 let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
                 vc.delegateKYC = self
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+               
             }else{
                 self.ToastMessage("Already Done KYC")
             }
@@ -143,7 +151,7 @@ extension DepositViewController: KYCVCDelegate {
 //            }
             if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
 //                profileVC.delegateKYC = self
-                GlobalVariable.instance.isReturnToProfile = true
+//                GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)
             }
             break
@@ -183,14 +191,11 @@ extension DepositViewController: KYCVCDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .ReturnDashboard:
-//            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController") {
 //                GlobalVariable.instance.isReturnToProfile = true
-//                self.navigate(to: dashboardVC)
-//            }
-            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
-                GlobalVariable.instance.isReturnToProfile = true
-                self.navigate(to: dashboardVC)
+                self.navigate(to: profileVC)
             }
+           
             break
         case .KycScreen:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController

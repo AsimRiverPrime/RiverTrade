@@ -27,9 +27,10 @@ class HomeTabbarViewController: UITabBarController {
         let tabBarItemAppearance = UITabBarItemAppearance()
         tabBarAppearance.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
         
-        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.lightGray]
+        tabBarItemAppearance.normal.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         tabBarItemAppearance.selected.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.systemYellow]
         tabBarItemAppearance.selected.iconColor =   UIColor.systemYellow
+        tabBarItemAppearance.normal.iconColor =   UIColor.white
         
         tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
         
@@ -100,7 +101,7 @@ extension HomeTabbarViewController {
         //MARK: - Call Symbol Api and their delegate method to get data.
         odooClientService.sendSymbolDetailRequest()
         odooClientService.tradeSymbolDetailDelegate = self
-        
+       
     }
     
 }
@@ -123,7 +124,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
             print("Result Array count: \(resultArray.count)")
             
             for (index, result) in resultArray.enumerated() {
-                print("\n Processing entry \(index + 1) of \(resultArray.count)")
+//                print("\n Processing entry \(index + 1) of \(resultArray.count)")
                 
                 // Extract data, providing default values or handling optionals where needed
                 let symbolId = result["id"] as? Int ?? -1

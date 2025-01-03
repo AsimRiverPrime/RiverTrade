@@ -132,7 +132,7 @@ class AccountsViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
         
         callCollectionViewAtStart()
-        
+        accountData()
     }
     
     private func callCollectionViewAtStart() {
@@ -177,6 +177,7 @@ class AccountsViewController: BaseViewController {
            
             lbl_account.text = defaultAccount.isReal == true ? "Real" : "Demo"
             lbl_accountType.text = defaultAccount.groupName
+            isRealAcount = defaultAccount.isReal == true ? true : false
         }
                            
                           
@@ -552,8 +553,8 @@ extension AccountsViewController: CreateAccountUpdateProtocol {
                 
                 // Example: Storing in a singleton for global access
                 UserManager.shared.currentUser = responseModel.result.user
-                
-                self.balance = String(responseModel.result.user.balance)
+             
+                self.balance = "\(responseModel.result.user.balance)"
                 GlobalVariable.instance.balanceUpdate = self.balance
                 //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
@@ -765,43 +766,43 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-
-extension AccountsViewController: AccountInfoDelegate {
-    func accountInfoTap1(_ accountInfo: AccountInfo) {
-        print("delegte called  \(accountInfo)" )
-        
-        switch accountInfo {
-            
-        case .deposit:
-            
-            delegate?.accountInfoTap(.deposit)
-            break
-        case .withDraw:
-            
-            delegate?.accountInfoTap(.withDraw)
-            break
-        case .history:
-            
-            delegate?.accountInfoTap(.history)
-            break
-        case .detail:
-            
-            delegate?.accountInfoTap(.detail)
-            break
-        case .notification:
-            
-            delegate?.accountInfoTap(.notification)
-            break
-        case .createAccount:
-            delegate?.accountInfoTap(.createAccount)
-            break
-        }
-        
-        
-    }
-    
-    
-}
+//
+//extension AccountsViewController: AccountInfoDelegate {
+//    func accountInfoTap1(_ accountInfo: AccountInfo) {
+//        print("delegte called  \(accountInfo)" )
+//        
+//        switch accountInfo {
+//            
+//        case .deposit:
+//            
+//            delegate?.accountInfoTap(.deposit)
+//            break
+//        case .withDraw:
+//            
+//            delegate?.accountInfoTap(.withDraw)
+//            break
+//        case .history:
+//            
+//            delegate?.accountInfoTap(.history)
+//            break
+//        case .detail:
+//            
+//            delegate?.accountInfoTap(.detail)
+//            break
+//        case .notification:
+//            
+//            delegate?.accountInfoTap(.notification)
+//            break
+//        case .createAccount:
+//            delegate?.accountInfoTap(.createAccount)
+//            break
+//        }
+//        
+//        
+//    }
+//    
+//    
+//}
 
 //extension AccountsViewController: CreateAccountInfoDelegate {
 //    
@@ -874,8 +875,6 @@ extension AccountsViewController: OPCDelegate {
         webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
         //MARK: - Remove symbol local after unsubcibe.
         GlobalVariable.instance.previouseSymbolList.removeAll()
-        
-        
         
         let symbolList = getFormattedSymbols(opcType: opcType)
         GlobalVariable.instance.previouseSymbolList = symbolList

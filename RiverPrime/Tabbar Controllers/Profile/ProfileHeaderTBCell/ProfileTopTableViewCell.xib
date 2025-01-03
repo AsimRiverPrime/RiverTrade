@@ -50,8 +50,8 @@
                                     <action selector="editBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZC4-hn-Qyz"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
-                                <rect key="frame" x="65" y="23" width="64" height="24.333333333333329"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
+                                <rect key="frame" x="65" y="23" width="199" height="24.333333333333329"/>
                                 <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -62,14 +62,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="cBt-N7-AcD">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cBt-N7-AcD">
                                 <rect key="frame" x="15" y="113.66666666666667" width="264" height="4"/>
                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="progressTintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="trackTintColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEV-A4-RIW">
-                                <rect key="frame" x="286.66666666666669" y="109.66666666666667" width="22.333333333333314" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEV-A4-RIW">
+                                <rect key="frame" x="293" y="109.66666666666667" width="16" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -109,6 +109,7 @@
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="trailing" secondItem="cBt-N7-AcD" secondAttribute="trailing" id="TeO-gj-s5b"/>
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="leading" secondItem="fUb-Pq-J4V" secondAttribute="leading" id="V4l-H9-Qnb"/>
                             <constraint firstItem="fUb-Pq-J4V" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="leading" id="XYi-9n-tgP"/>
+                            <constraint firstAttribute="trailing" secondItem="qFh-nM-Xbm" secondAttribute="trailing" constant="60" id="l5D-ij-tLm"/>
                             <constraint firstAttribute="trailing" secondItem="7bO-qy-ou1" secondAttribute="trailing" constant="15" id="lTd-Mr-Bnm"/>
                             <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" id="mps-yI-kLq"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="leading" secondItem="cBt-N7-AcD" secondAttribute="leading" id="ncd-cs-ZhB"/>

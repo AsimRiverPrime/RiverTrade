@@ -82,8 +82,16 @@ class TradeDetalVC: UIViewController {
     let openData = GlobalVariable.instance.openList
     var getSymbol = ""
     
+    var chartButtonSelected = false
+    var areaButtonSelected = false
+    var lineButtonSelected = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        chartButtonSelected = true
+        areaButtonSelected = false
+        lineButtonSelected = false
         
         self.overviewView.isHidden = true
         
@@ -239,9 +247,6 @@ class TradeDetalVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleTradesUpdated(_:)), name: .tradesUpdated, object: nil)
         
         addTopAndBottomBorders(menuButton[0])
-        
-        //        btn_chartShowHide.buttonStyle()
-        //        btn_timeInterval.buttonStyle()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -338,7 +343,7 @@ class TradeDetalVC: UIViewController {
                 let percentageChange = (diff / oldBid) * 100
                 let newValue = (percentageChange * 100.0).rounded() / 100.0
                 let percent = String(newValue)
-                print("\n new value is: \(newValue)")
+//                print("\n new value is: \(newValue)")
                 
                
                 lbl_percentage.text = "\(newValue)%"
@@ -448,93 +453,61 @@ class TradeDetalVC: UIViewController {
 //        let vc = Utilities.shared.getViewController(identifier: .chartTypeVC, storyboardType: .bottomSheetPopups) as! ChartTypeVC
 //        vc.delegate = self
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .small, VC: vc)
-        btn_areaChart.tintColor = .systemGray
-        btn_ChartType.tintColor = .systemYellow
-        btn_lineChart.tintColor = .systemGray
         
-        clearChart()
-        self.chartView.isHidden = true
-        self.chart?.isHidden = true
-        
-        setupSeries(candlestickData: candlestickData)
-        
-        if sender.isSelected {
-          
-        }else{
+        if !chartButtonSelected {
+            chartButtonSelected = true
+            areaButtonSelected = false
+            lineButtonSelected = false
             
+            btn_areaChart.tintColor = .systemGray
+            btn_ChartType.tintColor = .systemYellow
+            btn_lineChart.tintColor = .systemGray
+            
+            clearChart()
+            self.chartView.isHidden = true
+            self.chart?.isHidden = true
+            
+            setupSeries(candlestickData: candlestickData)
         }
     }
     
     @IBAction func areaChartBtn_action(_ sender: UIButton) {
-//        btn_areaChart.isSelected = true
-//        btn_ChartType.isSelected = false
-//        btn_lineChart.isSelected = false
-        
-        btn_areaChart.tintColor = .systemYellow
-        btn_ChartType.tintColor = .systemGray
-        btn_lineChart.tintColor = .systemGray
-        
-        if sender.isSelected {
+
+        if !areaButtonSelected {
+            chartButtonSelected = false
+            areaButtonSelected = true
+            lineButtonSelected = false
             
-        }else{
+            btn_areaChart.tintColor = .systemYellow
+            btn_ChartType.tintColor = .systemGray
+            btn_lineChart.tintColor = .systemGray
             
+            clearChart()
+            self.chartView.isHidden = true
+            self.chart?.isHidden = true
+            let areaData = convertToAreaData(candlestickData: candlestickData)
+            setupAreaSeries(areaData: areaData)
         }
-        clearChart()
-        self.chartView.isHidden = true
-        self.chart?.isHidden = true
-        let areaData = convertToAreaData(candlestickData: candlestickData)
-        setupAreaSeries(areaData: areaData)
 }
 
 @IBAction func lineChartBtn_action(_ sender: UIButton) {
-    btn_areaChart.tintColor = .systemGray
-    btn_ChartType.tintColor = .systemGray
-    btn_lineChart.tintColor = .systemYellow
-    
-    if sender.isSelected {
-       
-    }else{
+    if !lineButtonSelected {
+        chartButtonSelected = false
+        areaButtonSelected = false
+        lineButtonSelected = true
         
+        btn_areaChart.tintColor = .systemGray
+        btn_ChartType.tintColor = .systemGray
+        btn_lineChart.tintColor = .systemYellow
+        
+        clearChart()
+        self.chartView.isHidden = true
+        self.chart?.isHidden = true
+        let barData = convertToBarData(candlestickData: candlestickData)
+        setupBarSeries(barData: barData)
     }
-    clearChart()
-    self.chartView.isHidden = true
-    self.chart?.isHidden = true
-    let barData = convertToBarData(candlestickData: candlestickData)
-    setupBarSeries(barData: barData)
 }
 
-    
-//    @IBAction func lineChart_action(_ sender: Any) {
-//        print("Area Chart btn clicked")
-////        checkImage_candel.isHidden = true
-////        checkImage_bar.isHidden = true
-////        checkImage_Area.isHidden = false
-//        GlobalVariable.instance.chartType = .area
-//        
-//        delegate?.didSelectChartType(.area)
-//               dismiss(animated: true, completion: nil)
-//    }
-//    
-//    @IBAction func barChart_action(_ sender: Any) {
-//        print("bar Chart btn clicked")
-////        checkImage_candel.isHidden = true
-////        checkImage_bar.isHidden = false
-////        checkImage_Area.isHidden = true
-//        GlobalVariable.instance.chartType = .bar
-//        delegate?.didSelectChartType(.bar)
-//               dismiss(animated: true, completion: nil)
-//    }
-//    
-//    @IBAction func candelChart_action(_ sender: Any) {
-////        checkImage_candel.isHidden = false
-////        checkImage_bar.isHidden = true
-////        checkImage_Area.isHidden = true
-//        GlobalVariable.instance.chartType = .candlestick
-//        print("candle Chart btn clicked")
-//        delegate?.didSelectChartType(.candlestick)
-//               dismiss(animated: true, completion: nil)
-//    }
-    
     @IBAction func timeFrameBtn_action(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .timeFrameVC, storyboardType: .bottomSheetPopups) as! TimeFrameVC
         vc.delegate = self
@@ -1229,17 +1202,3 @@ struct TradingSession: Codable {
         case closeMinutes = "close_minutes"
     }
 }
-
-extension UIButton {
-    func buttonStyle() {
-        self.layer.cornerRadius = 5
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.3
-        self.layer.shadowOffset = CGSize(width: 0, height: 1)
-        self.layer.shadowRadius = 4
-        self.layer.borderWidth = 0.1
-        self.layer.borderColor = UIColor.darkGray.cgColor
-        self.clipsToBounds = false
-    }
-}
-

@@ -8,25 +8,19 @@
 import UIKit
 import CountryPickerView
 
-class ResidencVC: UIViewController {
-    @IBOutlet weak var view_nationailtyCountryPicker: CountryPickerView!
+class ResidencVC: BaseViewController {
     @IBOutlet weak var view_residencyCountryPicker: CountryPickerView!
 
     @IBOutlet weak var btn_residenceCheck: UIButton!
-    @IBOutlet weak var tf_nationailityField: UITextField!
     @IBOutlet weak var tf_residencyField: UITextField!
     @IBOutlet weak var btn_confirm: CardViewButton!
     
     var fireStoreInstance = FirestoreServices()
     let userId =  UserDefaults.standard.string(forKey: "userID")
-
+    var nationality = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view_nationailtyCountryPicker.delegate = self
-        view_nationailtyCountryPicker.showPhoneCodeInView = false
-        view_nationailtyCountryPicker.showCountryCodeInView = false
-        view_nationailtyCountryPicker.showCountryNameInView = false
-        view_nationailtyCountryPicker.flagImageView.isHidden = false
         
         view_residencyCountryPicker.delegate = self
         view_residencyCountryPicker.showPhoneCodeInView = false
@@ -35,8 +29,6 @@ class ResidencVC: UIViewController {
         view_residencyCountryPicker.flagImageView.isHidden = false
        
         
-//        self.btn_confirm.isUserInteractionEnabled = false
-        self.tf_nationailityField.isEnabled = false
         self.tf_residencyField.isEnabled = false
         
         if let selectedCountry = CountryManager.shared.selectedCountry {
@@ -51,16 +43,26 @@ class ResidencVC: UIViewController {
         self.btn_residenceCheck.setImage(!self.btn_residenceCheck.isSelected ? UIImage(systemName: "square")?.withTintColor(.white) : UIImage(systemName: "checkmark.square")?.withTintColor(.systemYellow), for: .normal)
        
         if self.btn_residenceCheck.isSelected {
-            self.btn_confirm.isEnabled = true
+            self.btn_confirm.isUserInteractionEnabled = true
+            self.btn_confirm.tintColor = .systemYellow
         }else{
-            self.btn_confirm.isEnabled = false
+            self.btn_confirm.isUserInteractionEnabled = false
+            self.btn_confirm.tintColor = .systemGray
         }
         
     }
     
-    
     @IBAction func confirm_btnAction(_ sender: Any) {
-        updateUser()
+        if !self.btn_residenceCheck.isSelected {
+            self.showTimeAlert(str: "Select country first")
+            return
+        } else if tf_residencyField.text != "" {
+            updateUser()
+        }else{
+            self.showTimeAlert(str: "Select your Nationality")
+        }
+        
+       
     }
     
     func navigateDashboard(){
@@ -81,7 +83,7 @@ class ResidencVC: UIViewController {
        
             fieldsToUpdate = [
                 "residence": self.tf_residencyField.text ?? "",
-                "nationality" : self.tf_nationailityField.text ?? ""
+                "nationality" : self.nationality
             ]
          
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -89,7 +91,6 @@ class ResidencVC: UIViewController {
                 print("Error updating user fields: \(error.localizedDescription)")
                 return
             } else {
-                
                 self.fireStoreInstance.fetchUserData(userId: userId)
                 self.navigateDashboard()
                 }
@@ -100,12 +101,9 @@ class ResidencVC: UIViewController {
 
 extension ResidencVC: CountryPickerViewDelegate {
     func countryPickerView(_ countryPickerView: CountryPickerView, didSelectCountry country: Country) {
-        if countryPickerView == view_nationailtyCountryPicker {
-            tf_nationailityField.text = country.name
-            self.view_nationailtyCountryPicker.flagImageView.image = country.flag
-        } else if countryPickerView == view_residencyCountryPicker {
+      
             tf_residencyField.text = country.name
             self.view_residencyCountryPicker.flagImageView.image = country.flag
-        }
+        
     }
 }

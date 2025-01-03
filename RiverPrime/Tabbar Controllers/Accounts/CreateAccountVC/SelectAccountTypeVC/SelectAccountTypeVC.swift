@@ -64,12 +64,10 @@ class SelectAccountTypeVC: BottomSheetController {
         super.viewDidLoad()
         
 //        self.dismissDelegate = self
-        
         self.btn_createAccount.titleTintColor = .systemYellow
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
         registerCell()
-
     }
     
     @objc func updateAccountList(){
@@ -77,10 +75,8 @@ class SelectAccountTypeVC: BottomSheetController {
             self.getbalanceApi.getBalance(completion: { response in
                 print("response of get balance: \(response)")
                 if response == "Invalid Response" {
-                    
                     return
                 }
-                
                 GlobalVariable.instance.balanceUpdate = response //self.balance
                 print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
@@ -136,14 +132,12 @@ class SelectAccountTypeVC: BottomSheetController {
             print("Real Data: \(realData)")
         }
        
-        
         tableView.registerCells([
             SelectAccountTypeCell.self
         ])
 
         currentData = demoData
 //        sortCurrentData()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()

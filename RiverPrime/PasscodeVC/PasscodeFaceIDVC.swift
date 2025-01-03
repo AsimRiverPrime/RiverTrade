@@ -12,7 +12,6 @@ import LocalAuthentication
 class PasscodeFaceIDVC: UIViewController {
     
     @IBOutlet weak var lbl_enterCode: UILabel!
-    
     @IBOutlet var view_dots: [UIView]!
     
     @IBOutlet var numbers_btn: [UIButton]!
@@ -25,7 +24,7 @@ class PasscodeFaceIDVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      //  authenticateWithFaceID()
+        authenticateWithFaceID()
         updateFaceIDButtonAction()
         // Do any additional setup after loading the view.
     }
@@ -45,7 +44,7 @@ class PasscodeFaceIDVC: UIViewController {
             // code for backspace
             backspaceAction()
         } else {
-            enableFaceID()
+           enableFaceID()
         }
     }
     
@@ -67,7 +66,11 @@ class PasscodeFaceIDVC: UIViewController {
                     self.savePasscode(self.enteredPasscode)
                     print("Passcode saved successfully.")
                     // Optionally, navigate to the main screen or provide feedback
-                     self.navigateToMainScreen()
+//                     self.navigateToMainScreen()
+                    
+                    Alert.showAlertWithOKHandler(withHandler: "Allow Face ID to unlock River Trade App.", andTitle: "Face ID", OKButtonText: "Continue", on: self) { action in
+                        self.enableFaceID()
+                    }
                 } else {
                     // Verify the entered passcode
                     self.verifyPasscode()
@@ -218,13 +221,12 @@ extension PasscodeFaceIDVC {
 //        }else{
             print("Go to the desire screen")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-//                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-//                    self.navigate(to: dashboardVC)
-//                }
+               
                 if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
                     self.navigate(to: dashboardVC)
                 }
-//            }
+//                self.navigationController?.dismiss(animated: true, completion: nil)
+                
         }
     }
  
