@@ -11,6 +11,7 @@ import GoogleSignIn
 import FirebaseFirestore
 import FirebaseAuth
 import Firebase
+import AuthenticationServices
 
 class SignUpViewController: BaseViewController {
     
@@ -89,8 +90,10 @@ class SignUpViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        //MARK: - Hide Navigation Bar
-        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+
+            //MARK: - Hide Navigation Bar
+            self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
         
         let fullText = "By clicking Create Account, you agree to Terms and Service and Privacy policy"
        
@@ -202,7 +205,7 @@ class SignUpViewController: BaseViewController {
             self.lbl_passValid.isHidden = true
         }else{
             self.lbl_passValid.isHidden = false
-            self.lbl_passValid.text = "Password is atleast 8 character with 1 capital & 1 Special & 1 number"
+            self.lbl_passValid.text = "Password should be atleast 8 characters with one capital character & one Special letter & one number."
             self.lbl_passValid.textColor = .red
         }
         
@@ -278,31 +281,41 @@ class SignUpViewController: BaseViewController {
                 print("Sign in failed: \(error.localizedDescription)")
                 return
             }
-            print("result user: \(result)")
+//            print("result user: \(result)")
             guard let user1 = result?.user else { return }
-//            self?.odoClientNew.createLeadDelegate = self
-            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            let _email = result?.user.profile?.email ?? ""
+            let _name = result?.user.profile?.name ?? ""
             
+            print("_email : \(_email) and name is : \(_name)")
+            UserDefaults.standard.set(_name, forKey: "FullName")
+            GlobalVariable.instance.userEmail = _email
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+            self?.navigate(to: nationalityVC)
+            
+//            self?.odoClientNew.createLeadDelegate = self
+//            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            
+          
         }
     }
     
-//    @IBAction func termConditionBtn(_ sender: Any) {
-//        if let termConditionVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "TermsConditionsViewController") {
-//            self.navigate(to: termConditionVC)
-//        }
-//        
-//    }
-//    @IBAction func privacyPolicyBtn(_ sender: Any) {
-//        if let privcyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PrivacyViewController") {
-//            self.navigate(to: privcyVC)
-//        }
-//    }
-    
-    
+    @IBAction func loginWithApple(_ sender: Any) {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+           let request = appleIDProvider.createRequest()
+           request.requestedScopes = [.fullName, .email]  // Request necessary user info
+
+           let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+           authorizationController.delegate = self
+           authorizationController.presentationContextProvider = self
+           authorizationController.performRequests()
+        
+    }
+
     private func signUp() {
         guard
             let fullName = lbl_fullName.text, !fullName.isEmpty,
-            let userName = lbl_userName.text, !userName.isEmpty,
+//            let userName = lbl_userName.text, !userName.isEmpty,
             let reTypePass = reTypePassword_tf.text, !reTypePass.isEmpty,
             let email = email_tf.text, !email.isEmpty,
             let password = password_tf.text, !password.isEmpty
@@ -378,6 +391,36 @@ class SignUpViewController: BaseViewController {
         self.navigate(to: verifyVC)
     }
     
+}
+
+extension SignUpViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+
+            // Store userIdentifier securely in Keychain or your secure storage
+            print("User ID: \(userIdentifier)")
+            print("Full Name: \(String(describing: fullName))")
+            print("Email: \(String(describing: email))")
+            GlobalVariable.instance.userEmail = email ?? ""
+            UserDefaults.standard.set(fullName, forKey: "FullName")
+            // Proceed with user registration or login
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+            self.navigate(to: nationalityVC)
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Sign in with Apple error: \(error.localizedDescription)")
+    }
 }
 
 extension SignUpViewController:  CreateLeadOdooDelegate {

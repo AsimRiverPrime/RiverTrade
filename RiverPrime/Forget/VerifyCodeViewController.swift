@@ -141,7 +141,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
-                    self.navigateToResidence()
+                    self.navigateToFaceID()
                     
                 }
                 
@@ -149,8 +149,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     
-    func navigateToResidence(){
-        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
+    func navigateToFaceID(){
+        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
             self.navigate(to: residencVC)
         }
     }
@@ -178,7 +178,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     // Method to update the button title each second
     @objc func updateButtonTitle() {
         remainingSeconds -= 1
-        if remainingSeconds > 0 {
+        if remainingSeconds >= 0 {
             //            resendCodeButton.setTitle("Resend code in \(remainingSeconds) seconds", for: .disabled)
             self.lbl_remainingTime.text = "00:\(remainingSeconds)"
         } else {

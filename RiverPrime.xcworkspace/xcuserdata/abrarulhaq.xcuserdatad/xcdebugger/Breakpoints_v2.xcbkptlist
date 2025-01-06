@@ -3,4 +3,130 @@
    uuid = "365CA39A-8A03-4BA3-8C80-337AAC04CC6F"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ACE35FD6-B519-4A5B-AE50-D8CF0D317599"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/Trade/TradeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
+            landmarkName = "MetaTraderLogin(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ACE35FD6-B519-4A5B-AE50-D8CF0D317599 - b8d50bed1a5fe83c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RiverPrime.TradeViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
+                  moduleName = "RiverPrime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abrarulhaq/Downloads/RiverTrade-AsimNew-8/RiverPrime/Tabbar%20Controllers/Trade/TradeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "313"
+                  endingLineNumber = "313">
+               </Location>
+               <Location
+                  uuid = "ACE35FD6-B519-4A5B-AE50-D8CF0D317599 - 9e06b75d1c54f2ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;RiverPrime.ResponseModel, Swift.Error&gt;) -&gt; () in RiverPrime.TradeViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
+                  moduleName = "RiverPrime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abrarulhaq/Downloads/RiverTrade-AsimNew-8/RiverPrime/Tabbar%20Controllers/Trade/TradeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "315"
+                  endingLineNumber = "315">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DD992F59-4C43-49BA-8306-42F88ECE7C9C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/Tabbar Controllers/Trade/TradeViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "329"
+            endingLineNumber = "329"
+            landmarkName = "MetaTraderLogin(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DD992F59-4C43-49BA-8306-42F88ECE7C9C - b8d50bed1a5fea2c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RiverPrime.TradeViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
+                  moduleName = "RiverPrime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abrarulhaq/Downloads/RiverTrade-AsimNew-8/RiverPrime/Tabbar%20Controllers/Trade/TradeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "329"
+                  endingLineNumber = "329">
+               </Location>
+               <Location
+                  uuid = "DD992F59-4C43-49BA-8306-42F88ECE7C9C - ba851b233c8190ee"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (Swift.String) -&gt; () in RiverPrime.TradeViewController.MetaTraderLogin(Foundation.Notification) -&gt; ()"
+                  moduleName = "RiverPrime"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/abrarulhaq/Downloads/RiverTrade-AsimNew-8/RiverPrime/Tabbar%20Controllers/Trade/TradeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "330"
+                  endingLineNumber = "330">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A81F05CA-4120-45D7-B5C6-AD0218E216CC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/PasscodeVC/FaceIDAlertView/FaceIDAlertView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "awakeFromNib()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B6C52A7-60DE-4AAC-983B-4B6303FCB16F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/PasscodeVC/PasscodeFaceIDVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
+            landmarkName = "navigateToMainScreen()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

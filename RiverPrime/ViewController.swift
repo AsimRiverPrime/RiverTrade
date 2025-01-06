@@ -8,6 +8,8 @@
 import UIKit
 import AVFoundation
 import GoogleSignIn
+import AuthenticationServices
+
 
 class ViewController: BaseViewController {
     
@@ -19,8 +21,8 @@ class ViewController: BaseViewController {
     let googleSignIn = GoogleSignIn()
     var odoClientNew = OdooClientNew()
     
-    var player: AVPlayer?
-    
+//    var player: AVPlayer?
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         odoClientNew.createLeadDelegate = self
@@ -53,9 +55,9 @@ class ViewController: BaseViewController {
     }
     
     @IBAction func registerBtn(_ sender: Any) {
-        if let signUp = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignUpViewController") //SignUpViewController PasscodeFaceIDVC
+        if let residencyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "NationalityVC")
         {
-            self.navigate(to: signUp)
+            self.navigate(to: residencyVC)
         }
    
     }
@@ -73,19 +75,64 @@ class ViewController: BaseViewController {
                 print("Sign in failed: \(error.localizedDescription)")
                 return
             }
-            print("google login user result : \(result)")
+//            print("google login user result : \(result)")
             guard let user1 = result?.user else { return }
             let _email = result?.user.profile?.email ?? ""
-            print("_email : \(_email)")
-//            GlobalVariable.instance.userEmail = _email
-            self?.googleSignIn.odoClientNew.createLeadDelegate = self
-            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            let _name = result?.user.profile?.name ?? ""
+            
+            print("_email : \(_email) and name is : \(_name)")
+            UserDefaults.standard.set(_name, forKey: "FullName")
+            GlobalVariable.instance.userEmail = _email
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+            self?.navigate(to: nationalityVC)
+            
+//            self?.googleSignIn.odoClientNew.createLeadDelegate = self
+//            self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
     }
     
     @IBAction func tryDemo_btnAction(_ sender: Any) {
-        print("Try demo btn action: ")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+           let request = appleIDProvider.createRequest()
+           request.requestedScopes = [.fullName, .email]  // Request necessary user info
+
+           let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+           authorizationController.delegate = self
+           authorizationController.presentationContextProvider = self
+           authorizationController.performRequests()
+        
+    }
+}
+
+extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+    
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+
+            // Store userIdentifier securely in Keychain or your secure storage
+            print("User ID: \(userIdentifier)")
+            print("Full Name: \(String(describing: fullName))")
+            print("Email: \(String(describing: email))")
+            GlobalVariable.instance.userEmail = email ?? ""
+            UserDefaults.standard.set(fullName, forKey: "FullName")
+            // Proceed with user registration or login
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+            self.navigate(to: nationalityVC)
+        }
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Sign in with Apple error: \(error.localizedDescription)")
     }
 }
 
@@ -117,39 +164,7 @@ extension ViewController {
         verifyVC.isPhoneVerification = false
         self.navigate(to: verifyVC)
     }
-    
-    
 }
-
-//extension ViewController {
-//    
-//    func playBackgroundVideo() {
-//        guard let path = Bundle.main.path(forResource: "background_vedio", ofType: "mp4") else {
-//               print("Video file not found")
-//               return
-//           }
-//        
-//        let playerItem = AVPlayerItem(url: URL(fileURLWithPath: path))
-//           player = AVPlayer(playerItem: playerItem)
-//        player?.isMuted = true
-//           let playerLayer = AVPlayerLayer(player: player)
-//           playerLayer.frame = view.bounds
-//           playerLayer.videoGravity = .resizeAspectFill
-//        playerLayer.opacity = 0.6
-//           // Insert the player layer at the bottom so it acts as a background
-//           view.layer.insertSublayer(playerLayer, at: 0)
-//           
-//           // Start playing and set it to loop
-//           player?.play()
-//           NotificationCenter.default.addObserver(self, selector: #selector(loopVideo), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
-//       }
-//
-//       @objc func loopVideo() {
-//           player?.seek(to: .zero)
-//           player?.play()
-//       }
-
-//}
 
 extension ViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {

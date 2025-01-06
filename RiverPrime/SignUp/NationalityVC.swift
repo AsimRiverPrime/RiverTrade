@@ -30,6 +30,14 @@ class NationalityVC: BaseViewController {
           
         }
         
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+    }
         @IBAction func checkNationality_action(_ sender: Any) {
             self.btn_NationalityCheck.isSelected = !self.btn_NationalityCheck.isSelected
             self.btn_NationalityCheck.setImage(!self.btn_NationalityCheck.isSelected ? UIImage(systemName: "square")?.withTintColor(.white) : UIImage(systemName: "checkmark.square")?.withTintColor(.systemYellow), for: .normal)
@@ -46,17 +54,17 @@ class NationalityVC: BaseViewController {
         
         
     @IBAction func confirm_btnAction(_ sender: Any) {
-        if !self.btn_NationalityCheck.isSelected {
-            self.showTimeAlert(str: "Select nationality first")
-            return
-        } else if tf_nationailityField.text != "" {
+//        if !self.btn_NationalityCheck.isSelected {
+//            self.showTimeAlert(str: "please Select check first")
+//            return
+//        } else if tf_nationailityField.text != "" {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let residencVC = storyboard.instantiateViewController(withIdentifier: "ResidencVC") as! ResidencVC
             residencVC.nationality = tf_nationailityField.text ?? ""
             self.navigate(to: residencVC)
-        }else{
-            self.showTimeAlert(str: "Select your Nationality")
-        }
+//        }else{
+//            self.showTimeAlert(str: "Select your Nationality")
+//        }
     }
 }
 

@@ -41,6 +41,12 @@ public class NotificationObserver {
             static let key = "tradeApiUpdate"
             static let title = "title"
         }
+        //MARK: - class After login faceid
+        struct FaceAfterLoginConstant {
+            static let key = "faceidupdate"
+            static let title = "title"
+        }
+        
     }
 
     func postNotificationObserver(key: String, dict: [String: Any]) {

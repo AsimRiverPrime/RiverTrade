@@ -150,10 +150,10 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         verifyVC.userPhone = self.tf_numberField.text ?? "0000"
         self.navigate(to: verifyVC)
     }
-    private func navigateToDashboardScreen() {
+    private func navigateTofaceIDScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "ResidencVC") as! ResidencVC
-        self.navigate(to: dashboardVC)
+        let faceID = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC")
+        self.navigate(to: faceID)
         
 //        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
 //        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
@@ -186,7 +186,7 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-        navigateToDashboardScreen()
+        navigateTofaceIDScreen()
 //        navigateToVerifiyScreen()
     }
     

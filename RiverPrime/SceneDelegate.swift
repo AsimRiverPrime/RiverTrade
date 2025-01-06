@@ -83,7 +83,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
         
-//        navigateToFaceScreen()
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
@@ -94,13 +93,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-        navigateToFaceScreen()
+//        navigateToFaceScreen()
+        
+        if let data = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("\n Handle saved User Data for navigation : \(data)")
+            
+            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+                if let email = data["email"] as? String {
+//                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
+                   
+                }
+//               navigateToEmailVerificationScreen()
+                print("navigate to user email verification")
+               
+//            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
+//               navigateToPhoneVerificationScreen()
+//                print("/n navigate to user phone verification")
+            } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
+//                navigateToDemoAccountCreationScreen()
+                print("navigate to user demo account")
+//            } else if let profileStep = data["demoAccountCreated"] as? Int {
+//                print("check profile step: \(profileStep)")
+            } else {
+                print("navigate to Main dashboard")
+//                navigateToDemoAccountCreationScreen()
+                
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
+                
+            }
+        }
+        
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+        UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
     }
     
 }

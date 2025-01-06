@@ -1,20 +1,24 @@
 //
-//  PasscodeFaceIDVC.swift
+//  FaceIDAlertView.swift
 //  RiverPrime
 //
-//  Created by Ross Rostane on 22/08/2024.
+//  Created by abrar ul haq on 04/01/2025.
 //
 
 import UIKit
 import LocalAuthentication
 
-
-class PasscodeFaceIDVC: UIViewController {
+class FaceIDAlertView: UIView {
+    
+//    @IBOutlet weak var lbl_enterCode: UILabel!
+//    @IBOutlet var view_dots: [UIView]!
+    
+//    @IBOutlet var numbers_btn: [UIButton]!
+//    @IBOutlet weak var btn_faceID: UIButton!
+//    @IBOutlet weak var btn_forgot: UIButton!
     
     @IBOutlet weak var lbl_enterCode: UILabel!
     @IBOutlet var view_dots: [UIView]!
-    
-    @IBOutlet var numbers_btn: [UIButton]!
     @IBOutlet weak var btn_faceID: UIButton!
     @IBOutlet weak var btn_forgot: UIButton!
     
@@ -22,26 +26,53 @@ class PasscodeFaceIDVC: UIViewController {
     //  var iscodeSelected : Bool = false
     let isFaceIDEnabled = UserDefaults.standard.bool(forKey: "isFaceIDEnabled")
     
-    var afterLoginNavigation = Bool()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    public override func awakeFromNib() {
+        super.awakeFromNib()
+        
         authenticateWithFaceID()
         updateFaceIDButtonAction()
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func numberBtn_action(_ sender: Any) {
+    class func getView()->FaceIDAlertView {
+        return Bundle.main.loadNibNamed("FaceIDAlertView", owner: self, options: nil)?.first as! FaceIDAlertView
+    }
+    
+    func dismissView() {
+        UIView.animate(
+            withDuration: 0.4,
+            delay: 0.04,
+            animations: {
+                self.alpha = 0
+            }, completion: { (complete) in
+                self.removeFromSuperview()
+            })
+    }
+    
+    @IBAction func numberBtn_action1(_ sender: Any) {
+        handleNumberInput((sender as AnyObject).tag)
+    }
+    @IBAction func numberBtn_action(_ sender: UIButton) {
         handleNumberInput((sender as AnyObject).tag)
     }
     
-    @IBAction func forgot_btnAction(_ sender: Any) {
-        if let vc = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotPasscodeVC") {
-            self.navigate(to: vc)
-        }
+//    @IBAction func forgot_btnAction(_ sender: Any) {
+////        if let vc = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotPasscodeVC") {
+////            self.navigate(to: vc)
+////        }
+//    }
+    @IBAction func forgot_btnAction(_ sender: UIButton) {
     }
     
-    @IBAction func faceID_action(_ sender: Any) {
+    @IBAction func faceID_action1(_ sender: Any) {
+        if !enteredPasscode.isEmpty  {
+            // code for backspace
+            backspaceAction()
+        } else {
+           enableFaceID()
+        }
+    }
+    @IBAction func faceID_action(_ sender: UIButton) {
         if !enteredPasscode.isEmpty  {
             // code for backspace
             backspaceAction()
@@ -70,9 +101,16 @@ class PasscodeFaceIDVC: UIViewController {
                     // Optionally, navigate to the main screen or provide feedback
 //                     self.navigateToMainScreen()
                     
-                    Alert.showAlertWithOKHandler(withHandler: "Allow Face ID to unlock River Trade App.", andTitle: "Face ID", OKButtonText: "Continue", on: self) { action in
+                    Alert.ShowWindowAlert("Allow Face ID to unlock River Trade App.", andTitle: "Face ID", OKButtonText: "Continue", window: SCENE_DELEGATE.window!) { ok in
                         self.enableFaceID()
+                    } andCompletionHandler: { cancel in
+                        print("Cancel")
                     }
+
+                    
+//                    Alert.showAlertWithOKHandler(withHandler: "Allow Face ID to unlock River Trade App.", andTitle: "Face ID", OKButtonText: "Continue", on: self) { action in
+//                        self.enableFaceID()
+//                    }
                 } else {
                     // Verify the entered passcode
                     self.verifyPasscode()
@@ -123,7 +161,13 @@ class PasscodeFaceIDVC: UIViewController {
                 resetDots()
                 updateFaceIDButtonAction()
                 
-                Alert.showAlert(withMessage: "Passcode is incorrect", andTitle: "Invalid", on: self)
+//                Alert.showAlert(withMessage: "Passcode is incorrect", andTitle: "Invalid", on: self)
+                
+                Alert.ShowWindowAlert("Passcode is incorrect", andTitle: "Invalid", window: SCENE_DELEGATE.window!) { ok in
+//                    self.enableFaceID()
+                } andCompletionHandler: { cancel in
+                    print("Cancel")
+                }
             }
         } else {
             print("No passcode set.")
@@ -143,7 +187,7 @@ class PasscodeFaceIDVC: UIViewController {
 }
 
 // MARK: - Face ID methods
-extension PasscodeFaceIDVC {
+extension FaceIDAlertView {
     func enableFaceID() {
        
         if !isFaceIDEnabled {
@@ -168,13 +212,25 @@ extension PasscodeFaceIDVC {
                             self.navigateToMainScreen()
                         } else {
                             // Handle the error, maybe show an alert
-                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
+//                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
+                            
+                            Alert.ShowWindowAlert("Face ID authentication failed.", andTitle: "Invalid", window: SCENE_DELEGATE.window!) { ok in
+            //                    self.enableFaceID()
+                            } andCompletionHandler: { cancel in
+                                print("Cancel")
+                            }
                         }
                     }
                 }
             } else {
                 // Face ID not available, handle accordingly
-                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
+//                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
+                
+                Alert.ShowWindowAlert("Face ID is not available on this device.", andTitle: "Invalid", window: SCENE_DELEGATE.window!) { ok in
+//                    self.enableFaceID()
+                } andCompletionHandler: { cancel in
+                    print("Cancel")
+                }
             }
         }else{
             authenticateWithFaceID()
@@ -203,14 +259,26 @@ extension PasscodeFaceIDVC {
                         } else {
                             // Handle the error, maybe show an alert
                             
-                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
+//                            Alert.showAlert(withMessage: "Face ID authentication failed.", andTitle: "Invalid", on: self)
+                            
+                            Alert.ShowWindowAlert("Face ID authentication failed.", andTitle: "Invalid", window: SCENE_DELEGATE.window!) { ok in
+            //                    self.enableFaceID()
+                            } andCompletionHandler: { cancel in
+                                print("Cancel")
+                            }
                         }
                     }
                 }
             } else {
                 // Face ID not available, handle accordingly
                 
-                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
+//                Alert.showAlert(withMessage: "Face ID is not available on this device.", andTitle: "Invalid", on: self)
+                
+                Alert.ShowWindowAlert("Face ID is not available on this device.", andTitle: "Invalid", window: SCENE_DELEGATE.window!) { ok in
+//                    self.enableFaceID()
+                } andCompletionHandler: { cancel in
+                    print("Cancel")
+                }
             }
         }
     }
@@ -222,21 +290,17 @@ extension PasscodeFaceIDVC {
 //            self.navigationController?.popViewController(animated: true)
 //        }else{
             print("Go to the desire screen")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
-               
-                if afterLoginNavigation {
-                    self.navigationController?.popViewController(animated: true)
-                } else {
-                    if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
-                        self.navigate(to: dashboardVC)
-                    }
-                }
-                
-                
-//                self.navigationController?.dismiss(animated: true, completion: nil)
-                
-                
-        }
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+//               
+//                if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+//                    self.navigate(to: dashboardVC)
+//                }
+////                self.navigationController?.dismiss(animated: true, completion: nil)
+//                
+//        }
+        
+        self.dismissView()
     }
  
 }
+

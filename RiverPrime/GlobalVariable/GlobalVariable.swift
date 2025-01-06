@@ -54,6 +54,8 @@ class GlobalVariable: NSObject {
     
     var isAccountCreated = Bool()
     
+    var controllerName = String()
+    
     var tradeCollectionViewIndex: (Int, [Int]) = (0, [])
     
     var trades: [TradeDetails] = []

@@ -295,6 +295,8 @@
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
 		31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */; };
 		42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */; };
+		A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */; };
+		A5140CD52D296C8A00F46FC1 /* FaceIDAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */; };
 		FA10ECC72CE6A23F00C1980F /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA10ECB42CE6A23F00C1980F /* Poppins-ExtraLight.ttf */; };
 		FA10ECC82CE6A23F00C1980F /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA10ECB52CE6A23F00C1980F /* Poppins-ThinItalic.ttf */; };
 		FA10ECC92CE6A23F00C1980F /* Poppins-ExtraLightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA10ECB62CE6A23F00C1980F /* Poppins-ExtraLightItalic.ttf */; };
@@ -483,6 +485,7 @@
 		317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen5.swift; sourceTree = "<group>"; };
 		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
+		3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RiverPrime.entitlements; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
 		3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarListVC.swift; sourceTree = "<group>"; };
 		3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarDetailVC.swift; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
 		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
 		9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
+		A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAlertView.swift; sourceTree = "<group>"; };
+		A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaceIDAlertView.xib; sourceTree = "<group>"; };
 		FA10ECB42CE6A23F00C1980F /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		FA10ECB52CE6A23F00C1980F /* Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		FA10ECB62CE6A23F00C1980F /* Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -1053,6 +1058,7 @@
 		3137AE702C77471A00B5A83B /* PasscodeVC */ = {
 			isa = PBXGroup;
 			children = (
+				A5140CD12D296C3E00F46FC1 /* FaceIDAlertView */,
 				3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */,
 				3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */,
 			);
@@ -1468,6 +1474,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */,
 				31AAD94D2D1EF3D700733D78 /* UserManager */,
 				31B8722B2D0C419700024E8A /* CacheApiResponse */,
 				31B6C53A2CC91740000DF849 /* Models */,
@@ -1942,6 +1949,15 @@
 				9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A5140CD12D296C3E00F46FC1 /* FaceIDAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */,
+				A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */,
+			);
+			path = FaceIDAlertView;
 			sourceTree = "<group>";
 		};
 		FA10ECB32CE6A23F00C1980F /* Poppins */ = {
@@ -2421,6 +2437,7 @@
 				3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */,
 				FA10ECCC2CE6A23F00C1980F /* Poppins-Medium.ttf in Resources */,
 				31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */,
+				A5140CD52D296C8A00F46FC1 /* FaceIDAlertView.xib in Resources */,
 				315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */,
 				FA316F882CC1ADEE0048B181 /* Total_PLCell.xib in Resources */,
 				FA10ECCA2CE6A23F00C1980F /* Poppins-BoldItalic.ttf in Resources */,
@@ -2530,6 +2547,7 @@
 				31D2AF462C8840B800E0CF2E /* SeriesApi.swift in Sources */,
 				FA12B5E42C4F10820054F8D8 /* ResultsFilterViewCell.swift in Sources */,
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
+				A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */,
 				31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */,
 				31D2AEF42C8840B800E0CF2E /* LineSeries.swift in Sources */,
 				3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */,
@@ -2939,6 +2957,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2984,6 +3003,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

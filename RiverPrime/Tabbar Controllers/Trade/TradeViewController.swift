@@ -134,10 +134,27 @@ class TradeViewController: UIViewController {
         dashboardinit()
         GlobalVariable.instance.lastSelectedSectorIndex = IndexPath(row: 0, section: 0)
         
+        GlobalVariable.instance.controllerName = "TradeVC"
+        NotificationCenter.default.addObserver(self, selector: #selector(self.FaceAfterLoginUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.FaceAfterLoginConstant.key), object: nil)
+        
+    }
+    
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "TradeVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+                self.navigate(to: faceIdVC)
+            }
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
+        accountData()
         //        self.searchCloseButton.isHidden = true
         self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         self.searchCloseButton.setTitle("", for: .normal)
@@ -165,6 +182,7 @@ class TradeViewController: UIViewController {
         callCollectionViewAtStart()
         
     }
+    
     @IBAction func alaramBtnAction(_ sender: Any) {
         Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
     }

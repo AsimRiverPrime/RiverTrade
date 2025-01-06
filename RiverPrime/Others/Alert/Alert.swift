@@ -39,6 +39,28 @@ public class Alert {
     
     
     
+    public static func ShowWindowAlert(_ Message: String?, andTitle Title: String?, OKButtonText: String? = "OK", window: UIWindow, andCompletionHandler action: @escaping (UIAlertAction) -> Void, andCompletionHandler actionss: @escaping (UIAlertAction) -> Void) {
+        AC = UIAlertController(title: Title, message: Message, preferredStyle: .alert)
+        
+        var Yes = OKButtonText
+        var Cancel = "Cancel"
+        
+        let YesAction = UIAlertAction(title: Yes, style: .default, handler: action)
+        let CancelAction = UIAlertAction(title: Cancel, style: .cancel, handler: actionss)
+        
+        YesAction.setValue(UIColor.black, forKey: "titleTextColor")
+        CancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+        
+        AC.addAction(YesAction)
+        AC.addAction(CancelAction)
+//        AC.present(animated: true, completion: nil)
+        window.rootViewController?.present(AC, animated: true, completion: nil)
+        
+    }
+    
+    
+    
+    
     
     //============ Alerts ============
     // Logout Popup

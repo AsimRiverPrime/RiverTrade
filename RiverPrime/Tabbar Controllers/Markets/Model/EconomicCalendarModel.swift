@@ -25,19 +25,19 @@ struct Event: Codable {
     let country: String
     let category: String
     let event: String
-    let reference: String
-    let referenceDate: Bool
+    let reference: String?
+    let referenceDate: String?
     let source: String
     let sourceURL: String
     let actual: String
     let previous: String
-    let forecast: String
-    let teForecast: String
+    let forecast: String?
+    let teForecast: String?
     let url: String
-    let dateSpan: Int
+    let dateSpan: String
     let importance: Int
     let lastUpdate: String
-    let revised: String
+    let revised: String?
     let currency: String
     let unit: String
     let ticker: String
@@ -67,5 +67,30 @@ struct Event: Codable {
         case unit = "Unit"
         case ticker = "Ticker"
         case symbol = "Symbol"
+    }
+}
+enum StringOrInt: Codable {
+    case int(Int)
+    case string(String)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let intValue = try? container.decode(Int.self) {
+            self = .int(intValue)
+        } else if let stringValue = try? container.decode(String.self) {
+            self = .string(stringValue)
+        } else {
+            throw DecodingError.typeMismatch(StringOrInt.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Expected Int or String"))
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .int(let value):
+            try container.encode(value)
+        case .string(let value):
+            try container.encode(value)
+        }
     }
 }

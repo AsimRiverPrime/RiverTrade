@@ -29,13 +29,22 @@ class ResidencVC: BaseViewController {
         view_residencyCountryPicker.flagImageView.isHidden = false
        
         
-        self.tf_residencyField.isEnabled = false
+//        self.tf_residencyField.isEnabled = false
         
-        if let selectedCountry = CountryManager.shared.selectedCountry {
-            self.tf_residencyField.text = selectedCountry.name
-            self.view_residencyCountryPicker.flagImageView.image = selectedCountry.flag
-        }
+//        if let selectedCountry = CountryManager.shared.selectedCountry {
+//            self.tf_residencyField.text = selectedCountry.name
+//            self.view_residencyCountryPicker.flagImageView.image = selectedCountry.flag
+//        }
          
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: NationalityVC(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
     
     @IBAction func checkResidence_action(_ sender: Any) {
@@ -53,25 +62,29 @@ class ResidencVC: BaseViewController {
     }
     
     @IBAction func confirm_btnAction(_ sender: Any) {
-        if !self.btn_residenceCheck.isSelected {
-            self.showTimeAlert(str: "Select country first")
-            return
-        } else if tf_residencyField.text != "" {
-            updateUser()
-        }else{
-            self.showTimeAlert(str: "Select your Nationality")
-        }
-        
-       
+//        if !self.btn_residenceCheck.isSelected {
+//            self.showTimeAlert(str: "Select country first")
+//            return
+//        } else if tf_residencyField.text != "" {
+            navigateTologin()
+//        }else{
+//            self.showTimeAlert(str: "Select your Nationality")
+//        }
     }
     
-    func navigateDashboard(){
-        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
+    func navigateTologin(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
         self.navigate(to: dashboardVC)
+    }
+    func navigateDashboard(){
+//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
+//        self.navigate(to: dashboardVC)
         
-//        let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-//        self.navigate(to: faceIdVC)
+        let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+        faceIdVC.afterLoginNavigation = false
+        self.navigate(to: faceIdVC)
     }
     
     func updateUser(){

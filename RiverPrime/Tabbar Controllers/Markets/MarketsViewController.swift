@@ -33,6 +33,24 @@ class MarketsViewController: UIViewController {
         tblView.reloadData()
         tblView.dataSource = self
         tblView.delegate = self
+        
+        GlobalVariable.instance.controllerName = "MarketVC"
+        NotificationCenter.default.addObserver(self, selector: #selector(self.FaceAfterLoginUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.FaceAfterLoginConstant.key), object: nil)
+        
+    }
+    
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "MarketVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+                self.navigate(to: faceIdVC)
+            }
+            
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
