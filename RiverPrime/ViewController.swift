@@ -20,7 +20,9 @@ class ViewController: BaseViewController {
     let vm = ViewControllerVM()
     let googleSignIn = GoogleSignIn()
     var odoClientNew = OdooClientNew()
-    
+    var fromOpenAccount : Bool = false
+    var isGoogleLogin : Bool = false
+    var isAppleLogin : Bool = false
 //    var player: AVPlayer?
    
     override func viewDidLoad() {
@@ -55,9 +57,11 @@ class ViewController: BaseViewController {
     }
     
     @IBAction func registerBtn(_ sender: Any) {
-        if let residencyVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "NationalityVC")
+        if let nationalityVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "NationalityVC")
         {
-            self.navigate(to: residencyVC)
+            fromOpenAccount = true
+            UserDefaults.standard.set(fromOpenAccount, forKey: "fromOpenAccount")
+            self.navigate(to: nationalityVC)
         }
    
     }
@@ -83,12 +87,16 @@ class ViewController: BaseViewController {
             print("_email : \(_email) and name is : \(_name)")
             UserDefaults.standard.set(_name, forKey: "FullName")
             GlobalVariable.instance.userEmail = _email
+            
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+           
+            self?.isGoogleLogin = true
+            UserDefaults.standard.set(self?.isGoogleLogin, forKey: "isGoogleLogin")
             self?.navigate(to: nationalityVC)
             
 //            self?.googleSignIn.odoClientNew.createLeadDelegate = self
-//            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            self?.googleSignIn.authenticateWithFirebase(user: user1)
             
         }
     }
@@ -127,6 +135,8 @@ extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationCont
             // Proceed with user registration or login
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
+            self.isAppleLogin = true
+            UserDefaults.standard.set(self.isAppleLogin, forKey: "isAppleLogin")
             self.navigate(to: nationalityVC)
         }
     }

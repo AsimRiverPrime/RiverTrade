@@ -66,7 +66,12 @@ class ResidencVC: BaseViewController {
 //            self.showTimeAlert(str: "Select country first")
 //            return
 //        } else if tf_residencyField.text != "" {
+        let isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
+        if isOpenAccount {
             navigateTologin()
+        }else{
+            
+        }
 //        }else{
 //            self.showTimeAlert(str: "Select your Nationality")
 //        }
