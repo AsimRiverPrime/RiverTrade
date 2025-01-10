@@ -23,6 +23,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     
     @IBOutlet weak var maleButton: UIButton!
     @IBOutlet weak var femaleButton: UIButton!
+    @IBOutlet weak var otherButton: UIButton!
     @IBOutlet weak var btn_continue: UIButton!
     @IBOutlet weak var lbl_errorMessage: UILabel!
     
@@ -129,6 +130,10 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         updateGenderButtons(for: "Female")
 //        storeGenderInUserDefaults(gender: "Female")
     }
+    @IBAction func otherBtn_action(_ sender: UIButton) {
+        updateGenderButtons(for: "Other")
+//        storeGenderInUserDefaults(gender: "Female")
+    }
     
     @IBAction func continueBtn_action(_ sender: UIButton) {
       
@@ -160,9 +165,15 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
         if gender == "Male" {
             maleButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)  // Selected Male
             femaleButton.setImage(UIImage(systemName: "circle"), for: .normal)               // Unselected Female
+            otherButton.setImage(UIImage(systemName: "circle"), for: .normal)
         } else if gender == "Female" {
             femaleButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal) // Selected Female
             maleButton.setImage(UIImage(systemName: "circle"), for: .normal)                 // Unselected Male
+            otherButton.setImage(UIImage(systemName: "circle"), for: .normal)
+        }else{
+            otherButton.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+            maleButton.setImage(UIImage(systemName: "circle"), for: .normal)
+            femaleButton.setImage(UIImage(systemName: "circle"), for: .normal)
         }
         selectedGender = gender
     }

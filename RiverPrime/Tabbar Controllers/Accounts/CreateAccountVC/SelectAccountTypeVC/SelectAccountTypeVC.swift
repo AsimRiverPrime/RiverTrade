@@ -104,7 +104,9 @@ class SelectAccountTypeVC: BottomSheetController {
                 print("Successfully deleted all user accounts for the specified userID.")
             }
         }
-        firestoreObject.fetchUserAccountsData(userId: "wMmWmODl5cUTVYZFR4B6XBy981I2")
+        firestoreObject.fetchUserAccountsData(userId: "wMmWmODl5cUTVYZFR4B6XBy981I2", completion: {
+            
+        })
     }
     
     private func registerCell() {

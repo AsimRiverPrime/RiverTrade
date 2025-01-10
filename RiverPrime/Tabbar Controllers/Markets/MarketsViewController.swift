@@ -284,7 +284,7 @@ extension MarketsViewController: TopNewsProtocol {
 
 extension MarketsViewController: EconomicCalendarProtocol {
     func economicCalendarSuccess(response: EconomicCalendarModel) {
-        print("economic events result\(response)")
+        print("\n economic calendar events result: \(response)")
         let economicCalendarModel = response
         handleResponse(economicCalendarModel)
     }
@@ -294,14 +294,14 @@ extension MarketsViewController: EconomicCalendarProtocol {
     }
   
     func calendarFilterImportantEvents() {
-        filteredEvents = allEvents.filter { $0.importance == 1 }
-        print("filtered Events: \(filteredEvents)")
+        filteredEvents = allEvents.filter { $0.importance == 3 }
+        print("filtered Events for calender : \(filteredEvents)")
     }
     
     func handleResponse(_ model: EconomicCalendarModel/*[PayloadItem]*/) {
         allEvents = model.result.payload
 //        allPayloads = model
-        print("all Events: \(allEvents)")
+        print("all Events for calendar: \(allEvents)")
         
         updateEconomicUI()
     }

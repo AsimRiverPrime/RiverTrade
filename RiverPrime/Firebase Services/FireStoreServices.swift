@@ -83,10 +83,10 @@ class FirestoreServices: BaseViewController {
          
          docRef.getDocument { (document, error) in
              if let document = document, document.exists {
-                 print("User document exist and data is: \(document) ")
+               
                  if let data = document.data() {
                    
-                     print("data is: \(data)")
+                     print("\n User data is: \(data)")
                      UserDefaults.standard.set(data, forKey: "userData")
                  }
              } else {
@@ -99,7 +99,7 @@ class FirestoreServices: BaseViewController {
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
         // Save userID in UserDefaults
         UserDefaults.standard.set(userId, forKey: "userID")
-        print("User ID is: \(userId)")
+        print("User ID for fetchUserAccountsData: \(userId)")
         
         // Firestore query with `where` clause
         let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
@@ -111,7 +111,7 @@ class FirestoreServices: BaseViewController {
             }
             
             guard let documents = querySnapshot?.documents, !documents.isEmpty else {
-                print("No user accounts found for the given userID.")
+                print("No user accounts found for the given userID.: \(userId)")
                 GlobalVariable.instance.isAccountCreated = false
                 return
             }
@@ -145,53 +145,6 @@ class FirestoreServices: BaseViewController {
         }
     }
     
-    func fetchUserAccountsData(userId: String) {
-        // Save userID in UserDefaults
-        UserDefaults.standard.set(userId, forKey: "userID")
-        print("User ID is: \(userId)")
-        
-        // Firestore query with `where` clause
-        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
-        
-        query.getDocuments { (querySnapshot, error) in
-            if let error = error {
-                print("Error fetching user accounts: \(error.localizedDescription)")
-                return
-            }
-            
-            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
-                print("No user accounts found for the given userID.")
-                GlobalVariable.instance.isAccountCreated = false
-                return
-            }
-            
-            var userAccountsData = [String: [String: Any]]() // Dictionary to store all documents' data
-            
-            for document in documents {
-                let documentId = document.documentID
-                let data = document.data()
-                userAccountsData[documentId] = data
-            }
-            
-            // Save the combined data in UserDefaults
-            UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
-            print("Combined User Accounts data saved: \(userAccountsData)")
-            // Update accounts
-            UserAccountManager.shared.updateAccounts(from: userAccountsData)
-
-            // Retrieve and print the default account
-            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-                print("\n Default user Account : \(defaultAccount)")
-               
-            }
-            
-            if userAccountsData.count == 0 {
-                GlobalVariable.instance.isAccountCreated = false
-            }else{
-                GlobalVariable.instance.isAccountCreated = true
-            }
-        }
-    }
 
    
     func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
@@ -233,28 +186,29 @@ class FirestoreServices: BaseViewController {
     
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("\n Handle saved User Data for navigation : \(data)")
+            print("\n Handle saved User for navigation : \(data)")
+            navigateToDashboardScreen()
             
-            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-                if let email = data["email"] as? String {
-                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
-                   
-                }
-               navigateToEmailVerificationScreen()
-                print("navigate to user email verification")
-               
+//            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
+//                if let email = data["email"] as? String {
+//                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
+//                   
+//                }
+//               navigateToEmailVerificationScreen()
+//                print("navigate to user email verification")
+//               
 //            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
 //               navigateToPhoneVerificationScreen()
 //                print("/n navigate to user phone verification")
-            } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
-                navigateToDemoAccountCreationScreen()
-                print("navigate to user demo account")
-//            } else if let profileStep = data["demoAccountCreated"] as? Int {
-//                print("check profile step: \(profileStep)")
-            } else {
-                print("navigate to Main dashboard")
-                navigateToDemoAccountCreationScreen()
-            }
+//            } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
+//                navigateToDashboardScreen()
+//                print("navigate to user demo account")
+////            } else if let profileStep = data["demoAccountCreated"] as? Int {
+////                print("check profile step: \(profileStep)")
+//            } else {
+//                print("navigate to Main dashboard")
+//                navigateToDashboardScreen()
+//            }
         }
   }
     
@@ -479,7 +433,7 @@ class FirestoreServices: BaseViewController {
            SCENE_DELEGATE.window?.makeKeyAndVisible()
        }
  
-    private func navigateToDemoAccountCreationScreen() {
+    private func navigateToDashboardScreen() {
         
 //        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .dashboardVC, storyboardType: .dashboard)
         let dashboardVC = MyNavigationController.shared.getViewController(identifier: .homeTabbarViewController, storyboardType: .dashboard)

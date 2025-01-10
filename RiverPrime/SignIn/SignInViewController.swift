@@ -108,7 +108,7 @@ class SignInViewController: BaseViewController {
             self.lbl_passwordCheck.isHidden = true
         }else{
             self.lbl_passwordCheck.isHidden = false
-            self.lbl_passwordCheck.text = "Password is atleast 8 character with 1 capital & 1 Special & 1 number"
+            self.lbl_passwordCheck.text = "Password should atleast 8 characters with one capital & one Special letter & one number."
         }
 //        enableLoginButton()
     }
@@ -212,6 +212,9 @@ class SignInViewController: BaseViewController {
                 
                 if let userId = authResult?.user.uid {
                     self?.firebase.fetchUserData(userId: userId)
+                    self?.firebase.fetchUserAccountsData(userId: userId, completion: {
+                        
+                    })
                 }
                 
                 let timer = Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { _ in

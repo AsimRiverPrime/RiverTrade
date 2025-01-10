@@ -255,9 +255,9 @@ class AccountsViewController: BaseViewController {
             //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
+            if let profileStep1 = savedUserData["profileStep"] as? Int{
                 profileStep = profileStep1
-                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
+//                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
                 
             }
         }
@@ -1231,7 +1231,7 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
             cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 17)
         }else{
             cell.selectedColorView.isHidden = true
-            cell.lbl_tradetype.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
+            cell.lbl_tradetype.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 181/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
             cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15)
         }

@@ -41,22 +41,6 @@ class HomeTabbarViewController: UITabBarController {
         symbolApiCalling()
         
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-////        if GlobalVariable.instance.isReturnToProfile == true {
-////            //            setProfileButton()
-////            GlobalVariable.instance.isReturnToProfile = false
-////        }else{
-//            //MARK: - START Symbol api calling.
-//            symbolApiCalling()
-//
-//            //MARK: - START SOCKET and call delegate method to get data from socket.
-//            webSocketManager.connectWebSocket()
-//            webSocketManager.delegateSocketData = self
-//            //            setAccountsButton()
-////        }
-//    }
-    
 }
 
 extension UIImage {
@@ -478,5 +462,3 @@ extension HomeTabbarViewController: GetSocketData {
         
     }
 }
-
-

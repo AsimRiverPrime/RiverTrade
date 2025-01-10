@@ -13,6 +13,7 @@ class NationalityVC: BaseViewController {
 
         @IBOutlet weak var btn_NationalityCheck: UIButton!
         @IBOutlet weak var tf_nationailityField: UITextField!
+        @IBOutlet weak var lbl_checkNationality: UILabel!
     
         @IBOutlet weak var btn_confirm: CardViewButton!
         
@@ -25,9 +26,15 @@ class NationalityVC: BaseViewController {
             view_nationailtyCountryPicker.flagImageView.isHidden = false
             
             
+
+            self.tf_nationailityField.isUserInteractionEnabled = false
             self.btn_confirm.isUserInteractionEnabled = false
-            self.tf_nationailityField.isEnabled = false
-          
+            self.btn_confirm.tintColor = .systemGray
+            self.btn_confirm.layer.borderColor =   UIColor.systemGray.cgColor
+            
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(checkNationality_action))
+            lbl_checkNationality.addGestureRecognizer(tapGesture)
+            
         }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -45,26 +52,47 @@ class NationalityVC: BaseViewController {
             if self.btn_NationalityCheck.isSelected {
                 self.btn_confirm.isUserInteractionEnabled = true
                 self.btn_confirm.tintColor = .systemYellow
+                self.btn_confirm.layer.borderColor =   UIColor.systemYellow.cgColor
+
             }else{
                 self.btn_confirm.isUserInteractionEnabled = false
                 self.btn_confirm.tintColor = .systemGray
+                self.btn_confirm.layer.borderColor =   UIColor.systemGray.cgColor
+
             }
             
         }
         
-        
+    func blinkLabelColor(label: UILabel, toColor: UIColor, originalColor: UIColor) {
+        // Change to red color
+        UIView.animate(withDuration: 0.5, animations: {
+            label.textColor = toColor
+        }) { _ in
+            // Revert to the original color after 1 second
+            UIView.animate(withDuration: 0.5, delay: 0.5, animations: {
+                label.textColor = originalColor
+            })
+        }
+    }
+    
     @IBAction func confirm_btnAction(_ sender: Any) {
-//        if !self.btn_NationalityCheck.isSelected {
-//            self.showTimeAlert(str: "please Select check first")
-//            return
-//        } else if tf_nationailityField.text != "" {
+        if !self.btn_NationalityCheck.isSelected {
+            ToastMessage("enable declear check.")
+            blinkLabelColor(label: lbl_checkNationality, toColor: .systemRed, originalColor: .white)
+
+            return
+        }
+        
+        guard let _national = tf_nationailityField.text, !_national.isEmpty else {
+        ToastMessage("Select nationality country first")
+            return
+        }
+        
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let residencVC = storyboard.instantiateViewController(withIdentifier: "ResidencVC") as! ResidencVC
             residencVC.nationality = tf_nationailityField.text ?? ""
             self.navigate(to: residencVC)
-//        }else{
-//            self.showTimeAlert(str: "Select your Nationality")
-//        }
+     
     }
 }
 
@@ -73,6 +101,7 @@ extension NationalityVC: CountryPickerViewDelegate {
            
                 tf_nationailityField.text = country.name
                 self.view_nationailtyCountryPicker.flagImageView.image = country.flag
+            GlobalVariable.instance.nationality = tf_nationailityField.text ?? ""
             }
         
     }

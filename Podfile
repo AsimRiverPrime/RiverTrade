@@ -33,6 +33,8 @@ pod 'FirebaseAuth'
 pod 'Firebase/Core'
 pod 'Firebase/Crashlytics'
 pod 'Firebase'
+pod 'Firebase/Messaging'
+
 pod 'CountryPickerView'
 pod 'PhoneNumberKit', '~> 3.7'
 
@@ -45,5 +47,5 @@ pod 'SDWebImage', '~> 5.0'
 
 pod 'FSCalendar'
 pod 'IDWise'
-
+pod 'KeychainSwift', '~> 24.0'
 end

@@ -303,7 +303,7 @@ class OdooClientNew {
     }
     
     //MARK: - Write records (Leads) Method for change/update phone number CRM (OdooServer) records
-    func writeRecords(number: String) {
+    func writeRecords(number: String, firebaseToken: String) {
         let uid = UserDefaults.standard.integer(forKey: "uid")
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         
@@ -320,19 +320,20 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "write",         // Method name
                     [[recordedId],[                // vals_list // need record id save in userdefault
+                        "firebase_ios_notification_token" : firebaseToken,
                         "number_ids": [
                             [0, 0, [
                                 "number": number,
                                 "type": "work"
                             ]]
                         ]
-                                  ]]
+                    ]]
                 ]
             ]
         ]
         
         
-        print("\n params value is: \(jsonrpcBody)")
+        print("\n params value for write records on CRM like Number and Firebase_Notification_Token: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("write phone # record result is : \(result)")

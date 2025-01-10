@@ -49,10 +49,12 @@ class GoogleSignIn {
                     
                     if let snapshot = querySnapshot, !snapshot.isEmpty {
                         print("User with this email already exists.")
-                        self.fireBaseService.fetchUserData(userId: user.uid)
-                        self.fireBaseService.fetchUserAccountsData(userId: user.uid)
                         
-                        let timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { _ in
+                        self.fireBaseService.fetchUserData(userId: user.uid)
+                        self.fireBaseService.fetchUserAccountsData(userId: user.uid, completion: {
+                        })
+                        
+                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                             print("Timer fired!")
                             SVProgressHUD.dismiss()
                             self.fireBaseService.handleUserData()
@@ -62,8 +64,6 @@ class GoogleSignIn {
                         self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         
                         self.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: user.displayName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 2)
-                        
-//                        self.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: user.displayName ?? "No name", userName: user.displayName ?? "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false, registrationType: 2)
                         
                     }
                 }

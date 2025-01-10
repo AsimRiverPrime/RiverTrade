@@ -125,7 +125,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                 let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
-            self.oodoServiceNew.writeRecords(number: self.tf_numberField.text ?? "") // update the CRM with user phoneNumber
+            self.oodoServiceNew.writeRecords(number: self.tf_numberField.text ?? "", firebaseToken: "") // update the CRM with user phoneNumber
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")

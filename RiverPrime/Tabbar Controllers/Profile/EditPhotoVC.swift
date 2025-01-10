@@ -29,7 +29,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
-           if let _name = savedUserData["fullName"] as? String , let _id = savedUserData["id"] as? String{
+           if let _name = savedUserData["fullName"] as? String , let _id = savedUserData["id"]  as? String{
                
                self.tf_username.text = _name
                self.userID = _id

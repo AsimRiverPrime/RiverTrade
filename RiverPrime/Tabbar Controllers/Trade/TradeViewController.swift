@@ -84,7 +84,7 @@ struct SectorGroup {
     let symbols: [SymbolData]
 }
 
-class TradeViewController: UIViewController {
+class TradeViewController: BaseViewController {
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var tblSearchView: UITableView!
@@ -136,6 +136,12 @@ class TradeViewController: UIViewController {
         
         GlobalVariable.instance.controllerName = "TradeVC"
         NotificationCenter.default.addObserver(self, selector: #selector(self.FaceAfterLoginUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.FaceAfterLoginConstant.key), object: nil)
+        if GlobalVariable.instance.isAppStartAfterLogin {
+            GlobalVariable.instance.isAppStartAfterLogin = false
+                    
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
+                    
+        }
         
     }
     
@@ -154,6 +160,8 @@ class TradeViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: true, isBar: true)
+        
         accountData()
         //        self.searchCloseButton.isHidden = true
         self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)

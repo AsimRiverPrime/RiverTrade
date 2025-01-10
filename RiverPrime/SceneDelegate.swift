@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
 //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
 //            print("\n saved User Data: scenceDelegate \(savedUserData)")
-//            if let uid = savedUserData["uid"] as? String {
+//            if let uid = savedUserData["id"]  as? String {
 //                print("UID is: \(uid)")
 //                self.fireStoreInstance.fetchUserData(userId: uid)
 //            }
@@ -183,10 +183,13 @@ extension SceneDelegate {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n saved User Data: scenceDelegate \(savedUserData)")
-            if let uid = savedUserData["id"] as? String {
-                print("UID is: \(uid)")
+            GlobalVariable.instance.isAppStartAfterLogin = true
+            if let uid = savedUserData["id"]  as? String {
+                print("UID is:scenceDelegate: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
-                self.fireStoreInstance.fetchUserAccountsData(userId: uid)
+                self.fireStoreInstance.fetchUserAccountsData(userId: uid, completion: {
+                    
+                })
               
             }
             

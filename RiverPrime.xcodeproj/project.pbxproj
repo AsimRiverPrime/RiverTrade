@@ -118,7 +118,10 @@
 		317D7DFD2C91551200902B4A /* CompleteVerificationProfileScreen4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */; };
 		317D7DFF2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */; };
 		317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */; };
+		317FDE422D3166AF0036924E /* AppleIdSignIN.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317FDE412D3166AF0036924E /* AppleIdSignIN.swift */; };
 		3182574A2C76066400723A50 /* OhlcCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318257492C76066400723A50 /* OhlcCalculator.swift */; };
+		31836B1F2D2E4ED90017C9D4 /* EmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31836B1E2D2E4ED90017C9D4 /* EmailVC.swift */; };
+		31836B212D2E4EEB0017C9D4 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31836B202D2E4EEB0017C9D4 /* PasswordVC.swift */; };
 		3184F0832CAE8C3600BC1479 /* AccountOPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */; };
 		3185C58A2D0FF55100FC996F /* EconomicCalendarListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */; };
 		3185C58C2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */; };
@@ -484,7 +487,10 @@
 		317D7DFC2C91551200902B4A /* CompleteVerificationProfileScreen4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen4.swift; sourceTree = "<group>"; };
 		317D7DFE2C91551D00902B4A /* CompleteVerificationProfileScreen5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen5.swift; sourceTree = "<group>"; };
 		317D7E002C91552A00902B4A /* CompleteVerificationProfileScreen6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen6.swift; sourceTree = "<group>"; };
+		317FDE412D3166AF0036924E /* AppleIdSignIN.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIdSignIN.swift; sourceTree = "<group>"; };
 		318257492C76066400723A50 /* OhlcCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OhlcCalculator.swift; sourceTree = "<group>"; };
+		31836B1E2D2E4ED90017C9D4 /* EmailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailVC.swift; sourceTree = "<group>"; };
+		31836B202D2E4EEB0017C9D4 /* PasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
 		3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RiverPrime.entitlements; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
 		3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarListVC.swift; sourceTree = "<group>"; };
@@ -1200,6 +1206,14 @@
 			path = SocialTradeTBCell;
 			sourceTree = "<group>";
 		};
+		317FDE402D31667C0036924E /* AppleID_SignIn  */ = {
+			isa = PBXGroup;
+			children = (
+				317FDE412D3166AF0036924E /* AppleIdSignIN.swift */,
+			);
+			path = "AppleID_SignIn ";
+			sourceTree = "<group>";
+		};
 		31806D172C609C9F00E48730 /* OdooClient Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -1519,6 +1533,8 @@
 				31D262192C3BF58200FC6651 /* SignUpViewController.swift */,
 				31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */,
 				31231D402D266FB700053FC2 /* NationalityVC.swift */,
+				31836B1E2D2E4ED90017C9D4 /* EmailVC.swift */,
+				31836B202D2E4EEB0017C9D4 /* PasswordVC.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -1526,6 +1542,7 @@
 		31D262162C3BED1300FC6651 /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				317FDE402D31667C0036924E /* AppleID_SignIn  */,
 				31D2621E2C3BFA5A00FC6651 /* SignInViewController.swift */,
 				31B102D82C44FAAB0006E8EB /* SignViewModel.swift */,
 			);
@@ -2567,6 +2584,7 @@
 				3102120B2CE4D44A0064F6EF /* incomeExpenseTVCell.swift in Sources */,
 				31D2AEF92C8840B800E0CF2E /* PriceFormatter.swift in Sources */,
 				FA46139B2C602D5600B472D6 /* DPDUIView+Extension.swift in Sources */,
+				317FDE422D3166AF0036924E /* AppleIdSignIN.swift in Sources */,
 				31B90D282C3FFDA200A7A0D2 /* CardView.swift in Sources */,
 				31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */,
 				31D2AF0A2C8840B800E0CF2E /* HistogramData.swift in Sources */,
@@ -2689,6 +2707,7 @@
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,
 				31D2AEFB2C8840B800E0CF2E /* PriceScale.swift in Sources */,
 				31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */,
+				31836B1F2D2E4ED90017C9D4 /* EmailVC.swift in Sources */,
 				31F959FB2CD0E8A100607467 /* ChartTypeVC.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,
@@ -2714,6 +2733,7 @@
 				31D2AF0B2C8840B800E0CF2E /* LineData.swift in Sources */,
 				315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */,
 				31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */,
+				31836B212D2E4EEB0017C9D4 /* PasswordVC.swift in Sources */,
 				31D2AF1C2C8840B800E0CF2E /* ChartOptions.swift in Sources */,
 				31D2AF392C8840B800E0CF2E /* FromToRange.swift in Sources */,
 				31D2AF3F2C8840B800E0CF2E /* TickMarkFormatter.swift in Sources */,

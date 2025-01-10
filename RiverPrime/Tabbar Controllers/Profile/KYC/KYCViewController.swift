@@ -51,7 +51,7 @@ class KYCViewController: BaseViewController{
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
-            if let _gender = savedUserData["gender"] as? String,let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"] as? String, let _name = savedUserData["fullName"] as? String, let _dob = savedUserData["dateOfBirth"] as? String {
+            if let _gender = savedUserData["gender"] as? String,let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"]  as? String, let _name = savedUserData["fullName"] as? String, let _dob = savedUserData["dateOfBirth"] as? String {
                 self.dob = _dob
                 self.userName = _name
                 self.gender = _gender

@@ -8,7 +8,7 @@ import UIKit
 import Firebase
 import GoogleSignIn
 import SVProgressHUD
-
+import FirebaseMessaging
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,21 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
         
-//
-//        let fireStoreInstance = FirestoreServices()
-//
-//        if let user = Auth.auth().currentUser {
-//                   // User is signed in.
-////                   navigateToMainScreen()
-//            print("user is already register")
-//            fireStoreInstance.fetchUserData(userId: user.uid)
-//               } else {
-//                   // No user is signed in.
-////                   navigateToLoginScreen()
-//                   print("user is not register")
-//               }
+        // Set the messaging delegate
+           Messaging.messaging().delegate = self
+           
+           // Request notification permissions
+           UNUserNotificationCenter.current().delegate = self
+           UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
+               if let error = error {
+                   print("Failed to request authorization: \(error.localizedDescription)")
+               }
+           }
+           
+           application.registerForRemoteNotifications()
         
-//        gotoSplashVC()
         return true
     }
     
@@ -80,3 +78,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: MessagingDelegate {
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        guard let fcmToken = fcmToken else {
+                  print("Failed to retrieve FCM token")
+                  return
+              }
+              print("Firebase registration token: \(fcmToken)")
+        GlobalVariable.instance.firebaseNotificationToken =  fcmToken
+        // Optionally, send the token to your server
+               // sendTokenToServer(fcmToken)
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        Messaging.messaging().apnsToken = deviceToken
+        
+        if let token = Messaging.messaging().fcmToken {
+            print("Retrieved FCM token: \(token)")
+        }
+        
+    }
+    
+}
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                 willPresent notification: UNNotification,
+                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound, .badge])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                 didReceive response: UNNotificationResponse,
+                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        print("Notification data: \(userInfo)")
+        completionHandler()
+    }
+}

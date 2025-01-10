@@ -67,7 +67,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(data)")
             
-           if let userIdSave = data["id"] as? String, let email1 = data["email"] as? String  {
+           if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
                print("user ID: \(userIdSave)")
                self.userId = userIdSave
                self.userEmail = email1

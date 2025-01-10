@@ -141,21 +141,6 @@ class DatePickerPopupBottomSheet: UIViewController {
         
         calendar.dataSource = self
         calendar.delegate = self
-//        if findCollegueDatePicker == true{
-//            multipleSelection(isMultiple: false)
-//        } else{
-//            multipleSelection(isMultiple: true)
-//        }
-//        if setFrequencyVC == true {
-//            multipleSelection(isMultiple: false)
-//        } else{
-//            multipleSelection(isMultiple: true)
-//        }
-//        if singleDateSelection == true {
-//            multipleSelection(isMultiple: false)
-//        } else{
-//            multipleSelection(isMultiple: true)
-//        }
         
         multipleSelection(isMultiple: false)
         

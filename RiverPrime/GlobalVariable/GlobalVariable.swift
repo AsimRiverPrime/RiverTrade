@@ -23,18 +23,23 @@ class GlobalVariable: NSObject {
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
-//    var dbPassword: String =  "4e9b5768375b5a0acf0c94645eac5cdd9c07c059"
-    var dbPassword: String =  "3c0ec26b14366c720cc6cc14b8dd78bd250c803e"
+    var dbPassword: String =  "d2dbc51edfc5631a959c7694287d1e1fb28ffe44"
+    
+    var firebaseNotificationToken = ""
+    
     var uid: Int =  0
+    var userID: String = ""
     var changeSymbol = Bool()
     var loginID: Int = 0
     var isAppBecomeActive = false
-   
+    var isAppStartAfterLogin = false
+    
     var isReturnToProfile = false
     var userEmail: String = ""
     
     var chartType: ChartType = .candlestick
-    
+    var residence: String = ""
+    var nationality : String = ""
     var socketTimer = Double()
     var socketTimerCount = 0
     
