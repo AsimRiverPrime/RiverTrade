@@ -2,7 +2,7 @@
 //  SplashViewController.swift
 //  RiverPrime
 //
-//  Created by Macbook on 06/10/2024.
+//  Created by Ross on 06/10/2024.
 //
 
 import UIKit

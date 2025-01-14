@@ -77,7 +77,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                 
             }
         }
-      //  public final static String Not_Started="Not Started";public final static String Wait ="in progress";public final static String Complete ="Complete";//allow to deposit and withdrawpublic final static String Refer ="Refer";//allow to deposit and not withdrawpublic final static String Rejected = "Rejected";//allow only open real accountpublic final static String Approved ="Approved";//allow to deposit and not withdrawpublic final static String Incomplete ="Incomplete";//allow to deposit and not withdraw
+      //  public final static String Not_Started="Not Started";public final static String Wait ="in progress";public final static String Complete ="Complete";//allow to deposit and withdraw public final static String Refer ="Refer";//allow to deposit and not withdraw public final static String Rejected = "Rejected";//allow only open real account public final static String Approved ="Approved";//allow to deposit and not withdraw public final static String Incomplete ="Incomplete";//allow to deposit and not withdraw
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             print("\n Default Account user in profile screen: \(defaultAccount)")
@@ -92,6 +92,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             btn_completeProfile.setTitle("", for: .normal)
     //                        self.btn_completeProfile.isHidden = true
                             lbl_completeProfile.text = "Profile inProgress"
+                            
                         }else if profileStep == 2 {
                             progreeBar.progress = 0.67
                             self.lbl_progressPercent.text = "67%"

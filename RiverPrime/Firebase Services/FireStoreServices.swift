@@ -68,7 +68,7 @@ class FirestoreServices: BaseViewController {
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")
             } else {
-                print("User data saved successfully.")
+                print("Additional User data is saved successfully.")
             }
         }
         fetchUserData(userId: userId)
@@ -77,7 +77,7 @@ class FirestoreServices: BaseViewController {
        
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
-        print("user ID is: \(userId)")
+        print("fetch user ID is: \(userId)")
         
          let docRef = db.collection("users").document(userId)
          
@@ -86,7 +86,7 @@ class FirestoreServices: BaseViewController {
                
                  if let data = document.data() {
                    
-                     print("\n User data is: \(data)")
+                     print("\n fetch User data is: \(data)")
                      UserDefaults.standard.set(data, forKey: "userData")
                  }
              } else {
@@ -98,7 +98,7 @@ class FirestoreServices: BaseViewController {
     
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
         // Save userID in UserDefaults
-        UserDefaults.standard.set(userId, forKey: "userID")
+       
         print("User ID for fetchUserAccountsData: \(userId)")
         
         // Firestore query with `where` clause
@@ -189,6 +189,14 @@ class FirestoreServices: BaseViewController {
             print("\n Handle saved User for navigation : \(data)")
             navigateToDashboardScreen()
             
+            
+//            let dashboardVC = MyNavigationController.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups)
+//            
+//            let navController = UINavigationController(rootViewController: dashboardVC)
+//            SCENE_DELEGATE.window?.rootViewController = navController
+//            SCENE_DELEGATE.window?.makeKeyAndVisible()
+            
+            
 //            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
 //                if let email = data["email"] as? String {
 //                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
@@ -247,8 +255,6 @@ class FirestoreServices: BaseViewController {
             return
         }
 
-        // Update the `isDefault` flag in UserDefaults
-//        print("Before update in UserDefaults: \(accountsDict)")
         for (key, account) in accountsDict {
             if var accountData = account as? [String: Any],
                let accountUserID = accountData["userID"] as? String,
@@ -293,9 +299,7 @@ class FirestoreServices: BaseViewController {
                 self.fetchUserAccountsData(userId: userId) {
                     completion(nil)
                 }
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                  
-//                }
+              
             }
         }
     }

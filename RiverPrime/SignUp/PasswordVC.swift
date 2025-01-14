@@ -43,6 +43,8 @@ class PasswordVC: BaseViewController {
     var isOpenAccount  = Bool()
     var isGoogleAccount =  Bool()
     var isAppleLogin = Bool()
+    var account:  [AccountModel] = []
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +52,17 @@ class PasswordVC: BaseViewController {
         self.password_tf.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         odoClientNew.createLeadDelegate = self
-       
+        odoClientNew.createUserAcctDelegate = self
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
         
         isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
         isGoogleAccount =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
         isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
+      
+        self.userId = UserDefaults.standard.string(forKey: "userID")
+        self.fullName = UserDefaults.standard.string(forKey: "FullName")
         
     }
     
@@ -122,14 +128,16 @@ class PasswordVC: BaseViewController {
         
         if isOpenAccount {
             openAccountSignUp()
+            print("userID on email : \(userId!)")
         }else if isGoogleAccount{
+//            userId =  GlobalVariable.instance.userID
+            print("userID on google : \(userId!)")
             SignUpGoogle()
             
         }else if isAppleLogin {
-            
+            print("userID on Apple : \(userId!)")
             signUpApple()
         }
-        
        
     }
     
@@ -144,6 +152,7 @@ class PasswordVC: BaseViewController {
                 Alert.showAlert(withMessage: "User with this email already exists.", andTitle: "", OKButtonText: "Ok", on: self)
                 return
             } else {
+                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
                 //if user is not exist then Use Firebase Authentication to create a new user
                 Auth.auth().createUser(withEmail: self.email ?? "", password: self.password_tf.text ?? "") { [weak self] authResult, error in
                     if let error = error as NSError? {
@@ -163,12 +172,12 @@ class PasswordVC: BaseViewController {
                     if let user = authResult?.user {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
-                        self?.userId =  UserDefaults.standard.string(forKey: "userID")
+                        self?.userId = UserDefaults.standard.string(forKey: "userID")
                         
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
                         
                         self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 1)
-                        self?.odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+//                        self?.odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
                     }
                 }
             }
@@ -176,6 +185,7 @@ class PasswordVC: BaseViewController {
     }
     
     func signUpApple() {
+        
         updateUserPassword(self.password_tf.text ?? "")
     }
     
@@ -195,11 +205,73 @@ class PasswordVC: BaseViewController {
                 print("Failed to update password: \(error.localizedDescription)")
             } else {
                 print("Password updated successfully.")
-                self.navigateFaceID()
-            }
+                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
+                
+                if self.isAppleLogin {
+                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 3)
+                }else{
+                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 2)
+                }
+                
+                self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: user.email ?? "", currency: "USD", leverage: 400, first_name: self.fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
+                
+               }
         }
     }
         
+       func updateUserAccount(){
+           
+           var fieldsToUpdate: [String:Any] = [
+               "KycStatus": "Not Started",
+               "name" : self.fullName ?? "",
+               "currency": "USD",
+               "userID" : userId ?? "",
+               "groupID": "RWHwgycWkAqi5OPvv1oX",
+               "isDefault" : true,
+               "isReal": false,
+               "groupName" : "PRO",
+               "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
+           ]
+          
+           print("updating user Accounts fields are: \(fieldsToUpdate)")
+          
+           fireStoreInstance.updateUserAccountsFields(fields: fieldsToUpdate, completion: { error in
+                      if let error = error {
+                          print("Error updating UserAccounts fields: \(error.localizedDescription)")
+                          return
+                      } else {
+                          print("(byDefault) User Accounts fields updated successfully!")
+                          self.fireStoreInstance.updateDefaultAccount(for: "\(GlobalVariable.instance.loginID)", userId: self.userId ?? ""){ [weak self] error in
+                              guard let self = self else { return }
+                              
+                              if let error = error {
+                                  print("Error updating default account: \(error.localizedDescription)")
+                                  return
+                              }
+                              print("\n updating isDefault account success: ")
+   //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
+                              
+                              let passwordManager = PasswordManager()
+                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: password_tf.text ?? "") {
+                                  print("Password successfully saved.")
+                              } else {
+                                  print("ID already exists. Cannot save password.")
+                              }
+                              
+                              let allPasswords = passwordManager.getAllPasswords()
+                              print("All Saved Passwords on create Account: \(allPasswords)")
+                               
+                            NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+                                  self.dismiss(animated: true)
+//                              }
+                          }
+                          
+                      }
+               self.navigateFaceID()
+           })
+          
+       }
+    
     func navigateFaceID(){
         
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
@@ -213,17 +285,31 @@ extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
         self.odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+       
+        odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
         
-//        odoClientNew.sendOTP(type: "email", email: email ?? "", phone: "")
         
-//        Alert.showAlertWithOKHandler(withHandler: "Check email inbox or spam for OTP", andTitle: "", OKButtonText: "OK", on: self) { _ in
-//
-//        }
-        self.navigateFaceID()
     }
     
     func leadCreatFailure(error: any Error) {
         print("this is error response:\(error)")
         ActivityIndicator.shared.hide(from: self.view)
     }
-}
+  
+   }
+
+
+extension PasswordVC : CreateUserAccountTypeDelegate {
+       func createAccountSuccess(response: Any) {
+           print("\nthis is create user success response from Password Screen: \(response)")
+           // get loginId from the response
+           updateUserAccount()
+   
+       }
+       
+       func createAccountFailure(error: any Error) {
+           print("\n this is create user error response: \(error)")
+           showTimeAlert(str: "Account Create Failed.")
+       }
+   }
+

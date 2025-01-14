@@ -108,13 +108,17 @@ class KYCViewController: BaseViewController{
            ]
         
         print("\n userKYCData detail: \(userData)")
-        fireStoreInstance.addUserAccountData(uid: userId ?? "", data: userData) { result in
+        fireStoreInstance.addUserAccountData(uid: userId ?? "", data: userData) { [weak self] result in
+            guard let self = self else { return }
+            
             switch result {
             case .success:
                 print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
                 self.showTimeAlert(str:"KYC detail added successfully!")
-                self.dismiss(animated: true)
+                self.dismiss(animated: true) {
+                    self.delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
+                }
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.showTimeAlert(str:"\(error)")
@@ -140,6 +144,7 @@ class KYCViewController: BaseViewController{
                 return
             } else {
                 print("\n User data save successfully in the fireBase")
+                self.fireStoreInstance.fetchUserData(userId: userId!)
             }
         }
     }
@@ -236,8 +241,10 @@ extension KYCViewController: KYCVCDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             break
         case .ReturnDashboard:
-            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController") {
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController") as? ProfileViewController {
 //                GlobalVariable.instance.isReturnToProfile = true
+//                profileVC.initTableView_CheckData()
+                
                 self.navigate(to: profileVC)
             }
 //            if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){

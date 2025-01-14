@@ -39,7 +39,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClientNew()
 //    let signViewModel = SignViewModel()
-    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
+//    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate : BottomSheetDismissDelegate?
 //    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
@@ -67,7 +67,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data: \(data)")
             
-           if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
+           if let userIdSave = data["id"] as? String, let email1 = data["email"] as? String  {
                print("user ID: \(userIdSave)")
                self.userId = userIdSave
                self.userEmail = email1
@@ -76,7 +76,6 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
-        
     }
     
     @objc func dismissKeyboard() {
@@ -261,41 +260,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             lbl_passCasethree.textColor = .red
         }
     }
-//    func updateUser(){
-//        
-//        var fieldsToUpdate: [String: Any] = [:]
-//        
-//        fieldsToUpdate = [
-//            "demoAccountCreated" : !isReal,
-//            "realAccountCreated" : isReal,
-//            "demoAccountGroup" : self.demoAccountGroup ,
-//            "loginId" : GlobalVariable.instance.loginID, // loginID in response
-//            "registrationType": 1
-//        ]
-//        
-//        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
-//            if let error = error {
-//                print("Error updating user fields: \(error.localizedDescription)")
-//                return
-//            } else {
-//                print("User demoAccountCreated fields updated successfully!")
-//                GlobalVariable.instance.isAccountCreated = true
-//                self.fireStoreInstance.fetchUserData(userId: self.userId)
-//                self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
-//              //  self.dismiss(animated: true, completion: {
-//                    print("Bottom sheet dismissed after success")
-//                    // notification send to dashboardvc
-//                    let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-//                      
-//                        NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil)
-//                        NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
-//                    }
-//                    
-//                       
-////                })
-//            }
-//        }
-//    }
+
  // MARK: - New work flow
     func updateUserAccount(){
         

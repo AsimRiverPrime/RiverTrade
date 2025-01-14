@@ -2,7 +2,7 @@
 //  String+Extension.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 12/11/2024.
+//  Created by Ross Rostane on 12/11/2024.
 //
 
 import Foundation

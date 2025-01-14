@@ -2,7 +2,7 @@
 //  SettingsView.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 26/10/2024.
+//  Created by Ross Rostane on 26/10/2024.
 //
 
 import UIKit

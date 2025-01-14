@@ -188,24 +188,10 @@ extension SceneDelegate {
                 print("UID is:scenceDelegate: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
                 self.fireStoreInstance.fetchUserAccountsData(userId: uid, completion: {
-                    
                 })
-              
+                
             }
-            
-                // Access specific values from the dictionary
-//            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
-//                   
-//                    GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-//                }
-            
             fireStoreInstance.handleUserData()
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let loginVC = storyboard.instantiateViewController(withIdentifier: "PhoneVerifyVC") as! PhoneVerifyVC
-//            
-//            let navController = UINavigationController(rootViewController: loginVC)
-//            SCENE_DELEGATE.window?.rootViewController = navController
-//            SCENE_DELEGATE.window?.makeKeyAndVisible()
         }else {
             fireStoreInstance.navigateToLoginScreen()
         }

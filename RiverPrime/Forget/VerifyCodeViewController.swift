@@ -8,6 +8,10 @@
 import UIKit
 import Firebase
 
+protocol PhoneOTPDelegate: AnyObject {
+    func didCompletePhoneOTPVerification()
+}
+
 class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     
@@ -36,6 +40,8 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     let fireStoreInstance = FirestoreServices()
     //    let odooClientService = OdooClient()
     let odooClientService = OdooClientNew()
+   
+    weak var delegate: PhoneOTPDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,6 +106,10 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 
 //                odooClientService.verifyOTP(type: "phone", email: GlobalVariable.instance.userEmail , phone: userPhone ?? "", otp: getVerificationCode() ?? "" )   // when live
                 
+//                self.delegate?.didCompletePhoneOTPVerification()
+//                
+//                self.dismiss(animated: true, completion: nil)
+                updateUser()
             }
         }
     }
@@ -133,7 +143,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 
                 if self.isEmailVerification == true {
                     self.isEmailVerification = false
-                    //       self.navigateToPhoneVerifiyScreen()
+                    self.navigateToPhoneVerifiyScreen()
                     print("User emailVerify fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
                     
@@ -141,7 +151,10 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                     self.isPhoneVerification = false
                     print("User isPhone fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
-                    self.navigateToFaceID()
+//                    self.navigateToFaceID()
+                    self.delegate?.didCompletePhoneOTPVerification()
+                    
+                    self.dismiss(animated: true)
                     
                 }
                 
@@ -149,11 +162,11 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
     }
     
-    func navigateToFaceID(){
-        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
-            self.navigate(to: residencVC)
-        }
-    }
+//    func navigateToFaceID(){
+//        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
+//            self.navigate(to: residencVC)
+//        }
+//    }
     
     @IBAction func resendCodeBtn(_ sender: Any) {
         callMethodAfterDelay()
@@ -305,6 +318,7 @@ extension VerifyCodeViewController: SendOTPDelegate {
             self.ToastMessage("Check your email inbox or spam for OTP")
         }else{
             self.ToastMessage("Check your message for OTP")
+            
         }
     }
     
@@ -340,7 +354,7 @@ extension VerifyCodeViewController:  VerifyOTPDelegate {
             self.tf_fivethNum.backgroundColor = .systemGreen
             self.tf_sixthNum.backgroundColor = .systemGreen
             
-            self.ToastMessage("Phone# OTP Correct.")
+            self.ToastMessage("Phone Number OTP Correct.")
             updateUser()
         }
     }

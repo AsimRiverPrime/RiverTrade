@@ -143,7 +143,8 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
                "questionAnswer": questionAnswer
            ]
        
-        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
+        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) {  [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success:
                 print("Document USER_ACCOUNT detail ADD successfully!")

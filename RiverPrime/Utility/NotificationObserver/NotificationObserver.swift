@@ -2,7 +2,7 @@
 //  NotificationObserver.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 22/10/2024.
+//  Created by Ross Rostane on 22/10/2024.
 //
 
 import Foundation

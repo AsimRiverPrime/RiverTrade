@@ -43,8 +43,6 @@ class SelectAccountTypeCell: UITableViewCell {
                lbl_name.text = name
            }
           
-               lbl_balance.text = "$10,000"
-           
            if let groupName = account["groupName"] as? String {
                lbl_group.text = groupName
            }
@@ -52,8 +50,10 @@ class SelectAccountTypeCell: UITableViewCell {
         if let isDefault = account["isDefault"] as? Bool {
                if !isDefault  {
                    self.isDefault = false
+                   lbl_balance.text = "$0.0" 
                }else{
                    self.isDefault = true
+                   lbl_balance.text = "$" + GlobalVariable.instance.balanceUpdate
                }
            }
            updateButtonState()

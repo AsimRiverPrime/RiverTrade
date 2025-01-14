@@ -27,6 +27,11 @@
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -46,15 +51,14 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>com.apple.developer.nfc.readersession.formats</key>
 	<array>
 		<string>NDEF</string>
 		<string>TAG</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Poppins-Regular.ttf</string>
-		<string>Poppins-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

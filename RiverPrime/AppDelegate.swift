@@ -9,6 +9,8 @@ import Firebase
 import GoogleSignIn
 import SVProgressHUD
 import FirebaseMessaging
+import UserNotifications
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,8 +41,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                if let error = error {
                    print("Failed to request authorization: \(error.localizedDescription)")
                }
+               print("Permission granted: \(granted)")
            }
-           
+          
            application.registerForRemoteNotifications()
         
         return true
@@ -63,19 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    func gotoSplashVC() {
-        print("this is splash screen")
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let splashVC = SplashVC()
-        
-        let splashNav = UINavigationController(rootViewController: splashVC)
-        splashNav.isNavigationBarHidden = true
-        self.window?.rootViewController = splashVC
-        self.window?.makeKeyAndVisible()
-        
-    }
-    func decideRootViewController() {
-    }
+
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -104,14 +95,26 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                  willPresent notification: UNNotification,
                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        print("Foreground notification received: \(userInfo)")
         completionHandler([.alert, .sound, .badge])
     }
-    
+    // Handle notification tap
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                  didReceive response: UNNotificationResponse,
                                  withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         print("Notification data: \(userInfo)")
+        // Handle KYC status change here
+               if let kycStatus = userInfo["kycStatus"] as? String {
+                   handleKYCStatusChange(kycStatus)
+               }
+        
         completionHandler()
     }
+    private func handleKYCStatusChange(_ status: String) {
+          // Implement your logic for KYC status change
+          print("KYC status updated: \(status)")
+      }
+    
 }

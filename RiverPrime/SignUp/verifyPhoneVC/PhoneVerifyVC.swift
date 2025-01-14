@@ -11,7 +11,9 @@ import PhoneNumberKit
 import Firebase
 import CoreLocation
 
-class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
+
+class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate{
+    
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
     @IBOutlet weak var tf_numberField: UITextField!
@@ -27,7 +29,9 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
     let firestoreService = FirestoreServices()
 //    let oodoService = OdooClient()
     let oodoServiceNew = OdooClientNew()
-   
+    
+    weak var delegate: PhoneVerifyDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.setGradientBackground()
@@ -125,7 +129,7 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
                 let formattedNumber = phoneNumberKit.format(phoneNumber1, toType: .international)
             tf_numberField.text = formattedNumber
             UserDefaults.standard.set(tf_numberField.text, forKey: "phoneNumber")
-            self.oodoServiceNew.writeRecords(number: self.tf_numberField.text ?? "", firebaseToken: "") // update the CRM with user phoneNumber
+            self.oodoServiceNew.writeRecords(number: self.tf_numberField.text ?? "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken) // update the CRM with user phoneNumber
             
               } catch {
                   showAlert(message: "Invalid phone number for the given country code")
@@ -148,8 +152,10 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
         verifyVC.isEmailVerification = false
         verifyVC.isPhoneVerification = true
         verifyVC.userPhone = self.tf_numberField.text ?? "0000"
+        verifyVC.delegate = self
         self.navigate(to: verifyVC)
     }
+    
     private func navigateTofaceIDScreen() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let faceID = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC")
@@ -160,6 +166,16 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate {
 //        self.navigate(to: dashboardVC)
     }
     
+}
+
+extension PhoneVerifyVC: PhoneOTPDelegate {
+    func didCompletePhoneOTPVerification() {
+        self.dismiss(animated: true)
+        self.delegate?.didCompletePhoneVerification()
+        
+       
+    }
+
 }
 // MARK: - delegate from phone number OTP
 extension PhoneVerifyVC:  SendOTPDelegate {
@@ -186,8 +202,8 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
-        navigateTofaceIDScreen()
-//        navigateToVerifiyScreen()
+//        navigateTofaceIDScreen()
+        navigateToVerifiyScreen()
     }
     
     func updateNumberFailure(error: any Error) {

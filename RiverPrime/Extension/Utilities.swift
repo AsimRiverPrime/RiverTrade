@@ -62,6 +62,7 @@ enum BottomSheetIdentifierType: String {
     case completeVerificationProfileScreen5 = "CompleteVerificationProfileScreen5"
     case completeVerificationProfileScreen6 = "CompleteVerificationProfileScreen6"
     case completeVerificationProfileScreen7 = "CompleteVerificationProfileScreen7"
+    case emailSendVC = "EmailSendVC"
     
     case openTicketBottomSheetVC = "OpenTicketBottomSheetVC"
     case pendingTicketBottomSheetVC = "PendingTicketBottomSheetVC"

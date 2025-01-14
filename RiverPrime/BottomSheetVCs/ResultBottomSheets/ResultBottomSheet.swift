@@ -2,7 +2,7 @@
 //  ResultBottomSheet.swift
 //  RiverPrime
 //
-//  Created by abrar ul haq on 25/11/2024.
+//  Created by Ross Rostane on 25/11/2024.
 //
 
 import UIKit

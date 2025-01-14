@@ -215,7 +215,7 @@ class OdooClientNew {
         ]
     ]
         
-        print("\n params create records value is: \(jsonrpcBody)")
+        print("\n params for search_read records value for KYCStatus is: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("result is : \(result)")
@@ -274,7 +274,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("\n params create records value is: \(jsonrpcBody)")
+        print("\n params for create records value is: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("result is : \(result)")
@@ -336,7 +336,7 @@ class OdooClientNew {
         print("\n params value for write records on CRM like Number and Firebase_Notification_Token: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("write phone # record result is : \(result)")
+            print("send phone#/firebaseToken record to CRM result is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
@@ -960,7 +960,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("\n the parameters is: \(jsonrpcBody)")
+        print("\n create MT Account parameters is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
