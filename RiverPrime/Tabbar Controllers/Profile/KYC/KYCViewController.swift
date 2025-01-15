@@ -143,7 +143,7 @@ class KYCViewController: BaseViewController{
                 print("Error updating user fields: \(error.localizedDescription)")
                 return
             } else {
-                print("\n User data save successfully in the fireBase")
+                print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
             }
         }

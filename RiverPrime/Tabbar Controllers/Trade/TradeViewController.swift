@@ -116,6 +116,9 @@ class TradeViewController: BaseViewController {
     @IBOutlet weak var tf_searchSymbol: UITextField!
     @IBOutlet weak var searchCloseButton: UIButton!
     
+    @IBOutlet weak var notificationButton: UIButton!
+    @IBOutlet weak var alaramButton: UIButton!
+    
     weak var delegateCollectionView: TradeInfoTapDelegate?
     var symbolDataSector: [SectorGroup] = []
     var filteredData: [SectorGroup] = []
@@ -191,12 +194,21 @@ class TradeViewController: BaseViewController {
         
     }
     
+    func updateNotificationButtonBadge() {
+        let badgeCount = NotificationHandler.shared.getUnseenNotificationsCount()
+//        notificationButton. .badgeValue = badgeCount > 0 ? "\(badgeCount)" : nil
+    }
+    
     @IBAction func alaramBtnAction(_ sender: Any) {
         Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
     }
     
     @IBAction func notificationBtnAction(_ sender: Any) {
-        Alert.showAlert(withMessage: "Notification Screen available soon", andTitle: "Notification", on: self)
+//        Alert.showAlert(withMessage: "Notification Screen available soon", andTitle: "Notification", on: self)
+        let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
+        
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        
     }
     
     @IBAction func searchCloseButton(_ sender: UIButton) {
@@ -534,7 +546,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(with: TradeTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
-            cell.selectionStyle = .none
+            cell.selectionStyle = .none 
             
             //MARK: - getSymbolData list is comming from symbol api.
             let trade = getSymbolData[indexPath.row].tickMessage

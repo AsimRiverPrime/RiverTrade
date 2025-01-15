@@ -112,6 +112,9 @@
 		3173DB802CC1254200C679C4 /* LoginPopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */; };
 		3176F3412C4F980A00FEF92A /* SocialTradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */; };
 		3176F3422C4F980A00FEF92A /* SocialTradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */; };
+		317B001F2D37B954007C7C37 /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317B001E2D37B954007C7C37 /* NotificationHandler.swift */; };
+		317B00222D37DA0B007C7C37 /* NotificationTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 317B00212D37DA0B007C7C37 /* NotificationTVCell.xib */; };
+		317B00232D37DA0B007C7C37 /* NotificationTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317B00202D37DA0B007C7C37 /* NotificationTVCell.swift */; };
 		317D7DF72C9154E300902B4A /* CompleteVerificationProfileScreen1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */; };
 		317D7DF92C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DF82C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift */; };
 		317D7DFB2C91550800902B4A /* CompleteVerificationProfileScreen3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317D7DFA2C91550800902B4A /* CompleteVerificationProfileScreen3.swift */; };
@@ -479,6 +482,9 @@
 		3173DB7F2CC1254200C679C4 /* LoginPopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopupVC.swift; sourceTree = "<group>"; };
 		3176F33F2C4F980A00FEF92A /* SocialTradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialTradeTableViewCell.swift; sourceTree = "<group>"; };
 		3176F3402C4F980A00FEF92A /* SocialTradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SocialTradeTableViewCell.xib; sourceTree = "<group>"; };
+		317B001E2D37B954007C7C37 /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
+		317B00202D37DA0B007C7C37 /* NotificationTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTVCell.swift; sourceTree = "<group>"; };
+		317B00212D37DA0B007C7C37 /* NotificationTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationTVCell.xib; sourceTree = "<group>"; };
 		317D7DF62C9154E300902B4A /* CompleteVerificationProfileScreen1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen1.swift; sourceTree = "<group>"; };
 		317D7DF82C9154FD00902B4A /* CompleteVerificationProfileScreen2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen2.swift; sourceTree = "<group>"; };
 		317D7DFA2C91550800902B4A /* CompleteVerificationProfileScreen3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteVerificationProfileScreen3.swift; sourceTree = "<group>"; };
@@ -1202,6 +1208,15 @@
 			path = SocialTradeTBCell;
 			sourceTree = "<group>";
 		};
+		317B001D2D37B939007C7C37 /* NotificationHandler */ = {
+			isa = PBXGroup;
+			children = (
+				317B001E2D37B954007C7C37 /* NotificationHandler.swift */,
+				31B102DA2C45144E0006E8EB /* Notifications */,
+			);
+			path = NotificationHandler;
+			sourceTree = "<group>";
+		};
 		317FDE402D31667C0036924E /* AppleID_SignIn  */ = {
 			isa = PBXGroup;
 			children = (
@@ -1297,7 +1312,6 @@
 		319D20952C3E543B00908DE2 /* Tabbar Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				31B102DA2C45144E0006E8EB /* Notifications */,
 				3105DEE12CB3E8A400D1B884 /* Accounts */,
 				31F3BAD62C3FAB49009A2A12 /* Profile */,
 				31F3BAD52C3FAB37009A2A12 /* Results */,
@@ -1346,6 +1360,8 @@
 			isa = PBXGroup;
 			children = (
 				31B102DB2C4514B10006E8EB /* NotificationViewController.swift */,
+				317B00202D37DA0B007C7C37 /* NotificationTVCell.swift */,
+				317B00212D37DA0B007C7C37 /* NotificationTVCell.xib */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1492,6 +1508,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				317B001D2D37B939007C7C37 /* NotificationHandler */,
 				3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */,
 				31AAD94D2D1EF3D700733D78 /* UserManager */,
 				31B8722B2D0C419700024E8A /* CacheApiResponse */,
@@ -2393,6 +2410,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				317B00222D37DA0B007C7C37 /* NotificationTVCell.xib in Resources */,
 				31D993EE2CD3B33300FC8FF9 /* TimeFrameTVCell.xib in Resources */,
 				FA10ECD92CE6A23F00C1980F /* Poppins-MediumItalic.ttf in Resources */,
 				FA10ECCD2CE6A23F00C1980F /* Poppins-SemiBoldItalic.ttf in Resources */,
@@ -2666,6 +2684,7 @@
 				3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */,
 				31D2AEEC2C8840B800E0CF2E /* NSRegularExpression+Color.swift in Sources */,
 				31B263312CCF5C5E006D4DF4 /* FundsView.swift in Sources */,
+				317B001F2D37B954007C7C37 /* NotificationHandler.swift in Sources */,
 				31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */,
 				3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */,
 				31D2AF232C8840B800E0CF2E /* KineticScrollOptions.swift in Sources */,
@@ -2815,6 +2834,7 @@
 				31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */,
 				FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
+				317B00232D37DA0B007C7C37 /* NotificationTVCell.swift in Sources */,
 				31D2AF242C8840B800E0CF2E /* LayoutOptions.swift in Sources */,
 				31D2AF042C8840B800E0CF2E /* JavaScriptObject.swift in Sources */,
 				FA46139D2C602D5600B472D6 /* DropDown.swift in Sources */,

@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
            }
           
            application.registerForRemoteNotifications()
-        
+        listenForKYCUpdates()
         return true
     }
     
@@ -66,7 +66,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+    func updateBadgeCount() {
+        let unseenCount = NotificationHandler.shared.getUnseenNotificationsCount()
 
+        DispatchQueue.main.async {
+            UIApplication.shared.applicationIconBadgeNumber = unseenCount
+        }
+    }
 }
 
 extension AppDelegate: MessagingDelegate {
@@ -97,6 +104,36 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                  withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         let userInfo = notification.request.content.userInfo
         print("Foreground notification received: \(userInfo)")
+        // Parse the notification payload
+             
+        // Extract data from the notification payload
+        if let type = userInfo["type"] as? String,
+           let newStatus = userInfo["new_status"] as? String,
+           let title = userInfo["title"] as? String,
+           let message = userInfo["message"] as? String {
+            
+            let notificationItem = NotificationItem(
+                id: UUID().uuidString, // Generate a unique ID
+                title: title,
+                message: message,
+                type: type,
+                status: newStatus,
+                date: Date(),
+                isSeen: false
+            )
+
+            // Save the notification
+            NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
+
+            // Update the badge count
+            updateBadgeCount()
+                    // Optionally update the UI
+//                    NotificationCenter.default.post(name: NSNotification.Name("KYCStatusUpdated"), object: nil, userInfo: ["type": type, "status": newStatus])
+                }
+
+                // Show the notification in the foreground
+//                completionHandler([.banner, .sound])
+        
         completionHandler([.alert, .sound, .badge])
     }
     // Handle notification tap
@@ -104,17 +141,36 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                                  didReceive response: UNNotificationResponse,
                                  withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        print("Notification data: \(userInfo)")
+        print("Notification data didReceive: \(userInfo)")
         // Handle KYC status change here
-               if let kycStatus = userInfo["kycStatus"] as? String {
-                   handleKYCStatusChange(kycStatus)
-               }
+     
         
         completionHandler()
     }
+    
     private func handleKYCStatusChange(_ status: String) {
           // Implement your logic for KYC status change
-          print("KYC status updated: \(status)")
+        if status == "completed" {
+                   print("KYC process is complete.")
+                   // Navigate to another screen or refresh data
+               } else {
+                   print("KYC status: \(status)")
+               }
       }
     
+    func listenForKYCUpdates() {
+        let db = Firestore.firestore()
+        db.collection("users").document("user_id").addSnapshotListener { documentSnapshot, error in
+            guard let document = documentSnapshot else {
+                print("Error fetching document: \(error!)")
+                return
+            }
+            if let kycStatus = document.get("kycStatus") as? String {
+                print("KYC Status updated: \(kycStatus)")
+                // Update UI or handle status change
+//                NotificationCenter.default.post(name: .kycStatusChanged, object: nil, userInfo: ["status": kycStatus])
+
+            }
+        }
+    }
 }

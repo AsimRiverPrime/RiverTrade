@@ -26,6 +26,22 @@ class DateHelper {
       
     }
     
+    static func timeAgo1(from date: Date) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.maximumUnitCount = 1 // Show only the largest unit (e.g., "2 min")
+        formatter.allowedUnits = [.minute, .hour, .day, .weekOfMonth, .month, .year]
+        
+        let now = Date()
+        let elapsed = now.timeIntervalSince(date)
+        
+        if let formattedString = formatter.string(from: elapsed) {
+            return "\(formattedString) ago"
+        } else {
+            return "Just now"
+        }
+    }
+    
     // MARK: - Time Ago Function
     static func timeAgo(from dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS") -> String {
         // Convert the date string to Date
