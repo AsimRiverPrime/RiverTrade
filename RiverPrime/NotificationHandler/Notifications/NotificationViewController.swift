@@ -84,7 +84,7 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
         
         cell.lbl_date.text = time
         // Highlight unseen notifications
-        cell.view_Unseen.backgroundColor = notification.isSeen ? .clear : .systemGreen
+        cell.view_Unseen.backgroundColor = notification.isSeen ? .clear : .systemRed
 
         return cell
     }
