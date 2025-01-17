@@ -53,8 +53,6 @@ class NotificationHandler {
         return getSavedNotifications().filter { !$0.isSeen }.count
     }
     
-   
-
 }
 
 struct NotificationItem: Codable {

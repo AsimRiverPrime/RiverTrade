@@ -132,7 +132,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 "isLogin" : true,
                 "pushedToCRM": true
             ]
-            
         }
         
         fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
@@ -143,7 +142,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 
                 if self.isEmailVerification == true {
                     self.isEmailVerification = false
-                    self.navigateToPhoneVerifiyScreen()
+//                    self.navigateToPhoneVerifiyScreen()
                     print("User emailVerify fields updated successfully!")
                     self.fireStoreInstance.fetchUserData(userId: userId)
                     
@@ -249,6 +248,13 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
+        
+        self.tf_firstNum.backgroundColor = .white
+        self.tf_SecondNum.backgroundColor = .white
+        self.tf_thirdNum.backgroundColor = .white
+        self.tf_fourthNum.backgroundColor = .white
+        self.tf_fivethNum.backgroundColor = .white
+        self.tf_sixthNum.backgroundColor = .white
         
         if string.isEmpty { // Check for backspace
             if text.isEmpty {

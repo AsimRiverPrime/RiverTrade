@@ -18,7 +18,10 @@ class EmailSendVC: UIViewController {
         super.viewDidLoad()
 
         lbl_emailSend.text = "We will send you verification code to your email " + (UserEmail ?? "")
-        
+        GlobalVariable.instance.userEmail = UserEmail ?? ""
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func sendCode_action(_ sender: Any) {

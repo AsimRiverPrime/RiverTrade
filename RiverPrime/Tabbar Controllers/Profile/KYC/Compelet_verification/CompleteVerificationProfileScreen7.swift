@@ -100,7 +100,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     }
     
     @IBAction func dayBtn_action(_ sender: UIButton) {
-       
+        view.endEditing(true)
         dynamicDropDownButton(sender, list: days) { index , value in
             self.selectedDay = value
         }
@@ -108,14 +108,14 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     }
     
     @IBAction func monthBtn_action(_ sender: UIButton) {
-
+        view.endEditing(true)
         dynamicDropDownButton(sender, list: months) { index , value in
             self.selectedMonth = value
         }
     }
     
     @IBAction func yearBtn_action(_ sender: UIButton) {
-
+        view.endEditing(true)
         dynamicDropDownButton(sender, list: getYear()) { index , value in
             self.selectedYear = value
         }

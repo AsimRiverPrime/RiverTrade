@@ -147,6 +147,13 @@ class ProfileViewController: BaseViewController{
         
         func didTapCompleteProfileButtonInCell() {
 //            delegateCompeleteProfile?.navigateToCompeletProfile()
+            if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+               if let _isEmailVerified = savedUserData["emailVerified"] as? Bool, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool {
+                    isEmailVerified = _isEmailVerified
+                   isPhoneVerified = _isPhoneVerified
+                }
+            }
+            
             if realAccount == true {
                 if registrationType == 1 && !isEmailVerified {
                     let vc = Utilities.shared.getViewController(identifier: .emailSendVC, storyboardType: .bottomSheetPopups) as! EmailSendVC

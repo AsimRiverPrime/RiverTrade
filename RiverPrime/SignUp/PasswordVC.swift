@@ -128,14 +128,14 @@ class PasswordVC: BaseViewController {
         
         if isOpenAccount {
             openAccountSignUp()
-            print("userID on email : \(userId!)")
+            print("userID on email : \(userId ?? "")")
         }else if isGoogleAccount{
 //            userId =  GlobalVariable.instance.userID
-            print("userID on google : \(userId!)")
+            print("userID on google : \(userId ?? "")")
             SignUpGoogle()
             
         }else if isAppleLogin {
-            print("userID on Apple : \(userId!)")
+            print("userID on Apple : \(userId ?? "")")
             signUpApple()
         }
        

@@ -30,6 +30,7 @@ class ForgotViewController: UIViewController {
             if let _email = savedUserData["email"] as? String {
                 self.email_tf.text = _email
                 email = _email
+                print("saved User email: \(_email)")
             }
         }
         
