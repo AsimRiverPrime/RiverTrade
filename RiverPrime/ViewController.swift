@@ -139,8 +139,6 @@ class ViewController: BaseViewController {
         
         return keychain.get("appleUserIdentifier")
     }
-    
-    
 }
 
 extension ViewController {
@@ -185,6 +183,7 @@ extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationCont
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
@@ -263,7 +262,7 @@ extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationCont
                             }
                             
                         } else {
-                            self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: self._fullName ?? "")
+                            self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
                             self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 3)
                             
                         }
@@ -272,92 +271,7 @@ extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationCont
             }
         }
     }
-    
-    //    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-    //        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-    //            let userIdentifier = appleIDCredential.user
-    //
-    //            if let email = appleIDCredential.email {
-    //                print("Email: \(email)")
-    //                keychain.set(email, forKey: "appleEmail")
-    //                _email = email
-    //            } else {
-    //                print("Email not provided")
-    //                _email = keychain.get("appleEmail")
-    //                print("Email : \(_email)")
-    //            }
-    //            if let fullName = appleIDCredential.fullName {
-    //                let formattedName = [fullName.givenName, fullName.familyName]
-    //                    .compactMap { $0 } // Remove nil values
-    //                    .joined(separator: " ") // Combine non-nil values
-    //
-    //                if !formattedName.isEmpty {
-    //                    print("Full Name: \(formattedName)")
-    //                    keychain.set(formattedName, forKey: "appleName")
-    //                    _fullName = formattedName
-    //                } else {
-    //                    print("Full Name not provided (empty)")
-    //                    _fullName = keychain.get("appleName") ?? "Not available"
-    //                    print("Full Name from Keychain: \(_fullName ?? "Not available")")
-    //                }
-    //            } else {
-    //                print("Full Name object not provided")
-    //                _fullName = keychain.get("appleName") ?? "Not available"
-    //                print("Full Name from Keychain: \(_fullName ?? "Not available")")
-    //            }
-    //            // Store userIdentifier securely in Keychain or your secure storage
-    //            print("User ID: \(userIdentifier)")
-    ////            UserDefaults.standard.set(fullName, forKey: "FullName")
-    //            self.isAppleLogin = true
-    //
-    //            if let email = _email, let fullName = _fullName {
-    //                       // First-time login (FullName and Email are available)
-    //                       print("First-time login detected. Saving data to Keychain.")
-    //
-    //                       // Save the userIdentifier securely
-    //                       saveToKeychain(userIdentifier: userIdentifier)
-    //
-    //                       // Save user data to your database or server
-    //                        saveUserToDatabase(userIdentifier: userIdentifier, fullName: fullName, email: email)
-    //
-    //                   } else if let savedIdentifier = getUserIdentifierFromKeychain() {
-    //                       // Subsequent login (FullName and Email are not available)
-    //                       print("Subsequent login. Retrieved User Identifier from Keychain: \(savedIdentifier)")
-    //
-    //                       // Use savedIdentifier to fetch user data from your server
-    //                       saveUserToDatabase(userIdentifier: savedIdentifier, fullName: nil, email: nil)
-    //                   } else {
-    //                       // No identifier found in Keychain
-    //                       print("No saved User Identifier found in Keychain. Handle error.")
-    //                   }
-    //        }
-    //    }
-    
-    //    func saveUserToDatabase(userIdentifier: String, fullName: String?, email: String?) {
-    //
-    //        self.db.collection("users").whereField("email", isEqualTo: email ?? "").getDocuments { (querySnapshot, error) in
-    //            if let error = error {
-    //                print("Error checking for existing user: \(error.localizedDescription)")
-    //            }
-    //            if let snapshot = querySnapshot, !snapshot.isEmpty {
-    //                print("User with this email already exists.")
-    //                self.firebaseInstance.fetchUserData(userId: userIdentifier)
-    //                self.firebaseInstance.fetchUserAccountsData(userId: userIdentifier, completion: {
-    //                })
-    //
-    //                let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-    //                    print("Timer fired!")
-    //                    self.firebaseInstance.handleUserData()
-    //                }
-    //
-    //            } else {
-    //                self.odoClientNew.createRecords(firebase_uid: userIdentifier, email: email ?? "", name: fullName ?? "")
-    //                self.odoClientNew.createLeadDelegate = self
-    //                self.firebaseInstance.saveAdditionalUserData(userId: userIdentifier, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: fullName ?? "", gender: "", phone: "", email: email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 3)
-    //            }
-    //        }
-    //    }
-    
+  
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("Sign in with Apple error: \(error.localizedDescription)")
     }
@@ -409,7 +323,7 @@ extension ViewController {
 extension ViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead and record ID is:\(response)")
-        odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+        odoClientNew.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
         navigateToNationility()
         //        odoClientNew.sendOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "")
         

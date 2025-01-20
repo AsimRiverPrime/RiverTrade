@@ -19,6 +19,7 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var view_timeFrame: UIView!
     @IBOutlet weak var view_chartType: UIView!
     
+    @IBOutlet weak var chartOverView: UIStackView!
     var icon_url = String()
     
     @IBOutlet weak var chartView: UIView!

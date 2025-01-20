@@ -89,7 +89,10 @@ extension TopNewsViewController: UITableViewDelegate, UITableViewDataSource {
         let payload = getAllPayloads[indexPath.row]
         cell.lbl_title.text = payload.title
         
-        cell.lbl_date.text = DateHelper.timeAgo(from: payload.date)
+        let date = DateHelper.convertToDate(from: payload.date)
+        cell.lbl_date.text = DateHelper.timeAgo1(from: date!)
+        
+//        cell.lbl_date.text = DateHelper.timeAgo(from: payload.date)
         
         switch payload.importance {
         case 1:

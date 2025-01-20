@@ -28,6 +28,37 @@ class TopNewsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func configure(with payload: PayloadItem) {
+        
+        self.lbl_title.text = payload.title
+      
+        if let date = DateHelper.convertToDate(from: payload.date) {
+            self.lbl_date.text = DateHelper.timeAgo1(from: date)
+        } else {
+            print("Failed to convert date string to Date")
+        }
+      
+        switch payload.importance{
+        case 1:
+            firstIcon.image = UIImage(named: "fireIconSelect")
+            secondIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+            thridIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+        case 2:
+            firstIcon.image = UIImage(named: "fireIconSelect")
+            secondIcon.image = UIImage(named: "fireIconSelect")
+            thridIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+        case 3:
+            firstIcon.image = UIImage(named: "fireIconSelect")
+            secondIcon.image = UIImage(named: "fireIconSelect")
+            thridIcon.image = UIImage(named: "fireIconSelect")
+        default:
+            firstIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+            secondIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+            thridIcon.image = UIImage(named: "fireIconSelect")?.tint(with: .lightGray)
+        }
+        
+      }
+    
 //    @IBAction func favirateBtn_action(_ sender: Any) {
 //        self.btn_favirate.isSelected = !self.btn_favirate.isSelected
 //        self.btn_favirate.setImage(!self.btn_favirate.isSelected ? UIImage(systemName: "star") : UIImage(systemName: "star.fill"), for: .normal)

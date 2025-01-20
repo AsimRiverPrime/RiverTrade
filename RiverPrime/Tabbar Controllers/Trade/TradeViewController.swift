@@ -84,7 +84,7 @@ struct SectorGroup {
     let symbols: [SymbolData]
 }
 
-class TradeViewController: BaseViewController {
+class TradeViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var tblSearchView: UITableView!
@@ -113,11 +113,17 @@ class TradeViewController: BaseViewController {
     @IBOutlet weak var lbl_account: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
+    @IBOutlet weak var searchContainerView: UIView!
+    
     @IBOutlet weak var tf_searchSymbol: UITextField!
     @IBOutlet weak var searchCloseButton: UIButton!
     
     @IBOutlet weak var notificationButton: UIButton!
     @IBOutlet weak var alaramButton: UIButton!
+    
+    @IBOutlet weak var searchBarHeightConstraint: NSLayoutConstraint! // Link height constraint of searchBar
+       
+    private var isSearchBarHidden = true
     
     weak var delegateCollectionView: TradeInfoTapDelegate?
     var symbolDataSector: [SectorGroup] = []
@@ -145,22 +151,9 @@ class TradeViewController: BaseViewController {
             NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
                     
         }
-        
-    }
-    
-    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
-        if let userInfo = notification.userInfo,
-           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
-            print("Received string: \(receivedString)")
-            
-            if receivedString == "TradeVC" {
-                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-                faceIdVC.afterLoginNavigation = true
-                self.navigate(to: faceIdVC)
-            }
-            
+      
+        searchBarHeightConstraint.constant = 0 // Initially hide the search bar
         }
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
@@ -189,10 +182,51 @@ class TradeViewController: BaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         
-       
-        callCollectionViewAtStart()
+//        callCollectionViewAtStart()
         
     }
+    
+        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+            let scrollVelocity = scrollView.panGestureRecognizer.velocity(in: scrollView).y
+            
+            if scrollVelocity > 0 && isSearchBarHidden { // Scrolling up
+                showSearchBar()
+            } else if scrollVelocity < 0 && !isSearchBarHidden { // Scrolling down
+                hideSearchBar()
+            }
+        }
+        
+        private func showSearchBar() {
+            UIView.animate(withDuration: 0.3) {
+                self.searchBarHeightConstraint.constant = 50 // Adjust to original height of search bar
+                self.view.layoutIfNeeded()
+            }
+            isSearchBarHidden = false
+        }
+        
+        private func hideSearchBar() {
+            UIView.animate(withDuration: 0.3) {
+                self.searchBarHeightConstraint.constant = 0
+                self.view.layoutIfNeeded()
+            }
+            isSearchBarHidden = true
+        }
+    
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "TradeVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+                self.navigate(to: faceIdVC)
+            }
+            
+        }
+    }
+    
+   
     
     func updateNotificationButtonBadge() {
         let badgeCount = NotificationHandler.shared.getUnseenNotificationsCount()
@@ -247,21 +281,11 @@ class TradeViewController: BaseViewController {
         
     }
     
-    private func callCollectionViewAtStart() {
-        
-        let indexPath = GlobalVariable.instance.lastSelectedSectorIndex //IndexPath(row: 0, section: 0)
-        
-        //        if tradeTVCCollectionView.cellForItem(at: indexPath) != nil {
-        //            // Scroll to the selected item
-        //            tradeTVCCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
-        //
-        //            let data = symbolDataSector[indexPath.row]
-        //            selectedIndex = indexPath.row
-        //            self.delegate?.tradeInfoTap(data, index: indexPath.row)
-        //            tradeTVCCollectionView.reloadData()
-        //        }
-        
-    }
+//    private func callCollectionViewAtStart() {
+//        
+//        let indexPath = GlobalVariable.instance.lastSelectedSectorIndex //IndexPath(row: 0, section: 0)
+//  
+//    }
     
     @objc func notificationTradeApiUpdate(_ notification: NSNotification) {
         
@@ -397,87 +421,15 @@ class TradeViewController: BaseViewController {
             }
         })
         
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            print("saved User Data: \(savedUserData)")
-            // Access specific values from the dictionary
-            
-//            
-//            //MARK: - START Update Change.
-//            let getbalanceApi = TradeTypeCellVM()
-//            getbalanceApi.getUserBalance(completion: { result in
-//                switch result {
-//                case .success(let responseModel):
-//                    // Save the response model or use it as needed
-//                    print("Balance: \(responseModel.result.user.balance)")
-//                    print("Equity: \(responseModel.result.user.equity)")
-//                    self.labelAmmount.text = "$\(responseModel.result.user.balance)"
-//                    // Example: Storing in a singleton for global access
-//                    UserManager.shared.currentUser = responseModel.result.user
-//                    
-//                    GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)" //self.balance
-//                    print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-//                    
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-//                    
-//                case .failure(let error):
-//                    print("Failed to fetch balance: \(error.localizedDescription)")
-//                }
-//            })
-            
-//            if let profileStep1 = savedUserData["profileStep"] as? Int, let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
-//                //                profileStep = profileStep1
-//                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-//
-//                let password = UserDefaults.standard.string(forKey: "password")
-//                if password == nil && isCreateDemoAccount == true {
-//                    showPopup()
-//                }else{
-//                    print("the password is: \(password ?? "")")
-//
-//                    let getbalanceApi = TradeTypeCellVM()
-//                    getbalanceApi.getUserBalance(completion: { result in
-//                        switch result {
-//                        case .success(let responseModel):
-//                            // Save the response model or use it as needed
-//                            print("Balance: \(responseModel.result.user.balance)")
-//                            print("Equity: \(responseModel.result.user.equity)")
-//
-//                            // Example: Storing in a singleton for global access
-//                            UserManager.shared.currentUser = responseModel.result.user
-//
-//                        case .failure(let error):
-//                            print("Failed to fetch balance: \(error.localizedDescription)")
-//                        }
-//                    })
-//
-//                    getbalanceApi.getBalance(completion: { response in
-//                        print("response of get balance: \(response)")
-//                        if response == "Invalid Response" {
-//                            //                            self.balance = "0.0"
-//                            return
-//                        }
-//                        //                        self.balance = response
-//                        GlobalVariable.instance.balanceUpdate = response //self.balance
-//                        print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-//
-//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-//
-//                    })
-//                }
-//            }
-            //MARK: - END Update Change.
-//        }
     }
     
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "$\(ammount)"
+            let amount = String.formatStringNumber(ammount)
+            self.labelAmmount.text = "$\(String(describing: amount))"
         }
-        
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -569,6 +521,40 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.contentView.alpha = 1.0
             }
             
+            cell.onLabel1Tapped = { [weak self] in
+                       guard let self = self else { return }
+                print("press the symbol label")
+
+//                delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: symbolDataObj)
+//                let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
+//                vc.chartView.isHidden = true
+//                vc.chartOverView.isHidden = true
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                
+                   }
+
+            cell.onLabel2Tapped = { [weak self] in
+                       guard let self = self else { return }
+                       print("press the bid label")
+//                       let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
+//                       vc.chartView.isHidden = true
+//                       vc.chartOverView.isHidden = true
+//                       PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//                       delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+                   }
+
+            cell.onLabel3Tapped = { [weak self] in
+                       guard let self = self else { return }
+                       print("press the bid label")
+//                       let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
+////                       vc.getSymbolData = getSymbolData
+////                       vc.icon_url = getSymbolData.icon_url ?? ""
+////                       vc.buyBtn.isHidden = true
+////                       vc.sellBtn.isHidden = true
+//                       PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                   }
+            
+            
             return cell
             
         } else {
@@ -659,7 +645,6 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 self.tf_searchSymbol.resignFirstResponder()
                 getTradeSector(collectionViewIndex: indexPath.row)
             }
-            
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -728,9 +713,6 @@ extension TradeViewController: SocketPeerClosed {
         
         GlobalVariable.instance.changeSector = true
         
-        ////        getSymbolData.removeAll()
-        //
-        //        setTradeModel()
     }
 }
 
@@ -802,10 +784,6 @@ extension TradeViewController: SocketNotSendDataDelegate {
         timer = nil
         GlobalVariable.instance.isProcessingSymbolTimer = false
         start60SecondsCountdown()
-        
-        
-        
-        
         
         if getSymbolData.count == 0 {
             return
@@ -915,17 +893,7 @@ extension TradeViewController: GetSocketMessages {
                             print("Missing or Invalid Timestamp")
                             cell.lbl_datetime.text = "Invalid Date"
                         }
-                            
-//                            let createDate = Date(timeIntervalSince1970: Double(getSymbolData[index].tickMessage?.datetime ?? 0))
-//
-//                            let dateFormatter = DateFormatter()
-//                            dateFormatter.dateFormat = "HH:mm:ss"
-//                            dateFormatter.timeZone = .current
-//
-//                            let datee = dateFormatter.string(from: createDate)
-                            
-                            //                        cell.lbl_datetime.text = datee
-                            
+               
                             let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
                             var oldBid =  Double()
                             
@@ -993,9 +961,6 @@ extension TradeViewController: GetSocketMessages {
                     //MARK: - START calling Socket message from here.
                     vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
                 }
-                
-                
-                
                 
                 if vm.webSocketManager.isSocketConnected() {
                     print("Socket is connected")
@@ -1152,9 +1117,7 @@ extension TradeViewController: GetSocketMessages {
             tblSearchView.delegate = self
             tblSearchView.dataSource = self
             tblSearchView.reloadData()
-            
         }
-        
         
     }
     

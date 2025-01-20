@@ -388,7 +388,9 @@ extension AccountsViewController {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "$\(ammount)"
+            let amount = String.formatStringNumber(ammount)
+            self.labelAmmount.text = "$\(String(describing: amount))"
+//            self.labelAmmount.text = "$\(ammount)"
             
             if ammount == "0.0" {
                 self.lbl_amountPercent.text = "0.0%"

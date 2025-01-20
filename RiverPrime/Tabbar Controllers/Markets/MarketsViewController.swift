@@ -93,7 +93,10 @@ extension MarketsViewController {
                 // Save the response model or use it as needed
                 print("Balance: \(responseModel.result.user.balance)")
                 print("Equity: \(responseModel.result.user.equity)")
-                self.labelAmmount.text = "$\(responseModel.result.user.balance)"
+                
+                let balance = (responseModel.result.user.balance)
+                self.labelAmmount.text = "$\(String.formatStringNumber(String(balance)))"
+
                 // Example: Storing in a singleton for global access
                 UserManager.shared.currentUser = responseModel.result.user
                 
@@ -118,7 +121,8 @@ extension MarketsViewController {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "$\(ammount)"
+            let amount = String.formatStringNumber(ammount)
+            self.labelAmmount.text = "$\(String(describing: amount))"
         }
         
     }
@@ -131,16 +135,14 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if section == 0 {
             // Economic Calendar Section
-            return 1 + filteredEvents.count // One row for `EconomicCalendarSection` and 3 for `UpcomingEventsTableViewCell`
+            return min(4, 1 + filteredEvents.count) // 1 header + up to 3 events
         } else if section == 1 {
             // Top News Section
-            return 1 + filteredPayloads.count // One row for `TopNewsSection` and others for `TopNewsTableViewCell`
+            return min(4, 1 + filteredPayloads.count) // 1 header + up to 3 news items
         }
         return 0
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -188,10 +190,9 @@ extension MarketsViewController: UITableViewDelegate, UITableViewDataSource {
                 let payload = filteredPayloads[payloadIndex]
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TopNewsTableViewCell", for: indexPath) as! TopNewsTableViewCell
                 cell.selectionStyle = .none
-                cell.lbl_title.text = payload.title
                 
-                cell.lbl_date.text = DateHelper.timeAgo(from: payload.date)
-                                
+                cell.configure(with: payload)
+                
                 return cell
             }
         }
@@ -294,7 +295,7 @@ extension MarketsViewController: EconomicCalendarProtocol {
     }
   
     func calendarFilterImportantEvents() {
-        filteredEvents = allEvents.filter { $0.importance == 3 }
+        filteredEvents = allEvents.filter { $0.importance == 1 }
         print("filtered Events for calender : \(filteredEvents)")
     }
     

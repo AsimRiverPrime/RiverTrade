@@ -154,7 +154,10 @@ class AccountTableViewCell: UITableViewCell {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount: \(ammount)")
-            self.labelAmmount.text = "$\(ammount)"
+            let amount = String.formatStringNumber(ammount)
+            self.labelAmmount.text = "$\(String(describing: amount))"
+            
+//            self.labelAmmount.text = "$\(ammount)"
         }
         
     }
@@ -163,7 +166,10 @@ class AccountTableViewCell: UITableViewCell {
         if let userInfo = notification.userInfo,
            let receivedString = userInfo["BalanceUpdateType"] as? String {
             print("Received string: \(receivedString)")
-            self.labelAmmount.text = "$\(receivedString)"
+            let amount = String.formatStringNumber(receivedString)
+            self.labelAmmount.text = "$\(String(describing: amount))"
+            
+//            self.labelAmmount.text = "$\(receivedString)"
         }
     }
     

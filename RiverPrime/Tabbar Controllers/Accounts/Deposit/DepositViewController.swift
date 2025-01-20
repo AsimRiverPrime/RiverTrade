@@ -71,6 +71,7 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.lbl_title.text = "Deposit"
                 cell.imageIcon.isHidden = true
                 cell.btn_edit.isHidden = true
+                cell.btn_editProfile.isHidden = true
                 cell.delegate = self
 //                cell.view_profileComplete.isHidden = true
 //               let hieght = cell.bounds.height
@@ -105,25 +106,23 @@ extension DepositViewController: DashboardVCDelegate {
     func navigateToCompeletProfile() {
         print("move to completeprofile screen")
         if realAccount == true {
-            if profileStep == 0 {
-                let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-                vc.delegateKYC = self
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-               
-            }else if profileStep == 1 {
-                
-                let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-                vc.delegateKYC = self
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                
-            }else if profileStep == 2 {
+            switch profileStep {
+            case 0:
                 let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
                 vc.delegateKYC = self
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-               
-            }else{
+            case 1:
+                let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .bottomSheetPopups) as! KYCViewController
+                vc.delegateKYC = self
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//            case 2:
+//                let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+//                vc.delegateKYC = self
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            default:
                 self.ToastMessage("Already Done KYC")
             }
+        
         }else{
             Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
         }

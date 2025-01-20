@@ -67,17 +67,23 @@ class FundsView: UIView {
             print("Received amount in Funds: \(ammount)")
             
             if let user = UserManager.shared.currentUser {
-                self.lbl_balance.text = "$\(user.balance)"
-                self.lbl_equity.text = "$\(ammount)"
+//                self.lbl_balance.text = "$\(user.balance)"
+              
+                    self.lbl_balance.text = "$\(String.formatStringNumber(String(user.balance)))"
+                
+                self.lbl_equity.text = "$\(String.formatStringNumber(String(ammount)))" //"$\(ammount)"
                 let totalPL = (Double(ammount) ?? 0.0) - (user.balance)
                 let freeMargin = (Double(ammount) ?? 0.0) - (user.margin)
+              
+                    self.lbl_totalDeposit.text = "$\(String.formatStringNumber(String(user.totalDeposit)))"
                 
-                self.lbl_totalDeposit.text = "$\(user.totalDeposit)"
-                self.lbl_totalWithdrawal.text = "$\(user.totalWithdraw)"
+//                self.lbl_totalDeposit.text = "$\(user.totalDeposit)"
+                    self.lbl_totalWithdrawal.text = "$\(String.formatStringNumber(String(user.totalWithdraw)))"
+//                self.lbl_totalWithdrawal.text = "$\(user.totalWithdraw)"
                
-                self.lbl_totalPL.text = "$"+"\(totalPL)".trimmedTrailingZeros()
+                self.lbl_totalPL.text = "$\(String.formatStringNumber(String(totalPL)))" //"$"+"\(totalPL)".trimmedTrailingZeros()
                 self.lbl_Margin.text = "$\(user.margin)"
-                self.lbl_freeMargin.text = "$"+"\(freeMargin)".trimmedTrailingZeros()
+                self.lbl_freeMargin.text = "$\(String.formatStringNumber(String(freeMargin)))" //"$"+"\(freeMargin)".trimmedTrailingZeros()
                 
                 if user.margin == 0.0 {
                     self.lbl_marginLevel.text = "0%"

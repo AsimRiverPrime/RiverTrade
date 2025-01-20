@@ -37,6 +37,14 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qct-pe-JUa">
+                                <rect key="frame" x="15" y="15" width="60" height="40"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="editBtnAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7xI-DJ-Fl7"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bO-qy-ou1">
                                 <rect key="frame" x="259" y="20.666666666666671" width="50" height="29"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -103,11 +111,15 @@
                             <constraint firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" constant="15" id="6Jj-bT-udF"/>
                             <constraint firstItem="d2j-0h-25G" firstAttribute="trailing" secondItem="3bw-SY-Tdq" secondAttribute="trailing" id="6cL-uH-dA4"/>
                             <constraint firstItem="qFh-nM-Xbm" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="10" id="8tP-z7-n6B"/>
+                            <constraint firstItem="qct-pe-JUa" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="top" id="9qf-fq-7mX"/>
                             <constraint firstItem="d2j-0h-25G" firstAttribute="centerY" secondItem="3bw-SY-Tdq" secondAttribute="centerY" id="AsS-2a-oUU"/>
                             <constraint firstItem="qFh-nM-Xbm" firstAttribute="centerY" secondItem="TZp-2y-AMB" secondAttribute="centerY" id="D71-Ax-3GJ"/>
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="top" secondItem="fUb-Pq-J4V" secondAttribute="bottom" constant="10" id="DOm-xa-dB0"/>
                             <constraint firstAttribute="trailing" secondItem="DEV-A4-RIW" secondAttribute="trailing" constant="15" id="FmB-dy-dog"/>
+                            <constraint firstItem="qct-pe-JUa" firstAttribute="bottom" secondItem="TZp-2y-AMB" secondAttribute="bottom" id="JbJ-IZ-nbd"/>
                             <constraint firstItem="d2j-0h-25G" firstAttribute="leading" secondItem="3bw-SY-Tdq" secondAttribute="leading" id="L7R-cu-Abz"/>
+                            <constraint firstItem="qct-pe-JUa" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="leading" id="LfW-Be-ARY"/>
+                            <constraint firstItem="qct-pe-JUa" firstAttribute="trailing" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="20" id="OtA-IR-3W5"/>
                             <constraint firstItem="DEV-A4-RIW" firstAttribute="centerY" secondItem="cBt-N7-AcD" secondAttribute="centerY" id="SFM-4e-Wr9"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="trailing" secondItem="cBt-N7-AcD" secondAttribute="trailing" id="TeO-gj-s5b"/>
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="leading" secondItem="fUb-Pq-J4V" secondAttribute="leading" id="V4l-H9-Qnb"/>
@@ -140,6 +152,7 @@
             <connections>
                 <outlet property="btn_completeProfile" destination="3bw-SY-Tdq" id="8n8-Xl-tMT"/>
                 <outlet property="btn_edit" destination="7bO-qy-ou1" id="Ld9-yN-V7N"/>
+                <outlet property="btn_editProfile" destination="qct-pe-JUa" id="y6U-SN-xYN"/>
                 <outlet property="imageIcon" destination="TZp-2y-AMB" id="BJa-Ja-pew"/>
                 <outlet property="lbl_completeProfile" destination="d2j-0h-25G" id="mp8-xf-iNX"/>
                 <outlet property="lbl_profile" destination="fUb-Pq-J4V" id="BI3-Gn-3fo"/>

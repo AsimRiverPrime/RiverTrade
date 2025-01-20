@@ -245,7 +245,6 @@ class OdooClientNew {
         
     }
     
-    
     //MARK: - Create request (Leads) Method for records
     func createRecords(firebase_uid: String, email: String, name: String) {
         
@@ -301,9 +300,8 @@ class OdooClientNew {
         }
         
     }
-    
-    //MARK: - Write records (Leads) Method for change/update phone number CRM (OdooServer) records
-    func writeRecords(number: String, firebaseToken: String) {
+    func writeFirebaseToken(firebaseToken: String){
+      
         let uid = UserDefaults.standard.integer(forKey: "uid")
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         
@@ -320,7 +318,52 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "write",         // Method name
                     [[recordedId],[                // vals_list // need record id save in userdefault
-                        "firebase_ios_notification_token" : firebaseToken,
+                        "firebase_ios_notification_token" : firebaseToken
+                    ]]
+                ]
+            ]
+        ]
+        
+        
+        print("\n params value for write records on CRM like Number and Firebase_Notification_Token: \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("send phone#/firebaseToken record to CRM result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                    print("result is: \(result)")
+                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
+                    
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                }
+                
+            case .failure(let error):
+                self.updateNumberDelegate?.updateNumberFailure(error: error)
+                print("error is :\(error)")
+                break
+            }
+        }
+    }
+    //MARK: - Write records (Leads) Method for change/update phone number CRM (OdooServer) records
+    func writeRecords(number: String) {
+        let uid = UserDefaults.standard.integer(forKey: "uid")
+        let recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               //   GlobalVariable.instance.uid,
+                    dbPassword,            // password
+                    "crm.lead",       // Model name
+                    "write",         // Method name
+                    [[recordedId],[                // vals_list // need record id save in userdefault
                         "number_ids": [
                             [0, 0, [
                                 "number": number,
@@ -992,7 +1035,7 @@ class OdooClientNew {
         
     }
     
-    func demoDeposit(amount: Int) {
+    func demoDeposit(amount: Double) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
@@ -1058,7 +1101,7 @@ class OdooClientNew {
         }
     }
     
-    func demoWithdrawal(amount: Int) {
+    func demoWithdrawal(amount: Double) {
         let password = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data in withdrawl: \(savedUserData)")

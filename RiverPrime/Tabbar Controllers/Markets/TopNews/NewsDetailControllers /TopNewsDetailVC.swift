@@ -39,7 +39,8 @@ class TopNewsDetailVC: BaseViewController {
    
    func setupData() {
        lbl_title.text = selectedItem?.title
-       lbl_date.text = DateHelper.timeAgo(from: selectedItem?.date ?? "")
+       let date = DateHelper.convertToDate(from: selectedItem?.date ?? "")
+       lbl_date.text = DateHelper.timeAgo1(from: date!)
        lbl_symbol.text = "  " + (selectedItem?.symbol ?? "") + "  "
        lbl_symbol.layer.cornerRadius = 10.0
        self.lbl_category.layer.borderWidth = 0.2

@@ -10,6 +10,9 @@ import UIKit
 class DemoWithdrawalVC: BaseViewController {
     
     @IBOutlet weak var tf_amount: UITextField!
+    @IBOutlet weak var lbl_withdraw_detail: UILabel!
+
+    
     var odooClient = OdooClientNew()
     var tradeTypeVM = TradeTypeCellVM()
     
@@ -19,6 +22,12 @@ class DemoWithdrawalVC: BaseViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user: \(defaultAccount)")
+            
+            lbl_withdraw_detail.text = "Enter Withdrawal Amount from Demo \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
+        }
         
     }
     
@@ -31,18 +40,25 @@ class DemoWithdrawalVC: BaseViewController {
         //MARK: - Hide Navigation Bar
         
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Withdraw", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Withdraw", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func submit_withdrawAction(_ sender: Any) {
         dismissKeyboard()
         if tf_amount.text != "" {
-            odooClient.demoWithdrawal(amount: Int(tf_amount.text ?? "") ?? 0)
+          
+            let balance = Double(GlobalVariable.instance.balanceUpdate)
+            print("current balance is: \(balance ?? 0.0)")
+            
+            if let amount = Double(tf_amount.text ?? ""), let balance = balance, amount <= balance {
+                odooClient.demoWithdrawal(amount: (amount))
+            } else {
+                self.ToastMessage("Please enter less withdrawal amount from current balance")
+            }
         }else{
             self.ToastMessage("please enter amount")
         }
     }
-    
 }
 
 extension DemoWithdrawalVC: DemoWithdrawProtocol {

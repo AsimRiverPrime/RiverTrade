@@ -175,7 +175,7 @@ extension KYCViewController: IDWiseJourneyCallbacks {
         
         self.showTimeAlert(str:"Scanning completed successfully")
         
-        UserDefaults.standard.set(3, forKey: "profileStepCompeleted")
+        UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
        
         odooClientService.SearchRecord(email: self.userEmail ?? "") { data, error in
             print("id_waise decision is: \(data) : error is: \(error)")

@@ -73,7 +73,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
        
-        UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
+        UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
         UserDefaults.standard.set(selectedPurpose, forKey: "SelectedTradePurpose")
         
         AddUserAccountDetail()
@@ -109,7 +109,7 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
     }
     
     func AddUserAccountDetail() {
-        UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
+        UserDefaults.standard.set(1, forKey: "profileStepCompeleted")
         
         let tradeObjective = UserDefaults.standard.dictionary(forKey: "SelectedTradeObjective") as? [String: [String]]
         let tradeInstruments = UserDefaults.standard.dictionary(forKey: "SelectedTradeInstruments") as? [String: [String]]

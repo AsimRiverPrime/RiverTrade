@@ -10,6 +10,7 @@ import Foundation
 import Foundation
 import UIKit
 
+@available(iOS 16.0, *)
 class PresentModalController {
     
     static let instance = PresentModalController()

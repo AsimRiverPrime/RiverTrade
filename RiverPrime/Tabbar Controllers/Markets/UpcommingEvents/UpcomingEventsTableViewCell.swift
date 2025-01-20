@@ -227,7 +227,14 @@ class UpcomingEventsTableViewCell: UITableViewCell {
     
     func configure(with event: Event) {
         lbl_event.text = event.event
-        lbl_date.text = DateHelper.timeAgo(from: event.date)
+        
+        if let date = DateHelper.convertToDate(from: event.date) {
+            self.lbl_date.text = DateHelper.timeAgo1(from: date)
+        } else {
+            print("Failed to convert date string to Date")
+        }
+        
+//        lbl_date.text = DateHelper.timeAgo(from: event.date)
             
         // Convert country name to ISO code
           if let isoCode = countryToISOCode[event.country] {
@@ -237,25 +244,7 @@ class UpcomingEventsTableViewCell: UITableViewCell {
           } else {
               countryIcon.image = UIImage(named: "") // Fallback image
           }
-        
-//        if let isoCode = countryToISOCode[event.country] {
-//            let img = isoCode.lowercased() + ".png"
-//            if let flagImage = UIImage(systemName: "PK.png") {
-//                countryIcon.image = flagImage
-//            } else {
-//                print("Image \(img) not found") // Debug missing images
-//                countryIcon.image = UIImage(named: "defaultFlag")
-//            }
-//        } else {
-//            countryIcon.image = UIImage(named: "defaultFlag")
-//        }
-//        if let isoCode = countryToISOCode[event.country]?.lowercased() {
-//            let imageName = isoCode + ".png" // Image file name, e.g., "pk.png"
-//            countryIcon.image = UIImage(named: imageName)
-//        } else {
-//            countryIcon.image = UIImage(named: "defaultFlag") // Fallback image
-//        }
-        
+    
         countryIcon.layer.cornerRadius = countryIcon.frame.size.height / 2
         countryIcon.clipsToBounds = true
         countryIcon.contentMode = .scaleAspectFill
@@ -303,55 +292,6 @@ class UpcomingEventsTableViewCell: UITableViewCell {
        
         return image
     }
-    
-//    func convertToDate(from dateString: String) -> Date? {
-//        let dateFormatter = DateFormatter()
-//        
-//        // Try parsing with milliseconds first
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-//        if let date = dateFormatter.date(from: dateString) {
-//            return date
-//        }
-//        
-//        // If that fails, try parsing without milliseconds
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-//        return dateFormatter.date(from: dateString)
-//    }
-    
-//    func timeAgo(from dateString: String) -> String {
-//        guard let apiDate = convertToDate(from: dateString) else {
-//            return "Invalid Date"
-//        }
-//
-//        // Get the current date and adjust to UTC
-//        let currentDate = Date()
-//        let utcCurrentDate = Calendar.current.date(byAdding: .second, value: -TimeZone.current.secondsFromGMT(), to: currentDate)!
-//
-//        print("API Date: \(apiDate), Current UTC Date: \(utcCurrentDate)") // Debugging
-//
-//        
-//           // Calculate difference
-//           let difference = Int(utcCurrentDate.timeIntervalSince(apiDate)) // Total seconds difference
-//           
-//           // Calculate time components
-//           let days = difference / 86400
-//           let hours = (difference % 86400) / 3600
-//           let minutes = (difference % 3600) / 60
-//           
-//           // Build the output string
-//           var timeAgoString = ""
-//           if days > 0 {
-//               timeAgoString += "\(days) days "
-//           }
-//           if hours > 0 {
-//               timeAgoString += "\(hours) hours "
-//           }
-//           if minutes > 0 {
-//               timeAgoString += "\(minutes) minutes "
-//           }
-//           
-//           return timeAgoString.isEmpty ? "Just now" : "\(timeAgoString)ago"
-//    }
     
 }
 

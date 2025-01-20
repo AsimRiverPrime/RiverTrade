@@ -179,17 +179,17 @@ class ProfileViewController: BaseViewController{
             initTableView_CheckData()
                switch profileStep {
                case 0:
-                   let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-                   vc.delegateKYC = self
-                   PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-               case 1:
                    let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
                    vc.delegateKYC = self
                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-               case 2:
-                   let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+               case 1:
+                   let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .bottomSheetPopups) as! KYCViewController
                    vc.delegateKYC = self
                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//               case 2:
+//                   let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+//                   vc.delegateKYC = self
+//                   PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                default:
                    self.ToastMessage("Already Done KYC")
                }

@@ -47,7 +47,14 @@ class EconomicCalendarDetailVC: BaseViewController {
    func setupData() {
        
        lbl_event.text = selectedItem?.event
-       lbl_date.text = DateHelper.timeAgo(from: selectedItem?.date ?? "")
+       
+       if let date = DateHelper.convertToDate(from: selectedItem?.date ?? "") {
+           lbl_date.text = DateHelper.timeAgo1(from: date)
+       } else {
+           print("Failed to convert date string to Date")
+       }
+       
+//       lbl_date.text = DateHelper.timeAgo(from: selectedItem?.date ?? "")
        lbl_symbol.text = selectedItem?.symbol ?? ""
        
        lbl_actual.text = selectedItem?.actual

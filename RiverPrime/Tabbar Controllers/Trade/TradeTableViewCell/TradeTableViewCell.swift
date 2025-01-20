@@ -35,9 +35,38 @@ class TradeTableViewCell: UITableViewCell {
     var digits: Int?
     var lastClosedValue: Double?
     
+    var onLabel1Tapped: (() -> Void)?
+       var onLabel2Tapped: (() -> Void)?
+       var onLabel3Tapped: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-    }
+        // Add gesture recognizers
+             let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(label1Tapped))
+        lblCurrencySymbl.isUserInteractionEnabled = true
+        lblCurrencySymbl.addGestureRecognizer(tapGesture1)
+
+             let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(label2Tapped))
+        lbl_askAmount.isUserInteractionEnabled = true
+        lbl_askAmount.addGestureRecognizer(tapGesture2)
+
+             let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(label3Tapped))
+        lbl_bidAmount.isUserInteractionEnabled = true
+        lbl_bidAmount.addGestureRecognizer(tapGesture3)
+         }
+
+         // Gesture recognizer actions
+         @objc private func label1Tapped() {
+             onLabel1Tapped?()
+         }
+
+         @objc private func label2Tapped() {
+             onLabel2Tapped?()
+         }
+
+         @objc private func label3Tapped() {
+             onLabel3Tapped?()
+         }
     
     func setStyledLabel(value: Double, digit: Int, label: UILabel) {
         let boldColor: UIColor
@@ -289,4 +318,16 @@ extension String {
         }
         return self
     }
+    
+    static  func formatStringNumber(_ numberString: String) -> String {
+        if let number = Double(numberString) {
+            let formatter = NumberFormatter()
+            formatter.numberStyle = .decimal
+            formatter.minimumFractionDigits = 2
+            formatter.maximumFractionDigits = 2
+            return formatter.string(from: NSNumber(value: number)) ?? numberString
+        }
+        return numberString  // Return original if conversion fails
+    }
+
 }

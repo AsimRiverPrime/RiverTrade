@@ -10,6 +10,7 @@ import UIKit
 class DemoDepositVC: BaseViewController {
 
     @IBOutlet weak var tf_amount: UITextField!
+    @IBOutlet weak var lbl_deposit_detail: UILabel!
     
     var odooClient = OdooClientNew()
     var tradeTypeVM = TradeTypeCellVM()
@@ -19,6 +20,13 @@ class DemoDepositVC: BaseViewController {
         odooClient.demoDepositProtocolDelegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
+        
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default Account user: \(defaultAccount)")
+            
+            lbl_deposit_detail.text = "Enter Deposit Amount for Demo \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
+        }
         
     }
     
@@ -30,13 +38,13 @@ class DemoDepositVC: BaseViewController {
         //MARK: - Hide Navigation Bar
 
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Deposit", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Deposit", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func submit_action(_ sender: Any) {
         dismissKeyboard()
         if tf_amount.text != "" {
-            odooClient.demoDeposit(amount: Int(tf_amount.text ?? "") ?? 0)
+            odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
         }else{
             self.ToastMessage("please enter amount")
         }

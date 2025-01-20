@@ -10,21 +10,39 @@ import Foundation
 class DateHelper {
     
     // MARK: - Convert String to Date
-    static func convertToDate(from dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS", timeZone: TimeZone = TimeZone(abbreviation: "UTC")!) -> Date? {
+//    static func convertToDate(from dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS", timeZone: TimeZone = TimeZone(abbreviation: "UTC")!) -> Date? {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = dateFormat // Default format
+//        dateFormatter.timeZone = timeZone     // Default to UTC
+//      
+//        
+//        if let date = dateFormatter.date(from: dateString) {
+//            return date
+//        }
+//        // If that fails, try parsing without milliseconds
+//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+//        let datee = dateFormatter.date(from: dateString)
+//        return datee
+//      
+//    }
+    static func convertToDate(
+        from dateString: String,
+        dateFormat: [String] = ["yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss"],
+        timeZone: TimeZone = TimeZone(abbreviation: "UTC") ?? .current
+    ) -> Date? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat // Default format
-        dateFormatter.timeZone = timeZone     // Default to UTC
-      
+        dateFormatter.timeZone = timeZone
         
-        if let date = dateFormatter.date(from: dateString) {
-            return date
+        for format in dateFormat {
+            dateFormatter.dateFormat = format
+            if let date = dateFormatter.date(from: dateString) {
+                return date
+            }
         }
         
-        // If that fails, try parsing without milliseconds
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        return dateFormatter.date(from: dateString)
-      
+        return nil // If all formats fail
     }
+
     
     static func timeAgo1(from date: Date) -> String {
         let formatter = DateComponentsFormatter()
@@ -45,7 +63,7 @@ class DateHelper {
     // MARK: - Time Ago Function
     static func timeAgo(from dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS") -> String {
         // Convert the date string to Date
-        guard let apiDate = convertToDate(from: dateString, dateFormat: dateFormat) else {
+        guard let apiDate = convertToDate(from: dateString, dateFormat: [dateFormat]) else {
             return "Invalid Date"
         }
 

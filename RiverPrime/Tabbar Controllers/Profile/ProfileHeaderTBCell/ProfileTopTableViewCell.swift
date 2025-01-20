@@ -27,6 +27,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     @IBOutlet weak var imageIcon: UIImageView!
     
     @IBOutlet weak var btn_edit: UIButton!
+    @IBOutlet weak var btn_editProfile: UIButton!
     @IBOutlet weak var lbl_profile: UILabel!
     
     @IBOutlet weak var btn_completeProfile: UIButton!
@@ -156,7 +157,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             progreeBar.progress = 0.67
                             self.lbl_progressPercent.text = "67%"
                             btn_completeProfile.isUserInteractionEnabled = true
-                            btn_completeProfile.setTitle("", for: .normal)
+                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
     //                        self.btn_completeProfile.isHidden = false
                             lbl_profile.text = "Alright you complete your Profile almost.The last step KYC remaining."
                         }else if profileStep == 1 {
