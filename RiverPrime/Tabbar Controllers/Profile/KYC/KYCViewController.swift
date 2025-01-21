@@ -118,7 +118,7 @@ class KYCViewController: BaseViewController{
                 self.showTimeAlert(str:"KYC detail added successfully!")
                 self.dismiss(animated: true) {
 //                    self.delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
-                NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: ["type": "", "status": "inProgress"])
+                NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "inProgress"])
                 }
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
@@ -179,7 +179,7 @@ extension KYCViewController: IDWiseJourneyCallbacks {
        
         odooClientService.SearchRecord(email: self.userEmail ?? "") { data, error in
             print("id_waise decision is: \(data) : error is: \(error)")
-            NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: ["type": "", "status": "inProgress"])
+            NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "inProgress"])
             self.AddUserAccountDetail()
         }
         

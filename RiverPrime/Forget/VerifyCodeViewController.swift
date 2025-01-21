@@ -68,7 +68,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 self.ToastMessage( "check email inbox/spam for OTP")
             }else{
                 self.ToastMessage("check mobile message for OTP")
-                
             }
         }
     }
@@ -84,8 +83,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func confirmBtn(_ sender: Any) {
-        
-        
     }
     
     func callApi(){
@@ -97,7 +94,6 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
                 //"verify the otp code func sent through email and set that function"
                 //                odooClientService.verifyOTP(type: "email", email: userEmail, phone: "", otp: getVerificationCode() ?? "" )
                 odooClientService.verifyOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "", otp: getVerificationCode() ?? "" )
-                
                 
             }else if isPhoneVerification == true {
                 //                if let faceIDVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
@@ -337,7 +333,7 @@ extension VerifyCodeViewController: SendOTPDelegate {
 
 extension VerifyCodeViewController:  VerifyOTPDelegate {
     func otpVerifySuccess(response: Any) {
-        print("\nthis is the verify otp response: \(response)")
+        print("\nthis is the verify Email otp response: \(response)")
         
         if isEmailVerification == true {
             updateUser()

@@ -116,18 +116,18 @@ class ViewController: BaseViewController {
     
     @IBAction func tryDemo_btnAction(_ sender: Any) {
         
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-        
+//        let nonce = randomNonceString()
+//        currentNonce = nonce
+//        let appleIDProvider = ASAuthorizationAppleIDProvider()
+//        let request = appleIDProvider.createRequest()
+//        request.requestedScopes = [.fullName, .email]
+//        request.nonce = sha256(nonce)
+//        
+//        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+//        authorizationController.delegate = self
+//        authorizationController.presentationContextProvider = self
+//        authorizationController.performRequests()
+//        
     }
     
     func saveToKeychain(userIdentifier: String) {
@@ -175,107 +175,107 @@ extension ViewController {
     }
     
 }
-extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return view.window!
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            
-            guard let nonce = currentNonce else {
-                fatalError("Invalid state: A login callback was received, but no login request was sent.")
-            }
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                print("Unable to fetch identity token")
-                return
-            }
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                return
-            }
-            
-            if let email = appleIDCredential.email {
-                print("user Email set: \(email)")
-                keychain.set(email, forKey: "appleEmail")
-                _email = email
-            } else {
-                print("Email not provided")
-                _email = keychain.get("appleEmail")
-                print("User Email get : \(_email)")
-            }
-            
-            if let fullName = appleIDCredential.fullName {
-                let formattedName = [fullName.givenName, fullName.familyName]
-                    .compactMap { $0 } // Remove nil values
-                    .joined(separator: " ") // Combine non-nil values
-                
-                if !formattedName.isEmpty {
-                    print("Full Name: \(formattedName)")
-                    keychain.set(formattedName, forKey: "appleName")
-                    _fullName = formattedName
-                } else {
-                    print("Full Name not provided (empty)")
-                    _fullName = keychain.get("appleName") ?? "Not available"
-                    print("Full Name get from Keychain: \(_fullName ?? "Not available")")
-                }
-            } else {
-                print("Full Name object not provided")
-                _fullName = keychain.get("appleName") ?? "Not available"
-                print("Full Name from Keychain: \(_fullName ?? "Not available")")
-            }
-            UserDefaults.standard.set(_fullName, forKey: "FullName")
-            // Initialize a Firebase credential, including the user's full name.
-            let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
-                                                           rawNonce: nonce,
-                                                           fullName: appleIDCredential.fullName)
-            // Sign in with Firebase.
-            Auth.auth().signIn(with: credential) { authResult, error in
-                if let error = error {
-                    print("Firebase authentication failed: \(error.localizedDescription)")
-                    return
-                }
-                // User is signed in with Firebase successfuly
-                if let user = authResult?.user {
-                    
-                        UserDefaults.standard.set(user.uid, forKey: "userID")
-                    //                 self.emailUser = user.email ?? ""
-                    //                 GlobalVariable.instance.userEmail = self.emailUser!
-                    
-                    self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print("Error checking for existing user: \(error.localizedDescription)")
-                        }
-                        
-                        if let snapshot = querySnapshot, !snapshot.isEmpty {
-                            print("User with this email already exists.")
-                            
-                            self.firebaseInstance.fetchUserData(userId: user.uid)
-                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                            })
-                            
-                            let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                                print("Timer fired!")
-                                
-                                self.firebaseInstance.handleUserData()
-                            }
-                            
-                        } else {
-                            self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
-                            self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 3)
-                            
-                        }
-                    }
-                }
-            }
-        }
-    }
-  
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("Sign in with Apple error: \(error.localizedDescription)")
-    }
-}
+//extension ViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
+//    
+//    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+//        return view.window!
+//    }
+//    
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+//        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+//            
+//            guard let nonce = currentNonce else {
+//                fatalError("Invalid state: A login callback was received, but no login request was sent.")
+//            }
+//            guard let appleIDToken = appleIDCredential.identityToken else {
+//                print("Unable to fetch identity token")
+//                return
+//            }
+//            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+//                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+//                return
+//            }
+//            
+//            if let email = appleIDCredential.email {
+//                print("user Email set: \(email)")
+//                keychain.set(email, forKey: "appleEmail")
+//                _email = email
+//            } else {
+//                print("Email not provided")
+//                _email = keychain.get("appleEmail")
+//                print("User Email get : \(_email)")
+//            }
+//            
+//            if let fullName = appleIDCredential.fullName {
+//                let formattedName = [fullName.givenName, fullName.familyName]
+//                    .compactMap { $0 } // Remove nil values
+//                    .joined(separator: " ") // Combine non-nil values
+//                
+//                if !formattedName.isEmpty {
+//                    print("Full Name: \(formattedName)")
+//                    keychain.set(formattedName, forKey: "appleName")
+//                    _fullName = formattedName
+//                } else {
+//                    print("Full Name not provided (empty)")
+//                    _fullName = keychain.get("appleName") ?? "Not available"
+//                    print("Full Name get from Keychain: \(_fullName ?? "Not available")")
+//                }
+//            } else {
+//                print("Full Name object not provided")
+//                _fullName = keychain.get("appleName") ?? "Not available"
+//                print("Full Name from Keychain: \(_fullName ?? "Not available")")
+//            }
+//            UserDefaults.standard.set(_fullName, forKey: "FullName")
+//            // Initialize a Firebase credential, including the user's full name.
+//            let credential = OAuthProvider.appleCredential(withIDToken: idTokenString,
+//                                                           rawNonce: nonce,
+//                                                           fullName: appleIDCredential.fullName)
+//            // Sign in with Firebase.
+//            Auth.auth().signIn(with: credential) { authResult, error in
+//                if let error = error {
+//                    print("Firebase authentication failed: \(error.localizedDescription)")
+//                    return
+//                }
+//                // User is signed in with Firebase successfuly
+//                if let user = authResult?.user {
+//                    
+//                        UserDefaults.standard.set(user.uid, forKey: "userID")
+//                    //                 self.emailUser = user.email ?? ""
+//                    //                 GlobalVariable.instance.userEmail = self.emailUser!
+//                    
+//                    self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
+//                        if let error = error {
+//                            print("Error checking for existing user: \(error.localizedDescription)")
+//                        }
+//                        
+//                        if let snapshot = querySnapshot, !snapshot.isEmpty {
+//                            print("User with this email already exists.")
+//                            
+//                            self.firebaseInstance.fetchUserData(userId: user.uid)
+//                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
+//                            })
+//                            
+//                            let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+//                                print("Timer fired!")
+//                                
+//                                self.firebaseInstance.handleUserData()
+//                            }
+//                            
+//                        } else {
+//                            self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
+//                            self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 3)
+//                            
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//  
+//    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+//        print("Sign in with Apple error: \(error.localizedDescription)")
+//    }
+//}
 
 extension ViewController {
     

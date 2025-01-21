@@ -43,7 +43,7 @@ class NationalityVC: BaseViewController {
         
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "Nationality", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
         @IBAction func checkNationality_action(_ sender: Any) {
             self.btn_NationalityCheck.isSelected = !self.btn_NationalityCheck.isSelected

@@ -367,11 +367,10 @@ class SignUpViewController: BaseViewController {
                         //                        let name = firstName + " " + lastName
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: email, name: fullName)
                         
-                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: fullName, gender: "", phone: "", email: email, emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", registrationType: 1)
+                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: fullName, gender: "", phone: "", email: email, emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", password: password, registrationType: 1)
                         
 //                        self?.fireBaseService.saveAdditionalUserData(userId: user.uid, kyc: false, profileStep: 0, name: fullName, userName: userName, phone: "", email: email, emailVerified: false, phoneVerified: false, loginId: 0, login: false, pushedToCRM: false, demoAccountGroup: "", realAccountCreated: false, demoAccountCreated: false, registrationType: 1)
                         // Navigate to the main screen or any other action
-                        
                         
                     }
                 }

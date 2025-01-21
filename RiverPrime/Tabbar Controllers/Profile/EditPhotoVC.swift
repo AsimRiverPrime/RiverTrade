@@ -47,6 +47,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
@@ -78,13 +79,18 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             return
         }
         updateUser()
-        // Post Notification
-              NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: [
-                  "profileImage": userImage.image as Any,
-                  "userName": username
-              ])
-//        uploadImageToFirebaseStorage(image, self.tf_username.text ?? "")
-        self.navigationController?.popViewController(animated: true)
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+            print("Timer fired!")
+            
+            NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: [
+                "profileImage": image,
+                "userName": username
+            ])
+            
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     func updateUser() {

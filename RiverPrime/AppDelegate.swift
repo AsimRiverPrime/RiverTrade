@@ -141,7 +141,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             updateBadgeCount()
             // Optionally update the UI
             print("type: \(type), new status \(newStatus) ")
-            NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: ["type": type, "status": newStatus])
+            NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": type, "status": newStatus])
             
         }
         

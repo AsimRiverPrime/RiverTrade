@@ -46,7 +46,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
         // Initialization code
         checkProfileStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
-
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfileDataStatus(_:)), name: Notification.Name("UpdateProfileDataStatus"), object: nil)
     }
     @objc func updateProfileData(_ notification: Notification) {
            // Retrieve the user info dictionary from the notification
@@ -68,16 +68,18 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                    UserDefaults.standard.set(_status, forKey: "statusKYC")
                }
            }
-        
+       }
+       
+    @objc func updateProfileDataStatus(_ notification: Notification){
         checkProfileStatus()
         updateUser()
         //  public final static String Not_Started="Not Started";public final static String Wait ="in progress";public final static String Complete ="Complete";//allow to deposit and withdraw public final static String Refer ="Refer";//allow to deposit and not withdraw public final static String Rejected = "Rejected";//allow only open real account public final static String Approved ="Approved";//allow to deposit and not withdraw public final static String Incomplete ="Incomplete";//allow to deposit and not withdraw    KycStatus
         
-       }
-       
+    }
        deinit {
            // Remove observer when the view controller is deallocated
            NotificationCenter.default.removeObserver(self, name: Notification.Name("UpdateProfileData"), object: nil)
+           NotificationCenter.default.removeObserver(self, name: Notification.Name("UpdateProfileDataStatus"), object: nil)
        }
     
     func updateUser(){
@@ -113,13 +115,10 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                 }else{
                     imageIcon.image = UIImage(named: "avatarIcon")
                 }
-                
                 lbl_title.text = _name
-                
             }
         }
      
-        
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             print("\n Default Account user in profile screen: \(defaultAccount)")
            
@@ -180,7 +179,6 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                         btn_completeProfile.setTitle("Complete your Profile", for: .normal)
                       
                     }
-            
         }
     }
     

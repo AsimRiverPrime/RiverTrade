@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class ForgotViewController: UIViewController {
+class ForgotViewController: BaseViewController {
 
     @IBOutlet weak var email_tf: UITextField!{
         didSet{
@@ -44,11 +44,11 @@ class ForgotViewController: UIViewController {
     @IBAction func continue_btn(_ sender: Any) {
 
         if self.email_tf.text != "" {
-            self.email_tf.text = email
+             email = self.email_tf.text ?? ""
             Auth.auth().sendPasswordReset(withEmail: email) { error in
                 if let error = error {
                     // Handle error
-                    self.showSimpleAlert("Error: \(error.localizedDescription)")
+                    self.ToastMessage("Error: \(error.localizedDescription)")
                 } else {
                     // Notify user that the reset email has been sent
                     self.showSimpleAlert("Password reset email sent.Please check your inbox!")

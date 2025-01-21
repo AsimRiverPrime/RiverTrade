@@ -36,7 +36,7 @@ class FirestoreServices: BaseViewController {
            }
     }
     
-    func saveAdditionalUserData(userId: String, kyc: String, address: String, dateOfBirth: String, profileStep: Int, name: String, gender: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, isLogin: Bool, pushedToCRM:Bool, nationality: String, residence : String, registrationType: Int) {
+    func saveAdditionalUserData(userId: String, kyc: String, address: String, dateOfBirth: String, profileStep: Int, name: String, gender: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, isLogin: Bool, pushedToCRM:Bool, nationality: String, residence : String, password: String, registrationType: Int) {
         
         db.collection("users").document(userId).setData([
             "KycStatus" : kyc,
@@ -56,8 +56,8 @@ class FirestoreServices: BaseViewController {
             "profileStep" : profileStep,
             "pushedToCRM": pushedToCRM,
             "registrationType": registrationType,
-            "residence": residence
-            
+            "residence": residence,
+            "password": password
 //            "userName" : userName,
 //            "loginId": loginId,
 //            "demoAccountGroup": demoAccountGroup,

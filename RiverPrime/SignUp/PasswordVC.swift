@@ -64,6 +64,34 @@ class PasswordVC: BaseViewController {
         self.userId = UserDefaults.standard.string(forKey: "userID")
         self.fullName = UserDefaults.standard.string(forKey: "FullName")
         
+        let randomPassword = generateRandomPassword(length: 8) // Adjust the length as needed
+        print("Generated Password: \(randomPassword)")
+        password_tf.text = randomPassword
+    }
+    
+    func generateRandomPassword(length: Int = 8) -> String {
+        guard length >= 8 else {
+            fatalError("Password length must be at least 8 characters.")
+        }
+
+        let lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
+        let uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let numbers = "0123456789"
+        let symbols = "!@#$%^&*()"
+        let allCharacters = lowercaseLetters + uppercaseLetters + numbers + symbols
+
+        // Ensure at least one of each required character type
+        let randomLowercase = lowercaseLetters.randomElement()!
+        let randomUppercase = uppercaseLetters.randomElement()!
+        let randomNumber = numbers.randomElement()!
+        let randomSymbol = symbols.randomElement()!
+
+        // Fill the rest of the password length with random characters
+        let remainingCharacters = (0..<(length - 4)).compactMap { _ in allCharacters.randomElement() }
+
+        // Combine all characters and shuffle them
+        let passwordArray = [randomLowercase, randomUppercase, randomNumber, randomSymbol] + remainingCharacters
+        return String(passwordArray.shuffled())
     }
     
     @objc func dismissKeyboard(){
@@ -176,7 +204,7 @@ class PasswordVC: BaseViewController {
                         
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
                         
-                        self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 1)
+                        self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self?.password_tf.text ?? "", registrationType: 1)
 //                        self?.odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
                     }
                 }
@@ -208,9 +236,9 @@ class PasswordVC: BaseViewController {
                 UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
                 
                 if self.isAppleLogin {
-                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 3)
+                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 3)
                 }else{
-                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 2)
+                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 2)
                 }
                 
                 self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: user.email ?? "", currency: "USD", leverage: 400, first_name: self.fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
@@ -218,7 +246,7 @@ class PasswordVC: BaseViewController {
                }
         }
     }
-        
+
        func updateUserAccount(){
            
            var fieldsToUpdate: [String:Any] = [
@@ -269,11 +297,9 @@ class PasswordVC: BaseViewController {
                       }
                self.navigateFaceID()
            })
-          
        }
     
     func navigateFaceID(){
-        
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
         faceIdVC.afterLoginNavigation = false
         self.navigate(to: faceIdVC)

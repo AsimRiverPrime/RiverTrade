@@ -156,15 +156,12 @@ class   PhoneVerifyVC: BaseViewController, CLLocationManagerDelegate{
         self.navigate(to: verifyVC)
     }
     
-    private func navigateTofaceIDScreen() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let faceID = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC")
-        self.navigate(to: faceID)
-        
-//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-//        let dashboardVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
-//        self.navigate(to: dashboardVC)
-    }
+//    private func navigateTofaceIDScreen() {
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let faceID = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC")
+//        self.navigate(to: faceID)
+//
+//    }
     
 }
 
@@ -172,7 +169,6 @@ extension PhoneVerifyVC: PhoneOTPDelegate {
     func didCompletePhoneOTPVerification() {
         self.dismiss(animated: true)
         self.delegate?.didCompletePhoneVerification()
-        
        
     }
 
@@ -183,9 +179,7 @@ extension PhoneVerifyVC:  SendOTPDelegate {
     func otpSuccess(response: Any) {
         print("this is the phone send otp response: \(response)")
         navigateToVerifiyScreen()
-//        if let residencVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "ResidencVC"){
-//            self.navigate(to: residencVC)
-//        }
+
     }
     
     func otpFailure(error: any Error) {
@@ -203,7 +197,7 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
 //        navigateTofaceIDScreen()
-        navigateToVerifiyScreen()
+//        navigateToVerifiyScreen()
     }
     
     func updateNumberFailure(error: any Error) {
