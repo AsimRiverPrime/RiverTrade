@@ -115,6 +115,7 @@ public extension SeriesApi where Self: SeriesObject {
     }
     
     private func updateSeriesBar<T: SeriesData>(_ bar: T) {
+        
         let script = "\(jsName).update(\(bar.jsonString));"
         context.evaluateScript(script, completion: nil)
     }
