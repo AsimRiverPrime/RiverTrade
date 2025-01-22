@@ -2681,6 +2681,54 @@
             </objects>
             <point key="canvasLocation" x="4551.6279069767443" y="13.519313304721031"/>
         </scene>
+        <!--AlarmsVC-->
+        <scene sceneID="5Gw-Ff-vSY">
+            <objects>
+                <viewController storyboardIdentifier="AlarmsVC" id="Pti-b6-CPp" customClass="AlarmsVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7Z4-ch-eXF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EMY-3j-Ix8">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DFZ-x8-kJh" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="182" y="5" width="50" height="5"/>
+                                        <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="8S9-Ow-qd4"/>
+                                            <constraint firstAttribute="width" constant="50" id="yZW-tm-U78"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.062745098040000002" green="0.066666666669999999" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="DFZ-x8-kJh" firstAttribute="centerX" secondItem="EMY-3j-Ix8" secondAttribute="centerX" id="gy0-Rj-8RY"/>
+                                    <constraint firstItem="DFZ-x8-kJh" firstAttribute="top" secondItem="EMY-3j-Ix8" secondAttribute="top" constant="5" id="kwh-tI-k4d"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="EMY-3j-Ix8" secondAttribute="trailing" id="1Jp-lb-tiL"/>
+                            <constraint firstAttribute="bottom" secondItem="EMY-3j-Ix8" secondAttribute="bottom" id="QPz-Td-buZ"/>
+                            <constraint firstItem="EMY-3j-Ix8" firstAttribute="top" secondItem="7Z4-ch-eXF" secondAttribute="top" id="VtK-kB-Cab"/>
+                            <constraint firstItem="EMY-3j-Ix8" firstAttribute="leading" secondItem="7Z4-ch-eXF" secondAttribute="leading" id="nJ3-6L-yuf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FJD-aq-OlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1939" y="-1339"/>
+        </scene>
         <!--Notification View Controller-->
         <scene sceneID="Q4K-Us-i6q">
             <objects>
@@ -2730,7 +2778,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xho-10-RdH">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xho-10-RdH">
                                                 <rect key="frame" x="329" y="14.5" width="75" height="31"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
@@ -3243,19 +3291,19 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Between 8 to 15 characters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjk-KL-FQt">
                                                 <rect key="frame" x="15" y="153.5" width="374" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least one upper and one lower case letter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dWS-SW-yTO">
                                                 <rect key="frame" x="15" y="173" width="374" height="14"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At least one number and one special letter " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9d-4Q-XJL">
                                                 <rect key="frame" x="15" y="192" width="374" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <color key="textColor" systemColor="systemRedColor"/>
+                                                <color key="textColor" systemColor="systemGray2Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="etM-rT-jqR" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
@@ -6569,6 +6617,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="hZ4-Hx-h1C"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="73m-U1-IzE" secondAttribute="trailing" id="jSO-OC-Kfy"/>
@@ -7487,6 +7536,15 @@
                                                     <constraint firstItem="SQA-Ub-5Sn" firstAttribute="centerY" secondItem="Z4h-xN-TR7" secondAttribute="centerY" id="Ty7-4X-RUm"/>
                                                 </constraints>
                                             </view>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SZU-Yx-wW4">
+                                                <rect key="frame" x="336" y="615.5" width="50" height="34"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="chart.line.flattrend.xyaxis.circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="toggleIndicatorButtonTapped:" destination="Z3L-8w-oZr" eventType="touchUpInside" id="0Tw-Vd-NkP"/>
+                                                </connections>
+                                            </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hqj-qz-xj6">
                                                 <rect key="frame" x="5" y="597" width="404" height="150"/>
                                                 <subviews>
@@ -7679,6 +7737,7 @@
                                             <constraint firstItem="Z4h-xN-TR7" firstAttribute="leading" secondItem="7Qx-Z5-jMa" secondAttribute="leading" id="CXh-PU-hkW"/>
                                             <constraint firstItem="7Qx-Z5-jMa" firstAttribute="leading" secondItem="PTF-fn-moY" secondAttribute="leading" constant="5" id="Eqa-b0-3hI"/>
                                             <constraint firstItem="Ahe-Y6-rBW" firstAttribute="top" secondItem="7Qx-Z5-jMa" secondAttribute="top" id="GJ8-ZS-LAP"/>
+                                            <constraint firstAttribute="trailing" secondItem="SZU-Yx-wW4" secondAttribute="trailing" constant="28" id="Hjf-d3-iXi"/>
                                             <constraint firstItem="Ahe-Y6-rBW" firstAttribute="leading" secondItem="7Qx-Z5-jMa" secondAttribute="leading" id="Hm4-Yx-BiB"/>
                                             <constraint firstAttribute="trailing" secondItem="Aew-ut-5z5" secondAttribute="trailing" constant="5" id="JFO-l9-SJu"/>
                                             <constraint firstItem="o5U-bW-CHn" firstAttribute="top" secondItem="PTF-fn-moY" secondAttribute="top" constant="5" id="NZV-qS-8rX"/>
@@ -7687,6 +7746,7 @@
                                             <constraint firstItem="Hqj-qz-xj6" firstAttribute="leading" secondItem="Z4h-xN-TR7" secondAttribute="leading" id="R60-wP-wyT"/>
                                             <constraint firstItem="Rbd-9s-fgx" firstAttribute="trailing" secondItem="7Qx-Z5-jMa" secondAttribute="trailing" id="V7r-uc-rfd"/>
                                             <constraint firstAttribute="trailing" secondItem="7Qx-Z5-jMa" secondAttribute="trailing" constant="5" id="VcP-0y-boE"/>
+                                            <constraint firstItem="SZU-Yx-wW4" firstAttribute="top" secondItem="Z4h-xN-TR7" secondAttribute="bottom" constant="20.5" id="W0D-eb-IQa"/>
                                             <constraint firstItem="Z4h-xN-TR7" firstAttribute="trailing" secondItem="7Qx-Z5-jMa" secondAttribute="trailing" id="WU4-iE-Baj"/>
                                             <constraint firstItem="Aew-ut-5z5" firstAttribute="top" secondItem="e0r-WW-UeI" secondAttribute="bottom" constant="10" id="XLo-MI-57q"/>
                                             <constraint firstAttribute="bottom" secondItem="Ahe-Y6-rBW" secondAttribute="bottom" id="Ya0-TL-BzO"/>
@@ -7937,6 +7997,7 @@
         <image name="amplify-icon.png" width="49" height="49"/>
         <image name="chart.bar" catalog="system" width="128" height="89"/>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
+        <image name="chart.line.flattrend.xyaxis.circle" catalog="system" width="128" height="123"/>
         <image name="chart.line.uptrend.xyaxis" catalog="system" width="128" height="102"/>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="102"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="123"/>

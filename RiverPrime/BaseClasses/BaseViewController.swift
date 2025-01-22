@@ -9,12 +9,34 @@ import Foundation
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setLocalisedString()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionLost), name: .connectionLost, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionRestored), name: .connectionRestored, object: nil)
+        
     }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func handleConnectionLost() {
+        showNoInternetAlert()
+    }
+    
+    @objc func handleConnectionRestored() {
+        print("\n<---***---Internet connection restored!---***--->>>>>>\n")
+    }
+    
+    func showNoInternetAlert() {
+        let alert = UIAlertController(title: "No Internet Connection", message: "Please check your network settings.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     
     
@@ -31,11 +53,11 @@ class BaseViewController: UIViewController {
     
     //MARK: - Hide Back button in the Nav bar.
     func setNavBar(isLogin: Bool? = nil, vc: UIViewController, isBackButton: Bool, isBar: Bool) {
-//        GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
+        //        GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
         if isLogin != nil {
-//            if Session.instance.IsSimpleLogout == true {
-//                GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
-//            }
+            //            if Session.instance.IsSimpleLogout == true {
+            //                GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
+            //            }
             GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isLogin ?? false, isBar: isBar)
         } else {
             GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
@@ -59,7 +81,7 @@ class BaseViewController: UIViewController {
             UIApplication.shared.open(url)
         }
     }
-
+    
     
     
     //MARK: -Navigation  Bar
@@ -109,7 +131,7 @@ class BaseViewController: UIViewController {
             return false
         }
     }
-
+    
 }
 
 //MARK: - Alert Methods
@@ -153,7 +175,7 @@ extension BaseViewController {
         CustomDropDown.instance.dropDownButton(list: list, sender: sender) { [weak self] (index: Int, item: String) in
             print("this is the selected index value:\(index)")
             print("this is the selected item name :\(item)")
-//            guard let self = self else { return }
+            //            guard let self = self else { return }
             sender.setTitle(item, for: .normal)
             completion((index,item))
         }
@@ -165,13 +187,13 @@ extension BaseViewController {
         CustomDropDown.instance.dropDownButton(list: list, sender: sender) { [weak self] (index: Int, item: String) in
             print("this is the selected index value:\(index)")
             print("this is the selected item name :\(item)")
-//            guard let self = self else { return }
+            //            guard let self = self else { return }
             // Split the selected item into words and get the last word
-                   let words = item.split(separator: " ")
-                   if let lastWord = words.last {
-                       sender.setTitle(String(lastWord), for: .normal) // Set button title to the last word
-                   }
-//            sender.setTitle(item, for: .normal)
+            let words = item.split(separator: " ")
+            if let lastWord = words.last {
+                sender.setTitle(String(lastWord), for: .normal) // Set button title to the last word
+            }
+            //            sender.setTitle(item, for: .normal)
             completion((index,item))
         }
         

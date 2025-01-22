@@ -261,7 +261,8 @@ extension MarketsViewController: TopNewsProtocol {
     }
     
     func filterImportantNews() {
-        filteredPayloads = allPayloads.filter { $0.importance == 1}
+//        filteredPayloads = allPayloads.filter { $0.importance == 1}
+        filteredPayloads = allPayloads
         print("filteredPayloads: \(filteredPayloads)")
     }
     
@@ -295,7 +296,8 @@ extension MarketsViewController: EconomicCalendarProtocol {
     }
   
     func calendarFilterImportantEvents() {
-        filteredEvents = allEvents.filter { $0.importance == 1 }
+//        filteredEvents = allEvents.filter { $0.importance == 1 }
+        filteredEvents = allEvents
         print("filtered Events for calender : \(filteredEvents)")
     }
     

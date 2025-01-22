@@ -44,7 +44,8 @@ class PasswordVC: BaseViewController {
     var isGoogleAccount =  Bool()
     var isAppleLogin = Bool()
     var account:  [AccountModel] = []
-   
+    let passwordManager = PasswordManager()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,34 +65,10 @@ class PasswordVC: BaseViewController {
         self.userId = UserDefaults.standard.string(forKey: "userID")
         self.fullName = UserDefaults.standard.string(forKey: "FullName")
         
-        let randomPassword = generateRandomPassword(length: 8) // Adjust the length as needed
+        let randomPassword = passwordManager.generateRandomPassword(length: 8) // Adjust the length as needed
         print("Generated Password: \(randomPassword)")
         password_tf.text = randomPassword
-    }
-    
-    func generateRandomPassword(length: Int = 8) -> String {
-        guard length >= 8 else {
-            fatalError("Password length must be at least 8 characters.")
-        }
-
-        let lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
-        let uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let numbers = "0123456789"
-        let symbols = "!@#$%^&*()"
-        let allCharacters = lowercaseLetters + uppercaseLetters + numbers + symbols
-
-        // Ensure at least one of each required character type
-        let randomLowercase = lowercaseLetters.randomElement()!
-        let randomUppercase = uppercaseLetters.randomElement()!
-        let randomNumber = numbers.randomElement()!
-        let randomSymbol = symbols.randomElement()!
-
-        // Fill the rest of the password length with random characters
-        let remainingCharacters = (0..<(length - 4)).compactMap { _ in allCharacters.randomElement() }
-
-        // Combine all characters and shuffle them
-        let passwordArray = [randomLowercase, randomUppercase, randomNumber, randomSymbol] + remainingCharacters
-        return String(passwordArray.shuffled())
+        passwordDidChange(password_tf)
     }
     
     @objc func dismissKeyboard(){
@@ -160,11 +137,11 @@ class PasswordVC: BaseViewController {
         }else if isGoogleAccount{
 //            userId =  GlobalVariable.instance.userID
             print("userID on google : \(userId ?? "")")
-            SignUpGoogle()
+//            SignUpGoogle()
             
         }else if isAppleLogin {
             print("userID on Apple : \(userId ?? "")")
-            signUpApple()
+//            signUpApple()
         }
        
     }
@@ -212,40 +189,40 @@ class PasswordVC: BaseViewController {
         }
     }
     
-    func signUpApple() {
+//    func signUpApple() {
         
-        updateUserPassword(self.password_tf.text ?? "")
-    }
+//        updateUserPassword(self.password_tf.text ?? "")
+//    }
     
-    func SignUpGoogle() {
+//    func SignUpGoogle() {
       
 //        self.googleSignIn.authenticateWithFirebase(user: googleUser)
-        updateUserPassword(self.password_tf.text ?? "")
+//        updateUserPassword(self.password_tf.text ?? "")
  
-    }
+//    }
     // Function to update the user's password in Firebase
-    func updateUserPassword(_ password: String) {
-        guard let user = Auth.auth().currentUser else { return }
-        print("Current user is: \(user.email ?? "nothing to show")")
-        
-        user.updatePassword(to: password) { error in
-            if let error = error {
-                print("Failed to update password: \(error.localizedDescription)")
-            } else {
-                print("Password updated successfully.")
-                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
-                
-                if self.isAppleLogin {
-                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 3)
-                }else{
-                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 2)
-                }
-                
-                self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: user.email ?? "", currency: "USD", leverage: 400, first_name: self.fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
-                
-               }
-        }
-    }
+//    func updateUserPassword(_ password: String) {
+//        guard let user = Auth.auth().currentUser else { return }
+//        print("Current user is: \(user.email ?? "nothing to show")")
+//        
+//        user.updatePassword(to: password) { error in
+//            if let error = error {
+//                print("Failed to update password: \(error.localizedDescription)")
+//            } else {
+//                print("Password updated successfully.")
+//                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
+//                
+//                if self.isAppleLogin {
+//                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 3)
+//                }else{
+//                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 2)
+//                }
+//                
+//                self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: user.email ?? "", currency: "USD", leverage: 400, first_name: self.fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
+//                
+//               }
+//        }
+//    }
 
        func updateUserAccount(){
            

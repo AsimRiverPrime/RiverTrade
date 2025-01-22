@@ -38,6 +38,9 @@ class TradeDetalVC: UIViewController {
     var barSeries: BarSeries!
     var areaSeries: AreaSeries!
     
+//    var bidIndicatorLineSeries: LineSeries?
+//    var isIndicatorVisible = false
+    
     //    @IBOutlet weak var lbl_login_id: UILabel!
     @IBOutlet weak var lbl_LiveAmount: UILabel!
     @IBOutlet weak var lbl_percentage: UILabel!
@@ -52,8 +55,6 @@ class TradeDetalVC: UIViewController {
     @IBOutlet weak var btn_ChartType: UIButton!
     
     @IBOutlet var btn_time: [UIButton]!
-    
-    
     
     @IBOutlet weak var sellBtn: UIButton!
     @IBOutlet weak var sellLblTitle: UILabel!
@@ -93,6 +94,8 @@ class TradeDetalVC: UIViewController {
         chartButtonSelected = true
         areaButtonSelected = false
         lineButtonSelected = false
+        
+//        setupIndicatorLineSeries()
         
         self.overviewView.isHidden = true
         
@@ -255,11 +258,49 @@ class TradeDetalVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //        disconnectWebSocket()
-    }
-   
+//    private func setupIndicatorLineSeries() {
+//        let options = ChartOptions(crosshair: CrosshairOptions(mode: .normal))
+//        let chart = LightweightCharts(options: options)
+//        chart.translatesAutoresizingMaskIntoConstraints = false
+//        chart.backgroundColor = .clear
+//        chartView.addSubview(chart)
+//        
+//        // Constrain chart to chartView
+//        NSLayoutConstraint.activate([
+//            chart.leadingAnchor.constraint(equalTo: chartView.leadingAnchor),
+//            chart.trailingAnchor.constraint(equalTo: chartView.trailingAnchor),
+//            chart.topAnchor.constraint(equalTo: chartView.topAnchor),
+//            chart.bottomAnchor.constraint(equalTo: chartView.bottomAnchor),
+//        ])
+//        
+//        self.chart = chart // Retain the chart instance
+//
+//        let optionss = LineSeriesOptions(
+//            color: "blue", // Line color for the indicator
+//            lineStyle: .solid,
+//            lineWidth: .two
+//        )
+//        bidIndicatorLineSeries = chart.addLineSeries(options: optionss)
+//    }
+//
+//    private func loadIndicatorData() {
+//        let lineData = convertToLineData(candlestickData: candlestickData)
+//        print("Line Data:", lineData) // Debugging
+//
+//        bidIndicatorLineSeries?.setData(data: lineData)
+//    }
+//
+//    @IBAction func toggleIndicatorButtonTapped(_ sender: UIButton) {
+//        isIndicatorVisible.toggle() // Toggle the visibility flag
+//
+//        if isIndicatorVisible {
+//            loadIndicatorData() // Show indicator
+//            sender.setTitle("Hide", for: .normal) // Update button title
+//        } else {
+//            bidIndicatorLineSeries?.setData(data: [LineData]()) // Hide indicator
+//            sender.setTitle("Show", for: .normal) // Update button title
+//        }
+//    }
     
     @IBAction func menuButton(_ sender: UIButton) {
         addTopAndBottomBorders(menuButton[sender.tag])
@@ -383,7 +424,7 @@ class TradeDetalVC: UIViewController {
                     low: low,
                     close: close
                 )
-                
+              
                 switch self.chartType {
                 case .candlestick:
                     
@@ -825,6 +866,14 @@ extension TradeDetalVC {
     private func convertToAreaData(candlestickData: CandlestickData) -> AreaData {
         
         AreaData(time: candlestickData.time, value: candlestickData.close)
+    }
+    
+    private func convertToLineData(candlestickData: [CandlestickData]) -> [LineData] {
+        
+        return candlestickData.map { candle in
+            return LineData(time: candle.time, value: candle.close)
+        }
+        
     }
 }
 

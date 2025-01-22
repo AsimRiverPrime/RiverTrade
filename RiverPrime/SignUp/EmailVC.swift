@@ -40,6 +40,8 @@ class EmailVC: BaseViewController {
     var _fullName : String?
     var _password: String?
     
+    let passwordManager = PasswordManager()
+    
     fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class EmailVC: BaseViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
         
-        self._password = generateRandomPassword(length: 8)
+        self._password = passwordManager.generateRandomPassword(length: 8)
     }
     
     @objc func dismissKeyboard(){
@@ -140,31 +142,7 @@ class EmailVC: BaseViewController {
         authorizationController.performRequests()
         
     }
-    
-    func generateRandomPassword(length: Int = 8) -> String {
-        guard length >= 8 else {
-            fatalError("Password length must be at least 8 characters.")
-        }
 
-        let lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
-        let uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        let numbers = "0123456789"
-        let symbols = "!@#$%^&*()"
-        let allCharacters = lowercaseLetters + uppercaseLetters + numbers + symbols
-
-        // Ensure at least one of each required character type
-        let randomLowercase = lowercaseLetters.randomElement()!
-        let randomUppercase = uppercaseLetters.randomElement()!
-        let randomNumber = numbers.randomElement()!
-        let randomSymbol = symbols.randomElement()!
-
-        // Fill the rest of the password length with random characters
-        let remainingCharacters = (0..<(length - 4)).compactMap { _ in allCharacters.randomElement() }
-
-        // Combine all characters and shuffle them
-        let passwordArray = [randomLowercase, randomUppercase, randomNumber, randomSymbol] + remainingCharacters
-        return String(passwordArray.shuffled())
-    }
     
 }
 
@@ -312,7 +290,8 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
     
     func createMTAccount() {
         let id =  UserDefaults.standard.string(forKey: "userID")
-          
+        UserDefaults.standard.set((self._password ?? ""), forKey: "password")
+        
           if self.isAppleLogin {
               
               self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self._password ?? "", registrationType: 3)
@@ -356,7 +335,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                               print("\n updating isDefault account success: ")
    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                               
-                              let passwordManager = PasswordManager()
+                              
                               if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: self._password ?? "") {
                                   print("Password successfully saved.")
                               } else {

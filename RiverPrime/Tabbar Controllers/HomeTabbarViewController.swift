@@ -41,6 +41,9 @@ class HomeTabbarViewController: UITabBarController {
         symbolApiCalling()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+    }
 }
 
 extension UIImage {

@@ -27,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //MARK: - To make SVProgressHUD position center we need this line.
         window = UIWindow(frame: UIScreen.main.bounds)
+        Connectivity.shared.startMonitoring()
         
         FirebaseApp.configure()
         

@@ -27,7 +27,7 @@ class NationalityVC: BaseViewController {
             
             
 
-            self.tf_nationailityField.isUserInteractionEnabled = false
+           
             self.btn_confirm.isUserInteractionEnabled = false
             self.btn_confirm.tintColor = .systemGray
             self.btn_confirm.layer.borderColor =   UIColor.systemGray.cgColor
@@ -35,8 +35,16 @@ class NationalityVC: BaseViewController {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(checkNationality_action))
             lbl_checkNationality.addGestureRecognizer(tapGesture)
             
+            let tapGestureTextfield = UITapGestureRecognizer(target: self, action: #selector(showCountryPicker))
+            tf_nationailityField.addGestureRecognizer(tapGestureTextfield)
+            self.tf_nationailityField.isUserInteractionEnabled = true
         }
-        
+    
+    @objc func showCountryPicker() {
+        tf_nationailityField.resignFirstResponder() // Dismiss the keyboard if needed
+        view_nationailtyCountryPicker.showCountriesList(from: self) // Show the picker
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //        self.navigationController?.setNavigationBarHidden(true, animated: true)

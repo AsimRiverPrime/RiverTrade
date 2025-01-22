@@ -10,8 +10,6 @@ class PasswordManager {
     // Key for UserDefaults storage
     private let userDefaultsKey = "userPasswordData"
     
-   
-    
     // Save a new password
     func savePassword(for id: String, password: String) -> Bool {
         // Retrieve existing passwords
@@ -50,4 +48,30 @@ class PasswordManager {
     private func saveToUserDefaults(_ passwords: [String: [String: String]]) {
         UserDefaults.standard.set(passwords, forKey: userDefaultsKey)
     }
+    
+    func generateRandomPassword(length: Int) -> String {
+        guard length >= 8 else {
+            fatalError("Password length must be at least 8 characters.")
+        }
+
+        let lowercaseLetters = "abcdefghijklmnopqrstuvwxyz"
+        let uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        let numbers = "0123456789"
+        let symbols = "!@#$%^&*()"
+        let allCharacters = lowercaseLetters + uppercaseLetters + numbers + symbols
+
+        // Ensure at least one of each required character type
+        let randomLowercase = lowercaseLetters.randomElement()!
+        let randomUppercase = uppercaseLetters.randomElement()!
+        let randomNumber = numbers.randomElement()!
+        let randomSymbol = symbols.randomElement()!
+
+        // Fill the rest of the password length with random characters
+        let remainingCharacters = (0..<(length - 4)).compactMap { _ in allCharacters.randomElement() }
+
+        // Combine all characters and shuffle them
+        let passwordArray = [randomLowercase, randomUppercase, randomNumber, randomSymbol] + remainingCharacters
+        return String(passwordArray.shuffled())
+    }
+    
 }

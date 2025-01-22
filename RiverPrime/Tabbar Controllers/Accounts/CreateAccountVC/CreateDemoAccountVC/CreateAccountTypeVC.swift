@@ -49,6 +49,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
     var demoAccountGroup = String()
     var userAccountsPasswordData : [String: [String: String]] = [:]
     var currencyList = ["USD", "EURO", "GBP", "USDT"]
+    let passwordManager = PasswordManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +80,12 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         view.addGestureRecognizer(tapGesture)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+        self.tf_password.text = passwordManager.generateRandomPassword(length: 8)
+        passwordDidChange(tf_password)
+        
+    }
     @objc func dismissKeyboard() {
         view.endEditing(true) // This will dismiss the keyboard
     }
@@ -268,7 +275,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                     print("\n updating isDefault account success: ")
                     //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                     
-                    let passwordManager = PasswordManager()
+                   
                     if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: tf_password.text ?? "") {
                         print("Password successfully saved.")
                     } else {

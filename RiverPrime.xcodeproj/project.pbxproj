@@ -64,6 +64,8 @@
 		311B31232D06F54F00AA856B /* ChangeTradePasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311B31222D06F54F00AA856B /* ChangeTradePasswordVC.swift */; };
 		31231D412D266FB700053FC2 /* NationalityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31231D402D266FB700053FC2 /* NationalityVC.swift */; };
 		3128DAE32CD9040C00E9B130 /* TradeHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */; };
+		312C3A3B2D40FFEB001B9639 /* AlarmsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C3A3A2D40FFEB001B9639 /* AlarmsVC.swift */; };
+		312C3A3D2D4126B3001B9639 /* Connectivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312C3A3C2D4126B3001B9639 /* Connectivity.swift */; };
 		3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */; };
 		3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */; };
 		313A92322D082C4A004AC33D /* GetBalanceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 313A92312D082C4A004AC33D /* GetBalanceModel.swift */; };
@@ -132,7 +134,6 @@
 		3185C5912D10571100FC996F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5902D10571100FC996F /* DateHelper.swift */; };
 		3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A62CF9FDB4000E7AFE /* Logo.gif */; };
 		3188EF3C2CCBA395002F47BA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188EF3B2CCBA395002F47BA /* RoundedButton.swift */; };
-		319871642CAD49DC007FE3DA /* SecurePassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319871632CAD49CE007FE3DA /* SecurePassword.swift */; };
 		319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */; };
 		319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32832C9C3EFB006DA077 /* TradeTVC.xib */; };
 		319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */; };
@@ -434,6 +435,8 @@
 		311B31222D06F54F00AA856B /* ChangeTradePasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTradePasswordVC.swift; sourceTree = "<group>"; };
 		31231D402D266FB700053FC2 /* NationalityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NationalityVC.swift; sourceTree = "<group>"; };
 		3128DAE22CD9040C00E9B130 /* TradeHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeHistoryModel.swift; sourceTree = "<group>"; };
+		312C3A3A2D40FFEB001B9639 /* AlarmsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmsVC.swift; sourceTree = "<group>"; };
+		312C3A3C2D4126B3001B9639 /* Connectivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connectivity.swift; sourceTree = "<group>"; };
 		3135798A2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasscodeVC.swift; sourceTree = "<group>"; };
 		3137AE712C77474900B5A83B /* PasscodeFaceIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasscodeFaceIDVC.swift; sourceTree = "<group>"; };
 		313A92312D082C4A004AC33D /* GetBalanceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetBalanceModel.swift; sourceTree = "<group>"; };
@@ -503,7 +506,6 @@
 		3185C5902D10571100FC996F /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		3186F8A62CF9FDB4000E7AFE /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		3188EF3B2CCBA395002F47BA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
-		319871632CAD49CE007FE3DA /* SecurePassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurePassword.swift; sourceTree = "<group>"; };
 		319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
 		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
@@ -1063,6 +1065,14 @@
 			path = ChangeTradePassword;
 			sourceTree = "<group>";
 		};
+		312C3A392D40FFA5001B9639 /* AlarmHandler */ = {
+			isa = PBXGroup;
+			children = (
+				312C3A3A2D40FFEB001B9639 /* AlarmsVC.swift */,
+			);
+			path = AlarmHandler;
+			sourceTree = "<group>";
+		};
 		3137AE702C77471A00B5A83B /* PasscodeVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1208,13 +1218,14 @@
 			path = SocialTradeTBCell;
 			sourceTree = "<group>";
 		};
-		317B001D2D37B939007C7C37 /* NotificationHandler */ = {
+		317B001D2D37B939007C7C37 /* Notification&AlarmsHandler */ = {
 			isa = PBXGroup;
 			children = (
+				312C3A392D40FFA5001B9639 /* AlarmHandler */,
 				317B001E2D37B954007C7C37 /* NotificationHandler.swift */,
 				31B102DA2C45144E0006E8EB /* Notifications */,
 			);
-			path = NotificationHandler;
+			path = "Notification&AlarmsHandler";
 			sourceTree = "<group>";
 		};
 		317FDE402D31667C0036924E /* AppleID_SignIn  */ = {
@@ -1256,14 +1267,6 @@
 				3185C5902D10571100FC996F /* DateHelper.swift */,
 			);
 			path = DateHelper;
-			sourceTree = "<group>";
-		};
-		319871612CAD4991007FE3DA /* passwordSecure */ = {
-			isa = PBXGroup;
-			children = (
-				319871632CAD49CE007FE3DA /* SecurePassword.swift */,
-			);
-			path = passwordSecure;
 			sourceTree = "<group>";
 		};
 		319A32842C9C3EFB006DA077 /* TableCollectionViewCell */ = {
@@ -1352,6 +1355,7 @@
 			isa = PBXGroup;
 			children = (
 				31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */,
+				312C3A3C2D4126B3001B9639 /* Connectivity.swift */,
 			);
 			path = UserManager;
 			sourceTree = "<group>";
@@ -1508,12 +1512,11 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
-				317B001D2D37B939007C7C37 /* NotificationHandler */,
+				317B001D2D37B939007C7C37 /* Notification&AlarmsHandler */,
 				3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */,
 				31AAD94D2D1EF3D700733D78 /* UserManager */,
 				31B8722B2D0C419700024E8A /* CacheApiResponse */,
 				31B6C53A2CC91740000DF849 /* Models */,
-				319871612CAD4991007FE3DA /* passwordSecure */,
 				3137AE702C77471A00B5A83B /* PasscodeVC */,
 				318257462C75C7B200723A50 /* WebStockManager */,
 				315DB98A2C6C778A00FF967C /* BottomSheetVCs */,
@@ -2668,6 +2671,7 @@
 				FA532D7E2C5721E1003A26D6 /* RemoveScrollView.swift in Sources */,
 				31D2AEF22C8840B800E0CF2E /* CandlestickSeries.swift in Sources */,
 				319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */,
+				312C3A3B2D40FFEB001B9639 /* AlarmsVC.swift in Sources */,
 				319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */,
 				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
 				FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */,
@@ -2718,6 +2722,7 @@
 				31DC19C52C4F6DF5005BC2BB /* ProfileTopTableViewCell.swift in Sources */,
 				314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */,
 				31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */,
+				312C3A3D2D4126B3001B9639 /* Connectivity.swift in Sources */,
 				31D2AF202C8840B800E0CF2E /* GridOptions.swift in Sources */,
 				31D2AF0D2C8840B800E0CF2E /* SeriesData.swift in Sources */,
 				31D2AF072C8840B800E0CF2E /* BarData.swift in Sources */,
@@ -2737,7 +2742,6 @@
 				31D2AF3D2C8840B800E0CF2E /* SeriesType.swift in Sources */,
 				FA532D7B2C5721E1003A26D6 /* AlertModel.swift in Sources */,
 				31D2AF472C8840B800E0CF2E /* TimeScaleApi.swift in Sources */,
-				319871642CAD49DC007FE3DA /* SecurePassword.swift in Sources */,
 				31D2AEF82C8840B800E0CF2E /* LightweightCharts.swift in Sources */,
 				31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */,
 				31D2AF352C8840B800E0CF2E /* BusinessDay.swift in Sources */,

@@ -7,17 +7,21 @@
 
 import UIKit
 import CountryPickerView
-import GoogleSignIn
+import CoreLocation
+
 
 class ResidencVC: BaseViewController {
     @IBOutlet weak var view_residencyCountryPicker: CountryPickerView!
 
+//    @IBOutlet weak var flagImageView: UIView!
     @IBOutlet weak var btn_residenceCheck: UIButton!
     @IBOutlet weak var tf_residencyField: UITextField!
     @IBOutlet weak var btn_confirm: CardViewButton!
     @IBOutlet weak var lbl_checkResidence: UILabel!
     
-    var googleUser = GIDGoogleUser()
+   
+    let locationManager = CLLocationManager()
+    
     
     var fireStoreInstance = FirestoreServices()
     let userId =  UserDefaults.standard.string(forKey: "userID")
@@ -30,10 +34,11 @@ class ResidencVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
-//        isGoogleAccount =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
-//        isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
-//       print("isOpenAccount: \(isOpenAccount) ,isGoogleAccount: \(isGoogleAccount) ,isAppleLogin: \(isAppleLogin)")
-//
+
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
         view_residencyCountryPicker.delegate = self
         view_residencyCountryPicker.showPhoneCodeInView = false
         view_residencyCountryPicker.showCountryCodeInView = false
@@ -43,14 +48,17 @@ class ResidencVC: BaseViewController {
 //        odoClientNew.createLeadDelegate = self
 //        self.googleSignIn.odoClientNew.createLeadDelegate = self
 
-        self.tf_residencyField.isUserInteractionEnabled = false
+       
         self.btn_confirm.isUserInteractionEnabled = false
         self.btn_confirm.tintColor = .systemGray
         self.btn_confirm.layer.borderColor =   UIColor.systemGray.cgColor
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(checkResidence_action))
         lbl_checkResidence.addGestureRecognizer(tapGesture)
-        
+       
+        let tapGestureTextfield = UITapGestureRecognizer(target: self, action: #selector(showCountryPicker))
+        tf_residencyField.addGestureRecognizer(tapGestureTextfield)
+        self.tf_residencyField.isUserInteractionEnabled = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,6 +70,10 @@ class ResidencVC: BaseViewController {
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: NationalityVC(), navController: self.navigationController, title: "Residence", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
     }
     
+    @objc func showCountryPicker() {
+        tf_residencyField.resignFirstResponder() // Dismiss the keyboard if needed
+        view_residencyCountryPicker.showCountriesList(from: self) // Show the picker
+    }
   
     @IBAction func checkResidence_action(_ sender: Any) {
         self.btn_residenceCheck.isSelected = !self.btn_residenceCheck.isSelected
@@ -158,3 +170,65 @@ extension ResidencVC: CountryPickerViewDelegate {
         
     }
 }
+
+extension ResidencVC: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+           if let location = locations.first {
+               // Reverse geocode to get the country code
+               getCountryFromLocation(location)
+           }
+       }
+    
+    func getCountryFromLocation(_ location: CLLocation) {
+          let geocoder = CLGeocoder()
+          
+          geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+              if let error = error {
+                  print("Failed to reverse geocode: \(error.localizedDescription)")
+                  return
+              }
+              
+              if let placemark = placemarks?.first, let countryCode = placemark.isoCountryCode {
+                  
+                  let country = self.view_residencyCountryPicker.getCountryByCode(countryCode)
+                  
+                  // Access the flag and country code
+                  if let currentCountry = country {
+                      CountryManager.shared.selectedCountry = currentCountry
+                      print("Country Flag: \(currentCountry.flag)")
+                      print("Country Code: \(currentCountry.code)")
+                      print("Country Phone Code: \(currentCountry.phoneCode)")
+                  
+                      self.view_residencyCountryPicker.flagImageView.image = currentCountry.flag
+                      self.tf_residencyField.text = currentCountry.name
+                      
+                      self.locationManager.stopUpdatingLocation()
+                      
+                  }
+              }
+          }
+      }
+      
+      // Handle location authorization changes
+      func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+          if status == .authorizedWhenInUse || status == .authorizedAlways {
+              locationManager.startUpdatingLocation()
+          } else {
+              print("Location access denied")
+          }
+      }
+
+      // Handle location errors
+      func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+          print("Failed to get location: \(error.localizedDescription)")
+      }
+}
+
+class CountryManager {
+    static let shared = CountryManager()
+    var selectedCountry: Country?
+
+    private init() {} // Prevent initialization from outside
+}
+
