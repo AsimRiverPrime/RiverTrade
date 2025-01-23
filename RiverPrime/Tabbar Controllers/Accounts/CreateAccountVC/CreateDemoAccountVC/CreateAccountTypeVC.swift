@@ -15,7 +15,7 @@ protocol CreateAccountUpdateProtocol : AnyObject {
     func updateAccountBalance(isNewAccount: Bool)
 }
 
-class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelegate {
+class CreateAccountTypeVC: BottomSheetController {
     
     @IBOutlet weak var lbl_accountTitle: UILabel!
     @IBOutlet weak var selectCurrencyBtn: UIButton!
@@ -64,6 +64,11 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
         odooClientService.createUserAcctDelegate = self
         
         //        selectCurrencyBtn.addTarget(self, action: #selector(showCurrencies), for: .touchUpInside)
+        if let firstCurrency = currencyList.first {
+            selectCurrencyBtn.setTitle(firstCurrency, for: .normal)
+            self.currencyCode = firstCurrency
+        }
+        
         tf_password.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -103,14 +108,15 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
             print("drop down item = \(item)")
             sender.setTitle(item, for: .normal)
             self.selectCurrencyBtn.setTitle(item, for: .normal)
+            self.currencyCode = item
         }
     }
     
     
-    func didSelectCountryCurrency(countryName: String, currencyCode: String) {
-        self.currencyCode = currencyCode
-        selectCurrencyBtn.setTitle(currencyCode, for: .normal)
-    }
+    //    func didSelectCountryCurrency(countryName: String, currencyCode: String) {
+    //        self.currencyCode = currencyCode
+    //        selectCurrencyBtn.setTitle(currencyCode, for: .normal)
+    //    }
     
     func validateInputs() -> Bool {
         guard !userName.trimmingCharacters(in: .whitespaces).isEmpty else {
@@ -275,7 +281,7 @@ class CreateAccountTypeVC: BottomSheetController, CountryCurrencySelectionDelega
                     print("\n updating isDefault account success: ")
                     //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                     
-                   
+                    
                     if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: tf_password.text ?? "") {
                         print("Password successfully saved.")
                     } else {

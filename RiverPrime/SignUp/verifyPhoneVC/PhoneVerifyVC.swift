@@ -10,9 +10,7 @@ import CountryPickerView
 import PhoneNumberKit
 import Firebase
 
-
-
-class   PhoneVerifyVC: BaseViewController{
+class PhoneVerifyVC: BaseViewController{
     
     @IBOutlet weak var view_countryCode: CountryPickerView!
     
@@ -25,7 +23,7 @@ class   PhoneVerifyVC: BaseViewController{
     
     let userId =  UserDefaults.standard.string(forKey: "userID")
     var userEmail: String = ""
-    let firestoreService = FirestoreServices()
+    var firestoreService = FirestoreServices()
 //    let oodoService = OdooClient()
     let oodoServiceNew = OdooClientNew()
     
@@ -49,17 +47,16 @@ class   PhoneVerifyVC: BaseViewController{
         
         tf_numberField.delegate = self
       
-       
+        let currentCountry = CountryManager.shared.selectedCountry
+        view_countryCode.flagImageView.image = currentCountry?.flag
+        tf_numberField.text = currentCountry?.phoneCode
+        selectedCountry = currentCountry
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
-        
-        let currentCountry = CountryManager.shared.selectedCountry
-        view_countryCode.flagImageView.image = currentCountry?.flag
-        tf_numberField.text = currentCountry?.phoneCode
-        
     }
     
     
@@ -114,7 +111,35 @@ class   PhoneVerifyVC: BaseViewController{
 //        self.navigate(to: faceID)
 //
 //    }
-    
+    func updateUser(){
+        guard let userId = userId else{
+            return
+        }
+        
+        let fieldsToUpdate: [String: Any] = [
+            "phone": self.tf_numberField.text ?? "",
+            "phoneVerified" : true,
+            "isLogin" : true,
+            "pushedToCRM": true
+        ]
+        
+        
+        firestoreService.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
+            if let error = error {
+                print("Error updating user fields: \(error.localizedDescription)")
+                return
+            } else {
+                
+                print("User isPhone fields updated successfully!")
+                self.firestoreService.fetchUserData(userId: userId)
+                //                    self.navigateToFaceID()
+                self.delegate?.didCompletePhoneVerification()
+                
+                self.dismiss(animated: true)
+                
+            }
+        }
+    }
 }
 
 extension PhoneVerifyVC: PhoneOTPDelegate {
@@ -143,14 +168,14 @@ extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
     func updateNumberSuccess(response: Any) {
         print("the phone number update successfuly response is: \(response)")
         
-        var number = self.tf_numberField.text!
+        var number = self.tf_numberField.text ?? ""
  
         number = number.replacingOccurrences(of: " ", with: "")
         print("number is: \(number)")
 //        oodoServiceNew.sendOTP(type: "phone", email: GlobalVariable.instance.userEmail, phone: number)
 //        navigateTofaceIDScreen()
 //        navigateToVerifiyScreen()
-        self.delegate?.didCompletePhoneVerification()
+        updateUser()
     }
     
     func updateNumberFailure(error: any Error) {
@@ -164,7 +189,7 @@ extension PhoneVerifyVC: CountryPickerViewDelegate, UITextFieldDelegate {
         
         selectedCountry = country
         tf_numberField.text = country.phoneCode
-        
+        view_countryCode.flagImageView.image = country.flag
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

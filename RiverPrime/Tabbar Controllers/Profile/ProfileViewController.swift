@@ -188,7 +188,7 @@ extension ProfileViewController: CompleteProfileButtonDelegate, PhoneVerifyDeleg
             vc.delegateKYC = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         case 1:
-            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .bottomSheetPopups) as! KYCViewController
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
             vc.delegateKYC = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             //               case 2:
