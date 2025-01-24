@@ -17,6 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var navigationController : UINavigationController?
     let odoObject = OdooClientNew()
     
+    let webSocketManager = WebSocketManager.shared
+    
     static var shared: SceneDelegate {
         guard let appDelegate = UIApplication.shared.delegate as? SceneDelegate else {
             assertionFailure("Expected \(SceneDelegate.self) type.")
@@ -94,6 +96,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
 //        navigateToFaceScreen()
+        self.webSocketManager.connectWebSocket()
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n Handle saved User Data for navigation : \(data)")
@@ -129,6 +132,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+//        self.webSocketManager.DisconnectWebSocket()
+        
         UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
     }
     

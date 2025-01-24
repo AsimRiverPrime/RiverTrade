@@ -8,79 +8,57 @@
 import UIKit
 import WebKit
 
-class AlarmsVC: UIViewController {
-    
+class AlarmsVC: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     var selectedSymbol: String! // Pass the symbol here from the table view
-
-      override func viewDidLoad() {
-          super.viewDidLoad()
-
-          // Initialize and configure the WebView
-          webView = WKWebView(frame: self.view.bounds)
-          self.view.addSubview(webView)
-
-          // Load the HTML file and pass the selected symbol
-          if let htmlPath = Bundle.main.path(forResource: "index", ofType: "html") {
-              let url = URL(fileURLWithPath: htmlPath)
-
-              // Replace the placeholder symbol with the actual symbol
-              let symbolHTML = try? String(contentsOf: url).replacingOccurrences(of: "SYMBOL_PLACEHOLDER", with: "Gold")
-
-              // Load the modified HTML into the WebView
-              webView.loadHTMLString(symbolHTML ?? "", baseURL: url.deletingLastPathComponent())
-          }
-      }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Configure WebView with JavaScript enabled
+        let configuration = WKWebViewConfiguration()
+        let preferences = WKWebpagePreferences()
+        preferences.allowsContentJavaScript = true
+        configuration.defaultWebpagePreferences = preferences
+        
+        webView = WKWebView(frame: self.view.bounds, configuration: configuration)
+        webView.navigationDelegate = self
+        self.view.addSubview(webView)
+        
+        
+        if let htmlPath = Bundle.main.path(forResource: "mobile_black", ofType: "html") {
+            let url = URL(fileURLWithPath: htmlPath)
+            webView.loadFileURL(url, allowingReadAccessTo: url)
+        }
+
+//        // Load the HTML file and pass the selected symbol
+//        if let htmlPath = Bundle.main.path(forResource: "mobile_black", ofType: "html") {
+//            let url = URL(fileURLWithPath: htmlPath)
+//            do {
+//                var symbolHTML = try String(contentsOf: url)
+//                symbolHTML = symbolHTML.replacingOccurrences(of: "SYMBOL_PLACEHOLDER", with: selectedSymbol ?? "Gold")
+//                print("HTML content after replacement: \(symbolHTML)")
+//                webView.loadHTMLString(symbolHTML, baseURL: url.deletingLastPathComponent())
+//            } catch {
+//                print("Error loading HTML file: \(error.localizedDescription)")
+//            }
+//        } else {
+//            print("mobile_black.html not found in bundle.")
+//        }
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
-        let origin = CGPoint(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top)
-        let size = CGSize(
-            width: view.frame.width - view.safeAreaInsets.left - view.safeAreaInsets.right,
-            height: view.frame.height - view.safeAreaInsets.bottom - view.safeAreaInsets.top
-        )
-        
-        webView.frame = CGRect(origin: origin, size: size)
+        webView.frame = self.view.bounds
+    }
+    
+    // Debugging errors
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        print("WebView navigation failed: \(error.localizedDescription)")
+    }
+    
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("WebView failed to load: \(error.localizedDescription)")
     }
 }
-
-    extension AlarmsVC: WKNavigationDelegate {
-       
-      func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        if navigationAction.navigationType == .other {
-          if let url = navigationAction.request.url,
-             let host = url.host, host.hasPrefix("www.tradingview.com"),
-            UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-            decisionHandler(.cancel)
-            return
-          } else {
-            decisionHandler(.allow)
-            return
-          }
-        } else {
-          decisionHandler(.cancel)
-          return
-        }
-      }
-       
-    }
-
-    extension AlarmsVC: WKUIDelegate {
-        
-        func webView(
-            _ webView: WKWebView,
-            createWebViewWith configuration: WKWebViewConfiguration,
-            for navigationAction: WKNavigationAction,
-            windowFeatures: WKWindowFeatures
-        ) -> WKWebView? {
-            guard let url = navigationAction.request.url else { return nil }
-            let request = URLRequest.init(url: url)
-            webView.load(request)
-            return nil
-        }
-        
-    }
