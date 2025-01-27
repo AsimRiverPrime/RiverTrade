@@ -144,19 +144,19 @@ class ResidencVC: BaseViewController {
         self.navigate(to: passwordVC)
     }
     
-    func navigateFaceID(){
-        
-        let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-        faceIdVC.afterLoginNavigation = false
-        self.navigate(to: faceIdVC)
-    }
+//    func navigateFaceID(){
+//        
+//        let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+//        faceIdVC.afterLoginNavigation = false
+//        self.navigate(to: faceIdVC)
+//    }
     
-    func navigateToVerifiyScreen() {
-        
-        let verifyOTP = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! VerifyCodeViewController
-       
-        self.navigate(to: verifyOTP)
-    }
+//    func navigateToVerifiyScreen() {
+//        
+//        let verifyOTP = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! VerifyCodeViewController
+//       
+//        self.navigate(to: verifyOTP)
+//    }
     
     
 }

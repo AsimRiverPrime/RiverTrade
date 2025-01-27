@@ -57,7 +57,7 @@ class GoogleSignIn {
                         let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                             print("Timer fired!")
                             SVProgressHUD.dismiss()
-                            self.fireBaseService.handleUserData()
+                            self.fireBaseService.handleFaceID()
                            
                         }
                         

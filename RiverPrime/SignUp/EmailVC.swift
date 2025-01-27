@@ -263,7 +263,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                             let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
                                 print("Timer fired!")
                                 
-                                self.firebaseInstance.handleUserData()
+                                self.firebaseInstance.handleFaceID()
                             }
                             
                         } else {

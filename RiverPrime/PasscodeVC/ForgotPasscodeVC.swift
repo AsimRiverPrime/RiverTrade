@@ -143,9 +143,7 @@ class ForgotPasscodeVC: BaseViewController {
     func navigateToPassCodeScreen() {
         // Implement the navigation to the main screen
         print("Go to the Passcode screen")
-//        if let vc = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasscodeFaceIDVC"){
-//            self.navigate(to: vc)
-//        }
+
         self.navigationController?.popViewController(animated: true)
     }
 }

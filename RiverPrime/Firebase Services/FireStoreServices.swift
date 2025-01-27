@@ -185,6 +185,14 @@ class FirestoreServices: BaseViewController {
         }
     }
     
+    func handleFaceID(){
+        if let data = UserDefaults.standard.dictionary(forKey: "userData") {
+            print("\n Handle saved User for navigation to faceID: \(data)")
+            navigateToFaceID()
+        }
+       
+    }
+    
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n Handle saved User for navigation : \(data)")
@@ -440,12 +448,19 @@ class FirestoreServices: BaseViewController {
  
     private func navigateToDashboardScreen() {
         
-        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .passcodeFaceIDVC, storyboardType: .main)
+        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .homeTabbarViewController, storyboardType: .dashboard)
         
         let navController = UINavigationController(rootViewController: dashboardVC)
         SCENE_DELEGATE.window?.rootViewController = navController
         SCENE_DELEGATE.window?.makeKeyAndVisible()
         
     }
-   
+    
+    private func navigateToFaceID(){
+        let faceidVC = MyNavigationController.shared.getViewController(identifier: .passcodeFaceIDVC, storyboardType: .main)
+        
+        let navController = UINavigationController(rootViewController: faceidVC)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
+    }
 }
