@@ -10,7 +10,8 @@ import UIKit
 
 class UserAccountManager {
     static let shared = UserAccountManager()
-
+    let passwordManager = PasswordManager()
+    
     private var accounts: [String: UserAccount] = [:]
     private let defaultUserAccountKey = "defaultUserAccount"
 
@@ -21,6 +22,12 @@ class UserAccountManager {
         for (key, value) in firebaseResponse {
             if let account = UserAccount(dictionary: value) {
                 updatedAccounts[key] = account
+                
+                if passwordManager.savePassword(for: String(account.accountNumber), password: account.password) {
+                    print("All Password successfully saved in UserAccountManager Class:")
+                } else {
+                    print("ID already exists. Cannot save password.")
+                }
             }
         }
 
@@ -58,6 +65,7 @@ struct UserAccount: Codable {
     let userID: String
     let currency: String
     let kycStatus: String
+    let password: String
     let isReal: Bool
 
     // Initialize from dictionary
@@ -71,6 +79,7 @@ struct UserAccount: Codable {
             let userID = dictionary["userID"] as? String,
             let currency = dictionary["currency"] as? String,
             let kycStatus = dictionary["KycStatus"] as? String,
+            let password = dictionary["password"] as? String,
             let isReal = dictionary["isReal"] as? Int
         else {
             return nil
@@ -84,6 +93,7 @@ struct UserAccount: Codable {
         self.userID = userID
         self.currency = currency
         self.kycStatus = kycStatus
+        self.password = password
         self.isReal = isReal == 1
     }
 }

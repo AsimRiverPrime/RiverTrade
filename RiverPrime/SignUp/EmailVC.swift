@@ -313,6 +313,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                "groupID": "RWHwgycWkAqi5OPvv1oX",
                "isDefault" : true,
                "isReal": false,
+               "password": self._password ?? "",
                "groupName" : "PRO",
                "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
            ]

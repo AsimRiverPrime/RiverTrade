@@ -259,6 +259,7 @@ class CreateAccountTypeVC: BottomSheetController {
             "groupID": account?.id ?? "",
             "isDefault" : true,
             "isReal": isReal,
+            "password": tf_password.text ?? "",
             "groupName" : self.demoAccountGroup,
             "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
         ]

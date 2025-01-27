@@ -58,6 +58,7 @@ class GoogleSignIn {
                             print("Timer fired!")
                             SVProgressHUD.dismiss()
                             self.fireBaseService.handleUserData()
+                           
                         }
                         
                     } else {
@@ -71,5 +72,5 @@ class GoogleSignIn {
         }
     }
     
-
+   
 }

@@ -43,6 +43,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window!.overrideUserInterfaceStyle = .light
         
+        clearData()
+        
         odoObject.authenticate()
         
 //        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -65,6 +67,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Check if the user has authenticated with Face ID
         window?.makeKeyAndVisible()
         
+    }
+    
+    private func clearData() {
+        Session.instance.filteredSymbolData?.removeAll()
     }
    
         // Show the main app screen
@@ -96,6 +102,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
 //        navigateToFaceScreen()
+        
+        //MARK: - //MARK: - Connect web socket.
         self.webSocketManager.connectWebSocket()
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -132,9 +140,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-//        self.webSocketManager.DisconnectWebSocket()
+        
+        //MARK: - Disconnect web socket.
+        self.webSocketManager.DisconnectWebSocket()
         
         UserDefaults.standard.set(true, forKey: "isFaceIDEnabled")
+        
     }
     
 }
@@ -219,7 +230,7 @@ extension SceneDelegate {
         //Balance Api
         NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key)
         //Get Balance
-        NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key)        
+        NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key)
         
     }
     

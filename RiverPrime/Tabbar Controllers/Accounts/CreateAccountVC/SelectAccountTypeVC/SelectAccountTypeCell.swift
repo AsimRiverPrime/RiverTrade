@@ -53,7 +53,9 @@ class SelectAccountTypeCell: UITableViewCell {
                    lbl_balance.text = "$0.0" 
                }else{
                    self.isDefault = true
-                   lbl_balance.text = "$" + GlobalVariable.instance.balanceUpdate
+                   let amount = String.formatStringNumber(GlobalVariable.instance.balanceUpdate)
+                   self.lbl_balance.text = "$\(String(describing: amount))"
+                   
                }
            }
            updateButtonState()

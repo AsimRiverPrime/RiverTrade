@@ -396,16 +396,19 @@ class TradeTypeCellVM {
     }
     
     func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
-        let pass = UserDefaults.standard.string(forKey: "password")
+        var pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String {
+            if let _email = savedUserData["email"] as? String, let _pass = savedUserData["password"] as? String {
                 email = _email
+               
             }
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             print("\n Default Account User in get user balance: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            pass = defaultAccount.password
+            
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
@@ -463,7 +466,7 @@ class TradeTypeCellVM {
     }
     
     func getBalance(completion: @escaping (String) -> Void) {
-        let pass = UserDefaults.standard.string(forKey: "password")
+        var pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String {
                 email = _email
@@ -472,6 +475,7 @@ class TradeTypeCellVM {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            pass = defaultAccount.password
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
@@ -838,7 +842,7 @@ extension TradeTypeCellVM {
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
             popupVC.modalTransitionStyle = .crossDissolve
-            
+            popupVC.loginId = loginId
             // Present the popup
 //            self.present(popupVC, animated: true, completion: nil)
             SCENE_DELEGATE.window?.rootViewController?.present(popupVC, animated: true)

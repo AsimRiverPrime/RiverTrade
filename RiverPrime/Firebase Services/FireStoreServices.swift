@@ -127,13 +127,14 @@ class FirestoreServices: BaseViewController {
             // Save the combined data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
             print("Combined User Accounts data saved: \(userAccountsData)")
+           
+            
             // Update accounts
             UserAccountManager.shared.updateAccounts(from: userAccountsData)
 
             // Retrieve and print the default account
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account : \(defaultAccount)")
-               
             }
             
             if userAccountsData.count == 0 {
@@ -439,8 +440,7 @@ class FirestoreServices: BaseViewController {
  
     private func navigateToDashboardScreen() {
         
-//        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .dashboardVC, storyboardType: .dashboard)
-        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .homeTabbarViewController, storyboardType: .dashboard)
+        let dashboardVC = MyNavigationController.shared.getViewController(identifier: .passcodeFaceIDVC, storyboardType: .main)
         
         let navController = UINavigationController(rootViewController: dashboardVC)
         SCENE_DELEGATE.window?.rootViewController = navController

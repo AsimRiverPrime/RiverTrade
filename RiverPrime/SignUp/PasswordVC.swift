@@ -234,6 +234,7 @@ class PasswordVC: BaseViewController {
                "groupID": "RWHwgycWkAqi5OPvv1oX",
                "isDefault" : true,
                "isReal": false,
+               "password": self.password_tf ?? "",
                "groupName" : "PRO",
                "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
            ]
