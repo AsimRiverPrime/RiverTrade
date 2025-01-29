@@ -205,13 +205,11 @@ extension SceneDelegate {
                 self.fireStoreInstance.fetchUserData(userId: uid)
                 self.fireStoreInstance.fetchUserAccountsData(userId: uid, completion: {
                 })
-                
             }
             fireStoreInstance.handleUserData()
         }else {
             fireStoreInstance.navigateToLoginScreen()
         }
-
     }
     
     //MARK: - Activity Indicator
@@ -226,12 +224,10 @@ extension SceneDelegate {
 extension SceneDelegate {
     
     func registerNotifications() {
-        
         //Balance Api
         NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key)
         //Get Balance
         NotificationObserver.shared.registerNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key)
         
     }
-    
 }

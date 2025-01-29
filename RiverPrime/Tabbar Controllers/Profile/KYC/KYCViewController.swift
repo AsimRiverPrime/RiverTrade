@@ -80,7 +80,7 @@ class KYCViewController: BaseViewController{
        let authKeyss = [
             "auth_type" : "basic_auth",
             "client_id": "19cc49621d50e7918f50c03798478511700af56687763226b96b090435c45775",
-            "secret_key": "3ZviWTxtSbUkhnzbJ7kEdUJJNsLFRdv7"
+            "secret_key": "pB14s1X3CkipprTDy3hwtmXhUUTQXOmR"
         ]
 
         let uniqueReference =  shufti.getUniqueReference()
@@ -100,33 +100,52 @@ class KYCViewController: BaseViewController{
 //            "video_kyc" : false
 //        ] as [String : Any]
         
-        var dataDictionary = Dictionary<String, Any>()
-        dataDictionary = [
-            "reference": userId ?? "",
+        var dataDictionary: [String: Any] = [
+            "reference": uniqueReference,
             "country": "",
             "language": "EN",
             "email": userEmail ?? "",
             "callback_url": "",
             "show_results": "1",
-            "redirect_url" : "https://www.mydummy.shuftipro.com/",
+            "redirect_url": "https://www.mydummy.shuftipro.com/",
             "show_privacy_policy": "1",
             "show_consent": "1",
-            "verification_mode" : "image_only",
-            "allow_offline" : "1",
-            "allow_online" : "1",
+            "verification_mode": "image_only",
+            "allow_offline": "1",
+            "allow_online": "1",
             "face": ["proof": ""],
-            
-            "document": [ "proof": "",
-            "additional_proof" :"",
-            "supported_types": [ "passport", "id_card" ],
-                          "name": [ "first_name": "", "last_name": "" ],
-                          "backside_proof_required": "0",
-                          "dob": "",
-                          "document_number": "",
-                          "expiry_date": "",
-                          "issue_date": "" ]
-            
+            "document": [
+                "proof": "",
+                "additional_proof": "",
+                "supported_types": ["passport", "id_card"],
+                "name": ["first_name": "", "last_name": ""],
+                "backside_proof_required": "0",
+                "dob": "",
+                "document_number": "",
+                "expiry_date": "",
+                "issue_date": ""
+            ],
+            "background_checks": [
+                "alias_search": "0",
+                "rca_search": "0",
+                "match_score": "100",
+                "countries": ["ae"],
+              
+                "filters": [
+                    "sanction",
+                    "warning",
+                    "fitness-probity",
+                    "pep",
+                    "pep-class-1",
+                    "pep-class-2",
+                    "pep-class-3",
+                    "pep-class-4"
+                ]
+            ]
         ]
+
+        print("Final Request: \(dataDictionary)")
+
         
         shufti.shuftiProVerification(requestObject: dataDictionary, authKeys: authKeyss, parentVC: self, configs: configsss) {(result) in
             print("Got response from sdk: \(result)")
@@ -136,6 +155,25 @@ class KYCViewController: BaseViewController{
             if reponse?.value(forKey: "event") as? String == "verification.accepted" {
               // Verification Accepted Callback
                 print("Verified: Do something")
+                if let responseDict = result as? [String: Any],
+                   let verificationData = responseDict["verification_data"] as? [String: Any] {
+                    
+                    do {
+                        // Convert dictionary to Data
+                        let jsonData = try JSONSerialization.data(withJSONObject: verificationData, options: .prettyPrinted)
+                        
+                        // Save to UserDefaults
+                        UserDefaults.standard.set(jsonData, forKey: "verificationData")
+                        UserDefaults.standard.synchronize()
+                        
+                        print("Verification data saved successfully!")
+                    } catch {
+                        print("Failed to convert verification data to JSON: \(error.localizedDescription)")
+                    }
+                } else {
+                    print("Failed to extract verification_data")
+                }
+                
                 UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
                 self.AddUserAccountDetail()
             }
@@ -271,11 +309,8 @@ class KYCViewController: BaseViewController{
             case .success:
                 print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
-                self.showTimeAlert(str:"KYC detail added successfully!")
-                self.dismiss(animated: true) {
-//                    self.delegateKYC?.navigateToCompeletProfile(kyc: .ReturnDashboard)
-                NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "inProgress"])
-                }
+                self.ToastMessage("KYC detail added successfully!")
+                
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.showTimeAlert(str:"\(error)")
@@ -291,8 +326,7 @@ class KYCViewController: BaseViewController{
         var fieldsToUpdate: [String: Any] = [
            
                 "profileStep": profileStep,
-                "KycStatus": "Progress Started"
-                
+                "KycStatus": "verification.accepted"
              ]
         
         fireStoreInstance.updateUserFields(userID: userId!, fields: fieldsToUpdate) { error in
@@ -302,8 +336,23 @@ class KYCViewController: BaseViewController{
             } else {
                 print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
+                
+                let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                    self.dismiss(animated: true) {
+                        NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
+                    }
+                }
             }
         }
+        if let savedData = UserDefaults.standard.data(forKey: "verificationData") {
+            do {
+                let verificationData = try JSONSerialization.jsonObject(with: savedData, options: []) as? [String: Any]
+                print("Retrieved Verification Data: \(String(describing: verificationData))")
+            } catch {
+                print("Failed to decode verification data: \(error.localizedDescription)")
+            }
+        }
+        
     }
 }
 

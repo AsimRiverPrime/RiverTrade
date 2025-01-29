@@ -13,52 +13,60 @@ class AlarmsVC: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var selectedSymbol: String! // Pass the symbol here from the table view
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Configure WebView with JavaScript enabled
-        let configuration = WKWebViewConfiguration()
-        let preferences = WKWebpagePreferences()
-        preferences.allowsContentJavaScript = true
-        configuration.defaultWebpagePreferences = preferences
-        
-        webView = WKWebView(frame: self.view.bounds, configuration: configuration)
-        webView.navigationDelegate = self
-        self.view.addSubview(webView)
-        
-        
-        if let htmlPath = Bundle.main.path(forResource: "mobile_black", ofType: "html") {
-            let url = URL(fileURLWithPath: htmlPath)
-            webView.loadFileURL(url, allowingReadAccessTo: url)
+            
+            // Initialize the WebView
+            webView = WKWebView(frame: self.view.bounds)
+            webView.navigationDelegate = self
+            self.view.addSubview(webView)
+            
+            // Load the local JavaScript project
+        if let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html", subdirectory: "charting_library-master") {
+            print("HTML file found at: \(url.absoluteString)")
+            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
+        } else {
+            print("Failed to load mobile_black the HTML file.")
         }
+        
+        if let path = Bundle.main.path(forResource: "mobile_black", ofType: "html", inDirectory: "charting_library-master") {
+            print("HTML path exists: \(path)")
+        } else {
+            print("HTML file is missing.")
+        }
+        
+        callJavaScriptFunction()
+        }
+        
+        // Example JavaScript interactiongv
+        func callJavaScriptFunction() {
+            let jsCode = "alert('Hello from Swift!')"
+            webView.evaluateJavaScript(jsCode) { (result, error) in
+                if let error = error {
+                    print("JavaScript execution failed: \(error)")
+                } else {
+                    print("JavaScript executed successfully: \(String(describing: result))")
+                }
+            }
+        }
+    
+}
 
-//        // Load the HTML file and pass the selected symbol
-//        if let htmlPath = Bundle.main.path(forResource: "mobile_black", ofType: "html") {
-//            let url = URL(fileURLWithPath: htmlPath)
-//            do {
-//                var symbolHTML = try String(contentsOf: url)
-//                symbolHTML = symbolHTML.replacingOccurrences(of: "SYMBOL_PLACEHOLDER", with: selectedSymbol ?? "Gold")
-//                print("HTML content after replacement: \(symbolHTML)")
-//                webView.loadHTMLString(symbolHTML, baseURL: url.deletingLastPathComponent())
-//            } catch {
-//                print("Error loading HTML file: \(error.localizedDescription)")
-//            }
-//        } else {
-//            print("mobile_black.html not found in bundle.")
-//        }
+extension AlarmsVC: WKScriptMessageHandler {
+    func setupWebView() {
+        let contentController = WKUserContentController()
+        contentController.add(self, name: "messageHandler")
+        
+        let config = WKWebViewConfiguration()
+        config.userContentController = contentController
+        
+        webView = WKWebView(frame: self.view.bounds, configuration: config)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        webView.frame = self.view.bounds
-    }
-    
-    // Debugging errors
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        print("WebView navigation failed: \(error.localizedDescription)")
-    }
-    
-    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-        print("WebView failed to load: \(error.localizedDescription)")
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "messageHandler", let body = message.body as? String {
+            print("Received message from JavaScript: \(body)")
+        }
     }
 }

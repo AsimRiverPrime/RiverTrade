@@ -302,16 +302,25 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func withDrawAction(_ sender: Any) {
         
+        let hasUploadBill = UserDefaults.standard.bool(forKey: "hasUploadBill")
         if isRealAcount{
-            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                if !hasUploadBill {
+                    // Present the controller
+                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawPreRequirmentVC") as? WithdrawPreRequirmentVC {
+                        self.navigate(to: vc)
+            // Save that the controller has been shown
+                    UserDefaults.standard.set(true, forKey: "hasUploadBill")
+                }
+                }else{
+                    let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }
+      
         }else{
             if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoWithdrawalVC") as? DemoWithdrawalVC {
-                
                 self.navigate(to: vc)
             }
         }
-        
     }
     
     @IBAction func historyAction(_ sender: Any) {

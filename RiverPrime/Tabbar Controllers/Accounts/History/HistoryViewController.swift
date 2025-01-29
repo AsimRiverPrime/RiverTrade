@@ -18,6 +18,12 @@ class HistoryViewController: BaseViewController {
     
     @IBOutlet weak var view_noMatchData: UIView!
     
+    @IBOutlet weak var btn_trades: UIButton!
+    @IBOutlet weak var btnTradeView: UIView!
+    
+    @IBOutlet weak var btn_transcation: UIButton!
+    @IBOutlet weak var btnTranscationView: UIView!
+    
     var fromDate = String()
     var toDate = String()
     

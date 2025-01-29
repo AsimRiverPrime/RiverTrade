@@ -119,6 +119,8 @@ extension DepositViewController: DashboardVCDelegate {
 //                let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
 //                vc.delegateKYC = self
 //                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            case 2:
+                self.ToastMessage("Already Done KYC")
             default:
                 self.ToastMessage("Already Done KYC")
             }
@@ -194,7 +196,6 @@ extension DepositViewController: KYCVCDelegate {
 //                GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)
             }
-           
             break
         case .KycScreen:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController

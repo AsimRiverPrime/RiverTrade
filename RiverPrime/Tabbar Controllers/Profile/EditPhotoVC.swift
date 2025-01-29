@@ -100,7 +100,6 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         }
         var fieldsToUpdate: [String: Any] = [
             "fullName": self.tf_username.text
-                
              ]
         
         firebase.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in

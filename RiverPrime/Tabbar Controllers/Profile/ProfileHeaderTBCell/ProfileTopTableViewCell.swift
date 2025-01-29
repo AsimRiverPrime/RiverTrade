@@ -58,15 +58,15 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                    lbl_title.text = updatedName
                }
                
-               if let type = userInfo["type"] as? String {
-                   print("this is profile VC and notification type is : \(type)")
-               }
-               
-               if let _status = userInfo["status"] as? String {
-                   self.status = _status
-                   print("\n push notification _status is : \(_status)")
-                   UserDefaults.standard.set(_status, forKey: "statusKYC")
-               }
+//               if let type = userInfo["type"] as? String {
+//                   print("this is profile VC and notification type is : \(type)")
+//               }
+//               
+//               if let _status = userInfo["status"] as? String {
+//                   self.status = _status
+//                   print("\n push notification _status is : \(_status)")
+//                   UserDefaults.standard.set(_status, forKey: "statusKYC")
+//               }
            }
        }
        
@@ -124,7 +124,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
            
            let realAccount = defaultAccount.isReal == true ? true : false
             if realAccount == true {
-                        if profileStep == 3 {
+                        if profileStep == 2 {
                            
                             //self.view_profileComplete.isHidden = true // or show popup "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation."
                             if status == "Approved" {
@@ -134,7 +134,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                                 btn_completeProfile.isUserInteractionEnabled = true
                                 btn_completeProfile.setTitle("Profile Completed", for: .normal)
                                 progreeBar.progress = 1.0
-                                   self.lbl_progressPercent.text = "100%"
+                                self.lbl_progressPercent.text = "100%"
                                } else if status == "Rejected" {
                                    // Handle the "reject" status
                                   
@@ -145,25 +145,25 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                                    self.lbl_progressPercent.text = "90%"
                                } else{
                                    // Handle the "refer" status
-                                   lbl_profile.text = "Your profile has been Referred for review. Please wait for further updates."
+                                   lbl_profile.text = "Thank you for providing your details.Your profile has been Referred for review.Please wait for further updates."
                                    btn_completeProfile.isUserInteractionEnabled = false
-                                   btn_completeProfile.setTitle("Profile in Progress", for: .normal)
+                                   btn_completeProfile.setTitle("Profile Completed", for: .normal)
                                    progreeBar.progress = 0.9
                                    self.lbl_progressPercent.text = "90%"
                                }
                            
-                        }else if profileStep == 2 {
+                        }else if profileStep == 1 {
                             progreeBar.progress = 0.67
                             self.lbl_progressPercent.text = "67%"
                             btn_completeProfile.isUserInteractionEnabled = true
-                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+                            btn_completeProfile.setTitle("Click to complete KYC", for: .normal)
     //                        self.btn_completeProfile.isHidden = false
                             lbl_profile.text = "Alright you complete your Profile almost.The last step KYC remaining."
-                        }else if profileStep == 1 {
-                            progreeBar.progress = 0.33
-                            self.lbl_progressPercent.text = "33%"
-                            btn_completeProfile.isUserInteractionEnabled = true
-                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+//                        }else if profileStep == 1 {
+//                            progreeBar.progress = 0.33
+//                            self.lbl_progressPercent.text = "33%"
+//                            btn_completeProfile.isUserInteractionEnabled = true
+//                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
                         }else{
                             lbl_profile.text = "Hello. Fill in your account details to make your first deposit."
                             progreeBar.progress = 0.0
