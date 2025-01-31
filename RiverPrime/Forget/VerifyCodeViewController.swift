@@ -79,7 +79,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func confirmBtn(_ sender: Any) {

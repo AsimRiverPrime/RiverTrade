@@ -226,8 +226,6 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
-    
-    
     func updateNotificationButtonBadge() {
         let badgeCount = NotificationHandler.shared.getUnseenNotificationsCount()
         //        notificationButton. .badgeValue = badgeCount > 0 ? "\(badgeCount)" : nil
@@ -678,43 +676,45 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.contentView.alpha = 1.0
             }
             
-            /*
+           
             
-            cell.onLabel1Tapped = { [weak self] in
+            cell.onLabelSymbolTapped = { [weak self] in
                        guard let self = self else { return }
                 print("press the symbol label")
-
-//                delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: symbolDataObj)
+                let getSymbolData = getSymbolData[indexPath.row]
+                if getSymbolData.historyMessage?.chartData.count != 0 {
+                    delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+                }
 //                let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
 //                vc.chartView.isHidden = true
 //                vc.chartOverView.isHidden = true
 //                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                 
-                   }
-
-            cell.onLabel2Tapped = { [weak self] in
+            }
+            cell.onLabelAskTapped = { [weak self] in
                        guard let self = self else { return }
                        print("press the bid label")
-//                       let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
-//                       vc.chartView.isHidden = true
-//                       vc.chartOverView.isHidden = true
-//                       PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//                       delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+                       
+                let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+                vc.titleString = "SELL"
+                 let _getSymbolData = getSymbolData[indexPath.row]
+                vc.getSymbolDetail = _getSymbolData
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                
                    }
 
-            cell.onLabel3Tapped = { [weak self] in
+            cell.onLabelBidTapped = { [weak self] in
                        guard let self = self else { return }
-                       print("press the bid label")
-//                       let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
-////                       vc.getSymbolData = getSymbolData
-////                       vc.icon_url = getSymbolData.icon_url ?? ""
-////                       vc.buyBtn.isHidden = true
-////                       vc.sellBtn.isHidden = true
-//                       PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                       print("press the ask label")
+                let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+              
+                vc.titleString = "BUY"
+                let _getSymbolData = getSymbolData[indexPath.row]
+                vc.getSymbolDetail = _getSymbolData
+              
+                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                    }
-            
-            */
-            
+           
             return cell
             
         } else {
@@ -752,7 +752,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             //MARK: - When we click on the symbol list index then it should move and show history data into the detail page.
             let getSymbolData = getSymbolData[indexPath.row]
             if getSymbolData.historyMessage?.chartData.count != 0 {
-                delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+//                delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
             }
             
         } else {

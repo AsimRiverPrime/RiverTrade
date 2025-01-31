@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -151,7 +152,7 @@
                                                                     <action selector="volumeMinus_action:" destination="ew4-AL-7tN" eventType="touchUpInside" id="6k0-UV-e3q"/>
                                                                 </connections>
                                                             </button>
-                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V2e-EE-tQ9">
+                                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0.01" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V2e-EE-tQ9">
                                                                 <rect key="frame" x="38" y="9.5" width="105.5" height="21"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -190,7 +191,7 @@
                                                                 <real key="value" value="0.29999999999999999"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
@@ -245,7 +246,7 @@
                                                                 <real key="value" value="0.29999999999999999"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
@@ -974,20 +975,20 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thk-ZD-UfN">
-                                        <rect key="frame" x="15" y="534.5" width="37.5" height="19.5"/>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="thk-ZD-UfN">
+                                        <rect key="frame" x="15" y="539.5" width="37.5" height="19.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iuo-a2-C9Q">
-                                        <rect key="frame" x="394" y="544.5" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="394" y="549.5" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="textColor" red="0.45490193369999998" green="0.79215681550000006" blue="0.56078433989999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qhj-OA-k6F" userLabel="buttonView">
-                                        <rect key="frame" x="10" y="559.5" width="394" height="60"/>
+                                        <rect key="frame" x="10" y="589.5" width="394" height="60"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="icd-fT-atR">
                                                 <rect key="frame" x="15" y="5" width="364" height="50"/>
@@ -1054,7 +1055,7 @@
                                 <color key="backgroundColor" red="0.062745098040000002" green="0.066666666669999999" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstItem="FGd-YV-AXo" firstAttribute="leading" secondItem="uCx-di-h7d" secondAttribute="leading" constant="10" id="3DL-yC-XD4"/>
-                                    <constraint firstItem="thk-ZD-UfN" firstAttribute="top" secondItem="FGd-YV-AXo" secondAttribute="bottom" constant="5" id="3vP-0R-Ua8"/>
+                                    <constraint firstItem="thk-ZD-UfN" firstAttribute="top" secondItem="FGd-YV-AXo" secondAttribute="bottom" constant="10" id="3vP-0R-Ua8"/>
                                     <constraint firstItem="fyn-SI-73W" firstAttribute="leading" secondItem="uCx-di-h7d" secondAttribute="leading" constant="10" id="4Zp-0a-9ev"/>
                                     <constraint firstItem="Iuo-a2-C9Q" firstAttribute="centerY" secondItem="thk-ZD-UfN" secondAttribute="centerY" id="7IS-dJ-I7r"/>
                                     <constraint firstItem="FGd-YV-AXo" firstAttribute="top" secondItem="wWV-yS-ls9" secondAttribute="bottom" constant="10" id="7m6-Ww-1aq"/>
@@ -1074,7 +1075,7 @@
                                     <constraint firstAttribute="trailing" secondItem="nR9-bx-Fdc" secondAttribute="trailing" constant="10" id="shs-qw-3tf"/>
                                     <constraint firstItem="nR9-bx-Fdc" firstAttribute="leading" secondItem="uCx-di-h7d" secondAttribute="leading" constant="10" id="uKt-t1-7hE"/>
                                     <constraint firstItem="fyn-SI-73W" firstAttribute="top" secondItem="aPE-C3-t2p" secondAttribute="bottom" constant="8" id="xUA-fX-Dxo"/>
-                                    <constraint firstItem="Qhj-OA-k6F" firstAttribute="top" secondItem="Iuo-a2-C9Q" secondAttribute="bottom" constant="15" id="yFS-qH-PIc"/>
+                                    <constraint firstItem="Qhj-OA-k6F" firstAttribute="top" secondItem="Iuo-a2-C9Q" secondAttribute="bottom" constant="40" id="yFS-qH-PIc"/>
                                     <constraint firstAttribute="trailing" secondItem="wWV-yS-ls9" secondAttribute="trailing" constant="10" id="yX4-6M-whr"/>
                                 </constraints>
                             </view>
@@ -2716,6 +2717,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="U7a-9o-7D4"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="EMY-3j-Ix8" secondAttribute="trailing" id="1Jp-lb-tiL"/>

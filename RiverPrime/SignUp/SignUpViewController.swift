@@ -93,7 +93,7 @@ class SignUpViewController: BaseViewController {
 
             //MARK: - Hide Navigation Bar
             self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
         
         let fullText = "By clicking Create Account, you agree to Terms and Service and Privacy policy"
        

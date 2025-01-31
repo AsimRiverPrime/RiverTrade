@@ -66,8 +66,8 @@ class TicketVC: BottomSheetController {
     var titleString: String = ""
     var volumeList = ["Lots", "USD"]
     var priceList = ["Market", "Limit", "Stop"]
-    var takeProfitList = ["Profit in %", "Profit in USD", "Profit in Pips","Profit in Price"]
-    var stopLossList = ["Loss in %", "Loss in USD", "Loss in Pips","Loss in Price"]
+    var takeProfitList = ["Profit in %", "Profit in Pips","Profit in Price"]
+    var stopLossList = ["Loss in %", "Loss in Pips","Loss in Price"]
     
     var selectedPrice: String = "Market"
     var getPriceLiveValue: String?
@@ -183,16 +183,11 @@ class TicketVC: BottomSheetController {
             volumeMin = Int("\(obj.volumeMin)")
             digits = Int("\(obj.digits)")
             
-            
             userPassword = UserDefaults.standard.string(forKey: "password")
-       
             
             print("selectedSymbol: \(selectedSymbol)\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
         }
-        
     }
-
-    
     
     @objc func hideKeyboard() {
         view.endEditing(true)  // This will dismiss the keyboard for all text fields
@@ -206,7 +201,6 @@ class TicketVC: BottomSheetController {
                 self.getPriceLiveValue = "\(tradeDetail.bid)"
                // priceValue = bidValue
                 checkEnable(liveValue: getPriceLiveValue ?? "")
-                
             }
         }
     }
@@ -216,7 +210,6 @@ class TicketVC: BottomSheetController {
         }
     
     private func checkEnable(liveValue: String) {
-            
             var price: (String,Double,Bool) = ("",0.0,false)
             var profit: (String,Double,Bool) = ("",0.0,false)
             var loss: (String,Double,Bool) = ("",0.0,false)
@@ -265,8 +258,6 @@ class TicketVC: BottomSheetController {
             }
             //MARK: - END Price Logic
             
-            
-            
             //MARK: - START profit Logic
             if takeProfit_switch.isOn {
                 profit.0 = "Profit"
@@ -282,8 +273,6 @@ class TicketVC: BottomSheetController {
             }
             //MARK: - END profit Logic
             
-            
-            
             //MARK: - START loss Logic
             if stopLoss_switch.isOn {
                 loss.0 = "Loss"
@@ -298,8 +287,6 @@ class TicketVC: BottomSheetController {
                 loss.2 = false
             }
             //MARK: - END loss Logic
-            
-            
             
             //MARK: - START Main Logic
             if price.2 == true || profit.2 == true || loss.2 == true {
@@ -350,7 +337,6 @@ class TicketVC: BottomSheetController {
                             isConfirmEnable[0].0 = "on"
                             isConfirmEnable[0].2 = "BUY"
                         }
-                        
                     }
                     
                 } else if price.2 == true && price.0 == "Stop" {
@@ -429,7 +415,6 @@ class TicketVC: BottomSheetController {
                     if !isFirstValueStopLoss {
                         tf_stopLoss.text = String(liveValue)
                         currentValue4 = Double(liveValue)!
-                        
                         isFirstValueStopLoss = true
                     }
                     
@@ -457,6 +442,7 @@ class TicketVC: BottomSheetController {
                             if isEnable.2 == "SELL" {
                                 
                                 self.btn_confirm.isEnabled = false
+                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
 //                                self.btn_confirm.backgroundColor = UIColor.systemGray2
                                 self.price_view.layer.borderWidth = 0.3
                                
@@ -533,12 +519,12 @@ class TicketVC: BottomSheetController {
         if selectedVolume == "Lots" {
             
             let total = (getTF_Volume ?? 0) / (bidValue ?? 0)
-            let getTotal = String(format: "%.10f", total)
+            let getTotal = String(format: "%.\(self.digits ?? 0)f", total)
             print("\n getTotal: \(getTotal)")
             
             self.volume = (Double(getTotal) ?? 0.0) / Double(contractSize ?? 0)
             
-            let getTotalVolume = String(format: "%.10f", Double(self.volume ?? 0.0))
+            let getTotalVolume = String(format: "%.\(self.digits ?? 0)f", Double(self.volume ?? 0.0))
             print("\n getTotalVolume: \(getTotalVolume)")
             
             let roundedValue = Double(round(1000 * (Double(getTotalVolume) ?? 0.0)) / 1000)
@@ -661,7 +647,7 @@ class TicketVC: BottomSheetController {
             }
         }
         volume = currentValue
-        self.tf_volume.text = String(format: "%.3f", (currentValue))
+        self.tf_volume.text = String(format: "%.\(self.digits ?? 0)f", (currentValue))
         
     }
     
@@ -692,7 +678,7 @@ class TicketVC: BottomSheetController {
         }
         
         // Update the specific text field and save the new value
-        textField.text = String(format: "%.3f", currentValue)
+        textField.text = String(format: "%.\(self.digits ?? 0)f", currentValue)
         
         // Save the updated current value back to the respective variable
         switch textField {
@@ -735,10 +721,11 @@ class TicketVC: BottomSheetController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-           
+            let value = self.calculateTakeProfit(takeProfitInput: self.tf_takeProfit.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, contractSize: Double(self.contractSize ?? 0))
+            print("new converted value is = \(value)")
+            self.tf_takeProfit.text = "\(value)"
         }
     }
-    
     
     @IBAction func takeProfitMinus_action(_ sender: Any) {
         updateValue(for: tf_takeProfit, increment: false)
@@ -780,9 +767,9 @@ class TicketVC: BottomSheetController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-           
+            let value = self.calculateTakeProfit(takeProfitInput: self.tf_stopLoss.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, contractSize: Double(self.contractSize ?? 0))
+            self.tf_takeProfit.text = "\(value)"
         }
-        
     }
     
     @IBAction func stopLossMinus_action(_ sender: Any) {
@@ -793,13 +780,38 @@ class TicketVC: BottomSheetController {
         updateValue(for: tf_stopLoss, increment: true)
     }
     
-    
-    
     @IBAction func stopLoss_clearAction(_ sender: Any) {
 //        lbl_SL.isHidden = true
         stopLossLiveValue_view.isHidden = true
         tf_stopLoss.text = ""
         tf_stopLoss.placeholder = "not set"
+    }
+    
+    func calculateTakeProfit(takeProfitInput: String, selectedType: String, bidPrice: Double, contractSize: Double) -> Double {
+        var takeProfitValue: Double = 0.0
+        
+        switch selectedType {
+        case "Profit in %":
+            if let takeProfitPercentage = Double(takeProfitInput) {
+                takeProfitValue = (takeProfitPercentage / 100) * bidPrice + bidPrice
+            }
+            
+        case "Profit in Price":
+            if let takeProfitPrice = Double(takeProfitInput) {
+                takeProfitValue = takeProfitPrice
+            }
+            
+        case "Profit in Pips":
+            let pipValue = bidPrice * (1.0 / pow(10, contractSize))
+            if let takeProfitPips = Double(takeProfitInput) {
+                takeProfitValue = pipValue * takeProfitPips + bidPrice
+            }
+            
+        default:
+            print("Invalid take profit type")
+        }
+        
+        return takeProfitValue
     }
     
     @IBAction func cancel_btnAction(_ sender: Any) {
@@ -833,12 +845,8 @@ class TicketVC: BottomSheetController {
             selectedSymbol! += "."
         }
         
-        
-        
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
-        
     }
-      
 }
 
 extension TicketVC {

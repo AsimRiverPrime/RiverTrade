@@ -23,11 +23,11 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var lbl_datetime: UILabel!
     @IBOutlet weak var lbl_pointsDiff: UILabel!
     
-//    private var chart: LightweightCharts? // Chart reference to keep it persistent
-//    private var series: AreaSeries? // The chart's area series
+    //    private var chart: LightweightCharts? // Chart reference to keep it persistent
+    //    private var series: AreaSeries? // The chart's area series
     private var isChartCreated = false // Flag to ensure chart is created only once
     private var darkBackground: UIView? // To keep the background dark while chart loads
-//    var options = AreaSeriesOptions()
+    //    var options = AreaSeriesOptions()
     
     var close = Double()
     var previousValue: Double?
@@ -35,67 +35,69 @@ class TradeTableViewCell: UITableViewCell {
     var digits: Int?
     var lastClosedValue: Double?
     
-    var onLabel1Tapped: (() -> Void)?
-       var onLabel2Tapped: (() -> Void)?
-       var onLabel3Tapped: (() -> Void)?
+    var onLabelSymbolTapped: (() -> Void)?
+    var onLabelAskTapped: (() -> Void)?
+    var onLabelBidTapped: (() -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Add gesture recognizers
-             let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(label1Tapped))
+        let tapGesture1 = UITapGestureRecognizer(target: self, action: #selector(labelSymbolTapped))
         lblCurrencySymbl.isUserInteractionEnabled = true
         lblCurrencySymbl.addGestureRecognizer(tapGesture1)
-
-             let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(label2Tapped))
-        lbl_askAmount.isUserInteractionEnabled = true
-        lbl_askAmount.addGestureRecognizer(tapGesture2)
-
-             let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(label3Tapped))
+        
+        let tapGesture2 = UITapGestureRecognizer(target: self, action: #selector(labelBidTapped))
         lbl_bidAmount.isUserInteractionEnabled = true
-        lbl_bidAmount.addGestureRecognizer(tapGesture3)
-         }
-
-         // Gesture recognizer actions
-         @objc private func label1Tapped() {
-             onLabel1Tapped?()
-         }
-
-         @objc private func label2Tapped() {
-             onLabel2Tapped?()
-         }
-
-         @objc private func label3Tapped() {
-             onLabel3Tapped?()
-         }
+        lbl_bidAmount.addGestureRecognizer(tapGesture2)
+        
+        let tapGesture3 = UITapGestureRecognizer(target: self, action: #selector(labelAskTapped))
+        lbl_askAmount.isUserInteractionEnabled = true
+        lbl_askAmount.addGestureRecognizer(tapGesture3)
+        
+        
+    }
+    
+    // Gesture recognizer actions
+    @objc private func labelSymbolTapped() {
+        onLabelSymbolTapped?()
+    }
+    
+    @objc private func labelAskTapped() {
+        onLabelAskTapped?()
+    }
+    
+    @objc private func labelBidTapped() {
+        onLabelBidTapped?()
+    }
     
     func setStyledLabel(value: Double, digit: Int, label: UILabel) {
         let boldColor: UIColor
         boldColor = .white
         // Determine the color based on value comparison
-//        if let previous = previousValue {
-//            if value < previous {
-//                boldColor = .red // Less than previous value
-//            } else if value > previous {
-//                boldColor = .blue // Greater than previous value
-//            } else {
-//                boldColor = .white // Equal to previous value
-//            }
-//        } else {
-//            boldColor = .white // Default color for the first value
-//        }
-
+        //        if let previous = previousValue {
+        //            if value < previous {
+        //                boldColor = .red // Less than previous value
+        //            } else if value > previous {
+        //                boldColor = .blue // Greater than previous value
+        //            } else {
+        //                boldColor = .white // Equal to previous value
+        //            }
+        //        } else {
+        //            boldColor = .white // Default color for the first value
+        //        }
+        
         // Update the previousValue for future comparisons
-//        previousValue = value
-
+        //        previousValue = value
+        
         // Format the value to the specified number of digits
         let format = "%.\(digit)f"
         let valueString = String(format: format, value).trimmingCharacters(in: .whitespaces)
-
+        
         // Split the value into integer and decimal parts
         let parts = valueString.split(separator: ".")
         let integerPart = String(parts[0]) + "."
         var decimalPart = parts.count > 1 ? String(parts[1]) : ""
-
+        
         // Attributes for normal, bold, and superscript text
         let normalAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 18),
@@ -110,9 +112,9 @@ class TradeTableViewCell: UITableViewCell {
             .foregroundColor: boldColor,
             .baselineOffset: 8 // Raise the last digit slightly
         ]
-
+        
         let attributedText = NSMutableAttributedString(string: integerPart, attributes: normalAttributes)
-
+        
         // Apply logic for decimal part styling
         if decimalPart.isEmpty {
             decimalPart = "0"
@@ -124,14 +126,14 @@ class TradeTableViewCell: UITableViewCell {
         } else if decimalPart.count == 3 {
             let firstTwoDigits = String(decimalPart.prefix(2))
             let lastDigit = String(decimalPart.suffix(1))
-
+            
             attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: boldAttributes))
             attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
         } else if decimalPart.count == 4 {
             let firstDigit = String(decimalPart.prefix(1))
             let middleDigits = String(decimalPart.dropFirst(1).prefix(2))
             let lastDigit = String(decimalPart.suffix(1))
-
+            
             attributedText.append(NSAttributedString(string: firstDigit, attributes: normalAttributes))
             attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
             attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
@@ -139,18 +141,18 @@ class TradeTableViewCell: UITableViewCell {
             let firstTwoDigits = String(decimalPart.prefix(2))
             let middleDigits = String(decimalPart.dropFirst(2).dropLast())
             let lastDigit = String(decimalPart.suffix(1))
-
+            
             attributedText.append(NSAttributedString(string: firstTwoDigits, attributes: normalAttributes))
             if !middleDigits.isEmpty {
                 attributedText.append(NSAttributedString(string: middleDigits, attributes: boldAttributes))
             }
             attributedText.append(NSAttributedString(string: lastDigit, attributes: superscriptAttributes))
         }
-
+        
         // Set the styled text to the label
         label.attributedText = attributedText
     }
-
+    
     func calculatePips(ask: Double, bid: Double, digits: Int) -> Int {
         // Calculate the difference
         let difference = ask - bid
@@ -193,8 +195,8 @@ class TradeTableViewCell: UITableViewCell {
     // Function to configure the cell's UI and chart based on trade data.
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
         lblCurrencySymbl.text = trade.symbol
-//        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
-       
+        //        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
+        
         let createDate = Date(timeIntervalSince1970: Double(trade.datetime))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
@@ -227,7 +229,7 @@ class TradeTableViewCell: UITableViewCell {
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
         }
-
+        
         let pointsValues = calculatePointDifferencePips(currentBid: trade.bid, lastCloseBid: self.lastClosedValue ?? 0.0, decimalPrecision: self.digits ?? 0)
         self.lbl_pointsDiff.text = "\(pointsValues)"
         
@@ -236,75 +238,75 @@ class TradeTableViewCell: UITableViewCell {
     }
     
     // Setting up the chart only once for a specific symbol
-//    private func setupChart(for symbol: String, with chartData: [ChartData]) {
-//        if !isChartCreated {  // Check if the chart hasn't been created yet
-//            // Create chart and apply options only once
-//            chart = LightweightCharts()
-//            chart?.backgroundColor = UIColor.clear // Set chart background color to black
-//            graphView.backgroundColor = UIColor.clear
-//            
-//            // Initially hide the chart while it's being setup
-//            chart?.isHidden = true
-//            graphView.addSubview(chart!)
-//            chart?.translatesAutoresizingMaskIntoConstraints = false
-//            NSLayoutConstraint.activate([
-//                chart!.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
-//                chart!.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
-//                chart!.topAnchor.constraint(equalTo: graphView.topAnchor),
-//                chart!.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
-//            ])
-//            
-//            // Chart options (e.g., hiding axis, gridlines, etc.)
-//            let chartOptions = ChartOptions(
-//                layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)))),
-//                rightPriceScale: VisiblePriceScaleOptions(visible: false),
-//                timeScale: TimeScaleOptions(visible: false),
-//                grid: GridOptions(
-//                    verticalLines: GridLineOptions(visible: false),
-//                    horizontalLines: GridLineOptions(visible: false)
-//                )
-//            )
-//            chart?.applyOptions(options: chartOptions)
-//
-//            series = chart?.addAreaSeries(options: options)
-//            
-//            isChartCreated = true // Mark chart as created to prevent re-initialization
-//        }
-//        
-//        // Update chart data after initialization
-//        updateChart(with: chartData)
-//    }
+    //    private func setupChart(for symbol: String, with chartData: [ChartData]) {
+    //        if !isChartCreated {  // Check if the chart hasn't been created yet
+    //            // Create chart and apply options only once
+    //            chart = LightweightCharts()
+    //            chart?.backgroundColor = UIColor.clear // Set chart background color to black
+    //            graphView.backgroundColor = UIColor.clear
+    //
+    //            // Initially hide the chart while it's being setup
+    //            chart?.isHidden = true
+    //            graphView.addSubview(chart!)
+    //            chart?.translatesAutoresizingMaskIntoConstraints = false
+    //            NSLayoutConstraint.activate([
+    //                chart!.leadingAnchor.constraint(equalTo: graphView.leadingAnchor),
+    //                chart!.trailingAnchor.constraint(equalTo: graphView.trailingAnchor),
+    //                chart!.topAnchor.constraint(equalTo: graphView.topAnchor),
+    //                chart!.bottomAnchor.constraint(equalTo: graphView.bottomAnchor)
+    //            ])
+    //
+    //            // Chart options (e.g., hiding axis, gridlines, etc.)
+    //            let chartOptions = ChartOptions(
+    //                layout: LayoutOptions(background: SurfaceColor.solid(color: ChartColor.init(UIColor(red: 22/255.0, green: 25/255.0, blue: 36/255.0, alpha: 1.0)))),
+    //                rightPriceScale: VisiblePriceScaleOptions(visible: false),
+    //                timeScale: TimeScaleOptions(visible: false),
+    //                grid: GridOptions(
+    //                    verticalLines: GridLineOptions(visible: false),
+    //                    horizontalLines: GridLineOptions(visible: false)
+    //                )
+    //            )
+    //            chart?.applyOptions(options: chartOptions)
+    //
+    //            series = chart?.addAreaSeries(options: options)
+    //
+    //            isChartCreated = true // Mark chart as created to prevent re-initialization
+    //        }
+    //
+    //        // Update chart data after initialization
+    //        updateChart(with: chartData)
+    //    }
     
     // MARK: - Function to update the chart with new data.
-//    func updateChart(with chartData: [ChartData]) {
-//        guard let areaSeries = series else { return }
-//        
-//        var areaData = [AreaData]()
-//        for data in chartData {
-//            self.close = data.close
-//            let area = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
-//            areaData.append(area)
-//        }
-//        
-//        // Update chart data in one go
-//        areaSeries.setData(data: areaData)
-//        
-////        // After updating the chart data, reveal the chart view (no flicker)
-////        graphView.isHidden = false
-////        chart?.isHidden = false
-//        
-//        // Start a timer to delay showing the chart by 2 seconds
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-//                    // After 2 seconds, reveal the chart and graph view
-//                    self.graphView.isHidden = false
-//                    self.chart?.isHidden = false
-//                }
-//    }
+    //    func updateChart(with chartData: [ChartData]) {
+    //        guard let areaSeries = series else { return }
+    //
+    //        var areaData = [AreaData]()
+    //        for data in chartData {
+    //            self.close = data.close
+    //            let area = AreaData(time: .utc(timestamp: Double(data.datetime)), value: data.close)
+    //            areaData.append(area)
+    //        }
+    //
+    //        // Update chart data in one go
+    //        areaSeries.setData(data: areaData)
+    //
+    ////        // After updating the chart data, reveal the chart view (no flicker)
+    ////        graphView.isHidden = false
+    ////        chart?.isHidden = false
+    //
+    //        // Start a timer to delay showing the chart by 2 seconds
+    //                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+    //                    // After 2 seconds, reveal the chart and graph view
+    //                    self.graphView.isHidden = false
+    //                    self.chart?.isHidden = false
+    //                }
+    //    }
     
     // Use this function to configure the chart when data is available for the symbol.
-//    func configureChart(getSymbolData: SymbolChartData) {
-//        setupChart(for: getSymbolData.symbol, with: getSymbolData.chartData)
-//    }
+    //    func configureChart(getSymbolData: SymbolChartData) {
+    //        setupChart(for: getSymbolData.symbol, with: getSymbolData.chartData)
+    //    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -329,5 +331,5 @@ extension String {
         }
         return numberString  // Return original if conversion fails
     }
-
+    
 }

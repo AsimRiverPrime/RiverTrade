@@ -41,7 +41,7 @@ class EconomicCalendarDetailVC: BaseViewController {
         setupData()
 //
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "Economic Calendar Detail", leftTitle: "", rightTitle: "", textColor: .white, barColor: .clear)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "Economic Calendar Detail", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
    
    func setupData() {
