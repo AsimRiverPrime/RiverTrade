@@ -120,6 +120,8 @@ class TicketVC: BottomSheetController {
     var decryptedPass: String?
     
     var getTF_Volume: Double?
+    var previousStopLossType: String = "Loss in Price"
+    var previousTakeProfitType: String = "Profit in Price"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,7 +186,7 @@ class TicketVC: BottomSheetController {
             digits = Int("\(obj.digits)")
             
             userPassword = UserDefaults.standard.string(forKey: "password")
-            
+                
             print("selectedSymbol: \(selectedSymbol)\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
         }
     }
@@ -263,9 +265,7 @@ class TicketVC: BottomSheetController {
                 profit.0 = "Profit"
                 profit.1 = Double(liveValue) ?? 0.0
                 profit.2 = true
-                
-//                self.lbl_ConfrmBtnPrice.text = liveValue
-                
+            
             } else {
                 profit.0 = ""
                 profit.1 = 0.0
@@ -278,9 +278,7 @@ class TicketVC: BottomSheetController {
                 loss.0 = "Loss"
                 loss.1 = Double(liveValue) ?? 0.0
                 loss.2 = true
-                
-//                self.lbl_ConfrmBtnPrice.text = liveValue
-                
+       
             } else {
                 loss.0 = ""
                 loss.1 = 0.0
@@ -721,9 +719,19 @@ class TicketVC: BottomSheetController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-            let value = self.calculateTakeProfit(takeProfitInput: self.tf_takeProfit.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, contractSize: Double(self.contractSize ?? 0))
-            print("new converted value is = \(value)")
-            self.tf_takeProfit.text = "\(value)"
+            // Check if selected item is the same as previousType
+               if self.previousTakeProfitType == item {
+                   print("Same type selected, no conversion needed.")
+                   return  // Exit without doing anything
+               }
+            
+            let value = self.calculateProfitOrLoss(input: self.tf_takeProfit.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, orderType: self.titleString, digits: self.digits ?? 0, previousType: self.previousTakeProfitType, isTakeProfit: true)
+            print("new take profit converted value is = \(value)")
+            self.currentValue3 = value
+            self.tf_takeProfit.text = ("\(String(format: "%.\(self.digits ?? 0)f", value))")
+            
+            self.previousTakeProfitType = item
+            
         }
     }
     
@@ -767,8 +775,19 @@ class TicketVC: BottomSheetController {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
-            let value = self.calculateTakeProfit(takeProfitInput: self.tf_stopLoss.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, contractSize: Double(self.contractSize ?? 0))
-            self.tf_takeProfit.text = "\(value)"
+            // Check if selected item is the same as previousType
+            if self.previousStopLossType == item {
+                   print("Same type selected, no conversion needed.")
+                   return  // Exit without doing anything
+               }
+           
+            let value = self.calculateProfitOrLoss(input: self.tf_stopLoss.text ?? "", selectedType: item, bidPrice: self.bidValue ?? 0.0, orderType: self.titleString, digits: self.digits ?? 0, previousType: self.previousStopLossType, isTakeProfit: false)
+            
+            print("new stop loss converted value is = \(value)")
+            self.currentValue4 = value
+            
+            self.tf_stopLoss.text =  ("\(String(format: "%.\(self.digits ?? 0)f", value))")
+            self.previousStopLossType = item
         }
     }
     
@@ -787,31 +806,146 @@ class TicketVC: BottomSheetController {
         tf_stopLoss.placeholder = "not set"
     }
     
-    func calculateTakeProfit(takeProfitInput: String, selectedType: String, bidPrice: Double, contractSize: Double) -> Double {
-        var takeProfitValue: Double = 0.0
+//    func calculateTakeProfit(takeProfitInput: String, selectedType: String, bidPrice: Double, orderType: String, digits: Int, previousType: String? = nil) -> Double {
+//        var takeProfitValue: Double = 0.0
+//        
+//        print("\n takeProfitInput: \(takeProfitInput) ,\t selectedType: \(selectedType), \t bidPrice: \(bidPrice), \t orderType: \(orderType), digits: \(digits) \n")
+//        
+//        // Adjusted pipValue based on the provided digits
+//        let pipValue = 1.0 / pow(10.0, Double(digits))
+//        
+//        // If the user switches from one type to another, convert the input accordingly
+//        if let previousType = previousType, previousType != selectedType, let inputValue = Double(takeProfitInput) {
+//            switch (previousType, selectedType) {
+//            case ("Profit in %", "Profit in Price"):
+//                let profitAmount = bidPrice * (inputValue / 100.0)
+//                takeProfitValue = (orderType == "BUY") ? (bidPrice + profitAmount) : (bidPrice - profitAmount)
+//                return takeProfitValue
+//            
+//            case ("Profit in %", "Profit in Pips"):
+//                let profitAmount = bidPrice * (inputValue / 100.0)
+//                let pips = profitAmount / pipValue
+//                return pips
+//
+//            case ("Profit in Pips", "Profit in Price"):
+//                let profitAmount = inputValue * pipValue
+//                takeProfitValue = (orderType == "BUY") ? (bidPrice + profitAmount) : (bidPrice - profitAmount)
+//                return takeProfitValue
+//            
+//            case ("Profit in Pips", "Profit in %"):
+//                let profitAmount = inputValue * pipValue
+//                let percentage = (profitAmount / bidPrice) * 100.0
+//                return percentage
+//
+//            case ("Profit in Price", "Profit in %"):
+//                let percentage = ((inputValue - bidPrice) / bidPrice) * 100.0
+//                return percentage
+//            
+//            case ("Profit in Price", "Profit in Pips"):
+//                let pips = (inputValue - bidPrice) / pipValue
+//                return pips
+//            
+//            default:
+//                break
+//            }
+//        }
+//
+//        return takeProfitValue
+//    }
+    func calculateProfitOrLoss(input: String, selectedType: String, bidPrice: Double, orderType: String, digits: Int, previousType: String? = nil, isTakeProfit: Bool = true) -> Double {
+        var resultValue: Double = 0.0
         
-        switch selectedType {
-        case "Profit in %":
-            if let takeProfitPercentage = Double(takeProfitInput) {
-                takeProfitValue = (takeProfitPercentage / 100) * bidPrice + bidPrice
-            }
+        print("\n input: \(input) ,\t selectedType: \(selectedType), \t bidPrice: \(bidPrice), \t orderType: \(orderType), digits: \(digits), \t isTakeProfit: \(isTakeProfit) \n")
+        
+        // Adjusted pipValue based on the provided digits
+        let pipValue = 1.0 / pow(10.0, Double(digits))
+        
+        // If the user switches from one type to another, convert the input accordingly
+        if let previousType = previousType, previousType != selectedType, let inputValue = Double(input) {
+            // Determine the list based on whether it's take profit or stop loss
+            let actionList = isTakeProfit ? takeProfitList : stopLossList
             
-        case "Profit in Price":
-            if let takeProfitPrice = Double(takeProfitInput) {
-                takeProfitValue = takeProfitPrice
+            switch (previousType, selectedType) {
+            case ("Profit in %", "Profit in Price"), ("Loss in %", "Loss in Price"):
+                let amount = bidPrice * (inputValue / 100.0)
+                resultValue = (orderType == "BUY") ? (bidPrice + (isTakeProfit ? amount : -amount)) : (bidPrice - (isTakeProfit ? amount : -amount))
+                return resultValue
+                
+            case ("Profit in %", "Profit in Pips"), ("Loss in %", "Loss in Pips"):
+                let amount = bidPrice * (inputValue / 100.0)
+                let pips = amount / pipValue
+                return pips
+
+            case ("Profit in Pips", "Profit in Price"), ("Loss in Pips", "Loss in Price"):
+                let amount = inputValue * pipValue
+                resultValue = (orderType == "BUY") ? (bidPrice + (isTakeProfit ? amount : -amount)) : (bidPrice - (isTakeProfit ? amount : -amount))
+                return resultValue
+                
+            case ("Profit in Pips", "Profit in %"), ("Loss in Pips", "Loss in %"):
+                let amount = inputValue * pipValue
+                let percentage = (amount / bidPrice) * 100.0
+                return percentage
+
+            case ("Profit in Price", "Profit in %"), ("Loss in Price", "Loss in %"):
+                let percentage = ((inputValue - bidPrice) / bidPrice) * 100.0
+                return percentage
+                
+            case ("Profit in Price", "Profit in Pips"), ("Loss in Price", "Loss in Pips"):
+                let pips = (inputValue - bidPrice) / pipValue
+                return pips
+                
+            default:
+                break
             }
-            
-        case "Profit in Pips":
-            let pipValue = bidPrice * (1.0 / pow(10, contractSize))
-            if let takeProfitPips = Double(takeProfitInput) {
-                takeProfitValue = pipValue * takeProfitPips + bidPrice
+        }
+        // Default to the original case (no type switch needed)
+        if let inputValue = Double(input) {
+            switch selectedType {
+            case "Profit in %":
+                let amount = bidPrice * (inputValue / 100.0)
+                resultValue = (orderType == "BUY") ? (bidPrice + amount) : (bidPrice - amount)
+            case "Profit in Pips":
+                let amount = inputValue * pipValue
+                resultValue = (orderType == "BUY") ? (bidPrice + amount) : (bidPrice - amount)
+            case "Profit in Price":
+                resultValue = (orderType == "BUY") ? (bidPrice + inputValue) : (bidPrice - inputValue)
+                
+            case "Loss in %":
+                let amount = bidPrice * (inputValue / 100.0)
+                resultValue = (orderType == "BUY") ? (bidPrice - amount) : (bidPrice + amount)
+            case "Loss in Pips":
+                let amount = inputValue * pipValue
+                resultValue = (orderType == "BUY") ? (bidPrice - amount) : (bidPrice + amount)
+            case "Loss in Price":
+                resultValue = (orderType == "BUY") ? (bidPrice - inputValue) : (bidPrice + inputValue)
+                
+            default:
+                break
             }
-            
-        default:
-            print("Invalid take profit type")
         }
         
-        return takeProfitValue
+        return resultValue
+    }
+
+
+    // Function to convert to takeProfit price before API call
+    func convertToTPprice(input: String, bidPrice: Double, orderType: String, digits: Int) -> Double {
+      
+        if previousTakeProfitType == "Profit in Price" {
+            return Double(input) ?? bidPrice
+        }else{
+            return calculateProfitOrLoss(input: input, selectedType: "Profit in Price", bidPrice: bidPrice, orderType: orderType, digits: digits, previousType: previousTakeProfitType)
+           
+        }
+    }
+    // Function to convert to StopLoss price before API call
+    func convertToSLprice(input: String, bidPrice: Double, orderType: String, digits: Int) -> Double {
+      
+        if previousStopLossType == "Loss in Price" {
+            return Double(input) ?? bidPrice
+        }else{
+            return calculateProfitOrLoss(input: input, selectedType: "Profit in Price", bidPrice: bidPrice, orderType: orderType, digits: digits, previousType: previousTakeProfitType)
+        }
     }
     
     @IBAction func cancel_btnAction(_ sender: Any) {

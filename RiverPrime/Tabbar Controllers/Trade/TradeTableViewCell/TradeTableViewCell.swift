@@ -73,22 +73,7 @@ class TradeTableViewCell: UITableViewCell {
     func setStyledLabel(value: Double, digit: Int, label: UILabel) {
         let boldColor: UIColor
         boldColor = .white
-        // Determine the color based on value comparison
-        //        if let previous = previousValue {
-        //            if value < previous {
-        //                boldColor = .red // Less than previous value
-        //            } else if value > previous {
-        //                boldColor = .blue // Greater than previous value
-        //            } else {
-        //                boldColor = .white // Equal to previous value
-        //            }
-        //        } else {
-        //            boldColor = .white // Default color for the first value
-        //        }
-        
-        // Update the previousValue for future comparisons
-        //        previousValue = value
-        
+      
         // Format the value to the specified number of digits
         let format = "%.\(digit)f"
         let valueString = String(format: format, value).trimmingCharacters(in: .whitespaces)
