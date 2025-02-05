@@ -23,7 +23,7 @@ class GlobalVariable: NSObject {
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
-    var dbPassword: String =  "289c8650dacf8b89c15e2980fc5ac2329a11ca84"
+    var dbPassword: String =  "0cd0a595da38d1fa832b05012f35a8bc602eeac2"
     
     var firebaseNotificationToken = ""
     

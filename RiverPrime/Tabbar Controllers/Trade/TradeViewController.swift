@@ -918,14 +918,14 @@ extension TradeViewController: GetSocketMessages {
                         cell.lbl_pipsValues.text = "\(pipsValues)"
                         
                         if let timestamp = getSymbolData[index].tickMessage?.datetime {
-                            print("Raw UNIX Timestamp: \(timestamp)") // Debugging
-                            print("System Time Zone: \(TimeZone.current)")
+//                            print("Raw UNIX Timestamp: \(timestamp)") // Debugging
+//                            print("System Time Zone: \(TimeZone.current)")
                             // Step 1: Convert UNIX timestamp (seconds) to Date
                             let createDate = Date(timeIntervalSince1970: Double(timestamp))
-                            print("Converted Date: \(createDate)") // Debugging
+//                            print("Converted Date: \(createDate)") // Debugging
                             
                             let adjustedDate = createDate.addingTimeInterval(-2 * 3600)
-                            print("Adjusted Date (After subtracting 2 hours): \(adjustedDate)")
+//                            print("Adjusted Date (After subtracting 2 hours): \(adjustedDate)")
                             // Step 2: Format the Date into local time
                             let dateFormatter = DateFormatter()
                             dateFormatter.dateFormat = "HH:mm:ss" // Desired time format
@@ -933,7 +933,7 @@ extension TradeViewController: GetSocketMessages {
                             dateFormatter.timeZone =  .current //TimeZone(identifier: "Asia/Dubai")   // Use local time zone (UTC+4, etc.)
                             
                             let localTimeString = dateFormatter.string(from: adjustedDate)
-                            print("Formatted Local Time: \(localTimeString)") // Debugging
+//                            print("Formatted Local Time: \(localTimeString)") // Debugging
                             
                             // Step 3: Assign the formatted time to the label
                             cell.lbl_datetime.text = localTimeString
@@ -950,7 +950,7 @@ extension TradeViewController: GetSocketMessages {
                             guard let symboleData = Session.instance.symbolData else { return }
                             
                             let yesterdayClose_value = symboleData.filter { $0.name == getSymbolData[index].tickMessage?.symbol }.map { $0.yesterday_close }
-                            print("symbolyesterday_close = \(yesterdayClose_value)")
+//                            print("symbolyesterday_close = \(yesterdayClose_value)")
                             oldBid = Double(yesterdayClose_value[0]) ?? 0.0
                         }
                         

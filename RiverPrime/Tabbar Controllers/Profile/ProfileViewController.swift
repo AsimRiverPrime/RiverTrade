@@ -62,7 +62,7 @@ class ProfileViewController: BaseViewController{
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account user: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             
             realAccount = defaultAccount.isReal == true ? true : false
         }

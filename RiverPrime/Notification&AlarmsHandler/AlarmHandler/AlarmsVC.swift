@@ -8,65 +8,102 @@
 import UIKit
 import WebKit
 
-class AlarmsVC: UIViewController, WKNavigationDelegate {
+class AlarmsVC: UIViewController{
     
-    var webView: WKWebView!
-    var selectedSymbol: String! // Pass the symbol here from the table view
-    
+    private lazy var webView: WKWebView = {
+        let configuration = WKWebViewConfiguration()
+        configuration.preferences.setValue(true, forKey: "allowFileAccessFromFileURLs")
+        configuration.preferences.isElementFullscreenEnabled = true
+        
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.scrollView.contentInsetAdjustmentBehavior = .never
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
+        webView.isInspectable = true
+        return webView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-            // Initialize the WebView
-            webView = WKWebView(frame: self.view.bounds)
-            webView.navigationDelegate = self
-            self.view.addSubview(webView)
-            
-            // Load the local JavaScript project
-        if let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html", subdirectory: "charting_library-master") {
-            print("HTML file found at: \(url.absoluteString)")
-            webView.loadFileURL(url, allowingReadAccessTo: url.deletingLastPathComponent())
-        } else {
-            print("Failed to load mobile_black the HTML file.")
+        
+        view.addSubview(webView)
+       
+        guard let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html") else {
+            print("No file at url")
+            return
         }
         
-        if let path = Bundle.main.path(forResource: "mobile_black", ofType: "html", inDirectory: "charting_library-master") {
-            print("HTML path exists: \(path)")
-        } else {
-            print("HTML file is missing.")
+        webView.loadFileURL(url, allowingReadAccessTo: url)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.updateTradingViewSymbol(symbol: "AAPL")
         }
         
-        callJavaScriptFunction()
-        }
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        // Example JavaScript interactiongv
-        func callJavaScriptFunction() {
-            let jsCode = "alert('Hello from Swift!')"
-            webView.evaluateJavaScript(jsCode) { (result, error) in
-                if let error = error {
-                    print("JavaScript execution failed: \(error)")
-                } else {
-                    print("JavaScript executed successfully: \(String(describing: result))")
-                }
+        let origin = CGPoint(x: view.safeAreaInsets.left, y: view.safeAreaInsets.top)
+        let size = CGSize(
+            width: view.frame.width - view.safeAreaInsets.left - view.safeAreaInsets.right,
+            height: view.frame.height - view.safeAreaInsets.bottom - view.safeAreaInsets.top
+        )
+        
+        webView.frame = CGRect(origin: origin, size: size)
+    }
+
+    func sendStringToWebView() {
+           let script = "receiveDataFromSwift('AAPL');"
+           webView.evaluateJavaScript(script, completionHandler: nil)
+       }
+    func updateTradingViewSymbol(symbol: String) {
+        let js = "window.setSymbol('\(symbol)');"
+        webView.evaluateJavaScript(js) { (result, error) in
+            if let error = error {
+                print("Error injecting JavaScript: \(error.localizedDescription)")
             }
         }
-    
-}
-
-extension AlarmsVC: WKScriptMessageHandler {
-    func setupWebView() {
-        let contentController = WKUserContentController()
-        contentController.add(self, name: "messageHandler")
-        
-        let config = WKWebViewConfiguration()
-        config.userContentController = contentController
-        
-        webView = WKWebView(frame: self.view.bounds, configuration: config)
     }
     
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "messageHandler", let body = message.body as? String {
-            print("Received message from JavaScript: \(body)")
+    
+    }
+
+    extension AlarmsVC: WKNavigationDelegate {
+
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .other {
+            if let url = navigationAction.request.url,
+               let host = url.host, host.hasPrefix("www.tradingview.com"),
+               UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url)
+                decisionHandler(.cancel)
+                return
+            } else {
+                decisionHandler(.allow)
+                return
+            }
+        } else {
+            decisionHandler(.cancel)
+            return
         }
     }
-}
+
+    }
+
+    extension AlarmsVC: WKUIDelegate {
+
+    func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        guard let url = navigationAction.request.url else { return nil }
+        let request = URLRequest.init(url: url)
+        webView.load(request)
+        return nil
+    }
+
+    }
+

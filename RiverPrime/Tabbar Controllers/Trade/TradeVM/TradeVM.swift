@@ -152,7 +152,7 @@ extension TradeVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         

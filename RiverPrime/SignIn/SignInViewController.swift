@@ -127,6 +127,8 @@ class SignInViewController: BaseViewController {
     }
     
     @IBAction func submitBtn(_ sender: Any) {
+        odoClientNew.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+        
         login()
 //        if let dashboardVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
 //            self.navigate(to: dashboardVC)

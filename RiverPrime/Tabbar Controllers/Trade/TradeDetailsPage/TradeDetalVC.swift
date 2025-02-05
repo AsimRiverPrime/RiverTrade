@@ -377,7 +377,7 @@ class TradeDetalVC: UIViewController {
                 
                 
                 let yesterdayClose_value = GlobalVariable.instance.symbolDataArray.filter { $0.name == getSymbolData.tickMessage?.symbol }.map { $0.yesterday_close }
-                print("symbolyesterday_close = \(yesterdayClose_value)")
+//                print("symbolyesterday_close = \(yesterdayClose_value)")
                 oldBid = Double(yesterdayClose_value[0]) ?? 0.0
                 
                 

@@ -18,7 +18,7 @@ class OdooClientNew {
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
     var dbUserName: String =  "ios"
-    var dbPassword: String = "289c8650dacf8b89c15e2980fc5ac2329a11ca84"// "d2dbc51edfc5631a959c7694287d1e1fb28ffe44"
+    var dbPassword: String = "0cd0a595da38d1fa832b05012f35a8bc602eeac2"// "d2dbc51edfc5631a959c7694287d1e1fb28ffe44"
     
     var userEmail: String = ""
     var loginId = Int()
@@ -1045,7 +1045,7 @@ class OdooClientNew {
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account user: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         
@@ -1110,7 +1110,7 @@ class OdooClientNew {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         

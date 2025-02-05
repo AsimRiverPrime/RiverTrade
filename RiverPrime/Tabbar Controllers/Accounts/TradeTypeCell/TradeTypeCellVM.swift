@@ -29,7 +29,7 @@ class TradeTypeCellVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+//            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         
@@ -111,7 +111,7 @@ class TradeTypeCellVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t  position: \(position) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
@@ -188,7 +188,7 @@ class TradeTypeCellVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) ")
@@ -260,7 +260,7 @@ class TradeTypeCellVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t order_Id: \(order_Id) \t  price: \(price) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
@@ -333,7 +333,7 @@ class TradeTypeCellVM {
             }
         }
 //        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//            print("\n Default Account User: \(defaultAccount)")
+//            //print("\n Default Account User: \(defaultAccount)")
 //            if 
 //            loginId = defaultAccount.accountNumber
 //        }
@@ -473,7 +473,7 @@ class TradeTypeCellVM {
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
             pass = defaultAccount.password
         }
@@ -563,7 +563,7 @@ class TradeTypeCellVM {
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         

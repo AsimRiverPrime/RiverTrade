@@ -24,7 +24,7 @@ class DemoWithdrawalVC: BaseViewController {
            view.addGestureRecognizer(tapGesture)
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account user: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
             
             lbl_withdraw_detail.text = "Enter Withdrawal Amount from Demo \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
         }

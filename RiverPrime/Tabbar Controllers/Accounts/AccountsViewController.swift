@@ -192,7 +192,7 @@ class AccountsViewController: BaseViewController {
     func accountData() {
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account user: \(defaultAccount)")
+            //print("\n Default Account User: \(defaultAccount)")
            
             lbl_account.text = defaultAccount.isReal == true ? "Real" : "Demo"
             lbl_accountType.text = defaultAccount.groupName
