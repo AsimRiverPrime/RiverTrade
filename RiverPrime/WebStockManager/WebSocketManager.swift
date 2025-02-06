@@ -85,8 +85,6 @@ class WebSocketManager: WebSocketDelegate {
         } else {
             print("WebSocket is disconnected.")
         }
-        
-        
         startConnectionCheckTimer()
         
         print("GlobalVariable.instance.socketTimerCount = \(GlobalVariable.instance.socketTimerCount)")
@@ -110,7 +108,6 @@ class WebSocketManager: WebSocketDelegate {
     func isSocketConnected() -> Bool {
         return GlobalVariable.instance.isConnected
     }
-
 
     func connectWebSocket() {
         let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
@@ -208,14 +205,14 @@ class WebSocketManager: WebSocketDelegate {
         }
     }
     
-    func getSavedSymbols() -> [SymbolData]? {
-        let savedSymbolsKey = "savedSymbolsKey"
-        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
-            let decoder = JSONDecoder()
-            return try? decoder.decode([SymbolData].self, from: savedSymbols)
-        }
-        return nil
-    }
+//    func getSavedSymbols() -> [SymbolData]? {
+//        let savedSymbolsKey = "savedSymbolsKey"
+//        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
+//            let decoder = JSONDecoder()
+//            return try? decoder.decode([SymbolData].self, from: savedSymbols)
+//        }
+//        return nil
+//    }
     
     // WebSocket delegate method
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
@@ -315,8 +312,6 @@ class WebSocketManager: WebSocketDelegate {
         
         sendWebSocketMessage(for: "subscribeTrade", symbolList: selectedSymbols)
     }
-    
-
     // Handle the WebSocket message
     func handleWebSocketMessage(_ string: String) {
         if let jsonData = string.data(using: .utf8) {
@@ -405,7 +400,6 @@ class WebSocketManager: WebSocketDelegate {
         let beforeHourTimestamp = currentTimestamp -  (24 * 60 * 60)
         
         return (current: currentTimestamp, beforeHour: beforeHourTimestamp)
-        
     }
     
     

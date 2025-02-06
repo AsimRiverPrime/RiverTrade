@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Starscream
+//import Starscream
 import TPKeyboardAvoiding
 
 class TradeDetalVC: UIViewController {
@@ -134,7 +134,7 @@ class TradeDetalVC: UIViewController {
 //        }
         
         let trading_sessions_ids = getSymbolData.trading_sessions_ids
-        print("trading_sessions_ids: \(trading_sessions_ids ?? [])")
+//        print("trading_sessions_ids: \(trading_sessions_ids ?? [])")
         self.OdooClientObject.requestSymbolTrade_session(sessionIds: trading_sessions_ids ?? [])
         
         self.chartView.isHidden = true
@@ -181,25 +181,23 @@ class TradeDetalVC: UIViewController {
             
             //            print("\n Symbol: \(getSymbolData.tickMessage?.symbol) \n Image URL: \(icon_url)")
             
-            if getSymbolData.tickMessage?.symbol == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if getSymbolData.tickMessage?.symbol == "NDX100" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if getSymbolData.tickMessage?.symbol == "DJI30" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else{
-                let imageUrl = URL(string: icon_url)
-                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
+//            if getSymbolData.tickMessage?.symbol == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if getSymbolData.tickMessage?.symbol == "NDX100" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+//                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if getSymbolData.tickMessage?.symbol == "DJI30" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+//                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else{
+//                let imageUrl = URL(string: icon_url)
+//                symbolImage.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
             
         } else {
             //            print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
         }
-        
-        
         
         setupSeries(candlestickData: [])
         

@@ -232,10 +232,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func alaramBtnAction(_ sender: Any) {
-        //        Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
-        let vc = Utilities.shared.getViewController(identifier: .alarmsVC, storyboardType: .bottomSheetPopups) as! AlarmsVC
-        
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
+//        let vc = Utilities.shared.getViewController(identifier: .alarmsVC, storyboardType: .bottomSheetPopups) as! AlarmsVC
+//        
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func notificationBtnAction(_ sender: Any) {
@@ -277,8 +277,6 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             self.tf_searchSymbol.resignFirstResponder()
             
         }
-        
-        
         
     }
     
@@ -675,14 +673,13 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.isUserInteractionEnabled = true
                 cell.contentView.alpha = 1.0
             }
-            
            
-            
             cell.onLabelSymbolTapped = { [weak self] in
                        guard let self = self else { return }
                 print("press the symbol label")
                 let getSymbolData = getSymbolData[indexPath.row]
                 if getSymbolData.historyMessage?.chartData.count != 0 {
+                    
                     delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
                 }
 //                let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
@@ -858,11 +855,18 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension TradeViewController: TradeDetailTapDelegate {
     func tradeDetailTap(indexPath: IndexPath, getSymbolData: SymbolCompleteList) {
-        let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
-        
-        vc.getSymbolData = getSymbolData
-        vc.icon_url = getSymbolData.icon_url ?? ""
-        
+//        let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
+//        
+//        vc.getSymbolData = getSymbolData
+//        vc.icon_url = getSymbolData.icon_url ?? ""
+//        
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        let vc = Utilities.shared.getViewController(identifier: .alarmsVC, storyboardType: .bottomSheetPopups) as! AlarmsVC
+        vc.symbolName = getSymbolData.tickMessage?.symbol ?? ""
+        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+            vc.digits = cell.digits ?? 0
+            print("\n tradevc digits is: \(cell.digits)")
+        }
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     

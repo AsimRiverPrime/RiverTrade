@@ -75,6 +75,7 @@
 		3147D4AB2D09B61D00B3F468 /* TopNewsDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3147D4AA2D09B61D00B3F468 /* TopNewsDetailVC.swift */; };
 		314A69D92C94662800125CE3 /* OdooClientNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314A69D82C94662800125CE3 /* OdooClientNew.swift */; };
 		314B3BC32C8B2D6500C009A0 /* KYCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */; };
+		314BE86A2D5499C400AE137E /* chart.html in Resources */ = {isa = PBXBuildFile; fileRef = 314BE8692D5499C400AE137E /* chart.html */; };
 		315222F12CE1D7B3002CBF6C /* GoogleSignIn .swift in Sources */ = {isa = PBXBuildFile; fileRef = 315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */; };
 		31566CE12C3D04D300C8D03B /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31566CE02C3D04D300C8D03B /* Dashboard.storyboard */; };
 		315DB98C2C6C77BD00FF967C /* TicketVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DB98B2C6C77BD00FF967C /* TicketVC.swift */; };
@@ -458,6 +459,7 @@
 		3147D4AA2D09B61D00B3F468 /* TopNewsDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsDetailVC.swift; sourceTree = "<group>"; };
 		314A69D82C94662800125CE3 /* OdooClientNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OdooClientNew.swift; sourceTree = "<group>"; };
 		314B3BC22C8B2D6500C009A0 /* KYCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KYCViewController.swift; sourceTree = "<group>"; };
+		314BE8692D5499C400AE137E /* chart.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = chart.html; path = /Users/rossrostane/Downloads/chart.html; sourceTree = "<absolute>"; };
 		315222F02CE1D7B3002CBF6C /* GoogleSignIn .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GoogleSignIn .swift"; sourceTree = "<group>"; };
 		31566CE02C3D04D300C8D03B /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		315DB98B2C6C77BD00FF967C /* TicketVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketVC.swift; sourceTree = "<group>"; };
@@ -805,6 +807,7 @@
 				31E9E8372D53784300FBA02A /* CONTRIBUTING.md */,
 				31E9E8352D53784200FBA02A /* datafeeds */,
 				31E9E8332D53784200FBA02A /* mobile_black.html */,
+				314BE8692D5499C400AE137E /* chart.html */,
 				31E9E8362D53784300FBA02A /* package.json */,
 				31E9E83A2D53784400FBA02A /* README.md */,
 				31E9E83E2D53784600FBA02A /* test.html */,
@@ -2521,6 +2524,7 @@
 				31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */,
 				3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */,
 				3172C9E52D0AC0FB0098BBEC /* TopNewsSection.xib in Resources */,
+				314BE86A2D5499C400AE137E /* chart.html in Resources */,
 				3105DEEF2CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.xib in Resources */,
 				FA10ECD62CE6A23F00C1980F /* Poppins-Thin.ttf in Resources */,
 				3105DEF02CB3E8A400D1B884 /* TradeTypeCollectionViewCell.xib in Resources */,

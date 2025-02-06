@@ -2709,11 +2709,34 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2N3-XD-DaL">
+                                        <rect key="frame" x="10" y="10" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="FT3-F4-mOb"/>
+                                            <constraint firstAttribute="width" constant="35" id="cDu-Sg-tbh"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                        <connections>
+                                            <action selector="closeBtnAction:" destination="Pti-b6-CPp" eventType="touchUpInside" id="vGd-3s-Sdh"/>
+                                        </connections>
+                                    </button>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ria-V0-aAq">
+                                        <rect key="frame" x="0.0" y="55" width="414" height="841"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.062745098040000002" green="0.066666666669999999" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="2N3-XD-DaL" firstAttribute="top" secondItem="DFZ-x8-kJh" secondAttribute="bottom" id="1SV-Sl-Wv9"/>
+                                    <constraint firstAttribute="bottom" secondItem="ria-V0-aAq" secondAttribute="bottom" id="A1d-6d-03b"/>
+                                    <constraint firstAttribute="trailing" secondItem="ria-V0-aAq" secondAttribute="trailing" id="NGE-uv-c7N"/>
+                                    <constraint firstItem="ria-V0-aAq" firstAttribute="top" secondItem="2N3-XD-DaL" secondAttribute="bottom" constant="10" id="bpQ-YG-7oe"/>
                                     <constraint firstItem="DFZ-x8-kJh" firstAttribute="centerX" secondItem="EMY-3j-Ix8" secondAttribute="centerX" id="gy0-Rj-8RY"/>
+                                    <constraint firstItem="ria-V0-aAq" firstAttribute="leading" secondItem="EMY-3j-Ix8" secondAttribute="leading" id="jKQ-w8-cUI"/>
                                     <constraint firstItem="DFZ-x8-kJh" firstAttribute="top" secondItem="EMY-3j-Ix8" secondAttribute="top" constant="5" id="kwh-tI-k4d"/>
+                                    <constraint firstItem="2N3-XD-DaL" firstAttribute="leading" secondItem="EMY-3j-Ix8" secondAttribute="leading" constant="10" id="z3D-rY-nej"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -2726,6 +2749,9 @@
                             <constraint firstItem="EMY-3j-Ix8" firstAttribute="leading" secondItem="7Z4-ch-eXF" secondAttribute="leading" id="nJ3-6L-yuf"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="chartView" destination="ria-V0-aAq" id="sjD-np-W6J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJD-aq-OlZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
