@@ -767,7 +767,7 @@ class TradeTypeCellVM {
             
             let action = earliestCloseModel?.action
             
-            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action ?? -1, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!))
+            newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action ?? -1, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!, historyCloseData: closes))
         }
         
         

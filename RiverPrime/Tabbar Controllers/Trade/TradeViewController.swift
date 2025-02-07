@@ -232,10 +232,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @IBAction func alaramBtnAction(_ sender: Any) {
-                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
-//        let vc = Utilities.shared.getViewController(identifier: .alarmsVC, storyboardType: .bottomSheetPopups) as! AlarmsVC
-//        
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+//                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
+        let vc = Utilities.shared.getViewController(identifier: .alarmAlertVC, storyboardType: .bottomSheetPopups) as! AlarmAlertVC
+        
+        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func notificationBtnAction(_ sender: Any) {

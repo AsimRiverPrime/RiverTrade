@@ -111,4 +111,5 @@ struct NewCloseModel {
     var order = Int()
     var position = Int()
     var repeatedFilteredArray = [CloseModel]()
+    var historyCloseData = [CloseModel]()
 }

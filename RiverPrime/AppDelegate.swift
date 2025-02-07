@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         // Set the messaging delegate
         Messaging.messaging().delegate = self
         

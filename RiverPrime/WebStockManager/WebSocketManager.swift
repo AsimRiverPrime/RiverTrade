@@ -93,8 +93,8 @@ class WebSocketManager: WebSocketDelegate {
         DisconnectWebSocket()
         connectWebSocket()
         
-        print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
-        print("GlobalVariable.instance.tempPreviouseSymbolList = \(GlobalVariable.instance.tempPreviouseSymbolList)")
+//        print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+//        print("GlobalVariable.instance.tempPreviouseSymbolList = \(GlobalVariable.instance.tempPreviouseSymbolList)")
         
         //MARK: - Save symbol local to unsubcibe.
         sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
@@ -110,8 +110,8 @@ class WebSocketManager: WebSocketDelegate {
     }
 
     func connectWebSocket() {
-        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
-//        let url = URL(string: "ws://192.168.3.169:8073")!
+//        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
+        let url = URL(string: "ws://192.168.3.123:8074")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -218,7 +218,7 @@ class WebSocketManager: WebSocketDelegate {
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {
         switch event {
         case .connected(let headers):
-            print("WebSocket is connected: \(headers)")
+//            print("WebSocket is connected: \(headers)")
             GlobalVariable.instance.isConnected = true // Update connection state
             reconnectAttempts = 0
 

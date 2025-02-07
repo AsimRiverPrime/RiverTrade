@@ -7,6 +7,11 @@
 
 import UIKit
 
+enum HistoryType {
+    case trade
+    case transaction
+}
+
 class HistoryViewController: BaseViewController {
     
     @IBOutlet weak var btn_fromDate: UIButton!
@@ -33,14 +38,17 @@ class HistoryViewController: BaseViewController {
     var vm = HistoryVM()
     
     var closeData = [NewCloseModel]()
+    var transactionCloseData = [NewCloseModel]()
     
     var _getSelectedDate = String()
     var isFromOrToDate = ""
     
+    var historyType: HistoryType? = .trade
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTableView.registerCells([
-            HistoryTradeTVCell.self
+            HistoryTradeTVCell.self, HistoryTransactionTVCell.self
         ])
         historyTableView.delegate = self
         historyTableView.dataSource = self
@@ -48,6 +56,20 @@ class HistoryViewController: BaseViewController {
         
         closeApiCalling()
         
+    }
+    
+    @IBAction func btn_trades(_ sender: UIButton) {
+        historyType = .trade
+        btnTradeView.backgroundColor = .systemYellow
+        btnTranscationView.backgroundColor = .lightGray
+        self.historyTableView.reloadData()
+    }
+    
+    @IBAction func btn_transcation(_ sender: UIButton) {
+        historyType = .transaction
+        btnTradeView.backgroundColor = .lightGray
+        btnTranscationView.backgroundColor = .systemYellow
+        self.historyTableView.reloadData()
     }
     
     @IBAction func fromDateBtn_action(_ sender: Any) {
@@ -107,20 +129,52 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return closeData.count
+        switch historyType {
+        case .trade:
+            return closeData.count
+        case .transaction:
+            
+            return 3
+        case .none:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(with: HistoryTradeTVCell.self, for: indexPath)
-        cell.selectionStyle = .none
-        cell.getCellData(close: closeData, indexPath: indexPath)
-        
-        return cell
+        switch historyType {
+        case .trade:
+            
+            let cell = tableView.dequeueReusableCell(with: HistoryTradeTVCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            cell.getCellData(close: closeData, indexPath: indexPath)
+            
+            return cell
+            
+        case .transaction:
+            
+            let cell = tableView.dequeueReusableCell(with: HistoryTransactionTVCell.self, for: indexPath)
+            cell.selectionStyle = .none
+            
+            cell.getCellData(close: transactionCloseData, indexPath: indexPath)
+            
+            return cell
+            
+        case .none:
+            return UITableViewCell()
+        }
+                
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 345
+        switch historyType {
+        case .trade:
+            return 345
+        case .transaction:
+            return 44
+        case .none:
+            return 0
+        }
     }
 }
 
@@ -143,6 +197,8 @@ extension HistoryViewController {
             
             if let closeData1 = closeData {
                 self.closeData = closeData1
+                
+                
                 self.lbl_noPosition.text = "\(self.closeData.count)"
                 print("historyClose data : \(self.closeData)")
                 

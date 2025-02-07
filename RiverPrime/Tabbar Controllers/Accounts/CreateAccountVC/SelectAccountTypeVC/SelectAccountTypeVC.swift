@@ -82,11 +82,12 @@ class SelectAccountTypeVC: BottomSheetController {
                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
             })
             
-            NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with abrar bhai
+            NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with A bhai
             NotificationCenter.default.post(name: NSNotification.Name("metaTraderLogin"), object: nil)
        
+        registerCell()
         self.dismiss(animated: true)
-//        registerCell()
+//
     }
     
     override func viewWillAppear(_ animated: Bool) {
