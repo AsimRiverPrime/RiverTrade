@@ -135,6 +135,7 @@ class FirestoreServices: BaseViewController {
             // Retrieve and print the default account
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account : \(defaultAccount)")
+                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
             }
             
             if userAccountsData.count == 0 {

@@ -147,6 +147,8 @@
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
+		31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */; };
+		31A939C22D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */; };
 		31AAD94F2D1EF3F800733D78 /* UserAccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */; };
 		31ABE5CF2D55E84200DF9941 /* AlarmAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ABE5CE2D55E84200DF9941 /* AlarmAlertVC.swift */; };
 		31ABE5D52D563E1700DF9941 /* HistoryTransactionTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31ABE5D22D563E1700DF9941 /* HistoryTransactionTVCell.swift */; };
@@ -534,6 +536,8 @@
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
+		31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionTotalTVCell.swift; sourceTree = "<group>"; };
+		31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionTotalTVCell.xib; sourceTree = "<group>"; };
 		31AAD94E2D1EF3F800733D78 /* UserAccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountManager.swift; sourceTree = "<group>"; };
 		31ABE5CE2D55E84200DF9941 /* AlarmAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmAlertVC.swift; sourceTree = "<group>"; };
 		31ABE5D22D563E1700DF9941 /* HistoryTransactionTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionTVCell.swift; sourceTree = "<group>"; };
@@ -1417,6 +1421,8 @@
 			children = (
 				31ABE5D22D563E1700DF9941 /* HistoryTransactionTVCell.swift */,
 				31ABE5D32D563E1700DF9941 /* HistoryTransactionTVCell.xib */,
+				31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */,
+				31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */,
 			);
 			path = HistoryTransactionTVCell;
 			sourceTree = "<group>";
@@ -2513,6 +2519,7 @@
 				FA10ECD42CE6A23F00C1980F /* Poppins-Bold.ttf in Resources */,
 				FA10ECD52CE6A23F00C1980F /* Poppins-Black.ttf in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
+				31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */,
 				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
 				31710CE12CE322160082AB28 /* Main.storyboard in Resources */,
@@ -2689,6 +2696,7 @@
 				31F77FCC2CE6274B0080C410 /* TradeHeaderTVCell.swift in Sources */,
 				31D2AF412C8840B800E0CF2E /* TogglableOptions.swift in Sources */,
 				317D7DFD2C91551200902B4A /* CompleteVerificationProfileScreen4.swift in Sources */,
+				31A939C22D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift in Sources */,
 				31D2AEED2C8840B800E0CF2E /* String+UniqueString.swift in Sources */,
 				31D2AF292C8840B800E0CF2E /* BarSeriesOptions.swift in Sources */,
 				31D2AF0F2C8840B800E0CF2E /* SingleValueSeriesData.swift in Sources */,

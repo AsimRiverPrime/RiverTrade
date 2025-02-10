@@ -19,6 +19,9 @@ class HistoryViewController: BaseViewController {
     @IBOutlet weak var lbl_noPosition: UILabel!
     @IBOutlet weak var lbl_totalProfit: UILabel!
     
+    @IBOutlet weak var lbl_total: UILabel!
+    @IBOutlet weak var lbl_PositionCount: UILabel!
+    
     @IBOutlet weak var historyTableView: UITableView!
     
     @IBOutlet weak var view_noMatchData: UIView!
@@ -38,7 +41,7 @@ class HistoryViewController: BaseViewController {
     var vm = HistoryVM()
     
     var closeData = [NewCloseModel]()
-    var transactionCloseData = [NewCloseModel]()
+    var transactionCloseData = [CloseModel]()
     
     var _getSelectedDate = String()
     var isFromOrToDate = ""
@@ -48,7 +51,7 @@ class HistoryViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         historyTableView.registerCells([
-            HistoryTradeTVCell.self, HistoryTransactionTVCell.self
+            HistoryTradeTVCell.self, HistoryTransactionTVCell.self, HistoryTransactionTotalTVCell.self
         ])
         historyTableView.delegate = self
         historyTableView.dataSource = self
@@ -62,6 +65,10 @@ class HistoryViewController: BaseViewController {
         historyType = .trade
         btnTradeView.backgroundColor = .systemYellow
         btnTranscationView.backgroundColor = .lightGray
+        self.lbl_totalProfit.isHidden = false
+        self.lbl_noPosition.isHidden = false
+        self.lbl_total.isHidden = false
+        self.lbl_PositionCount.isHidden = false
         self.historyTableView.reloadData()
     }
     
@@ -69,6 +76,10 @@ class HistoryViewController: BaseViewController {
         historyType = .transaction
         btnTradeView.backgroundColor = .lightGray
         btnTranscationView.backgroundColor = .systemYellow
+        self.lbl_totalProfit.isHidden = true
+        self.lbl_noPosition.isHidden = true
+        self.lbl_total.isHidden = true
+        self.lbl_PositionCount.isHidden = true
         self.historyTableView.reloadData()
     }
     
@@ -125,19 +136,27 @@ class HistoryViewController: BaseViewController {
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+       
+        switch historyType {
+        case .trade:
+            return 1
+        case .transaction:
+            return 1
+        case .none:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch historyType {
-        case .trade:
-            return closeData.count
-        case .transaction:
-            
-            return 3
-        case .none:
-            return 0
-        }
+           case .trade:
+               return closeData.count
+           case .transaction:
+            print("Transaction count:", transactionCloseData.count)
+                return transactionCloseData.count + (transactionCloseData.isEmpty ? 0 : 1) // +1 only if data exists
+           case .none:
+               return 0
+           }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,14 +171,23 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         case .transaction:
-            
-            let cell = tableView.dequeueReusableCell(with: HistoryTransactionTVCell.self, for: indexPath)
-            cell.selectionStyle = .none
-            
-            cell.getCellData(close: transactionCloseData, indexPath: indexPath)
-            
-            return cell
-            
+            print("Row: \(indexPath.row), Total rows: \(transactionCloseData.count + 1)")
+             if indexPath.row < transactionCloseData.count {
+                 let cell = tableView.dequeueReusableCell(with: HistoryTransactionTVCell.self, for: indexPath)
+                 cell.selectionStyle = .none
+                 let historyClose = transactionCloseData[indexPath.row]
+                 cell.configure(with: historyClose)
+                 return cell
+             } else {
+                 // Only one total row at the end
+                 let cellTotal = tableView.dequeueReusableCell(with: HistoryTransactionTotalTVCell.self, for: indexPath)
+                 cellTotal.selectionStyle = .none
+                 if let user = UserManager.shared.currentUser {
+                     cellTotal.lbl_totalDeposit.text = "$\(String.formatStringNumber(String(user.totalDeposit)))"
+                     cellTotal.lbl_totalwithdraw.text = "$\(String.formatStringNumber(String(user.totalWithdraw)))"
+                 }
+                 return cellTotal
+             }
         case .none:
             return UITableViewCell()
         }
@@ -171,7 +199,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         case .trade:
             return 345
         case .transaction:
-            return 44
+            return indexPath.row == transactionCloseData.count ? 60 : 44  // Last row has a different height
         case .none:
             return 0
         }
@@ -197,10 +225,17 @@ extension HistoryViewController {
             
             if let closeData1 = closeData {
                 self.closeData = closeData1
+
                 
+//                self.transactionCloseData = closeData1.flatMap { $0.historyCloseData.filter { $0.action == 2 } }
+                
+                var uniqueDeals = Set<Int>()
+                self.transactionCloseData = closeData1
+                    .flatMap { $0.historyCloseData.filter { $0.action == 2 } }
+                    .filter { uniqueDeals.insert($0.deal).inserted }
                 
                 self.lbl_noPosition.text = "\(self.closeData.count)"
-                print("historyClose data : \(self.closeData)")
+                print("historyClose data : \(self.transactionCloseData)")
                 
                 let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
                 self.lbl_totalProfit.text = "$\(String(totalProfitValue).trimmedTrailingZeros())"

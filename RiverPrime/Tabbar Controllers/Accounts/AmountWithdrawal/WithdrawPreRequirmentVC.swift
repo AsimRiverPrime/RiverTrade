@@ -27,7 +27,7 @@ class WithdrawPreRequirmentVC: BaseViewController, UIImagePickerControllerDelega
     @IBAction func submitDocument(_ sender: Any) {
         self.dismiss(animated: true)
 //        UserDefaults.standard.set(false, forKey: "hasUploadBill")
-        
+        UserDefaults.standard.set(true, forKey: "hasUploadBill")
         let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 //        if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawViewController") as? WithdrawViewController {

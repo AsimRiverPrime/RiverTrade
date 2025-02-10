@@ -308,8 +308,6 @@ class AccountsViewController: BaseViewController {
                     // Present the controller
                     if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawPreRequirmentVC") as? WithdrawPreRequirmentVC {
                         self.navigate(to: vc)
-            // Save that the controller has been shown
-                    UserDefaults.standard.set(true, forKey: "hasUploadBill")
                 }
                 }else{
                     let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController

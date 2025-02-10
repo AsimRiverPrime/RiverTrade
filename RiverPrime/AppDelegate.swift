@@ -11,7 +11,6 @@ import SVProgressHUD
 import FirebaseMessaging
 import UserNotifications
 
-
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -97,7 +96,7 @@ extension AppDelegate: MessagingDelegate {
         print("Firebase registration token: \(fcmToken)")
         GlobalVariable.instance.firebaseNotificationToken =  fcmToken
         // Optionally, send the token to your server
-        // sendTokenToServer(fcmToken)
+//         sendTokenToServer(fcmToken)
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

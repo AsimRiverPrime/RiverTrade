@@ -246,7 +246,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                     
                     UserDefaults.standard.set(user.uid, forKey: "userID")
                     //self.emailUser = user.email ?? ""
-                    //GlobalVariable.instance.userEmail = self.emailUser!
+//                    GlobalVariable.instance.userEmail = self.emailUser!
                     
                     self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
                         if let error = error {

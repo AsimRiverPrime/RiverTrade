@@ -512,7 +512,7 @@ class TradeTypeCellVM {
             switch result {
                 
             case .success(let value):
-                print("get user MT balance value is: \(value)")
+                print("------->>>>get user MT balance value is: \(value)")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -528,7 +528,7 @@ class TradeTypeCellVM {
                         if success == 1 {
                             // Return the balance value in the completion handler
                             completion("\(balance_get)")
-                            print("sucess")
+                            print("\n !!!balance update sucess!!!!\n")
                         } else {
                             // Handle the case where success is not 1
                             completion("No balance Found")

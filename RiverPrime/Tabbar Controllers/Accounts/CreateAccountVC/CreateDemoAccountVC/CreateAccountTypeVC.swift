@@ -87,7 +87,7 @@ class CreateAccountTypeVC: BottomSheetController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.tf_password.text = passwordManager.generateRandomPassword(length: 8)
+        self.tf_password.text = passwordManager.generateRandomPassword(length: 9)
         passwordDidChange(tf_password)
         
     }
@@ -164,25 +164,38 @@ class CreateAccountTypeVC: BottomSheetController {
         UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
         UserDefaults.standard.set(userName, forKey: "MTUserName")
         
-        if self.lbl_accountTitle.text == "PRO Account" {
-            group = "demo\\RP\\PRO"
-            demoAccountGroup = "PRO"
-        }else if self.lbl_accountTitle.text == "PRIME Account" {
-            group = "demo\\RP\\Prime"
-            demoAccountGroup = "PRIME"
-        }else {
-            group = "demo\\RP\\Premium"
-            demoAccountGroup = "PREMIUM"
+        if isReal {
+            if self.lbl_accountTitle.text == "PRO Account" {
+                group = "PRO"
+                demoAccountGroup = "PRO"
+            }else if self.lbl_accountTitle.text == "PRIME Account" {
+                group = "Prime"
+                demoAccountGroup = "PRIME"
+            }else {
+                group = "Premium"
+                demoAccountGroup = "PREMIUM"
+            }
+        }else{
+            if self.lbl_accountTitle.text == "PRO Account" {
+                group = "demo\\RP\\PRO"
+                demoAccountGroup = "PRO"
+            }else if self.lbl_accountTitle.text == "PRIME Account" {
+                group = "demo\\RP\\Prime"
+                demoAccountGroup = "PRIME"
+            }else {
+                group = "demo\\RP\\Premium"
+                demoAccountGroup = "PREMIUM"
+            }
         }
         
         //        if canCreateNewAccount(for: userId) {
         // Allowed to create a new account
         if isReal {
-            odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
+            odooClientService.createAccount(phone: phone ?? "+97112345678", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
         }else{
             odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
         }
-        print("Account created successfully!")
+//        print("Account created successfully!")
         //          } else {
         //              // Not allowed to create a new account (Alert is already shown by `canCreateNewAccount`)
         //              print("Failed to create account due to restrictions.")

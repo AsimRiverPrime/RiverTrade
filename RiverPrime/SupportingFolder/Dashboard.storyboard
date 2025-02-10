@@ -2854,14 +2854,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RMV-o7-FV4">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your any Utility bill for make Withdrawal." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vg-my-PdE">
-                                        <rect key="frame" x="25" y="100" width="343" height="19.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload your any Utility bills for make first Withdrawal." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1vg-my-PdE">
+                                        <rect key="frame" x="25" y="100" width="343" height="38.333333333333343"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="doc.viewfinder.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="a8i-BP-VHd">
-                                        <rect key="frame" x="30" y="152" width="333" height="144.66666666666663"/>
+                                        <rect key="frame" x="30" y="171" width="333" height="144.66666666666663"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -2870,7 +2870,7 @@
                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5d9-lI-pom" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="78.666666666666671" y="329.33333333333331" width="235.66666666666663" height="40"/>
+                                        <rect key="frame" x="78.666666666666671" y="348.33333333333331" width="235.66666666666663" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="0J8-X6-Fdh"/>
                                         </constraints>
@@ -2893,7 +2893,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bno-i0-m4J" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="78.666666666666671" y="399.33333333333331" width="235.66666666666663" height="40"/>
+                                        <rect key="frame" x="78.666666666666671" y="418.33333333333331" width="235.66666666666663" height="40"/>
                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Submit"/>
@@ -3181,13 +3181,13 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4z7-4l-Ec9">
                                                 <rect key="frame" x="40" y="2" width="313" height="36"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-q2-o8g" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-q2-o8g" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="36"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="from date" imagePadding="10">
-                                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="from date" imagePadding="3">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -3207,13 +3207,13 @@
                                                             <action selector="fromDateBtn_action:" destination="9ea-FZ-cfm" eventType="touchUpInside" id="OXS-yx-rew"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tC5-gL-11j" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tC5-gL-11j" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                                         <rect key="frame" x="161.66666666666663" y="0.0" width="151.33333333333337" height="36"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="to date" imagePadding="10">
-                                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="to date" imagePadding="3">
+                                                            <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
                                                         </buttonConfiguration>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -3398,7 +3398,9 @@
                         <outlet property="btn_trades" destination="7Fk-J9-stm" id="mpM-bS-jCP"/>
                         <outlet property="btn_transcation" destination="bTh-Nl-d0N" id="N76-wz-nRs"/>
                         <outlet property="historyTableView" destination="Zfd-vQ-PuW" id="et6-tQ-xd4"/>
+                        <outlet property="lbl_PositionCount" destination="zNm-73-WLQ" id="Lhn-GP-snl"/>
                         <outlet property="lbl_noPosition" destination="QKu-fr-1RT" id="t5E-8S-g15"/>
+                        <outlet property="lbl_total" destination="GJN-PX-2LM" id="ccq-xo-aeT"/>
                         <outlet property="lbl_totalProfit" destination="LMu-Ul-7us" id="Mh3-as-TH1"/>
                         <outlet property="view_noMatchData" destination="Bxj-zR-bG0" id="FoF-3f-tVH"/>
                     </connections>
@@ -3444,19 +3446,19 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

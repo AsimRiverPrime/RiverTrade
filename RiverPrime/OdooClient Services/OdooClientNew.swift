@@ -102,7 +102,7 @@ class OdooClientNew {
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result is : \(result)")
+//            print("result is : \(result)")
             
             switch result {
             case .success(let value):
@@ -218,16 +218,16 @@ class OdooClientNew {
         print("\n params for search_read records value for KYCStatus is: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result is : \(result)")
+            print("result of search read and save user id is : \(result)")
             switch result {
             case .success(let value):
                 if let json = value as? [String: Any],
                           let resultArray = json["result"] as? [[String: Any]],
-                          let firstItem = resultArray.first, // Assuming we need the first object
-                          let idwiseDecision = firstItem["idwise_decision"] as? String {
-                    
-                    print("_idwise_decision is: \(idwiseDecision)")
-                    completion(idwiseDecision, nil)
+                   let firstItem = resultArray.first { // Assuming we need the first object,  save ID
+                        //  let idwiseDecision = firstItem["idwise_decision"] as? String {
+                    UserDefaults.standard.set(firstItem["id"], forKey: "recordId")
+                   // print("_idwise_decision is: \(idwiseDecision)")
+                  //  completion(idwiseDecision, nil)
                     
                 }else {
                     print("Unexpected response format or missing 'result' key")
@@ -281,7 +281,7 @@ class OdooClientNew {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
                     
-                    UserDefaults.standard.set(result, forKey: "recordId")
+                    UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
                     self.createLeadDelegate?.leadCreatSuccess(response: result)
                     print("result is: \(result)")
                     
@@ -325,22 +325,22 @@ class OdooClientNew {
         ]
         
         
-        print("\n params value for write records on CRM like Number and Firebase_Notification_Token: \(jsonrpcBody)")
+        print("\n params value for write records on CRM like Firebase_Notification_Token: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("send phone#/firebaseToken record to CRM result is : \(result)")
+            print("/n send firebaseToken record to CRM result is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-                    print("result is: \(result)")
-                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
+                    print("success firebase token result is: \(result)")
+//                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
                     
                 }else {
                     print("Unexpected response format or missing 'result' key")
                 }
                 
             case .failure(let error):
-                self.updateNumberDelegate?.updateNumberFailure(error: error)
+//                self.updateNumberDelegate?.updateNumberFailure(error: error)
                 print("error is :\(error)")
                 break
             }
@@ -364,22 +364,21 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "write",         // Method name
                     [[recordedId],[                // vals_list // need record id save in userdefault
-                        "number_ids": [
-                            [0, 0, [
-                                "number": number,
-                                "type": "work"
-                            ]]
-                        ]
+                        "mobile": number
                     ]]
                 ]
             ]
         ]
         
+//        [0, 0, [
+//            "number": number,
+//            "type": "work"
+//        ]]
         
-        print("\n params value for write records on CRM like Number and Firebase_Notification_Token: \(jsonrpcBody)")
+        print("\n params value for write records on CRM like phone Number : \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("send phone#/firebaseToken record to CRM result is : \(result)")
+            print("send phone# record to CRM result is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
@@ -1047,6 +1046,7 @@ class OdooClientNew {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+//            passwd = defaultAccount.password
         }
         
         let jsonrpcBody: [String: Any] = [

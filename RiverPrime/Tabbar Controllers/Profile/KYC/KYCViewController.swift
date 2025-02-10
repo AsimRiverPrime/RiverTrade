@@ -105,7 +105,7 @@ class KYCViewController: BaseViewController{
             "country": "",
             "language": "EN",
             "email": userEmail ?? "",
-            "callback_url": "",
+            "callback_url": "https://mbe.riverprime.com/shufti/callback",
             "show_results": "1",
             "redirect_url": "https://www.mydummy.shuftipro.com/",
             "show_privacy_policy": "1",
@@ -193,94 +193,6 @@ class KYCViewController: BaseViewController{
             
         }
     
-//        generateAccessToken { accessToken in
-//            guard let accessToken = accessToken else {
-//                print("Failed to generate access token")
-//                return
-//            }
-//            
-//            
-//            // Define authKeys with the access token
-//            let authKeys = [
-//                "auth_type": "access_token",
-//                "access_token": accessToken,
-//                "client_id": "19cc49621d50e7918f50c03798478511700af56687763226b96b090435c45775",
-//                "secret_key": "jOVT1Qg5ysTsvhQ2n8bVPcfhGrtrKNu1"
-//            ]
-//            
-//            
-//            let requestObject: [String: Any] = [
-//                "reference": self.userId ?? "",
-//                "country": "Dubai",
-//                "language": "",
-//                "email": self.userEmail ?? "",
-//                "callback_url": "http://www.example.com",
-//                "show_results": "",
-//                "verification_mode": "image_only",
-//                "face": ["proof": ""],
-//                "document": [
-//                    "proof": "",
-//                    "additional_proof": "",
-//                    "supported_types": [
-//                        "passport",
-//                        "id_card"
-//                    ],
-//                    "name": [
-//                        "first_name": "",
-//                        "last_name": ""
-//                    ],
-//                    "backside_proof_required": "0",
-//                    "dob": "",
-//                    "document_number": "",
-//                    "expiry_date": "",
-//                    "issue_date": ""
-//                ],
-//                "address": [
-//                    "proof": "",
-//                    "full_address": "",
-//                    "name": [
-//                        "first_name": "",
-//                        "last_name": ""
-//                    ],
-//                    "supported_types": [
-//                        "id_card",
-//                        "utility_bill",
-//                        "bank_statement"
-//                    ]
-//                ],
-//                "consent": [
-//                    "proof": "",
-//                    "text": "my consent note",
-//                    "supported_types": [
-//                        "printed",
-//                        "handwritten"
-//                    ]
-//                ]
-//            ]
-//            
-//            let configs = [
-//                "base_url": "api.shuftipro.com",
-//                "consent_age": 16,
-//            ] as [String: Any]
-//            
-//            let instance = Shufti()
-//            
-//            instance.register(clientID: "19cc49621d50e7918f50c03798478511700af56687763226b96b090435c45775", customerID: self.userId ?? "", configs: configs) { result in
-//                print(result)
-//            }
-//            
-//            instance.shuftiProVerification(requestObject: requestObject, authKeys: authKeys, parentVC: self, configs: configs) { result in
-//                print("result for request is: \(result)") // Callback response for verification verified/declined
-//                let response = result as! NSDictionary
-//                if response.value(forKey: "event") as? String == "verification.accepted" {
-//                    // Verified: Do something
-//                    print("Verified: Do something")
-//                } else {
-//                    // Declined: Do something
-//                    print("Declined: Do something")
-//                }
-//            }
-//        }
     }
     
     

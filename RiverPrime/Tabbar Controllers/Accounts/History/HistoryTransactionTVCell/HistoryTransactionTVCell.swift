@@ -9,11 +9,11 @@ import UIKit
 
 class HistoryTransactionTVCell: UITableViewCell {
 
-    @IBOutlet weak var commentLbl: UILabel!
     @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var timeLbl: UILabel!
     
     var closeData = NewCloseModel()
+//    var transcationCloseData = CloseModel
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,18 +30,36 @@ class HistoryTransactionTVCell: UITableViewCell {
 
 extension HistoryTransactionTVCell {
     
-    func getCellData(close: [NewCloseModel], indexPath: IndexPath) {
+//    func getCellDataTranscation(close: [CloseModel], indexPath: IndexPath) {
+//        
+//        transcationCloseData = close[indexPath.row]
+////        print("\n transcationData in history TV cell :\n \(transcationData)")
+//   
+//        commentLbl.text = close.historyCloseData[indexPath.row].comment
+//            priceLbl.text = "\(transcationCloseData.repeatedFilteredArray[indexPath.row].price)"
+//            timeLbl.text = "\(transcationCloseData.repeatedFilteredArray[indexPath.row].time)"
+//         }
+    func configure(with model: RiverPrime.CloseModel) {
+        print("\n transcationData in history TV cell :\n \(model)")
         
-//        closeData = close[indexPath.row]
-        print("\n closeData in history TV cell :\n \(closeData)")
-//      if closeData.action == 2 {
-//            commentLbl.text = closeData.repeatedFilteredArray[indexPath.row].comment
-//            priceLbl.text = "\(closeData.repeatedFilteredArray[indexPath.row].price)"
-//            timeLbl.text = "\(closeData.repeatedFilteredArray[indexPath.row].time)"
-//        }
-        commentLbl.text = "Deposit"
-        priceLbl.text = "1000$"
-        timeLbl.text = "12/2/2023 5:54:34" 
-    }
-    
+        let createDate = Date(timeIntervalSince1970: Double(model.time))
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.timeZone = .current
+        
+        let datee = dateFormatter.string(from: createDate)
+            
+        timeLbl.text = "\(datee)"
+        
+        if model.profit < 0 {
+            priceLbl.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) // red
+            priceLbl.text = "$\(String.formatStringNumber(String(model.profit)))"
+        }else{
+            priceLbl.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
+            priceLbl.text = "$\(String.formatStringNumber(String(model.profit)))"
+           
+        }
+        
+      }
 }
