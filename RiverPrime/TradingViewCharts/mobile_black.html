@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Hide all potential logo elements */
+        .tv-embed-widget-chart__watermark,
+        .tradingview-watermark,
+        [class*="copyright"],
+        [class*="watermark"] {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+
+    </style>
+    <title>TradingView Advanced Charts Demo -- Mobile (Black)</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script type="text/javascript" src="charting_library/charting_library.js"></script>
+    <script type="text/javascript">
+        let datafeedInstance;
+        class CustomDatafeed {
+            constructor(websocketUrl) {
+                this.websocketUrl = websocketUrl;
+                this.websocket = null;
+                this.subscribers = new Map();       // Active symbol subscriptions
+                this.historyCallbacks = new Map();  // Pending history requests
+                this.currentBars = new Map();       // Current incomplete bars
+                this.pendingRequests = new Map();   // Requests waiting for connection
+                this.initializeWebSocket();
+                        this.adjustedSymbols = new Set(); // Track symbols that have been adjusted
+            }
+             close() {
+    if (this.websocket) {
+      this.websocket.close();
+      this.websocket = null;
+    }
+    this.subscribers.clear();
+    this.currentBars.clear();
+    this.pendingRequests.clear();
+    this.historyCallbacks.clear();
+    console.log("WebSocket connection cleaned up");
+  }
+// Function to calculate the time difference between local time and UTC
+    getLocalUTCOffset() {
+        const now = new Date();
+        const localTime = now.getTime(); // Local time in milliseconds
+        const utcTime = Date.UTC(
+            now.getUTCFullYear(),
+            now.getUTCMonth(),
+            now.getUTCDate(),
+            now.getUTCHours(),
+            now.getUTCMinutes(),
+            now.getUTCSeconds(),
+            now.getUTCMilliseconds()
+        );
+        console.log("localTime",localTime);
+        return (localTime - utcTime) / 1000; // Difference in seconds
+    }
+            initializeWebSocket() {
+            this. getLocalUTCOffset();
+                this.websocket = new WebSocket(this.websocketUrl);
+
+                this.websocket.onopen = () => {
+                    console.log("WebSocket connected");
+                    this.pendingRequests.forEach((value, key) => {
+                        this.websocket.send(value.message);
+                    });
+                };
+
+                this.websocket.onmessage = (event) => {
+                    try {
+                                        console.log("WebSocket Raw Data",event.data);
+
+                        const message = JSON.parse(event.data);
+                        this.handleMessage(message);
+                    } catch (error) {
+                        console.error("Message parse error:", error);
+                          return; // Exit the function early if there's an error
+                    }
+                };
+
+                this.websocket.onclose = () => {
+                    console.log("WebSocket closed");
+                    setTimeout(() => this.initializeWebSocket(), 5000);
+                };
+
+                this.websocket.onerror = (error) => {
+                    console.error("WebSocket error:", JSON.stringify(error));
+                };
+            }
+
+            // Reset real-time tick data without closing the WebSocket
+            resetRealTimeData(symbol) {
+                const subscription = this.subscribers.get(symbol);
+                if (!subscription) return;
+
+                // Force finalize the current bar
+                const currentBar = this.currentBars.get(symbol);
+                if (currentBar) {
+                    subscription.callback(currentBar);
+                    this.currentBars.delete(symbol);
+                }
+
+                // Force a new bar creation on the next tick
+                console.log("Real-time data reset for symbol:", symbol);
+            }
+
+            handleMessage(message) {
+                // Handle historical data responses
+                if (message.message?.type === 'get_client_chart_history') {
+                    this.handleHistoryResponse(message);
+                }
+                // Handle real-time tick updates
+                else if (message.message?.type === 'tick') {
+                    this.handleTickUpdate(message);
+                }
+            }
+
+            handleHistoryResponse(message) {
+
+                const { symbol, chart_data } = message.message.payload;
+
+                const bars = (chart_data || []).map(item => ({
+                    time: item.time*1000,  // Convert to milliseconds
+                    open: item.open,
+                    high: item.high,
+                    low: item.low,
+                    close: item.close,
+                    volume: item.tick_volume //|| Math.floor(Math.random() * 100 + 50)
+                })).sort((a, b) => a.time - b.time);
+                                                console.error("WebSocket chart_data:", JSON.stringify( bars));
+                                                console.error("WebSocket chart_data:", symbol);
+
+                const callback = this.historyCallbacks.get(symbol);
+                if (callback) {
+                    callback(bars, { noData: bars.length === 0 });
+                    //this.historyCallbacks.delete(symbol);
+                }
+
+                // Reset real-time data after history request
+                this.resetRealTimeData(symbol);
+            }
+
+            handleTickUpdate(message) {
+                const { symbol, ask, bid, datetime, volume, volume_ext } = message.message.payload;
+                const subscription = this.subscribers.get(symbol);
+
+                if (!subscription) return;
+
+                const tickTime = datetime * 1000;
+                const resolutionMs = this.getResolutionInMs(subscription.resolution);
+                const barStart = this.getBarStartTime(tickTime, resolutionMs);
+
+                let currentBar = this.currentBars.get(symbol);
+
+                if (!currentBar || currentBar.time !== barStart) {
+                    // Finalize previous bar
+                    if (currentBar) {
+                        subscription.callback(currentBar);
+                    }
+
+                    // Create new bar
+                    currentBar = {
+                        time: barStart,
+                        open: bid,
+                        high: bid,
+                        low: bid,
+                        close: bid,
+                        volume: volume
+                    };
+                    this.currentBars.set(symbol, currentBar);
+                } else {
+                    // Update existing bar
+                    currentBar.high = Math.max(currentBar.high, bid);
+                    currentBar.low = Math.min(currentBar.low, bid);
+                    currentBar.close = bid;
+                    currentBar.volume = volume //|| Math.floor(Math.random() * 50 + 10);
+                }
+
+                // Send updated bar to chart
+                subscription.callback(currentBar);
+            }
+
+            getResolutionInMs(resolution) {
+                const unit = resolution.slice(-1);
+                const value = parseInt(resolution) || 1;
+
+                const multipliers = {
+                    'D': 86400000,
+                    'W': 604800000,
+                    'M': 2629746000
+                };
+
+                return value * (multipliers[unit] || 60000); // Default to minutes
+            }
+
+            getBarStartTime(timestamp, resolutionMs) {
+                return Math.floor(timestamp / resolutionMs) * resolutionMs;
+            }
+
+            onReady(callback) {
+                setTimeout(() => callback({
+                    supports_search: false,
+                    supports_group_request: false,
+                    supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W'],
+                    supports_time: true,
+                    supports_timescale_marks: true
+                }), 0);
+            }
+
+            resolveSymbol(symbolName, onResolve, onError) {
+                setTimeout(() => {
+
+                    const pricescale = Math.pow(10, decimalPlaces);
+                    onResolve({
+                        name: symbolName,
+                        ticker: symbolName,
+                        description: `${symbolName} Price`,
+                        type: 'commodity',
+                        session: '24x7',
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        minmov: 1,
+                        pricescale: pricescale,
+                        has_intraday: true,
+                        has_daily: true,
+                        has_weekly_and_monthly: true,
+                        currency_code: 'USD',
+                        supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W']
+                    });
+                }, 0);
+            }
+
+            getBars(symbolInfo, resolution, params, onHistoryCallback, onError) {
+    const symbol = symbolInfo.name;
+    const isFirstCall = !this.adjustedSymbols.has(symbol);
+    const adjustedTo = isFirstCall ? params.to + 7150 : params.to;
+
+    if (isFirstCall) {
+        this.adjustedSymbols.add(symbol);
+    }
+
+     const requestData = {
+        event_name: 'get_client_chart_history',
+        data: {
+            symbol: symbol ,
+            from: params.from,
+            to: adjustedTo,
+            timeframe: resolution
+
+        }
+    };
+
+    console.log("historyCallbacks:", JSON.stringify(requestData));
+
+    this.historyCallbacks.set(symbol, (bars, meta) => {
+        if (bars.length === 0) {
+            // If no historical data is available, immediately invoke the callback with noData flag
+            // If no historical data is returned, request an earlier range
+            const newFrom = params.from - 3 * 60 * 60; // Go back one day
+            const newTo = params.to - 3 * 60 * 60;
+            console.log("No data, retrying with earlier range:", { newFrom, newTo });
+
+            this.getBars(symbolInfo, resolution, { from: newFrom, to: newTo }, onHistoryCallback, onError);
+
+        } else {
+            // Otherwise, proceed with the normal callback
+            onHistoryCallback(bars, meta);
+        }
+    });
+
+    const request = JSON.stringify(requestData);
+
+    if (this.websocket.readyState === WebSocket.OPEN) {
+        this.websocket.send(request);
+    } else {
+        this.pendingRequests.set(symbol, { message: request });
+    }
+}
+
+            subscribeBars(symbolInfo, resolution, onRealtimeCallback, listenerGuid) {
+                const symbol = symbolInfo.name;
+
+                // Clear the current bar for the symbol when interval changes
+                this.currentBars.delete(symbol);
+
+                // Update the subscription with the new resolution
+                this.subscribers.set(symbol, {
+                    resolution: resolution,
+                    callback: onRealtimeCallback
+                });
+
+                const subscriptionMessage = JSON.stringify({
+                    event_name: 'subscribe',
+                    data: { channels: [symbol], resolution: resolution } // Include resolution in the subscription
+                });
+                    console.error("subscriptionMessage:", JSON.stringify(subscriptionMessage));
+
+                if (this.websocket.readyState === WebSocket.OPEN) {
+                    this.websocket.send(subscriptionMessage);
+                } else {
+                    this.pendingRequests.set(symbol, {
+                        message: subscriptionMessage,
+                        timestamp: Date.now()
+                    });
+                }
+            }
+
+            unsubscribeBars(listenerGuid) {
+                const symbol = listenerGuid;
+                this.subscribers.delete(symbol);
+                this.currentBars.delete(symbol);
+
+                const unsubscribeMessage = JSON.stringify({
+                    event_name: 'unsubscribe',
+                    data: { symbol: symbol }
+                });
+
+                if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {
+                    this.websocket.send(unsubscribeMessage);
+                }
+            }
+        }
+
+        function initTradingViewWidget() {
+ if (datafeedInstance) {
+    datafeedInstance.close(); // Cleanup previous instance
+  }
+
+  datafeedInstance = new CustomDatafeed('wss://0bd1-5-30-180-95.ngrok-free.app');
+
+
+            tradingViewWidget = new TradingView.widget({
+                debug: true,
+                fullscreen: true,
+                symbol: currentSymbol,
+                interval: '1',
+                container: "tv_chart_container",
+                datafeed: datafeedInstance,
+                library_path: "charting_library/",
+                locale: "en",
+                theme: 'dark',
+
+                disabled_features: [
+                    'use_localstorage_for_settings', 'header_widget_dom_node',
+                     'timeframes_toolbar',  'header_settings', 'logo', 'show_logo_on_all_charts', 'copyrights',
+                    'display_market_status', 'header_compare', 'header_undo_redo', 'header_symbol_search', 'header_screenshot', 'header_fullscreen_button'
+                ]
+
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', initTradingViewWidget);
+
+        let tradingViewWidget = null;
+        let currentSymbol = 'Gold';
+        let decimalPlaces = 2; // Default decimal places
+
+        // Symbol setter for Android
+        window.setSymbol = function(symbol, decimals) {
+            if (tradingViewWidget) {
+                tradingViewWidget.remove();
+            }
+            currentSymbol = symbol;
+            decimalPlaces = parseInt(decimals) || 2;
+            initTradingViewWidget();
+        };
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialSymbol = urlParams.get('symbol') || currentSymbol;
+        const initialDecimals = urlParams.get('decimals') || 2;
+        window.setSymbol(initialSymbol, initialDecimals);
+        // Expose cleanup function to Android
+    window.closeWebSocket = function() {
+  if (datafeedInstance) {
+    datafeedInstance.close();
+  }
+  if (tradingViewWidget) {
+    tradingViewWidget.remove();
+    tradingViewWidget = null;
+  }
+};
+    </script>
+</head>
+<body style="margin:0; background:transparent;">
+<div id="tv_chart_container" style="height:100vh;"></div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--<head>-->
+<!--    <style>-->
+<!--        /* Hide all potential logo elements */-->
+<!--        .tv-embed-widget-chart__watermark,-->
+<!--        .tradingview-watermark,-->
+<!--        [class*="copyright"],-->
+<!--        [class*="watermark"] {-->
+<!--            display: none !important;-->
+<!--            visibility: hidden !important;-->
+<!--            opacity: 0 !important;-->
+<!--        }-->
+<!---->
+<!--    </style>-->
+<!--    <title>TradingView Advanced Charts Demo -- Mobile (Black)</title>-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <script type="text/javascript" src="charting_library/charting_library.js"></script>-->
+<!--    <script type="text/javascript">-->
+<!--        let datafeedInstance;-->
+<!--        class CustomDatafeed {-->
+<!--            constructor(websocketUrl) {-->
+<!--                this.websocketUrl = websocketUrl;-->
+<!--                this.websocket = null;-->
+<!--                this.subscribers = new Map();       // Active symbol subscriptions-->
+<!--                this.historyCallbacks = new Map();  // Pending history requests-->
+<!--                this.currentBars = new Map();       // Current incomplete bars-->
+<!--                this.pendingRequests = new Map();   // Requests waiting for connection-->
+<!--                this.initializeWebSocket();-->
+<!--                this.adjustedSymbols = new Set(); // Track symbols that have been adjusted-->
+<!--            }-->
+<!--            close() {-->
+<!--                if (this.websocket) {-->
+<!--                    this.websocket.close();-->
+<!--                    this.websocket = null;-->
+<!--                }-->
+<!--                this.subscribers.clear();-->
+<!--                this.currentBars.clear();-->
+<!--                this.pendingRequests.clear();-->
+<!--                this.historyCallbacks.clear();-->
+<!--                console.log("WebSocket connection cleaned up");-->
+<!--            }-->
+<!--            // Function to calculate the time difference between local time and UTC-->
+<!--            getLocalUTCOffset() {-->
+<!--                const now = new Date();-->
+<!--                const localTime = now.getTime(); // Local time in milliseconds-->
+<!--                const utcTime = Date.UTC(-->
+<!--                                         now.getUTCFullYear(),-->
+<!--                                         now.getUTCMonth(),-->
+<!--                                         now.getUTCDate(),-->
+<!--                                         now.getUTCHours(),-->
+<!--                                         now.getUTCMinutes(),-->
+<!--                                         now.getUTCSeconds(),-->
+<!--                                         now.getUTCMilliseconds()-->
+<!--                                         );-->
+<!--                                         console.log("localTime",localTime);-->
+<!--                                         return (localTime - utcTime) / 1000; // Difference in seconds-->
+<!--            }-->
+<!--            initializeWebSocket() {-->
+<!--                this. getLocalUTCOffset();-->
+<!--                this.websocket = new WebSocket(this.websocketUrl);-->
+<!---->
+<!--                this.websocket.onopen = () => {-->
+<!--                    console.log("WebSocket connected");-->
+<!--                    this.pendingRequests.forEach((value, key) => {-->
+<!--                        this.websocket.send(value.message);-->
+<!--                    });-->
+<!--                };-->
+<!---->
+<!--                this.websocket.onmessage = (event) => {-->
+<!--                    try {-->
+<!--                        console.log("WebSocket Raw Data",event.data);-->
+<!---->
+<!--                        const message = JSON.parse(event.data);-->
+<!--                        this.handleMessage(message);-->
+<!--                    } catch (error) {-->
+<!--                        console.error("Message parse error:", error);-->
+<!--                        return; // Exit the function early if there's an error-->
+<!--                    }-->
+<!--                };-->
+<!---->
+<!--                this.websocket.onclose = () => {-->
+<!--                    console.log("WebSocket closed");-->
+<!--                    setTimeout(() => this.initializeWebSocket(), 5000);-->
+<!--                };-->
+<!---->
+<!--                this.websocket.onerror = (error) => {-->
+<!--                    console.error("WebSocket error:", error);-->
+<!--                };-->
+<!--            }-->
+<!---->
+<!--            // Reset real-time tick data without closing the WebSocket-->
+<!--            resetRealTimeData(symbol) {-->
+<!--                const subscription = this.subscribers.get(symbol);-->
+<!--                if (!subscription) return;-->
+<!---->
+<!--                // Force finalize the current bar-->
+<!--                const currentBar = this.currentBars.get(symbol);-->
+<!--                if (currentBar) {-->
+<!--                    subscription.callback(currentBar);-->
+<!--                    this.currentBars.delete(symbol);-->
+<!--                }-->
+<!---->
+<!--                // Force a new bar creation on the next tick-->
+<!--                console.log("Real-time data reset for symbol:", symbol);-->
+<!--            }-->
+<!---->
+<!--            handleMessage(message) {-->
+<!--                // Handle historical data responses-->
+<!--                if (message.message?.type === 'get_client_chart_history') {-->
+<!--                    this.handleHistoryResponse(message);-->
+<!--                }-->
+<!--                // Handle real-time tick updates-->
+<!--                else if (message.message?.type === 'tick') {-->
+<!--                    this.handleTickUpdate(message);-->
+<!--                }-->
+<!--            }-->
+<!---->
+<!--            handleHistoryResponse(message) {-->
+<!--                const { symbol, chart_data } = message.message.payload;-->
+<!--                const bars = (chart_data || []).map(item => ({-->
+<!--                    time: item.time * 1000,  // Convert to milliseconds-->
+<!--                    open: item.open,-->
+<!--                    high: item.high,-->
+<!--                    low: item.low,-->
+<!--                    close: item.close,-->
+<!--                    volume: 0//item.volume //|| Math.floor(Math.random() * 100 + 50)-->
+<!--                })).sort((a, b) => a.time - b.time);-->
+<!---->
+<!--                const callback = this.historyCallbacks.get(symbol);-->
+<!--                if (callback) {-->
+<!--                    callback(bars, { noData: bars.length === 0 });-->
+<!--                    //this.historyCallbacks.delete(symbol);-->
+<!--                }-->
+<!---->
+<!--                // Reset real-time data after history request-->
+<!--                this.resetRealTimeData(symbol);-->
+<!--            }-->
+<!---->
+<!--            handleTickUpdate(message) {-->
+<!--                const { symbol, ask, bid, datetime, volume, volume_ext } = message.message.payload;-->
+<!--                const subscription = this.subscribers.get(symbol);-->
+<!---->
+<!--                if (!subscription) return;-->
+<!---->
+<!--                const tickTime = datetime * 1000;-->
+<!--                const resolutionMs = this.getResolutionInMs(subscription.resolution);-->
+<!--                const barStart = this.getBarStartTime(tickTime, resolutionMs);-->
+<!---->
+<!--                let currentBar = this.currentBars.get(symbol);-->
+<!---->
+<!--                if (!currentBar || currentBar.time !== barStart) {-->
+<!--                    // Finalize previous bar-->
+<!--                    if (currentBar) {-->
+<!--                        subscription.callback(currentBar);-->
+<!--                    }-->
+<!---->
+<!--                    // Create new bar-->
+<!--                    currentBar = {-->
+<!--                        time: barStart,-->
+<!--                        open: bid,-->
+<!--                        high: bid,-->
+<!--                        low: bid,-->
+<!--                        close: bid,-->
+<!--                        volume: volume || 0-->
+<!--                    };-->
+<!--                    this.currentBars.set(symbol, currentBar);-->
+<!--                } else {-->
+<!--                    // Update existing bar-->
+<!--                    currentBar.high = Math.max(currentBar.high, bid);-->
+<!--                    currentBar.low = Math.min(currentBar.low, bid);-->
+<!--                    currentBar.close = bid;-->
+<!--                    currentBar.volume = volume //|| Math.floor(Math.random() * 50 + 10);-->
+<!--                }-->
+<!---->
+<!--                // Send updated bar to chart-->
+<!--                subscription.callback(currentBar);-->
+<!--            }-->
+<!---->
+<!--            getResolutionInMs(resolution) {-->
+<!--                const unit = resolution.slice(-1);-->
+<!--                const value = parseInt(resolution) || 1;-->
+<!---->
+<!--                const multipliers = {-->
+<!--                    'D': 86400000,-->
+<!--                    'W': 604800000,-->
+<!--                    'M': 2629746000-->
+<!--                };-->
+<!---->
+<!--                return value * (multipliers[unit] || 60000); // Default to minutes-->
+<!--            }-->
+<!---->
+<!--            getBarStartTime(timestamp, resolutionMs) {-->
+<!--                return Math.floor(timestamp / resolutionMs) * resolutionMs;-->
+<!--            }-->
+<!---->
+<!--            onReady(callback) {-->
+<!--                setTimeout(() => callback({-->
+<!--                    supports_search: false,-->
+<!--                    supports_group_request: false,-->
+<!--                    supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W', '1M'],-->
+<!--                    supports_time: true,-->
+<!--                    supports_timescale_marks: true-->
+<!--                }), 0);-->
+<!--            }-->
+<!---->
+<!--            resolveSymbol(symbolName, onResolve, onError) {-->
+<!--                setTimeout(() => {-->
+<!---->
+<!--                    const pricescale = Math.pow(10, decimalPlaces);-->
+<!--                    onResolve({-->
+<!--                        name: symbolName,-->
+<!--                        ticker: symbolName,-->
+<!--                        description: `${symbolName} Spot Price`,-->
+<!--                        type: 'commodity',-->
+<!--                        session: '24x7',-->
+<!--                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,-->
+<!--                        exchange: 'CUSTOM',-->
+<!--                        minmov: 1,-->
+<!--                        pricescale: pricescale,-->
+<!--                        has_intraday: true,-->
+<!--                        has_daily: true,-->
+<!--                        has_weekly_and_monthly: true,-->
+<!--                        currency_code: 'USD',-->
+<!--                        supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W', '1M']-->
+<!--                    });-->
+<!--                }, 0);-->
+<!--            }-->
+<!---->
+<!---->
+<!--            getBars(symbolInfo, resolution, params, onHistoryCallback, onError) {-->
+<!--                const symbol = symbolInfo.name;-->
+<!--                const isFirstCall = !this.adjustedSymbols.has(symbol);-->
+<!--                const adjustedTo = isFirstCall ? params.to + 7150 : params.to;-->
+<!---->
+<!--                if (isFirstCall) {-->
+<!--                    this.adjustedSymbols.add(symbol);-->
+<!--                }-->
+<!---->
+<!--                const requestData = {-->
+<!--                    event_name: 'get_client_chart_history', //get_chart_history-->
+<!--                    data: {-->
+<!--                        symbol: symbol,-->
+<!--                        from: params.from,-->
+<!--                        to: adjustedTo,-->
+<!--                        timeframe: resolution-->
+<!--                    }-->
+<!--                };-->
+<!---->
+<!--                console.log("historyCallbacks:", JSON.stringify(requestData));-->
+<!---->
+<!--                this.historyCallbacks.set(symbol, (bars, meta) => {-->
+<!--                    if (bars.length === 0) {-->
+<!--                        // If no historical data is available, immediately invoke the callback with noData flag-->
+<!--                        // If no historical data is returned, request an earlier range-->
+<!--                        const newFrom = params.from - 3 * 60 * 60; // Go back one day-->
+<!--                        const newTo = params.to - 3 * 60 * 60;-->
+<!--                        console.log("No data, retrying with earlier range:", { newFrom, newTo });-->
+<!---->
+<!--                        this.getBars(symbolInfo, resolution, { from: newFrom, to: newTo, timeframe: timeframe }, onHistoryCallback, onError);-->
+<!---->
+<!--                    } else {-->
+<!--                        // Otherwise, proceed with the normal callback-->
+<!--                        onHistoryCallback(bars, meta);-->
+<!--                    }-->
+<!--                });-->
+<!---->
+<!--                const request = JSON.stringify(requestData);-->
+<!---->
+<!--                if (this.websocket.readyState === WebSocket.OPEN) {-->
+<!--                    this.websocket.send(request);-->
+<!--                } else {-->
+<!--                    this.pendingRequests.set(symbol, { message: request });-->
+<!--                }-->
+<!--            }-->
+<!---->
+<!--            subscribeBars(symbolInfo, resolution, onRealtimeCallback, listenerGuid) {-->
+<!--                const symbol = symbolInfo.name;-->
+<!---->
+<!--                // Clear the current bar for the symbol when interval changes-->
+<!--                this.currentBars.delete(symbol);-->
+<!---->
+<!--                // Update the subscription with the new resolution-->
+<!--                this.subscribers.set(symbol, {-->
+<!--                    resolution: resolution,-->
+<!--                    callback: onRealtimeCallback-->
+<!--                });-->
+<!---->
+<!--                const subscriptionMessage = JSON.stringify({-->
+<!--                    event_name: 'subscribe',-->
+<!--                    data: { channels: [symbol], resolution: resolution } // Include resolution in the subscription-->
+<!--                });-->
+<!---->
+<!--                if (this.websocket.readyState === WebSocket.OPEN) {-->
+<!--                    this.websocket.send(subscriptionMessage);-->
+<!--                } else {-->
+<!--                    this.pendingRequests.set(symbol, {-->
+<!--                        message: subscriptionMessage,-->
+<!--                        timestamp: Date.now()-->
+<!--                    });-->
+<!--                }-->
+<!--            }-->
+<!---->
+<!--            unsubscribeBars(listenerGuid) {-->
+<!--                const symbol = listenerGuid;-->
+<!--                this.subscribers.delete(symbol);-->
+<!--                this.currentBars.delete(symbol);-->
+<!---->
+<!--                const unsubscribeMessage = JSON.stringify({-->
+<!--                    event_name: 'unsubscribe',-->
+<!--                    data: { symbol: symbol }-->
+<!--                });-->
+<!---->
+<!--                if (this.websocket && this.websocket.readyState === WebSocket.OPEN) {-->
+<!--                    this.websocket.send(unsubscribeMessage);-->
+<!--                }-->
+<!--            }-->
+<!--        }-->
+<!---->
+<!--        function initTradingViewWidget() {-->
+<!--            if (datafeedInstance) {-->
+<!--                datafeedInstance.close(); // Cleanup previous instance-->
+<!--            }-->
+<!---->
+<!--           // datafeedInstance = new CustomDatafeed('wss://mbe.riverprime.com/mobile_web_socket');-->-->
+<!--                datafeedInstance = new CustomDatafeed('ws://192.168.3.123:8074');-->
+<!---->
+<!---->
+<!--            tradingViewWidget = new TradingView.widget({-->
+<!--                debug: true,-->
+<!--                fullscreen: true,-->
+<!--                symbol: currentSymbol,-->
+<!--                interval: '1',-->
+<!--                container: "tv_chart_container",-->
+<!--                datafeed: datafeedInstance,-->
+<!--                library_path: "charting_library/",-->
+<!--                locale: "en",-->
+<!--                theme: 'dark',-->
+<!--                branding: {-->
+<!--                    showLogo: false,-->
+<!--                },-->
+<!--                disabled_features: [-->
+<!--                                    'use_localstorage_for_settings', 'header_widget_dom_node',-->
+<!--                                    'timeframes_toolbar',  'header_settings', 'logo', 'show_logo_on_all_charts', 'copyrights',-->
+<!--                                    'display_market_status', 'header_compare', 'header_undo_redo', 'header_symbol_search', 'header_screenshot', 'header_fullscreen_button'-->
+<!--                                    ]-->
+<!---->
+<!--            });-->
+<!--        }-->
+<!---->
+<!--        window.addEventListener('DOMContentLoaded', initTradingViewWidget);-->
+<!---->
+<!--        let tradingViewWidget = null;-->
+<!--        let currentSymbol = 'Gold';-->
+<!--        let decimalPlaces = 2; // Default decimal places-->
+<!---->
+<!--        // Symbol setter-->
+<!--        window.setSymbol = function(symbol, decimals) {-->
+<!--            if (tradingViewWidget) {-->
+<!--                tradingViewWidget.remove();-->
+<!--            }-->
+<!--            currentSymbol = symbol;-->
+<!--            decimalPlaces = parseInt(decimals) || 2;-->
+<!--            initTradingViewWidget();-->
+<!--        };-->
+<!---->
+<!--        const urlParams = new URLSearchParams(window.location.search);-->
+<!--        const initialSymbol = urlParams.get('symbol') || currentSymbol;-->
+<!--        const initialDecimals = urlParams.get('decimals') || 2;-->
+<!--        window.setSymbol(initialSymbol, initialDecimals);-->
+<!--        // Expose cleanup function-->
+<!--        window.closeWebSocket = function() {-->
+<!--            if (datafeedInstance) {-->
+<!--                datafeedInstance.close();-->
+<!--            }-->
+<!--            if (tradingViewWidget) {-->
+<!--                tradingViewWidget.remove();-->
+<!--                tradingViewWidget = null;-->
+<!--            }-->
+<!--        };-->
+<!--    </script>-->
+<!--</head>-->
+<!--<body style="margin:0; background:#222;">-->
+<!--<div id="tv_chart_container" style="height:100vh;"></div>-->
+<!--</body>-->
+<!--</html>-->

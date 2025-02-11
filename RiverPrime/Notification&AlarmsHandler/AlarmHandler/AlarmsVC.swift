@@ -37,7 +37,9 @@ class AlarmsVC: UIViewController{
         view.addSubview(webView)
         contentController.add(self, name: "consoleHandler")
        
-        
+//        view.backgroundColor = .black
+//        webView.backgroundColor = .black
+        self.view.isHidden = true
 //        guard let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html") else {
 //            print("No file at url")
 //            return
@@ -47,6 +49,9 @@ class AlarmsVC: UIViewController{
             webView.loadFileURL(url, allowingReadAccessTo: url)
         } else {
             print("❌ No file found at URL")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            self.view.isHidden = false
         }
 //        webView.loadFileURL(url, allowingReadAccessTo: url)
         
