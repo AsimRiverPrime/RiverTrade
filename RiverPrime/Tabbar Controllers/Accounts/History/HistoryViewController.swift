@@ -85,35 +85,35 @@ class HistoryViewController: BaseViewController {
     
     @IBAction func fromDateBtn_action(_ sender: Any) {
         
-//        showDatePicker(sender as! UIButton)
+        //        showDatePicker(sender as! UIButton)
         
         isFromOrToDate = "From"
         
         let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
-
+        
         vc.delegate = self
         vc.isSingleEntery = true
-
-//        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+        
+        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
         
     }
     
     @IBAction func toDateBtn_action(_ sender: Any) {
         
-//        showDatePicker(sender as! UIButton)
+        //        showDatePicker(sender as! UIButton)
         
         isFromOrToDate = "To"
         
         let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
-
+        
         vc.delegate = self
         vc.isSingleEntery = true
-//        vc.multipleSelection(isMultiple: false)
-//        vc.calendar.allowsMultipleSelection = false
+        //        vc.multipleSelection(isMultiple: false)
+        //        vc.calendar.allowsMultipleSelection = false
         vc.singleDateSelection = true
-
-//        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+        
+        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
     }
     
@@ -136,7 +136,7 @@ class HistoryViewController: BaseViewController {
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-       
+        
         switch historyType {
         case .trade:
             return 1
@@ -149,14 +149,14 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch historyType {
-           case .trade:
-               return closeData.count
-           case .transaction:
+        case .trade:
+            return closeData.count
+        case .transaction:
             print("Transaction count:", transactionCloseData.count)
-                return transactionCloseData.count + (transactionCloseData.isEmpty ? 0 : 1) // +1 only if data exists
-           case .none:
-               return 0
-           }
+            return transactionCloseData.count + 1 //  return transactionCloseData.count + (transactionCloseData.isEmpty ? 0 : 1) // +1 only if data exists
+        case .none:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -169,29 +169,37 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
             cell.getCellData(close: closeData, indexPath: indexPath)
             
             return cell
-            
         case .transaction:
-            print("Row: \(indexPath.row), Total rows: \(transactionCloseData.count + 1)")
-             if indexPath.row < transactionCloseData.count {
-                 let cell = tableView.dequeueReusableCell(with: HistoryTransactionTVCell.self, for: indexPath)
-                 cell.selectionStyle = .none
-                 let historyClose = transactionCloseData[indexPath.row]
-                 cell.configure(with: historyClose)
-                 return cell
-             } else {
-                 // Only one total row at the end
-                 let cellTotal = tableView.dequeueReusableCell(with: HistoryTransactionTotalTVCell.self, for: indexPath)
-                 cellTotal.selectionStyle = .none
-                 if let user = UserManager.shared.currentUser {
-                     cellTotal.lbl_totalDeposit.text = "$\(String.formatStringNumber(String(user.totalDeposit)))"
-                     cellTotal.lbl_totalwithdraw.text = "$\(String.formatStringNumber(String(user.totalWithdraw)))"
-                 }
-                 return cellTotal
-             }
+            if indexPath.row == 0 {
+                // Calculate deposits and withdrawals
+                let totalDeposit = transactionCloseData
+                    .filter { $0.profit > 0 }
+                    .reduce(0) { $0 + $1.profit }
+                
+                let totalWithdraw = transactionCloseData
+                    .filter { $0.profit < 0 }
+                    .reduce(0) { $0 + abs($1.profit) } // Convert to positive for display
+                
+                // Configure Total Deposit/Withdraw cell
+                let cellTotal = tableView.dequeueReusableCell(with: HistoryTransactionTotalTVCell.self, for: indexPath)
+                cellTotal.selectionStyle = .none
+                cellTotal.lbl_totalDeposit.text = "$\(String.formatStringNumber(String(totalDeposit)))"
+                cellTotal.lbl_totalwithdraw.text = "$\(String.formatStringNumber(String(totalWithdraw)))"
+                
+                return cellTotal
+            } else {
+                // Adjust index to account for the total cell at the top
+                let cell = tableView.dequeueReusableCell(with: HistoryTransactionTVCell.self, for: indexPath)
+                cell.selectionStyle = .none
+                let historyClose = transactionCloseData[indexPath.row - 1] // Adjust index
+                cell.configure(with: historyClose)
+                return cell
+            }
+            
         case .none:
             return UITableViewCell()
         }
-                
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -199,7 +207,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         case .trade:
             return 345
         case .transaction:
-            return indexPath.row == transactionCloseData.count ? 60 : 44  // Last row has a different height
+            return indexPath.row == transactionCloseData.count ? 70 : 60  // Last row has a different height
         case .none:
             return 0
         }
@@ -225,9 +233,9 @@ extension HistoryViewController {
             
             if let closeData1 = closeData {
                 self.closeData = closeData1
-
                 
-//                self.transactionCloseData = closeData1.flatMap { $0.historyCloseData.filter { $0.action == 2 } }
+                
+                //                self.transactionCloseData = closeData1.flatMap { $0.historyCloseData.filter { $0.action == 2 } }
                 
                 var uniqueDeals = Set<Int>()
                 self.transactionCloseData = closeData1
@@ -239,15 +247,15 @@ extension HistoryViewController {
                 
                 let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
                 self.lbl_totalProfit.text = "$\(String(totalProfitValue).trimmedTrailingZeros())"
-             
+                
                 if totalProfitValue < 0 {
                     self.lbl_totalProfit.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)//.systemRed
                     
                 }else{
                     self.lbl_totalProfit.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
                 }
-             //   closeData.sort(by: { $0.LatestTime > $1.LatestTime })
-//                self.closeData.sort { $0.LatestTime > $1.LatestTime }
+                //   closeData.sort(by: { $0.LatestTime > $1.LatestTime })
+                //                self.closeData.sort { $0.LatestTime > $1.LatestTime }
                 self.historyTableView.reloadData()
             } else {
                 return
@@ -292,7 +300,7 @@ extension HistoryViewController {
             let selectedDate = datePicker.date
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
-           
+            
             print("Selected date: \(dateFormatter.string(from: selectedDate))")
         }
         
@@ -329,7 +337,7 @@ extension HistoryViewController {
 
 //MARK: - Date picker delegate
 extension HistoryViewController: didSelectBtnDelegate {
-
+    
     func showAlert(str: String) {
         
         if var topController = SCENE_DELEGATE.window?.rootViewController {
@@ -338,23 +346,23 @@ extension HistoryViewController: didSelectBtnDelegate {
                 topController.view.makeToast(str)
             }
         }
-
+        
     }
-
+    
     func getDate(date: String) {
         print("this is date: \(date)")
     }
-
+    
     func getStartEndDate(startDate: String, endDate: String) {
         if startDate == "" /*|| endDate == ""*/ {
             //            self..text = ""
-//            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
+            //            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
             self.showTimeAlert(str: "Please select date properly.")
         } else {
-
+            
             //            self.tfDate.text =
-//            print("this is selected date : \(startDate) to \(endDate)")
-//            _getSelectedDate = "\(startDate) to \(endDate)"
+            //            print("this is selected date : \(startDate) to \(endDate)")
+            //            _getSelectedDate = "\(startDate) to \(endDate)"
             print("this is selected date : \(startDate)")
             _getSelectedDate = "\(startDate)"
         }
@@ -424,12 +432,12 @@ extension HistoryViewController: didSelectBtnDelegate {
         // Dismiss the bottom sheet
         PresentModalController.instance.dismisBottomSheet(self)
     }
-
+    
     func cancelDatePickerButton(_ sender: UIButton) {
         print("cancel")
         //        datePickerPopup.dismissView()
-//        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
+        //        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
         PresentModalController.instance.dismisBottomSheet(self)
     }
-
+    
 }

@@ -59,7 +59,7 @@ extension HistoryTradeTVCell {
         
 //        let data = close[indexPath.row]
         closeData = close[indexPath.row]
-        print("\n closeData in history TV cell :\n \(closeData)")
+//        print("\n closeData in history TV cell :\n \(closeData)")
         
         guard let savedSymbolsDict = vm.getSavedSymbolsDictionary() else {
             return

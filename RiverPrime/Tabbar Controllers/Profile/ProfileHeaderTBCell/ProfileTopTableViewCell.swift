@@ -158,7 +158,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             btn_completeProfile.isUserInteractionEnabled = true
                             btn_completeProfile.setTitle("Click to complete KYC", for: .normal)
     //                        self.btn_completeProfile.isHidden = false
-                            lbl_profile.text = "Alright you complete your Profile almost.The last step KYC remaining."
+                            lbl_profile.text = "Alright you complete your Profile almost.Last step KYC is remaining."
 //                        }else if profileStep == 1 {
 //                            progreeBar.progress = 0.33
 //                            self.lbl_progressPercent.text = "33%"

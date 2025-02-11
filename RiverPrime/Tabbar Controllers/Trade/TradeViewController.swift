@@ -108,6 +108,9 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     var isTimerRunMoreThenOnce = false
     var symbolDataObj: SymbolData?
     
+    @IBOutlet weak var badgeLabel: UILabel!
+    
+    @IBOutlet weak var viewBadge: CardView!
     @IBOutlet weak var labelAmmount: UILabel!
     
     @IBOutlet weak var lbl_account: UILabel!
@@ -151,13 +154,15 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
             
         }
-        
+
         searchBarHeightConstraint.constant = 0 // Initially hide the search bar
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleBadgeUpdate(_:)), name: NSNotification.Name("UpdateBadge"), object: nil)
+        APP_DELEGATE.updateBadgeCount()
         accountData()
         //        self.searchCloseButton.isHidden = true
         self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -211,6 +216,21 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         }
         isSearchBarHidden = true
     }
+    @objc func handleBadgeUpdate(_ notification: Notification) {
+        if let count = notification.userInfo?["count"] as? Int {
+            updateButtonBadge(count: count)
+        }
+    }
+    func updateButtonBadge(count: Int) {
+        if count > 0 {
+            badgeLabel.text = count > 9 ? "+9" : "\(count)"
+            viewBadge.isHidden = false
+               badgeLabel.isHidden = false
+           } else {
+               badgeLabel.isHidden = true
+               viewBadge.isHidden = true
+           }
+    }
     
     @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
         if let userInfo = notification.userInfo,
@@ -225,11 +245,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             
         }
     }
-    
-    func updateNotificationButtonBadge() {
-        let badgeCount = NotificationHandler.shared.getUnseenNotificationsCount()
-        //        notificationButton. .badgeValue = badgeCount > 0 ? "\(badgeCount)" : nil
-    }
+   
     
     @IBAction func alaramBtnAction(_ sender: Any) {
 //                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
@@ -240,6 +256,13 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBAction func notificationBtnAction(_ sender: Any) {
         //        Alert.showAlert(withMessage: "Notification Screen available soon", andTitle: "Notification", on: self)
+        UIApplication.shared.applicationIconBadgeNumber = 0
+//           NotificationHandler.shared.clearUnseenNotificationsCount() // Reset your counter
+           
+           // Update UI
+           updateButtonBadge(count: 0)
+
+        
         let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
         
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
@@ -677,15 +700,23 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.onLabelSymbolTapped = { [weak self] in
                        guard let self = self else { return }
                 print("press the symbol label")
-                let getSymbolData = getSymbolData[indexPath.row]
-                if getSymbolData.historyMessage?.chartData.count != 0 {
-                    
-                    delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
-                }
-//                let vc = Utilities.shared.getViewController(identifier: .tradeDetalVC, storyboardType: .bottomSheetPopups) as! TradeDetalVC
-//                vc.chartView.isHidden = true
-//                vc.chartOverView.isHidden = true
-//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                
+                if indexPath.row < getSymbolData.count { // Ensure index is valid
+                       let symbolData = getSymbolData[indexPath.row]
+                       print("Pressed the symbol label: \(symbolData)")
+                    if symbolData.historyMessage?.chartData.count != 0 {
+                        delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: symbolData)
+                    }
+                   } else {
+                       print("Index out of range: \(indexPath.row)")
+                   }
+                
+              //  let getSymbolData = getSymbolData[indexPath.row]
+//                if getSymbolData.historyMessage?.chartData.count != 0 {
+//                    
+//                    delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
+//                }
+//
                 
             }
             cell.onLabelAskTapped = { [weak self] in
@@ -845,7 +876,12 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                     
                     // Animate the deletion of the row
+                    tableView.beginUpdates()
                     tableView.deleteRows(at: [indexPath], with: .automatic)
+                    tableView.endUpdates()
+                    tableView.reloadData()
+                    
+//                    tableView.deleteRows(at: [indexPath], with: .automatic)
                 }
             }
         }

@@ -361,7 +361,6 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
 extension EmailVC:  CreateLeadOdooDelegate {
 func leadCreatSuccess(response: Any) {
     print("this is success response from create Lead and record ID is:\(response)")
-    odoClientNew.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
     
     createMTAccount()
     

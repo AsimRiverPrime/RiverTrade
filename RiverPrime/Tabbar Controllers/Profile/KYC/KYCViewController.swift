@@ -107,7 +107,7 @@ class KYCViewController: BaseViewController{
             "email": userEmail ?? "",
             "callback_url": "https://mbe.riverprime.com/shufti/callback",
             "show_results": "1",
-            "redirect_url": "https://www.mydummy.shuftipro.com/",
+           
             "show_privacy_policy": "1",
             "show_consent": "1",
             "verification_mode": "image_only",

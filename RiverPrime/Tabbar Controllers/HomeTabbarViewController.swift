@@ -92,13 +92,18 @@ extension HomeTabbarViewController {
                 self.userEmail = email
             }
         }
-        
-       
         //MARK: - Call Symbol Api and their delegate method to get data.
         odooClientService.sendSymbolDetailRequest()
-        odooClientService.SearchRecord(email: userEmail ?? "" ) { data, error in
-                   print("crm user data is: \(data) : error is: \(error)")
-               }
+        let recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        
+        if recordedId == 0 {
+            odooClientService.SearchRecord(email: userEmail ?? "") { data, error in
+                print("CRM user data is: \(data) : error is: \(error)")
+            }
+        } else {
+            print("Skipping search as crm_User_Id exists: \(recordedId)")
+            
+        }
         odooClientService.tradeSymbolDetailDelegate = self
         odooClientService.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
 

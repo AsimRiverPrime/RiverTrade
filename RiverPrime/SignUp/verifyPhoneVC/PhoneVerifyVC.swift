@@ -134,7 +134,7 @@ class PhoneVerifyVC: BaseViewController{
                 self.firestoreService.fetchUserData(userId: userId)
                 //                    self.navigateToFaceID()
                 self.delegate?.didCompletePhoneVerification()
-                
+//                self.delegate?.didCompletePhoneOTPVerification()
                 self.dismiss(animated: true)
                 
             }

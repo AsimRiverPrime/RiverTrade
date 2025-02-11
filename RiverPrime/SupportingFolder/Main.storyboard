@@ -2586,11 +2586,6 @@ You also confirm that you fully understand the nature and the risks of the servi
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8R-lr-qhH" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="39" y="247" width="312" height="350"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="vNT-yf-gkc">
                                 <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                             </imageView>
@@ -2709,7 +2704,7 @@ You also confirm that you fully understand the nature and the risks of the servi
                                             <action selector="submitBtn:" destination="Sue-mK-KG2" eventType="touchUpInside" id="And-mg-tys"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-h0-7Nn" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uYq-h0-7Nn" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                         <rect key="frame" x="39" y="308" width="312" height="38.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2722,7 +2717,7 @@ You also confirm that you fully understand the nature and the risks of the servi
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
@@ -2732,8 +2727,40 @@ You also confirm that you fully understand the nature and the risks of the servi
                                             <action selector="signINGoogle_action:" destination="Sue-mK-KG2" eventType="touchUpInside" id="GHV-sA-Wqs"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="djX-ho-4Bh" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="39" y="361.33333333333331" width="312" height="38.333333333333314"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="apple.logo" catalog="system" title="Sign in with AppleID" imagePadding="10">
+                                            <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
+                                                <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="appleSignIN_btnAction:" destination="Sue-mK-KG2" eventType="touchUpInside" id="omb-jR-kRT"/>
+                                        </connections>
+                                    </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="-7" translatesAutoresizingMaskIntoConstraints="NO" id="nnC-p0-eGu">
-                                        <rect key="frame" x="53" y="446.33333333333331" width="284" height="31"/>
+                                        <rect key="frame" x="53" y="499.66666666666674" width="284" height="31"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUF-7r-glx">
                                                 <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="31"/>
@@ -2772,14 +2799,17 @@ You also confirm that you fully understand the nature and the risks of the servi
                                     <constraint firstItem="qPk-Nk-EVW" firstAttribute="leading" secondItem="f6r-9p-80g" secondAttribute="leading" id="FmI-bV-gVh"/>
                                     <constraint firstItem="kKb-ae-gnS" firstAttribute="leading" secondItem="3WK-gg-cWU" secondAttribute="leading" id="Frk-U1-SLm"/>
                                     <constraint firstItem="3WK-gg-cWU" firstAttribute="width" secondItem="hiD-nj-Ign" secondAttribute="width" multiplier="0.8" id="Fuf-lI-5Yc"/>
+                                    <constraint firstItem="djX-ho-4Bh" firstAttribute="trailing" secondItem="uYq-h0-7Nn" secondAttribute="trailing" id="GPJ-Rs-B97"/>
                                     <constraint firstItem="uYq-h0-7Nn" firstAttribute="height" secondItem="cZE-MQ-GtS" secondAttribute="height" multiplier="0.992647" id="Ha1-Qp-r0T"/>
                                     <constraint firstItem="3WK-gg-cWU" firstAttribute="height" secondItem="hiD-nj-Ign" secondAttribute="height" multiplier="0.1" id="Ihz-Ru-efz"/>
                                     <constraint firstItem="uYq-h0-7Nn" firstAttribute="centerX" secondItem="cZE-MQ-GtS" secondAttribute="centerX" id="LfC-7c-bkP"/>
                                     <constraint firstItem="qPk-Nk-EVW" firstAttribute="trailing" secondItem="f6r-9p-80g" secondAttribute="trailing" id="MQ7-Se-KW3"/>
                                     <constraint firstItem="cZE-MQ-GtS" firstAttribute="leading" secondItem="7yK-lF-QFd" secondAttribute="leading" id="Moj-yl-SYc"/>
+                                    <constraint firstItem="djX-ho-4Bh" firstAttribute="top" secondItem="uYq-h0-7Nn" secondAttribute="bottom" constant="15" id="NAP-J8-lFM"/>
                                     <constraint firstItem="Agd-kf-6ti" firstAttribute="height" secondItem="f6r-9p-80g" secondAttribute="height" multiplier="1.125" id="P9o-ja-s1k"/>
                                     <constraint firstItem="cZE-MQ-GtS" firstAttribute="trailing" secondItem="7yK-lF-QFd" secondAttribute="trailing" id="PfU-xa-AE8"/>
                                     <constraint firstItem="cZE-MQ-GtS" firstAttribute="centerX" secondItem="lgD-9U-L19" secondAttribute="centerX" id="QBp-P8-3PY"/>
+                                    <constraint firstItem="nnC-p0-eGu" firstAttribute="top" secondItem="djX-ho-4Bh" secondAttribute="bottom" constant="100" id="T67-x8-Obs"/>
                                     <constraint firstItem="qPk-Nk-EVW" firstAttribute="centerX" secondItem="f6r-9p-80g" secondAttribute="centerX" id="TEO-fV-aVC"/>
                                     <constraint firstItem="f6r-9p-80g" firstAttribute="top" secondItem="kKb-ae-gnS" secondAttribute="bottom" constant="20" id="XNn-Ht-HaF"/>
                                     <constraint firstItem="uYq-h0-7Nn" firstAttribute="top" secondItem="cZE-MQ-GtS" secondAttribute="bottom" constant="10" id="XPK-WE-Oyw"/>
@@ -2789,33 +2819,28 @@ You also confirm that you fully understand the nature and the risks of the servi
                                     <constraint firstItem="7yK-lF-QFd" firstAttribute="centerX" secondItem="Agd-kf-6ti" secondAttribute="centerX" id="afY-Ln-14a"/>
                                     <constraint firstItem="Agd-kf-6ti" firstAttribute="leading" secondItem="qPk-Nk-EVW" secondAttribute="leading" id="axe-7b-jDq"/>
                                     <constraint firstItem="Agd-kf-6ti" firstAttribute="centerX" secondItem="qPk-Nk-EVW" secondAttribute="centerX" id="b4X-Kd-obx"/>
-                                    <constraint firstAttribute="bottom" secondItem="nnC-p0-eGu" secondAttribute="bottom" constant="184" id="bWZ-Em-qoe"/>
                                     <constraint firstItem="7yK-lF-QFd" firstAttribute="leading" secondItem="Agd-kf-6ti" secondAttribute="leading" id="eR3-oi-p68"/>
+                                    <constraint firstItem="djX-ho-4Bh" firstAttribute="leading" secondItem="uYq-h0-7Nn" secondAttribute="leading" id="fDZ-AQ-usd"/>
                                     <constraint firstItem="Agd-kf-6ti" firstAttribute="top" secondItem="qPk-Nk-EVW" secondAttribute="bottom" constant="5" id="fNZ-Eu-XAf"/>
                                     <constraint firstItem="3WK-gg-cWU" firstAttribute="centerY" secondItem="hiD-nj-Ign" secondAttribute="centerY" multiplier="0.35" id="iBU-Mh-mVV"/>
+                                    <constraint firstAttribute="bottom" secondItem="nnC-p0-eGu" secondAttribute="bottom" constant="313.33333333333326" id="jdi-Ll-wWA"/>
                                     <constraint firstItem="kKb-ae-gnS" firstAttribute="top" secondItem="hiD-nj-Ign" secondAttribute="top" constant="60" id="jjq-zV-tty"/>
                                     <constraint firstItem="nnC-p0-eGu" firstAttribute="centerX" secondItem="uYq-h0-7Nn" secondAttribute="centerX" id="mNg-yB-85V"/>
                                     <constraint firstItem="7yK-lF-QFd" firstAttribute="trailing" secondItem="Agd-kf-6ti" secondAttribute="trailing" id="n74-jz-H9y"/>
                                     <constraint firstItem="lgD-9U-L19" firstAttribute="top" secondItem="7yK-lF-QFd" secondAttribute="bottom" id="nT5-VF-rVQ"/>
                                     <constraint firstItem="7yK-lF-QFd" firstAttribute="top" secondItem="Agd-kf-6ti" secondAttribute="bottom" id="oQ0-jX-Xay"/>
-                                    <constraint firstItem="nnC-p0-eGu" firstAttribute="top" secondItem="uYq-h0-7Nn" secondAttribute="bottom" constant="100" id="oT2-OA-dMW"/>
                                     <constraint firstItem="lgD-9U-L19" firstAttribute="centerX" secondItem="7yK-lF-QFd" secondAttribute="centerX" id="opX-6L-D8M"/>
                                     <constraint firstItem="f6r-9p-80g" firstAttribute="leading" secondItem="kKb-ae-gnS" secondAttribute="leading" id="owS-jB-zpX"/>
                                     <constraint firstItem="FO8-41-56t" firstAttribute="trailing" secondItem="Agd-kf-6ti" secondAttribute="trailing" constant="-10" id="t1r-ND-MWV"/>
+                                    <constraint firstItem="djX-ho-4Bh" firstAttribute="height" secondItem="uYq-h0-7Nn" secondAttribute="height" id="udT-Za-ILs"/>
                                     <constraint firstItem="FO8-41-56t" firstAttribute="centerY" secondItem="Agd-kf-6ti" secondAttribute="centerY" id="wGH-Pd-EwT"/>
                                 </constraints>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hS8-vd-oKC">
-                                <rect key="frame" x="39" y="379" width="312" height="84.333333333333314"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NIQ-fX-nnQ"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="centerY" secondItem="Vo9-LW-Gun" secondAttribute="centerY" id="1aI-N7-DjJ"/>
-                            <constraint firstItem="hiD-nj-Ign" firstAttribute="centerY" secondItem="Vo9-LW-Gun" secondAttribute="centerY" id="CbY-M8-k85"/>
                             <constraint firstItem="vNT-yf-gkc" firstAttribute="top" secondItem="Vo9-LW-Gun" secondAttribute="top" id="JOU-pt-LHU"/>
                             <constraint firstAttribute="bottom" secondItem="hiD-nj-Ign" secondAttribute="bottom" id="TBW-kW-ysJ"/>
                             <constraint firstItem="vNT-yf-gkc" firstAttribute="leading" secondItem="NIQ-fX-nnQ" secondAttribute="leading" id="Vcc-cu-EjZ"/>
@@ -2827,12 +2852,6 @@ You also confirm that you fully understand the nature and the risks of the servi
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="leading" secondItem="NIQ-fX-nnQ" secondAttribute="leading" id="pad-5p-Azl"/>
                             <constraint firstItem="hiD-nj-Ign" firstAttribute="trailing" secondItem="NIQ-fX-nnQ" secondAttribute="trailing" id="rjm-ut-RBr"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="W8R-lr-qhH"/>
-                                <exclude reference="hS8-vd-oKC"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Qek-5G-bAM"/>
                     <connections>
@@ -2994,13 +3013,13 @@ You also confirm that you fully understand the nature and the risks of the servi
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dq-Nv-BeW">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="1028.6666666666667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="5Zx-e3-DCX">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="1028.6666666666667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIr-hH-qZV" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="39" y="128.66666666666663" width="312" height="360"/>
+                                        <rect key="frame" x="39" y="105.66666666666666" width="312" height="295.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Verification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GR-PP-5GZ">
                                                 <rect key="frame" x="10" y="9.9999999999999982" width="292" height="19.333333333333329"/>
@@ -3009,7 +3028,7 @@ You also confirm that you fully understand the nature and the risks of the servi
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b1v-Iu-v6Q">
-                                                <rect key="frame" x="10" y="39.333333333333343" width="292" height="67"/>
+                                                <rect key="frame" x="10" y="39.333333333333329" width="292" height="67"/>
                                                 <string key="text">We have sent you code with an Email.
 
 To complete your phone number verification, please enter the 6-digit activation code.</string>
@@ -3018,13 +3037,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDG-n4-Rb1">
-                                                <rect key="frame" x="10" y="121.33333333333334" width="292" height="54"/>
+                                                <rect key="frame" x="10" y="121.33333333333331" width="292" height="44"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EfM-My-Apq">
-                                                        <rect key="frame" x="10" y="10" width="272" height="34"/>
+                                                        <rect key="frame" x="10" y="10" width="272" height="24"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Te6-hx-7wn">
-                                                                <rect key="frame" x="0.0" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="Znd-xJ-h08">
@@ -3036,31 +3055,31 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mns-3k-IKs">
-                                                                <rect key="frame" x="47" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="47" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZCH-kq-KYI">
-                                                                <rect key="frame" x="94" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="94" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zS7-sz-9wv">
-                                                                <rect key="frame" x="141" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="141" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eDs-5N-PaH">
-                                                                <rect key="frame" x="188" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="188" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-Zv-XeU">
-                                                                <rect key="frame" x="235" y="0.0" width="37" height="34"/>
+                                                                <rect key="frame" x="235" y="0.0" width="37" height="24"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -3084,13 +3103,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The code was entered incorrectly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mt5-t9-Zwu">
-                                                <rect key="frame" x="61.333333333333329" y="176.33333333333334" width="189.33333333333337" height="14.333333333333343"/>
+                                                <rect key="frame" x="61.333333333333329" y="166.33333333333331" width="189.33333333333337" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sN-pS-aXl">
-                                                <rect key="frame" x="10" y="210.66666666666666" width="292" height="45"/>
+                                                <rect key="frame" x="10" y="200.66666666666663" width="292" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="j2I-kz-6n7"/>
@@ -3110,7 +3129,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjS-PB-cVC">
-                                                <rect key="frame" x="10" y="200.66666666666666" width="292" height="31"/>
+                                                <rect key="frame" x="10" y="190.66666666666663" width="292" height="31"/>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Didn't receive a verification code?">
@@ -3121,13 +3140,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may request a new code in" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXJ-Xr-49O">
-                                                <rect key="frame" x="40.333333333333329" y="236.66666666666666" width="200.33333333333337" height="17"/>
+                                                <rect key="frame" x="40.333333333333329" y="226.66666666666663" width="200.33333333333337" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czy-Pd-E1Z">
-                                                <rect key="frame" x="244.66666666666671" y="236.66666666666666" width="38.333333333333343" height="17"/>
+                                                <rect key="frame" x="244.66666666666671" y="226.66666666666663" width="38.333333333333343" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.41960784309999999" green="0.41960784309999999" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
-        UIApplication.shared.applicationIconBadgeNumber = 0
+//        UIApplication.shared.applicationIconBadgeNumber = 0
         // Set the messaging delegate
         Messaging.messaging().delegate = self
         
@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Handle Remote Notification
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         handleNotification(userInfo)
+        
         completionHandler(.newData)
     }
     
@@ -83,6 +84,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DispatchQueue.main.async {
             UIApplication.shared.applicationIconBadgeNumber = unseenCount
+            NotificationCenter.default.post(name: NSNotification.Name("UpdateBadge"), object: nil, userInfo: ["count": unseenCount])
+
         }
     }
 }
@@ -105,7 +108,6 @@ extension AppDelegate: MessagingDelegate {
         if let token = Messaging.messaging().fcmToken {
             print("Retrieved FCM token: \(token)")
         }
-        
     }
     
 }
@@ -117,33 +119,52 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         print("Foreground notification received: \(userInfo)")
         // Parse the notification payload
-        
+       
         // Extract data from the notification payload
-        if let type = userInfo["type"] as? String,
-           let newStatus = userInfo["new_status"] as? String,
-           let title = userInfo["title"] as? String,
-           let message = userInfo["message"] as? String {
+        if let type = userInfo["type"] as? String {
             
-            let notificationItem = NotificationItem(
-                id: UUID().uuidString, // Generate a unique ID
-                title: title,
-                message: message,
-                type: type,
-                status: newStatus,
-                date: Date(),
-                isSeen: false
-            )
-            
-            // Save the notification
-            NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
-            
-            // Update the badge count
-            updateBadgeCount()
-            // Optionally update the UI
-            print("type: \(type), new status \(newStatus) ")
-            NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": type, "status": newStatus])
-            
+            if type == "deposit" || type == "withdrawal" {
+                let notificationItem = NotificationItem(
+                    id: UUID().uuidString, // Generate a unique ID
+                    title: userInfo["title"] as? String ?? "",
+                    message: userInfo["message"] as? String ?? "",
+                    type: type,
+                    status: userInfo["new_status"] as? String ?? "",
+                    date: Date(),
+                    isSeen: false
+                )
+                
+                // Update the badge count
+                updateBadgeCount()
+                print("Saving deposit/withdraw notification: \(notificationItem)")
+                NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
+                
+            } else if let newStatus = userInfo["new_status"] as? String,
+                      let title = userInfo["title"] as? String,
+                      let message = userInfo["message"] as? String {
+                
+                let notificationItem = NotificationItem(
+                    id: UUID().uuidString, // Generate a unique ID
+                    title: title,
+                    message: message,
+                    type: type,
+                    status: newStatus,
+                    date: Date(),
+                    isSeen: false
+                )
+                
+                print("Saving other type of notification: \(notificationItem)")
+                NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
+                
+                // Update the badge count
+                updateBadgeCount()
+                
+                // Optionally update the UI
+                print("type: \(type), new status: \(newStatus)")
+                NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": type, "status": newStatus])
+            }
         }
+
         
         completionHandler([.alert, .sound, .badge])
     }
@@ -164,41 +185,41 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Navigate to the relevant screen based on the notification type
         let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
         if let navigationController = window?.rootViewController as? UINavigationController {
-            switch notificationType {
-            case "idwise_status_update":
+//            switch notificationType {
+//            case "shufti_status_update":
                 if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
                     navigationController.pushViewController(notificationVC, animated: true)
                 }
                 // Add other cases for different screens
-            default:
-                break
-            }
+//            default:
+//                break
+//            }
         }
     }
     
-    private func handleKYCStatusChange(_ status: String) {
-        // Implement your logic for KYC status change
-        if status == "completed" {
-            print("KYC process is complete.")
-            // Navigate to another screen or refresh data
-        } else {
-            print("KYC status: \(status)")
-        }
-    }
+//    private func handleKYCStatusChange(_ status: String) {
+//        // Implement your logic for KYC status change
+//        if status == "completed" {
+//            print("KYC process is complete.")
+//            // Navigate to another screen or refresh data
+//        } else {
+//            print("KYC status: \(status)")
+//        }
+//    }
     
-    func listenForKYCUpdates() {
-        let db = Firestore.firestore()
-        db.collection("users").document("user_id").addSnapshotListener { documentSnapshot, error in
-            guard let document = documentSnapshot else {
-                print("Error fetching document: \(error!)")
-                return
-            }
-            if let kycStatus = document.get("kycStatus") as? String {
-                print("KYC Status updated: \(kycStatus)")
-                // Update UI or handle status change
-                //                NotificationCenter.default.post(name: .kycStatusChanged, object: nil, userInfo: ["status": kycStatus])
-                
-            }
-        }
-    }
+//    func listenForKYCUpdates() {
+//        let db = Firestore.firestore()
+//        db.collection("users").document("user_id").addSnapshotListener { documentSnapshot, error in
+//            guard let document = documentSnapshot else {
+//                print("Error fetching document: \(error!)")
+//                return
+//            }
+//            if let kycStatus = document.get("kycStatus") as? String {
+//                print("KYC Status updated: \(kycStatus)")
+//                // Update UI or handle status change
+//                //                NotificationCenter.default.post(name: .kycStatusChanged, object: nil, userInfo: ["status": kycStatus])
+//                
+//            }
+//        }
+//    }
 }

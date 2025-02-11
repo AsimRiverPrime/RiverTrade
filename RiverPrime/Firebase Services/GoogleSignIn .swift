@@ -58,9 +58,7 @@ class GoogleSignIn {
                             print("Timer fired!")
                             SVProgressHUD.dismiss()
                             self.fireBaseService.handleFaceID()
-                           
                         }
-                        
                     } else {
                         self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         

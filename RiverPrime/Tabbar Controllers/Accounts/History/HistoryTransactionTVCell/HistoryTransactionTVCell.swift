@@ -29,18 +29,9 @@ class HistoryTransactionTVCell: UITableViewCell {
 }
 
 extension HistoryTransactionTVCell {
-    
-//    func getCellDataTranscation(close: [CloseModel], indexPath: IndexPath) {
-//        
-//        transcationCloseData = close[indexPath.row]
-////        print("\n transcationData in history TV cell :\n \(transcationData)")
-//   
-//        commentLbl.text = close.historyCloseData[indexPath.row].comment
-//            priceLbl.text = "\(transcationCloseData.repeatedFilteredArray[indexPath.row].price)"
-//            timeLbl.text = "\(transcationCloseData.repeatedFilteredArray[indexPath.row].time)"
-//         }
+ 
     func configure(with model: RiverPrime.CloseModel) {
-        print("\n transcationData in history TV cell :\n \(model)")
+//        print("\n transcationData in history TV cell :\n \(model)")
         
         let createDate = Date(timeIntervalSince1970: Double(model.time))
         

@@ -288,7 +288,6 @@ class PasswordVC: BaseViewController {
 extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-        self.odoClientNew.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
        
         odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
         

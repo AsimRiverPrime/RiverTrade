@@ -30,7 +30,8 @@ class NotificationViewController: BaseViewController {
         tableView.dataSource = self
 
                // Load notifications
-        notifications = NotificationHandler.shared.getSavedNotifications()
+        fetchNotifications()
+       
        
         if notifications.count == 0 {
             no_notification_view.isHidden = false
@@ -45,6 +46,14 @@ class NotificationViewController: BaseViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        
+        
+    }
+    
+    func fetchNotifications() {
+        notifications = NotificationHandler.shared.getSavedNotifications() // Fetch your notifications
+        notifications.sort { !$0.isSeen && $1.isSeen } // Unseen at the top
+        tableView.reloadData()
     }
     @IBAction func closeBtnAction(_ sender: Any) {
         self.dismiss(animated: true, completion: {

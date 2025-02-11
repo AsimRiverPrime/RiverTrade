@@ -323,7 +323,6 @@ extension ViewController {
 extension ViewController:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead and record ID is:\(response)")
-        odoClientNew.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
         navigateToNationility()
         //        odoClientNew.sendOTP(type: "email", email: GlobalVariable.instance.userEmail, phone: "")
         

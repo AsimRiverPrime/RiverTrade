@@ -226,7 +226,7 @@ class OdooClientNew {
                    let firstItem = resultArray.first { // Assuming we need the first object,  save ID
                         //  let idwiseDecision = firstItem["idwise_decision"] as? String {
                     UserDefaults.standard.set(firstItem["id"], forKey: "recordId")
-                   // print("_idwise_decision is: \(idwiseDecision)")
+                    print("crm user id is: \(firstItem["id"])")
                   //  completion(idwiseDecision, nil)
                     
                 }else {
