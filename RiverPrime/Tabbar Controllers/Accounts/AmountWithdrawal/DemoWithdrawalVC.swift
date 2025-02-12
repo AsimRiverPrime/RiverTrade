@@ -10,6 +10,13 @@ import UIKit
 class DemoWithdrawalVC: BaseViewController {
     
     @IBOutlet weak var tf_amount: UITextField!
+//    {
+//        didSet{
+//            tf_amount.setIcon(UIImage(systemName: "dollarsign")!)
+//          
+//            tf_amount.tintColor = UIColor.black
+//        }
+//    }
     @IBOutlet weak var lbl_withdraw_detail: UILabel!
 
     

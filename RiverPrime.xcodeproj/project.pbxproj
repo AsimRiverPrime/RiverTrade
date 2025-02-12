@@ -296,6 +296,7 @@
 		31D2AF452C8840B800E0CF2E /* PriceScaleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2AEDE2C8840B800E0CF2E /* PriceScaleApi.swift */; };
 		31D2AF462C8840B800E0CF2E /* SeriesApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2AEDF2C8840B800E0CF2E /* SeriesApi.swift */; };
 		31D2AF472C8840B800E0CF2E /* TimeScaleApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D2AEE02C8840B800E0CF2E /* TimeScaleApi.swift */; };
+		31D4C8502D5CB85D00456277 /* CryptoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D4C84F2D5CB85D00456277 /* CryptoVC.swift */; };
 		31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D993E92CD3B2EF00FC8FF9 /* TimeFrameVC.swift */; };
 		31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D993EB2CD3B33300FC8FF9 /* TimeFrameTVCell.swift */; };
 		31D993EE2CD3B33300FC8FF9 /* TimeFrameTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31D993EC2CD3B33300FC8FF9 /* TimeFrameTVCell.xib */; };
@@ -687,6 +688,7 @@
 		31D2AEDF2C8840B800E0CF2E /* SeriesApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeriesApi.swift; sourceTree = "<group>"; };
 		31D2AEE02C8840B800E0CF2E /* TimeScaleApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeScaleApi.swift; sourceTree = "<group>"; };
 		31D2AEE22C8840B800E0CF2E /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		31D4C84F2D5CB85D00456277 /* CryptoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoVC.swift; sourceTree = "<group>"; };
 		31D993E92CD3B2EF00FC8FF9 /* TimeFrameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrameVC.swift; sourceTree = "<group>"; };
 		31D993EB2CD3B33300FC8FF9 /* TimeFrameTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFrameTVCell.swift; sourceTree = "<group>"; };
 		31D993EC2CD3B33300FC8FF9 /* TimeFrameTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeFrameTVCell.xib; sourceTree = "<group>"; };
@@ -950,6 +952,7 @@
 		3105DEBA2CB3E8A400D1B884 /* Deposit */ = {
 			isa = PBXGroup;
 			children = (
+				31D4C84E2D5CB82400456277 /* CyptoPaymentVC */,
 				3105DEB82CB3E8A400D1B884 /* TableViewCell */,
 				3105DEB92CB3E8A400D1B884 /* DepositViewController.swift */,
 				315EE9382D193C2200EA96DC /* DemoDepositVC.swift */,
@@ -1916,6 +1919,14 @@
 				31D2AEE42C8840B800E0CF2E /* Sources */,
 			);
 			path = LightweightChartsSource;
+			sourceTree = "<group>";
+		};
+		31D4C84E2D5CB82400456277 /* CyptoPaymentVC */ = {
+			isa = PBXGroup;
+			children = (
+				31D4C84F2D5CB85D00456277 /* CryptoVC.swift */,
+			);
+			path = CyptoPaymentVC;
 			sourceTree = "<group>";
 		};
 		31DC19C12C4F6DBE005BC2BB /* ProfileHeaderTBCell */ = {
@@ -2906,6 +2917,7 @@
 				3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */,
 				3105DF122CB3E8A400D1B884 /* CloseTicketBottomSheetVC.swift in Sources */,
 				3105DF132CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift in Sources */,
+				31D4C8502D5CB85D00456277 /* CryptoVC.swift in Sources */,
 				31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */,
 				3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */,
 				3105DF142CB3E8A400D1B884 /* TradeTypeCellVM.swift in Sources */,

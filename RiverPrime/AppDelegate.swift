@@ -175,26 +175,56 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = response.notification.request.content.userInfo
         print("Notification data didReceive: \(userInfo)")
         // Handle KYC status change here
-        
+        let userInfos = response.notification.request.content.userInfo
+        handleNotification(userInfos)
+               
         completionHandler()
     }
     
     private func handleNotification(_ userInfo: [AnyHashable: Any]) {
-        guard let notificationType = userInfo["type"] as? String else { return }
-        
-        // Navigate to the relevant screen based on the notification type
-        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-        if let navigationController = window?.rootViewController as? UINavigationController {
-//            switch notificationType {
-//            case "shufti_status_update":
-                if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
-                    navigationController.pushViewController(notificationVC, animated: true)
-                }
-                // Add other cases for different screens
-//            default:
-//                break
-//            }
+        guard let notificationType = userInfo["type"] as? String else {
+            print("🚨 No 'type' found in userInfo: \(userInfo)")
+            return
         }
+
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+
+            if let topVC = self.topViewController() {  // Get the active view controller
+                switch notificationType {
+                case "shufti_status_update":
+                    let dashboardStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+                    if let profileVC = dashboardStoryboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+                        topVC.present(profileVC, animated: true)
+                    }
+                case "deposit", "withdrawal":
+                    if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
+                        notificationVC.modalPresentationStyle = .overFullScreen
+                        topVC.present(notificationVC, animated: true)
+                    }
+                default:
+                    print("⚠️ Unhandled notification type: \(notificationType)")
+                }
+            } else {
+                print("🚨 No active view controller found!")
+            }
+        }
+    }
+    
+    func topViewController(_ base: UIViewController? = UIApplication.shared.connectedScenes
+        .compactMap { ($0 as? UIWindowScene)?.keyWindow }
+        .first?.rootViewController) -> UIViewController? {
+        
+        if let nav = base as? UINavigationController {
+            return topViewController(nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            return topViewController(tab.selectedViewController)
+        }
+        if let presented = base?.presentedViewController {
+            return topViewController(presented)
+        }
+        return base
     }
     
 //    private func handleKYCStatusChange(_ status: String) {

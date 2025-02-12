@@ -341,11 +341,11 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func percentAction(_ sender: UIButton) {
         
-        self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-            print("drop down index = \(index)")
-            print("drop down item = \(item)")
-            sender.setTitle("", for: .normal)
-        }
+//        self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+//            print("drop down index = \(index)")
+//            print("drop down item = \(item)")
+//            sender.setTitle("", for: .normal)
+//        }
         
     }
     

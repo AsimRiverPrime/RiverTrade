@@ -313,8 +313,6 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                     self.dismiss(animated: true, completion: nil)
                 }
-                
-               
             })
         } else {
             print("Account not found. Navigating to login screen.")

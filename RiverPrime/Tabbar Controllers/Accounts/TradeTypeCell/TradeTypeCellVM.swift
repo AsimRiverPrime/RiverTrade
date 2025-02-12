@@ -412,7 +412,7 @@ class TradeTypeCellVM {
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-            showPopup()
+//            showPopup()
             return
         }else{
             print("the password is: \(pass ?? "")")
@@ -479,7 +479,7 @@ class TradeTypeCellVM {
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-            showPopup()
+//            showPopup()
             return
         }else{
             print("the MT login password is: \(pass ?? "")")
