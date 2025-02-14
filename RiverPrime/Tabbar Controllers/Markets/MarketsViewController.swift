@@ -120,7 +120,7 @@ extension MarketsViewController {
         }
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received ammount in market news vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
         }

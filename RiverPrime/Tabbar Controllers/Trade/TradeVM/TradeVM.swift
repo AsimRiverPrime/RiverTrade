@@ -186,7 +186,7 @@ extension TradeVM {
             switch result {
                 
             case .success(let value):
-                
+//                print("\n---->fetching chart history the response is:--->:::\(value)")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],

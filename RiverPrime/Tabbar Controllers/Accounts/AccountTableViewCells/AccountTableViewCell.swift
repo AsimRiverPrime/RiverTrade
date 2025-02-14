@@ -153,7 +153,7 @@ class AccountTableViewCell: UITableViewCell {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received ammount in account vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
             

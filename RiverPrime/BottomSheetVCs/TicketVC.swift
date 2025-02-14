@@ -157,7 +157,7 @@ class TicketVC: BottomSheetController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received ammount in ticket vc : \(ammount)")
             self.lbl_totalBalance.text = "$\(ammount)"
         }
         
@@ -177,7 +177,7 @@ class TicketVC: BottomSheetController {
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
             
-            print("\n \(obj) \n")
+           // print("\nsymbol Detail: \(obj) \n")
             selectedSymbol = obj.name
             contractSize = Int("\(obj.contractSize)")
             volumeStep = Int("\(obj.volumeStep)")

@@ -194,23 +194,23 @@ class TradeTableViewCell: UITableViewCell {
         setStyledLabel(value: trade.bid, digit: self.digits ?? 0, label: lbl_bidAmount)
         setStyledLabel(value: trade.ask, digit: self.digits ?? 0, label: lbl_askAmount)
         
-        if let symbol = symbolDataObj, let imageUrl = URL(string: symbol.icon_url) {
+        if let symbol = symbolDataObj/*, let imageUrl = URL(string: symbol.icon_url)*/ {
             lblCurrencyName.text = symbol.description
             self.digits = Int(symbol.digits)
             self.lastClosedValue = Double(symbol.yesterday_close)
             // Setting different icons based on symbol name
-            let defaultImageURL: String
-            switch symbol.name {
-            case "Platinum":
-                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png"
-            case "NDX100":
-                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png"
-            case "DJI30":
-                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png"
-            default:
-                defaultImageURL = symbol.icon_url
-            }
-            currencyICon.sd_setImage(with: URL(string: defaultImageURL), placeholderImage: UIImage(named: "photo.circle"))
+//            let defaultImageURL: String
+//            switch symbol.name {
+//            case "Platinum":
+//                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png"
+//            case "NDX100":
+//                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png"
+//            case "DJI30":
+//                defaultImageURL = "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png"
+//            default:
+//                defaultImageURL = symbol.icon_url
+//            }
+//            currencyICon.sd_setImage(with: URL(string: defaultImageURL), placeholderImage: UIImage(named: "photo.circle"))
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
         }

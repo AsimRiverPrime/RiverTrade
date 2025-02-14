@@ -50,7 +50,6 @@ class HomeTabbarViewController: UITabBarController {
 
 extension UIImage {
     
-    
     class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
         let rect: CGRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
@@ -80,7 +79,6 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
-    
 }
 
 extension HomeTabbarViewController {
@@ -106,10 +104,9 @@ extension HomeTabbarViewController {
         }
         odooClientService.tradeSymbolDetailDelegate = self
         odooClientService.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
-
     }
-    
 }
+
 
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension HomeTabbarViewController: TradeSymbolDetailDelegate {
@@ -244,7 +241,6 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
         setTradeModel(collectionViewIndex: 0)
     }
     
-    
     private func saveSymbolsToDefaults(_ symbols: [SymbolData]) {
         let savedSymbolsKey = "savedSymbolsKey"
         let encoder = JSONEncoder()
@@ -282,7 +278,6 @@ extension HomeTabbarViewController {
         if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
             // Set modal presentation style
             popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-            
             popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
