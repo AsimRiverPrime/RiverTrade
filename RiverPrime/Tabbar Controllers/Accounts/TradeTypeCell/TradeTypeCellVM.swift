@@ -63,7 +63,7 @@ class TradeTypeCellVM {
         
         print("params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -142,7 +142,7 @@ class TradeTypeCellVM {
         
         print("params for positionUpdate is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -218,7 +218,7 @@ class TradeTypeCellVM {
         
         print("params for deletePendingOrder is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -289,7 +289,7 @@ class TradeTypeCellVM {
         
         print("params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -362,7 +362,7 @@ class TradeTypeCellVM {
         
         print("params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
                 
             case .success(let value):
@@ -441,7 +441,7 @@ class TradeTypeCellVM {
         
         print("get balance Params: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
             case .success(let value):
                 print("/\n get user balance Value: \(value)")
@@ -699,11 +699,12 @@ class TradeTypeCellVM {
                             // Sort orders before passing them to the completion handler
                             var sortedOrders = newCloseModel.sorted { $0.position < $1.position }
                             sortedOrders = newCloseModel.sorted { $0.LatestTime > $1.LatestTime }
-                           
+                            print("\n closed order values:\(sortedOrders)")
+//                            print("\n closed order values in newCloseModel:\(newCloseModel)")
                             completion(nil, nil, sortedOrders, nil) // Pass positions to completion
                             
                             //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
-                            //
+                            
                         }
                         
                     }
@@ -727,7 +728,7 @@ class TradeTypeCellVM {
         var filteredOrders = closes.filter { $0.position != 0 }
         
         let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders)
-        
+//        let groupedCloseModels = separateDuplicatePositionsOnly(from: closes)
         var newCloseModel = [NewCloseModel]()
         
         if groupedCloseModels.count == 0 {

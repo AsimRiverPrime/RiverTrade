@@ -245,6 +245,10 @@ class SelectAccountTypeVC: BottomSheetController {
      PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         
     }
+    
+    deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
 }
 
 extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {

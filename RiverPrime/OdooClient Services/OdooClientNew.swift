@@ -976,11 +976,41 @@ class OdooClientNew {
     
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String, is_demo: Bool) {
         
+//        let jsonrpcBody: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,
+//                    uid,
+//                    dbPassword,
+//                    "mt.middleware",
+//                    "create_account",
+//                    [
+//                        [],
+//                        email,
+//                        phone,
+//                        group,
+//                        leverage,
+//                        first_name,
+//                        last_name,
+//                        password,
+//                        is_demo
+//                    ]
+//                ]
+//            ]
+//        ]
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
+            "method": "call",
+            "id": 2472,
             "params": [
                 "service": "object",
                 "method": "execute_kw",
+                "context": [
+                    "uid": 0
+                ],
                 "args": [
                     dataBaseName,
                     uid,
@@ -1001,7 +1031,6 @@ class OdooClientNew {
                 ]
             ]
         ]
-        
         print("\n create MT Account parameters is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in

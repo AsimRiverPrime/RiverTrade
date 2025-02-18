@@ -233,7 +233,7 @@ extension HistoryViewController {
             
             if let closeData1 = closeData {
                 self.closeData = closeData1
-                
+                print("closeData all values : \(self.closeData)")
                 
                 //                self.transactionCloseData = closeData1.flatMap { $0.historyCloseData.filter { $0.action == 2 } }
                 

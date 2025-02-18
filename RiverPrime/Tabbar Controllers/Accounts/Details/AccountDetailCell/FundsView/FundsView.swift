@@ -92,7 +92,7 @@ class FundsView: UIView {
                     let marginLevelValue = "\(marginLevel)".trimmedTrailingZeros()
                     self.lbl_marginLevel.text = marginLevelValue + "%"
                 }
-                print("user balance values: \(user)")
+                print("\n user balance values: \(user)")
             }
             
             if let selectedAccount = getAccountDetails(by: self.userGroupID) {
@@ -122,5 +122,8 @@ class FundsView: UIView {
                 })
         }
         
+    deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
     
 }

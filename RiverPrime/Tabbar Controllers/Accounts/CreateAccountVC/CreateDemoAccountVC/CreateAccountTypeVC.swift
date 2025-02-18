@@ -169,10 +169,10 @@ class CreateAccountTypeVC: BottomSheetController {
                 group = "PRO"
                 demoAccountGroup = "PRO"
             }else if self.lbl_accountTitle.text == "PRIME Account" {
-                group = "Prime"
+                group = "PRIME"
                 demoAccountGroup = "PRIME"
             }else {
-                group = "Premium"
+                group = "PREMIUM"
                 demoAccountGroup = "PREMIUM"
             }
         }else{
