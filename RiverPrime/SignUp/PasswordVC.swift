@@ -159,7 +159,9 @@ class PasswordVC: BaseViewController {
             } else {
                 UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
                 //if user is not exist then Use Firebase Authentication to create a new user
-                Auth.auth().createUser(withEmail: self.email ?? "", password: self.password_tf.text ?? "") { [weak self] authResult, error in
+                let pass =  self.password_tf.text ?? ""
+                
+                Auth.auth().createUser(withEmail: self.email ?? "", password: pass) { [weak self] authResult, error in
                     if let error = error as NSError? {
                         if let authError = AuthErrorCode.Code(rawValue: error.code){
                             switch authError {
@@ -234,7 +236,7 @@ class PasswordVC: BaseViewController {
                "groupID": "RWHwgycWkAqi5OPvv1oX",
                "isDefault" : true,
                "isReal": false,
-               "password": self.password_tf ?? "",
+               "password": self.password_tf.text ?? "",
                "groupName" : "PRO",
                "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
            ]
@@ -257,7 +259,7 @@ class PasswordVC: BaseViewController {
                               print("\n updating isDefault account success: ")
    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                               
-                              let passwordManager = PasswordManager()
+                            
                               if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: password_tf.text ?? "") {
                                   print("Password successfully saved.")
                               } else {
@@ -288,8 +290,8 @@ class PasswordVC: BaseViewController {
 extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-       
-        odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
+       let password = self.password_tf.text ?? ""
+        odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: password, is_demo: true)
         
         
     }

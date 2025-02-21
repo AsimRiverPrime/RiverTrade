@@ -63,8 +63,8 @@ class HistoryViewController: BaseViewController {
     
     @IBAction func btn_trades(_ sender: UIButton) {
         historyType = .trade
-        btnTradeView.backgroundColor = .systemYellow
-        btnTranscationView.backgroundColor = .lightGray
+            btnTradeView.backgroundColor = .systemYellow
+            btnTranscationView.backgroundColor = .lightGray
         self.lbl_totalProfit.isHidden = false
         self.lbl_noPosition.isHidden = false
         self.lbl_total.isHidden = false
