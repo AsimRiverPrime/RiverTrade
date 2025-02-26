@@ -12,7 +12,7 @@ class TradeTypeCellVM {
     
     var onTradesUpdated: (() -> Void)?
     
-//    var forToast = BaseViewController()
+    //    var forToast = BaseViewController()
     
     let odooClientService = OdooClientNew()
     let uid = UserDefaults.standard.integer(forKey: "uid")
@@ -25,11 +25,11 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 email = _email
-               
+                
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//            //print("\n Default Account User: \(defaultAccount)")
+            //            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
         }
         
@@ -68,7 +68,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print(" position closed value is: \(value)")
-//                self.forToast.showTimeAlert(str: "Position closed successfully")
+                //                self.forToast.showTimeAlert(str: "Position closed successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -91,12 +91,12 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
-//                    self.forToast.showTimeAlert(str: "\(error)")
+                    //                    self.forToast.showTimeAlert(str: "\(error)")
                     completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-//                self.forToast.showTimeAlert(str: "\(error)")
+                //                self.forToast.showTimeAlert(str: "\(error)")
                 completion("\(error)")
             }
         }
@@ -107,7 +107,7 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 email = _email
-               
+                
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -147,7 +147,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print(" position update value is: \(value)")
-//                self.forToast.showTimeAlert(str: "Position update successfully")
+                //                self.forToast.showTimeAlert(str: "Position update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -156,10 +156,10 @@ class TradeTypeCellVM {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData for positionUpdate: \(jsonData)")
                         if success {
-//                            self.forToast.showTimeAlert(str: "Position update successfully")
+                            //                            self.forToast.showTimeAlert(str: "Position update successfully")
                             completion("Position update successfully")
                         }else{
-//                            self.forToast.showTimeAlert(str: "Position Not Found")
+                            //                            self.forToast.showTimeAlert(str: "Position Not Found")
                             completion("Position Not Found")
                         }
                         return
@@ -168,12 +168,12 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
-//                    self.forToast.showTimeAlert(str: "\(error)")
+                    //                    self.forToast.showTimeAlert(str: "\(error)")
                     completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-//                self.forToast.showTimeAlert(str: "\(error)")
+                //                self.forToast.showTimeAlert(str: "\(error)")
                 completion("\(error)")
             }
         }
@@ -184,7 +184,7 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 email = _email
-             
+                
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -223,7 +223,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("Delete order value is: \(value)")
-//                self.forToast.showTimeAlert(str: "Order Deleted successfully")
+                //                self.forToast.showTimeAlert(str: "Order Deleted successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -256,7 +256,7 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String {
                 email = _email
-               
+                
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -294,7 +294,7 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("pending order update value is: \(value)")
-//                completion("Order update successfully")
+                //                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
@@ -303,7 +303,7 @@ class TradeTypeCellVM {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         print("jsonData for pending order : \(jsonData)")
                         if success == 1 {
-                           
+                            
                             completion("Pending Order update successfully")
                         }else{
                             completion("Order Not Found")
@@ -313,12 +313,12 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
-//                    self.forToast.showTimeAlert(str: "\(error)")
+                    //                    self.forToast.showTimeAlert(str: "\(error)")
                     completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-//                self.forToast.showTimeAlert(str: "\(error)")
+                //                self.forToast.showTimeAlert(str: "\(error)")
                 completion("\(error)")
             }
         }
@@ -329,14 +329,14 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 email = _email
-               
+                
             }
         }
-//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//            //print("\n Default Account User: \(defaultAccount)")
-//            if 
-//            loginId = defaultAccount.accountNumber
-//        }
+        //        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+        //            //print("\n Default Account User: \(defaultAccount)")
+        //            if
+        //            loginId = defaultAccount.accountNumber
+        //        }
         
         let params: [String: Any] = [
             "jsonrpc": "2.0",
@@ -354,7 +354,7 @@ class TradeTypeCellVM {
                         email,
                         loginID,
                         pass
-                       
+                        
                     ]
                 ]
             ]
@@ -367,14 +367,14 @@ class TradeTypeCellVM {
                 
             case .success(let value):
                 print("Login value is: \(value)")
-//                completion("Order update successfully")
+                //                completion("Order update successfully")
                 do {
                     // Decode the response
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any],
                        let success = result["success"] as? Int {
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-//                        print("jsonData: \(jsonData)")
+                        //                        print("jsonData: \(jsonData)")
                         if success == 1 {
                             UserDefaults.standard.set((pass), forKey: "password")
                             completion("Login Successfully")
@@ -386,11 +386,11 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
-//                    completion("\(error)")
+                    //                    completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-//                completion("\(error)")
+                //                completion("\(error)")
             }
         }
     }
@@ -400,7 +400,7 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String, let _pass = savedUserData["password"] as? String {
                 email = _email
-               
+                
             }
         }
         
@@ -412,7 +412,7 @@ class TradeTypeCellVM {
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-//            showPopup()
+            //            showPopup()
             return
         }else{
             print("the password is: \(pass ?? "")")
@@ -479,7 +479,7 @@ class TradeTypeCellVM {
         }
         
         if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-//            showPopup()
+            //            showPopup()
             return
         }else{
             print("the MT login password is: \(pass ?? "")")
@@ -501,7 +501,7 @@ class TradeTypeCellVM {
                         email,
                         loginId,
                         pass ?? ""
-                       
+                        
                     ]
                 ]
             ]
@@ -518,8 +518,8 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
                        let success = result["success"] as? Int, // Success and balance are inside "result" ,
-
-                       let user_detail = result["user"] as? [String: Any],
+                       
+                        let user_detail = result["user"] as? [String: Any],
                        let balance_get = user_detail["balance"] as? Double {
                         
                         let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
@@ -537,7 +537,7 @@ class TradeTypeCellVM {
                     } else {
                         print("Error: Invalid JSON structure")
                         completion("Invalid Response")
-                    
+                        
                     }
                 } catch {
                     print("Error decoding response: \(error)")
@@ -550,7 +550,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func OPCApi(index: Int, fromDate: Int? = nil, toDate: Int? = nil, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
+    func OPCApi(index: Int, fromDate: Int? = nil, toDate: Int? = nil, isHistory: Bool = false, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
         
         var jsonrpcBody: [String: Any] = [String: Any]()
         
@@ -636,7 +636,7 @@ class TradeTypeCellVM {
                             loginId, //1012614,
                             fromDate ?? 0, // to previous
                             toDate ?? newTimestampInSeconds  // from current
-                          
+                            
                         ]
                     ]
                 ]
@@ -657,9 +657,9 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [[String: Any]] { // jab error ata hai tu as mai error = "Error getting orders"; value ate hai.. as pe toast lagana hai
                         
-//                        let error = result["error"] as? String {
-//                        }
-//                        print("error comes")
+                        //                        let error = result["error"] as? String {
+                        //                        }
+                        //                        print("error comes")
                         
                         if index == 0 {
                             
@@ -687,11 +687,27 @@ class TradeTypeCellVM {
                             
                             if orders.count != 0  {
                                 
-                                let getNewCloseList = self.getSymbolProfitList(from: orders)
+                                var _isHistory = isHistory
+                                
+                                if let firstResult = orders.first,
+                                   orders.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
+                                    if _isHistory {
+                                        _isHistory = true
+                                    } else {
+                                        _isHistory = false
+                                    }
+                                } else {
+                                    if isHistory {
+                                        _isHistory = false
+                                    } else {
+                                        _isHistory = false
+                                    }
+                                }
+                                
+                                let getNewCloseList = self.getSymbolProfitList(from: orders, isHistory: _isHistory)
                                 newCloseModel = getNewCloseList
                                 
                             }
-                            
                             //TODO: Without sort.
                             //completion(nil, nil, newCloseModel, nil) // Pass positions to completion
                             
@@ -700,7 +716,7 @@ class TradeTypeCellVM {
                             var sortedOrders = newCloseModel.sorted { $0.position < $1.position }
                             sortedOrders = newCloseModel.sorted { $0.LatestTime > $1.LatestTime }
                             print("\n closed order values:\(sortedOrders)")
-//                            print("\n closed order values in newCloseModel:\(newCloseModel)")
+                            //                            print("\n closed order values in newCloseModel:\(newCloseModel)")
                             completion(nil, nil, sortedOrders, nil) // Pass positions to completion
                             
                             //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
@@ -724,11 +740,18 @@ class TradeTypeCellVM {
     
     //only get duplicate positions list data -> time + symbol + price + profit + Close Model Complete
     
-    func getSymbolProfitList(from closes: [CloseModel]) -> [NewCloseModel] {
-        var filteredOrders = closes.filter { $0.position != 0 }
+    func getSymbolProfitList(from closes: [CloseModel], isHistory: Bool = false) -> [NewCloseModel] {
         
-        let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders)
-//        let groupedCloseModels = separateDuplicatePositionsOnly(from: closes)
+        var filteredOrders = [CloseModel]()
+        if !isHistory {
+            filteredOrders = closes.filter { $0.position != 0 }
+        } else {
+            filteredOrders = closes
+        }
+        //        var filteredOrders = closes.filter { $0.position != 0 }
+        
+        let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders, isHistory: isHistory)
+        //        let groupedCloseModels = separateDuplicatePositionsOnly(from: closes)
         var newCloseModel = [NewCloseModel]()
         
         if groupedCloseModels.count == 0 {
@@ -776,20 +799,20 @@ class TradeTypeCellVM {
     }
     
     
-    func separateDuplicateSymbols(from closeModels: [CloseModel]) -> [String: [CloseModel]] {
-        var uniqueSymbols: Set<String> = []
-        var groupedModels: [String: [CloseModel]] = [:]
-        
-        for model in closeModels {
-            if !uniqueSymbols.contains(model.symbol) {
-                uniqueSymbols.insert(model.symbol)
-                groupedModels[model.symbol] = []
-            }
-            groupedModels[model.symbol]?.append(model)
-        }
-        
-        return groupedModels
-    }
+    //    func separateDuplicateSymbols(from closeModels: [CloseModel]) -> [String: [CloseModel]] {
+    //        var uniqueSymbols: Set<String> = []
+    //        var groupedModels: [String: [CloseModel]] = [:]
+    //
+    //        for model in closeModels {
+    //            if !uniqueSymbols.contains(model.symbol) {
+    //                uniqueSymbols.insert(model.symbol)
+    //                groupedModels[model.symbol] = []
+    //            }
+    //            groupedModels[model.symbol]?.append(model)
+    //        }
+    //
+    //        return groupedModels
+    //    }
     
     func separateDuplicatePositions(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
         var groupedModels: [Int: [CloseModel]] = [:]
@@ -804,7 +827,7 @@ class TradeTypeCellVM {
         return groupedModels
     }
     
-    func separateDuplicatePositionsOnly(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
+    func separateDuplicatePositionsOnly(from closeModels: [CloseModel], isHistory: Bool = false) -> [Int: [CloseModel]] {
         var positionCount: [Int: Int] = [:]
         var groupedModels: [Int: [CloseModel]] = [:]
         
@@ -813,14 +836,28 @@ class TradeTypeCellVM {
             positionCount[model.position, default: 0] += 1
         }
         
-        // Second pass: Group models by position, but only if they have duplicates
-        for model in closeModels {
-            if positionCount[model.position] ?? 0 > 1 {
+        if !isHistory {
+            
+            // Second pass: Group models by position, but only if they have duplicates
+            for model in closeModels {
+                if positionCount[model.position] ?? 0 > 1 {
+                    if groupedModels[model.position] == nil {
+                        groupedModels[model.position] = []
+                    }
+                    groupedModels[model.position]?.append(model)
+                }
+            }
+            
+        } else {
+            
+            // Second pass: Group models by position, but only if they have duplicates
+            for model in closeModels {
                 if groupedModels[model.position] == nil {
                     groupedModels[model.position] = []
                 }
                 groupedModels[model.position]?.append(model)
             }
+            
         }
         
         return groupedModels
@@ -837,15 +874,15 @@ extension TradeTypeCellVM {
         if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
             // Set modal presentation style
             popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-           
-                 
+            
+            
             popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             popupVC.view.alpha = 0
             // Optional: Set modal transition style (this is for animation)
             popupVC.modalTransitionStyle = .crossDissolve
             popupVC.loginId = loginId
             // Present the popup
-//            self.present(popupVC, animated: true, completion: nil)
+            //            self.present(popupVC, animated: true, completion: nil)
             SCENE_DELEGATE.window?.rootViewController?.present(popupVC, animated: true)
         }
     }

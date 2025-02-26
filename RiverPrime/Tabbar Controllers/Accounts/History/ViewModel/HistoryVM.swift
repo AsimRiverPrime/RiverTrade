@@ -8,7 +8,7 @@
 import Foundation
 
 class HistoryVM {
-    
+  
     var vm = TradeTypeCellVM()
 //    weak var delegate: OPCDelegate?
 //    var onCloseSuccess: (() -> Void)?
@@ -17,12 +17,12 @@ class HistoryVM {
 
 extension HistoryVM {
     
-    func fetchPositions(fromDate: Int? = nil, toDate: Int? = nil, completion: @escaping ([NewCloseModel]?, Error?) -> Void) {
+    func fetchPositions(fromDate: Int? = nil, toDate: Int? = nil, isHistory: Bool = false, completion: @escaping ([NewCloseModel]?, Error?) -> Void) {
         
         // Execute the fetch on a background thread
         DispatchQueue.global(qos: .background).async { [weak self] in
             
-            self?.vm.OPCApi(index: 2, fromDate: fromDate, toDate: toDate) { _, _, closeData, error in
+            self?.vm.OPCApi(index: 2, fromDate: fromDate, toDate: toDate, isHistory: isHistory) { _, _, closeData, error in
                 print("\n history data is:\(closeData) \n")
                 // Switch back to the main thread to update the UI
                 DispatchQueue.main.async {

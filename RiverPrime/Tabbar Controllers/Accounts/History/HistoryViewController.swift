@@ -38,7 +38,7 @@ class HistoryViewController: BaseViewController {
     var fromTimestamp = 0
     var toTimestamp = 0
     
-    var vm = HistoryVM()
+    var historyViewModel = HistoryVM()
     
     var closeData = [NewCloseModel]()
     var transactionCloseData = [CloseModel]()
@@ -63,8 +63,8 @@ class HistoryViewController: BaseViewController {
     
     @IBAction func btn_trades(_ sender: UIButton) {
         historyType = .trade
-            btnTradeView.backgroundColor = .systemYellow
-            btnTranscationView.backgroundColor = .lightGray
+        btnTradeView.backgroundColor = .systemYellow
+        btnTranscationView.backgroundColor = .lightGray
         self.lbl_totalProfit.isHidden = false
         self.lbl_noPosition.isHidden = false
         self.lbl_total.isHidden = false
@@ -217,8 +217,8 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension HistoryViewController {
     
     private func closeApiCalling(fromDate: Int? = nil, toDate: Int? = nil) {
-        
-        vm.fetchPositions(fromDate: fromDate, toDate: toDate) { closeData, error in
+       
+        historyViewModel.fetchPositions(fromDate: fromDate, toDate: toDate, isHistory: true) { closeData, error in
             if error != nil {
                 return
             }
@@ -232,11 +232,38 @@ extension HistoryViewController {
             }
             
             if let closeData1 = closeData {
-                self.closeData = closeData1
-                print("closeData all values : \(self.closeData)")
+
+                var updatedModels = [NewCloseModel]()
+//
+//                for i in 0...closeData1.count-1 {
+//                                    for j in 0...closeData1[i].repeatedFilteredArray.count-1 {
+//                                        if closeData1[i].repeatedFilteredArray[j].action == 1 {
+//                                            updatedModels.append(closeData1[i])
+//                                        }
+//                                    }
+//                                }
+                if let firstResult = closeData1.first,
+                                   closeData1.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
+                                    
+                                    var updatedModels = [NewCloseModel]()
+                                    
+                                    for i in 0...closeData1.count-1 {
+                                        for j in 0...closeData1[i].repeatedFilteredArray.count-1 {
+                                            if closeData1[i].repeatedFilteredArray[j].action == 1 {
+                                                updatedModels.append(closeData1[i])
+                                            }
+                                        }
+                                    }
+                                    
+                                    self.closeData = updatedModels
+                                    
+                                } else {
+                                    self.closeData = closeData1
+                                }
+                print("updatedModels closeData1 = \(updatedModels)")
                 
-                //                self.transactionCloseData = closeData1.flatMap { $0.historyCloseData.filter { $0.action == 2 } }
-                
+//                self.closeData = updatedModels
+        
                 var uniqueDeals = Set<Int>()
                 self.transactionCloseData = closeData1
                     .flatMap { $0.historyCloseData.filter { $0.action == 2 } }
