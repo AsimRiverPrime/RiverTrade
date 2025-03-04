@@ -7,7 +7,7 @@
 
 import UIKit
 import SVProgressHUD
-import IDWiseSDK
+//import IDWiseSDK
 import ShuftiPro.Swift
 
 enum KYCType {

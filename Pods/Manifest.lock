@@ -960,7 +960,6 @@ PODS:
     - BoringSSL-GRPC/Interface (= 0.0.32)
   - BoringSSL-GRPC/Interface (0.0.32)
   - CountryPickerView (3.3.0)
-  - FingerprintPro (2.7.0)
   - Firebase (10.29.0):
     - Firebase/Core (= 10.29.0)
   - Firebase/Core (10.29.0):
@@ -1208,8 +1207,6 @@ PODS:
   - GTMSessionFetcher/Core (3.5.0)
   - GTMSessionFetcher/Full (3.5.0):
     - GTMSessionFetcher/Core
-  - IDWise (5.1.5):
-    - FingerprintPro (~> 2.7.0)
   - KeychainSwift (24.0.0)
   - leveldb-library (1.22.5)
   - nanopb (2.30910.0):
@@ -1249,7 +1246,6 @@ DEPENDENCIES:
   - FSCalendar
   - GoogleSignIn
   - GTMSessionFetcher
-  - IDWise
   - KeychainSwift (~> 24.0)
   - PhoneNumberKit (~> 3.7)
   - SDWebImage (~> 5.0)
@@ -1259,15 +1255,12 @@ DEPENDENCIES:
   - TPKeyboardAvoiding
 
 SPEC REPOS:
-  https://github.com/idwise/ios-sdk:
-    - IDWise
   trunk:
     - abseil
     - Alamofire
     - AppAuth
     - BoringSSL-GRPC
     - CountryPickerView
-    - FingerprintPro
     - Firebase
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
@@ -1311,7 +1304,6 @@ SPEC CHECKSUMS:
   AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
   BoringSSL-GRPC: 1e2348957acdbcad360b80a264a90799984b2ba6
   CountryPickerView: 6322ada32a80b0cd721b0267282a5c24f406f263
-  FingerprintPro: 0c7dbd28fc83751ca64b06328e2fb22bbc7ed118
   Firebase: cec914dab6fd7b1bd8ab56ea07ce4e03dd251c2d
   FirebaseAnalytics: 23717de130b779aa506e757edb9713d24b6ffeda
   FirebaseAppCheckInterop: 6a1757cfd4067d8e00fccd14fcc1b8fd78cfac07
@@ -1336,7 +1328,6 @@ SPEC CHECKSUMS:
   gRPC-Core: eee4be35df218649fe66d721a05a7f27a28f069b
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
-  IDWise: 1a23542910c70e5d52ee9b3141cf16b12ab3699c
   KeychainSwift: 007c4647486e4563adca839cf02cef00deb3b670
   leveldb-library: e8eadf9008a61f9e1dde3978c086d2b6d9b9dc28
   nanopb: 438bc412db1928dac798aa6fd75726007be04262
@@ -1350,6 +1341,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   TPKeyboardAvoiding: d55b3ea7b362540af8fcf36aa3ed2e87bf210cc6
 
-PODFILE CHECKSUM: 84d9fdb74eeff85dd027f658cff5eca30bedff62
+PODFILE CHECKSUM: 192870fff1878c6acdc39b80fd528daa4a194b32
 
 COCOAPODS: 1.15.2

@@ -535,13 +535,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## FingerprintPro
-
-© 2022 FingerprintJS, Inc
-
-Full Terms of service available at https://dev.fingerprint.com/docs/terms-of-service
-
-
 ## Firebase
 
 

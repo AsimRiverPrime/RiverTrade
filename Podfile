@@ -33,7 +33,7 @@ pod 'Starscream', '~> 4.0.4'
 pod 'SDWebImage', '~> 5.0'
 
 pod 'FSCalendar'
-pod 'IDWise'
+#pod 'IDWise'
 pod 'KeychainSwift', '~> 24.0'
 end
 
