@@ -820,9 +820,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 if indexPath.row < getSymbolData.count { // Ensure index is valid
                        let symbolData = getSymbolData[indexPath.row]
                        print("Pressed the symbol label: \(symbolData)")
-                    if symbolData.historyMessage?.chartData.count != 0 {
+//                    if symbolData.historyMessage?.chartData.count != 0 {
                         delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: symbolData)
-                    }
+//                    }
                    } else {
                        print("Index out of range: \(indexPath.row)")
                    }

@@ -98,7 +98,11 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+     
+        if profileStep == 2 {
+            let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
+                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
     }
 }
 

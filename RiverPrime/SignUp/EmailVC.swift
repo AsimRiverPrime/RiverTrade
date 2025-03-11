@@ -270,6 +270,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                             self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
                             self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", password: "", registrationType: 3)
                             
+                           
                         }
                     }
                 }

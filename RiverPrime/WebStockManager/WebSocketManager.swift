@@ -134,8 +134,8 @@ class WebSocketManager: WebSocketDelegate {
     }
 
     func connectWebSocket() {
-        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history
-//        let url = URL(string: "ws://192.168.3.123:8074")! //wss://5b21-2a0d-5600-122-8000-7615-bdc7-62c9-ee6b.ngrok-free.app   new one
+        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")! // Same URL for both trade and history ws://18.116.153.208:8074
+//        let url = URL(string: "ws://18.116.153.208:8074")! //wss://5b21-2a0d-5600-122-8000-7615-bdc7-62c9-ee6b.ngrok-free.app   new one
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -228,15 +228,7 @@ class WebSocketManager: WebSocketDelegate {
             }
         }
     }
-    
-//    func getSavedSymbols() -> [SymbolData]? {
-//        let savedSymbolsKey = "savedSymbolsKey"
-//        if let savedSymbols = UserDefaults.standard.data(forKey: savedSymbolsKey) {
-//            let decoder = JSONDecoder()
-//            return try? decoder.decode([SymbolData].self, from: savedSymbols)
-//        }
-//        return nil
-//    }
+
     
     // WebSocket delegate method
     func didReceive(event: WebSocketEvent, client: WebSocketClient) {

@@ -354,7 +354,7 @@ class AccountsViewController: BaseViewController {
         // Remove observer when the view controller is deallocated
         NotificationCenter.default.removeObserver(self, name: Notification.Name("UpdateProfileData"), object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("apiSuccessNotification"), object: nil)
-        //        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -385,7 +385,6 @@ extension AccountsViewController: BottomSheetDismissDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         }
     }
-  
     
 }
 
@@ -408,13 +407,12 @@ extension AccountsViewController {
             }
             accountData()
         }
-        
-    }
+}
     
     @objc func opcCallingAtStart(_ notification: NSNotification) {
         
         if let opc = notification.userInfo?[NotificationObserver.Constants.OPCUpdateConstant.title] as? String {
-            print("Received opc: \(opc)")
+            print("Received open/pending/closed: \(opc)")
             if opc == "Open" {
                 
                 switch opcList {
@@ -432,10 +430,8 @@ extension AccountsViewController {
                     break
                 case .none: break
                 }
-                
             }
         }
-        
     }
     
     //MARK: - START CollectionView work.
@@ -545,6 +541,8 @@ extension AccountsViewController {
                     }
                     self.balance = response
                     GlobalVariable.instance.balanceUpdate = self.balance
+                    self.collectionViewinit()
+                    
                     //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
                     

@@ -508,7 +508,7 @@ class TradeTypeCellVM {
         ]
         print("\n get balance params is: \(params)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
             switch result {
                 
             case .success(let value):

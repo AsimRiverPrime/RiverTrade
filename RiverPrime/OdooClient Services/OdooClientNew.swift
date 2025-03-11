@@ -17,8 +17,8 @@ class OdooClientNew {
     private let authURL = "https://mbe.riverprime.com/jsonrpc"
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
-    var dbUserName: String =  "ios"
-    var dbPassword: String = "0cd0a595da38d1fa832b05012f35a8bc602eeac2"// "d2dbc51edfc5631a959c7694287d1e1fb28ffe44"
+    var dbUserName: String = "IOS" //"IOS"
+    var dbPassword: String = "58cd1367a85b118f8cf27ebb2c573ac4c90eb35c"
     
     var userEmail: String = ""
     var loginId = Int()
@@ -263,17 +263,21 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "create",         // Method name
                     [[                // vals_list
-                        "name": name,
+                        "contact_name": name ?? "",
+                        "name": "name",
+                        "last_name": "",
                         "firebase_uid": firebase_uid,
                         "type": "opportunity",
                         "email_from": email
-                        
+                       
                      ]]
                 ]
             ]
         ]
         
-        print("\n params for create records value is: \(jsonrpcBody)")
+//        OdooValues odooValues = new OdooValues();odooValues.put("phone", userModel.getPhone());odooValues.put("first_name", userModel.getFullName());odooValues.put("last_name", userModel.getFullName());odooValues.put("email_from", userModel.getEmail());odooValues.put("firebase_uid", userModel.getId());odooValues.put("type", "opportunity");
+        
+        print("\n params for create records value in odoo server: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("result is : \(result)")
