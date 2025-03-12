@@ -271,8 +271,8 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "create",         // Method name
                     [[                // vals_list
-//                        "contact_name": name,
-                        "name": name,
+                        "contact_name": name,
+//                        "name": name,
 //                        "last_name": "",
                         "firebase_uid": firebase_uid,
                         "type": "opportunity",
@@ -312,6 +312,52 @@ class OdooClientNew {
         }
         
     }
+    
+    func writeName_toCRM(name: String){
+      
+        let uid = UserDefaults.standard.integer(forKey: "uid")
+        let recordedId = UserDefaults.standard.integer(forKey: "recordId")
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               //   GlobalVariable.instance.uid,
+                    dbPassword,            // password
+                    "crm.lead",       // Model name
+                    "write",         // Method name
+                    [[recordedId],[                // vals_list // need record id save in userdefault
+                        "contact_name" : name
+                    ]]
+                ]
+            ]
+        ]
+        
+        
+        print("\n params value for write name records on CRM : \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("\n send userName record to CRM result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                    print("success userName updated result is: \(result)")
+//                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                }
+            case .failure(let error):
+//                self.updateNumberDelegate?.updateNumberFailure(error: error)
+                print("error is :\(error)")
+                break
+            }
+        }
+    }
+    
     func writeFirebaseToken(firebaseToken: String){
       
         let uid = UserDefaults.standard.integer(forKey: "uid")

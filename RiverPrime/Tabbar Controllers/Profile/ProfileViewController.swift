@@ -10,7 +10,7 @@ import UIKit
 protocol DashboardVCDelegate: AnyObject {
     func navigateToCompeletProfile()
 }
-protocol PhoneVerifyDelegate: AnyObject {
+protocol `PhoneVerifyDelegate`: AnyObject {
     func didCompletePhoneVerification()
 }
 
@@ -19,6 +19,7 @@ class ProfileViewController: BaseViewController{
     @IBOutlet weak var tblView: UITableView!
     
     weak var delegateCompeleteProfile: DashboardVCDelegate?
+    
     var profileStep = Int()
     
     var realAccount: Bool?

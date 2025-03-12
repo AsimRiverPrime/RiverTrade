@@ -81,8 +81,8 @@ extension CloseOrderCell {
         }else{
             lbl_profitValue.textColor = .systemGreen
         }
-        
-        lbl_profitValue.text = "$\(data.totalProfit)".trimmedTrailingZeros()
+        let xyz = "\(data.totalProfit)".trimmedTrailingZeros()
+        lbl_profitValue.text = "$" + xyz
         
         
     }

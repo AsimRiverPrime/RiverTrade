@@ -153,6 +153,7 @@ class TicketVC: BottomSheetController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         fetchSymbolDetail()
+       
     }
     @objc func notificationPopup(_ notification: NSNotification) {
         
@@ -441,6 +442,7 @@ class TicketVC: BottomSheetController {
                                 
                                 self.btn_confirm.isEnabled = false
                                 self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
+                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
 //                                self.btn_confirm.backgroundColor = UIColor.systemGray2
                                 self.price_view.layer.borderWidth = 0.3
                                
@@ -450,6 +452,8 @@ class TicketVC: BottomSheetController {
                             } else if isEnable.2 == "BUY" {
                                 
                                 self.btn_confirm.isEnabled = false
+                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
+                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
 //                                self.btn_confirm.backgroundColor = UIColor.systemGray2
                                 self.price_view.layer.borderWidth = 0.3
                                 self.price_view.layer.borderColor = UIColor.red.cgColor
@@ -458,6 +462,8 @@ class TicketVC: BottomSheetController {
                             } else if isEnable.2 == "Profit" {
                                 
                                 self.btn_confirm.isEnabled = false
+                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
+                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
 //                                self.btn_confirm.backgroundColor = UIColor.lightGray
                                 self.takeProfit_view.layer.borderWidth = 0.3
                                 self.takeProfit_view.layer.borderColor = UIColor.red.cgColor
@@ -468,6 +474,8 @@ class TicketVC: BottomSheetController {
                             } else if isEnable.2 == "Loss" {
                                 
                                 self.btn_confirm.isEnabled = false
+                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
+                                self.btn_confirm.tintColor = UIColor.systemGray2
 //                                self.btn_confirm.backgroundColor = UIColor.lightGray
                                 self.stopLoss_view.layer.borderWidth = 0.3
                                 self.stopLoss_view.layer.borderColor = UIColor.red.cgColor
@@ -483,7 +491,9 @@ class TicketVC: BottomSheetController {
                 
                 if !checkEnable {
                     self.btn_confirm.isEnabled = true
-//                    self.btn_confirm.backgroundColor = UIColor.systemYellow
+                    self.btn_confirm.tintColor = UIColor.systemYellow
+                    self.btn_confirm.layer.borderColor = UIColor.systemYellow.cgColor
+                    
                     self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
                     self.lbl_liveStopLoss.isHidden = true
                     
@@ -561,8 +571,8 @@ class TicketVC: BottomSheetController {
     //MARK: - price actions
     @IBAction func price_dropDownAction(_ sender: Any) {
         self.dynamicDropDownButton(sender as! UIButton, list: priceList) { index, item in
-            print("drop down index = \(index)")
-            print("drop down item = \(item)")
+            print("Order Type drop down index = \(index)")
+            print("Order Type  drop down item = \(item)")
             // self.lbl_PriceDropdown.text = item
             self.selectedPrice = item
             
@@ -641,7 +651,6 @@ class TicketVC: BottomSheetController {
                     }
                     print("\n currentValue after minus = \(currentValue)")
                 }
-                
             }
         }
         volume = currentValue
@@ -717,8 +726,8 @@ class TicketVC: BottomSheetController {
     
     @IBAction func takeProfit_dropDownAction(_ sender: Any) {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
-            print("drop down index = \(index)")
-            print("drop down item = \(item)")
+            print("TakeProfit drop down index = \(index)")
+            print("Take Profit drop down item = \(item)")
             // Check if selected item is the same as previousType
                if self.previousTakeProfitType == item {
                    print("Same type selected, no conversion needed.")
@@ -773,8 +782,8 @@ class TicketVC: BottomSheetController {
     
     @IBAction func stopLoss_dropDownAction(_ sender: Any) {
         self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
-            print("drop down index = \(index)")
-            print("drop down item = \(item)")
+            print("StopLoss drop down index = \(index)")
+            print("StopLoss drop down item = \(item)")
             // Check if selected item is the same as previousType
             if self.previousStopLossType == item {
                    print("Same type selected, no conversion needed.")
@@ -972,12 +981,12 @@ class TicketVC: BottomSheetController {
         stopLoss = Double(self.tf_stopLoss.text ?? "") ?? 0
         takeProfit = Double(self.tf_takeProfit.text ?? "") ?? 0
         
-        print("\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)  \t volume: \(volume) \t price: \(priceValue) \t stop_loss: \(stopLoss) \t take_profit: \(takeProfit)")
-       
-       
         if !selectedSymbol!.contains(".") {
             selectedSymbol! += "."
         }
+        
+        print("\n symbol: \(selectedSymbol) \t contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)  \t volume: \(volume) \t price: \(priceValue) \t stop_loss: \(stopLoss) \t take_profit: \(takeProfit)")
+       
         
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
     }
@@ -1036,27 +1045,40 @@ extension TicketVC {
             switch response.result {
                 
             case .success(let value):
-                print("value of create order is: \(value)")
+                print("values of create order is: \(value)")
                 ActivityIndicator.shared.hide(from: self.view)
                 
                 if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool{
                     if status {
                         print("order place success")
-                        self.showTimeAlert(str: "Order Placed successfully")
-//                        self.ToastMessage("Order Placed successfully")
-                        self.dismiss(animated: true)
+                        DispatchQueue.main.async {
+                            self.showTimeAlert(str: "Order placed successfully")
+                        }
+                        
+                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                            self.dismiss(animated: true)
+                        }
+                      
                     }else {
-                        if let result = json["result"] as? [String: Any], let error = result["Error"] as? String {
+                        if let result = json["result"] as? [String: Any], let error = result["error"] as? String {
                           
                             print("Error response: \(error)")
-                            self.showTimeAlert(str: "\(error)")
+                            DispatchQueue.main.async {
+                                self.showTimeAlert(str: "\(error)")
+                            }
                         }
                     }
                   
                 }else{
+                    DispatchQueue.main.async {
+                        self.showTimeAlert(str: "Order not placed")
+                    }
+//                    self.showTimeAlert(str: "Order not placed")
+//                    self.ToastMessage("Order not placed")
                     
-                    self.showTimeAlert(str: "Order not Placed")
-                    self.dismiss(animated: true)
+                    let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                        self.dismiss(animated: true)
+                    }
                     }
             
             case .failure(let error):

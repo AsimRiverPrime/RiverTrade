@@ -139,8 +139,10 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             }
             let volumee = Double(data?.volume ?? 0) / Double(10000)
             cell.lbl_volume.text = "\(volumee)"
-            cell.lbl_price.text = "\(data?.price ?? 0.0)"
-            cell.lbl_profit.text = "\(data?.profit ?? 0.0)"
+            
+            let amount = String.formatStringNumber("\(data?.price ?? 0.0)")
+            cell.lbl_price.text = amount
+            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
             
             //            self.totalValue = Double(closeData!.profit)
             let Tprofit = closeData?.totalProfit ?? 0
@@ -163,7 +165,8 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             }else{
                 cell.lbl_profit.textColor = .white
             }
-            self.lbl_totalPrice.text = "$\(Tprofit)".trimmedTrailingZeros()
+            let total = "\(Tprofit)".trimmedTrailingZeros()
+            self.lbl_totalPrice.text = "$" + total
             
             return cell
         }

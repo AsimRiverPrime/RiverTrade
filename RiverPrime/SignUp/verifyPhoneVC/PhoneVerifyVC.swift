@@ -36,7 +36,7 @@ class PhoneVerifyVC: BaseViewController{
 //        oodoService.delegate = self
 //        oodoService.updateNumberDelegate = self
         oodoServiceNew.updateNumberDelegate = self
-        oodoServiceNew.otpDelegate = self
+//        oodoServiceNew.otpDelegate = self
 //        oodoServiceNew.updateNumberDelegate = self
         
         view_countryCode.delegate = self
@@ -52,6 +52,13 @@ class PhoneVerifyVC: BaseViewController{
         tf_numberField.text = currentCountry?.phoneCode
         selectedCountry = currentCountry
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+           view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    @objc func dismissKeyboard(){
+        self.view.endEditing(true)
     }
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Show Navigation Bar
@@ -144,25 +151,25 @@ class PhoneVerifyVC: BaseViewController{
 
 extension PhoneVerifyVC: PhoneOTPDelegate {
     func didCompletePhoneOTPVerification() {
-        self.dismiss(animated: true)
         self.delegate?.didCompletePhoneVerification()
+        self.dismiss(animated: true)
        
     }
 
 }
 // MARK: - delegate from phone number OTP
-extension PhoneVerifyVC:  SendOTPDelegate {
+//extension PhoneVerifyVC:  SendOTPDelegate {
     
-    func otpSuccess(response: Any) {
-        print("this is the phone send otp response: \(response)")
-        navigateToVerifiyScreen()
-
-    }
-    
-    func otpFailure(error: any Error) {
-        print("this is the phone send otp error response: \(error)")
-    }
-}
+//    func otpSuccess(response: Any) {
+//        print("this is the phone send otp response: \(response)")
+//        navigateToVerifiyScreen()
+//
+//    }
+//    
+//    func otpFailure(error: any Error) {
+//        print("this is the phone send otp error response: \(error)")
+//    }
+//}
 // MARK: - delegate from update number Method on CRM
 extension PhoneVerifyVC: UpdatePhoneNumebrDelegate {
     func updateNumberSuccess(response: Any) {

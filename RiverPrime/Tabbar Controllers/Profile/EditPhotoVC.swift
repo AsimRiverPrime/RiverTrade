@@ -16,8 +16,8 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
     @IBOutlet weak var tf_username: UITextField!
     
     let imagePicker = UIImagePickerController()
-//    let storage = Storage.storage()
-//    let firestore = Firestore.firestore()
+
+    let odooClient = OdooClientNew()
     let firebase = FirestoreServices()
     var userID : String?
     
@@ -79,6 +79,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
             return
         }
         updateUser()
+        odooClient.writeName_toCRM(name: tf_username.text ?? "")
         
         let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
             print("Timer fired!")
@@ -93,6 +94,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         
     }
     
+  
     func updateUser() {
         guard let userId = userID else {
             print("No user ID to update")

@@ -144,6 +144,7 @@
 		319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328D2C9C3EFB006DA077 /* TradeViewController.swift */; };
 		319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329E2C9C3F21006DA077 /* WebSocketManager.swift */; };
 		319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */; };
+		319E4C1D2D81A5130087A5E5 /* chart.html in Resources */ = {isa = PBXBuildFile; fileRef = 319E4C1C2D81A5130087A5E5 /* chart.html */; };
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
@@ -533,6 +534,7 @@
 		319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
 		319A329E2C9C3F21006DA077 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
+		319E4C1C2D81A5130087A5E5 /* chart.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = chart.html; path = /Users/rossrostane/Downloads/chart.html; sourceTree = "<absolute>"; };
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
@@ -815,6 +817,7 @@
 				31A9437A2D5B8DAD000E1DEF /* CONTRIBUTING.md */,
 				31A943782D5B8DAD000E1DEF /* datafeeds */,
 				31A943772D5B8DAD000E1DEF /* mobile_black.html */,
+				319E4C1C2D81A5130087A5E5 /* chart.html */,
 				31A9437F2D5B8DAE000E1DEF /* package.json */,
 				31A9437D2D5B8DAE000E1DEF /* README.md */,
 				31A943722D5B8DAD000E1DEF /* themed.css */,
@@ -2549,6 +2552,7 @@
 				3105DEED2CB3E8A400D1B884 /* CreateAccountVC.xib in Resources */,
 				FA10ECD32CE6A23F00C1980F /* Poppins-LightItalic.ttf in Resources */,
 				31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */,
+				319E4C1D2D81A5130087A5E5 /* chart.html in Resources */,
 				31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */,
 				3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */,
 				3172C9E52D0AC0FB0098BBEC /* TopNewsSection.xib in Resources */,
