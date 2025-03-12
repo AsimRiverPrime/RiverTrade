@@ -20,6 +20,7 @@ class PasswordVC: BaseViewController {
             password_tf.setIcon(UIImage(imageLiteralResourceName: "passwordIcon"))
         }
     }
+    
     @IBOutlet weak var btn_continue: CardViewButton!
     
     @IBOutlet weak var btn_passowrdIcon: UIButton!
@@ -40,9 +41,6 @@ class PasswordVC: BaseViewController {
     let googleSignIn = GoogleSignIn()
     var googleUser = GIDGoogleUser()
     
-    var isOpenAccount  = Bool()
-    var isGoogleAccount =  Bool()
-    var isAppleLogin = Bool()
     var account:  [AccountModel] = []
     let passwordManager = PasswordManager()
     
@@ -58,15 +56,13 @@ class PasswordVC: BaseViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
         
-        isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
-        isGoogleAccount =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
-        isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
-      
         self.userId = UserDefaults.standard.string(forKey: "userID")
-        self.fullName = UserDefaults.standard.string(forKey: "FullName")
+//        self.fullName = UserDefaults.standard.string(forKey: "FullName")
+        
         
         let randomPassword = passwordManager.generateRandomPassword(length: 8) // Adjust the length as needed
-        print("Generated Password: \(randomPassword)")
+        print("Generated random Password: \(randomPassword)")
+        print("the email : \(email ?? "") and fullName of user: \(fullName ?? "")")
         password_tf.text = randomPassword
         passwordDidChange(password_tf)
     }
@@ -130,19 +126,7 @@ class PasswordVC: BaseViewController {
         guard let password = password_tf.text, !password.isEmpty else {
             return
         }
-        
-        if isOpenAccount {
-            openAccountSignUp()
-            print("userID on email : \(userId ?? "")")
-        }else if isGoogleAccount{
-//            userId =  GlobalVariable.instance.userID
-            print("userID on google : \(userId ?? "")")
-//            SignUpGoogle()
-            
-        }else if isAppleLogin {
-            print("userID on Apple : \(userId ?? "")")
-//            signUpApple()
-        }
+        openAccountSignUp()
        
     }
     
@@ -190,41 +174,6 @@ class PasswordVC: BaseViewController {
             }
         }
     }
-    
-//    func signUpApple() {
-        
-//        updateUserPassword(self.password_tf.text ?? "")
-//    }
-    
-//    func SignUpGoogle() {
-      
-//        self.googleSignIn.authenticateWithFirebase(user: googleUser)
-//        updateUserPassword(self.password_tf.text ?? "")
- 
-//    }
-    // Function to update the user's password in Firebase
-//    func updateUserPassword(_ password: String) {
-//        guard let user = Auth.auth().currentUser else { return }
-//        print("Current user is: \(user.email ?? "nothing to show")")
-//        
-//        user.updatePassword(to: password) { error in
-//            if let error = error {
-//                print("Failed to update password: \(error.localizedDescription)")
-//            } else {
-//                print("Password updated successfully.")
-//                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
-//                
-//                if self.isAppleLogin {
-//                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 3)
-//                }else{
-//                    self.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self.fullName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, password: self.password_tf.text ?? "", registrationType: 2)
-//                }
-//                
-//                self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: user.email ?? "", currency: "USD", leverage: 400, first_name: self.fullName ?? "", last_name: "", password: (self.password_tf.text ?? ""), is_demo: true)
-//                
-//               }
-//        }
-//    }
 
        func updateUserAccount(){
            

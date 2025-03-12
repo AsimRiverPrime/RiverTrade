@@ -250,6 +250,14 @@ class OdooClientNew {
         
         uid = UserDefaults.standard.integer(forKey: "uid")
         
+        var nameCheck = String()
+        
+        if name == "" {
+            nameCheck = "anyName"
+        }else{
+            nameCheck = name
+        }
+        
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "method":"call",
@@ -263,9 +271,9 @@ class OdooClientNew {
                     "crm.lead",       // Model name
                     "create",         // Method name
                     [[                // vals_list
-                        "contact_name": name ?? "",
-                        "name": "name",
-                        "last_name": "",
+//                        "contact_name": name,
+                        "name": name,
+//                        "last_name": "",
                         "firebase_uid": firebase_uid,
                         "type": "opportunity",
                         "email_from": email

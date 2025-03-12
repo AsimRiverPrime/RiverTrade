@@ -3676,7 +3676,25 @@ To complete your phone number verification, please enter the 6-digit activation 
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avg-Hk-wwl">
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your full name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Avg-Hk-wwl">
+                                <rect key="frame" x="48" y="77" width="294" height="21.666666666666671"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                </variation>
+                            </label>
+                            <textField hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nh2-v3-urk">
+                                <rect key="frame" x="48" y="108.66666666666669" width="294" height="45"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="tk4-na-qYQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QY2-rn-jXx">
                                 <rect key="frame" x="48" y="77" width="294" height="21.666666666666671"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3686,7 +3704,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                 </variation>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" E-mail Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qf2-iB-cbg">
-                                <rect key="frame" x="48" y="113.66666666666669" width="294" height="45"/>
+                                <rect key="frame" x="48" y="108.66666666666669" width="294" height="45"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="knj-4A-Myg"/>
@@ -3695,7 +3713,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This field cannot be empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMP-8b-mhd">
-                                <rect key="frame" x="47.999999999999986" y="163.66666666666666" width="171.66666666666663" height="17"/>
+                                <rect key="frame" x="47.999999999999986" y="158.66666666666666" width="171.66666666666663" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.85098040100000005" green="0.3686274886" blue="0.35294118520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -3809,7 +3827,10 @@ To complete your phone number verification, please enter the 6-digit activation 
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pdk-Jr-kP8" firstAttribute="leading" secondItem="lek-RN-5Ji" secondAttribute="leading" id="0v2-8P-dhv"/>
+                            <constraint firstItem="QY2-rn-jXx" firstAttribute="leading" secondItem="Nh2-v3-urk" secondAttribute="leading" id="101-bn-nt5"/>
+                            <constraint firstItem="QY2-rn-jXx" firstAttribute="trailing" secondItem="Nh2-v3-urk" secondAttribute="trailing" id="1om-kU-Wtp"/>
                             <constraint firstItem="gnT-bU-F1V" firstAttribute="trailing" secondItem="qf2-iB-cbg" secondAttribute="trailing" constant="48" id="20r-We-2Gd"/>
+                            <constraint firstItem="qf2-iB-cbg" firstAttribute="top" secondItem="QY2-rn-jXx" secondAttribute="bottom" constant="10" id="3ME-Pa-nxG"/>
                             <constraint firstItem="lek-RN-5Ji" firstAttribute="top" secondItem="CGP-JO-mqF" secondAttribute="bottom" constant="15" id="6v2-D7-cOg"/>
                             <constraint firstItem="CGP-JO-mqF" firstAttribute="height" secondItem="qf2-iB-cbg" secondAttribute="height" id="9LF-Ou-o4H"/>
                             <constraint firstItem="Avg-Hk-wwl" firstAttribute="top" secondItem="gnT-bU-F1V" secondAttribute="top" constant="30" id="DHx-0B-Lfx"/>
@@ -3817,11 +3838,12 @@ To complete your phone number verification, please enter the 6-digit activation 
                             <constraint firstItem="bqq-7S-BqQ" firstAttribute="centerX" secondItem="Apo-dU-4wy" secondAttribute="centerX" id="H5e-AN-Lpt"/>
                             <constraint firstItem="u9q-7g-oip" firstAttribute="leading" secondItem="Apo-dU-4wy" secondAttribute="leading" id="HHN-vp-HTO"/>
                             <constraint firstItem="u9q-7g-oip" firstAttribute="top" secondItem="Apo-dU-4wy" secondAttribute="top" id="JDO-Bk-bjk"/>
-                            <constraint firstItem="qf2-iB-cbg" firstAttribute="top" secondItem="Avg-Hk-wwl" secondAttribute="bottom" constant="15" id="M4N-Xo-GmB"/>
+                            <constraint firstItem="Nh2-v3-urk" firstAttribute="leading" secondItem="gnT-bU-F1V" secondAttribute="leading" constant="48" id="M4d-eL-aRz"/>
                             <constraint firstItem="lek-RN-5Ji" firstAttribute="trailing" secondItem="CGP-JO-mqF" secondAttribute="trailing" id="MgE-bY-6TO"/>
                             <constraint firstItem="Avg-Hk-wwl" firstAttribute="leading" secondItem="gnT-bU-F1V" secondAttribute="leading" constant="48" id="NL9-ee-smY"/>
                             <constraint firstItem="Pdk-Jr-kP8" firstAttribute="trailing" secondItem="lek-RN-5Ji" secondAttribute="trailing" id="O8A-pf-neD"/>
                             <constraint firstItem="lek-RN-5Ji" firstAttribute="leading" secondItem="CGP-JO-mqF" secondAttribute="leading" id="PAH-jn-ymE"/>
+                            <constraint firstItem="QY2-rn-jXx" firstAttribute="top" secondItem="gnT-bU-F1V" secondAttribute="top" constant="30" id="QwZ-nc-45U"/>
                             <constraint firstItem="MMP-8b-mhd" firstAttribute="leading" secondItem="qf2-iB-cbg" secondAttribute="leading" id="UXL-lg-ydm"/>
                             <constraint firstItem="MMP-8b-mhd" firstAttribute="top" secondItem="qf2-iB-cbg" secondAttribute="bottom" constant="5" id="ZZu-pG-Hum"/>
                             <constraint firstItem="Pdk-Jr-kP8" firstAttribute="top" secondItem="lek-RN-5Ji" secondAttribute="bottom" constant="15" id="b8S-W5-hXx"/>
@@ -3836,12 +3858,15 @@ To complete your phone number verification, please enter the 6-digit activation 
                             <constraint firstItem="h1g-U9-n4x" firstAttribute="leading" secondItem="gnT-bU-F1V" secondAttribute="leading" constant="39" id="nqI-x2-w1a"/>
                             <constraint firstAttribute="bottom" secondItem="bqq-7S-BqQ" secondAttribute="bottom" constant="30" id="oTV-If-MnT"/>
                             <constraint firstItem="lek-RN-5Ji" firstAttribute="height" secondItem="CGP-JO-mqF" secondAttribute="height" id="rw4-Ad-wBd"/>
+                            <constraint firstItem="Nh2-v3-urk" firstAttribute="top" secondItem="Avg-Hk-wwl" secondAttribute="bottom" constant="10" id="sa0-38-GDB"/>
+                            <constraint firstItem="gnT-bU-F1V" firstAttribute="trailing" secondItem="Nh2-v3-urk" secondAttribute="trailing" constant="48" id="uOW-Lf-TLX"/>
                             <constraint firstAttribute="bottom" secondItem="u9q-7g-oip" secondAttribute="bottom" id="vZL-ZH-1Kv"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="lbl_emailError" destination="MMP-8b-mhd" id="81e-Tv-Cvo"/>
                         <outlet property="tf_email" destination="qf2-iB-cbg" id="aAH-hK-f1a"/>
+                        <outlet property="tf_fullName" destination="Nh2-v3-urk" id="p4y-19-LwT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nj8-nx-7M9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -23,6 +23,14 @@ class EmailVC: BaseViewController {
             tf_email.tintColor = UIColor.lightGray
         }
     }
+    
+    @IBOutlet weak var tf_fullName: UITextField!{
+        didSet{
+            tf_fullName.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
+            tf_fullName.tintColor = UIColor.lightGray
+        }
+    }
+    
     @IBOutlet weak var lbl_emailError: UILabel!
     
     var viewModel = SignViewModel()
@@ -87,13 +95,7 @@ class EmailVC: BaseViewController {
         
         if let passwordVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasswordVC") as? PasswordVC {
             passwordVC.email = tf_email.text
-          
-            self.isGoogleLogin = false
-            self.isAppleLogin = false
-            self.fromOpenAccount = true
-            UserDefaults.standard.set(self.isGoogleLogin, forKey: "isGoogleLogin")
-            UserDefaults.standard.set(self.fromOpenAccount, forKey: "fromOpenAccount")
-            UserDefaults.standard.set(self.isAppleLogin, forKey: "isAppleLogin")
+            passwordVC.fullName = tf_fullName.text
             
             self.navigate(to: passwordVC)
         }
