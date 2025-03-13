@@ -291,7 +291,7 @@ class AccountsViewController: BaseViewController {
         if isRealAcount{
             let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
             // vc.delegateCompeleteProfile = self
-            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         }else{
             if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
                 

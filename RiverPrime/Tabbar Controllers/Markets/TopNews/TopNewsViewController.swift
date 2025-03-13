@@ -44,6 +44,10 @@ class TopNewsViewController: BaseViewController {
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "NEWS", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.backButtonTitle = ""
+    }
     
     @IBAction func searchClose_action(_ sender: Any) {
         if searchTF.text != "" {

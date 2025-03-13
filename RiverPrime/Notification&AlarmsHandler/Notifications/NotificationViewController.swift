@@ -45,9 +45,8 @@ class NotificationViewController: BaseViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-        
-        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: TradeViewController(), navController: self.navigationController, title: "Notifications", leftTitle: "", rightTitle: "Read All", textColor: .white, barColor: .black)
     }
     
     func fetchNotifications() {

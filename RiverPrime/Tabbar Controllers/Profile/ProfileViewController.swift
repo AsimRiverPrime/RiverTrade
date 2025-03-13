@@ -44,6 +44,11 @@ class ProfileViewController: BaseViewController{
         
         initTableView_CheckData()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.backButtonTitle = ""
+    }
+    
     @objc func updateProfileData(_ notification: Notification) {
         // Retrieve the user info dictionary from the notification
         

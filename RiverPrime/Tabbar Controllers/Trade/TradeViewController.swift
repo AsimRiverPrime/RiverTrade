@@ -254,7 +254,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     @IBAction func alaramBtnAction(_ sender: Any) {
 //                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
         let vc = Utilities.shared.getViewController(identifier: .alarmAlertVC, storyboardType: .bottomSheetPopups) as! AlarmAlertVC
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.navigate(to: vc)//   PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         
 //        let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
 //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
@@ -271,7 +271,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         
         let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
         
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         
     }
     
@@ -1019,7 +1019,8 @@ extension TradeViewController: TradeDetailTapDelegate {
             vc.digits = cell.digits ?? 0
             print("\n tradevc digits is: \(cell.digits)")
         }
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.navigate(to: vc)
+       // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
 }

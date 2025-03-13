@@ -1891,7 +1891,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-IC-brZ" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3tg-IC-brZ" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                                 <rect key="frame" x="171.66666666666666" y="3" width="50" height="5"/>
                                 <viewLayoutGuide key="safeArea" id="5qw-cA-quG"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
@@ -1909,7 +1909,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" contentInsetAdjustmentBehavior="never" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zLx-cB-Gsh">
-                                <rect key="frame" x="0.0" y="13" width="393" height="839"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
                                 <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </tableView>
                         </subviews>
@@ -1918,7 +1918,7 @@
                         <constraints>
                             <constraint firstItem="3tg-IC-brZ" firstAttribute="top" secondItem="t7c-0L-R88" secondAttribute="top" constant="3" id="1Ak-SY-X53"/>
                             <constraint firstItem="3tg-IC-brZ" firstAttribute="centerX" secondItem="t7c-0L-R88" secondAttribute="centerX" id="Bzg-nh-Ypn"/>
-                            <constraint firstItem="zLx-cB-Gsh" firstAttribute="top" secondItem="3tg-IC-brZ" secondAttribute="bottom" constant="5" id="JzV-dX-Kaa"/>
+                            <constraint firstItem="huL-gl-iHq" firstAttribute="top" secondItem="zLx-cB-Gsh" secondAttribute="top" id="O8R-pv-1NF"/>
                             <constraint firstAttribute="bottom" secondItem="zLx-cB-Gsh" secondAttribute="bottom" id="Vtw-Fd-Rqa"/>
                             <constraint firstItem="zLx-cB-Gsh" firstAttribute="leading" secondItem="t7c-0L-R88" secondAttribute="leading" id="dSM-eU-qVj"/>
                             <constraint firstAttribute="trailing" secondItem="zLx-cB-Gsh" secondAttribute="trailing" id="vuF-vm-81D"/>

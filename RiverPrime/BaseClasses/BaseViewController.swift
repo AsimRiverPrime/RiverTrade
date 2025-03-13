@@ -55,9 +55,7 @@ class BaseViewController: UIViewController {
     func setNavBar(isLogin: Bool? = nil, vc: UIViewController, isBackButton: Bool, isBar: Bool) {
         //        GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
         if isLogin != nil {
-            //            if Session.instance.IsSimpleLogout == true {
-            //                GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
-            //            }
+           
             GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isLogin ?? false, isBar: isBar)
         } else {
             GlobalVariable.instance.barDataShowHide(vc: vc, isBackButton: isBackButton, isBar: isBar)
