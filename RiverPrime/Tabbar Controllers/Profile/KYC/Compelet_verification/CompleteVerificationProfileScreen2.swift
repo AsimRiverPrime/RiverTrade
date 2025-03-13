@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompleteVerificationProfileScreen2: BottomSheetController {
+class CompleteVerificationProfileScreen2: BaseViewController {
 
     
     @IBOutlet var lbl_switchValues: [UILabel]!
@@ -33,8 +33,12 @@ class CompleteVerificationProfileScreen2: BottomSheetController {
                switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
            }
   
-        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
 
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: CompleteVerificationProfileScreen1(), navController: self.navigationController, title: "Questionnaire", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func switch_action(_ sender: UISwitch) {

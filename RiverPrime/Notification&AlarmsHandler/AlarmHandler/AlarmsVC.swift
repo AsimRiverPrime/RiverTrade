@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class AlarmsVC: UIViewController{
+class AlarmsVC: BaseViewController{
     
     @IBOutlet weak var chartView: UIView!
    
@@ -59,8 +59,9 @@ class AlarmsVC: UIViewController{
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
-        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: TradeViewController(), navController: self.navigationController, title: "Trade Chart", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [self] in
                     self.webView.isHidden = false
                 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompleteVerificationProfileScreen6: BottomSheetController {
+class CompleteVerificationProfileScreen6: BaseViewController {
     
     @IBOutlet weak var lbl_tradeObj: UILabel!
     
@@ -33,10 +33,15 @@ class CompleteVerificationProfileScreen6: BottomSheetController {
         }
        
 
-        self.navigationController?.navigationBar.isHidden = true
-
-        
+//        self.navigationController?.navigationBar.isHidden = true
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: CompleteVerificationProfileScreen5(), navController: self.navigationController, title: "Questionnaire", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
+    
+    
     @IBAction func switch_action(_ sender: UISwitch) {
         guard let question = lbl_tradeObj.text else { return }
         

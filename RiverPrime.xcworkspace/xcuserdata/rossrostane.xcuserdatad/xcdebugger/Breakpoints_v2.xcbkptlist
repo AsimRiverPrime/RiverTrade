@@ -30,8 +30,8 @@
             filePath = "RiverPrime/BottomSheetVCs/TicketVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1087"
-            endingLineNumber = "1087"
+            startingLineNumber = "1089"
+            endingLineNumber = "1089"
             landmarkName = "createOrder(email:loginID:password:symbol:type:volume:price:stop_loss:take_profit:digits:digits_currency:contract_size:comment:)"
             landmarkType = "7">
          </BreakpointContent>

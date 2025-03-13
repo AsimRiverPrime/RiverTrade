@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CompleteVerificationProfileScreen1: BottomSheetController {
+class CompleteVerificationProfileScreen1: BaseViewController {
     
     @IBOutlet weak var lbl_tradeObj: UILabel!
     
@@ -31,9 +31,14 @@ class CompleteVerificationProfileScreen1: BottomSheetController {
             switchControl.thumbTintColor = .systemGray2 // Initial thumb color for off state
         }
         //        selectedObjective = [:]
-        self.navigationController?.navigationBar.isHidden = true
+//        self.navigationController?.navigationBar.isHidden = true
 
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Questionnaire", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     @IBAction func switch_action(_ sender: UISwitch) {
         guard let question = lbl_tradeObj.text else { return }

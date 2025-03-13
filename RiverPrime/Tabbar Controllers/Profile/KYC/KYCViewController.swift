@@ -65,9 +65,9 @@ class KYCViewController: BaseViewController{
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: CompleteVerificationProfileScreen6(), navController: self.navigationController, title: "Document Verification", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
-
     @IBAction func closeBtn_action(_ sender: Any) {
 //        self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true)

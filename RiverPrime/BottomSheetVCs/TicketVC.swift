@@ -721,6 +721,7 @@ class TicketVC: BottomSheetController {
             takeProfit_switch.thumbTintColor = .white
             takeProfit_switch.onTintColor = .darkGray
             self.btn_confirm.isEnabled = true
+            self.btn_confirm.layer.borderColor = UIColor.systemYellow.cgColor
         }
     }
     
@@ -777,6 +778,7 @@ class TicketVC: BottomSheetController {
             stopLoss_switch.thumbTintColor = .white
             stopLoss_switch.tintColor = .darkGray
             self.btn_confirm.isEnabled = true
+            self.btn_confirm.layer.borderColor = UIColor.systemYellow.cgColor
         }
     }
     
@@ -1060,7 +1062,7 @@ extension TicketVC {
                         }
                       
                     }else {
-                        if let result = json["result"] as? [String: Any], let error = result["error"] as? String {
+                        if let result = json["result"] as? [String: Any], let error = result["Error"] as? String {
                           
                             print("Error response: \(error)")
                             DispatchQueue.main.async {

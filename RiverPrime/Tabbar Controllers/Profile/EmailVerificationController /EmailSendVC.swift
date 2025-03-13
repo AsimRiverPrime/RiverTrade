@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EmailSendVC: UIViewController {
+class EmailSendVC: BaseViewController {
 
     @IBOutlet weak var lbl_emailSend: UILabel!
     
@@ -21,7 +21,9 @@ class EmailSendVC: UIViewController {
         GlobalVariable.instance.userEmail = UserEmail ?? ""
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Verify Email", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func sendCode_action(_ sender: Any) {
