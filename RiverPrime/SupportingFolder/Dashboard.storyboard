@@ -1661,8 +1661,9 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PnV-m4-ezd">
-                                        <rect key="frame" x="146.66666666666666" y="100" width="100" height="100"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PnV-m4-ezd">
+                                        <rect key="frame" x="146.66666666666666" y="100.66666666666666" width="100" height="98.666666666666686"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="1ht-JO-LgN"/>
                                             <constraint firstAttribute="height" constant="100" id="NWR-MG-Xjj"/>
@@ -3639,7 +3640,6 @@
         <image name="Teamwork" width="25" height="25"/>
         <image name="account" width="25" height="25"/>
         <image name="alarmIcon" width="24" height="24"/>
-        <image name="avatarIcon" width="40" height="40"/>
         <image name="building.columns" catalog="system" width="128" height="112"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>

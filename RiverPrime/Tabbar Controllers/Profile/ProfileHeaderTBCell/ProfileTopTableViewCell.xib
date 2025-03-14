@@ -25,8 +25,9 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zrW-0a-vHz" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
                         <rect key="frame" x="10" y="10" width="324" height="159"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarIcon" translatesAutoresizingMaskIntoConstraints="NO" id="TZp-2y-AMB">
-                                <rect key="frame" x="15" y="15" width="40" height="40"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TZp-2y-AMB">
+                                <rect key="frame" x="15" y="15.666666666666668" width="40" height="38.666666666666657"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="NEk-hF-jY5"/>
                                     <constraint firstAttribute="width" constant="40" id="ehQ-Kp-ZJu"/>
@@ -164,6 +165,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="avatarIcon" width="40" height="40"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
     </resources>
 </document>

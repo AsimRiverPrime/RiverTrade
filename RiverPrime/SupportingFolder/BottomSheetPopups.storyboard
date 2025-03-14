@@ -683,18 +683,6 @@
                                                             <constraint firstAttribute="width" constant="1" id="Wgg-F9-7ZP"/>
                                                         </constraints>
                                                     </view>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="59116.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENQ-gb-H9x">
-                                                        <rect key="frame" x="0.0" y="3" width="0.0" height="14.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="pips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HMb-zA-84W">
-                                                        <rect key="frame" x="0.0" y="3" width="0.0" height="14.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="23M-jt-sod">
                                                         <rect key="frame" x="0.0" y="0.0" width="1" height="20"/>
                                                         <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -712,11 +700,14 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKo-VK-JAO">
-                                                <rect key="frame" x="327" y="86" width="52" height="28.5"/>
+                                                <rect key="frame" x="314" y="84" width="65" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="65" id="cBP-0d-M1Q"/>
+                                                </constraints>
                                                 <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="clear">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="profit_clearAction:" destination="ew4-AL-7tN" eventType="touchUpInside" id="9em-E7-lyt"/>
@@ -897,7 +888,7 @@
                                                 </connections>
                                             </switch>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="uW9-md-YZz">
-                                                <rect key="frame" x="15" y="94.5" width="0.0" height="18.5"/>
+                                                <rect key="frame" x="15" y="94.5" width="0.0" height="22"/>
                                                 <subviews>
                                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6521.62" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YPl-bq-ceA">
                                                         <rect key="frame" x="0.0" y="3" width="0.0" height="14.5"/>
@@ -942,11 +933,14 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4SO-BU-0F9">
-                                                <rect key="frame" x="327" y="89.5" width="52" height="28.5"/>
+                                                <rect key="frame" x="314" y="89.5" width="65" height="32"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="65" id="roL-zQ-bhv"/>
+                                                </constraints>
                                                 <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="clear">
-                                                    <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
+                                                    <fontDescription key="titleFontDescription" type="system" pointSize="15"/>
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="stopLoss_clearAction:" destination="ew4-AL-7tN" eventType="touchUpInside" id="5nh-fQ-lXp"/>
@@ -1102,7 +1096,6 @@
                         <outlet property="lbl_liveProfitLoss" destination="IFX-Ft-7h7" id="7qg-iK-j84"/>
                         <outlet property="lbl_liveStopLoss" destination="YPl-bq-ceA" id="Isj-DW-Zbf"/>
                         <outlet property="lbl_profitLossPercentage" destination="Wq1-Tc-ERp" id="1jd-w3-IBn"/>
-                        <outlet property="lbl_profitLossPips" destination="ENQ-gb-H9x" id="jRN-cG-SJ4"/>
                         <outlet property="lbl_stopLossDropDown" destination="4vZ-CD-UAF" id="FFI-Sl-zyu"/>
                         <outlet property="lbl_stopLossPercentage" destination="wax-9Q-1ws" id="kn0-aP-z48"/>
                         <outlet property="lbl_stopLossPips" destination="p5q-dc-HLV" id="VlL-wl-Q2a"/>
