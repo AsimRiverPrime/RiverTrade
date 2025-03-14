@@ -659,8 +659,8 @@ class TicketVC: BottomSheetController {
     }
     
     func updateValue(for textField: UITextField, increment: Bool) {
-        let step: Double = 0.01 // You can adjust the step value (e.g., 0.1 for increments in decimal)
-        
+//        let step: Double = 0.01 self.digits  You can adjust the step value (e.g., 0.1 for increments in decimal)
+        let step: Double = pow(10.0, -Double(self.digits ?? 0))
         // Determine which text field is being updated and get its current value
         switch textField {
         case tf_volume:
@@ -757,7 +757,10 @@ class TicketVC: BottomSheetController {
 //        lbl_TP.isHidden = true
         liveValue_view.isHidden = true
         tf_takeProfit.text = ""
-        tf_takeProfit.placeholder = "not set"
+        tf_takeProfit.attributedPlaceholder = NSAttributedString(
+            string: "not set",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white] // Change color here
+        )
         
     }
     //MARK: - stop Loss actions
@@ -814,7 +817,11 @@ class TicketVC: BottomSheetController {
 //        lbl_SL.isHidden = true
         stopLossLiveValue_view.isHidden = true
         tf_stopLoss.text = ""
-        tf_stopLoss.placeholder = "not set"
+//        tf_stopLoss.placeholder = "not set"
+        tf_stopLoss.attributedPlaceholder = NSAttributedString(
+            string: "not set",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white] // Change color here
+        )
     }
     
 //    func calculateTakeProfit(takeProfitInput: String, selectedType: String, bidPrice: Double, orderType: String, digits: Int, previousType: String? = nil) -> Double {

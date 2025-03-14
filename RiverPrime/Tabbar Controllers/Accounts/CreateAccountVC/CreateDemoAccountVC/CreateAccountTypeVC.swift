@@ -149,9 +149,9 @@ class CreateAccountTypeVC: BottomSheetController {
     
     
     @IBAction func submitBtnAction(_ sender: Any) {
-        if !validateInputs() {
-            return
-        }
+//        if !validateInputs() {
+//            return
+//        }
         
         print("this is given name: \(userName)")
         print("this is select Currency: \(currencyCode)")

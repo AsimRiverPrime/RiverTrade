@@ -25,7 +25,8 @@ class SuppotTableViewCell: UITableViewCell {
         openLink("https://www.riverprime.com/en/contactUs")
     }
     @IBAction func liveChatAction(_ sender: Any) {
-        openLink("https://portal.riverprime.com/en/live_signup?brd=1&is_ib=1")
+//        openLink("https://portal.riverprime.com/en/live_signup?brd=1&is_ib=1")
+        openLink("https://riverprime.com/en/contactUs")
     }
     @IBAction func legalDocumentAction(_ sender: Any) {
         openLink("https://riverprime.com/en/Regulations")

@@ -65,9 +65,13 @@ class SelectAccountTypeCell: UITableViewCell {
           
            if isDefault {
                btn_checkAccount.tintColor = .systemYellow
+               btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+
                btn_checkAccount.isHidden = false
            }else{
-               btn_checkAccount.isHidden = true
+//               btn_checkAccount.isHidden = true
+               btn_checkAccount.setImage(UIImage(systemName: "circle"), for: .normal)
+               btn_checkAccount.tintColor = .lightGray
            }
        }
 

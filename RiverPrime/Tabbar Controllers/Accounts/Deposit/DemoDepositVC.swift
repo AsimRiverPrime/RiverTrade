@@ -25,7 +25,7 @@ class DemoDepositVC: BaseViewController {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
 //            //print("\n Default Account User: \(defaultAccount)")
             
-            lbl_deposit_detail.text = "Enter Deposit Amount for Demo \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
+            lbl_deposit_detail.text = "Enter the amount you wish to deposit into your Demo trading account.(\(defaultAccount.groupName)/\(defaultAccount.accountNumber))."
         }
         
     }

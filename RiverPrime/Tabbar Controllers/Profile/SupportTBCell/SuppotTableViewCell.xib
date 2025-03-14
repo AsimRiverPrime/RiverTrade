@@ -115,27 +115,27 @@
                                                     <constraint firstAttribute="width" constant="10" id="NVh-e3-Yrg"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LiveChat" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvq-Ya-Fcu">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Contact Support" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvq-Ya-Fcu">
                                                 <rect key="frame" x="45" y="15" width="215" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feel free to contact our customer support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbF-77-CoO">
-                                                <rect key="frame" x="45" y="37" width="215" height="13.333333333333336"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feel free to contact our customer support" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SbF-77-CoO">
+                                                <rect key="frame" x="45" y="37" width="215" height="26.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ibT-xr-oow">
-                                                <rect key="frame" x="10" y="59" width="250" height="1"/>
+                                                <rect key="frame" x="10" y="63.333333333333343" width="250" height="1"/>
                                                 <color key="backgroundColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="qvV-94-yBK"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eac-4D-oIG">
-                                                <rect key="frame" x="0.0" y="0.0" width="270" height="59"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="270" height="60"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
@@ -147,17 +147,17 @@
                                         <constraints>
                                             <constraint firstItem="zTS-NK-KcH" firstAttribute="centerY" secondItem="kWt-Zq-p6p" secondAttribute="centerY" id="0O9-nq-QcC"/>
                                             <constraint firstItem="tvq-Ya-Fcu" firstAttribute="top" secondItem="zTS-NK-KcH" secondAttribute="top" id="Igs-oX-1vC"/>
+                                            <constraint firstItem="ibT-xr-oow" firstAttribute="top" secondItem="SbF-77-CoO" secondAttribute="bottom" id="IuD-pT-nXE"/>
                                             <constraint firstItem="WqU-v3-xVf" firstAttribute="centerY" secondItem="kWt-Zq-p6p" secondAttribute="centerY" id="MHG-c2-Apj"/>
                                             <constraint firstItem="SbF-77-CoO" firstAttribute="trailing" secondItem="tvq-Ya-Fcu" secondAttribute="trailing" id="MyT-Zq-xSb"/>
                                             <constraint firstItem="Eac-4D-oIG" firstAttribute="top" secondItem="kWt-Zq-p6p" secondAttribute="top" id="SWk-M0-o7e"/>
                                             <constraint firstItem="Eac-4D-oIG" firstAttribute="leading" secondItem="kWt-Zq-p6p" secondAttribute="leading" id="Ufb-4b-5Rb"/>
                                             <constraint firstItem="ibT-xr-oow" firstAttribute="leading" secondItem="kWt-Zq-p6p" secondAttribute="leading" constant="10" id="XSV-6T-spJ"/>
-                                            <constraint firstAttribute="bottom" secondItem="ibT-xr-oow" secondAttribute="bottom" id="Yag-Re-TzF"/>
                                             <constraint firstAttribute="trailing" secondItem="Eac-4D-oIG" secondAttribute="trailing" id="Z2F-uO-E8A"/>
                                             <constraint firstAttribute="trailing" secondItem="ibT-xr-oow" secondAttribute="trailing" constant="10" id="ccG-dl-Lim"/>
                                             <constraint firstAttribute="trailing" secondItem="tvq-Ya-Fcu" secondAttribute="trailing" constant="10" id="h6b-mr-7zL"/>
-                                            <constraint firstItem="ibT-xr-oow" firstAttribute="top" secondItem="Eac-4D-oIG" secondAttribute="bottom" id="ico-8p-jku"/>
                                             <constraint firstItem="tvq-Ya-Fcu" firstAttribute="leading" secondItem="zTS-NK-KcH" secondAttribute="trailing" constant="10" id="lFY-9Y-ZMH"/>
+                                            <constraint firstAttribute="bottom" secondItem="Eac-4D-oIG" secondAttribute="bottom" id="ona-xp-Llh"/>
                                             <constraint firstItem="zTS-NK-KcH" firstAttribute="leading" secondItem="kWt-Zq-p6p" secondAttribute="leading" constant="5" id="qjo-ch-DcI"/>
                                             <constraint firstItem="SbF-77-CoO" firstAttribute="leading" secondItem="tvq-Ya-Fcu" secondAttribute="leading" id="thL-dx-15G"/>
                                             <constraint firstAttribute="trailing" secondItem="WqU-v3-xVf" secondAttribute="trailing" constant="5" id="tqR-gK-bah"/>

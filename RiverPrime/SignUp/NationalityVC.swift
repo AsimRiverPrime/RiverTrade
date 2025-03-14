@@ -53,6 +53,10 @@ class NationalityVC: BaseViewController {
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "Nationality", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationItem.backButtonTitle = ""
+    }
         @IBAction func checkNationality_action(_ sender: Any) {
             self.btn_NationalityCheck.isSelected = !self.btn_NationalityCheck.isSelected
             self.btn_NationalityCheck.setImage(!self.btn_NationalityCheck.isSelected ? UIImage(systemName: "square")?.withTintColor(.white) : UIImage(systemName: "checkmark.square")?.withTintColor(.systemYellow), for: .normal)

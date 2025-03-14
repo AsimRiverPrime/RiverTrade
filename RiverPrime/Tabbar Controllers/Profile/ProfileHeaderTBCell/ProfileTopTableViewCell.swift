@@ -138,14 +138,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                                } else if status == "Rejected" {
                                    // Handle the "reject" status
                                   
-                                   lbl_profile.text = "Your profile has been Rejected. Please contact customer support for details."
+                                   lbl_profile.text = "Your profile has been rejected. Please contact customer support for further details."
                                    btn_completeProfile.isUserInteractionEnabled = false
                                    btn_completeProfile.setTitle("Profile in Progress", for: .normal)
                                    progreeBar.progress = 0.9
                                    self.lbl_progressPercent.text = "90%"
                                } else{
                                    // Handle the "refer" status
-                                   lbl_profile.text = "Thank you for providing your details.Your profile has been Referred for review.Please wait for further updates."
+                                   lbl_profile.text = "Thank you for providing your details. Your profile has been submitted for review. Please await further updates."
                                    btn_completeProfile.isUserInteractionEnabled = false
                                    btn_completeProfile.setTitle("Profile Completed", for: .normal)
                                    progreeBar.progress = 0.9
@@ -158,14 +158,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             btn_completeProfile.isUserInteractionEnabled = true
                             btn_completeProfile.setTitle("Click to complete KYC", for: .normal)
     //                        self.btn_completeProfile.isHidden = false
-                            lbl_profile.text = "Alright you complete your Profile almost.Last step KYC is remaining."
+                            lbl_profile.text = "You're almost done with your profile! The final step—KYC verification—is still pending."
 //                        }else if profileStep == 1 {
 //                            progreeBar.progress = 0.33
 //                            self.lbl_progressPercent.text = "33%"
 //                            btn_completeProfile.isUserInteractionEnabled = true
 //                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
                         }else{
-                            lbl_profile.text = "Hello. Fill in your account details to make your first deposit."
+                            lbl_profile.text = "We require some details from you to enable deposit and withdrawal options for your account."
                             progreeBar.progress = 0.0
                             self.lbl_progressPercent.text = "0%"
                             btn_completeProfile.isUserInteractionEnabled = true

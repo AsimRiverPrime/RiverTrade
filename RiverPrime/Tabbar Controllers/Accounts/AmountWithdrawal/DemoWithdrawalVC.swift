@@ -33,7 +33,7 @@ class DemoWithdrawalVC: BaseViewController {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             
-            lbl_withdraw_detail.text = "Enter Withdrawal Amount from Demo \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
+            lbl_withdraw_detail.text = "Enter the amount you wish to withdraw from your Demo trading account.(\(defaultAccount.groupName)/\(defaultAccount.accountNumber))"
         }
         
     }

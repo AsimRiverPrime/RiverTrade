@@ -51,7 +51,7 @@ class ForgotViewController: BaseViewController {
                     self.ToastMessage("Error: \(error.localizedDescription)")
                 } else {
                     // Notify user that the reset email has been sent
-                    self.showSimpleAlert("Password reset email sent.Please check your inbox!")
+                    self.showSimpleAlert("An email with a password reset link has been sent to the registered address.")
                 }
             }
         }else{
@@ -64,46 +64,6 @@ class ForgotViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true) 
     }
     
-    // Function to show alert with a text field for the email
-//       func showAlertWithEmailField() {
-//           let alert = UIAlertController(title: "Reset Password", message: "Enter your email address to reset your password.", preferredStyle: .alert)
-//           
-//           // Add a text field to the alert for email input
-//           alert.addTextField { textField in
-//               textField.placeholder = "Enter your email"
-//               textField.keyboardType = .emailAddress
-//           }
-//           
-//           // Add a "Send" action that triggers password reset
-//           let sendAction = UIAlertAction(title: "Send", style: .default) { _ in
-//               if let email = alert.textFields?.first?.text, !email.isEmpty {
-//                   // Send password reset email
-//                   Auth.auth().sendPasswordReset(withEmail: email) { error in
-//                       if let error = error {
-//                           // Handle error
-//                           self.showSimpleAlert("Error: \(error.localizedDescription)")
-//                       } else {
-//                           // Notify user that the reset email has been sent
-//                           self.showSimpleAlert("Password reset email sent. Check your inbox!")
-//                       }
-//                   }
-//               } else {
-//                   // Show error if email is empty
-//                   self.showSimpleAlert("Please enter a valid email address.")
-//               }
-//           }
-//           
-//           // Add a cancel action
-//           let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-//           
-//           // Add actions to the alert
-//           alert.addAction(sendAction)
-//           alert.addAction(cancelAction)
-//           
-//           // Present the alert
-//           present(alert, animated: true, completion: nil)
-//       }
-       
        // Helper function to show a simple alert message
        func showSimpleAlert(_ message: String) {
            let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)

@@ -63,6 +63,7 @@ class AccountsViewController: BaseViewController {
     @IBOutlet weak var btn_history: CardViewButton!
     @IBOutlet weak var btn_details: CardViewButton!
     @IBOutlet weak var btn_creat: CardViewButton!
+    @IBOutlet weak var btn_balanceShowHide: UIButton!
     
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
@@ -77,7 +78,10 @@ class AccountsViewController: BaseViewController {
     var demoAccountCreated = Bool()
     var balance = String()
     var isRealAcount = Bool()
-    
+   
+    var actualBalance = String()
+    var isBalanceHidden = false
+   
     var odooClientService = OdooClientNew()
     
     let webSocketManager = WebSocketManager.shared
@@ -189,6 +193,15 @@ class AccountsViewController: BaseViewController {
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
+    @IBAction func showHideBalance(_ sender: Any) {
+        isBalanceHidden.toggle() // Toggle state
+           
+           let valuesss = isBalanceHidden ? "••••••••••" : actualBalance // Update label
+        labelAmmount.text = "$"+valuesss
+           // Toggle the button icon
+           btn_balanceShowHide.setImage(isBalanceHidden ? UIImage(systemName: "eye.slash") : UIImage(systemName: "eye"), for: .normal)
+
+    }
     func accountData() {
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -341,11 +354,11 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func percentAction(_ sender: UIButton) {
         
-//        self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-//            print("drop down index = \(index)")
-//            print("drop down item = \(item)")
-//            sender.setTitle("", for: .normal)
-//        }
+        self.dynamicDropDownButton(sender, list: refreshList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            sender.setTitle("", for: .normal)
+        }
         
     }
     
@@ -393,18 +406,28 @@ extension AccountsViewController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount in account Home vc: \(ammount)")
+//            print("Received ammount in account Home vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
-            self.labelAmmount.text = "$\(String(describing: amount))"
-//            self.labelAmmount.text = "$\(ammount)"
+           
             
-            if ammount == "0.0" {
+            if ammount == "0.0" /*&& initBalance(10000) != 0*/ {
                 self.lbl_amountPercent.text = "0.0%"
             }else{
                 let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
               
             }
+            
+            actualBalance = amount // Store updated balance
+            print("actualBalance value is : .... \(actualBalance)")
+               if !isBalanceHidden {
+                   
+                   self.labelAmmount.text = "$\(String(describing: actualBalance))"  // Update only if not hidden
+                 
+               }
+            
+           
+            
             accountData()
         }
 }
@@ -722,14 +745,14 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             
             switch opcList {
             case .open(let open):
-                cell.emptyLabelMessage.text = "No Open Order."
-                cell.lbl_secondMessage.text = "No orders Use the opportunity to trade on the world’s major financial markets"
+                cell.emptyLabelMessage.text = "No Open Orders."
+                cell.lbl_secondMessage.text = ""
             case .pending(let pending):
-                cell.emptyLabelMessage.text = "No Pending Order."
-                cell.lbl_secondMessage.text = "Use the oppottunity to trade on the word’s major financial markets"
+                cell.emptyLabelMessage.text = "No Pending Orders."
+                cell.lbl_secondMessage.text = ""
             case .close(let close):
-                cell.emptyLabelMessage.text = "No Close Order."
-                cell.lbl_secondMessage.text = "for the last 30 days"
+                cell.emptyLabelMessage.text = "No Closed Orders."
+                cell.lbl_secondMessage.text = ""
             case .none:
                 cell.emptyLabelMessage.text = "No Data Found."
                 cell.lbl_secondMessage.text = ""
@@ -1404,68 +1427,6 @@ extension AccountsViewController {
         }
     }
 }
-
-//MARK: - AccountInfo Button Taps is here.
-//extension AccountsViewController: AccountInfoTapDelegate {
-//    func accountInfoTap(_ accountInfo: AccountInfo) {
-//        print("delegte called  \(accountInfo)" )
-//
-//        switch accountInfo {
-//
-//        case .deposit:
-//            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-//            // vc.delegateCompeleteProfile = self
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .withDraw:
-//            //            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-//            //            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .history:
-//            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .detail:
-//            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .notification:
-//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .dashboard) as! NotificationViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .createAccount:
-//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-//            break
-//        }
-//    }
-//}
-
-//extension AccountsViewController: CreateAccountInfoTapDelegate {
-//    
-//    func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo) {
-//        print("delegte called  \(createAccountInfo)" )
-//        
-//        switch createAccountInfo {
-//        case .createNew:
-//            print("Create new")
-//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-//            
-//            break
-//        case .unarchive:
-//            print("Unarchive")
-//            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-//            break
-//        case .notification:
-//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        }
-//    }
-//    
-//}
 
 extension AccountsViewController: OPCNavigationDelegate {
     

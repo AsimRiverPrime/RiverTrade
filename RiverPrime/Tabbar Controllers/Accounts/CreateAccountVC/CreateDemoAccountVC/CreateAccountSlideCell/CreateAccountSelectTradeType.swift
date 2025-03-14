@@ -26,6 +26,10 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_swap: UILabel!
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
+    
+    
+    
+    
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
     
@@ -150,7 +154,7 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
 
         let account = accounts[counter]
 
-        mainTitle.text = "\(account.name.uppercased()) Account"
+        mainTitle.text = "\(account.name) Account\nSpecifications"
         lbl_Spread.text = "Floating/ As low as \(account.spreadsFrom)"
         lbl_leverage.text = account.leverage
         lbl_commission.text = "$\(account.commission)"
