@@ -17,6 +17,8 @@ class BaseViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionLost), name: .connectionLost, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleConnectionRestored), name: .connectionRestored, object: nil)
         
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
     }
     
     deinit {

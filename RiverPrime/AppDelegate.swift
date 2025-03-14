@@ -31,6 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
+        
+        setupNavigationBarAppearance()
+        
 //        UIApplication.shared.applicationIconBadgeNumber = 0
         // Set the messaging delegate
         Messaging.messaging().delegate = self
@@ -53,6 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    func setupNavigationBarAppearance() {
+        let appearance = UINavigationBar.appearance()
+        appearance.backIndicatorImage = UIImage(named: "back-en")
+        appearance.backIndicatorTransitionMaskImage = UIImage(named: "back-en")
+        appearance.tintColor = .white
+        UIBarButtonItem.appearance().setTitleTextAttributes([.foregroundColor: UIColor.clear], for: .normal)
     }
     // MARK: - Handle Remote Notification
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {

@@ -7,10 +7,16 @@
 
 import UIKit
 
-class DemoDepositVC: BaseViewController {
+class DemoDepositVC: BaseViewController, UITextFieldDelegate {
 
     @IBOutlet weak var tf_amount: UITextField!
     @IBOutlet weak var lbl_deposit_detail: UILabel!
+    @IBOutlet weak var lbl_exceededAmount: UILabel!
+    @IBOutlet weak var btn_submit: CardViewButton!
+    
+    var ammountValue = String()
+    let maxAmount = 1_000_000.0 // Maximum limit (1 million)
+
     
     var odooClient = OdooClientNew()
     var tradeTypeVM = TradeTypeCellVM()
@@ -28,6 +34,37 @@ class DemoDepositVC: BaseViewController {
             lbl_deposit_detail.text = "Enter the amount you wish to deposit into your Demo trading account.(\(defaultAccount.groupName)/\(defaultAccount.accountNumber))."
         }
         
+        tf_amount.delegate = self
+        tf_amount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+    }
+           
+           @objc func textFieldDidChange() {
+               validateDepositAmount()
+           }
+
+    func validateDepositAmount() {
+        guard let text = tf_amount.text, let enteredAmount = Double(text) else {
+            return
+        }
+//       let currentAmmount =  (Double(ammountValue) ?? 0.0)
+        let cleanedAmountValue = ammountValue.replacingOccurrences(of: ",", with: "") // "11676.33"
+        let currentAmount = Double(cleanedAmountValue) ?? 0.0
+        
+        
+        if enteredAmount > maxAmount {
+            self.ToastMessage("You cannot deposit more than $1,000,000.")
+            tf_amount.text = ""
+            lbl_exceededAmount.textColor = .systemRed
+           
+        } else if (currentAmount + enteredAmount) > maxAmount {
+            self.ToastMessage("Total balance after deposit cannot be exceed $1,000,000.")
+            tf_amount.text = ""
+            lbl_exceededAmount.textColor = .systemRed
+           
+        }else{
+            lbl_exceededAmount.textColor = .white
+           
+        }
     }
     
     @objc func dismissKeyboard(){
@@ -43,10 +80,11 @@ class DemoDepositVC: BaseViewController {
     
     @IBAction func submit_action(_ sender: Any) {
         dismissKeyboard()
+        
         if tf_amount.text != "" {
             odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
         }else{
-            self.ToastMessage("please enter amount")
+            self.ToastMessage("Please enter amount")
         }
     }
     

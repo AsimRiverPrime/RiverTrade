@@ -70,6 +70,12 @@ class EmailVC: BaseViewController {
         self._password = passwordManager.generateRandomPassword(length: 8)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.setNavBar(vc: self, isBackButton: true, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "Sign Up", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
+    
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
     }

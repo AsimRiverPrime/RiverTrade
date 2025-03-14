@@ -264,8 +264,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g20-Dz-sUH">
                                 <rect key="frame" x="0.0" y="59" width="393" height="196"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarIcon" translatesAutoresizingMaskIntoConstraints="NO" id="zBe-Mo-QFi">
-                                        <rect key="frame" x="20" y="15" width="50" height="50"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="zBe-Mo-QFi">
+                                        <rect key="frame" x="20" y="15.666666666666668" width="50" height="48.666666666666657"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Vy3-a9-iPB"/>
                                             <constraint firstAttribute="width" constant="50" id="Wd3-DD-hbD"/>
@@ -339,8 +339,9 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POo-SL-ehr">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="213"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarIcon" translatesAutoresizingMaskIntoConstraints="NO" id="kEB-8O-YlC">
-                                                <rect key="frame" x="20" y="15" width="50" height="50"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="kEB-8O-YlC">
+                                                <rect key="frame" x="20" y="15.666666666666668" width="50" height="48.666666666666657"/>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="f4S-Xy-aQb"/>
                                                     <constraint firstAttribute="height" constant="50" id="xEq-Gt-A71"/>
@@ -1891,7 +1892,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="btn_submit" destination="Vtk-pF-eq7" id="Zvm-yP-xuy"/>
                         <outlet property="lbl_deposit_detail" destination="Xa3-Vu-gEI" id="tws-yp-atN"/>
+                        <outlet property="lbl_exceededAmount" destination="tv8-Oy-IHR" id="1iz-57-8wR"/>
                         <outlet property="tf_amount" destination="vOz-00-sXs" id="Hk8-wj-jo0"/>
                     </connections>
                 </viewController>
@@ -3652,6 +3655,7 @@
         <image name="noDataIcon" width="90" height="120"/>
         <image name="note.text" catalog="system" width="128" height="107"/>
         <image name="notification" width="24" height="24"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <image name="profile" width="47" height="56"/>
         <image name="qrcode" catalog="system" width="128" height="114"/>
         <image name="resultIcon" width="25" height="25"/>

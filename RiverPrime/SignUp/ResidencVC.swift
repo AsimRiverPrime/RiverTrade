@@ -63,9 +63,6 @@ class ResidencVC: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
-       
-        //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: NationalityVC(), navController: self.navigationController, title: "Residence", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }

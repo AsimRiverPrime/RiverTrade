@@ -44,6 +44,7 @@ class EconomicCalendarListVC: BaseViewController {
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: MarketsViewController(), navController: self.navigationController, title: "Economic Calendar", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
+    
     func sortLatestDate () {
         filteredEvents.sort { payload1, payload2 in
             guard let date1 = DateHelper.convertToDate(from: payload1.date),
