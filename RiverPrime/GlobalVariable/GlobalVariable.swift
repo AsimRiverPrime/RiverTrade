@@ -81,6 +81,7 @@ class GlobalVariable: NSObject {
     var isStopTick: Bool = false
     var isStopHistory: Bool = false
     
+    var myProfitLossForOpenSymbolList = [Double]()
     var openSymbolList = [String]()
     var previouseSymbolList = [String]()
     var tempPreviouseSymbolList = [String]()

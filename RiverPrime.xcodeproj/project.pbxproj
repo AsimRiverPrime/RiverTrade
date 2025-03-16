@@ -135,16 +135,13 @@
 		3188EF3C2CCBA395002F47BA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188EF3B2CCBA395002F47BA /* RoundedButton.swift */; };
 		319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */; };
 		319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32832C9C3EFB006DA077 /* TradeTVC.xib */; };
-		319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */; };
 		319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32822C9C3EFB006DA077 /* TradeTVC.swift */; };
-		319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */; };
 		319A32982C9C3EFB006DA077 /* TradeVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32892C9C3EFB006DA077 /* TradeVM.swift */; };
 		319A32992C9C3EFB006DA077 /* WebSocketResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */; };
 		319A329A2C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */; };
 		319A329B2C9C3EFB006DA077 /* TradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A328D2C9C3EFB006DA077 /* TradeViewController.swift */; };
 		319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A329E2C9C3F21006DA077 /* WebSocketManager.swift */; };
 		319BBC7C2CC0DC9600BA8201 /* BottomSheetPopups.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */; };
-		319E4C1D2D81A5130087A5E5 /* chart.html in Resources */ = {isa = PBXBuildFile; fileRef = 319E4C1C2D81A5130087A5E5 /* chart.html */; };
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
@@ -318,6 +315,8 @@
 		31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */; };
 		31FC18402C3C0D4200340CFC /* TermsConditionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */; };
 		42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */; };
+		701771CB2D86F81B003E3725 /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701771C82D86F81B003E3725 /* TradeTableViewCell.swift */; };
+		701771CC2D86F81B003E3725 /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 701771C92D86F81B003E3725 /* TradeTableViewCell.xib */; };
 		A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */; };
 		A5140CD52D296C8A00F46FC1 /* FaceIDAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */; };
 		FA10ECC72CE6A23F00C1980F /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA10ECB42CE6A23F00C1980F /* Poppins-ExtraLight.ttf */; };
@@ -527,14 +526,11 @@
 		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
 		319A32832C9C3EFB006DA077 /* TradeTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTVC.xib; sourceTree = "<group>"; };
-		319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
-		319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		319A32892C9C3EFB006DA077 /* TradeVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeVM.swift; sourceTree = "<group>"; };
 		319A328D2C9C3EFB006DA077 /* TradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeViewController.swift; sourceTree = "<group>"; };
 		319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketResponse.swift; sourceTree = "<group>"; };
 		319A329E2C9C3F21006DA077 /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
 		319BBC7B2CC0DC9600BA8201 /* BottomSheetPopups.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BottomSheetPopups.storyboard; sourceTree = "<group>"; };
-		319E4C1C2D81A5130087A5E5 /* chart.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = chart.html; path = /Users/rossrostane/Downloads/chart.html; sourceTree = "<absolute>"; };
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
@@ -711,6 +707,8 @@
 		31FC183A2C3C086400340CFC /* ForgotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotViewController.swift; sourceTree = "<group>"; };
 		31FC183C2C3C08EE00340CFC /* VerifyCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeViewController.swift; sourceTree = "<group>"; };
 		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
+		701771C82D86F81B003E3725 /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
+		701771C92D86F81B003E3725 /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
 		9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
 		A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAlertView.swift; sourceTree = "<group>"; };
 		A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaceIDAlertView.xib; sourceTree = "<group>"; };
@@ -817,7 +815,6 @@
 				31A9437A2D5B8DAD000E1DEF /* CONTRIBUTING.md */,
 				31A943782D5B8DAD000E1DEF /* datafeeds */,
 				31A943772D5B8DAD000E1DEF /* mobile_black.html */,
-				319E4C1C2D81A5130087A5E5 /* chart.html */,
 				31A9437F2D5B8DAE000E1DEF /* package.json */,
 				31A9437D2D5B8DAE000E1DEF /* README.md */,
 				31A943722D5B8DAD000E1DEF /* themed.css */,
@@ -1339,15 +1336,6 @@
 			path = TableCollectionViewCell;
 			sourceTree = "<group>";
 		};
-		319A32882C9C3EFB006DA077 /* TradeTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				319A32862C9C3EFB006DA077 /* TradeTableViewCell.swift */,
-				319A32872C9C3EFB006DA077 /* TradeTableViewCell.xib */,
-			);
-			path = TradeTableViewCell;
-			sourceTree = "<group>";
-		};
 		319A328A2C9C3EFB006DA077 /* TradeVM */ = {
 			isa = PBXGroup;
 			children = (
@@ -1363,7 +1351,7 @@
 				FADC582A2D09031100B205A1 /* SearchTableViewCell */,
 				31F77FC82CE627130080C410 /* TradeHeader */,
 				319A32842C9C3EFB006DA077 /* TableCollectionViewCell */,
-				319A32882C9C3EFB006DA077 /* TradeTableViewCell */,
+				701771CA2D86F81B003E3725 /* TradeTableViewCell */,
 				319A328A2C9C3EFB006DA077 /* TradeVM */,
 				319A328D2C9C3EFB006DA077 /* TradeViewController.swift */,
 				319A328E2C9C3EFB006DA077 /* WebSocketResponse.swift */,
@@ -2061,6 +2049,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		701771CA2D86F81B003E3725 /* TradeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				701771C82D86F81B003E3725 /* TradeTableViewCell.swift */,
+				701771C92D86F81B003E3725 /* TradeTableViewCell.xib */,
+			);
+			path = TradeTableViewCell;
+			sourceTree = "<group>";
+		};
 		96823B198E4329FFFFDD0F79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2518,6 +2515,7 @@
 				31D2620E2C3BECDE00FC6651 /* Base in Resources */,
 				31DC19C42C4F6DF5005BC2BB /* ProfileTopTableViewCell.xib in Resources */,
 				31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */,
+				701771CC2D86F81B003E3725 /* TradeTableViewCell.xib in Resources */,
 				3171E3A52CB94CF60043203F /* HistoryTradeTVCell.xib in Resources */,
 				FA10ECCE2CE6A23F00C1980F /* Poppins-ExtraBoldItalic.ttf in Resources */,
 				31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */,
@@ -2530,7 +2528,6 @@
 				FA10ECD52CE6A23F00C1980F /* Poppins-Black.ttf in Resources */,
 				319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */,
 				31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */,
-				319A32932C9C3EFB006DA077 /* TradeTableViewCell.xib in Resources */,
 				31B1248E2C3D461F0058C9DD /* InterVariable-Italic.ttf in Resources */,
 				31710CE12CE322160082AB28 /* Main.storyboard in Resources */,
 				FA10ECD02CE6A23F00C1980F /* Poppins-BlackItalic.ttf in Resources */,
@@ -2552,7 +2549,6 @@
 				3105DEED2CB3E8A400D1B884 /* CreateAccountVC.xib in Resources */,
 				FA10ECD32CE6A23F00C1980F /* Poppins-LightItalic.ttf in Resources */,
 				31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */,
-				319E4C1D2D81A5130087A5E5 /* chart.html in Resources */,
 				31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */,
 				3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */,
 				3172C9E52D0AC0FB0098BBEC /* TopNewsSection.xib in Resources */,
@@ -2765,7 +2761,6 @@
 				31D2AEF22C8840B800E0CF2E /* CandlestickSeries.swift in Sources */,
 				319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */,
 				312C3A3B2D40FFEB001B9639 /* AlarmsVC.swift in Sources */,
-				319A32952C9C3EFB006DA077 /* TradeTableViewCell.swift in Sources */,
 				319A32A02C9C3F21006DA077 /* WebSocketManager.swift in Sources */,
 				FA3F70322CC70C1000B3CE8A /* Notification+Extension.swift in Sources */,
 				31D993EA2CD3B2EF00FC8FF9 /* TimeFrameVC.swift in Sources */,
@@ -2821,6 +2816,7 @@
 				31D2AF072C8840B800E0CF2E /* BarData.swift in Sources */,
 				31AAD94F2D1EF3F800733D78 /* UserAccountManager.swift in Sources */,
 				31D2AEEA2C8840B800E0CF2E /* Encodable+JSONString.swift in Sources */,
+				701771CB2D86F81B003E3725 /* TradeTableViewCell.swift in Sources */,
 				317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */,
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,
 				31D2AEFB2C8840B800E0CF2E /* PriceScale.swift in Sources */,

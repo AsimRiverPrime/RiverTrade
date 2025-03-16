@@ -22,6 +22,7 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var lbl_pipsValues: UILabel!
     @IBOutlet weak var lbl_datetime: UILabel!
     @IBOutlet weak var lbl_pointsDiff: UILabel!
+    @IBOutlet weak var openPosSymbolColorView: UIView!
     
     //    private var chart: LightweightCharts? // Chart reference to keep it persistent
     //    private var series: AreaSeries? // The chart's area series
@@ -54,6 +55,7 @@ class TradeTableViewCell: UITableViewCell {
         lbl_askAmount.isUserInteractionEnabled = true
         lbl_askAmount.addGestureRecognizer(tapGesture3)
         
+        openPosSymbolColorView.layer.cornerRadius = 4.0
         
     }
     
@@ -172,13 +174,13 @@ class TradeTableViewCell: UITableViewCell {
             symbolDataObj = obj
         }
         
-        cell.configure(with: trade, symbolDataObj: symbolDataObj)
+        cell.configure(with: trade, symbolDataObj: symbolDataObj, indexPath: indexPath)
         
         return cell
     }
     
     // Function to configure the cell's UI and chart based on trade data.
-    func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil) {
+    func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil, indexPath: IndexPath) {
         lblCurrencySymbl.text = trade.symbol
         //        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
         
@@ -213,6 +215,13 @@ class TradeTableViewCell: UITableViewCell {
 //            currencyICon.sd_setImage(with: URL(string: defaultImageURL), placeholderImage: UIImage(named: "photo.circle"))
         } else {
             print("Invalid URL for symbol: \(symbolDataObj?.description ?? "unknown symbol")")
+        }
+        
+        //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
+        if GlobalVariable.instance.openSymbolList.contains(trade.symbol) {
+            openPosSymbolColorView.backgroundColor = UIColor.green // Match found at the same index
+        } else {
+            openPosSymbolColorView.backgroundColor = UIColor.white // Default color
         }
         
         let pointsValues = calculatePointDifferencePips(currentBid: trade.bid, lastCloseBid: self.lastClosedValue ?? 0.0, decimalPrecision: self.digits ?? 0)

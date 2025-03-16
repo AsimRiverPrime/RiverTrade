@@ -40,16 +40,16 @@ class AlarmsVC: BaseViewController{
 //        view.backgroundColor = .black
 //        webView.backgroundColor = .black
         self.webView.isHidden = true
-//        guard let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html") else {
-//            print("No file at url")
-//            return
-//        }
-        if let url = Bundle.main.url(forResource: "chart", withExtension: "html") {
-            print("\nFound HTML file: \(url.absoluteString)")
-            webView.loadFileURL(url, allowingReadAccessTo: url)
-        } else {
-            print("❌ No file found at URL")
+        guard let url = Bundle.main.url(forResource: "mobile_black", withExtension: "html") else {
+            print("No file at url")
+            return
         }
+//        if let url = Bundle.main.url(forResource: "chart", withExtension: "html") {
+//            print("\nFound HTML file: \(url.absoluteString)")
+//            webView.loadFileURL(url, allowingReadAccessTo: url)
+//        } else {
+//            print("❌ No file found at URL")
+//        }
 
 //        webView.loadFileURL(url, allowingReadAccessTo: url)
         

@@ -46,7 +46,11 @@ public class NotificationObserver {
             static let key = "faceidupdate"
             static let title = "title"
         }
-        
+        //MARK: -  After open position
+                struct CheckOpenPositionConstant {
+                    static let key = "openPositionViewUpdate"
+                    static let title = "title"
+                }
     }
 
     func postNotificationObserver(key: String, dict: [String: Any]) {

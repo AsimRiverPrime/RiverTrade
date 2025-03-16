@@ -35,25 +35,25 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SDH-Ik-pbH">
-                                <rect key="frame" x="15" y="32.666666666666664" width="0.0" height="0.0"/>
+                                <rect key="frame" x="10" y="32.666666666666664" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMG-If-yek">
-                                <rect key="frame" x="264.66666666666669" y="32.666666666666664" width="0.0" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Z6Z-qO-NAX">
-                                <rect key="frame" x="239.66666666666666" y="23.333333333333336" width="19.999999999999972" height="18.666666666666664"/>
+                                <rect key="frame" x="269.33333333333331" y="23.333333333333336" width="20" height="18.666666666666664"/>
                                 <color key="tintColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="GEt-MT-uR0"/>
                                     <constraint firstAttribute="height" constant="20" id="fUL-sm-3JE"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VMG-If-yek">
+                                <rect key="frame" x="291" y="32.666666666666664" width="0.0" height="0.0"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="P&amp;L" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gH4-wg-UXf">
                                 <rect key="frame" x="485" y="25.333333333333332" width="24" height="14.333333333333332"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
@@ -61,7 +61,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ucH-Tb-OML">
-                                <rect key="frame" x="509" y="32.666666666666664" width="0.0" height="0.0"/>
+                                <rect key="frame" x="519" y="32.666666666666664" width="0.0" height="0.0"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -69,13 +69,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="VMG-If-yek" firstAttribute="centerX" secondItem="Qbm-nl-vj4" secondAttribute="centerX" id="0XU-WK-hcZ"/>
+                            <constraint firstItem="VMG-If-yek" firstAttribute="centerX" secondItem="Qbm-nl-vj4" secondAttribute="centerX" multiplier="1.1" id="0XU-WK-hcZ"/>
                             <constraint firstItem="VMG-If-yek" firstAttribute="centerY" secondItem="SDH-Ik-pbH" secondAttribute="centerY" id="2FQ-CS-w1D"/>
-                            <constraint firstItem="SDH-Ik-pbH" firstAttribute="leading" secondItem="Qbm-nl-vj4" secondAttribute="leading" constant="15" id="8nm-ZV-WUb"/>
+                            <constraint firstItem="SDH-Ik-pbH" firstAttribute="leading" secondItem="Qbm-nl-vj4" secondAttribute="leading" constant="10" id="8nm-ZV-WUb"/>
                             <constraint firstAttribute="trailing" secondItem="gH4-wg-UXf" secondAttribute="trailing" constant="20" id="FOz-CK-3w6"/>
-                            <constraint firstAttribute="trailing" secondItem="ucH-Tb-OML" secondAttribute="trailing" constant="20" id="LCM-VT-lSa"/>
+                            <constraint firstAttribute="trailing" secondItem="ucH-Tb-OML" secondAttribute="trailing" constant="10" id="LCM-VT-lSa"/>
                             <constraint firstItem="Z6Z-qO-NAX" firstAttribute="centerY" secondItem="VMG-If-yek" secondAttribute="centerY" id="LFX-63-uhj"/>
-                            <constraint firstItem="VMG-If-yek" firstAttribute="leading" secondItem="Z6Z-qO-NAX" secondAttribute="trailing" constant="5" id="N0F-Fo-k33"/>
+                            <constraint firstItem="VMG-If-yek" firstAttribute="leading" secondItem="Z6Z-qO-NAX" secondAttribute="trailing" constant="1.5" id="N0F-Fo-k33"/>
                             <constraint firstItem="bxU-tj-Bbg" firstAttribute="top" secondItem="Qbm-nl-vj4" secondAttribute="top" constant="15" id="jyB-PX-OCX"/>
                             <constraint firstItem="ucH-Tb-OML" firstAttribute="centerY" secondItem="VMG-If-yek" secondAttribute="centerY" id="mln-wI-JeD"/>
                             <constraint firstItem="gH4-wg-UXf" firstAttribute="centerY" secondItem="VMG-If-yek" secondAttribute="centerY" id="ofn-eH-HeE"/>
@@ -124,7 +124,7 @@
         <image name="backgroundOfIcon" width="108" height="108"/>
         <image name="clock" catalog="system" width="128" height="123"/>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

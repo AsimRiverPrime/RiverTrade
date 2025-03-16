@@ -105,6 +105,7 @@ class AccountsViewController: BaseViewController {
         super.viewDidLoad()
         self.view.setGradientBackground()
         dashboardDatainit()
+//        balanceShowHide()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
         
@@ -194,13 +195,15 @@ class AccountsViewController: BaseViewController {
     }
     
     @IBAction func showHideBalance(_ sender: Any) {
+       balanceShowHide()
+    }
+    func balanceShowHide() {
         isBalanceHidden.toggle() // Toggle state
            
-           let valuesss = isBalanceHidden ? "••••••••••" : actualBalance // Update label
+           let valuesss = isBalanceHidden ? "•••••••" : actualBalance // Update label
         labelAmmount.text = "$"+valuesss
            // Toggle the button icon
            btn_balanceShowHide.setImage(isBalanceHidden ? UIImage(systemName: "eye.slash") : UIImage(systemName: "eye"), for: .normal)
-
     }
     func accountData() {
         
@@ -1084,6 +1087,9 @@ extension AccountsViewController: GetSocketMessages {
                         _totalProfitOpenClose = 0.0
                         var profitLoss = Double()
                         var roundValue = String()
+                        
+                        GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
+                        
                         //MARK: - Get All Matched Symbols data and Set accordingly.
                         if openData.count != 0 {
                             for i in 0...openData.count-1 {
@@ -1116,6 +1122,8 @@ extension AccountsViewController: GetSocketMessages {
                                                 
                                                 //                                            profitLoss = (bid - priceOpen)  volume  contractSize
                                             }
+                                            
+                                            GlobalVariable.instance.myProfitLossForOpenSymbolList.append(profitLoss)
                                             
                                             if profitLoss < 0.0 {
                                                 cell.lbl_profitValue.textColor = .systemRed

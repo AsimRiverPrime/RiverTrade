@@ -173,7 +173,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         let createDate = Date(timeIntervalSince1970: openData!.timeCreate / 1000.0)
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         dateFormatter.timeZone = .current
         
         let datee = dateFormatter.string(from: createDate)

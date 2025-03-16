@@ -182,7 +182,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     )
                 )
                 
-//                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
+                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
             
 //            if loadSymbolData().count == 0 {
@@ -350,6 +350,8 @@ extension HomeTabbarViewController {
                         let symbols = positions.map { self.getSymbol(item: $0.symbol) }
                         GlobalVariable.instance.openSymbolList = symbols
                         
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
+                        
                     }
                     
                     //MARK: - START SOCKET and call delegate method to get data from socket.
@@ -396,6 +398,8 @@ extension HomeTabbarViewController: GetSocketData {
                         var tpValue = [Double]()
                         tpValue.removeAll()
                         var total = 0.0
+                        var myProfitLoss = 0.0
+                        GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
                         for i in 0...openData.count-1 {
                             
                             if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) {
@@ -418,11 +422,22 @@ extension HomeTabbarViewController: GetSocketData {
                                     print("total = \(total)\n")
                                     
                                     tpValue.append(profitLoss)
-                                    
+                                    myProfitLoss = profitLoss
+                                } else {
+                                    myProfitLoss = 0.0
                                 }
                             } else {
                                 tpValue.append(openData[i].profit)
+                                myProfitLoss = 0.0
                             }
+                            GlobalVariable.instance.myProfitLossForOpenSymbolList.append(myProfitLoss)
+//                            if myProfitLoss < 0.0 {
+//                                cell.lbl_profitValue.textColor = .systemRed
+//
+//                            }else{
+//                                cell.lbl_profitValue.textColor = .systemGreen
+//
+//                            }
                         }
                         
                         print("tpValue = \(tpValue)\n")

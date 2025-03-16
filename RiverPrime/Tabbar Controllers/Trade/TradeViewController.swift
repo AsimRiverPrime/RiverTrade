@@ -187,10 +187,12 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.OpenPositionViewUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.CheckOpenPositionConstant.key), object: nil)
+        
         //        callCollectionViewAtStart()
         
         //MARK: - Get the list and save localy and set sectors and symbols.
-//        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
+        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
 //        vm.webSocketManager.delegateStartOffLineData = self
         
     }
@@ -425,6 +427,37 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             case .None:
                 break
             }
+        }
+    }
+    
+    @objc private func OpenPositionViewUpdate(_ notification: Notification) {
+        if let update = notification.userInfo?[NotificationObserver.Constants.CheckOpenPositionConstant.title] as? String {
+            print("update: \(update)")
+            
+            if update == "openPositionViewUpdate" {
+                //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+                for i in 0...getSymbolData.count-1 {
+                    let indexPath = IndexPath(row: i, section: 0)
+                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                        //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
+                        if GlobalVariable.instance.openSymbolList.contains(getSymbolData[i].tickMessage!.symbol) {
+                            if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                if GlobalVariable.instance.myProfitLossForOpenSymbolList[i] < 0.0 {
+                                    cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                } else {
+                                    cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                }
+                            } else {
+                                cell.openPosSymbolColorView.backgroundColor = UIColor.green
+                            }
+//                            cell.openPosSymbolColorView.backgroundColor = UIColor.green // Match found at the same index
+                        } else {
+                            cell.openPosSymbolColorView.backgroundColor = UIColor.white // Default color
+                        }
+                    }
+                }
+            }
+            
         }
     }
     
@@ -801,7 +834,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             }
             
             //MARK: - Showing the list of Symbols according to the selected sector in else statement.
-            cell.configure(with: trade! , symbolDataObj: symbolDataObj)
+            cell.configure(with: trade! , symbolDataObj: symbolDataObj, indexPath: indexPath)
             
             // Disable interaction for specific cells
             if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.

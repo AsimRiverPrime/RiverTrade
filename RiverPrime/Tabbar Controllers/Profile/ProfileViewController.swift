@@ -10,7 +10,7 @@ import UIKit
 protocol DashboardVCDelegate: AnyObject {
     func navigateToCompeletProfile()
 }
-protocol `PhoneVerifyDelegate`: AnyObject {
+protocol PhoneVerifyDelegate: AnyObject {
     func didCompletePhoneVerification()
 }
 
@@ -33,7 +33,7 @@ class ProfileViewController: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tblView.isScrollEnabled = false
+        tblView.isScrollEnabled = true
         
     }
     override func viewWillAppear(_ animated: Bool) {

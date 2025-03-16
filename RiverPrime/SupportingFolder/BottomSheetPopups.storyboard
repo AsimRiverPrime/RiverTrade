@@ -3454,7 +3454,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbL-jn-7EI">
-                                                <rect key="frame" x="305.5" y="3" width="58.5" height="34.5"/>
+                                                <rect key="frame" x="305.5" y="1" width="58.5" height="38.5"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="USD"/>
@@ -5493,7 +5493,7 @@
                                         </constraints>
                                     </view>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cov-H1-NFw" customClass="TPKeyboardAvoidingScrollView">
-                                        <rect key="frame" x="0.0" y="75" width="414" height="821"/>
+                                        <rect key="frame" x="0.0" y="20" width="414" height="876"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please complete your details, its only takes a few minutes." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TgU-wc-c4q">
                                                 <rect key="frame" x="20" y="20" width="374" height="44"/>
@@ -5734,10 +5734,10 @@
                                     <constraint firstItem="8Kx-WH-48X" firstAttribute="centerX" secondItem="BEI-7U-Jiq" secondAttribute="centerX" id="5cQ-2g-2Ef"/>
                                     <constraint firstItem="cov-H1-NFw" firstAttribute="leading" secondItem="BEI-7U-Jiq" secondAttribute="leading" id="5ks-92-73S"/>
                                     <constraint firstAttribute="trailing" secondItem="cov-H1-NFw" secondAttribute="trailing" id="YKc-zt-ytW"/>
-                                    <constraint firstItem="cov-H1-NFw" firstAttribute="top" secondItem="MH4-hT-mGs" secondAttribute="bottom" id="cMm-Rd-PxS"/>
                                     <constraint firstItem="MH4-hT-mGs" firstAttribute="top" secondItem="BEI-7U-Jiq" secondAttribute="top" constant="15" id="e0M-pc-lLI"/>
                                     <constraint firstAttribute="bottom" secondItem="cov-H1-NFw" secondAttribute="bottom" id="eWp-LP-fnH"/>
                                     <constraint firstAttribute="trailing" secondItem="MH4-hT-mGs" secondAttribute="trailing" id="l8n-8L-kVK"/>
+                                    <constraint firstItem="cov-H1-NFw" firstAttribute="top" secondItem="BEI-7U-Jiq" secondAttribute="top" constant="20" id="tPz-Pc-RlO"/>
                                     <constraint firstItem="MH4-hT-mGs" firstAttribute="leading" secondItem="BEI-7U-Jiq" secondAttribute="leading" id="uA1-sS-UMy"/>
                                     <constraint firstItem="8Kx-WH-48X" firstAttribute="top" secondItem="BEI-7U-Jiq" secondAttribute="top" constant="8" id="wPM-TF-vjb"/>
                                 </constraints>
