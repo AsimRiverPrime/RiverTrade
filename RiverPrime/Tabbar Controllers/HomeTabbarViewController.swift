@@ -373,10 +373,7 @@ extension HomeTabbarViewController: SocketNotSendDataDelegate {
     func socketNotSendData() {
         
         delegateSocketNotSendData?.socketNotSendData()
-        
     }
-    
-    
 }
 
 //MARK: - Get Socket Tick, History and Unsubcribe and update the list accordingly.
@@ -431,14 +428,10 @@ extension HomeTabbarViewController: GetSocketData {
                                 myProfitLoss = 0.0
                             }
                             GlobalVariable.instance.myProfitLossForOpenSymbolList.append(myProfitLoss)
-//                            if myProfitLoss < 0.0 {
-//                                cell.lbl_profitValue.textColor = .systemRed
-//
-//                            }else{
-//                                cell.lbl_profitValue.textColor = .systemGreen
-//
-//                            }
+                 
                         }
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
                         
                         print("tpValue = \(tpValue)\n")
                         
@@ -474,13 +467,9 @@ extension HomeTabbarViewController: GetSocketData {
                             let _finalTotal = String(format: "%.2f", finalTotal)
                             
                             NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: _finalTotal])
-                            
                         }
-                        
                     }
-                    
                 }
-                
             }
             
             delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: tickMessage)

@@ -133,10 +133,9 @@ class KYCViewController: BaseViewController {
         
         
         shufti.shuftiProVerification(requestObject: dataDictionary, authKeys: authKeyss, parentVC: self, configs: configsss) {(result) in
-            print("Got response from sdk: \(result)")
-            let response = result as! NSDictionary
-            
+            print("Got response from Shufti sdk:\n \(result)")
             let reponse = result as? NSDictionary
+            
             if reponse?.value(forKey: "event") as? String == "verification.accepted" {
                 // Verification Accepted Callback
                 print("Verified: Do something")
@@ -151,7 +150,7 @@ class KYCViewController: BaseViewController {
                         UserDefaults.standard.set(jsonData, forKey: "verificationData")
                         UserDefaults.standard.synchronize()
                         
-                        print("Verification data saved successfully!")
+                        print("Verification data saved successfully! data is:\n \t \t <<<<<<----*******************---------->>>Started \t \n \(String(describing: UserDefaults.standard.dictionary(forKey: "verificationData"))) \n \t \t <<<<<<----*******************---------->>>Finished \t \n ")
                     } catch {
                         print("Failed to convert verification data to JSON: \(error.localizedDescription)")
                     }
@@ -164,6 +163,7 @@ class KYCViewController: BaseViewController {
             }
             else if reponse?.value(forKey: "event") as? String == "verification.declined"{
                 // Verification Declined Callback
+                self.ToastMessage("KYC verification declined!")
             }
             else if reponse?.value(forKey: "event") as? String == "request.received"{
                 // This event states that the verification request has been received and is under processing.
@@ -174,6 +174,7 @@ class KYCViewController: BaseViewController {
                 // This event occurs when the auth header is not correct and, client id/secret key may be invlaid.
             }else{
                 print("Declined: Do something")
+                self.ToastMessage("KYC verification declined!")
             }
             
         }
@@ -232,9 +233,12 @@ class KYCViewController: BaseViewController {
                 print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
                 
-                let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
                     self.dismiss(animated: true) {
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
+                        //move to profile VC
+                        let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+                        self.navigate(to: profilevc)
                     }
                 }
             }

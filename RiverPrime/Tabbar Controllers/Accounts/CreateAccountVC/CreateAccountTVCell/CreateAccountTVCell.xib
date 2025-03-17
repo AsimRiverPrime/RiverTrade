@@ -31,7 +31,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FyP-3r-BkL">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="194"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarIcon" translatesAutoresizingMaskIntoConstraints="NO" id="hj4-3w-l4f">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hj4-3w-l4f">
                                         <rect key="frame" x="20" y="25" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="46u-po-Dac"/>
@@ -151,8 +151,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="avatarIcon" width="40" height="40"/>
-        <image name="notification" width="46" height="52"/>
+        <image name="notification" width="24" height="24"/>
         <image name="reminder" width="57" height="51"/>
         <namedColor name="splashScreen">
             <color red="0.14901960784313725" green="0.14901960784313725" blue="0.14901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

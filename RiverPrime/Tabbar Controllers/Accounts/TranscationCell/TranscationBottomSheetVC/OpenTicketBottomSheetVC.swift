@@ -29,11 +29,13 @@ class OpenTicketBottomSheetVC: BaseViewController {
     @IBOutlet weak var btn_closePosition: UIButton!
     @IBOutlet weak var takeProfit_switch: UISwitch!
     @IBOutlet weak var stopLoss_switch: UISwitch!
+    @IBOutlet weak var btn_takeProfitDropdown: UIButton!
+    @IBOutlet weak var btn_stopLossDropDown: UIButton!
     
     var takeProfitList = ["Profit in %", "Profit in USD", "Profit in Pips","Profit in Price"]
     var stopLossList = ["Loss in %", "Loss in USD", "Loss in Pips","Loss in Price"]
     
-    var currentValue: Double = 0.0
+    var currentValue: Double = 0.0 
     var currentValue1: Double = 0.0
     var currentValue2: Double = 0.0
     var currentValue3: Double = 0.0
@@ -46,6 +48,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
     var takeProfit_value: Double?
     var stoploss_value: Double?
     
+    var digitValue = Int()
+    
     var viewModel = TradeTypeCellVM()
     var vm = TransactionCellVM()
     
@@ -57,12 +61,15 @@ class OpenTicketBottomSheetVC: BaseViewController {
         
         stopLoss_switch.isOn = false
         takeProfit_switch.isOn = false
+        self.btn_takeProfitDropdown.setTitle("Price", for: .normal)
+        self.btn_stopLossDropDown.setTitle("Price", for: .normal)
+        
         self.takeProfit_View.isUserInteractionEnabled = false
         self.stopLoss_view.isUserInteractionEnabled = false
         self.partialClose_View.isUserInteractionEnabled = false
         partialCose_switch.isOn = false
         
-        print("openData = \(openData)")
+        print("openData = \(openData) \n symbol_Digits value: \(digitValue)")
 //        self.lbl_symbolName.text = openData?.symbol
         self.lbl_positionNumber.text = "#\(openData?.position ?? 0) |"
        
@@ -116,32 +123,29 @@ class OpenTicketBottomSheetVC: BaseViewController {
         
         var getSymbol = ""
         
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
+       if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
         }
         
         // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            // Return the icon_url if a match is found
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "NDX100" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "DJI30" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else{
-                let imageUrl = URL(string: symbolData.icon_url)
-                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
-        }
+//        if let symbolData = savedSymbolsDict[getSymbol] {
+//            // Return the icon_url if a match is found
+//            if symbolData.name == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "NDX100" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "DJI30" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else{
+//                let imageUrl = URL(string: symbolData.icon_url)
+//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
+//        }
         
     }
     
@@ -220,7 +224,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
     }
     
     @IBAction func takeProfitDropDown_action(_ sender: Any) {
-        self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: stopLossList) { index, item in
+        self.dynamicDropDownButtonForTakeProfit(sender as! UIButton, list: takeProfitList) { index, item in
             print("drop down index = \(index)")
             print("drop down item = \(item)")
            
@@ -340,8 +344,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
     }
     
     func updateValue(for textField: UITextField, increment: Bool) {
-        let step: Double = 0.01 // You can adjust the step value (e.g., 0.1 for increments in decimal)
-        
+//        let step: Double = 0.01 // You can adjust the step value (e.g., 0.1 for increments in decimal)
+        let step: Double = pow(10.0, -Double(self.digitValue))
         // Determine which text field is being updated and get its current value
         switch textField {
         case tf_partialClose:

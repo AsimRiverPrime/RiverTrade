@@ -224,7 +224,7 @@ class AccountsViewController: BaseViewController {
                    let savedImage = UIImage(data: imageData) {
                     userImage.image = savedImage
                 }else{
-                    userImage.image = UIImage(named: "avatarIcon")
+                    userImage.image = UIImage(systemName: "person.circle")
                 }
                 
                 lbl_name.text = _name
@@ -422,7 +422,7 @@ extension AccountsViewController {
             }
             
             actualBalance = amount // Store updated balance
-            print("actualBalance value is : .... \(actualBalance)")
+//            print("actualBalance value is : .... \(actualBalance)")
                if !isBalanceHidden {
                    
                    self.labelAmmount.text = "$\(String(describing: actualBalance))"  // Update only if not hidden
@@ -785,10 +785,16 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             case .open(let openData):
                 
                 let vc = Utilities.shared.getViewController(identifier: .openTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! OpenTicketBottomSheetVC
-                
+               
+                let x =  openData[indexPath.row].symbol.dropLast()
+                if let digitss = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+                    
+                    vc.digitValue = Int(GlobalVariable.instance.symbolDataArray[digitss].digits) ?? 0
+                }
+                    
                 vc.openData = openData[indexPath.row]
                 vc.getIndex = indexPath
-                
+               
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
                 
                 
@@ -1088,7 +1094,7 @@ extension AccountsViewController: GetSocketMessages {
                         var profitLoss = Double()
                         var roundValue = String()
                         
-                        GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
+//                        GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
                         
                         //MARK: - Get All Matched Symbols data and Set accordingly.
                         if openData.count != 0 {
@@ -1123,7 +1129,7 @@ extension AccountsViewController: GetSocketMessages {
                                                 //                                            profitLoss = (bid - priceOpen)  volume  contractSize
                                             }
                                             
-                                            GlobalVariable.instance.myProfitLossForOpenSymbolList.append(profitLoss)
+//                                            GlobalVariable.instance.myProfitLossForOpenSymbolList.append(profitLoss)
                                             
                                             if profitLoss < 0.0 {
                                                 cell.lbl_profitValue.textColor = .systemRed

@@ -28,8 +28,6 @@ class CreateAccountSelectTradeType: BottomSheetController {
         
     
     
-    
-    
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
     

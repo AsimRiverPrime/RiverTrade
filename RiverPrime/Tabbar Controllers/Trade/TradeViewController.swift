@@ -441,18 +441,49 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                     if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
                         //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
                         if GlobalVariable.instance.openSymbolList.contains(getSymbolData[i].tickMessage!.symbol) {
-                            if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
-                                if GlobalVariable.instance.myProfitLossForOpenSymbolList[i] < 0.0 {
-                                    cell.openPosSymbolColorView.backgroundColor = .systemRed
-                                } else {
-                                    cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                                        for j in 0...GlobalVariable.instance.openSymbolList.count-1 {
+                                if GlobalVariable.instance.openSymbolList[j].contains(getSymbolData[i].tickMessage!.symbol) {
+                                    
+                                    
+                                    if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+//
+                                        var symbolProfitLossSum: [String: Double] = [:]
+
+                                        // Iterate through openSymbolList to calculate total profit/loss for duplicate symbols
+                                        for (index, symbol) in GlobalVariable.instance.openSymbolList.enumerated() {
+                                            let profitLoss = GlobalVariable.instance.myProfitLossForOpenSymbolList[index]
+                                            symbolProfitLossSum[symbol, default: 0.0] += profitLoss
+                                        }
+
+                                        // Get the symbol from tableView cell
+                                        let currentSymbol = getSymbolData[i].tickMessage!.symbol
+
+                                        // Check if the symbol exists in the summed profit/loss dictionary
+                                        if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
+                                            if totalProfitLoss > 0.0 {
+                                                cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                            } else if totalProfitLoss < 0.0 {
+                                                cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                            }
+                                            break
+                                        }
+                                    }
+                                    
+                                    if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                        if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
+                                            cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                        } else {
+                                            cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                        }
+                                    } else {
+                                        cell.openPosSymbolColorView.backgroundColor = UIColor.green
+                                    }
+                                    break
                                 }
-                            } else {
-                                cell.openPosSymbolColorView.backgroundColor = UIColor.green
                             }
-//                            cell.openPosSymbolColorView.backgroundColor = UIColor.green // Match found at the same index
+                            
                         } else {
-                            cell.openPosSymbolColorView.backgroundColor = UIColor.white // Default color
+                            cell.openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
                         }
                     }
                 }

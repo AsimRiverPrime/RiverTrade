@@ -55,7 +55,7 @@ class TradeTableViewCell: UITableViewCell {
         lbl_askAmount.isUserInteractionEnabled = true
         lbl_askAmount.addGestureRecognizer(tapGesture3)
         
-        openPosSymbolColorView.layer.cornerRadius = 4.0
+        openPosSymbolColorView.layer.cornerRadius = 2.5
         
     }
     
@@ -221,7 +221,7 @@ class TradeTableViewCell: UITableViewCell {
         if GlobalVariable.instance.openSymbolList.contains(trade.symbol) {
             openPosSymbolColorView.backgroundColor = UIColor.green // Match found at the same index
         } else {
-            openPosSymbolColorView.backgroundColor = UIColor.white // Default color
+            openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
         }
         
         let pointsValues = calculatePointDifferencePips(currentBid: trade.bid, lastCloseBid: self.lastClosedValue ?? 0.0, decimalPrecision: self.digits ?? 0)

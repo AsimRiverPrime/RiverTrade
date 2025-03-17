@@ -14,6 +14,7 @@ class OdooClientNew {
     var createRequestBool : Bool = false
     
     private let baseURL = "https://mbe.riverprime.com"
+//    private let baseURL = "ws://18.116.153.208:8074"
     private let authURL = "https://mbe.riverprime.com/jsonrpc"
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost

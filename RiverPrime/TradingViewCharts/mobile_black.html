@@ -86,7 +86,7 @@
                 };
 
                 this.websocket.onerror = (error) => {
-                    console.error("WebSocket error:", JSON.stringify(error));
+                    console.error("WebSocket error:", error);
                 };
             }
 
@@ -118,19 +118,15 @@
             }
 
             handleHistoryResponse(message) {
-
                 const { symbol, chart_data } = message.message.payload;
-
                 const bars = (chart_data || []).map(item => ({
-                    time: item.time*1000,  // Convert to milliseconds
+                    time: item.datetime * 1000,  // Convert to milliseconds
                     open: item.open,
                     high: item.high,
                     low: item.low,
                     close: item.close,
-                    volume: item.tick_volume //|| Math.floor(Math.random() * 100 + 50)
+                    volume: item.volume //|| Math.floor(Math.random() * 100 + 50)
                 })).sort((a, b) => a.time - b.time);
-                                                console.error("WebSocket chart_data:", JSON.stringify( bars));
-                                                console.error("WebSocket chart_data:", symbol);
 
                 const callback = this.historyCallbacks.get(symbol);
                 if (callback) {
@@ -167,7 +163,7 @@
                         high: bid,
                         low: bid,
                         close: bid,
-                        volume: volume
+                        volume: volume || 0
                     };
                     this.currentBars.set(symbol, currentBar);
                 } else {
@@ -203,7 +199,7 @@
                 setTimeout(() => callback({
                     supports_search: false,
                     supports_group_request: false,
-                    supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W'],
+                    supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W', '1M'],
                     supports_time: true,
                     supports_timescale_marks: true
                 }), 0);
@@ -216,17 +212,18 @@
                     onResolve({
                         name: symbolName,
                         ticker: symbolName,
-                        description: `${symbolName} Price`,
+                        description: `${symbolName} Spot Price`,
                         type: 'commodity',
                         session: '24x7',
                         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        exchange: 'CUSTOM',
                         minmov: 1,
                         pricescale: pricescale,
                         has_intraday: true,
                         has_daily: true,
                         has_weekly_and_monthly: true,
                         currency_code: 'USD',
-                        supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W']
+                        supported_resolutions: ['1', '5', '15', '30', '60', '1D', '1W', '1M']
                     });
                 }, 0);
             }
@@ -240,14 +237,12 @@
         this.adjustedSymbols.add(symbol);
     }
 
-     const requestData = {
+    const requestData = {
         event_name: 'get_chart_history',
         data: {
-            symbol: symbol ,
+            symbol: symbol,
             from: params.from,
-            to: adjustedTo,
-            timeframe: resolution
-
+            to: adjustedTo
         }
     };
 
@@ -294,7 +289,6 @@
                     event_name: 'subscribe',
                     data: { channels: [symbol], resolution: resolution } // Include resolution in the subscription
                 });
-                    console.error("subscriptionMessage:", JSON.stringify(subscriptionMessage));
 
                 if (this.websocket.readyState === WebSocket.OPEN) {
                     this.websocket.send(subscriptionMessage);
@@ -327,7 +321,7 @@
     datafeedInstance.close(); // Cleanup previous instance
   }
 
-  datafeedInstance = new CustomDatafeed('wss://mbe.riverprime.com/mobile_web_socket');  //wss://5b21-2a0d-5600-122-8000-7615-bdc7-62c9-ee6b.ngrok-free.app  'ws://18.116.153.208:8074'
+  datafeedInstance = new CustomDatafeed('ws://18.116.153.208:8074');  //'wss://mbe.riverprime.com/mobile_web_socket'
 
 
             tradingViewWidget = new TradingView.widget({
@@ -340,7 +334,9 @@
                 library_path: "charting_library/",
                 locale: "en",
                 theme: 'dark',
-
+                branding: {
+                    showLogo: false,
+                },
                 disabled_features: [
                     'use_localstorage_for_settings', 'header_widget_dom_node',
                      'timeframes_toolbar',  'header_settings', 'logo', 'show_logo_on_all_charts', 'copyrights',
@@ -382,8 +378,7 @@
 };
     </script>
 </head>
-<body style="margin:0; background:transparent;">
+<body style="margin:0; background:#222;">
 <div id="tv_chart_container" style="height:100vh;"></div>
 </body>
 </html>
-

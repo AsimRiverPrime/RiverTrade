@@ -38,7 +38,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
                   let savedImage = UIImage(data: imageData) {
                    userImage.image = savedImage
                }else{
-                   userImage.image = UIImage(named: "avatarIcon")
+                   userImage.image = UIImage(systemName: "person.circle")
                }
                
             }

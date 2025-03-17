@@ -113,7 +113,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                    let savedImage = UIImage(data: imageData) {
                     imageIcon.image = savedImage
                 }else{
-                    imageIcon.image = UIImage(named: "avatarIcon")
+                    imageIcon.image = UIImage(systemName: "person.circle")
                 }
                 lbl_title.text = _name
             }

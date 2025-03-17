@@ -293,9 +293,7 @@ class CreateAccountTypeVC: BottomSheetController {
                         return
                     }
                     print("\n updating isDefault account success: ")
-                    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
-                    
-                    
+                   
                     if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: tf_password.text ?? "") {
                         print("Password successfully saved.")
                     } else {
@@ -306,8 +304,11 @@ class CreateAccountTypeVC: BottomSheetController {
                     print("All Saved Passwords on create Account: \(allPasswords)")
                     
                     if self.isReal {
-                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
-                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
+                        NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+                        self.dismiss(animated: true)
+                        
+//                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+//                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
                     }else{
                         NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
                         self.dismiss(animated: true)
