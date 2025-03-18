@@ -57,6 +57,7 @@ class AccountsViewController: BaseViewController {
     @IBOutlet weak var tblView: UITableView!
     //    var model: [String] = ["Open","Pending","Close","image"]
     @IBOutlet weak var lbl_amountPercent: UILabel!
+    @IBOutlet weak var view_percentage: UIView!
     
     @IBOutlet weak var btn_deposit: CardViewButton!
     @IBOutlet weak var btn_withdraw: CardViewButton!
@@ -418,7 +419,14 @@ extension AccountsViewController {
             }else{
                 let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
-              
+               
+                if balancePercent > 0 {
+                    view_percentage.backgroundColor = UIColor(red: 43.0/255.0, green: 96.0/255.0, blue: 56.0/255.0, alpha: 1.0)
+                    self.lbl_amountPercent.textColor = UIColor(red: 80.0/255.0, green: 205.0/255.0, blue: 136.0/255.0, alpha: 1.0)
+                }else{
+                    view_percentage.backgroundColor = UIColor(red: 1, green: 38.0/255.0, blue: 0.0, alpha: 0.35)
+                    self.lbl_amountPercent.textColor = .red
+                    }
             }
             
             actualBalance = amount // Store updated balance

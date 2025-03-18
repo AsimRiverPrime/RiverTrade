@@ -399,7 +399,7 @@
                                                         <color key="textColor" red="0.31372549020000001" green="0.80392156859999997" blue="0.53333333329999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WZy-Dd-Da0">
+                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WZy-Dd-Da0">
                                                         <rect key="frame" x="91" y="16.333333333333332" width="15" height="8.3333333333333215"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
@@ -408,7 +408,7 @@
                                                         </constraints>
                                                         <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QK-kW-Vsa">
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QK-kW-Vsa">
                                                         <rect key="frame" x="0.0" y="0.0" width="110" height="40"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain"/>
@@ -883,6 +883,7 @@
                         <outlet property="tradeTypeCollectionView" destination="Tro-ha-xiX" id="wTW-dd-AzB"/>
                         <outlet property="userImage" destination="kEB-8O-YlC" id="HXR-bA-ZpW"/>
                         <outlet property="view_CreateNewAcct" destination="g20-Dz-sUH" id="Gew-He-OEI"/>
+                        <outlet property="view_percentage" destination="FHM-ds-RAf" id="t0S-bq-3lD"/>
                         <outlet property="view_topHeader" destination="BNA-JA-b52" id="JIk-uo-3yX"/>
                     </connections>
                 </viewController>

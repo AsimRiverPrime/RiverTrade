@@ -192,7 +192,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         //        callCollectionViewAtStart()
         
         //MARK: - Get the list and save localy and set sectors and symbols.
-        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
+//        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
 //        vm.webSocketManager.delegateStartOffLineData = self
         
     }
@@ -436,54 +436,56 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             
             if update == "openPositionViewUpdate" {
                 //MARK: - If tick flag is true then we just update the label only not reload the tableview.
-                for i in 0...getSymbolData.count-1 {
-                    let indexPath = IndexPath(row: i, section: 0)
-                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
-                        //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
-                        if GlobalVariable.instance.openSymbolList.contains(getSymbolData[i].tickMessage!.symbol) {
-                                                        for j in 0...GlobalVariable.instance.openSymbolList.count-1 {
-                                if GlobalVariable.instance.openSymbolList[j].contains(getSymbolData[i].tickMessage!.symbol) {
-                                    
-                                    
-                                    if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
-//
-                                        var symbolProfitLossSum: [String: Double] = [:]
-
-                                        // Iterate through openSymbolList to calculate total profit/loss for duplicate symbols
-                                        for (index, symbol) in GlobalVariable.instance.openSymbolList.enumerated() {
-                                            let profitLoss = GlobalVariable.instance.myProfitLossForOpenSymbolList[index]
-                                            symbolProfitLossSum[symbol, default: 0.0] += profitLoss
-                                        }
-
-                                        // Get the symbol from tableView cell
-                                        let currentSymbol = getSymbolData[i].tickMessage!.symbol
-
-                                        // Check if the symbol exists in the summed profit/loss dictionary
-                                        if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
-                                            if totalProfitLoss > 0.0 {
-                                                cell.openPosSymbolColorView.backgroundColor = .systemGreen
-                                            } else if totalProfitLoss < 0.0 {
-                                                cell.openPosSymbolColorView.backgroundColor = .systemRed
+                if getSymbolData.count != 0 {
+                    for i in 0...getSymbolData.count-1 {
+                        let indexPath = IndexPath(row: i, section: 0)
+                        if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                            //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
+                            if GlobalVariable.instance.openSymbolList.contains(getSymbolData[i].tickMessage!.symbol) {
+                                for j in 0...GlobalVariable.instance.openSymbolList.count-1 {
+                                    if GlobalVariable.instance.openSymbolList[j].contains(getSymbolData[i].tickMessage!.symbol) {
+                                        
+                                        
+                                        if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                            //
+                                            var symbolProfitLossSum: [String: Double] = [:]
+                                            
+                                            // Iterate through openSymbolList to calculate total profit/loss for duplicate symbols
+                                            for (index, symbol) in GlobalVariable.instance.openSymbolList.enumerated() {
+                                                let profitLoss = GlobalVariable.instance.myProfitLossForOpenSymbolList[index]
+                                                symbolProfitLossSum[symbol, default: 0.0] += profitLoss
                                             }
-                                            break
+                                            
+                                            // Get the symbol from tableView cell
+                                            let currentSymbol = getSymbolData[i].tickMessage!.symbol
+                                            
+                                            // Check if the symbol exists in the summed profit/loss dictionary
+                                            if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
+                                                if totalProfitLoss > 0.0 {
+                                                    cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                                } else if totalProfitLoss < 0.0 {
+                                                    cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                                }
+                                                break
+                                            }
                                         }
-                                    }
-                                    
-                                    if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
-                                        if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
-                                            cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                        
+                                        if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                            if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
+                                                cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                            } else {
+                                                cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                            }
                                         } else {
-                                            cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                            cell.openPosSymbolColorView.backgroundColor = UIColor.green
                                         }
-                                    } else {
-                                        cell.openPosSymbolColorView.backgroundColor = UIColor.green
+                                        break
                                     }
-                                    break
                                 }
+                                
+                            } else {
+                                cell.openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
                             }
-                            
-                        } else {
-                            cell.openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
                         }
                     }
                 }
@@ -689,7 +691,7 @@ extension TradeViewController {
             let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
             
-            fetchHistoryChartData(item.name)
+//            fetchHistoryChartData(item.name)
         }
         
         //MARK: - Reload tablview when all data set into the list at first time.
@@ -732,7 +734,7 @@ extension TradeViewController {
                         getSymbolData[i].isTickFlag = true
                         
                         getSymbolData[i].isHistoryFlag = true
-                        fetchHistoryChartData(getSymbolData[i].tickMessage?.symbol ?? "")
+//                        fetchHistoryChartData(getSymbolData[i].tickMessage?.symbol ?? "")
                         
                         print("getSymbolData[\(i)].yesterday_close = \(getSymbolData[i].yesterday_close ?? "0.0")")
                         cell.setStyledLabel(value: Double(getSymbolData[i].yesterday_close ?? "0.0") ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
@@ -1105,7 +1107,7 @@ extension TradeViewController: GetSocketMessages {
                         if !flag {
                             getSymbolData[index].isHistoryFlag = true
                             
-                            fetchHistoryChartData(getTick.symbol)
+//                            fetchHistoryChartData(getTick.symbol)
                             
                         } else {
                             if !GlobalVariable.instance.isProcessingSymbol {
@@ -1119,7 +1121,7 @@ extension TradeViewController: GetSocketMessages {
                                             GlobalVariable.instance.isProcessingSymbolTimer = true
                                             getSymbolData[index].isHistoryFlagTimer = true
                                             
-                                            fetchHistoryChartData(getTick.symbol)
+//                                            fetchHistoryChartData(getTick.symbol)
                                             
                                         }
                                     }
@@ -1364,7 +1366,7 @@ extension TradeViewController: SocketNotSendDataDelegate {
                 getSymbolData[i].isTickFlag = true
                 
                 getSymbolData[i].isHistoryFlag = true
-                fetchHistoryChartData(getSymbolData[i].tickMessage?.symbol ?? "")
+//                fetchHistoryChartData(getSymbolData[i].tickMessage?.symbol ?? "")
                 
                 print("getSymbolData[\(i)].yesterday_close = \(getSymbolData[i].yesterday_close ?? "0.0")")
                 cell.setStyledLabel(value: Double(getSymbolData[i].yesterday_close ?? "0.0") ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
