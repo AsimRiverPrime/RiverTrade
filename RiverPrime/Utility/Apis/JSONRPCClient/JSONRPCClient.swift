@@ -19,7 +19,8 @@ class JSONRPCClient: IJSONRPCClient {
     
     static let instance = JSONRPCClient()
     
-    private let baseURL = "https://mbe.riverprime.com"  //"ws://18.116.153.208:8074"
+    private let baseURL = "https://mbe.riverprime.com"
+//    private let baseURL = "http://18.116.153.208:8069"
     
     func sendData<T: Encodable>(endPoint: Endpoint, method: HTTPMethod, request: JSONRPCRequest<T>, completion: @escaping (Result<Data?, Error>) -> Void) {
         

@@ -60,7 +60,7 @@ class ResultsViewController: UIViewController {
 //        // Set the tint color (selected segment highlight color) to yellow
 //        segmentController.tintColor = .systemYellow
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
         
         SummaryBtn.layer.borderWidth = 1
         SummaryBtn.layer.borderColor = UIColor.systemYellow.cgColor

@@ -510,8 +510,6 @@ extension AccountsViewController {
                     
                     //MARK: - END Call balance api
                     
-                    
-                    
                 }
             }else if receivedString == "Pending" {
                 DispatchQueue.global(qos: .background).async { [weak self] in
@@ -530,10 +528,8 @@ extension AccountsViewController {
         }
         // Execute the fetch on a background thread
         
-        
     }
     //MARK: - END CollectionView work.
-    
     
     @objc private func MetaTraderLogin(_ notification: Notification) {
         if let userInfo = notification.userInfo,
@@ -617,9 +613,7 @@ extension AccountsViewController: CreateAccountUpdateProtocol {
                 print("Failed to fetch balance: \(error.localizedDescription)")
             }
         })
-        
     }
-    
     
 }
 extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {

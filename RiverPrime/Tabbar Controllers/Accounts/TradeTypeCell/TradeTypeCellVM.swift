@@ -596,9 +596,9 @@ class TradeTypeCellVM {
                     "service": "object",
                     "method": "execute_kw",
                     "args": [
-                        odooClientService.dataBaseName, //"mbe.riverprime.com",
+                        odooClientService.dataBaseName,
                         uid, //6,
-                        odooClientService.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
+                        odooClientService.dbPassword, 
                         "mt.middleware",
                         "get_orders",
                         [
@@ -625,9 +625,9 @@ class TradeTypeCellVM {
                     "service": "object",
                     "method": "execute_kw",
                     "args": [
-                        odooClientService.dataBaseName, //"mbe.riverprime.com",
+                        odooClientService.dataBaseName,
                         uid, //6,
-                        odooClientService.dbPassword, //"7d2d38646cf6437034109f442596b86cbf6110c0",
+                        odooClientService.dbPassword,
                         "mt.middleware",
                         "get_deals",
                         [

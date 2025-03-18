@@ -109,7 +109,8 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
      
         if profileStep == 2 {
             let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
-                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            navigate(to: vc)
         }
     }
 }

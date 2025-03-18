@@ -524,7 +524,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount: \(ammount)")
+            print("Received ammount in trade screen: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
         }

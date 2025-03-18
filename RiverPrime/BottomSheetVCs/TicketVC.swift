@@ -1082,7 +1082,7 @@ extension TicketVC {
         
         var odooClient = OdooClientNew()
         
-        let url = "https://mbe.riverprime.com/jsonrpc"
+        let url = "https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //
         
         let parameters1: [String: Any] = [
             "jsonrpc": "2.0",

@@ -14,12 +14,12 @@ class OdooClientNew {
     var createRequestBool : Bool = false
     
     private let baseURL = "https://mbe.riverprime.com"
-//    private let baseURL = "ws://18.116.153.208:8074"
-    private let authURL = "https://mbe.riverprime.com/jsonrpc"
+//    private let baseURL = "http://18.116.153.208:8069"
+    private let authURL = "https://mbe.riverprime.com/jsonrpc" // "http://18.116.153.208:8069/jsonrpc"
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
-    var dbUserName: String = "IOS" //"IOS"
-    var dbPassword: String = "58cd1367a85b118f8cf27ebb2c573ac4c90eb35c"
+    var dbUserName: String = "IOS"
+    var dbPassword: String = "92d8e79bd3d6fc1b549f128fab3cb7b1f362ee73"
     
     var userEmail: String = ""
     var loginId = Int()
