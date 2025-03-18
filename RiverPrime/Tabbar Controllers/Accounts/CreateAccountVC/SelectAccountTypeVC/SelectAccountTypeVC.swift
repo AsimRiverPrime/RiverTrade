@@ -112,7 +112,7 @@ class SelectAccountTypeVC: BottomSheetController {
     
     private func registerCell() {
         if let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] {
-            print("user AccountsData create Account Screen is:\(savedList)")
+//            print("user AccountsData create Account Screen is:\(savedList)")
             // Clear the arrays to avoid duplicate data
            
             demoData.removeAll()
@@ -131,8 +131,8 @@ class SelectAccountTypeVC: BottomSheetController {
             demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
             realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
                
-            print("Demo Data: \(demoData)")
-            print("Real Data: \(realData)")
+            print("Demo account Data: \(demoData)\n")
+            print("Real account Data: \(realData)")
         }
        
         tableView.registerCells([
@@ -234,17 +234,71 @@ class SelectAccountTypeVC: BottomSheetController {
 //        self.dismiss(animated: true)
 
 //        dismissDelegate?.presentNextBottomSheet(screen: .selectAccountType, AccountReal: AccountReal, accounts: [], index: 0)
+       
+        var isLimitReached = Bool()
         
         let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
          if AccountReal {
                    vc.isRealAccount = true
+                isLimitReached = checkAccountsLimit(accounts: realData)
                }else{
+                   isLimitReached = checkAccountsLimit(accounts: demoData)
                    vc.isRealAccount = false
                }
-//         vc.dismissDelegate = self
-     PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        
+        if isLimitReached {
+            Alert.showAlert(withMessage: "You have already created 3 accounts. No additional accounts can be created.", andTitle: "🚫 Account Limit Reached", OKButtonText: "OK", on: self)
+        }else{
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
         
     }
+    
+    func checkAccountsLimit(accounts: [[String: Any]]) -> Bool {
+        var uniqueGroups = Set<String>()
+
+        for account in accounts {
+            if let groupName = account["groupName"] as? String, !groupName.isEmpty {
+                uniqueGroups.insert(groupName)
+            }
+        }
+
+        return uniqueGroups.count >= 3
+    }
+    
+//    func canAddGroup(existingAccounts: [[String: Any]], newAccount: [String: Any]) -> Bool {
+//        let allowedGroups: Set<String> = ["PRO", "PREMIUM", "PRIME"]
+//
+//        guard let newGroupName = newAccount["groupName"] as? String else {
+//            print("❌ Invalid account data")
+//            return false
+//        }
+//
+//        // Extract all existing group names
+//        let existingGroupNames = Set(existingAccounts.compactMap { $0["groupName"] as? String })
+//
+//        // Check if groupName is allowed
+//        if !allowedGroups.contains(newGroupName) {
+//            print("❌ Invalid group name: \(newGroupName). Allowed values: \(allowedGroups)")
+//            return false
+//        }
+//
+//        // Check if the groupName already exists
+//        if existingGroupNames.contains(newGroupName) {
+//            print("❌ Duplicate group name: \(newGroupName) is already used")
+//            return false
+//        }
+//
+//        // Check if we already have 3 different group names
+//        if existingGroupNames.count >= 3 {
+//            print("❌ Cannot add more than 3 different group names")
+//            return false
+//        }
+//
+//        // If all checks pass, allow adding the new group
+//        print("✅ Group can be added")
+//        return true
+//    }
     
     deinit {
             NotificationCenter.default.removeObserver(self)

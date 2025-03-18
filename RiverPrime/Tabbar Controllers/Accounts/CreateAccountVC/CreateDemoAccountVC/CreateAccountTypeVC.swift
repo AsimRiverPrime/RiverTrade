@@ -38,13 +38,13 @@ class CreateAccountTypeVC: BottomSheetController {
     
     let fireStoreInstance = FirestoreServices()
     let odooClientService = OdooClientNew()
-    //    let signViewModel = SignViewModel()
-    //    weak var newAccoutDelegate : CreateAccountUpdateProtocol?
+    
     weak var dismissDelegate : BottomSheetDismissDelegate?
-    //    var getSelectedAccountType = GetSelectedAccountType()
     var account: AccountModel?
-    //    let aesPasswordKey = "mySecretpasswordKey".data(using: .utf8)!
-    //    var getbalanceApi = TradeTypeCellVM()
+    
+    var demoData: [[String: Any]] = []
+    var realData: [[String: Any]] = []
+    
     var  group = String()
     var demoAccountGroup = String()
     var userAccountsPasswordData : [String: [String: String]] = [:]
@@ -53,6 +53,7 @@ class CreateAccountTypeVC: BottomSheetController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sortUserAccountsData()
         
         if let account = account {
             print("Received Account info: \(account.name)  and with account!.leverage: \(account.leverage)\n with all account detail is \(account)")
@@ -63,7 +64,6 @@ class CreateAccountTypeVC: BottomSheetController {
         lbl_accountTitle.text = "\(account!.name.uppercased()) Account"
         odooClientService.createUserAcctDelegate = self
         
-        //        selectCurrencyBtn.addTarget(self, action: #selector(showCurrencies), for: .touchUpInside)
         if let firstCurrency = currencyList.first {
             selectCurrencyBtn.setTitle(firstCurrency, for: .normal)
             self.currencyCode = firstCurrency
@@ -85,6 +85,29 @@ class CreateAccountTypeVC: BottomSheetController {
         view.addGestureRecognizer(tapGesture)
     }
     
+  func sortUserAccountsData(){
+        if let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] {
+
+            demoData.removeAll()
+            realData.removeAll()
+            for (_, account) in savedList {
+//                self.userID = account["userID"] as! String
+                if let isReal = account["isReal"] as? Int {
+                    if isReal == 0 {
+                        demoData.append(account)
+                    } else if isReal == 1 {
+                        realData.append(account)
+                    }
+                }
+            }
+            
+            demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+            realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+               
+            print("Demo account Data: \(demoData)\n")
+            print("Real account Data: \(realData)")
+        }
+    }
     override func viewWillAppear(_ animated: Bool) {
         
         self.tf_password.text = passwordManager.generateRandomPassword(length: 9)
@@ -95,13 +118,7 @@ class CreateAccountTypeVC: BottomSheetController {
         view.endEditing(true) // This will dismiss the keyboard
     }
     
-    //    @objc func showCurrencies() {
-    //        let countryCurrencyListVC = CountryCurrencyListViewController()
-    //        countryCurrencyListVC.delegate = self  // Set the delegate
-    //        let navigationController = UINavigationController(rootViewController: countryCurrencyListVC)
-    //        self.present(navigationController, animated: true, completion: nil)
-    //
-    //    }
+    
     @IBAction func currencySelect(_ sender: UIButton) {
         self.dynamicDropDownButton(sender, list: currencyList) { index, item in
             print("drop down index = \(index)")
@@ -111,42 +128,34 @@ class CreateAccountTypeVC: BottomSheetController {
             self.currencyCode = item
         }
     }
+   
+//    func showAlert(message: String) {
+//        print("\n----****-----Alert: \(message) ---***-----\n") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
+//        //        Alert.showAlert(withMessage: message, andTitle: "Warraning!", on: UIViewController?.none)
+//        
+//        let alert = UIAlertController(title: "Warraning!", message: message, preferredStyle: UIAlertController.Style.alert)
+//        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (_) in
+//            self.dismiss(animated: true)
+//        }))
+//        self.present(alert, animated: true, completion: nil)
+//    }
     
-    
-    //    func didSelectCountryCurrency(countryName: String, currencyCode: String) {
-    //        self.currencyCode = currencyCode
-    //        selectCurrencyBtn.setTitle(currencyCode, for: .normal)
-    //    }
-    
-    func validateInputs() -> Bool {
-        guard !userName.trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.ToastMessage("Please enter your username.")
-            return false
+    func checkAccountRestrictions(accounts: [[String: Any]], newGroupName: String) -> (Bool, String) {
+        let restrictedGroups: Set<String> = ["PRO", "PRIME", "PREMIUM"]
+        var existingGroups = Set<String>()
+
+        for account in accounts {
+            if let groupName = account["groupName"] as? String, !groupName.isEmpty {
+                existingGroups.insert(groupName.uppercased())
+            }
+        }
+        // Check if the user is trying to create an account with an already existing restricted group
+        if restrictedGroups.contains(newGroupName.uppercased()) && existingGroups.contains(newGroupName.uppercased()) {
+            return (false, "You already have an account in this group (\(newGroupName)). Please select a different group.")
         }
         
-        guard !currencyCode.trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.ToastMessage("Please select a currency code.")
-            return false
-        }
-        
-        guard !(self.tf_password.text ?? "").trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.ToastMessage("Please enter your password.")
-            return false
-        }
-        
-        return true
+        return (true, "")
     }
-    
-    func showAlert(message: String) {
-        print("Alert: \(message)") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
-        //        Alert.showAlert(withMessage: message, andTitle: "Warraning!", on: UIViewController?.none)
-        
-        let alert = UIAlertController(title: "Warraning!", message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (_) in
-        }))
-        self.present(alert, animated: true, completion: nil)
-    }
-    
     
     @IBAction func submitBtnAction(_ sender: Any) {
 //        if !validateInputs() {
@@ -188,19 +197,47 @@ class CreateAccountTypeVC: BottomSheetController {
             }
         }
         
-        //        if canCreateNewAccount(for: userId) {
-        // Allowed to create a new account
+//        var (isAllowed, message) = checkAccountRestrictions(accounts: demoData, newGroupName: demoAccountGroup)
+//
+//        // Handle UI Logic
+//        if !isAllowed {
+//            print(message) // Show alert with this message
+//        } else {
+//            if isReal {
+//                odooClientService.createAccount(phone: phone ?? "+97112345678", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
+//            }else{
+//                odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
+//            }
+//        }
+       
+        var isAllowed: Bool = false
+        var message: String = ""
+
         if isReal {
-            odooClientService.createAccount(phone: phone ?? "+97112345678", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
-        }else{
-            odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
+            (isAllowed, message) = checkAccountRestrictions(accounts: realData, newGroupName: demoAccountGroup)
+        } else {
+            (isAllowed, message) = checkAccountRestrictions(accounts: demoData, newGroupName: demoAccountGroup)
         }
-//        print("Account created successfully!")
-        //          } else {
-        //              // Not allowed to create a new account (Alert is already shown by `canCreateNewAccount`)
-        //              print("Failed to create account due to restrictions.")
-        //          }
-        
+        // Handle UI Logic
+        if !isAllowed {
+            print(message) // Show alert with this message
+            Alert.showAlertWithOKHandler(withHandler: message, andTitle: "⚠ Warning!", on: self) { (_) in
+                self.dismiss(animated: true)
+            }
+        } else {
+            odooClientService.createAccount(
+                phone: isReal ? (phone ?? "+97112345678") : "",
+                group: group,
+                email: userEmail,
+                currency: currencyCode,
+                leverage: 400,
+                first_name: userName,
+                last_name: "",
+                password: (self.tf_password.text ?? ""),
+                is_demo: !isReal
+            )
+        }
+
         
     }
     

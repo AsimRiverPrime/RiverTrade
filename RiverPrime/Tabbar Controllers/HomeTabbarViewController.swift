@@ -182,7 +182,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     )
                 )
                 
-                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
+//                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
             
 //            if loadSymbolData().count == 0 {
@@ -203,7 +203,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
 //            saveSymbolData(GlobalVariable.instance.symbolDataArray)
 //            print("loadSymbolData() after = \(loadSymbolData())")
             
-            print("Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)")
+            print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             //             Process and save symbols
             processSymbols(GlobalVariable.instance.symbolDataArray)
         } else {
