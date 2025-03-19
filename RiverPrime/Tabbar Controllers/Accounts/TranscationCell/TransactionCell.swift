@@ -85,10 +85,10 @@ extension TransactionCell {
         
         if data.action == 0 {
             ticketName = "Buy"
-            
+            lbl_openPriceVolume.textColor = .systemGreen
         }else if data.action == 1 {
             ticketName = "Sell"
-            
+            lbl_openPriceVolume.textColor = .systemRed
         }else if data.action == 2 {
             ticketName = "Buy Limit"
             
@@ -104,7 +104,7 @@ extension TransactionCell {
         }
         
         volume = Double(data.volume) / Double(10000)
-        print("\(volume)")
+//        print("\(volume)")
         lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at "
         lbl_openPrice.text = "$\(data.priceOpen)"
     }

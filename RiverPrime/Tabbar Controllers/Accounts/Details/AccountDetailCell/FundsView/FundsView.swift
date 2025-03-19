@@ -58,7 +58,7 @@ class FundsView: UIView {
     }
     
     func getAccountDetails(by id: String) -> AccountModel? {
-        return accountsGroup!.first { $0.id == id }
+        return accountsGroup?.first { $0.id == id }
     }
     
     @objc func notificationPopup(_ notification: NSNotification) {
@@ -96,7 +96,7 @@ class FundsView: UIView {
             }
             
             if let selectedAccount = getAccountDetails(by: self.userGroupID) {
-                print("userGroupID:\(userGroupID) and selected Account is : \(selectedAccount)")
+                print("\n userGroupID:\(userGroupID) and selected Account is : \(selectedAccount)\n ")
                 self.lbl_leverage.text = selectedAccount.leverage
                 lbl_spreadFrom.text = selectedAccount.spreadsFrom
                 lbl_startDeposit.text = "$" + String(selectedAccount.startingDeposit)

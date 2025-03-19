@@ -646,11 +646,11 @@ class TradeTypeCellVM {
         
         print("\n parameter is : \(jsonrpcBody)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             switch result {
                 
             case .success(let value):
-                print(" Open/Close/Pending LIST value is: \(value)")
+                print(" Open/Closed/Pending LIST value is: \(value)")
                 
                 do {
                     // Decode the response

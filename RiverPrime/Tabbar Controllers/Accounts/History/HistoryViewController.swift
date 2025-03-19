@@ -80,6 +80,7 @@ class HistoryViewController: BaseViewController {
         self.lbl_noPosition.isHidden = true
         self.lbl_total.isHidden = true
         self.lbl_PositionCount.isHidden = true
+        
         self.historyTableView.reloadData()
     }
     

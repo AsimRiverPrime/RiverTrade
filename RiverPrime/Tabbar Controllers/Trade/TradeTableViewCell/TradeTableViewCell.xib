@@ -30,13 +30,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFK-KI-Gsb">
-                                <rect key="frame" x="18" y="11.666666666666668" width="7.6666666666666679" height="15.666666666666668"/>
+                                <rect key="frame" x="18" y="11.666666666666668" width="8.3333333333333357" height="15.666666666666668"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZQ-2B-0cG">
-                                <rect key="frame" x="28.666666666666668" y="11.666666666666668" width="7.6666666666666679" height="15.666666666666668"/>
+                                <rect key="frame" x="29.333333333333339" y="11.666666666666668" width="7.6666666666666679" height="15.666666666666668"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="systemGreenColor"/>
                                 <nil key="highlightedColor"/>
@@ -81,14 +81,20 @@
                                     <constraint firstAttribute="height" constant="50" id="Rbs-8V-QOp"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80Z-zi-xwL">
-                                <rect key="frame" x="509.33333333333343" y="32.666666666666664" width="6.6666666666666856" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="80Z-zi-xwL">
+                                <rect key="frame" x="436" y="32.666666666666664" width="90" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="90" id="IGX-q9-0tu"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.45490193369999998" green="0.79215681550000006" blue="0.56078433989999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqL-Lb-bqR">
-                                <rect key="frame" x="286" y="32.666666666666664" width="6.6666666666666856" height="12"/>
+                                <rect key="frame" x="239.33333333333337" y="32.666666666666664" width="100" height="12"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="laJ-NF-phz"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="0.85098040100000005" green="0.3686274886" blue="0.35294118520000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -126,7 +132,7 @@
                             <constraint firstItem="JqL-Lb-bqR" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="VxG-UZ-dMX"/>
                             <constraint firstItem="JqL-Lb-bqR" firstAttribute="centerX" secondItem="EL4-mf-eee" secondAttribute="centerX" multiplier="1.1" id="Y8S-vS-RPJ"/>
                             <constraint firstItem="H5a-lF-HlH" firstAttribute="top" secondItem="gQg-vP-S0o" secondAttribute="bottom" constant="3" id="Z9R-Di-S82"/>
-                            <constraint firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" constant="10" id="a0d-bi-c5D"/>
+                            <constraint firstAttribute="trailing" secondItem="80Z-zi-xwL" secondAttribute="trailing" id="a0d-bi-c5D"/>
                             <constraint firstItem="vBa-Ja-drT" firstAttribute="leading" secondItem="H5a-lF-HlH" secondAttribute="trailing" constant="3" id="aeJ-zH-3Cs"/>
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="leading" secondItem="EL4-mf-eee" secondAttribute="leading" constant="18" id="b7f-cY-FhI"/>
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="hQe-3v-del"/>

@@ -420,7 +420,7 @@ extension AccountsViewController {
                 let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                
-                if balancePercent > 0 {
+                if balancePercent >= 0.0 {
                     view_percentage.backgroundColor = UIColor(red: 43.0/255.0, green: 96.0/255.0, blue: 56.0/255.0, alpha: 1.0)
                     self.lbl_amountPercent.textColor = UIColor(red: 80.0/255.0, green: 205.0/255.0, blue: 136.0/255.0, alpha: 1.0)
                 }else{
@@ -672,7 +672,7 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.font = .boldSystemFont(ofSize: 16)
             cell.detailTextLabel?.text = "\(totalProfitOpenClose)".trimmedTrailingZeros()
             
-            cell.textLabel?.textColor = UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
+            cell.textLabel?.textColor = .white // UIColor(red: 126/255.0, green: 130/255.0, blue: 153/255.0, alpha: 1.0)
             
             if totalProfitOpenClose < 0.0 {
                 cell.detailTextLabel?.textColor = .systemRed
@@ -1272,12 +1272,11 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
         if indexPath.row == selectedIndex {
             cell.selectedColorView.isHidden = false
             cell.backgroundColor = .clear
-            cell.layer.cornerRadius = 15.0
             cell.lbl_tradetype.textColor = .systemYellow
-            cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.lbl_tradetype.font = UIFont.boldSystemFont(ofSize: 18)
         }else{
             cell.selectedColorView.isHidden = true
-            cell.lbl_tradetype.textColor = UIColor(red: 161/255.0, green: 165/255.0, blue: 181/255.0, alpha: 1.0)
+            cell.lbl_tradetype.textColor = .white//UIColor(red: 161/255.0, green: 165/255.0, blue: 181/255.0, alpha: 1.0)
             cell.backgroundColor = .clear
             cell.lbl_tradetype.font = UIFont.systemFont(ofSize: 15)
         }
