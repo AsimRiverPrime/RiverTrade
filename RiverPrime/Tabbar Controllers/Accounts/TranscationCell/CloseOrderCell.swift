@@ -78,11 +78,13 @@ extension CloseOrderCell {
         
         if data.totalProfit < 0 {
             lbl_profitValue.textColor = .systemRed
+            let xyz = "\(data.totalProfit)".trimmedTrailingZeros()
+            lbl_profitValue.text = "-$\(abs(Double(xyz) ?? 0))"
         }else{
             lbl_profitValue.textColor = .systemGreen
+            let xyz = "\(data.totalProfit)".trimmedTrailingZeros()
+            lbl_profitValue.text = "$" + xyz
         }
-        let xyz = "\(data.totalProfit)".trimmedTrailingZeros()
-        lbl_profitValue.text = "$" + xyz
         
         
     }

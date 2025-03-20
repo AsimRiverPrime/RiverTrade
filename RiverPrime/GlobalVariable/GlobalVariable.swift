@@ -46,6 +46,7 @@ class GlobalVariable: NSObject {
     var socketNotSendData = false
       
     var balanceUpdate = "0.0"
+    var getBalanceHidden = String()
     
     var symbolDataArray: [SymbolData] = []
     var symbolDataUpdatedList: [SymbolData] = []

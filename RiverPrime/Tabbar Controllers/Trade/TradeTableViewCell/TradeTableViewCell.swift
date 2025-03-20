@@ -87,15 +87,15 @@ class TradeTableViewCell: UITableViewCell {
         
         // Attributes for normal, bold, and superscript text
         let normalAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 18),
+            .font: UIFont.systemFont(ofSize: 17),
             .foregroundColor: UIColor.white
         ]
         let boldAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 26),
+            .font: UIFont.boldSystemFont(ofSize: 25),
             .foregroundColor: boldColor
         ]
         let superscriptAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 14),
+            .font: UIFont.systemFont(ofSize: 13),
             .foregroundColor: boldColor,
             .baselineOffset: 8 // Raise the last digit slightly
         ]
@@ -153,8 +153,13 @@ class TradeTableViewCell: UITableViewCell {
     
     func calculatePointDifferencePips(currentBid: Double, lastCloseBid: Double, decimalPrecision: Int) -> Int {
         // Points are usually 10x smaller than pips
-        let pointMultiplier = Int(pow(10.0, Double(decimalPrecision)))
+        let newDigits = decimalPrecision >= 3 ? decimalPrecision - 1 : decimalPrecision
         
+        print("\n decimalPrecision/Digits::: ---> \(decimalPrecision) for symbol is: \(self.lblCurrencySymbl.text) \t new digits is: \(newDigits) \n")
+       
+        let pointMultiplier = Int(pow(10.0, Double(decimalPrecision)))
+       
+//         let result = Int(round(abs(currentBid - lastCloseBid) * Double(newDigits) * Double(pointMultiplier)))
         // Calculate the point difference
         let result = Int(round(abs(currentBid - lastCloseBid) * Double(pointMultiplier)))
         

@@ -126,6 +126,8 @@ class TicketVC: BottomSheetController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lbl_title.text = titleString + " Ticket"
+        btn_confirm.setTitle(titleString, for: .normal)
+        self.btn_confirm.setTitleColor(.systemYellow, for: .normal)
         
         selectedVolume = "Lots"
         previousSelectedVolume = selectedVolume

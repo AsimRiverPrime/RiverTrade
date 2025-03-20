@@ -16,6 +16,7 @@ class PendingTicketBottomSheetVC: BaseViewController {
     @IBOutlet weak var lbl_dateTime: UILabel!
     @IBOutlet weak var lbl_volumePrice: UILabel!
     
+    @IBOutlet weak var view_takeProfit: CardView!
     @IBOutlet weak var tf_price: UITextField!
     @IBOutlet weak var tf_takeProfit: UITextField!
     @IBOutlet weak var tf_stopLoss: UITextField!
@@ -23,7 +24,9 @@ class PendingTicketBottomSheetVC: BaseViewController {
     @IBOutlet weak var takeProfit_switch: UISwitch!
     @IBOutlet weak var stopLoss_switch: UISwitch!
     
+    @IBOutlet weak var view_stopLoss: CardView!
     @IBOutlet weak var stopLoss_view: UIStackView!
+    @IBOutlet weak var btn_save: CardViewButton!
     
     var pendingData: PendingModel?
     
@@ -241,7 +244,6 @@ class PendingTicketBottomSheetVC: BaseViewController {
                     NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Pending"])
                 })
             }
-            
         })
     }
     

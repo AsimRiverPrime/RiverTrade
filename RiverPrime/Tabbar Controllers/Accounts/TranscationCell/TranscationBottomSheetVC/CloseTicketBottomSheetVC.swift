@@ -65,32 +65,29 @@ class CloseTicketBottomSheetVC: UIViewController {
         
         var getSymbol = ""
         
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
+        if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
         }
         
         // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            // Return the icon_url if a match is found
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "NDX100" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "DJI30" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else{
-                let imageUrl = URL(string: symbolData.icon_url)
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
-        }
+//        if let symbolData = savedSymbolsDict[getSymbol] {
+//            // Return the icon_url if a match is found
+//            if symbolData.name == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "NDX100" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "DJI30" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else{
+//                let imageUrl = URL(string: symbolData.icon_url)
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
+//        }
         
     }
     
@@ -142,31 +139,37 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             let amount = String.formatStringNumber("\(data?.price ?? 0.0)")
             cell.lbl_price.text = amount
-            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
-            
+//            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
+           
+            if data?.profit == 0.0 {
+                cell.lbl_profit.text = "--"
+            }else{
+                cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
+            }
             //            self.totalValue = Double(closeData!.profit)
             let Tprofit = closeData?.totalProfit ?? 0
             let profit = data?.profit ?? 0
             
             if Tprofit < 0  {
                 self.lbl_totalPrice.textColor = .systemRed
+                let total = "\(Tprofit)".trimmedTrailingZeros()
+                self.lbl_totalPrice.text = "-$\(abs(Double(total) ?? 0))"
             } else if Tprofit > 0 {
                 self.lbl_totalPrice.textColor = .systemGreen
-                
+                let total = "\(Tprofit)".trimmedTrailingZeros()
+                self.lbl_totalPrice.text = "$" + total
             }else {
                 self.lbl_totalPrice.textColor = .white
-                
+                self.lbl_totalPrice.text = "$0"
             }
             
-            if profit < 0 {
-                cell.lbl_profit.textColor = .systemRed
-            }else if profit > 0 {
-                cell.lbl_profit.textColor = .systemGreen
-            }else{
-                cell.lbl_profit.textColor = .white
-            }
-            let total = "\(Tprofit)".trimmedTrailingZeros()
-            self.lbl_totalPrice.text = "$" + total
+//            if profit < 0 {
+//                cell.lbl_profit.textColor = .systemRed
+//            }else if profit > 0 {
+//                cell.lbl_profit.textColor = .systemGreen
+//            }else{
+//                cell.lbl_profit.textColor = .white
+//            }
             
             return cell
         }
@@ -175,9 +178,9 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.section == 0 {
-            return 40
+            return 35
         }else{
-            return 40
+            return 35
         }
     }
 }

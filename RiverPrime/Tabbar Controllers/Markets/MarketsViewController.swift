@@ -96,7 +96,11 @@ extension MarketsViewController {
                 
                 let balance = (responseModel.result.user.balance)
                 self.labelAmmount.text = "$\(String.formatStringNumber(String(balance)))"
-
+                
+                if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                    self.labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+                }
+                
                 // Example: Storing in a singleton for global access
                 UserManager.shared.currentUser = responseModel.result.user
                 
@@ -123,6 +127,11 @@ extension MarketsViewController {
             print("Received ammount in market news vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
+            
+            if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                self.labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+            }
+            
         }
         
     }

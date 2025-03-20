@@ -202,7 +202,19 @@ class AccountsViewController: BaseViewController {
         isBalanceHidden.toggle() // Toggle state
            
            let valuesss = isBalanceHidden ? "•••••••" : actualBalance // Update label
-        labelAmmount.text = "$"+valuesss
+        
+        if valuesss == "•••••••" {
+            GlobalVariable.instance.getBalanceHidden = "$"+valuesss
+        }else{
+            GlobalVariable.instance.getBalanceHidden = ""
+        }
+        
+        if Int(valuesss) ?? 0 < 0  {
+            labelAmmount.text = "-$\(abs(Double(valuesss) ?? 0))"
+        }else{
+            labelAmmount.text = "$"+valuesss
+        }
+       
            // Toggle the button icon
            btn_balanceShowHide.setImage(isBalanceHidden ? UIImage(systemName: "eye.slash") : UIImage(systemName: "eye"), for: .normal)
     }
@@ -432,9 +444,11 @@ extension AccountsViewController {
             actualBalance = amount // Store updated balance
 //            print("actualBalance value is : .... \(actualBalance)")
                if !isBalanceHidden {
-                   
-                   self.labelAmmount.text = "$\(String(describing: actualBalance))"  // Update only if not hidden
-                 
+                   if Float(actualBalance) ?? 0 < 0 {
+                       self.labelAmmount.text = "-$\(abs(Double(actualBalance) ?? 0))"
+                   }else{
+                       self.labelAmmount.text = "$\(String(describing: actualBalance))"  // Update only if not hidden
+                   }
                }
             
            
@@ -1041,8 +1055,12 @@ extension AccountsViewController: OPCDelegate {
                 totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
                 if totalProfitOpenClose < 0.0 {
                     totalCell.detailTextLabel?.textColor = .systemRed
+                    let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
+                    totalCell.detailTextLabel?.text = "-$\(abs(Double(xyz) ?? 0))"
                 }else{
                     totalCell.detailTextLabel?.textColor = .systemGreen
+                    let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
+                    totalCell.detailTextLabel?.text = "$" + xyz
                 }
             }
             return closeData.map { symbol in
@@ -1187,11 +1205,20 @@ extension AccountsViewController: GetSocketMessages {
                         if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                             totalCell.detailTextLabel?.isHidden = false
                             totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                            totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
+//                            totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
+//                            if totalProfitOpenClose < 0.0 {
+//                                totalCell.detailTextLabel?.textColor = .systemRed
+//                            }else{
+//                                totalCell.detailTextLabel?.textColor = .systemGreen
+//                            }
                             if totalProfitOpenClose < 0.0 {
                                 totalCell.detailTextLabel?.textColor = .systemRed
+                                let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
+                                totalCell.detailTextLabel?.text = "-$\(abs(Double(xyz) ?? 0))"
                             }else{
                                 totalCell.detailTextLabel?.textColor = .systemGreen
+                                let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
+                                totalCell.detailTextLabel?.text = "$" + xyz
                             }
                         }
                         

@@ -110,6 +110,14 @@ class OpenTicketBottomSheetVC: BaseViewController {
         closeBtnEnable()
         tf_partialClose.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
+        tf_takeProfit.attributedPlaceholder = NSAttributedString(
+            string: "not set",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white]
+        )
+        tf_stopLoss.attributedPlaceholder = NSAttributedString(
+            string: "not set",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white] 
+        )
     }
     
     private func getSymbolIcon() {
@@ -370,7 +378,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         }
         
         // Update the specific text field and save the new value
-        textField.text = String(format: "%.3f", currentValue)
+        textField.text = String(format: "%.\(self.digitValue)f", currentValue)
         
         // Save the updated current value back to the respective variable
         switch textField {

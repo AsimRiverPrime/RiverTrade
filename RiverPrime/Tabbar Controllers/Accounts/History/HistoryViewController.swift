@@ -206,7 +206,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch historyType {
         case .trade:
-            return 345
+            return 220
         case .transaction:
             return indexPath.row == transactionCloseData.count ? 70 : 60  // Last row has a different height
         case .none:
@@ -274,13 +274,16 @@ extension HistoryViewController {
                 print("historyClose data : \(self.transactionCloseData)")
                 
                 let totalProfitValue = self.closeData.reduce(0) { $0 + $1.totalProfit }
-                self.lbl_totalProfit.text = "$\(String(totalProfitValue).trimmedTrailingZeros())"
+               
                 
                 if totalProfitValue < 0 {
                     self.lbl_totalProfit.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)//.systemRed
-                    
+                    let abc = "\(String(totalProfitValue).trimmedTrailingZeros())"
+                    self.lbl_totalProfit.text =  "-$\(abs(Double(abc) ?? 0))"
                 }else{
                     self.lbl_totalProfit.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
+                    let abc = "\(String(totalProfitValue).trimmedTrailingZeros())"
+                    self.lbl_totalProfit.text =  "$" + abc
                 }
                 //   closeData.sort(by: { $0.LatestTime > $1.LatestTime })
                 //                self.closeData.sort { $0.LatestTime > $1.LatestTime }
@@ -289,7 +292,6 @@ extension HistoryViewController {
                 return
             }
         }
-        
     }
     
 }
@@ -374,7 +376,6 @@ extension HistoryViewController: didSelectBtnDelegate {
                 topController.view.makeToast(str)
             }
         }
-        
     }
     
     func getDate(date: String) {

@@ -195,6 +195,11 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
 //        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
 //        vm.webSocketManager.delegateStartOffLineData = self
         
+        if let symbolNames = Session.instance.filteredSymbolData/*Session.instance.symbolData*/ {
+            //MARK: - Save symbol local to unsubcibe.
+            GlobalVariable.instance.previouseSymbolList = symbolNames.map(\.name)
+        }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -507,6 +512,12 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                 print("Balance: \(responseModel.result.user.balance)")
                 print("Equity: \(responseModel.result.user.equity)")
                 self.labelAmmount.text = "$\(responseModel.result.user.balance)"
+                
+                if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                    self.labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+                }
+                   
+                
                 // Example: Storing in a singleton for global access
                 UserManager.shared.currentUser = responseModel.result.user
                 
@@ -529,6 +540,11 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             print("Received ammount in trade screen: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
+            
+            if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+            }
+            
         }
     }
     
@@ -643,46 +659,7 @@ extension TradeViewController {
             return (data: filtered, names: names)
         }
         
-        /*
-        
-        if isINIT {
-            
-            delegateDetail = self
-            
-            for item in filteredSymbolsData.data {
-                let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
-                let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
-                
-                fetchHistoryChartData(item.name)
-            }
-            
-            //MARK: - Reload tablview when all data set into the list at first time.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                self.tblView.delegate = self
-                self.tblView.dataSource = self
-                self.tblView.reloadData()
-            }
-            
-        } else {
-            
-            delegateDetail = self
-            
-            for item in filteredSymbolsData.data {
-                let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
-                let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
-                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
-                
-                fetchHistoryChartData(item.name)
-            }
-            
-        }
-        
-//        //MARK: - Get the list and save localy and set sectors and symbols.
-//        //                        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
-//                                startOfflineData()
-        
-        */
+     
         
         delegateDetail = self
         
@@ -1034,6 +1011,8 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     //MARK: - START calling Socket message from here.
                     vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: [getDeletedSymbol])
                     
+                    print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+                    
                     GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
                     // Remove the item from the data source
                     getSymbolData.remove(at: indexPath.row)
@@ -1184,7 +1163,7 @@ extension TradeViewController: GetSocketMessages {
                         
                         //                            print("\n new value is: \(newValue) \n the different in points: \(diff)")
                         
-                        let pointsValues = cell.calculatePointDifferencePips(currentBid: (getSymbolData[index].tickMessage?.bid ?? 0.0), lastCloseBid: oldBid, decimalPrecision: cell.digits ?? 0)
+                        let pointsValues = cell.calculatePointDifferencePips(currentBid: (getSymbolData[index].tickMessage?.ask ?? 0.0), lastCloseBid: oldBid, decimalPrecision: cell.digits ?? 0)
                         
                         cell.lblPercent.text = "\(percent)%"
                         
@@ -1462,5 +1441,4 @@ extension TradeViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
 }

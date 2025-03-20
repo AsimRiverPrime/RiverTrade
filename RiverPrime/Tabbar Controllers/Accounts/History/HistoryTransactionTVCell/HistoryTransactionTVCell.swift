@@ -45,7 +45,9 @@ extension HistoryTransactionTVCell {
         
         if model.profit < 0 {
             priceLbl.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) // red
-            priceLbl.text = "$\(String.formatStringNumber(String(model.profit)))"
+//            let total = "\(model.profit)".trimmedTrailingZeros()
+            priceLbl.text =  "-$\(String.formatStringNumber(String(abs(model.profit))))"
+//            priceLbl.text = "$\(String.formatStringNumber(String(model.profit)))"
         }else{
             priceLbl.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
             priceLbl.text = "$\(String.formatStringNumber(String(model.profit)))"

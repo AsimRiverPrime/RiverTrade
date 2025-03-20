@@ -89,56 +89,56 @@ extension HistoryTradeTVCell {
         print("No data found.")
         }
     
-      
-        
-        
         let createDate = Date(timeIntervalSince1970: Double(closeData.LatestTime))
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
         dateFormatter.timeZone = .current
         
         let datee = dateFormatter.string(from: createDate)
         
         self.lbl_dateTime.text = datee
             
-        
         // for image only
         var getSymbol = ""
-        if closeData.symbol.contains("..") {
-            getSymbol = String(closeData.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if closeData.symbol.contains(".") {
+       
+        if closeData.symbol.contains(".") {
             getSymbol = String(closeData.symbol.dropLast())
         } else {
             getSymbol = closeData.symbol
         }
         // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else {
-                let imageUrl = URL(string: symbolData.icon_url)
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
-        }
+//        if let symbolData = savedSymbolsDict[getSymbol] {
+//            if symbolData.name == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else {
+//                let imageUrl = URL(string: symbolData.icon_url)
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
+//        }
         
         lbl_symbolName.text = closeData.symbol
         
         if closeData.totalProfit < 0 {
-            lbl_totalPrice.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) //.systemRed
+//            lbl_totalPrice.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) //.systemRed
             self.lbl_price.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)//.systemRed
-            self.image_TotatPrice.image = UIImage(systemName: "arrow.down")
-            self.image_TotatPrice.tintColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)
+//            self.image_TotatPrice.image = UIImage(systemName: "arrow.down")
+//            self.image_TotatPrice.tintColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0)
         }else{
-            lbl_totalPrice.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
+//            lbl_totalPrice.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
             self.lbl_price.textColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0) //.systemGreen
-            self.image_TotatPrice.image = UIImage(systemName: "arrow.up")
-            self.image_TotatPrice.tintColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0)
+//            self.image_TotatPrice.image = UIImage(systemName: "arrow.up")
+//            self.image_TotatPrice.tintColor = UIColor(red: 116/255.0, green: 202/255.0, blue: 143/255.0, alpha: 1.0)
         }
-        self.lbl_price.text = "$\(closeData.totalProfit)"
-        lbl_totalPrice.text = "$\(closeData.totalProfit)"
+//        self.lbl_price.text = "$\(closeData.totalProfit)"
+        if closeData.totalProfit < 0 {
+            self.lbl_price.text = "-$\(abs(closeData.totalProfit))"
+        } else {
+            self.lbl_price.text = "$\(closeData.totalProfit)"
+        }
+        
+//        lbl_totalPrice.text = "$\(closeData.totalProfit)"
         
         orders_tableView.reloadData()
     }
@@ -174,6 +174,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             let data = closeData.repeatedFilteredArray[indexPath.row]
             let volumee = Double(data.volume ) / Double(10000)
             
+          
             
             if data.direction == 0 {
                 cell.lbl_type.text = "IN"
@@ -184,17 +185,13 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
           
             cell.lbl_volume.text = "\(volumee)"
             cell.lbl_price.text = "\(data.price )"
-            cell.lbl_profit.text = "\(data.profit)"
             
-            let profit = data.profit
-//            if profit < 0 {
-//                cell.lbl_profit.textColor = .systemRed
-//            }else if profit > 0 {
-//                cell.lbl_profit.textColor = .systemGreen
+//            if data.profit == 0.0 {
+//                cell.lbl_profit.text = "--"
 //            }else{
-//                cell.lbl_profit.textColor = .white
+//                cell.lbl_profit.text = "\(data.profit)"
 //            }
-                        
+                    
             return cell
         }
     }
@@ -202,9 +199,9 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.section == 0 {
-            return 40
+            return 35
         }else{
-            return 40
+            return 30
         }
     }
     
