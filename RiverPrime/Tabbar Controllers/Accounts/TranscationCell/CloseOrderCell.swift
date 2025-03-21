@@ -68,14 +68,15 @@ extension CloseOrderCell {
         
         let createDate = Date(timeIntervalSince1970: Double(data.LatestTime))
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        dateFormatter.timeZone = .current
-        
-        let datee = dateFormatter.string(from: createDate)
-        
-        lbl_timeValue.text = datee
-        
+        let calendar = Calendar.current
+        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+            dateFormatter.timeZone = .current
+            
+            lbl_timeValue.text = dateFormatter.string(from: updatedDate)
+        }
+       
         if data.totalProfit < 0 {
             lbl_profitValue.textColor = .systemRed
             let xyz = "\(data.totalProfit)".trimmedTrailingZeros()

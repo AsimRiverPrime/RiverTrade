@@ -415,8 +415,8 @@ extension HomeTabbarViewController: GetSocketData {
                                     }
                                     
                                     total += profitLoss
-                                    print("profitLoss = \(profitLoss)\n")
-                                    print("total = \(total)\n")
+//                                    print("profitLoss = \(profitLoss)\n")
+//                                    print("total = \(total)\n")
                                     
                                     tpValue.append(profitLoss)
                                     myProfitLoss = profitLoss
@@ -433,19 +433,19 @@ extension HomeTabbarViewController: GetSocketData {
                         
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
                         
-                        print("tpValue = \(tpValue)\n")
+//                        print("tpValue = \(tpValue)\n")
                         
                         let totalProfitOpenClose = tpValue.enumerated().reduce(0.0) { (total, indexValue) -> Double in
                             let (index, item) = indexValue
                             if GlobalVariable.instance.isAccountCreated {
                                 let getProfit = Double(item)
-                                print("getProfit \(index) = \(getProfit)")
+//                                print("getProfit \(index) = \(getProfit)")
                                 return total + getProfit
                             }
                             
                             return total
                         }
-                        print("Total Profit Open Close: \(totalProfitOpenClose)")
+//                        print("Total Profit Open Close: \(totalProfitOpenClose)")
                         
                         //MARK: - END Set Total P/L
                         

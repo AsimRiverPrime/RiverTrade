@@ -11,12 +11,12 @@ import SDWebImage
 class HistoryTradeTVCell: UITableViewCell {
 
     @IBOutlet weak var lbl_positionID: UILabel!
-    @IBOutlet weak var image_SymbolIcon: UIImageView!
+//    @IBOutlet weak var image_SymbolIcon: UIImageView!
     @IBOutlet weak var lbl_symbolName: UILabel!
-    @IBOutlet weak var lbl_typeVolume: UILabel!
+//    @IBOutlet weak var lbl_typeVolume: UILabel!
     @IBOutlet weak var lbl_dateTime: UILabel!
     @IBOutlet weak var lbl_price: UILabel!
-    @IBOutlet weak var image_TotatPrice: UIImageView!
+//    @IBOutlet weak var image_TotatPrice: UIImageView!
     
     @IBOutlet weak var orders_tableView: UITableView!
     @IBOutlet weak var lbl_totalPrice: UILabel!
@@ -28,6 +28,7 @@ class HistoryTradeTVCell: UITableViewCell {
     var ticketName = String()
      
     var totalValue: Double?
+    var datee = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -91,13 +92,25 @@ extension HistoryTradeTVCell {
     
         let createDate = Date(timeIntervalSince1970: Double(closeData.LatestTime))
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        dateFormatter.timeZone = .current
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+//        dateFormatter.timeZone = .current
+//        
+//        datee = dateFormatter.string(from: createDate)
+//        
         
-        let datee = dateFormatter.string(from: createDate)
+        // subtract 3 hours to the date
+        let calendar = Calendar.current
+        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+            dateFormatter.timeZone = .current
+
+           datee = dateFormatter.string(from: updatedDate)
+//            self.lbl_dateTime.text = formattedDate
+        }
         
-        self.lbl_dateTime.text = datee
+//        self.lbl_dateTime.text = datee
             
         // for image only
         var getSymbol = ""
@@ -174,18 +187,31 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             let data = closeData.repeatedFilteredArray[indexPath.row]
             let volumee = Double(data.volume ) / Double(10000)
             
-          
-            
-            if data.direction == 0 {
-                cell.lbl_type.text = "IN"
-                self.lbl_typeVolume.text = ticketName + " \(volumee) " + "Lot"
-            }else{
-                cell.lbl_type.text = "OUT"
+            switch closeData.action {
+            case 0:
+                ticketName = "B"
+            case 1:
+                ticketName = "S"
+            case 2:
+                ticketName = "BL"
+            case 3:
+                ticketName = "SL"
+            case 4:
+                ticketName = "BS"
+            case 5:
+                ticketName = "SS"
+            default:
+                print("No data found.")
             }
+
+            let directionText = data.direction == 0 ? "IN" : "OUT"
+            cell.lbl_type.text = "\(ticketName)/\(directionText)"
           
             cell.lbl_volume.text = "\(volumee)"
-            cell.lbl_price.text = "\(data.price )"
-            
+            cell.lbl_price.text = "\(data.price)"
+            cell.lbl_profit.text = datee
+            // self.lbl_typeVolume.text = ticketName + " \(volumee) " + "Lot"
+
 //            if data.profit == 0.0 {
 //                cell.lbl_profit.text = "--"
 //            }else{
@@ -199,9 +225,9 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.section == 0 {
-            return 35
-        }else{
             return 30
+        }else{
+            return 27
         }
     }
     

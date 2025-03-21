@@ -97,6 +97,7 @@ class SelectAccountTypeVC: BottomSheetController {
         let allPasswords = passwordManager.getAllPasswords()
         print("All Saved Passwords on create Account: \(allPasswords)")
     }
+    
     @IBAction func deleteAll(_ sender: Any) {
         firestoreObject.deleteAllUserAccounts(for: "wMmWmODl5cUTVYZFR4B6XBy981I2") { error in
             if let error = error {
@@ -254,6 +255,10 @@ class SelectAccountTypeVC: BottomSheetController {
         
     }
     
+    @IBAction func closedBtn_action(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     func checkAccountsLimit(accounts: [[String: Any]]) -> Bool {
         var uniqueGroups = Set<String>()
 
@@ -331,6 +336,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let selectedAccount = currentData[indexPath.row]

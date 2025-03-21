@@ -48,6 +48,6 @@ class CryptoVC: BaseViewController {
              // Show alert
         let alert = UIAlertController(title: "Wallet Address Copied!", message: "You can paste it anywhere.\n\(self.lbl_walletAddress.text ?? "")\n", preferredStyle: .alert)
              alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-             present(alert, animated: true)
+        present(alert, animated: true)
     }
 }

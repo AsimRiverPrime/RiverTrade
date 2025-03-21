@@ -61,6 +61,11 @@ class HistoryViewController: BaseViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "History", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
+    
     @IBAction func btn_trades(_ sender: UIButton) {
         historyType = .trade
         btnTradeView.backgroundColor = .systemYellow
@@ -151,6 +156,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch historyType {
         case .trade:
+            print("closeData count:", closeData.count)
             return closeData.count
         case .transaction:
             print("Transaction count:", transactionCloseData.count)
@@ -206,9 +212,9 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch historyType {
         case .trade:
-            return 220
+            return 160
         case .transaction:
-            return indexPath.row == transactionCloseData.count ? 70 : 60  // Last row has a different height
+            return indexPath.row == 0 ? 70 : 40
         case .none:
             return 0
         }
@@ -235,14 +241,7 @@ extension HistoryViewController {
             if let closeData1 = closeData {
 
                 var updatedModels = [NewCloseModel]()
-//
-//                for i in 0...closeData1.count-1 {
-//                                    for j in 0...closeData1[i].repeatedFilteredArray.count-1 {
-//                                        if closeData1[i].repeatedFilteredArray[j].action == 1 {
-//                                            updatedModels.append(closeData1[i])
-//                                        }
-//                                    }
-//                                }
+
                 if let firstResult = closeData1.first,
                                    closeData1.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
                                     
@@ -255,7 +254,6 @@ extension HistoryViewController {
                                             }
                                         }
                                     }
-                                    
                                     self.closeData = updatedModels
                                     
                                 } else {

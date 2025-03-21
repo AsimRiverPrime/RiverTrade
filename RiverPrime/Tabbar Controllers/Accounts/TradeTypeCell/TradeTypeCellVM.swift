@@ -632,8 +632,8 @@ class TradeTypeCellVM {
                         "get_deals",
                         [
                             [],
-                            email, //"asimprime900@gmail.com",
-                            loginId, //1012614,
+                            email,
+                            loginId,
                             fromDate ?? 0, // to previous
                             toDate ?? newTimestampInSeconds  // from current
                             
@@ -646,7 +646,7 @@ class TradeTypeCellVM {
         
         print("\n parameter is : \(jsonrpcBody)")
         
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             switch result {
                 
             case .success(let value):

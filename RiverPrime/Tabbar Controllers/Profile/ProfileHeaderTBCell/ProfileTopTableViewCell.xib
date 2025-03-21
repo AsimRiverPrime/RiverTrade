@@ -28,7 +28,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.crop.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TZp-2y-AMB">
                                 <rect key="frame" x="15" y="15.666666666666668" width="40" height="38.666666666666657"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="NEk-hF-jY5"/>
                                     <constraint firstAttribute="width" constant="40" id="ehQ-Kp-ZJu"/>
@@ -64,9 +64,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
-                                <rect key="frame" x="65" y="35" width="199" height="0.0"/>
+                                <rect key="frame" x="60" y="35" width="204" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
-                                <color key="textColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="systemGray5Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We require some details from you to enable deposit and withdrawal options for your account." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUb-Pq-J4V">
@@ -112,7 +112,7 @@
                             <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" id="4mK-6U-uHY"/>
                             <constraint firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" constant="15" id="6Jj-bT-udF"/>
                             <constraint firstItem="d2j-0h-25G" firstAttribute="trailing" secondItem="3bw-SY-Tdq" secondAttribute="trailing" id="6cL-uH-dA4"/>
-                            <constraint firstItem="qFh-nM-Xbm" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="10" id="8tP-z7-n6B"/>
+                            <constraint firstItem="qFh-nM-Xbm" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="5" id="8tP-z7-n6B"/>
                             <constraint firstItem="qct-pe-JUa" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="top" id="9qf-fq-7mX"/>
                             <constraint firstItem="d2j-0h-25G" firstAttribute="centerY" secondItem="3bw-SY-Tdq" secondAttribute="centerY" id="AsS-2a-oUU"/>
                             <constraint firstItem="qFh-nM-Xbm" firstAttribute="centerY" secondItem="TZp-2y-AMB" secondAttribute="centerY" id="D71-Ax-3GJ"/>
@@ -169,6 +169,12 @@
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

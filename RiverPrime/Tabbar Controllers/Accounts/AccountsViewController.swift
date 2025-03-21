@@ -352,19 +352,22 @@ class AccountsViewController: BaseViewController {
     
     @IBAction func historyAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.navigate(to: vc)
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func detailAction(_ sender: Any) {
         
         let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        self.navigate(to: vc)
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
     @IBAction func createAcoountAction(_ sender: Any) {
         let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
 //        vc.newAccoutDelegate = self
         vc.dismissDelegate = self
+//        self.navigate(to: vc)
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
     }
     
@@ -377,7 +380,6 @@ class AccountsViewController: BaseViewController {
         }
         
     }
-    
     
     deinit {
         // Remove observer when the view controller is deallocated
@@ -414,7 +416,6 @@ extension AccountsViewController: BottomSheetDismissDelegate {
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         }
     }
-    
 }
 
 extension AccountsViewController {
@@ -432,13 +433,15 @@ extension AccountsViewController {
                 let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                
-                if balancePercent >= 0.0 {
+                if balancePercent > 0.0 {
                     view_percentage.backgroundColor = UIColor(red: 43.0/255.0, green: 96.0/255.0, blue: 56.0/255.0, alpha: 1.0)
-                    self.lbl_amountPercent.textColor = UIColor(red: 80.0/255.0, green: 205.0/255.0, blue: 136.0/255.0, alpha: 1.0)
-                }else{
+//                    self.lbl_amountPercent.textColor = .white // UIColor(red: 80.0/255.0, green: 205.0/255.0, blue: 136.0/255.0, alpha: 1.0)
+                }else if balancePercent < 0.0{
                     view_percentage.backgroundColor = UIColor(red: 1, green: 38.0/255.0, blue: 0.0, alpha: 0.35)
-                    self.lbl_amountPercent.textColor = .red
-                    }
+//                    self.lbl_amountPercent.textColor = .white
+                }else{
+                    view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
+                }
             }
             
             actualBalance = amount // Store updated balance
@@ -450,8 +453,6 @@ extension AccountsViewController {
                        self.labelAmmount.text = "$\(String(describing: actualBalance))"  // Update only if not hidden
                    }
                }
-            
-           
             
             accountData()
         }
@@ -508,8 +509,6 @@ extension AccountsViewController {
                             }
                         }
                     }
-                    
-                    
                     
                     //MARK: - START Call balance api
                     
@@ -1162,8 +1161,16 @@ extension AccountsViewController: GetSocketMessages {
                                             
                                             cell.lbl_profitValue.text = "\(roundValue)"
                                             
-                                            let bidValuess = getSymbolData[index].tickMessage?.bid ?? 0.0 //String(format: "%.2f", getSymbolData[index].tickMessage?.bid ?? 0.0)
-                                            cell.lbl_currentPrice.text = "$\(bidValuess)"
+//                                            let xy =  openData[indexPath.row].symbol.dropLast()
+                                            if let digitss = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
+                                                
+                                                let digit = Int(GlobalVariable.instance.symbolDataArray[digitss].digits) ?? 0
+                                                let bidValuess = String(format: "%.\(digit)f", getSymbolData[index].tickMessage?.bid ?? 0.0) //getSymbolData[index].tickMessage?.bid ?? 0.0 //
+                                                cell.lbl_currentPrice.text = "$\(bidValuess)"
+                                            }
+                                            
+//                                            let bidValuess = String(format: "%.\(digit)f", getSymbolData[index].tickMessage?.bid ?? 0.0) //getSymbolData[index].tickMessage?.bid ?? 0.0 //
+//                                            cell.lbl_currentPrice.text = "$\(bidValuess)"
                                         }
                                         
                                     }else{

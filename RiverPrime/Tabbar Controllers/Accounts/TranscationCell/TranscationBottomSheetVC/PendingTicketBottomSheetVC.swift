@@ -30,8 +30,8 @@ class PendingTicketBottomSheetVC: BaseViewController {
     
     var pendingData: PendingModel?
     
-    var takeProfitList = ["Profit in %", "Profit in USD", "Profit in Pips","Profit in Price"]
-    var stopLossList = ["Loss in %", "Loss in USD", "Loss in Pips","Loss in Price"]
+    var takeProfitList = ["Profit in %",  "Profit in Pips","Profit in Price"]
+    var stopLossList = ["Loss in %",  "Loss in Pips","Loss in Price"]
     
     var currentValue: Double = 0.0
     var currentValue1: Double = 0.0
@@ -135,16 +135,21 @@ class PendingTicketBottomSheetVC: BaseViewController {
     }
     
     func timeConvert() -> String {
-        
-        let createDate = Date(timeIntervalSince1970: Double(pendingData!.timeSetup) / 1000.0 )
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
-        dateFormatter.timeZone = .current
-        
-        let datee = dateFormatter.string(from: createDate)
-        
-        return datee
+        guard let pendingData = pendingData else { return "" }
+           
+        let createDate = Date(timeIntervalSince1970: pendingData.timeSetup / 1000.0)
+           
+           // Subtract 3 hours
+           let calendar = Calendar.current
+           guard let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) else {
+               return ""
+           }
+           
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+           dateFormatter.timeZone = .current
+           
+           return dateFormatter.string(from: updatedDate)
     }
     
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
+class DetailsViewController: BaseViewController {
 
     @IBOutlet weak var fundsUnderline: UIView!
     @IBOutlet weak var settingsUnderline: UIView!
@@ -42,7 +42,10 @@ class DetailsViewController: UIViewController {
         fundsV()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Details", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
     
     override func viewDidLayoutSubviews() {
         fundsView.frame = self.view.bounds

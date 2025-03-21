@@ -18,7 +18,8 @@ class CloseTicketBottomSheetVC: UIViewController {
     @IBOutlet weak var closeValue_TableView: UITableView!
     
     var closeData: NewCloseModel?
-    var ticketName : String?
+    var ticketName = String()
+    var datee = String()
     
     var totalValue: Double?
     var vm = TransactionCellVM()
@@ -27,31 +28,41 @@ class CloseTicketBottomSheetVC: UIViewController {
         super.viewDidLoad()
         registerCell()
         
-//        self.lbl_symbolName.text = closeData?.symbol
+        //        self.lbl_symbolName.text = closeData?.symbol
         self.lbl_positionNumber.text = "#\(closeData?.position ?? 0)"
         
         getSymbolIcon()
         
         if closeData?.action == 0 {
-            ticketName = "BUY"
+            ticketName = "B"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 1 {
-            ticketName = "SELL"
+            ticketName = "S"
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 2 {
-            ticketName = "BUY Limit"
+            ticketName = "BL"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 3 {
-            ticketName = "SELL Limit"
+            ticketName = "SL"
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 4 {
-            ticketName = "BUY Stop"
+            ticketName = "BS"
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 5 {
-            ticketName = "SELL Stop"
+            ticketName = "SS"
             self.lbl_ticketName.text = "Sell Ticket"
         }
         
+        let createDate = Date(timeIntervalSince1970: Double(closeData?.LatestTime ?? 0))
+        
+        let calendar = Calendar.current
+        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+            dateFormatter.timeZone = .current
+            
+            datee = dateFormatter.string(from: updatedDate)
+        }
     }
     
     private func getSymbolIcon() {
@@ -70,24 +81,6 @@ class CloseTicketBottomSheetVC: UIViewController {
         } else {
             getSymbol = data.symbol
         }
-        
-        // Retrieve the symbol data using the name as the key
-//        if let symbolData = savedSymbolsDict[getSymbol] {
-//            // Return the icon_url if a match is found
-//            if symbolData.name == "Platinum" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else if symbolData.name == "NDX100" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else if symbolData.name == "DJI30" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else{
-//                let imageUrl = URL(string: symbolData.icon_url)
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }
-//        }
         
     }
     
@@ -129,23 +122,23 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             let data = closeData?.repeatedFilteredArray[indexPath.row]
             
-            if data?.direction == 0 {
-                cell.lbl_type.text = "IN"
-            }else{
-                cell.lbl_type.text = "OUT"
-            }
+            let directionText = data?.direction == 0 ? "IN" : "OUT"
+            cell.lbl_type.text = "\(ticketName)/\(directionText)"
+            
             let volumee = Double(data?.volume ?? 0) / Double(10000)
             cell.lbl_volume.text = "\(volumee)"
             
             let amount = String.formatStringNumber("\(data?.price ?? 0.0)")
             cell.lbl_price.text = amount
+            cell.lbl_profit.text = datee
+            
 //            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
            
-            if data?.profit == 0.0 {
-                cell.lbl_profit.text = "--"
-            }else{
-                cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
-            }
+//            if data?.profit == 0.0 {
+//                cell.lbl_profit.text = "--"
+//            }else{
+//                cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
+//            }
             //            self.totalValue = Double(closeData!.profit)
             let Tprofit = closeData?.totalProfit ?? 0
             let profit = data?.profit ?? 0

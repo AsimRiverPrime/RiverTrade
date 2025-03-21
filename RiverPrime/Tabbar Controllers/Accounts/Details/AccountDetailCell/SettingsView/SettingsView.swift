@@ -71,6 +71,12 @@ class SettingsView: UIView {
     }
     
     @IBAction func copyLoginID_action(_ sender: Any) {
+        UIPasteboard.general.string = lbl_loginID.text // Copy to clipboard
+             
+             // Show alert
+        let alert = UIAlertController(title: "Login ID Copied!", message: "You can paste it anywhere.\n\(self.lbl_loginID.text ?? "")\n", preferredStyle: .alert)
+             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        parentViewController()?.present(alert, animated: true)
         
     }
     
@@ -119,4 +125,5 @@ extension UIView {
         }
         return nil
     }
+    
 }

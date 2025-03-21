@@ -155,7 +155,7 @@ class TradeTableViewCell: UITableViewCell {
         // Points are usually 10x smaller than pips
         let newDigits = decimalPrecision >= 3 ? decimalPrecision - 1 : decimalPrecision
         
-        print("\n decimalPrecision/Digits::: ---> \(decimalPrecision) for symbol is: \(self.lblCurrencySymbl.text) \t new digits is: \(newDigits) \n")
+//        print("\n decimalPrecision/Digits::: ---> \(decimalPrecision) for symbol is: \(self.lblCurrencySymbl.text) \t new digits is: \(newDigits) \n")
        
         let pointMultiplier = Int(pow(10.0, Double(decimalPrecision)))
        
