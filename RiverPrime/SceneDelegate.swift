@@ -116,7 +116,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
 //               navigateToEmailVerificationScreen()
                 print("navigate to user email verification")
-               
+                
+                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
+                
 //            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
 //               navigateToPhoneVerificationScreen()
 //                print("/n navigate to user phone verification")
@@ -127,8 +129,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //                print("check profile step: \(profileStep)")
             } else {
                 print("navigate to Main dashboard")
-//                navigateToDemoAccountCreationScreen()
-                
+////                navigateToDemoAccountCreationScreen()
+//
                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.FaceAfterLoginConstant.key, dict: [NotificationObserver.Constants.FaceAfterLoginConstant.title: GlobalVariable.instance.controllerName])
                 
             }

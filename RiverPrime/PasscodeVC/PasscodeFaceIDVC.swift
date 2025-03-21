@@ -225,6 +225,9 @@ extension PasscodeFaceIDVC {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) { [self] in
                
                 if afterLoginNavigation {
+                    
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.UpdateTradeListConstant.key, dict: [NotificationObserver.Constants.UpdateTradeListConstant.title: "UpdateTradeList"])
+                    
                     self.navigationController?.popViewController(animated: true)
                 } else {
                     if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){

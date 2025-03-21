@@ -47,10 +47,15 @@ public class NotificationObserver {
             static let title = "title"
         }
         //MARK: -  After open position
-                struct CheckOpenPositionConstant {
-                    static let key = "openPositionViewUpdate"
-                    static let title = "title"
-                }
+        struct CheckOpenPositionConstant {
+            static let key = "openPositionViewUpdate"
+            static let title = "title"
+        }
+        //MARK: -  UpdateTradeList
+        struct UpdateTradeListConstant {
+            static let key = "UpdateTradeList"
+            static let title = "title"
+        }
     }
 
     func postNotificationObserver(key: String, dict: [String: Any]) {

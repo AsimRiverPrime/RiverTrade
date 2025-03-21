@@ -87,7 +87,9 @@ struct SectorGroup {
 class TradeViewController: BaseViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var tblView: UITableView!
-    @IBOutlet weak var tblSearchView: UITableView!
+//    @IBOutlet weak var tblSearchView: UITableView!
+    
+    private var isSearching = false
     
     //    weak var delegate: TradeInfoTapDelegate?
     weak var delegateDetail: TradeDetailTapDelegate?
@@ -95,11 +97,11 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     let vm = TradeVM()
     
     var getSymbolData = [SymbolCompleteList]()
-    var focusedSymbols = ["EURUSD", "GBPUSD", "CHFUSD", "USDJPY", "Gold", "Silver", "DJ130", "BRENT"]
+    var focusedSymbols = ["EURUSD", "GBPUSD", "CHFUSD", "Gold", "Silver", "DJ130", "BRENT"]
     
     var searchSectorData = ["Currency", "Commodities", "Energy", "Indices"]
     var symbolDataSectorSelected = false
-    var showEmptySearch = false
+//    var showEmptySearch = false
     //    var symbolDataSectorSelectedIndex = Int()
     //    var selectedSectorGroup: SectorGroup? = nil
     
@@ -168,7 +170,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
         self.searchCloseButton.setTitle("", for: .normal)
         
-        self.tblSearchView.isHidden = true
+//        self.tblSearchView.isHidden = true
         self.tblView.isHidden = false
         
         self.tf_searchSymbol.delegate = self
@@ -199,6 +201,8 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             //MARK: - Save symbol local to unsubcibe.
             GlobalVariable.instance.previouseSymbolList = symbolNames.map(\.name)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateTradeList(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.UpdateTradeListConstant.key), object: nil)
         
     }
     
@@ -257,6 +261,68 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
    
+    @objc private func UpdateTradeList(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.UpdateTradeListConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "UpdateTradeList" {
+                
+                DispatchQueue.main.async { [self] in
+                    
+//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
+                    
+//                    let getDeletedSymbol = getSymbolData[indexPath.row].tickMessage?.symbol ?? ""
+//
+//                    //MARK: - START calling Socket message from here.
+//                    vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: [getDeletedSymbol])
+//
+//                    print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
+//
+//                    GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
+//                    // Remove the item from the data source
+//                    getSymbolData.remove(at: indexPath.row)
+//                    Session.instance.filteredSymbolData?.remove(at: indexPath.row)
+                    
+                    filteredData = []
+//                    showEmptySearch = false
+                    symbolDataSectorSelected = false
+                    isSearching = false
+                    tblView.isHidden = false
+//                    tblSearchView.isHidden = true
+                    tf_searchSymbol.text = ""
+                    tf_searchSymbol.resignFirstResponder()
+                    self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+                    
+//                    if GlobalVariable.instance.symbolDataUpdatedList.count != 0 {
+//                        for i in 0...GlobalVariable.instance.symbolDataUpdatedList.count-1 {
+//                            if GlobalVariable.instance.symbolDataUpdatedList[i].name == getDeletedSymbol {
+//                                GlobalVariable.instance.symbolDataUpdatedList.remove(at: i)
+//                                break
+//                            }
+//                        }
+//                    }
+//
+////                    // Animate the deletion of the row
+////                    tableView.beginUpdates()
+////                    tableView.deleteRows(at: [indexPath], with: .automatic)
+////                    tableView.endUpdates()
+//                    tblView.reloadData()
+                    
+                    DispatchQueue.main.async {
+                        self.tblView.delegate = self
+                        self.tblView.dataSource = self
+                        self.tblView.reloadData()
+                    }
+
+                    
+//                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                }
+                
+            }
+            
+        }
+    }
     
     @IBAction func alaramBtnAction(_ sender: Any) {
 //                Alert.showAlert(withMessage: "Alarm Screen available soon", andTitle: "Alarm", on: self)
@@ -291,13 +357,21 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             //MARK: - Set all sectors by default.
             symbolDataSector = GlobalVariable.instance.sectors
             filteredData = []
-            showEmptySearch = false
-            tblView.isHidden = true
-            tblSearchView.isHidden = false
+//            showEmptySearch = false
+            tblView.isHidden = false
+            isSearching = true
+//            tblSearchView.isHidden = false
             self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-            tblSearchView.delegate = self
-            tblSearchView.dataSource = self
-            tblSearchView.reloadData()
+            
+////            tblSearchView.delegate = nil
+////            tblSearchView.dataSource = nil
+////            tblSearchView.reloadData()
+//
+            DispatchQueue.main.async {
+                self.tblView.delegate = self
+                self.tblView.dataSource = self
+                self.tblView.reloadData()
+            }
         }else{
             
             symbolDataSector.removeAll()
@@ -305,10 +379,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             symbolDataSector = GlobalVariable.instance.sectors
             //        self.symbolDataSectorSelected = false
             filteredData = []
-            showEmptySearch = false
+//            showEmptySearch = false
             self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
             self.tblView.isHidden = false
-            self.tblSearchView.isHidden = true
+//            self.tblSearchView.isHidden = true
             self.tf_searchSymbol.text = ""
             self.tf_searchSymbol.resignFirstResponder()
             
@@ -333,19 +407,35 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                 
                 isTimerRunMoreThenOnce = false
                 
+                
+                
+                
+                filteredData = []
+//                    showEmptySearch = false
+                symbolDataSectorSelected = false
+                isSearching = false
+                tblView.isHidden = false
+//                    tblSearchView.isHidden = true
+                tf_searchSymbol.text = ""
+                tf_searchSymbol.resignFirstResponder()
+                self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+                
+                
+                
+                
                 tblView.registerCells([
-                    /*AccountTableViewCell.self,TradeTVC.self, */TradeTableViewCell.self
+                    /*AccountTableViewCell.self,TradeTVC.self, */TradeTableViewCell.self, SearchTableViewCell.self
                 ])
                 
                 tblView.delegate = self
                 tblView.dataSource = self
                 
-                tblSearchView.registerCells([
-                    SearchTableViewCell.self
-                ])
-                
-                tblSearchView.delegate = self
-                tblSearchView.dataSource = self
+//                tblSearchView.registerCells([
+//                    SearchTableViewCell.self
+//                ])
+//
+//                tblSearchView.delegate = self
+//                tblSearchView.dataSource = self
                 
                 //MARK: - if Symbol Api data is exist then we must set our list data.
                 if Session.instance.symbolData?.count != 0 {
@@ -516,7 +606,6 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                 if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
                     self.labelAmmount.text = GlobalVariable.instance.getBalanceHidden
                 }
-                   
                 
                 // Example: Storing in a singleton for global access
                 UserManager.shared.currentUser = responseModel.result.user
@@ -659,7 +748,46 @@ extension TradeViewController {
             return (data: filtered, names: names)
         }
         
-     
+        /*
+        
+        if isINIT {
+            
+            delegateDetail = self
+            
+            for item in filteredSymbolsData.data {
+                let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
+                let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
+                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
+                
+                fetchHistoryChartData(item.name)
+            }
+            
+            //MARK: - Reload tablview when all data set into the list at first time.
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.tblView.delegate = self
+                self.tblView.dataSource = self
+                self.tblView.reloadData()
+            }
+            
+        } else {
+            
+            delegateDetail = self
+            
+            for item in filteredSymbolsData.data {
+                let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
+                let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
+                getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
+                
+                fetchHistoryChartData(item.name)
+            }
+            
+        }
+        
+//        //MARK: - Get the list and save localy and set sectors and symbols.
+//        //                        processSymbols(Session.instance.symbolData ?? [], isINIT: true)
+//                                startOfflineData()
+        
+        */
         
         delegateDetail = self
         
@@ -766,12 +894,20 @@ extension TradeViewController {
         symbolDataSector.append(sectorGroup)
         
         symbolDataSectorSelected = true
+        tblView.isHidden = false
+        isSearching = true
         //        symbolDataSectorSelectedIndex = collectionViewIndex
         
         
-        tblSearchView.delegate = self
-        tblSearchView.dataSource = self
-        tblSearchView.reloadData()
+////        tblSearchView.delegate = nil
+////        tblSearchView.dataSource = nil
+////        tblSearchView.reloadData()
+//
+        DispatchQueue.main.async {
+            self.tblView.delegate = self
+            self.tblView.dataSource = self
+            self.tblView.reloadData()
+        }
     }
     
 }
@@ -779,12 +915,14 @@ extension TradeViewController {
 extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if tblView.isHidden == false {
+//        if tblView.isHidden == false {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
             return 1
         } else {
-            if showEmptySearch {
-                return 0
-            }
+//            if showEmptySearch {
+//                return 0
+//            }
             //            if !filteredData.isEmpty {
             if symbolDataSectorSelected {
                 return getSectorData.count
@@ -795,15 +933,17 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !tblView.isHidden {
+//        if !tblView.isHidden {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
 //            if getSymbolData.count == 0 {
 //                startOfflineData()
 //            }
             return getSymbolData.count
         } else {
-            if showEmptySearch {
-                return 0
-            }
+//            if showEmptySearch {
+//                return 0
+//            }
             //            if !filteredData.isEmpty {
             if symbolDataSectorSelected {
                 return getSectorData[section].symbols.count
@@ -814,7 +954,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if !tblView.isHidden {
+//        if !tblView.isHidden {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
             return 80.0
         } else {
             return 50.0
@@ -824,7 +966,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableView.keyboardDismissMode = .onDrag
         
-        if !tblView.isHidden {
+//        if !tblView.isHidden {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
             
             // Register the nib for the table view cell
             let nib = UINib(nibName: "TradeTableViewCell", bundle: nil)
@@ -915,11 +1059,58 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             
             //            if !filteredData.isEmpty {
             if symbolDataSectorSelected {
+                /*
                 //                symbolDataSectorSelected = false
                 let data = getSectorData[indexPath.section]
                 
                 cell.textLabel?.text = data.symbols[indexPath.row].name
                 cell.detailTextLabel?.text = data.symbols[indexPath.row].description
+                */
+                
+//                let sectorGroup = symbolDataSectorSelected ? filteredData : symbolDataSector
+                
+                let sectorGroup: [SectorGroup]
+                if symbolDataSectorSelected && !filteredData.isEmpty {
+                    sectorGroup = filteredData
+                } else {
+                    sectorGroup = symbolDataSector
+                }
+                
+                if sectorGroup.count == 0 {
+//                    let data = getSectorData[indexPath.section]
+//
+//                    cell.textLabel?.text = data.symbols[indexPath.row].name
+//                    cell.detailTextLabel?.text = data.symbols[indexPath.row].description
+                    
+                    if let data = getSectorData[safe: indexPath.section],
+                       let symbol = data.symbols[safe: indexPath.row] {
+                        cell.textLabel?.text = symbol.name
+                        cell.detailTextLabel?.text = symbol.description
+                    }
+                } else {
+                    if let sector = sectorGroup[safe: indexPath.section],
+                       let symbol = sector.symbols[safe: indexPath.row] {
+    //                    let data = getSectorData[indexPath.section]
+                        
+                        cell.textLabel?.text = symbol.name
+                        cell.detailTextLabel?.text = symbol.description
+                    }
+                }
+                
+//                if let sector = sectorGroup[safe: indexPath.section],
+//                   let symbol = sector.symbols[safe: indexPath.row] {
+////                    let data = getSectorData[indexPath.section]
+//
+//                    cell.textLabel?.text = symbol.name
+//                    cell.detailTextLabel?.text = symbol.description
+//                } else {
+//                    if sectorGroup.count == 1 {
+//                        let data = getSectorData[indexPath.section]
+//
+//                        cell.textLabel?.text = data.symbols[indexPath.row].name
+//                        cell.detailTextLabel?.text = data.symbols[indexPath.row].description
+//                    }
+//                }
             } else {
                 let data = getSectorData[indexPath.row]
                 
@@ -934,7 +1125,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !tblView.isHidden {
+//        if !tblView.isHidden {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
             
             //MARK: - When we click on the symbol list index then it should move and show history data into the detail page.
             let getSymbolData = getSymbolData[indexPath.row]
@@ -959,10 +1152,13 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     }
                     
                     filteredData = []
-                    showEmptySearch = false
+//                    showEmptySearch = false
                     symbolDataSectorSelected = false
                     tblView.isHidden = false
-                    tblSearchView.isHidden = true
+                    
+                    isSearching = false
+                    
+//                    tblSearchView.isHidden = true
                     tf_searchSymbol.text = ""
                     tf_searchSymbol.resignFirstResponder()
                     self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -979,11 +1175,25 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     GlobalVariable.instance.previouseSymbolList.append(item.name)
                     
-                    tblSearchView.delegate = nil
-                    tblSearchView.dataSource = nil
+//                    DispatchQueue.main.async { [self] in
+//                        tblSearchView.delegate = nil
+//                        tblSearchView.dataSource = nil
+////                        tblSearchView.reloadData()
+//
+//                        let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
+//                        tblView.insertRows(at: [newIndexPath], with: .automatic)
+//                    }
                     
-                    let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
-                    tblView.insertRows(at: [newIndexPath], with: .automatic)
+//                    let newIndexPath = IndexPath(row: getSymbolData.count - 1, section: 0)
+//                    tblView.insertRows(at: [newIndexPath], with: .automatic)
+                    
+//                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    DispatchQueue.main.async {
+                        self.tblView.delegate = self
+                        self.tblView.dataSource = self
+                        self.tblView.reloadData()
+                    }
+//                    }
                     
                     //MARK: - START calling Socket message from here.
                     vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbol: item.name)
@@ -992,6 +1202,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 //                tblView.reloadData()
                 
             } else {
+                
+                isSearching = true
+                
                 self.tf_searchSymbol.resignFirstResponder()
                 getTradeSector(collectionViewIndex: indexPath.row)
             }
@@ -1002,7 +1215,9 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: - Table View Delegate (Delete Action)
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if !tblView.isHidden {
+//        if !tblView.isHidden {
+//        if filteredData.isEmpty {
+        if !isSearching && !symbolDataSectorSelected {
             if editingStyle == .delete {
                 // Ensure we update the table view on the main thread
                 DispatchQueue.main.async { [self] in
@@ -1019,10 +1234,10 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     Session.instance.filteredSymbolData?.remove(at: indexPath.row)
                     
                     filteredData = []
-                    showEmptySearch = false
+//                    showEmptySearch = false
                     symbolDataSectorSelected = false
                     tblView.isHidden = false
-                    tblSearchView.isHidden = true
+//                    tblSearchView.isHidden = true
                     tf_searchSymbol.text = ""
                     tf_searchSymbol.resignFirstResponder()
                     self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
@@ -1163,7 +1378,7 @@ extension TradeViewController: GetSocketMessages {
                         
                         //                            print("\n new value is: \(newValue) \n the different in points: \(diff)")
                         
-                        let pointsValues = cell.calculatePointDifferencePips(currentBid: (getSymbolData[index].tickMessage?.ask ?? 0.0), lastCloseBid: oldBid, decimalPrecision: cell.digits ?? 0)
+                        let pointsValues = cell.calculatePointDifferencePips(currentBid: (getSymbolData[index].tickMessage?.bid ?? 0.0), lastCloseBid: oldBid, decimalPrecision: cell.digits ?? 0)
                         
                         cell.lblPercent.text = "\(percent)%"
                         
@@ -1376,13 +1591,21 @@ extension TradeViewController: UITextFieldDelegate {
             //MARK: - Set all sectors by default.
             symbolDataSector = GlobalVariable.instance.sectors
             filteredData = []
-            showEmptySearch = false
-            tblView.isHidden = true
-            tblSearchView.isHidden = false
+//            showEmptySearch = false
+            tblView.isHidden = false
+            isSearching = true
+//            tblSearchView.isHidden = false
             self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-            tblSearchView.delegate = self
-            tblSearchView.dataSource = self
-            tblSearchView.reloadData()
+            
+////            tblSearchView.delegate = nil
+////            tblSearchView.dataSource = nil
+////            tblSearchView.reloadData()
+//
+            DispatchQueue.main.async {
+                self.tblView.delegate = self
+                self.tblView.dataSource = self
+                self.tblView.reloadData()
+            }
         }
     }
     
@@ -1392,9 +1615,18 @@ extension TradeViewController: UITextFieldDelegate {
                 symbolDataSector.removeAll()
                 //MARK: - Set all sectors by default.
                 symbolDataSector = GlobalVariable.instance.sectors
-                tblSearchView.delegate = self
-                tblSearchView.dataSource = self
-                tblSearchView.reloadData()
+                
+                isSearching = false
+                
+////                tblSearchView.delegate = nil
+////                tblSearchView.dataSource = nil
+////                tblSearchView.reloadData()
+//
+                DispatchQueue.main.async {
+                    self.tblView.delegate = self
+                    self.tblView.dataSource = self
+                    self.tblView.reloadData()
+                }
             }
         }
     }
@@ -1407,8 +1639,11 @@ extension TradeViewController: UITextFieldDelegate {
         if searchText.isEmpty {
             filteredData = [] // If the search text is empty, show all data
             symbolDataSectorSelected = false
-            showEmptySearch = false
+//            showEmptySearch = false
+            isSearching = false
         } else {
+            
+            isSearching = true
             
             // If no sector is selected, filter symbols across all sectors
             let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
@@ -1421,19 +1656,27 @@ extension TradeViewController: UITextFieldDelegate {
                 return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
             }
             
-            if filteredData.count == 0 {
-                showEmptySearch = true
-            } else {
-                showEmptySearch = false
-            }
+//            if filteredData.count == 0 {
+//                showEmptySearch = true
+//            } else {
+//                showEmptySearch = false
+//            }
             
             symbolDataSectorSelected = true
         }
         
-        tblSearchView.delegate = self
-        tblSearchView.dataSource = self
-        // Reload the table view to show the filtered data
-        tblSearchView.reloadData()
+        DispatchQueue.main.async { [self] in
+            
+////            tblSearchView.delegate = nil
+////            tblSearchView.dataSource = nil
+////            tblSearchView.reloadData()
+//
+            DispatchQueue.main.async {
+                self.tblView.delegate = self
+                self.tblView.dataSource = self
+                self.tblView.reloadData()
+            }
+        }
     }
     
     // Optional: Dismiss the keyboard when the user taps 'Return'
@@ -1441,4 +1684,5 @@ extension TradeViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
 }
