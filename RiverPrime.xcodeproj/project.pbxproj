@@ -317,6 +317,8 @@
 		42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */; };
 		701771CB2D86F81B003E3725 /* TradeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701771C82D86F81B003E3725 /* TradeTableViewCell.swift */; };
 		701771CC2D86F81B003E3725 /* TradeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 701771C92D86F81B003E3725 /* TradeTableViewCell.xib */; };
+		70624A872D8E49A10005DD3D /* NetellerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70624A862D8E49A10005DD3D /* NetellerService.swift */; };
+		70624A892D8E49BA0005DD3D /* NetellerPaymentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70624A882D8E49BA0005DD3D /* NetellerPaymentRequest.swift */; };
 		A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */; };
 		A5140CD52D296C8A00F46FC1 /* FaceIDAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */; };
 		FA10ECC72CE6A23F00C1980F /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FA10ECB42CE6A23F00C1980F /* Poppins-ExtraLight.ttf */; };
@@ -709,6 +711,8 @@
 		31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsConditionsViewController.swift; sourceTree = "<group>"; };
 		701771C82D86F81B003E3725 /* TradeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTableViewCell.swift; sourceTree = "<group>"; };
 		701771C92D86F81B003E3725 /* TradeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeTableViewCell.xib; sourceTree = "<group>"; };
+		70624A862D8E49A10005DD3D /* NetellerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetellerService.swift; sourceTree = "<group>"; };
+		70624A882D8E49BA0005DD3D /* NetellerPaymentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetellerPaymentRequest.swift; sourceTree = "<group>"; };
 		9FA0D1E3D67786D2D3C45F31 /* Pods-RiverPrime.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RiverPrime.release.xcconfig"; path = "Target Support Files/Pods-RiverPrime/Pods-RiverPrime.release.xcconfig"; sourceTree = "<group>"; };
 		A5140CD22D296C7000F46FC1 /* FaceIDAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceIDAlertView.swift; sourceTree = "<group>"; };
 		A5140CD42D296C8A00F46FC1 /* FaceIDAlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FaceIDAlertView.xib; sourceTree = "<group>"; };
@@ -952,6 +956,7 @@
 		3105DEBA2CB3E8A400D1B884 /* Deposit */ = {
 			isa = PBXGroup;
 			children = (
+				70624A852D8E49910005DD3D /* NETELLER */,
 				31D4C84E2D5CB82400456277 /* CyptoPaymentVC */,
 				3105DEB82CB3E8A400D1B884 /* TableViewCell */,
 				3105DEB92CB3E8A400D1B884 /* DepositViewController.swift */,
@@ -2058,6 +2063,15 @@
 			path = TradeTableViewCell;
 			sourceTree = "<group>";
 		};
+		70624A852D8E49910005DD3D /* NETELLER */ = {
+			isa = PBXGroup;
+			children = (
+				70624A882D8E49BA0005DD3D /* NetellerPaymentRequest.swift */,
+				70624A862D8E49A10005DD3D /* NetellerService.swift */,
+			);
+			path = NETELLER;
+			sourceTree = "<group>";
+		};
 		96823B198E4329FFFFDD0F79 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2674,6 +2688,7 @@
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */,
 				31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */,
+				70624A872D8E49A10005DD3D /* NetellerService.swift in Sources */,
 				31D2AEF42C8840B800E0CF2E /* LineSeries.swift in Sources */,
 				3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */,
 				31D2AF142C8840B800E0CF2E /* LineType.swift in Sources */,
@@ -2820,6 +2835,7 @@
 				317D7E012C91552A00902B4A /* CompleteVerificationProfileScreen6.swift in Sources */,
 				31D2AF192C8840B800E0CF2E /* PriceScaleOptions.swift in Sources */,
 				31D2AEFB2C8840B800E0CF2E /* PriceScale.swift in Sources */,
+				70624A892D8E49BA0005DD3D /* NetellerPaymentRequest.swift in Sources */,
 				31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */,
 				31836B1F2D2E4ED90017C9D4 /* EmailVC.swift in Sources */,
 				31F959FB2CD0E8A100607467 /* ChartTypeVC.swift in Sources */,

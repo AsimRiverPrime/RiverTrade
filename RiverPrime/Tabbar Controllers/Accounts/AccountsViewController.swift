@@ -1139,6 +1139,7 @@ extension AccountsViewController: GetSocketMessages {
                                                 let contractSize = Double(symbolContractSize)!
                                                 
                                                 profitLoss = (bid - priceOpen) * volume * contractSize
+                                                
                                                 if openData[myIndexPath.row].action == 1 {
                                                     profitLoss = (priceOpen - bid) * volume * contractSize
                                                 }else {
