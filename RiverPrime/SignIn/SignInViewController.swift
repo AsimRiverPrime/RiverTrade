@@ -61,7 +61,7 @@ class SignInViewController: BaseViewController {
     var _fullName : String?
     var _password: String?
     
-    let passwordManager = PasswordManager()
+//    let passwordManager = PasswordManager()
     fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
