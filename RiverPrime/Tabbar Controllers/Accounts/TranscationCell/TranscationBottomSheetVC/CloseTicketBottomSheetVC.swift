@@ -40,29 +40,20 @@ class CloseTicketBottomSheetVC: UIViewController {
             ticketName = "S"
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 2 {
-            ticketName = "BL"
+            ticketName = "BL" // but limit
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 3 {
-            ticketName = "SL"
+            ticketName = "SL"  // Sell limit
             self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 4 {
-            ticketName = "BS"
+            ticketName = "BS" // buy stop
             self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 5 {
-            ticketName = "SS"
+            ticketName = "SS"  // Sell Stop
             self.lbl_ticketName.text = "Sell Ticket"
         }
         
-        let createDate = Date(timeIntervalSince1970: Double(closeData?.LatestTime ?? 0))
-        
-        let calendar = Calendar.current
-        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
-            dateFormatter.timeZone = .current
-            
-            datee = dateFormatter.string(from: updatedDate)
-        }
+
     }
     
     private func getSymbolIcon() {
@@ -123,6 +114,25 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             let data = closeData?.repeatedFilteredArray[indexPath.row]
             
             let directionText = data?.direction == 0 ? "IN" : "OUT"
+            if data?.action == 0 {
+                ticketName = "B"
+//                self.lbl_ticketName.text = "Buy Ticket"
+            }else if data?.action == 1 {
+                ticketName = "S"
+//                self.lbl_ticketName.text = "Sell Ticket"
+            }else if data?.action == 2 {
+                ticketName = "BL" // but limit
+//                self.lbl_ticketName.text = "Buy Ticket"
+            }else if data?.action == 3 {
+                ticketName = "SL"  // Sell limit
+//                self.lbl_ticketName.text = "Sell Ticket"
+            }else if data?.action == 4 {
+                ticketName = "BS" // buy stop
+//                self.lbl_ticketName.text = "Buy Ticket"
+            }else if data?.action == 5 {
+                ticketName = "SS"  // Sell Stop
+//                self.lbl_ticketName.text = "Sell Ticket"
+            }
             cell.lbl_type.text = "\(ticketName)/\(directionText)"
             
             let volumee = Double(data?.volume ?? 0) / Double(10000)
@@ -130,7 +140,17 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             
             let amount = String.formatStringNumber("\(data?.price ?? 0.0)")
             cell.lbl_price.text = amount
-            cell.lbl_profit.text = datee
+            
+            let createDate = Date(timeIntervalSince1970: Double(data?.time ?? 0))
+            
+            let calendar = Calendar.current
+            if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+                dateFormatter.timeZone = .current
+                
+                cell.lbl_profit.text = dateFormatter.string(from: updatedDate)
+            }
             
 //            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
            

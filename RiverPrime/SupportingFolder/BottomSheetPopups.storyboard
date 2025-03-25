@@ -4057,7 +4057,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F1n-qh-0A6">
-                                <rect key="frame" x="15" y="36" width="45" height="45"/>
+                                <rect key="frame" x="7" y="33" width="45" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="J0i-vc-V6M"/>
                                     <constraint firstAttribute="height" constant="45" id="VSl-aP-p6f"/>
@@ -4234,7 +4234,7 @@
                             <constraint firstItem="2hk-ZH-GV2" firstAttribute="trailing" secondItem="iBu-vI-1nq" secondAttribute="trailing" constant="15" id="D7f-7J-nAL"/>
                             <constraint firstItem="2hk-ZH-GV2" firstAttribute="bottom" secondItem="EDQ-oI-AqI" secondAttribute="bottom" constant="70" id="FAB-Mu-aNk"/>
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="top" secondItem="iBu-vI-1nq" secondAttribute="bottom" constant="10" id="Gy1-MR-FkW"/>
-                            <constraint firstItem="F1n-qh-0A6" firstAttribute="centerY" secondItem="ccK-u0-YXD" secondAttribute="centerY" multiplier="1.05" id="LQp-hK-yzf"/>
+                            <constraint firstItem="F1n-qh-0A6" firstAttribute="centerY" secondItem="ccK-u0-YXD" secondAttribute="centerY" id="LQp-hK-yzf"/>
                             <constraint firstItem="wEV-Q6-Yam" firstAttribute="centerX" secondItem="oYg-Ng-Ok4" secondAttribute="centerX" id="Lh6-qa-IxB"/>
                             <constraint firstItem="ccK-u0-YXD" firstAttribute="top" secondItem="2hk-ZH-GV2" secondAttribute="top" constant="5" id="NgF-kJ-ySz"/>
                             <constraint firstItem="2dl-pi-h7r" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="10" id="On2-kE-Wv4"/>
@@ -4242,7 +4242,7 @@
                             <constraint firstItem="0tE-bL-0rp" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="50" id="XUA-hA-BUA"/>
                             <constraint firstItem="EDQ-oI-AqI" firstAttribute="width" secondItem="oYg-Ng-Ok4" secondAttribute="width" multiplier="0.6" id="ZNw-3D-MP2"/>
                             <constraint firstItem="0tE-bL-0rp" firstAttribute="top" secondItem="wEV-Q6-Yam" secondAttribute="bottom" constant="5" id="afq-Cw-NpL"/>
-                            <constraint firstItem="F1n-qh-0A6" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="15" id="bbV-x0-ci7"/>
+                            <constraint firstItem="F1n-qh-0A6" firstAttribute="leading" secondItem="2hk-ZH-GV2" secondAttribute="leading" constant="7" id="bbV-x0-ci7"/>
                             <constraint firstItem="wEV-Q6-Yam" firstAttribute="top" secondItem="cz2-qw-rB9" secondAttribute="bottom" id="cPN-Bf-da9"/>
                             <constraint firstItem="z1p-lx-8qc" firstAttribute="centerX" secondItem="2hk-ZH-GV2" secondAttribute="centerX" id="h3e-c0-Dl2"/>
                             <constraint firstItem="cz2-qw-rB9" firstAttribute="top" secondItem="ccK-u0-YXD" secondAttribute="bottom" id="i9a-Zb-onf"/>

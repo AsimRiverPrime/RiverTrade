@@ -430,7 +430,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     @objc func notificationTradeApiUpdate(_ notification: NSNotification) {
         
         if let update = notification.userInfo?[NotificationObserver.Constants.TradeApiUpdateConstant.title] as? String {
-            print("update: \(update)")
+//            print("update: \(update)")
             
             if update == "TradeApiUpdate" {
                 
@@ -558,7 +558,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     
     @objc private func OpenPositionViewUpdate(_ notification: Notification) {
         if let update = notification.userInfo?[NotificationObserver.Constants.CheckOpenPositionConstant.title] as? String {
-            print("update: \(update)")
+//            print("update: \(update)")
             
             if update == "openPositionViewUpdate" {
                 //MARK: - If tick flag is true then we just update the label only not reload the tableview.
@@ -657,7 +657,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount in trade screen: \(ammount)")
+//            print("Received ammount in trade screen: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
             

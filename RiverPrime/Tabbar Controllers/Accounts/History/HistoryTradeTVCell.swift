@@ -21,12 +21,10 @@ class HistoryTradeTVCell: UITableViewCell {
     @IBOutlet weak var orders_tableView: UITableView!
     @IBOutlet weak var lbl_totalPrice: UILabel!
     
-    
     var closeData = NewCloseModel()
     var vm = TransactionCellVM()
     
     var ticketName = String()
-     
     var totalValue: Double?
     var datee = String()
     
@@ -68,50 +66,6 @@ extension HistoryTradeTVCell {
         
         self.lbl_positionID.text = "#\(closeData.position)"
    
-        if closeData.action == 0 {
-            ticketName = "BUY"
-         
-        }else if closeData.action == 1 {
-            ticketName = "SELL"
-         
-        }else if closeData.action == 2 {
-            ticketName = "BUY Limit"
-        
-        }else if closeData.action == 3 {
-            ticketName = "SELL Limit"
-      
-        }else if closeData.action == 4 {
-            ticketName = "BUY Stop"
-        
-        }else if closeData.action == 5 {
-            ticketName = "SELL Stop"
-        
-        } else {
-        print("No data found.")
-        }
-    
-        let createDate = Date(timeIntervalSince1970: Double(closeData.LatestTime))
-        
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
-//        dateFormatter.timeZone = .current
-//        
-//        datee = dateFormatter.string(from: createDate)
-//        
-        
-        // subtract 3 hours to the date
-        let calendar = Calendar.current
-        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
-            dateFormatter.timeZone = .current
-
-           datee = dateFormatter.string(from: updatedDate)
-//            self.lbl_dateTime.text = formattedDate
-        }
-        
-//        self.lbl_dateTime.text = datee
-            
         // for image only
         var getSymbol = ""
        
@@ -187,7 +141,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             let data = closeData.repeatedFilteredArray[indexPath.row]
             let volumee = Double(data.volume ) / Double(10000)
             
-            switch closeData.action {
+            switch data.action {
             case 0:
                 ticketName = "B"
             case 1:
@@ -205,19 +159,26 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             }
 
             let directionText = data.direction == 0 ? "IN" : "OUT"
+           
+            let createDate = Date(timeIntervalSince1970: Double(data.time))
+            let calendar = Calendar.current
+            if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
+                dateFormatter.timeZone = .current
+                
+                cell.lbl_profit.text = dateFormatter.string(from: updatedDate)
+            }
+            
+//            let dateString = String(DateHelper.convertDateToGMT(from: Double(data.time)) ?? "0")
+//            cell.lbl_profit.text = dateString
+            
             cell.lbl_type.text = "\(ticketName)/\(directionText)"
-          
             cell.lbl_volume.text = "\(volumee)"
-            cell.lbl_price.text = "\(data.price)"
-            cell.lbl_profit.text = datee
-            // self.lbl_typeVolume.text = ticketName + " \(volumee) " + "Lot"
 
-//            if data.profit == 0.0 {
-//                cell.lbl_profit.text = "--"
-//            }else{
-//                cell.lbl_profit.text = "\(data.profit)"
-//            }
-                    
+            let amount = String.formatStringNumber("\(data.price)")
+            cell.lbl_price.text = amount
+            
             return cell
         }
     }
@@ -230,7 +191,5 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             return 27
         }
     }
-    
-
 }
 

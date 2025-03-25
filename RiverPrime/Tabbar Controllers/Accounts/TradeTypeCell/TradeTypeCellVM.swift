@@ -457,10 +457,12 @@ class TradeTypeCellVM {
                 } catch {
                     print("Decoding error: \(error.localizedDescription)")
                     completion(.failure(error))
+//                    completion("0.0")
                 }
             case .failure(let error):
                 print("API call error: \(error.localizedDescription)")
                 completion(.failure(error))
+//                completion("0.0")
             }
         }
     }
@@ -531,7 +533,8 @@ class TradeTypeCellVM {
                             print("\n !!!balance update sucess!!!!\n")
                         } else {
                             // Handle the case where success is not 1
-                            completion("No balance Found")
+//                            completion("No balance Found")
+                            completion("0.0")
                         }
                         
                     } else {
@@ -541,11 +544,13 @@ class TradeTypeCellVM {
                     }
                 } catch {
                     print("Error decoding response: \(error)")
-                    completion("Error: \(error.localizedDescription)")
+//                    completion("Error: \(error.localizedDescription)")
+                    completion("0.0")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
-                completion("\(error)")
+//                completion("\(error)")
+                completion("0.0")
             }
         }
     }

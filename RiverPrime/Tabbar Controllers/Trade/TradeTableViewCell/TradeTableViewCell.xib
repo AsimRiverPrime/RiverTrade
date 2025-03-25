@@ -91,7 +91,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H: 0000" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tY2-i1-RYZ">
-                                <rect key="frame" x="426" y="48.666666666666664" width="100" height="12"/>
+                                <rect key="frame" x="426" y="46.666666666666664" width="100" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="PZ6-HF-uxc"/>
                                 </constraints>
@@ -109,7 +109,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="L: 0000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qy-zp-Kev">
-                                <rect key="frame" x="239.33333333333337" y="48.666666666666664" width="100" height="12"/>
+                                <rect key="frame" x="239.33333333333337" y="46.666666666666664" width="100" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="2J4-8g-zLX"/>
                                 </constraints>
@@ -155,7 +155,7 @@
                             <constraint firstItem="vBa-Ja-drT" firstAttribute="leading" secondItem="H5a-lF-HlH" secondAttribute="trailing" constant="3" id="aeJ-zH-3Cs"/>
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="leading" secondItem="EL4-mf-eee" secondAttribute="leading" constant="18" id="b7f-cY-FhI"/>
                             <constraint firstItem="0Qy-zp-Kev" firstAttribute="trailing" secondItem="JqL-Lb-bqR" secondAttribute="trailing" id="blN-jy-PDT"/>
-                            <constraint firstItem="0Qy-zp-Kev" firstAttribute="top" secondItem="JqL-Lb-bqR" secondAttribute="bottom" constant="4" id="gSt-H8-m20"/>
+                            <constraint firstItem="0Qy-zp-Kev" firstAttribute="top" secondItem="JqL-Lb-bqR" secondAttribute="bottom" constant="2" id="gSt-H8-m20"/>
                             <constraint firstItem="gQg-vP-S0o" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="hQe-3v-del"/>
                             <constraint firstItem="80Z-zi-xwL" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="jCV-9y-FeK"/>
                             <constraint firstItem="tY2-i1-RYZ" firstAttribute="leading" secondItem="80Z-zi-xwL" secondAttribute="leading" id="q2q-DP-FVS"/>
@@ -164,7 +164,7 @@
                             <constraint firstItem="43J-nP-hbB" firstAttribute="centerY" secondItem="EL4-mf-eee" secondAttribute="centerY" id="vyO-bF-DZk"/>
                             <constraint firstItem="GyC-Bl-uL7" firstAttribute="centerY" secondItem="vBa-Ja-drT" secondAttribute="centerY" id="xDn-XJ-nH5"/>
                             <constraint firstItem="I7e-X0-e2j" firstAttribute="width" secondItem="EL4-mf-eee" secondAttribute="width" multiplier="0.35" id="yxN-c9-jBQ"/>
-                            <constraint firstItem="tY2-i1-RYZ" firstAttribute="top" secondItem="80Z-zi-xwL" secondAttribute="bottom" constant="4" id="zNw-ne-4M6"/>
+                            <constraint firstItem="tY2-i1-RYZ" firstAttribute="top" secondItem="80Z-zi-xwL" secondAttribute="bottom" constant="2" id="zNw-ne-4M6"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">

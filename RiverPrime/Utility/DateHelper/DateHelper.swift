@@ -10,21 +10,22 @@ import Foundation
 class DateHelper {
     
     // MARK: - Convert String to Date
-//    static func convertToDate(from dateString: String, dateFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSS", timeZone: TimeZone = TimeZone(abbreviation: "UTC")!) -> Date? {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = dateFormat // Default format
-//        dateFormatter.timeZone = timeZone     // Default to UTC
-//      
-//        
-//        if let date = dateFormatter.date(from: dateString) {
-//            return date
-//        }
-//        // If that fails, try parsing without milliseconds
-//        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-//        let datee = dateFormatter.date(from: dateString)
-//        return datee
-//      
-//    }
+    static func convertDateToGMT(from time: Double) -> String? {
+        
+        
+        let timestamp: TimeInterval = time // Your API timestamp
+        let date = Date(timeIntervalSince1970: timestamp)
+
+        let dateFormatter = DateFormatter()
+//        dateFormatter.timeZone = TimeZone(abbreviation: "GMT") // Set timezone to GMT
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss" // Customize the date format
+
+        let gmtTime = dateFormatter.string(from: date)
+        print("GMT Time: \(gmtTime)")
+        return gmtTime
+    }
+    
     static func convertToDate(
         from dateString: String,
         dateFormat: [String] = ["yyyy-MM-dd'T'HH:mm:ss.SSS", "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd HH:mm:ss"],

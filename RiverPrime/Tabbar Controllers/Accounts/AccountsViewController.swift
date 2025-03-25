@@ -1128,7 +1128,7 @@ extension AccountsViewController: GetSocketMessages {
                                 
                                 //                                   let myIndexPath = IndexPath(row: i, section: 3)
                                 let myIndexPath = IndexPath(row: i, section: 1)
-                                print("my current index \(myIndexPath)")
+//                                print("my current index \(myIndexPath)")
                                 
                                 
                                 if let cell = tblView.cellForRow(at: myIndexPath) as? TransactionCell {
@@ -1201,7 +1201,7 @@ extension AccountsViewController: GetSocketMessages {
                                     
                                     // Safely unwrap the profit value
                                     let getProfit = Double(cell.lbl_profitValue.text ?? "") ?? 0.0
-                                    print("getProfit \(index) = \(getProfit)")
+//                                    print("getProfit \(index) = \(getProfit)")
                                     
                                     return total + getProfit
                                 }
@@ -1210,7 +1210,7 @@ extension AccountsViewController: GetSocketMessages {
                             return total
                         }
                         
-                        print("Total Profit Open Close: \(totalProfitOpenClose)")
+//                        print("Total Profit Open Close: \(totalProfitOpenClose)")
                         
                         //MARK: - END Set Total P/L
                         
