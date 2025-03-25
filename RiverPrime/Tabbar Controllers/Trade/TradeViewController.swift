@@ -199,7 +199,30 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         
         if let symbolNames = Session.instance.filteredSymbolData/*Session.instance.symbolData*/ {
             //MARK: - Save symbol local to unsubcibe.
-            GlobalVariable.instance.previouseSymbolList = symbolNames.map(\.name)
+//            GlobalVariable.instance.previouseSymbolList = symbolNames.map(\.name)
+            
+            //MARK: - Merge OPEN list with the given list.
+            let getList = Array(Set(GlobalVariable.instance.openSymbolList + symbolNames.map(\.name)))
+            GlobalVariable.instance.previouseSymbolList = getList
+            
+            //MARK: - START calling Socket message from here.
+            vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: getList)
+            
+            //MARK: - START calling Socket message from here.
+            vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: getList)
+            
+            //MARK: - This check is added for removing extra dots and fix text and fonts of trade list.
+            if getSymbolData.count != 0 {
+                for i in 0...getSymbolData.count-1 {
+                    let indexPath = IndexPath(row: i, section: 0)
+                    if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                        getSymbolData[i].isTickFlag = true
+                        cell.setStyledLabel(value: getSymbolData[i].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
+                        cell.setStyledLabel(value: getSymbolData[i].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
+                    }
+                }
+            }
+            
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateTradeList(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.UpdateTradeListConstant.key), object: nil)
@@ -255,12 +278,20 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             if receivedString == "TradeVC" {
                 let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
                 faceIdVC.afterLoginNavigation = true
-                self.navigate(to: faceIdVC)
+//                self.navigate(to: faceIdVC)
+//                PresentModalController.instance.presentBottomSheet(self, VC: faceIdVC)
+                faceIdVC.modalPresentationStyle = .overFullScreen
+                if let sheet = faceIdVC.sheetPresentationController {
+//                        sheet.detents = [.medium(), .large()] // Adjust as needed
+                        sheet.prefersGrabberVisible = true
+                    }
+                guard let topVC = faceIdVC.topMostViewController() else { return }
+                topVC.present(faceIdVC, animated: true, completion: nil)
             }
             
         }
     }
-   
+    
     @objc private func UpdateTradeList(_ notification: Notification) {
         if let userInfo = notification.userInfo,
            let receivedString = userInfo[NotificationObserver.Constants.UpdateTradeListConstant.title] as? String {

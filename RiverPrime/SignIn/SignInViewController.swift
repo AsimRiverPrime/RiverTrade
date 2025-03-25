@@ -250,7 +250,13 @@ class SignInViewController: BaseViewController {
       
         GlobalVariable.instance.userEmail = self.emailUser ?? ""
         
-        self.navigate(to: verifyVC)
+//        self.navigate(to: verifyVC)
+         verifyVC.modalPresentationStyle = .overFullScreen
+         if let sheet = verifyVC.sheetPresentationController {
+                 sheet.prefersGrabberVisible = true
+             }
+         guard let topVC = verifyVC.topMostViewController() else { return }
+         topVC.present(verifyVC, animated: true, completion: nil)
     }
     
 }

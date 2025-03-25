@@ -836,7 +836,7 @@ class TicketVC: BottomSheetController {
                 price.0 = "Stop"
                 price.1 = Double(liveValue) ?? 0.0
                 price.2 = true
-            } else { //TODO: STOP Price.
+            } else { //TODO: Market check here.
                 self.type = 1
                 price.0 = ""
                 price.1 = 0.0
@@ -855,7 +855,7 @@ class TicketVC: BottomSheetController {
                 price.0 = "Stop"
                 price.1 = Double(liveValue) ?? 0.0
                 price.2 = true
-            } else { //TODO: STOP Price.
+            } else { //TODO: Market check here.
                 self.type = 0
                 price.0 = ""
                 price.1 = 0.0
@@ -1013,7 +1013,6 @@ class TicketVC: BottomSheetController {
                             isConfirmEnable[1].2 = "Profit"
                         }
                     }
-                  
                 }
                 if loss.2 == true && loss.0 == "Loss" {
                     if !isFirstValueStopLoss {
@@ -1044,7 +1043,6 @@ class TicketVC: BottomSheetController {
                             isConfirmEnable[2].2 = "Loss"
                         }
                     }
-               
                 }
                 
             } else if price.2 == true && price.0 == "Stop" { //TODO: STOP ORDER TYPE

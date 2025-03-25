@@ -9,7 +9,7 @@ import UIKit
 import LocalAuthentication
 
 
-class PasscodeFaceIDVC: UIViewController {
+class PasscodeFaceIDVC: BaseViewController {
     
     @IBOutlet weak var lbl_enterCode: UILabel!
     @IBOutlet var view_dots: [UIView]!
@@ -228,18 +228,33 @@ extension PasscodeFaceIDVC {
                     
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.UpdateTradeListConstant.key, dict: [NotificationObserver.Constants.UpdateTradeListConstant.title: "UpdateTradeList"])
                     
-                    self.navigationController?.popViewController(animated: true)
+//                    self.navigationController?.popViewController(animated: true)
+                    self.dismiss(animated: true)
                 } else {
                     if let dashboardVC = self.instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
                         self.navigate(to: dashboardVC)
                     }
                 }
-                
-                
 //                self.navigationController?.dismiss(animated: true, completion: nil)
-                
-                
         }
     }
  
+}
+
+extension PasscodeFaceIDVC {
+    
+    func topMostViewController() -> UIViewController? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return nil
+        }
+
+        var topVC = window.rootViewController
+        while let presentedVC = topVC?.presentedViewController {
+            topVC = presentedVC
+        }
+        return topVC
+    }
+
+    
 }

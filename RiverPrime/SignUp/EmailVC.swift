@@ -294,7 +294,13 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
      
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
         faceIdVC.afterLoginNavigation = false
-        self.navigate(to: faceIdVC)
+//        self.navigate(to: faceIdVC)
+        faceIdVC.modalPresentationStyle = .overFullScreen
+        if let sheet = faceIdVC.sheetPresentationController {
+                sheet.prefersGrabberVisible = true
+            }
+        guard let topVC = faceIdVC.topMostViewController() else { return }
+        topVC.present(faceIdVC, animated: true, completion: nil)
     }
     
     func createMTAccount() {
