@@ -996,8 +996,8 @@ extension AccountsViewController: OPCDelegate {
                 
                 let getSymbol = getSymbol(item: item.symbol)
                 
-                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
-                GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
+                GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
             }
             //            let indexPath = IndexPath(row: 0, section: 2)
             let indexPath = IndexPath(row: 0, section: 0)
@@ -1019,7 +1019,7 @@ extension AccountsViewController: OPCDelegate {
                 
                 let getSymbol = getSymbol(item: item.symbol)
                 
-                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
             }
             totalProfitOpenClose = 0.0
             //            let indexPath = IndexPath(row: 0, section: 2)
@@ -1042,7 +1042,7 @@ extension AccountsViewController: OPCDelegate {
                 
                 let getSymbol = getSymbol(item: item.symbol)
                 
-                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+                self.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
                 
             }
             totalProfitOpenClose = 0.0

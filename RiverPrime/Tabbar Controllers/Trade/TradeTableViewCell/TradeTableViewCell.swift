@@ -23,6 +23,8 @@ class TradeTableViewCell: UITableViewCell {
     @IBOutlet weak var lbl_datetime: UILabel!
     @IBOutlet weak var lbl_pointsDiff: UILabel!
     @IBOutlet weak var openPosSymbolColorView: UIView!
+    @IBOutlet weak var lbl_bid_low: UILabel!
+    @IBOutlet weak var lbl_ask_high: UILabel!
     
     //    private var chart: LightweightCharts? // Chart reference to keep it persistent
     //    private var series: AreaSeries? // The chart's area series

@@ -49,7 +49,7 @@
 		<key>Braintree-BraintreeCore_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>78</integer>
+			<integer>74</integer>
 		</dict>
 		<key>Braintree-BraintreeVenmo_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
@@ -59,7 +59,7 @@
 		<key>Braintree.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>77</integer>
+			<integer>80</integer>
 		</dict>
 		<key>CountryPickerView-CountryPickerView_CountryPickerView.xcscheme</key>
 		<dict>
@@ -351,17 +351,17 @@
 		<key>PaysafePaymentsSDK-Paysafe3DS_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>80</integer>
+			<integer>79</integer>
 		</dict>
 		<key>PaysafePaymentsSDK-PaysafeApplePay_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>76</integer>
+			<integer>77</integer>
 		</dict>
 		<key>PaysafePaymentsSDK-PaysafeCardPayments_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>74</integer>
+			<integer>75</integer>
 		</dict>
 		<key>PaysafePaymentsSDK-PaysafePaymentsSDK.xcscheme_^#shared#^_</key>
 		<dict>
@@ -371,12 +371,12 @@
 		<key>PaysafePaymentsSDK-PaysafeVenmo_PrivacyInfo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>79</integer>
+			<integer>78</integer>
 		</dict>
 		<key>PaysafePaymentsSDK.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>75</integer>
+			<integer>76</integer>
 		</dict>
 		<key>PhoneNumberKit-PhoneNumberKitPrivacy.xcscheme</key>
 		<dict>

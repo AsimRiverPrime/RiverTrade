@@ -25,6 +25,8 @@ struct TradeDetails: Codable {
     let bid: Double
     let url: String?
     let close: Int?
+    let ask_high : Double
+    let bid_low : Double
 }
 
 // SymbolChartData for history/chart data

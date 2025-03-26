@@ -823,7 +823,7 @@ extension TradeViewController {
         delegateDetail = self
         
         for item in filteredSymbolsData.data {
-            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
+            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil, ask_high: 0, bid_low: 0)
             let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
             
@@ -884,15 +884,10 @@ extension TradeViewController {
                         cell.contentView.alpha = 1.0
                         
                         GlobalVariable.instance.socketNotSendData = true
-                        
                     }
-                    
                 }
-                
             }
-
         }
-        
     }
     
     //MARK: - Just reload the given tableview section.
@@ -1194,7 +1189,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     tf_searchSymbol.resignFirstResponder()
                     self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
                     
-                    let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil)
+                    let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: 0.0, bid: 0.0, url: item.icon_url, close: nil, ask_high: 0, bid_low: 0)
                     let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
                     getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: false, isHistoryFlag: false, isHistoryFlagTimer: false))
                     
@@ -1361,6 +1356,9 @@ extension TradeViewController: GetSocketMessages {
                         getSymbolData[index].isTickFlag = true
                         cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
                         cell.setStyledLabel(value: getSymbolData[index].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
+                        
+                        cell.lbl_bid_low.text = "L: \(getSymbolData[index].tickMessage?.bid_low ?? 0)"
+                        cell.lbl_ask_high.text = "H: \(getSymbolData[index].tickMessage?.ask_high ?? 0)"
                         
                         let pipsValues = cell.calculatePips(ask: getSymbolData[index].tickMessage?.ask ?? 0.0, bid: getSymbolData[index].tickMessage?.bid ?? 0.0, digits: cell.digits ?? 0)
                         cell.lbl_pipsValues.text = "\(pipsValues)"
@@ -1558,7 +1556,7 @@ extension TradeViewController: SocketNotSendDataDelegate {
         }
         
         for item in filteredSymbolsData.data {
-            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil)
+            let tradedetail = TradeDetails(datetime: 0, symbol: item.name, ask: Double(item.yesterday_close) ?? 0.0, bid: Double(item.yesterday_close) ?? 0.0, url: item.icon_url, close: nil, ask_high: 0, bid_low: 0)
             let symbolChartData = SymbolChartData(symbol: item.name, chartData: [])
             getSymbolData.append(SymbolCompleteList(tickMessage: tradedetail, yesterday_close: item.yesterday_close, trading_sessions_ids: item.trading_sessions_ids, historyMessage: symbolChartData, icon_url: item.icon_url, isTickFlag: true, isHistoryFlag: true, isHistoryFlagTimer: true))
         }

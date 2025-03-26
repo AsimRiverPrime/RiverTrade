@@ -341,7 +341,7 @@ extension HomeTabbarViewController {
                             
                             let getSymbol = self.getSymbol(item: item.symbol)
                             
-                            GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0)))
+                            GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
                         }
                         //MARK: - END to update values for socket dynamic method at start.
                         
