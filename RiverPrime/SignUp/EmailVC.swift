@@ -362,7 +362,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                               print("All Saved Passwords on create Account: \(allPasswords)")
                                
                             NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
-                                  self.dismiss(animated: true)
+//                                  self.dismiss(animated: true)
 //                              }
                           }
                           

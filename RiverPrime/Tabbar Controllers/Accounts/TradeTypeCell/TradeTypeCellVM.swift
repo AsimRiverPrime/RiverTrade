@@ -398,7 +398,7 @@ class TradeTypeCellVM {
     func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
         var pass = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _pass = savedUserData["password"] as? String {
+            if let _email = savedUserData["email"] as? String/*, let _pass = savedUserData["password"] as? String*/ {
                 email = _email
                 
             }

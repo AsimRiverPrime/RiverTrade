@@ -52,9 +52,9 @@ class LoginPopupVC: BaseViewController {
         self.lbl_wrongPassword.isHidden = true
         // Do any additional setup after loading the view.
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String, let _pass = savedUserData["password"] as? String{
+            if let _email = savedUserData["email"] as? String/*, let _pass = savedUserData["password"] as? String*/{
                 email = _email
-                password_tf.text = _pass
+//                password_tf.text = _pass
             }
         }
         

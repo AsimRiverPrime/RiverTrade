@@ -301,7 +301,7 @@ extension SignInViewController {
                         }
                     } else {
                         SVProgressHUD.dismiss()
-                        Alert.showAlertWithOKHandler(withHandler: "This user not exist, please open an Account", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
+                        Alert.showAlertWithOKHandler(withHandler: "This email is not registered. Please sign up first before logging in.", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
                             self.navigationController?.popViewController(animated: true)
                         })
                        
@@ -419,34 +419,64 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                     UserDefaults.standard.set(user.uid, forKey: "userID")
                     //self.emailUser = user.email ?? ""
                     //                    GlobalVariable.instance.userEmail = self.emailUser!
-                    
                     self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
                         if let error = error {
                             print("Error checking for existing user: \(error.localizedDescription)")
+                            return
                         }
                         
                         if let snapshot = querySnapshot, !snapshot.isEmpty {
-                            print("User with this email already exists.")
+                            print("✅ User with this email already exists.")
                             
                             self.firebaseInstance.fetchUserData(userId: user.uid)
-                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                            })
-                            
+                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {})
+
                             let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                                print("Timer fired!")
-                                
-//                                self.firebaseInstance.handleFaceID()
+                                print("⏳ Timer fired! Navigating to Face ID...")
                                 self.navigateToFaceID()
                             }
                             
-                        }else{
-//                            self.ToastMessage("This user not exist, please open an Account")
-                            Alert.showAlertWithOKHandler(withHandler: "This user not exist, please open an Account", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
-                                self.navigationController?.popViewController(animated: true)
-                            })
+                        } else {
+                            print("❌ User not found in Firestore. Prompting user to sign up.")
                             
+                            // Show Alert Message
+                            Alert.showAlertWithOKHandler(
+                                withHandler: "This email is not registered. Please sign up first before logging in.",
+                                andTitle: "Error!",
+                                OKButtonText: "OK",
+                                on: self
+                            ) { action in
+                                self.navigationController?.popViewController(animated: true)
+                            }
                         }
                     }
+//                    self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
+//                        if let error = error {
+//                            print("Error checking for existing user: \(error.localizedDescription)")
+//                        }
+//                        
+//                        if let snapshot = querySnapshot, !snapshot.isEmpty {
+//                            print("User with this email already exists.")
+//                            
+//                            self.firebaseInstance.fetchUserData(userId: user.uid)
+//                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
+//                            })
+//                            
+//                            let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+//                                print("Timer fired!")
+//                                
+////                                self.firebaseInstance.handleFaceID()
+//                                self.navigateToFaceID()
+//                            }
+//                            
+//                        }else{
+////                            self.ToastMessage("This user not exist, please open an Account")
+//                            Alert.showAlertWithOKHandler(withHandler: "This user not exist, please open an Account", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
+//                                self.navigationController?.popViewController(animated: true)
+//                            })
+//                            
+//                        }
+//                    }
                 }
             }
         }
