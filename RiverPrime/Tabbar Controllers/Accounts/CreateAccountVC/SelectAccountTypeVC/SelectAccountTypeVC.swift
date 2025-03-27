@@ -112,40 +112,51 @@ class SelectAccountTypeVC: BottomSheetController {
     }
     
     private func registerCell() {
-        if let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] {
-//            print("user AccountsData create Account Screen is:\(savedList)")
-            // Clear the arrays to avoid duplicate data
+        guard let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
+            return
+        }
+        print("savedList of accounts: \(savedList)")
+        
+        demoData.removeAll()
+        realData.removeAll()
+        for (_, account) in savedList {
+            self.userID = account["userID"] as! String
            
-            demoData.removeAll()
-            realData.removeAll()
-            for (_, account) in savedList {
-                self.userID = account["userID"] as! String
-                if let isReal = account["isReal"] as? Int {
-                    if isReal == 0 {
-                        demoData.append(account)
-                    } else if isReal == 1 {
-                        realData.append(account)
-                    }
+            if let isReal = account["isReal"] as? Int {
+                if isReal == 0 {
+                    demoData.append(account)
+                } else if isReal == 1 {
+                    realData.append(account)
                 }
             }
-            
-            demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
-            realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
-               
-            print("Demo account Data: \(demoData)\n")
-            print("Real account Data: \(realData)")
         }
-       
+        
+        demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+        realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
+           
+        print("Demo account Data: \(demoData)\n")
+        print("Real account Data: \(realData)")
+        
         tableView.registerCells([
             SelectAccountTypeCell.self
         ])
 
-        currentData = demoData
+       
 //        sortCurrentData()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.reloadData()
-        updateButtonStyles(selectedButton: demoButton)
+        
+//        let isReal = savedList.filter {($0.value["isReal"] as? Int) == 1}
+       
+        if savedList.contains(where: { $0.value["isReal"] as? Int == 1 && $0.value["isDefault"] as? Int == 1 }) {
+            currentData = realData
+            updateButtonStyles(selectedButton: realButton)
+        }else{
+            currentData = demoData
+            updateButtonStyles(selectedButton: demoButton)
+        }
+       
         if demoData.count == 0 {
             self.nodata_label.isHidden = false
         }else{
@@ -204,7 +215,7 @@ class SelectAccountTypeVC: BottomSheetController {
             realButton.tintColor = .white
             demo_undelineView.backgroundColor = .systemYellow
             real_undelineView.backgroundColor = .lightGray
-            self.lbl_accountDescription.text = "Risk-free account. Trade with Virtual money."
+//            self.lbl_accountDescription.text = "Risk-free account. Trade with Virtual money."
             if demoData.count == 0 {
                 self.btn_createAccount.setTitle("Create New Demo Account", for: .normal)
                 
@@ -218,7 +229,7 @@ class SelectAccountTypeVC: BottomSheetController {
             demoButton.tintColor = .white
             real_undelineView.backgroundColor = .systemYellow
             demo_undelineView.backgroundColor = .lightGray
-            self.lbl_accountDescription.text = "Trade with real money and withdraw any profit you make."
+//            self.lbl_accountDescription.text = "Trade with real money and withdraw any profit you make."
           
             if realData.count == 0 {
                 self.btn_createAccount.setTitle("Create New Real Account", for: .normal)
@@ -271,40 +282,6 @@ class SelectAccountTypeVC: BottomSheetController {
         return uniqueGroups.count >= 3
     }
     
-//    func canAddGroup(existingAccounts: [[String: Any]], newAccount: [String: Any]) -> Bool {
-//        let allowedGroups: Set<String> = ["PRO", "PREMIUM", "PRIME"]
-//
-//        guard let newGroupName = newAccount["groupName"] as? String else {
-//            print("❌ Invalid account data")
-//            return false
-//        }
-//
-//        // Extract all existing group names
-//        let existingGroupNames = Set(existingAccounts.compactMap { $0["groupName"] as? String })
-//
-//        // Check if groupName is allowed
-//        if !allowedGroups.contains(newGroupName) {
-//            print("❌ Invalid group name: \(newGroupName). Allowed values: \(allowedGroups)")
-//            return false
-//        }
-//
-//        // Check if the groupName already exists
-//        if existingGroupNames.contains(newGroupName) {
-//            print("❌ Duplicate group name: \(newGroupName) is already used")
-//            return false
-//        }
-//
-//        // Check if we already have 3 different group names
-//        if existingGroupNames.count >= 3 {
-//            print("❌ Cannot add more than 3 different group names")
-//            return false
-//        }
-//
-//        // If all checks pass, allow adding the new group
-//        print("✅ Group can be added")
-//        return true
-//    }
-    
     deinit {
             NotificationCenter.default.removeObserver(self)
         }
@@ -323,7 +300,7 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(with: SelectAccountTypeCell.self, for: indexPath)
-        
+//        cell.isUserInteractionEnabled = true
         let account = currentData[indexPath.row]
                 cell.configureCell(account: account)
                 cell.delegate = self
@@ -339,10 +316,30 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let selectedAccount = currentData[indexPath.row]
-           if let accountNumber = selectedAccount["accountNumber"] as? Int {
-               didTapButton(accountNumber: accountNumber)
-           }
+        for i in 0...currentData.count - 1 {
+            
+            let indexPath = IndexPath(row: i, section: 0)
+
+            if let cell = tableView.cellForRow(at: indexPath) as? SelectAccountTypeCell {
+                cell.isUserInteractionEnabled = false
+                cell.btn_checkAccount.tintColor = .systemGray
+                cell.btn_checkAccount.setImage(UIImage(systemName: "circle"), for: .normal)
+            }
+        }
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? SelectAccountTypeCell {
+//            cell.isUserInteractionEnabled = false
+            cell.btn_checkAccount.tintColor = .systemYellow
+            cell.btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+            if let accountNumber = selectedAccount["accountNumber"] as? Int {
+                didTapButton(accountNumber: accountNumber)
+            }
+        }
     }
 }
 

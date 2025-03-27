@@ -63,16 +63,8 @@ class SelectAccountTypeCell: UITableViewCell {
 
        private func updateButtonState() {
           
-           if isDefault {
-               btn_checkAccount.tintColor = .systemYellow
-               btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
-
-               btn_checkAccount.isHidden = false
-           }else{
-//               btn_checkAccount.isHidden = true
-               btn_checkAccount.setImage(UIImage(systemName: "circle"), for: .normal)
-               btn_checkAccount.tintColor = .lightGray
-           }
+           btn_checkAccount.tintColor = isDefault ? .systemYellow : .lightGray
+           btn_checkAccount.setImage(UIImage(systemName: isDefault ? "checkmark.circle" : "circle"), for: .normal)
        }
 
        @IBAction func checkButtonTapped(_ sender: UIButton) {

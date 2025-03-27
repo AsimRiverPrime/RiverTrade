@@ -85,20 +85,20 @@ extension TransactionCell {
         
         if data.action == 0 {
             ticketName = "Buy"
-            lbl_openPriceVolume.textColor = .systemBlue
+            lbl_openPriceVolume.textColor = UIColor(red: 100/255, green: 236/255, blue: 255/255, alpha: 1)
         }else if data.action == 1 {
             ticketName = "Sell"
             lbl_openPriceVolume.textColor = .systemYellow
         }else if data.action == 2 {
             ticketName = "Buy Limit"
-            lbl_openPriceVolume.textColor = .systemBlue
+            lbl_openPriceVolume.textColor = UIColor(red: 100/255, green: 236/255, blue: 255/255, alpha: 1)
 
         }else if data.action == 3 {
             ticketName = "Sell Limit"
             lbl_openPriceVolume.textColor = .systemYellow
         }else if data.action == 4 {
             ticketName = "Buy Stop"
-            lbl_openPriceVolume.textColor = .systemBlue
+            lbl_openPriceVolume.textColor = UIColor(red: 100/255, green: 236/255, blue: 255/255, alpha: 1)
 
         }else if data.action == 5 {
             ticketName = "Sell Stop"

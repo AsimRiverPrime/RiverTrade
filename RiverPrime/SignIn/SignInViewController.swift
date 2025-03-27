@@ -353,6 +353,7 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!
     }
+    
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("Sign in with Apple error: \(error.localizedDescription)")
     }

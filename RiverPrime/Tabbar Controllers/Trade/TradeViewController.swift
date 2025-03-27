@@ -1357,8 +1357,11 @@ extension TradeViewController: GetSocketMessages {
                         cell.setStyledLabel(value: getSymbolData[index].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
                         cell.setStyledLabel(value: getSymbolData[index].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
                         
-                        cell.lbl_bid_low.text = "L: \(getSymbolData[index].tickMessage?.bid_low ?? 0)"
-                        cell.lbl_ask_high.text = "H: \(getSymbolData[index].tickMessage?.ask_high ?? 0)"
+//                        cell.lbl_bid_low.text = "L: \(getSymbolData[index].tickMessage?.bid_low ?? 0)"
+                        let formattedBidLow = String(format: "%.\(cell.digits ?? 2)f", getSymbolData[index].tickMessage?.bid_low ?? 0)
+                        cell.lbl_bid_low.text = "L: \(formattedBidLow)"
+                        let formattedAskHigh = String(format: "%.\(cell.digits ?? 2)f", getSymbolData[index].tickMessage?.ask_high ?? 0)
+                        cell.lbl_ask_high.text = "H: \(formattedAskHigh)"
                         
                         let pipsValues = cell.calculatePips(ask: getSymbolData[index].tickMessage?.ask ?? 0.0, bid: getSymbolData[index].tickMessage?.bid ?? 0.0, digits: cell.digits ?? 0)
                         cell.lbl_pipsValues.text = "\(pipsValues)"

@@ -402,16 +402,38 @@ extension HomeTabbarViewController: GetSocketData {
                             if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) {
                                 let x =  openData[index].symbol.dropLast()
                                 if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-                                    
+//                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+//                                    
+//                                    let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
+//                                    let priceOpen = Double(openData[i].priceOpen)
+//                                    let volume = Double(openData[i].volume) / 10000
+//                                    let contractSize = Double(symbolContractSize)!
+//                                    
+//                                    var profitLoss = (bid - priceOpen) * volume * contractSize
+//                                    if openData[i].action == 1 {
+//                                        profitLoss = (priceOpen - bid) * volume * contractSize
+//                                    }
+                                    let symbolData = GlobalVariable.instance.symbolDataArray[contractValue]
+                                    let symbolContractSize = Double(symbolData.contractSize) ?? 1.0
+                                    let symbolSector = symbolData.sector // Assuming "Currency" is a valid sector value
+
                                     let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
                                     let priceOpen = Double(openData[i].priceOpen)
                                     let volume = Double(openData[i].volume) / 10000
-                                    let contractSize = Double(symbolContractSize)!
+                                    var profitLoss = Double()
                                     
-                                    var profitLoss = (bid - priceOpen) * volume * contractSize
-                                    if openData[i].action == 1 {
-                                        profitLoss = (priceOpen - bid) * volume * contractSize
+                                    if symbolSector == "Currency" {
+                                        // Use alternative P&L calculation for currency pairs
+                                        profitLoss = ((bid - priceOpen) * volume * symbolContractSize) / bid
+                                        if openData[i].action == 1 {
+                                            profitLoss = ((priceOpen - bid) * volume * symbolContractSize) / bid
+                                        }
+                                    } else {
+                                        // Default P&L calculation
+                                        profitLoss = (bid - priceOpen) * volume * symbolContractSize
+                                        if openData[i].action == 1 {
+                                            profitLoss = (priceOpen - bid) * volume * symbolContractSize
+                                        }
                                     }
                                     
                                     total += profitLoss
