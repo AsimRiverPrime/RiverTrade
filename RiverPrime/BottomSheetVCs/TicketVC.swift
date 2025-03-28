@@ -12,6 +12,7 @@ import CryptoKit
 class TicketVC: BottomSheetController {
     
     @IBOutlet weak var lbl_title: UILabel!
+    @IBOutlet weak var lbl_symbolName: UILabel!
     //MARK: - volume Outlets
     @IBOutlet weak var tf_volume: UITextField!
     @IBOutlet weak var lbl_volumeDropdown: UILabel!
@@ -62,6 +63,7 @@ class TicketVC: BottomSheetController {
     @IBOutlet weak var btn_confirm: UIButton!
     
     var getSymbolDetail = SymbolCompleteList()
+    var odooClient = OdooClientNew()
     
     var titleString: String = ""
     var volumeList = ["Lots", "USD"]
@@ -94,8 +96,7 @@ class TicketVC: BottomSheetController {
     var volumeMin: Int?
     var bidValue: Double?
     var selectedSymbol: String?
-    
-    
+        
     var userLoginID: Int?
     var userPassword: String?
     var userEmail: String?
@@ -128,7 +129,7 @@ class TicketVC: BottomSheetController {
         lbl_title.text = titleString + " Ticket"
         btn_confirm.setTitle(titleString, for: .normal)
         self.btn_confirm.setTitleColor(.systemYellow, for: .normal)
-        
+     
         selectedVolume = "Lots"
         previousSelectedVolume = selectedVolume
         //        volume = 0.01
@@ -155,37 +156,35 @@ class TicketVC: BottomSheetController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
         fetchSymbolDetail()
+        
+        tf_stopLoss.attributedPlaceholder = NSAttributedString(
+            string: "not set",
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        tf_takeProfit.attributedPlaceholder = NSAttributedString(
+                string: "not set",
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+
     }
-  
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//    }
-//    
-//    @objc func keyboardWillShow(_ notification: Notification) {
-//        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
-//            let keyboardHeight = keyboardFrame.height - 10
-//            UIView.animate(withDuration: 0.3) {
-//                self.view.frame.origin.y = -keyboardHeight / 2
-//            }
-//        }
-//    }
-//    @objc func keyboardWillHide(_ notification: Notification) {
-//        UIView.animate(withDuration: 0.3) {
-//            self.view.frame.origin.y = 0
-//        }
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     
     @objc func notificationPopup(_ notification: NSNotification) {
-        
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
             print("Received ammount in ticket vc : \(ammount)")
             self.lbl_totalBalance.text = "$\(ammount)"
         }
-        
     }
     
     func fetchSymbolDetail() {
-        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let email = savedUserData["email"] as? String{
                 self.userEmail = email
@@ -200,6 +199,7 @@ class TicketVC: BottomSheetController {
             
             // print("\nsymbol Detail: \(obj) \n")
             selectedSymbol = obj.name
+            lbl_symbolName.text = selectedSymbol
             contractSize = Int("\(obj.contractSize)")
             volumeStep = Int("\(obj.volumeStep)")
             volumeMax = Int("\(obj.volumeMax)")
@@ -1677,8 +1677,6 @@ extension TicketVC {
     
     func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
-        
-        var odooClient = OdooClientNew()
         
         let url = "https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //
         

@@ -93,7 +93,7 @@
         <!--TicketVC-->
         <scene sceneID="Ewe-If-Gqq">
             <objects>
-                <viewController storyboardIdentifier="TicketVC" id="ew4-AL-7tN" customClass="TicketVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TicketVC" modalPresentationStyle="overFullScreen" id="ew4-AL-7tN" customClass="TicketVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bTF-qv-P7Y">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -122,6 +122,12 @@
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BUY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aPE-C3-t2p">
                                                 <rect key="frame" x="15" y="30" width="37.5" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <color key="textColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BTd-OT-jbq">
+                                                <rect key="frame" x="394" y="41" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                                 <color key="textColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -547,7 +553,7 @@
                                                                             <action selector="takeProfitMinus_action:" destination="ew4-AL-7tN" eventType="touchUpInside" id="fkq-7q-pAd"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="not set" placeholder="not set" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8fS-4i-8sH">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="not set" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8fS-4i-8sH">
                                                                         <rect key="frame" x="38" y="9.5" width="105.5" height="21"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -768,7 +774,7 @@
                                                                             <action selector="stopLossMinus_action:" destination="ew4-AL-7tN" eventType="touchUpInside" id="nhV-Z9-X1X"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="not set" placeholder="not set" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgd-tc-gdp">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="not set" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dgd-tc-gdp">
                                                                         <rect key="frame" x="38" y="9.5" width="105.5" height="21"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -1057,7 +1063,9 @@
                                             <constraint firstItem="Iuo-a2-C9Q" firstAttribute="centerY" secondItem="thk-ZD-UfN" secondAttribute="centerY" id="7IS-dJ-I7r"/>
                                             <constraint firstItem="FGd-YV-AXo" firstAttribute="top" secondItem="wWV-yS-ls9" secondAttribute="bottom" constant="10" id="7m6-Ww-1aq"/>
                                             <constraint firstItem="aPE-C3-t2p" firstAttribute="leading" secondItem="uCx-di-h7d" secondAttribute="leading" constant="15" id="DWn-6j-NFu"/>
+                                            <constraint firstAttribute="trailing" secondItem="BTd-OT-jbq" secondAttribute="trailing" constant="20" id="Ew1-Bm-E4v"/>
                                             <constraint firstItem="Qhj-OA-k6F" firstAttribute="leading" secondItem="FGd-YV-AXo" secondAttribute="leading" id="FZq-YY-zjf"/>
+                                            <constraint firstItem="BTd-OT-jbq" firstAttribute="centerY" secondItem="aPE-C3-t2p" secondAttribute="centerY" id="IiW-2z-0YV"/>
                                             <constraint firstItem="zyx-gF-lmV" firstAttribute="centerX" secondItem="uCx-di-h7d" secondAttribute="centerX" id="Kcc-oi-eve"/>
                                             <constraint firstItem="zyx-gF-lmV" firstAttribute="top" secondItem="uCx-di-h7d" secondAttribute="top" constant="5" id="T0o-Dm-vsg"/>
                                             <constraint firstItem="wWV-yS-ls9" firstAttribute="top" secondItem="nR9-bx-Fdc" secondAttribute="bottom" constant="10" id="Xfr-3e-ZVi"/>
@@ -1087,6 +1095,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="N4M-vY-KY7"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="TRe-Lg-ujc" secondAttribute="bottom" id="6pc-c9-NQT"/>
@@ -1111,6 +1120,7 @@
                         <outlet property="lbl_stopLossDropDown" destination="4vZ-CD-UAF" id="FFI-Sl-zyu"/>
                         <outlet property="lbl_stopLossPercentage" destination="wax-9Q-1ws" id="kn0-aP-z48"/>
                         <outlet property="lbl_stopLossPips" destination="p5q-dc-HLV" id="VlL-wl-Q2a"/>
+                        <outlet property="lbl_symbolName" destination="BTd-OT-jbq" id="3ZA-Z0-CSS"/>
                         <outlet property="lbl_takeProfitDropDown" destination="J0c-G5-Jrh" id="keW-CT-a6q"/>
                         <outlet property="lbl_title" destination="aPE-C3-t2p" id="5a0-P2-3UW"/>
                         <outlet property="lbl_totalBalance" destination="Iuo-a2-C9Q" id="Y2P-C3-cVx"/>
@@ -2828,7 +2838,7 @@
         <scene sceneID="5Gw-Ff-vSY">
             <objects>
                 <viewController storyboardIdentifier="AlarmsVC" id="Pti-b6-CPp" customClass="AlarmsVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="7Z4-ch-eXF">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7Z4-ch-eXF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -2882,7 +2892,6 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="fSB-XG-pjn"/>
                         <color key="backgroundColor" red="0.062745098040000002" green="0.066666666669999999" blue="0.08235294118" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="EMY-3j-Ix8" secondAttribute="trailing" id="1Jp-lb-tiL"/>

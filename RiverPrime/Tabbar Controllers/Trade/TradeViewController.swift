@@ -1054,6 +1054,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                        
                 let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
                 vc.titleString = "SELL"
+               
                  let _getSymbolData = getSymbolData[indexPath.row]
                 vc.getSymbolDetail = _getSymbolData
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
