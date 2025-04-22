@@ -42,7 +42,7 @@
                                         </variation>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's get started!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zo3-qq-gFM">
-                                        <rect key="frame" x="70" y="414.66666666666669" width="250" height="14.666666666666686"/>
+                                        <rect key="frame" x="70" y="372.33333333333331" width="250" height="14.666666666666686"/>
                                         <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -51,11 +51,11 @@
                                         </variation>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5F-kX-ide" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="39" y="444.33333333333331" width="312" height="44.666666666666686"/>
+                                        <rect key="frame" x="39" y="402" width="312" height="42.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Open an Account">
+                                        <buttonConfiguration key="configuration" style="plain" title="Open Demo Account">
                                             <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
@@ -73,137 +73,135 @@
                                             <action selector="registerBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="Id5-ZB-dsC"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsm-OG-LHP" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="39" y="444.33333333333331" width="312" height="42.333333333333314"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Open Real Account">
+                                            <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openRealAccountBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="Rkj-UC-Awm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvM-cC-gGo" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                        <rect key="frame" x="39" y="496.66666666666674" width="312" height="42"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Continue as Guest">
+                                            <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
+                                                <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
+                                                <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="continueGuestBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="OOC-aW-QbL"/>
+                                        </connections>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="FVI-fl-TrZ">
+                                        <rect key="frame" x="79.666666666666671" y="568.66666666666663" width="230.66666666666663" height="31"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAh-NS-Nqd">
+                                                <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="31"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                </variation>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxP-EN-Mw2">
+                                                <rect key="frame" x="160.66666666666669" y="0.0" width="70" height="31"/>
+                                                <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Sign In">
+                                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="signInBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="GDb-SM-lci"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service | Privacy Policy Execution Policy | Risk Disclosure " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZT-pv-xeI">
+                                        <rect key="frame" x="69.000000000000014" y="639.66666666666663" width="252.33333333333337" height="40.666666666666629"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="XZT-pv-xeI" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="0Oc-AM-vkv"/>
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="centerX" secondItem="YwC-bP-FtE" secondAttribute="centerX" id="3W1-zE-hWm"/>
                                     <constraint firstAttribute="trailing" secondItem="YwC-bP-FtE" secondAttribute="trailing" constant="30" id="64f-Kz-iBV"/>
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="30" id="8wL-19-Tmo"/>
+                                    <constraint firstItem="dvM-cC-gGo" firstAttribute="trailing" secondItem="Wsm-OG-LHP" secondAttribute="trailing" id="AM2-NT-ylA"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.2" id="Dho-MQ-7y8"/>
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" constant="70" id="FdF-zf-S73"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.35" id="GmL-mL-G3S"/>
+                                    <constraint firstItem="dvM-cC-gGo" firstAttribute="height" secondItem="Wsm-OG-LHP" secondAttribute="height" id="IEa-CK-8aj"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="IXj-nh-Hgk"/>
                                     <constraint firstItem="YwC-bP-FtE" firstAttribute="top" secondItem="RhX-F9-dLn" secondAttribute="bottom" constant="15" id="J7x-Qo-h92"/>
+                                    <constraint firstItem="dvM-cC-gGo" firstAttribute="top" secondItem="Wsm-OG-LHP" secondAttribute="bottom" constant="10" id="PP4-UY-g1U"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="top" secondItem="zo3-qq-gFM" secondAttribute="bottom" constant="15" id="RDD-7Z-hfF"/>
+                                    <constraint firstItem="FVI-fl-TrZ" firstAttribute="top" secondItem="dvM-cC-gGo" secondAttribute="bottom" constant="30" id="UNa-pL-uoK"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="width" secondItem="5xB-nq-lXT" secondAttribute="width" multiplier="0.8" id="USo-ay-aGZ"/>
+                                    <constraint firstItem="Wsm-OG-LHP" firstAttribute="leading" secondItem="O5F-kX-ide" secondAttribute="leading" id="Xan-p1-qDs"/>
+                                    <constraint firstItem="FVI-fl-TrZ" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="Zrh-wm-aWB"/>
                                     <constraint firstItem="O5F-kX-ide" firstAttribute="width" secondItem="5xB-nq-lXT" secondAttribute="width" multiplier="0.8" id="ejq-fs-HiR"/>
                                     <constraint firstAttribute="trailing" secondItem="Bpv-Uj-RSb" secondAttribute="trailing" id="fM7-PP-wlS"/>
-                                    <constraint firstItem="O5F-kX-ide" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.0528169" id="foe-h4-XHv"/>
+                                    <constraint firstItem="O5F-kX-ide" firstAttribute="height" secondItem="5xB-nq-lXT" secondAttribute="height" multiplier="0.05" id="foe-h4-XHv"/>
                                     <constraint firstItem="RhX-F9-dLn" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="ftD-r6-FtS"/>
+                                    <constraint firstItem="Wsm-OG-LHP" firstAttribute="top" secondItem="O5F-kX-ide" secondAttribute="bottom" id="hb2-i8-I2A"/>
                                     <constraint firstAttribute="trailing" secondItem="zo3-qq-gFM" secondAttribute="trailing" constant="70" id="lcE-af-q4q"/>
                                     <constraint firstItem="Bpv-Uj-RSb" firstAttribute="leading" secondItem="5xB-nq-lXT" secondAttribute="leading" id="lkv-7H-tkT"/>
-                                    <constraint firstItem="zo3-qq-gFM" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" id="myu-Q3-RyD"/>
+                                    <constraint firstItem="zo3-qq-gFM" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.9" id="myu-Q3-RyD"/>
                                     <constraint firstAttribute="bottom" secondItem="Bpv-Uj-RSb" secondAttribute="bottom" id="nfq-1h-Xze"/>
+                                    <constraint firstItem="dvM-cC-gGo" firstAttribute="leading" secondItem="Wsm-OG-LHP" secondAttribute="leading" id="oO9-74-Hdk"/>
                                     <constraint firstItem="Bpv-Uj-RSb" firstAttribute="top" secondItem="5xB-nq-lXT" secondAttribute="top" id="wMi-Ki-D9N"/>
+                                    <constraint firstItem="Wsm-OG-LHP" firstAttribute="trailing" secondItem="O5F-kX-ide" secondAttribute="trailing" id="wzF-sr-fog"/>
+                                    <constraint firstItem="XZT-pv-xeI" firstAttribute="top" secondItem="FVI-fl-TrZ" secondAttribute="bottom" constant="40" id="yH8-CG-Zth"/>
+                                    <constraint firstItem="Wsm-OG-LHP" firstAttribute="height" secondItem="O5F-kX-ide" secondAttribute="height" id="zNL-0J-feb"/>
                                 </constraints>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsm-OG-LHP" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="39" y="503.99999999999994" width="312" height="44.333333333333314"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <buttonConfiguration key="configuration" style="plain" image="google.png" imagePlacement="leading" title="Continue with Google" imagePadding="10">
-                                    <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="continueGoogleBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="M2v-5j-GMd"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvM-cC-gGo" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="39" y="563.33333333333337" width="312" height="44.666666666666629"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="apple.logo" catalog="system" title="Sign in with AppleID" imagePadding="10">
-                                    <fontDescription key="titleFontDescription" name="Inter-Medium" family="Inter" pointSize="15"/>
-                                </buttonConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="layer.borderColor">
-                                        <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
-                                        <color key="value" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="tryDemo_btnAction:" destination="f3D-8O-hwq" eventType="touchUpInside" id="lrw-ku-Hc5"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="-5" translatesAutoresizingMaskIntoConstraints="NO" id="FVI-fl-TrZ">
-                                <rect key="frame" x="79.666666666666671" y="539" width="230.66666666666663" height="31"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAh-NS-Nqd">
-                                        <rect key="frame" x="0.0" y="0.0" width="165.66666666666666" height="31"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                        </variation>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxP-EN-Mw2">
-                                        <rect key="frame" x="160.66666666666669" y="0.0" width="70" height="31"/>
-                                        <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Sign In">
-                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
-                                        </buttonConfiguration>
-                                        <connections>
-                                            <action selector="signInBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="dWp-tE-2XM"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Terms of Service | Privacy Policy Execution Policy | Risk Disclosure " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZT-pv-xeI">
-                                <rect key="frame" x="30" y="620" width="330" height="40.666666666666629"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="VHd-S2-uwi"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="dvM-cC-gGo" firstAttribute="height" secondItem="Wsm-OG-LHP" secondAttribute="height" id="29W-Xv-8YN"/>
-                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="leading" secondItem="O5F-kX-ide" secondAttribute="leading" id="2CR-Va-XRC"/>
-                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="height" secondItem="O5F-kX-ide" secondAttribute="height" id="4dv-YG-LQU"/>
-                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="top" secondItem="O5F-kX-ide" secondAttribute="bottom" constant="15" id="B3F-j2-sM4"/>
-                            <constraint firstItem="dvM-cC-gGo" firstAttribute="trailing" secondItem="Wsm-OG-LHP" secondAttribute="trailing" id="ELh-38-PsG"/>
                             <constraint firstAttribute="bottom" secondItem="5xB-nq-lXT" secondAttribute="bottom" id="LJ1-Gt-3rc"/>
-                            <constraint firstAttribute="trailing" secondItem="XZT-pv-xeI" secondAttribute="trailing" constant="30" id="Lu4-CU-Rg3"/>
-                            <constraint firstItem="Wsm-OG-LHP" firstAttribute="trailing" secondItem="O5F-kX-ide" secondAttribute="trailing" id="Olm-4H-28T"/>
-                            <constraint firstItem="XZT-pv-xeI" firstAttribute="centerX" secondItem="FVI-fl-TrZ" secondAttribute="centerX" id="RuL-8Z-v4W"/>
-                            <constraint firstItem="XZT-pv-xeI" firstAttribute="leading" secondItem="oqM-iQ-cph" secondAttribute="leading" constant="30" id="WxT-zR-UdX"/>
                             <constraint firstAttribute="trailing" secondItem="5xB-nq-lXT" secondAttribute="trailing" id="Z5p-ps-P9c"/>
-                            <constraint firstItem="dvM-cC-gGo" firstAttribute="top" secondItem="Wsm-OG-LHP" secondAttribute="bottom" constant="15" id="a7P-gK-KMD"/>
                             <constraint firstItem="5xB-nq-lXT" firstAttribute="leading" secondItem="oqM-iQ-cph" secondAttribute="leading" id="afx-sH-kWG"/>
-                            <constraint firstItem="dvM-cC-gGo" firstAttribute="leading" secondItem="Wsm-OG-LHP" secondAttribute="leading" id="ehJ-Iz-Eno"/>
-                            <constraint firstItem="FVI-fl-TrZ" firstAttribute="centerX" secondItem="oqM-iQ-cph" secondAttribute="centerX" id="nyS-Z8-MzC"/>
                             <constraint firstItem="5xB-nq-lXT" firstAttribute="top" secondItem="oqM-iQ-cph" secondAttribute="top" id="tUA-uR-tzi"/>
-                            <constraint firstItem="FVI-fl-TrZ" firstAttribute="top" secondItem="O5F-kX-ide" secondAttribute="bottom" constant="50" id="uCr-UL-pSC"/>
-                            <constraint firstItem="XZT-pv-xeI" firstAttribute="top" secondItem="FVI-fl-TrZ" secondAttribute="bottom" constant="50" id="vNU-GW-oBc"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="e67-6Q-fIo"/>
@@ -1674,11 +1672,11 @@ Reach out for questions or concerns about your privacy.</string>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="par-X7-nHY">
                                         <rect key="frame" x="35" y="457.66666666666674" width="320" height="356.33333333333326"/>
-                                        <mutableString key="text">Based on your selected country of residence, you are registering with River Trade.
+                                        <string key="text">Based on your selected country of residence, you are registering with River Trade.
  
 By clicking 'Continue,' you confirm that you have read, understood, and agree to all the terms outlined in the Client Agreement, as well as the service terms and conditions specified in the following documents: General Business Terms, Partnership Agreement, Privacy Policy, Risk Disclosure and Warning Notice, and Key Facts Statement.
  
-You also acknowledge that you fully understand the nature and risks associated with the services and products offered. Trading CFDs is not suitable for everyone—it is intended for experienced traders with a high-risk tolerance who can afford potential losses.</mutableString>
+You also acknowledge that you fully understand the nature and risks associated with the services and products offered. Trading CFDs is not suitable for everyone—it is intended for experienced traders with a high-risk tolerance who can afford potential losses.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -1881,11 +1879,11 @@ You also acknowledge that you fully understand the nature and risks associated w
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4F-Fn-Ymh">
                                         <rect key="frame" x="35" y="458" width="320" height="356"/>
-                                        <mutableString key="text">Based on your selected country of residence, you are registering with River Trade.
+                                        <string key="text">Based on your selected country of residence, you are registering with River Trade.
  
 By clicking 'Continue,' you confirm that you have read, understood, and agreed to the terms outlined in the Client Agreement, as well as the service terms and conditions specified in the following documents: General Business Terms, Partnership Agreement, Privacy Policy, Risk Disclosure and Warning Notice, and Key Facts Statement.
  
-You also acknowledge that you fully understand the nature and associated risks of the services and products offered. Trading CFDs is not suitable for everyone; it is intended for experienced traders with a high-risk tolerance who can afford potential losses.</mutableString>
+You also acknowledge that you fully understand the nature and associated risks of the services and products offered. Trading CFDs is not suitable for everyone; it is intended for experienced traders with a high-risk tolerance who can afford potential losses.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -2794,7 +2792,6 @@ You also acknowledge that you fully understand the nature and associated risks o
                                                 </buttonConfiguration>
                                                 <connections>
                                                     <action selector="createAccountBtn:" destination="Sue-mK-KG2" eventType="touchUpInside" id="WUs-Ir-jaZ"/>
-                                                    <action selector="signInBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="Hy8-6I-h7h"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -3027,16 +3024,16 @@ You also acknowledge that you fully understand the nature and associated risks o
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dq-Nv-BeW">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="0.0" width="390" height="956"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="5Zx-e3-DCX">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="956"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIr-hH-qZV" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="39" y="105.66666666666666" width="312" height="295.33333333333337"/>
+                                        <rect key="frame" x="39" y="119.66666666666666" width="312" height="334.33333333333337"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Verification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GR-PP-5GZ">
-                                                <rect key="frame" x="10" y="9.9999999999999982" width="292" height="19.333333333333329"/>
+                                                <rect key="frame" x="10" y="9.999999999999984" width="292" height="19.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -3051,13 +3048,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDG-n4-Rb1">
-                                                <rect key="frame" x="10" y="121.33333333333331" width="292" height="50"/>
+                                                <rect key="frame" x="10" y="121.33333333333333" width="292" height="56.666666666666671"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EfM-My-Apq">
-                                                        <rect key="frame" x="10" y="10" width="272" height="30"/>
+                                                        <rect key="frame" x="10" y="10" width="272" height="36.666666666666664"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Te6-hx-7wn">
-                                                                <rect key="frame" x="0.0" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="Znd-xJ-h08">
@@ -3069,31 +3066,31 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mns-3k-IKs">
-                                                                <rect key="frame" x="47" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="47" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZCH-kq-KYI">
-                                                                <rect key="frame" x="94" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="94" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zS7-sz-9wv">
-                                                                <rect key="frame" x="141" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="141" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eDs-5N-PaH">
-                                                                <rect key="frame" x="188" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="188" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-Zv-XeU">
-                                                                <rect key="frame" x="235" y="0.0" width="37" height="30"/>
+                                                                <rect key="frame" x="235" y="0.0" width="37" height="36.666666666666664"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -3117,13 +3114,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The code was entered incorrectly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mt5-t9-Zwu">
-                                                <rect key="frame" x="61.333333333333329" y="172.33333333333331" width="189.33333333333337" height="14.333333333333343"/>
+                                                <rect key="frame" x="61.333333333333329" y="179" width="189.33333333333337" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sN-pS-aXl">
-                                                <rect key="frame" x="10" y="206.66666666666663" width="292" height="45"/>
+                                                <rect key="frame" x="10" y="213.33333333333331" width="292" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="j2I-kz-6n7"/>
@@ -3143,7 +3140,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjS-PB-cVC">
-                                                <rect key="frame" x="10" y="196.66666666666663" width="292" height="31"/>
+                                                <rect key="frame" x="10" y="203.33333333333331" width="292" height="31"/>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Didn't receive a verification code?">
@@ -3154,13 +3151,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may request a new code in" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXJ-Xr-49O">
-                                                <rect key="frame" x="40.333333333333329" y="232.66666666666663" width="200.33333333333337" height="17"/>
+                                                <rect key="frame" x="40.333333333333329" y="239.33333333333331" width="200.33333333333337" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czy-Pd-E1Z">
-                                                <rect key="frame" x="244.66666666666671" y="232.66666666666663" width="38.333333333333343" height="17"/>
+                                                <rect key="frame" x="244.66666666666671" y="239.33333333333331" width="38.333333333333343" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.41960784309999999" green="0.41960784309999999" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -3420,9 +3417,6 @@ To complete your phone number verification, please enter the 6-digit activation 
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="circle" catalog="system"/>
-                                        <connections>
-                                            <action selector="termsConditionBtn:" destination="n6t-hI-qgu" eventType="touchUpInside" id="fC0-Tu-EJf"/>
-                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzC-uF-UpO">
                                         <rect key="frame" x="48.666666666666657" y="334" width="292.66666666666674" height="33.666666666666686"/>
@@ -3477,9 +3471,6 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 <real key="value" value="10"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="continueBtn:" destination="n6t-hI-qgu" eventType="touchUpInside" id="NFR-wL-ELd"/>
-                                        </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSi-1o-Sfm" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
                                         <rect key="frame" x="48.666666666666657" y="447.66666666666669" width="292.66666666666674" height="45"/>
@@ -3534,7 +3525,6 @@ To complete your phone number verification, please enter the 6-digit activation 
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="loginWithApple:" destination="n6t-hI-qgu" eventType="touchUpInside" id="oDn-hI-oRI"/>
-                                            <action selector="tryDemo_btnAction:" destination="f3D-8O-hwq" eventType="touchUpInside" id="lTp-N3-k6i"/>
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2rI-CF-0pd">
@@ -3752,7 +3742,6 @@ To complete your phone number verification, please enter the 6-digit activation 
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="continueBtn:" destination="n6t-hI-qgu" eventType="touchUpInside" id="jsq-Uk-Ohp"/>
                                     <action selector="continue_action:" destination="qx8-SU-spc" eventType="touchUpInside" id="IU1-vQ-Pof"/>
                                 </connections>
                             </button>
@@ -3830,7 +3819,6 @@ To complete your phone number verification, please enter the 6-digit activation 
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="signInBtn:" destination="f3D-8O-hwq" eventType="touchUpInside" id="BYf-kk-lOl"/>
                                             <action selector="signInBtn:" destination="qx8-SU-spc" eventType="touchUpInside" id="cCk-xf-smx"/>
                                         </connections>
                                     </button>
@@ -4045,16 +4033,16 @@ To complete your phone number verification, please enter the 6-digit activation 
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

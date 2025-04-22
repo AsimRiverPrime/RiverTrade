@@ -260,7 +260,7 @@ class AccountsViewController: BaseViewController {
     func dashboardDatainit() {
         
         //        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
-        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
+//        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             view_topHeader.isHidden = false
             //            view_depositWithdraw.isHidden = false
             btn_creat.isHidden = false
@@ -274,7 +274,7 @@ class AccountsViewController: BaseViewController {
             tblView.registerCells([
                 /*AccountTableViewCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
-        } else { //MARK: - if no account exist.
+//        } else { //MARK: - if no account exist.
             //            view_topHeader.isHidden = true
             //            btn_creat.isHidden = true
             //            btn_deposit.isHidden = true
@@ -288,7 +288,7 @@ class AccountsViewController: BaseViewController {
             //            tblView.registerCells([
             //                /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, CreateAccountTVCell.self*/ Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             //            ])
-        }
+//        }
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
@@ -327,14 +327,25 @@ class AccountsViewController: BaseViewController {
     }
     
     @IBAction func depositAction(_ sender: Any) {
-        if isRealAcount{
-            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-            // vc.delegateCompeleteProfile = self
-            self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        }else{
-            if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
-                vc.ammountValue = self.actualBalance
+        if GlobalVariable.instance.guestAccount {
+
+            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
                 self.navigate(to: vc)
+            } andCompletionHandler: { cancel in
+                print("Cancel")
+            }
+            
+        }else{
+            if isRealAcount{
+                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+                // vc.delegateCompeleteProfile = self
+                self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else{
+                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
+                    vc.ammountValue = self.actualBalance
+                    self.navigate(to: vc)
+                }
             }
         }
     }
@@ -342,43 +353,85 @@ class AccountsViewController: BaseViewController {
     @IBAction func withDrawAction(_ sender: Any) {
         
         let hasUploadBill = UserDefaults.standard.bool(forKey: "hasUploadBill")
-        if isRealAcount{
-            if !hasUploadBill {
-                // Present the controller
-                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawPreRequirmentVC") as? WithdrawPreRequirmentVC {
-                    self.navigate(to: vc)
-                }
-            }else{
-                let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        if GlobalVariable.instance.guestAccount {
+
+            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                self.navigate(to: vc)
+            } andCompletionHandler: { cancel in
+                print("Cancel")
             }
             
         }else{
-            if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoWithdrawalVC") as? DemoWithdrawalVC {
-                self.navigate(to: vc)
+            if isRealAcount{
+                if !hasUploadBill {
+                    // Present the controller
+                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawPreRequirmentVC") as? WithdrawPreRequirmentVC {
+                        self.navigate(to: vc)
+                    }
+                }else{
+                    let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }
+                
+            }else{
+                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoWithdrawalVC") as? DemoWithdrawalVC {
+                    self.navigate(to: vc)
+                }
             }
         }
     }
     
     @IBAction func historyAction(_ sender: Any) {
-        let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
-        self.navigate(to: vc)
-        //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        if GlobalVariable.instance.guestAccount {
+            
+            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                self.navigate(to: vc)
+            } andCompletionHandler: { cancel in
+                print("Cancel")
+            }
+            
+        }else{
+            let vc = Utilities.shared.getViewController(identifier: .historyViewController, storyboardType: .dashboard) as! HistoryViewController
+            self.navigate(to: vc)
+            //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
     }
     
     @IBAction func detailAction(_ sender: Any) {
-        
-        let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
-        self.navigate(to: vc)
-        //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        if GlobalVariable.instance.guestAccount {
+            
+            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                self.navigate(to: vc)
+            } andCompletionHandler: { cancel in
+                print("Cancel")
+            }
+            
+        }else{
+            let vc = Utilities.shared.getViewController(identifier: .detailsViewController, storyboardType: .dashboard) as! DetailsViewController
+            self.navigate(to: vc)
+            //        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
     }
-    
     @IBAction func createAcoountAction(_ sender: Any) {
-        let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-        //        vc.newAccoutDelegate = self
-        vc.dismissDelegate = self
-        //        self.navigate(to: vc)
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        if GlobalVariable.instance.guestAccount {
+            
+            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                self.navigate(to: vc)
+            } andCompletionHandler: { cancel in
+                print("Cancel")
+            }
+            
+        }else{
+            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+            //        vc.newAccoutDelegate = self
+            vc.dismissDelegate = self
+            //        self.navigate(to: vc)
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
     }
     
     @IBAction func percentAction(_ sender: UIButton) {
@@ -1247,7 +1300,7 @@ extension AccountsViewController: GetSocketMessages {
                                     return total + getProfit
                                 }
                             }
-                            //                            print("get total balance with profit and loss: \(total + getProfit)")
+                            // print("get total balance with profit and loss: \(total + getProfit)")
                             return total
                         }
                         

@@ -48,6 +48,9 @@ class GlobalVariable: NSObject {
     var balanceUpdate = "0.0"
     var getBalanceHidden = String()
     
+    var guestAccount: Bool = false
+    var realAccount: Bool = false
+    
     var symbolDataArray: [SymbolData] = []
     var symbolDataUpdatedList: [SymbolData] = []
     

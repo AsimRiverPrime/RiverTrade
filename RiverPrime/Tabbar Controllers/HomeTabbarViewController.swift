@@ -21,7 +21,7 @@ class HomeTabbarViewController: UITabBarController {
     
     public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateSocketNotSendData: SocketNotSendDataDelegate?
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +42,13 @@ class HomeTabbarViewController: UITabBarController {
         //MARK: - START Symbol api calling.
         symbolApiCalling()
         
+        if GlobalVariable.instance.realAccount {
+            let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
+            vc.isRealAccount = true
+            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
     }
@@ -84,7 +90,7 @@ extension UIImage {
 extension HomeTabbarViewController {
     
     private func symbolApiCalling() {
-     
+        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let email = savedUserData["email"] as? String{
                 self.userEmail = email
@@ -111,7 +117,7 @@ extension HomeTabbarViewController {
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension HomeTabbarViewController: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: [String: Any]) {
-     //   print("\n symbol resposne is: \(response) ")
+        //   print("\n symbol resposne is: \(response) ")
         //        convertXMLIntoJson(response)
         convertJSONIntoSymbols(response)
         ActivityIndicator.shared.hide(from: self.view)
@@ -126,7 +132,7 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
             print("Result Array count: \(resultArray.count)")
             
             for (index, result) in resultArray.enumerated() {
-//                print("\n Processing entry \(index + 1) of \(resultArray.count)")
+                //                print("\n Processing entry \(index + 1) of \(resultArray.count)")
                 
                 // Extract data, providing default values or handling optionals where needed
                 let symbolId = result["id"] as? Int ?? -1
@@ -182,26 +188,26 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     )
                 )
                 
-//                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
+                //                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
             
-//            if loadSymbolData().count == 0 {
-//                saveSymbolData(GlobalVariable.instance.symbolDataArray)
-//            }
+            //            if loadSymbolData().count == 0 {
+            //                saveSymbolData(GlobalVariable.instance.symbolDataArray)
+            //            }
             
-//            if Session.instance.getSymbolData()?.count == 0 {
-//
-//            }
+            //            if Session.instance.getSymbolData()?.count == 0 {
+            //
+            //            }
             
             Session.instance.symbolData = nil
             
             print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
             Session.instance.symbolData = GlobalVariable.instance.symbolDataArray
-//            print("Session.instance.symbolData after = \(Session.instance.symbolData ?? [])")
+            //            print("Session.instance.symbolData after = \(Session.instance.symbolData ?? [])")
             
-//            print("loadSymbolData() before = \(loadSymbolData())")
-//            saveSymbolData(GlobalVariable.instance.symbolDataArray)
-//            print("loadSymbolData() after = \(loadSymbolData())")
+            //            print("loadSymbolData() before = \(loadSymbolData())")
+            //            saveSymbolData(GlobalVariable.instance.symbolDataArray)
+            //            print("loadSymbolData() after = \(loadSymbolData())")
             
             print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             //             Process and save symbols
@@ -326,7 +332,7 @@ extension HomeTabbarViewController {
             
             self.vm.OPCApi(index: 0) { openData, pendingData, closeData, error in
                 DispatchQueue.main.async {
-                   
+                    
                     if let error = error {
                         print("Error fetching positions: \(error)")
                         // Handle the error (e.g., show an alert)
@@ -360,8 +366,8 @@ extension HomeTabbarViewController {
                     self.webSocketManager.delegateSocketConnectionInit = self
                     self.webSocketManager.delegateSocketNotSendData = self
                     
-//                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
+                    //                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
+                    //                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
                 }
             }
         }
@@ -402,21 +408,21 @@ extension HomeTabbarViewController: GetSocketData {
                             if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) {
                                 let x =  openData[index].symbol.dropLast()
                                 if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-//                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-//                                    
-//                                    let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
-//                                    let priceOpen = Double(openData[i].priceOpen)
-//                                    let volume = Double(openData[i].volume) / 10000
-//                                    let contractSize = Double(symbolContractSize)!
-//                                    
-//                                    var profitLoss = (bid - priceOpen) * volume * contractSize
-//                                    if openData[i].action == 1 {
-//                                        profitLoss = (priceOpen - bid) * volume * contractSize
-//                                    }
+                                    //                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
+                                    //
+                                    //                                    let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
+                                    //                                    let priceOpen = Double(openData[i].priceOpen)
+                                    //                                    let volume = Double(openData[i].volume) / 10000
+                                    //                                    let contractSize = Double(symbolContractSize)!
+                                    //
+                                    //                                    var profitLoss = (bid - priceOpen) * volume * contractSize
+                                    //                                    if openData[i].action == 1 {
+                                    //                                        profitLoss = (priceOpen - bid) * volume * contractSize
+                                    //                                    }
                                     let symbolData = GlobalVariable.instance.symbolDataArray[contractValue]
                                     let symbolContractSize = Double(symbolData.contractSize) ?? 1.0
                                     let symbolSector = symbolData.sector // Assuming "Currency" is a valid sector value
-
+                                    
                                     let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
                                     let priceOpen = Double(openData[i].priceOpen)
                                     let volume = Double(openData[i].volume) / 10000
@@ -437,8 +443,8 @@ extension HomeTabbarViewController: GetSocketData {
                                     }
                                     
                                     total += profitLoss
-//                                    print("profitLoss = \(profitLoss)\n")
-//                                    print("total = \(total)\n")
+                                    //                                    print("profitLoss = \(profitLoss)\n")
+                                    //                                    print("total = \(total)\n")
                                     
                                     tpValue.append(profitLoss)
                                     myProfitLoss = profitLoss
@@ -450,24 +456,24 @@ extension HomeTabbarViewController: GetSocketData {
                                 myProfitLoss = 0.0
                             }
                             GlobalVariable.instance.myProfitLossForOpenSymbolList.append(myProfitLoss)
-                 
+                            
                         }
                         
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
                         
-//                        print("tpValue = \(tpValue)\n")
+                        //                        print("tpValue = \(tpValue)\n")
                         
                         let totalProfitOpenClose = tpValue.enumerated().reduce(0.0) { (total, indexValue) -> Double in
                             let (index, item) = indexValue
                             if GlobalVariable.instance.isAccountCreated {
                                 let getProfit = Double(item)
-//                                print("getProfit \(index) = \(getProfit)")
+                                //                                print("getProfit \(index) = \(getProfit)")
                                 return total + getProfit
                             }
                             
                             return total
                         }
-//                        print("Total Profit Open Close: \(totalProfitOpenClose)")
+                        //                        print("Total Profit Open Close: \(totalProfitOpenClose)")
                         
                         //MARK: - END Set Total P/L
                         
@@ -496,7 +502,7 @@ extension HomeTabbarViewController: GetSocketData {
             
             delegateSocketMessage?.tradeUpdates(socketMessageType: .tick, tickMessage: tickMessage)
             break
-        
+            
         case .Unsubscribed:
             
             delegateSocketMessage?.tradeUpdates(socketMessageType: .Unsubscribed, tickMessage: nil)

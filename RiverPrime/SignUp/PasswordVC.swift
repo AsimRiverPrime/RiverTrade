@@ -131,7 +131,7 @@ class PasswordVC: BaseViewController {
     }
     
     private func openAccountSignUp() {
-        db.collection("users").whereField("email", isEqualTo: email!).getDocuments { (querySnapshot, error) in
+        db.collection("users").whereField("email", isEqualTo: email ?? "").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
             }

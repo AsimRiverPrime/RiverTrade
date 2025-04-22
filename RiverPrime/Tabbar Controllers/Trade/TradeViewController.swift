@@ -190,6 +190,8 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.OpenPositionViewUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.CheckOpenPositionConstant.key), object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateTradeList(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.UpdateTradeListConstant.key), object: nil)
         
         //        callCollectionViewAtStart()
         
@@ -222,11 +224,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                     }
                 }
             }
-            
         }
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateTradeList(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.UpdateTradeListConstant.key), object: nil)
-        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -941,15 +939,11 @@ extension TradeViewController {
 extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        if tblView.isHidden == false {
-//        if filteredData.isEmpty {
+
         if !isSearching && !symbolDataSectorSelected {
             return 1
         } else {
-//            if showEmptySearch {
-//                return 0
-//            }
-            //            if !filteredData.isEmpty {
+
             if symbolDataSectorSelected {
                 return getSectorData.count
             } else {
@@ -959,18 +953,12 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if !tblView.isHidden {
-//        if filteredData.isEmpty {
+
         if !isSearching && !symbolDataSectorSelected {
-//            if getSymbolData.count == 0 {
-//                startOfflineData()
-//            }
+           
             return getSymbolData.count
         } else {
-//            if showEmptySearch {
-//                return 0
-//            }
-            //            if !filteredData.isEmpty {
+           
             if symbolDataSectorSelected {
                 return getSectorData[section].symbols.count
             } else {
@@ -980,8 +968,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if !tblView.isHidden {
-//        if filteredData.isEmpty {
+      
         if !isSearching && !symbolDataSectorSelected {
             return 80.0
         } else {
@@ -1049,29 +1036,49 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
             cell.onLabelAskTapped = { [weak self] in
-                       guard let self = self else { return }
-                       print("press the bid label")
-                       
-                let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
-                vc.titleString = "SELL"
-               
-                 let _getSymbolData = getSymbolData[indexPath.row]
-                vc.getSymbolDetail = _getSymbolData
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                
-                   }
+                guard let self = self else { return }
+                print("press the bid label")
+                if GlobalVariable.instance.guestAccount {
+                    
+                    Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                        let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                        self.navigate(to: vc)
+                    } andCompletionHandler: { cancel in
+                        print("Cancel")
+                    }
+                    
+                }else{
+                    let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+                    vc.titleString = "SELL"
+                    
+                    let _getSymbolData = getSymbolData[indexPath.row]
+                    vc.getSymbolDetail = _getSymbolData
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }
+            }
 
             cell.onLabelBidTapped = { [weak self] in
-                       guard let self = self else { return }
-                       print("press the ask label")
-                let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
-              
-                vc.titleString = "BUY"
-                let _getSymbolData = getSymbolData[indexPath.row]
-                vc.getSymbolDetail = _getSymbolData
-              
-                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-                   }
+                guard let self = self else { return }
+                print("press the ask label")
+                if GlobalVariable.instance.guestAccount {
+                    
+                    Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+                        let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+                        self.navigate(to: vc)
+                    } andCompletionHandler: { cancel in
+                        print("Cancel")
+                    }
+                    
+                }else{
+                    let vc = Utilities.shared.getViewController(identifier: .ticketVC, storyboardType: .bottomSheetPopups) as! TicketVC
+                    
+                    vc.titleString = "BUY"
+                    let _getSymbolData = getSymbolData[indexPath.row]
+                    vc.getSymbolDetail = _getSymbolData
+                    
+                    PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                }
+            }
            
             return cell
             

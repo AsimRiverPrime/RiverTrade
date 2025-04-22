@@ -38,9 +38,9 @@ class EmailVC: BaseViewController {
     var odoClientNew = OdooClientNew()
     var firebaseInstance = FirestoreServices()
     
-    var fromOpenAccount : Bool = false
-    var isGoogleLogin : Bool = false
-    var isAppleLogin : Bool = false
+//    var fromOpenAccount : Bool = false
+//    var isGoogleLogin : Bool = false
+//    var isAppleLogin : Bool = false
     
     let keychain = KeychainSwift()
     let db = Firestore.firestore()
@@ -58,9 +58,9 @@ class EmailVC: BaseViewController {
         odoClientNew.createLeadDelegate = self
         odoClientNew.createUserAcctDelegate = self
         
-        fromOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
-        isGoogleLogin =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
-        isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
+//        fromOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
+//        isGoogleLogin =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
+//        isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
       
         self.tf_email.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
       
@@ -128,7 +128,7 @@ class EmailVC: BaseViewController {
             UserDefaults.standard.set(self?._fullName, forKey: "FullName")
             GlobalVariable.instance.userEmail = self?._email ?? ""
 //            GlobalVariable.instance.userID = result?.user.userID ?? ""
-            self?.isGoogleLogin = true
+//            self?.isGoogleLogin = true
             
             self?.googleSignIn.odoClientNew.createLeadDelegate = self
             self?.googleSignIn.authenticateWithFirebase(user: user1)
@@ -276,8 +276,8 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                             
                         } else {
                             self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
-                            self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", /*password: "",*/ registrationType: 3)
                             
+                            self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "", /*password: "",*/ registrationType: 3)
                            
                         }
                     }
@@ -303,19 +303,19 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
         topVC.present(faceIdVC, animated: true, completion: nil)
     }
     
-    func createMTAccount() {
-        let id =  UserDefaults.standard.string(forKey: "userID")
-        UserDefaults.standard.set((self._password ?? ""), forKey: "password")
-        
-          if self.isAppleLogin {
-              
-              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self._password ?? "",*/ registrationType: 3)
-          }else{
-              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self._password ?? "",*/ registrationType: 2)
-          }
-          
-          self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
-    }
+//    func createMTAccount() {
+//        let id =  UserDefaults.standard.string(forKey: "userID")
+//        UserDefaults.standard.set((self._password ?? ""), forKey: "password")
+//        
+//          if self.isAppleLogin {
+//              
+//              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self._password ?? "",*/ registrationType: 3)
+//          }else{
+//              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self._password ?? "",*/ registrationType: 2)
+//          }
+//          
+//          self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
+//    }
     
        func updateUserAccount(){
            let id =  UserDefaults.standard.string(forKey: "userID")
@@ -377,7 +377,14 @@ extension EmailVC:  CreateLeadOdooDelegate {
 func leadCreatSuccess(response: Any) {
     print("this is success response from create Lead and record ID is:\(response)")
     
-    createMTAccount()
+    if GlobalVariable.instance.realAccount {
+        self.navigateFaceID()
+
+    }else{
+//        createMTAccount()
+        self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
+    }
+   
     
 }
 

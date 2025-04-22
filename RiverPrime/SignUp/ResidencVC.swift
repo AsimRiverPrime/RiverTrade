@@ -27,13 +27,13 @@ class ResidencVC: BaseViewController {
     let userId =  UserDefaults.standard.string(forKey: "userID")
     var nationality = String()
     
-    var isOpenAccount = Bool()
+//    var isOpenAccount = Bool()
 //    var isGoogleAccount = Bool()
 //    var isAppleLogin = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
+//        isOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
 
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
@@ -112,12 +112,12 @@ class ResidencVC: BaseViewController {
         ToastMessage("Select residence country first")
             return
         }
-                
-        if isOpenAccount {
-            navigateTologin()
-        }else{
-            navigateToPassword()
-        }
+        navigateTologin()
+//        if isOpenAccount {
+//            navigateTologin()
+//        }else{
+//            navigateToPassword()
+//        }
     }
     
     func navigateTologin(){
