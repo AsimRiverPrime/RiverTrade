@@ -213,7 +213,7 @@ extension ProfileViewController: KYCVCDelegate {
         switch kyc {
         case .ProfileScreen:
             
-            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController"){
                 //                profileVC.delegateKYC = self
                 //                GlobalVariable.instance.isReturnToProfile = true
                 self.navigate(to: profileVC)

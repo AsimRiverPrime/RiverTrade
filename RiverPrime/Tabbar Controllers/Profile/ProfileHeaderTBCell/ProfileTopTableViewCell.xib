@@ -76,7 +76,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cBt-N7-AcD">
-                                <rect key="frame" x="15" y="130.33333333333334" width="264" height="4"/>
+                                <rect key="frame" x="15" y="130.33333333333334" width="294" height="4"/>
                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="progressTintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="trackTintColor" systemColor="systemGray3Color"/>
@@ -88,7 +88,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bw-SY-Tdq" customClass="RoundedButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="15" y="139.33333333333334" width="264" height="19.666666666666657"/>
+                                <rect key="frame" x="15" y="139.33333333333334" width="294" height="19.666666666666657"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Button"/>
@@ -98,7 +98,7 @@
                                 </connections>
                             </button>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Complete your profile" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2j-0h-25G">
-                                <rect key="frame" x="15" y="140.66666666666666" width="264" height="17"/>
+                                <rect key="frame" x="15" y="140.66666666666666" width="294" height="17"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                 <color key="textColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -130,7 +130,7 @@
                             <constraint firstAttribute="trailing" secondItem="7bO-qy-ou1" secondAttribute="trailing" constant="15" id="lTd-Mr-Bnm"/>
                             <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" id="mps-yI-kLq"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="leading" secondItem="cBt-N7-AcD" secondAttribute="leading" id="ncd-cs-ZhB"/>
-                            <constraint firstItem="cBt-N7-AcD" firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" constant="-30" id="pxh-rw-LyV"/>
+                            <constraint firstItem="cBt-N7-AcD" firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" id="pxh-rw-LyV"/>
                             <constraint firstItem="TZp-2y-AMB" firstAttribute="leading" secondItem="zrW-0a-vHz" secondAttribute="leading" constant="15" id="qRG-jR-83H"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="top" secondItem="cBt-N7-AcD" secondAttribute="bottom" constant="5" id="siQ-qq-Oiq"/>
                         </constraints>

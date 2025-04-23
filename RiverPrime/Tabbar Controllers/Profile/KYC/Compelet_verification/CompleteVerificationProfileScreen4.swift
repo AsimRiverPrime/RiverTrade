@@ -35,7 +35,7 @@ class CompleteVerificationProfileScreen4: BaseViewController {
 
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setNavBar(vc: self, isBackButton: true, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: CompleteVerificationProfileScreen3(), navController: self.navigationController, title: "Questionnaire", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
@@ -82,8 +82,10 @@ class CompleteVerificationProfileScreen4: BaseViewController {
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
+        self.navigationController?.popViewController(animated: true)
+
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {

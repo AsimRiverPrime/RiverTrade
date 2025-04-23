@@ -118,6 +118,7 @@ class PhoneVerifyVC: BaseViewController{
 //        self.navigate(to: faceID)
 //
 //    }
+    
     func updateUser(){
         guard let userId = userId else{
             return
@@ -142,8 +143,8 @@ class PhoneVerifyVC: BaseViewController{
                 //                    self.navigateToFaceID()
                 self.delegate?.didCompletePhoneVerification()
 //                self.delegate?.didCompletePhoneOTPVerification()
-                self.dismiss(animated: true)
-                
+//                self.dismiss(animated: true)
+//              ®
             }
         }
     }

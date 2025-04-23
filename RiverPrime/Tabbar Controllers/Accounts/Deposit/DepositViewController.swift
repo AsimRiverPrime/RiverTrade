@@ -20,6 +20,12 @@ class DepositViewController: BaseViewController {
     weak var delegate2 : CompleteProfileButtonDelegate?
     
     var profileStep = Int()
+    var registrationType : Int?
+    
+    var isPhoneVerified = Bool()
+    var isEmailVerified = Bool()
+    var userEmail = String()
+    
     var realAccount = Bool()
     var webView: WKWebView!
     
@@ -231,30 +237,72 @@ extension DepositViewController: DashboardVCDelegate {
     }
 }
 
-extension DepositViewController: CompleteProfileButtonDelegate {
+
+extension DepositViewController: CompleteProfileButtonDelegate, PhoneVerifyDelegate {
     
     func didTapCompleteProfileButtonInCell() {
-        print("profile header complete btn click")
-        delegateCompeleteProfile?.navigateToCompeletProfile()
+        //            delegateCompeleteProfile?.navigateToCompeletProfile()
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
+                isEmailVerified = _isEmailVerified
+                isPhoneVerified = _isPhoneVerified
+                profileStep = profileStep1
+                userEmail = _email
+                registrationType = _registrationType
+            }
+        }
+        
+        if realAccount == true {
+            if registrationType == 1 && !isEmailVerified {
+                
+                let vc = Utilities.shared.getViewController(identifier: .emailSendVC, storyboardType: .bottomSheetPopups) as! EmailSendVC
+                vc.UserEmail = userEmail
+                self.navigate(to: vc)
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else if !isPhoneVerified {
+                
+                let vc = Utilities.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main) as! PhoneVerifyVC
+                vc.userEmail = userEmail
+                vc.delegate = self
+                self.navigate(to: vc)
+            }else{
+                didCompletePhoneVerification()
+            }
+            
+        }else{
+            Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
+        }
     }
     
+    func didCompletePhoneVerification() {
+        // After phone verification is complete, check profileStep
+       
+        switch profileStep {
+        case 0:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        case 1:
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//
+        default:
+            self.ToastMessage("Already Done KYC")
+        }
+    }
 }
-
 extension DepositViewController: KYCVCDelegate {
     
     func navigateToCompeletProfile(kyc: KYCType) {
         switch kyc {
         case .ProfileScreen:
-            //            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DashboardVC"){
-            ////                profileVC.delegateKYC = self
-            //                GlobalVariable.instance.isReturnToProfile = true
-            //                self.navigate(to: profileVC)
-            //            }
-            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
-                //                profileVC.delegateKYC = self
-                //                GlobalVariable.instance.isReturnToProfile = true
-                self.navigate(to: profileVC)
-            }
+           
+            let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+               
+                self.navigate(to: vc)
+            
             break
         case .FirstScreen:
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1

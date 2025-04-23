@@ -87,7 +87,7 @@ class SelectAccountTypeVC: BottomSheetController {
        
         registerCell()
         self.dismiss(animated: true)
-//
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -246,9 +246,15 @@ extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
        let password = self.password_tf.text ?? ""
-        odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: password, is_demo: true)
         
-        
+        if GlobalVariable.instance.realAccount {
+            self.navigateFaceID()
+
+        }else{
+    //        createMTAccount()
+            odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: password, is_demo: true)
+        }
+      
     }
     
     func leadCreatFailure(error: any Error) {

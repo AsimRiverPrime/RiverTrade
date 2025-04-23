@@ -318,8 +318,14 @@ extension HomeTabbarViewController {
         //tickMessage
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
         
-        openData()
-        
+        if GlobalVariable.instance.guestAccount {
+            self.webSocketManager.connectWebSocket()
+            self.webSocketManager.delegateSocketData = self
+            self.webSocketManager.delegateSocketConnectionInit = self
+            self.webSocketManager.delegateSocketNotSendData = self
+        }else{
+            openData()
+        }
     }
 }
 

@@ -35,7 +35,7 @@ class CompleteVerificationProfileScreen5: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setNavBar(vc: self, isBackButton: true, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: CompleteVerificationProfileScreen5(), navController: self.navigationController, title: "Questionnaire", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
@@ -77,13 +77,15 @@ class CompleteVerificationProfileScreen5: BaseViewController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedExperience, forKey: "SelectedTradeExprience")
-        self.dismiss(animated: true)
+//        self.dismiss(animated: true)
        delegateKYC?.navigateToCompeletProfile(kyc: .SixthScreen)
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
+        self.navigationController?.popViewController(animated: true)
+
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {
