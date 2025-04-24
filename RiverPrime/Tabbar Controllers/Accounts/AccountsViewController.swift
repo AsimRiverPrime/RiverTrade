@@ -1557,24 +1557,24 @@ extension AccountsViewController {
 
 //MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
 extension AccountsViewController {
-    func showPopup() {
-        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-        
-        // Replace "PopupViewController" with the actual identifier of your popup view controller
-        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-            // Set modal presentation style
-            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-            
-            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-            popupVC.view.alpha = 0
-            // Optional: Set modal transition style (this is for animation)
-            popupVC.modalTransitionStyle = .crossDissolve
-            popupVC.metaTraderType = .Balance
-            
-            // Present the popup
-            self.present(popupVC, animated: true, completion: nil)
-        }
-    }
+//    func showPopup() {
+//        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+//        
+//        // Replace "PopupViewController" with the actual identifier of your popup view controller
+//        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+//            // Set modal presentation style
+//            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
+//            
+//            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+//            popupVC.view.alpha = 0
+//            // Optional: Set modal transition style (this is for animation)
+//            popupVC.modalTransitionStyle = .crossDissolve
+//            popupVC.metaTraderType = .Balance
+//            
+//            // Present the popup
+//            self.present(popupVC, animated: true, completion: nil)
+//        }
+//    }
 }
 
 extension AccountsViewController: OPCNavigationDelegate {

@@ -104,7 +104,7 @@ extension DemoDepositVC: DemoDepositProtocol {
                     GlobalVariable.instance.balanceUpdate = response
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
                 })
-                dismiss(animated: true)
+//                dismiss(animated: true)
             }else{
                 self.ToastMessage("Error: Balance not update")
             }

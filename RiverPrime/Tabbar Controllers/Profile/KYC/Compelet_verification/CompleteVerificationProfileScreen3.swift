@@ -79,8 +79,21 @@ class CompleteVerificationProfileScreen3: BaseViewController {
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedAnticipated, forKey: "SelectedTradeAnticipateMonthly")
         
-        self.dismiss(animated: true)
-       delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
+//        self.dismiss(animated: true)
+////       delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
+//        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
+////        vc.delegateKYC = self
+//        self.navigate(to: vc)
+        
+        if GlobalVariable.instance.realAccount {
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
+    //        vc.delegateKYC = self
+            self.navigate(to: vc)
+        } else {
+            self.dismiss(animated: true)
+            delegateKYC?.navigateToCompeletProfile(kyc: .FourthScreen)
+        }
+        
     }
     
     @IBAction func backBtn_action(_ sender: Any) {

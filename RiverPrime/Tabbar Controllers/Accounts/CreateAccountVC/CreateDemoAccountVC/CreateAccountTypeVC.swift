@@ -28,6 +28,8 @@ class CreateAccountTypeVC: BottomSheetController {
     var userEmail : String = ""
     var isReal = Bool()
     
+    var realAccountAfterLogin = false
+    
     @IBOutlet weak var tf_password: UITextField!
     
     @IBOutlet weak var btn_passowrdIcon: UIButton!
@@ -132,7 +134,7 @@ class CreateAccountTypeVC: BottomSheetController {
 //    func showAlert(message: String) {
 //        print("\n----****-----Alert: \(message) ---***-----\n") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
 //        //        Alert.showAlert(withMessage: message, andTitle: "Warraning!", on: UIViewController?.none)
-//        
+//
 //        let alert = UIAlertController(title: "Warraning!", message: message, preferredStyle: UIAlertController.Style.alert)
 //        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (_) in
 //            self.dismiss(animated: true)
@@ -341,8 +343,11 @@ class CreateAccountTypeVC: BottomSheetController {
                     print("All Saved Passwords on create Account: \(allPasswords)")
                     
                     if self.isReal {
-                        NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
-                        self.dismiss(animated: true)
+                        self.dismiss(animated: true) {
+                            NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+                        }
+//                        NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
+//                        self.dismiss(animated: true)
                         
 //                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
 //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)

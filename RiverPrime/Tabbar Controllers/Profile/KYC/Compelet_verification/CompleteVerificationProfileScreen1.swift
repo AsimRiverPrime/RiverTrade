@@ -78,8 +78,18 @@ class CompleteVerificationProfileScreen1: BaseViewController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedObjective, forKey: "SelectedTradeObjective")
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
+        
+        if GlobalVariable.instance.realAccount {
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
+    //        vc.delegateKYC = self
+            self.navigate(to: vc)
+        } else {
+            self.dismiss(animated: true)
+            delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
+        }
+        
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
         
     }
     

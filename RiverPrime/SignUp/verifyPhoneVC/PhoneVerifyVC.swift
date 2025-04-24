@@ -118,7 +118,6 @@ class PhoneVerifyVC: BaseViewController{
 //        self.navigate(to: faceID)
 //
 //    }
-    
     func updateUser(){
         guard let userId = userId else{
             return
@@ -143,11 +142,58 @@ class PhoneVerifyVC: BaseViewController{
                 //                    self.navigateToFaceID()
                 self.delegate?.didCompletePhoneVerification()
 //                self.delegate?.didCompletePhoneOTPVerification()
+                if GlobalVariable.instance.realAccount {
+                    Session.instance.isRealAccountInitFlowComplete = true
+                    self.initKYC_CheckData()
+                } else {
+                    self.dismiss(animated: true)
+                }
 //                self.dismiss(animated: true)
-//              ®
+                
             }
         }
     }
+}
+
+extension PhoneVerifyVC {
+    
+    func initKYC_CheckData(){
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
+//                profileStep = profileStep1
+//                userEmail = _email
+//                registrationType = _registrationType
+//                isPhoneVerified = _isPhoneVerified
+//                isEmailVerified = _isEmailVerified
+//                UserDefaults.standard.set(_userId, forKey: "userID")
+                didCompleteKYCVerification(profileStep1: profileStep1)
+            }
+        }
+        
+    }
+    
+    func didCompleteKYCVerification(profileStep1: Int) {
+        // After phone verification is complete, check profileStep
+        switch profileStep1 {
+        case 0:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        case 1:
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            //               case 2:
+            //                   let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+            //                   vc.delegateKYC = self
+            //                   PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+        default:
+            self.ToastMessage("Already Done KYC")
+        }
+    }
+    
 }
 
 extension PhoneVerifyVC: PhoneOTPDelegate {
@@ -166,7 +212,7 @@ extension PhoneVerifyVC: PhoneOTPDelegate {
 //        navigateToVerifiyScreen()
 //
 //    }
-//    
+//
 //    func otpFailure(error: any Error) {
 //        print("this is the phone send otp error response: \(error)")
 //    }
@@ -213,6 +259,84 @@ extension PhoneVerifyVC: CountryPickerViewDelegate, UITextFieldDelegate {
         } catch {
             print("Error formatting phone number: \(error)")
             return true
+        }
+    }
+    
+}
+
+extension PhoneVerifyVC: KYCVCDelegate {
+    
+    func navigateToCompeletProfile(kyc: KYCType) {
+        switch kyc {
+        case .ProfileScreen:
+            
+//            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController") {
+//                //                GlobalVariable.instance.isReturnToProfile = true
+//                self.navigate(to: profileVC)
+//            }
+            
+            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "HomeTabbarViewController"){
+                //                profileVC.delegateKYC = self
+                //                GlobalVariable.instance.isReturnToProfile = true
+                self.navigate(to: profileVC)
+            }
+            break
+        case .FirstScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .SecondScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .ThirdScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .FourthScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .FifthScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .SixthScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .SeventhScreen:
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
+        case .ReturnDashboard:
+//            initTableView_CheckData()
+          
+                let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+                profilevc.delegateKYC = self
+                self.navigate(to: profilevc)
+            
+            break
+        case .KycScreen:
+            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+            vc.delegateKYC = self
+            self.navigate(to: vc)
+//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            break
         }
     }
     

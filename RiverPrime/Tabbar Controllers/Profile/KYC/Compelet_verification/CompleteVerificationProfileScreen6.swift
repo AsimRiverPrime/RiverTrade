@@ -180,9 +180,23 @@ class CompleteVerificationProfileScreen6: BaseViewController {
         }
     
     func navigateToDashboard() {
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
-    }
+        //        self.dismiss(animated: true)
+        ////        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
+        //
+                
+                if GlobalVariable.instance.realAccount {
+        //            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+        //    //        vc.delegateKYC = self
+        //            self.navigate(to: vc)
+                    let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+        //            vc.delegateKYC = self
+                    self.navigate(to: vc)
+                } else {
+                    self.dismiss(animated: true)
+                    delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
+                }
+                
+            }
     
        
 }

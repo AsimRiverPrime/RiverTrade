@@ -138,14 +138,14 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                                    lbl_profile.text = "Your profile has been rejected. Please contact customer support for further details."
                                    btn_completeProfile.isUserInteractionEnabled = false
                                    btn_completeProfile.setTitle("Profile in Progress", for: .normal)
-                                   progreeBar.progress = 0.9
+                                   progreeBar.progress = 0.8
 //                                   self.lbl_progressPercent.text = "90%"
                                } else{
                                    // Handle the "refer" status
-                                   lbl_profile.text = "Thank you for providing your details. Your profile has been submitted for review. Please await further updates."
-                                   btn_completeProfile.isUserInteractionEnabled = false
+                                   lbl_profile.text = "Thank you for providing your details."/* Your profile has been submitted for review. Please await further updates."*/
+                                   btn_completeProfile.isUserInteractionEnabled = true
                                    btn_completeProfile.setTitle("Profile Completed", for: .normal)
-                                   progreeBar.progress = 0.9
+                                   progreeBar.progress = 1.0
 //                                   self.lbl_progressPercent.text = "90%"
                                }
                         }else if profileStep == 1 {

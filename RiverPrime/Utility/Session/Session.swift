@@ -18,6 +18,9 @@ protocol ISession {
     
     var filteredSymbolData: [SymbolData]? { get set }
     
+    //MARK: - isRealAccountInitFlowComplete
+    var isRealAccountInitFlowComplete: Bool? { get set }
+    
 }
 
 class Session: ISession {
@@ -35,6 +38,22 @@ class Session: ISession {
         }
         get {
             if let value = UserDefaults.standard.value(forKey: kisFaceIDEnabled) as? Bool {
+                return value
+            }
+            return nil
+        }
+        
+    }
+    
+    //MARK: - isRealAccountInitFlowComplete
+    let kisRealAccountInitFlowComplete = "kisRealAccountInitFlowComplete"
+    var isRealAccountInitFlowComplete: Bool? {
+        
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: kisRealAccountInitFlowComplete)
+        }
+        get {
+            if let value = UserDefaults.standard.value(forKey: kisRealAccountInitFlowComplete) as? Bool {
                 return value
             }
             return nil

@@ -17,20 +17,24 @@ class UserAccountManager {
 
     // Update accounts from Firebase response
     func updateAccounts(from firebaseResponse: [String: [String: Any]]) {
+        print("Firebase Response: \(firebaseResponse)\n")
         var updatedAccounts: [String: UserAccount] = [:]
 
         for (key, value) in firebaseResponse {
+            print("Processing account key: \(key)")
             if let account = UserAccount(dictionary: value) {
                 updatedAccounts[key] = account
                 
                 if passwordManager.savePassword(for: String(account.accountNumber), password: account.password) {
-                    print("All Password successfully saved in UserAccountManager Class:")
+                    print("Password saved for account \(account.accountNumber)\n")
                 } else {
-                    print("ID already exists. Cannot save password.")
+                    print("Password already exists for account \(account.accountNumber)\n")
                 }
+            } else {
+                print("Could not parse account for key \(key): \(value)")
             }
         }
-
+   
         self.accounts = updatedAccounts
         saveDefaultAccount()
     }
@@ -56,6 +60,7 @@ class UserAccountManager {
     }
 }
 
+
 struct UserAccount: Codable {
     let accountNumber: Int
     let isDefault: Bool
@@ -63,12 +68,11 @@ struct UserAccount: Codable {
     let name: String
     let groupID: String
     let userID: String
-    let currency: String
+    let currency: String?
     let kycStatus: String
     let password: String
     let isReal: Bool
 
-    // Initialize from dictionary
     init?(dictionary: [String: Any]) {
         guard
             let accountNumber = dictionary["accountNumber"] as? Int,
@@ -77,11 +81,11 @@ struct UserAccount: Codable {
             let name = dictionary["name"] as? String,
             let groupID = dictionary["groupID"] as? String,
             let userID = dictionary["userID"] as? String,
-            let currency = dictionary["currency"] as? String,
             let kycStatus = dictionary["KycStatus"] as? String,
             let password = dictionary["password"] as? String,
             let isReal = dictionary["isReal"] as? Int
         else {
+            print("❌ Failed to parse UserAccount from: \(dictionary)")
             return nil
         }
 
@@ -91,9 +95,11 @@ struct UserAccount: Codable {
         self.name = name
         self.groupID = groupID
         self.userID = userID
-        self.currency = currency
         self.kycStatus = kycStatus
         self.password = password
         self.isReal = isReal == 1
+
+        // Handle optional field
+        self.currency = dictionary["currency"] as? String
     }
 }

@@ -31,6 +31,8 @@ class CreateAccountSelectTradeType: BottomSheetController {
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
     
+    var realAccountAfterLogin = false
+    
     var isRealAccount = Bool()
     var counter = 0
 //    var getSelectedAccountType = GetSelectedAccountType()
@@ -58,6 +60,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @objc func dismissScreens(){
         self.dismiss(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountListForRealAccount"), object: nil)
     }
     
     func setupPageControl() {
@@ -81,6 +84,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
 //        vc.dismissDelegate = self
         vc.account = accounts[counter]
         vc.isReal = isRealAccount
+        vc.realAccountAfterLogin = realAccountAfterLogin
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         
     }

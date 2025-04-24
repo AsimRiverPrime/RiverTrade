@@ -77,8 +77,18 @@ class CompleteVerificationProfileScreen2: BaseViewController {
     
     @IBAction func continueBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedInstrument, forKey: "SelectedTradeInstruments")
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
+        
+        
+        if GlobalVariable.instance.realAccount {
+            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
+    //        vc.delegateKYC = self
+            self.navigate(to: vc)
+        } else {
+            self.dismiss(animated: true)
+            delegateKYC?.navigateToCompeletProfile(kyc: .ThirdScreen)
+        }
         
     }
     

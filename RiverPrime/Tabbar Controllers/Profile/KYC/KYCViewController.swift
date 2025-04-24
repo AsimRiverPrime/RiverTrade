@@ -234,12 +234,13 @@ class KYCViewController: BaseViewController {
                 self.fireStoreInstance.fetchUserData(userId: userId!)
                 
                 let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-                    self.dismiss(animated: true) {
+//                    self.dismiss(animated: true) {
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
                         //move to profile VC
-                        let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
-                        self.navigate(to: profilevc)
-                    }
+                    self.navigationController?.popViewController(animated: true)
+//                        let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+//                        self.navigate(to: profilevc)
+//                    }
                 }
             }
         }

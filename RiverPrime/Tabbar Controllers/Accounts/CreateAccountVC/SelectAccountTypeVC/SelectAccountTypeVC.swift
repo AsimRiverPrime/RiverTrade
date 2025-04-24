@@ -134,7 +134,7 @@ class SelectAccountTypeVC: BottomSheetController {
         demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
         realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
            
-        print("Demo account Data: \(demoData)\n")
+        print("\nDemo account Data: \(demoData)\n")
         print("Real account Data: \(realData)")
         
         tableView.registerCells([
@@ -353,7 +353,7 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
         let allPasswords = passwordManager.getAllPasswords()
         
         // Check if the accountNumber exists in the dictionary
-        if let passwordEntry = allPasswords[accountNumberKey], let password = passwordEntry[accountNumberKey] {
+        if let password = allPasswords[accountNumberKey] {
             print("Account found with password: \(password)")
             
             // Call the login API directly
@@ -380,16 +380,16 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
             print("Account not found. Navigating to login screen.")
             
             // Navigate to the LoginPopupVC screen
-            if let mtLoginVC = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-                .instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-                mtLoginVC.loginId = accountNumber
-                mtLoginVC.modalPresentationStyle = .overFullScreen
-                mtLoginVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-                mtLoginVC.view.alpha = 0
-                mtLoginVC.modalTransitionStyle = .crossDissolve
-                mtLoginVC.metaTraderType = .Balance
-                self.present(mtLoginVC, animated: true, completion: nil)
-            }
+//            if let mtLoginVC = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+//                .instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+//                mtLoginVC.loginId = accountNumber
+//                mtLoginVC.modalPresentationStyle = .overFullScreen
+//                mtLoginVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+//                mtLoginVC.view.alpha = 0
+//                mtLoginVC.modalTransitionStyle = .crossDissolve
+//                mtLoginVC.metaTraderType = .Balance
+//                self.present(mtLoginVC, animated: true, completion: nil)
+//            }
         }
     }
 }

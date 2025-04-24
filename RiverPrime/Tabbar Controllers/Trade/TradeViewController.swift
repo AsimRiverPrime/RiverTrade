@@ -193,6 +193,11 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
        
         NotificationCenter.default.addObserver(self, selector: #selector(self.UpdateTradeList(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.UpdateTradeListConstant.key), object: nil)
         
+        if GlobalVariable.instance.realAccount {
+//            NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountListForRealAccount"), object: nil)
+        }
+        
         //        callCollectionViewAtStart()
         
         //MARK: - Get the list and save localy and set sectors and symbols.
@@ -225,6 +230,57 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                 }
             }
         }
+    }
+    
+    @objc func updateAccountList() {
+        
+//        if GlobalVariable.instance.realAccount || realAccountAfterLogin {
+////            NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
+//            NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
+//        }
+        
+        var isPhoneVerified = Bool()
+        var isEmailVerified = Bool()
+        var registrationType : Int?
+        
+        var userEmail = String()
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
+//                profileStep = profileStep1
+                userEmail = _email
+                registrationType = _registrationType
+                isPhoneVerified = _isPhoneVerified
+                isEmailVerified = _isEmailVerified
+//                UserDefaults.standard.set(_userId, forKey: "userID")
+            }
+        }
+        
+//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+//            if let _isEmailVerified = savedUserData["emailVerified"] as? Bool, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool {
+//                isEmailVerified = _isEmailVerified
+//                isPhoneVerified = _isPhoneVerified
+//            }
+//        }
+        if GlobalVariable.instance.realAccount {
+            if registrationType == 1 && !isEmailVerified {
+                
+                let vc = Utilities.shared.getViewController(identifier: .emailSendVC, storyboardType: .bottomSheetPopups) as! EmailSendVC
+                vc.UserEmail = userEmail
+                self.navigate(to: vc)
+//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else if !isPhoneVerified {
+                
+                let vc = Utilities.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main) as! PhoneVerifyVC
+                vc.userEmail = userEmail
+//                vc.delegate = self
+                self.navigate(to: vc)
+            }else{
+//                didCompletePhoneVerification()
+            }
+            
+        }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

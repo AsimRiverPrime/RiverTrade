@@ -14,23 +14,26 @@ class PasswordManager {
     func savePassword(for id: String, password: String) -> Bool {
         // Retrieve existing passwords
         var savedPasswords = getAllPasswords()
-        
+        print("Before saving, passwords: \(savedPasswords)")
         // Check if the ID already exists
-        if savedPasswords[id] != nil {
-            print("Password for ID \(id) already exists.")
-            return false
-        }
+//        if savedPasswords[id] != nil {
+//            print("Password for ID \(id) already exists.")
+//            return false
+//        }
 
-        savedPasswords[id] = [id: password]
+        savedPasswords[id] = password
         saveToUserDefaults(savedPasswords)
         print("Password saved for ID \(id).")
+        print("After saving, passwords: \(savedPasswords)")
         return true
+        
+        
     }
     
     // Retrieve a password for a specific ID
     func getPassword(for id: String) -> String? {
         let savedPasswords = getAllPasswords()
-        return savedPasswords[id]?[id]
+        return savedPasswords[id]
     }
     
     // Check if an ID exists
@@ -40,12 +43,12 @@ class PasswordManager {
     }
     
     // Retrieve all saved passwords
-    func getAllPasswords() -> [String: [String: String]] {
-        return UserDefaults.standard.dictionary(forKey: userDefaultsKey) as? [String: [String: String]] ?? [:]
+    func getAllPasswords() ->  [String: String] {
+        return UserDefaults.standard.dictionary(forKey: userDefaultsKey) as?  [String: String] ?? [:]
     }
     
     // Private helper to save the updated dictionary to UserDefaults
-    private func saveToUserDefaults(_ passwords: [String: [String: String]]) {
+    private func saveToUserDefaults(_ passwords: [String: String]) {
         UserDefaults.standard.set(passwords, forKey: userDefaultsKey)
     }
     
