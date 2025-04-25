@@ -26,8 +26,6 @@ class PasswordManager {
         print("Password saved for ID \(id).")
         print("After saving, passwords: \(savedPasswords)")
         return true
-        
-        
     }
     
     // Retrieve a password for a specific ID

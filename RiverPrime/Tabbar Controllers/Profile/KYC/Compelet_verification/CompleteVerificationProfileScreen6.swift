@@ -185,9 +185,7 @@ class CompleteVerificationProfileScreen6: BaseViewController {
         //
                 
                 if GlobalVariable.instance.realAccount {
-        //            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-        //    //        vc.delegateKYC = self
-        //            self.navigate(to: vc)
+     
                     let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
         //            vc.delegateKYC = self
                     self.navigate(to: vc)

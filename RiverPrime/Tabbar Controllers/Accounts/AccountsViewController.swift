@@ -1114,7 +1114,7 @@ extension AccountsViewController: OPCDelegate {
             if let totalCell = tblView.cellForRow(at: indexPath) as? Total_PLCell {
                 totalCell.detailTextLabel?.isHidden = false
                 totalCell.detailTextLabel?.font = .boldSystemFont(ofSize: 16)
-                totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
+//                totalCell.detailTextLabel?.text = "$" + String(format: "%.2f", totalProfitOpenClose)
                 if totalProfitOpenClose < 0.0 {
                     totalCell.detailTextLabel?.textColor = .systemRed
                     let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
