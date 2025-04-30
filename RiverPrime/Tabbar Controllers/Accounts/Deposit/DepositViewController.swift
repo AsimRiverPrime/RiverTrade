@@ -196,7 +196,7 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
 //                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                 navigate(to: vc)
             }else{
-                paysafeMethod()
+//                paysafeMethod()
             }
             
             if profileStep == 2 {
