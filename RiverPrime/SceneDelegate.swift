@@ -34,6 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //MARK: - App initialization.
+        GlobalVariable.instance.isAppLunch = false
         splash(scene: scene)
 //        decideRootViewController()
         

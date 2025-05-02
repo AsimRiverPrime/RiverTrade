@@ -61,7 +61,7 @@ class LogoutTableViewCell: UITableViewCell {
         GlobalVariable.instance.changeSector = Bool()
         GlobalVariable.instance.resultTopButtonType = String()
         GlobalVariable.instance.isProcessingSymbol = false
-        
+        GlobalVariable.instance.isAppLunch = false
         GlobalVariable.instance.isAccountCreated = Bool()
         
         GlobalVariable.instance.tradeCollectionViewIndex = (0, [])

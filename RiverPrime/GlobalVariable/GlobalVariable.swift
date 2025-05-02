@@ -33,6 +33,7 @@ class GlobalVariable: NSObject {
     var loginID: Int = 0
     var isAppBecomeActive = false
     var isAppStartAfterLogin = false
+    var isAppLunch = false
     
     var isReturnToProfile = false
     var userEmail: String = ""

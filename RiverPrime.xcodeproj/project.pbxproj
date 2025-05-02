@@ -172,6 +172,7 @@
 		31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */; };
 		31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */; };
 		31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B2632F2CCF5C5E006D4DF4 /* SettingsView.xib */; };
+		31B4A17F2DC4938A007EC30D /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B4A17E2DC4938A007EC30D /* CalendarVC.swift */; };
 		31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */; };
 		31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */; };
 		31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */; };
@@ -563,6 +564,7 @@
 		31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FundsView.xib; sourceTree = "<group>"; };
 		31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		31B2632F2CCF5C5E006D4DF4 /* SettingsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsView.xib; sourceTree = "<group>"; };
+		31B4A17E2DC4938A007EC30D /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
 		31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDetailsModel.swift; sourceTree = "<group>"; };
 		31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventsTableViewCell.xib; sourceTree = "<group>"; };
@@ -1980,6 +1982,7 @@
 				3164C5F82C47F0F90055F093 /* TradingSignalTableViewCell */,
 				3164C5F32C47D68D0055F093 /* MarketTableViewCell */,
 				3164C5EC2C47D0540055F093 /* MarketsViewController.swift */,
+				31B4A17E2DC4938A007EC30D /* CalendarVC.swift */,
 			);
 			path = Markets;
 			sourceTree = "<group>";
@@ -2672,6 +2675,7 @@
 				31D2AF302C8840B800E0CF2E /* AutoscaleInfoProvider.swift in Sources */,
 				31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */,
 				31FC183D2C3C08EE00340CFC /* VerifyCodeViewController.swift in Sources */,
+				31B4A17F2DC4938A007EC30D /* CalendarVC.swift in Sources */,
 				3147D4AB2D09B61D00B3F468 /* TopNewsDetailVC.swift in Sources */,
 				FA46139F2C602D5600B472D6 /* DropDown+Appearance.swift in Sources */,
 				FA3F70352CC70C2300B3CE8A /* NotificationObserver.swift in Sources */,

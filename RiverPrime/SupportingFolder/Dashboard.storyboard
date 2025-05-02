@@ -35,9 +35,10 @@
                         </tabBarAppearance>
                     </tabBar>
                     <connections>
-                        <segue destination="Zza-jt-nQm" kind="relationship" relationship="viewControllers" id="SBl-HY-uL5"/>
                         <segue destination="J1E-BY-wh7" kind="relationship" relationship="viewControllers" id="wN7-2K-UVi"/>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="u24-4k-jeC"/>
+                        <segue destination="Zza-jt-nQm" kind="relationship" relationship="viewControllers" id="1ZX-Z3-7jM"/>
+                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="q9V-Nc-Di7"/>
+                        <segue destination="pq8-P4-Ej0" kind="relationship" relationship="viewControllers" id="QH0-mh-bjl"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2I-uB-0Sq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -238,7 +239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9aN-jc-kmL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2525.9541984732823" y="493.66197183098592"/>
+            <point key="canvasLocation" x="3468" y="494"/>
         </scene>
         <!--Home-->
         <scene sceneID="fw2-4k-mdw">
@@ -798,7 +799,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KXb-VB-Vp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3333.5877862595416" y="493.66197183098592"/>
+            <point key="canvasLocation" x="2778" y="494"/>
         </scene>
         <!--Results-->
         <scene sceneID="pxO-9W-0ve">
@@ -971,7 +972,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nwN-zl-r0O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4905" y="494"/>
+            <point key="canvasLocation" x="5921" y="494"/>
         </scene>
         <!--Economic Calendar DetailVC-->
         <scene sceneID="J5H-Pf-FnK">
@@ -1658,7 +1659,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nNj-hJ-toX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5738" y="494"/>
+            <point key="canvasLocation" x="6753" y="494"/>
         </scene>
         <!--News-->
         <scene sceneID="s0d-6b-0kx">
@@ -1722,7 +1723,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4139.6946564885493" y="493.66197183098592"/>
+            <point key="canvasLocation" x="4196" y="494"/>
         </scene>
         <!--Demo DepositVC-->
         <scene sceneID="9nR-iw-gyE">
@@ -3557,6 +3558,70 @@
             </objects>
             <point key="canvasLocation" x="-2208.3969465648852" y="1935.9154929577467"/>
         </scene>
+        <!--Calendar-->
+        <scene sceneID="o9T-Ph-QHK">
+            <objects>
+                <viewController storyboardIdentifier="CalendarVC" id="pq8-P4-Ej0" customClass="CalendarVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3NS-P7-G7w">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RB8-Dd-zrg">
+                                <rect key="frame" x="25" y="63.999999999999993" width="28.666666666666671" height="26.666666666666664"/>
+                                <fontDescription key="fontDescription" name="Inter-Medium" family="Inter" pointSize="22"/>
+                                <color key="textColor" systemColor="systemYellowColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="oee-BU-eAs">
+                                <rect key="frame" x="24.999999999999996" y="95.666666666666671" width="55.666666666666657" height="50.000000000000014"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zPt-9e-g44">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R50-wD-Nx4">
+                                        <rect key="frame" x="52" y="18" width="3.6666666666666643" height="14.333333333333336"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Vow-dh-K02">
+                                <rect key="frame" x="0.0" y="150.66666666666669" width="393" height="618.33333333333326"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6ho-hI-VWn"/>
+                        <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="oee-BU-eAs" firstAttribute="leading" secondItem="RB8-Dd-zrg" secondAttribute="leading" id="5GY-cC-sNp"/>
+                            <constraint firstItem="Vow-dh-K02" firstAttribute="leading" secondItem="3NS-P7-G7w" secondAttribute="leading" id="ADZ-Se-vlQ"/>
+                            <constraint firstItem="RB8-Dd-zrg" firstAttribute="leading" secondItem="6ho-hI-VWn" secondAttribute="leading" constant="25" id="B2D-Ct-LLj"/>
+                            <constraint firstItem="Vow-dh-K02" firstAttribute="bottom" secondItem="6ho-hI-VWn" secondAttribute="bottom" id="G26-tD-MN5"/>
+                            <constraint firstItem="Vow-dh-K02" firstAttribute="top" secondItem="oee-BU-eAs" secondAttribute="bottom" constant="5" id="ML2-0f-8XK"/>
+                            <constraint firstItem="RB8-Dd-zrg" firstAttribute="top" secondItem="6ho-hI-VWn" secondAttribute="top" constant="4.9999999999999929" id="Rhx-F2-V2d"/>
+                            <constraint firstAttribute="trailing" secondItem="Vow-dh-K02" secondAttribute="trailing" id="m6j-Yu-dXC"/>
+                            <constraint firstItem="oee-BU-eAs" firstAttribute="top" secondItem="RB8-Dd-zrg" secondAttribute="bottom" constant="5" id="ovJ-Lh-XAd"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Calendar" image="calendar.badge.clock" catalog="system" springLoaded="YES" id="r2n-g5-o7x"/>
+                    <connections>
+                        <outlet property="labelAmmount" destination="RB8-Dd-zrg" id="8LH-3F-A4M"/>
+                        <outlet property="lbl_accountGroup" destination="R50-wD-Nx4" id="X8V-iK-PF8"/>
+                        <outlet property="lbl_accountType" destination="zPt-9e-g44" id="Dae-7l-c4Z"/>
+                        <outlet property="tblView" destination="Vow-dh-K02" id="svb-sM-r2t"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4sv-5j-yb3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4926" y="494"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Growth" width="52" height="52"/>
@@ -3565,6 +3630,7 @@
         <image name="alarmIcon" width="24" height="24"/>
         <image name="building.columns" catalog="system" width="128" height="112"/>
         <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="calendar.badge.clock" catalog="system" width="128" height="109"/>
         <image name="chart.bar.xaxis.ascending.badge.clock" catalog="system" width="128" height="109"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
         <image name="depositIcon" width="36" height="36"/>

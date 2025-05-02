@@ -22,9 +22,21 @@ class HomeTabbarViewController: UITabBarController {
     public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateSocketNotSendData: SocketNotSendDataDelegate?
     
+    override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+//        if !GlobalVariable.instance.isAppLunch {
+//            DispatchQueue.main.async {
+////                self.tabBarController?.selectedIndex = 1
+//                self.selectedIndex = 1
+//                GlobalVariable.instance.isAppLunch = true
+//            }
+//        }
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.selectedIndex = 1
         let tabBarAppearance = UITabBarAppearance()
         let tabBarItemAppearance = UITabBarItemAppearance()
         tabBarAppearance.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0)
@@ -35,10 +47,15 @@ class HomeTabbarViewController: UITabBarController {
         tabBarItemAppearance.normal.iconColor =   UIColor.white
         
         tabBarAppearance.stackedLayoutAppearance = tabBarItemAppearance
-        
+       
         tabBar.standardAppearance = tabBarAppearance
         tabBar.scrollEdgeAppearance = tabBarAppearance
         
+        
+//        if let tabBarController = self.view.window?.rootViewController as? UITabBarController {
+//            tabBarController.selectedIndex = 1
+//        }
+       
         //MARK: - START Symbol api calling.
         symbolApiCalling()
         
@@ -55,6 +72,13 @@ class HomeTabbarViewController: UITabBarController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        if !GlobalVariable.instance.isAppLunch {
+            DispatchQueue.main.async {
+//                self.tabBarController?.selectedIndex = 1
+                self.selectedIndex = 1
+                GlobalVariable.instance.isAppLunch = true
+            }
+        }
     }
 }
 
@@ -524,10 +548,7 @@ extension HomeTabbarViewController: GetSocketData {
         
         var getSymbol = ""
         
-        if item.contains("..") {
-            getSymbol = String(item.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if item.contains(".") {
+       if item.contains(".") {
             getSymbol = String(item.dropLast())
         } else {
             getSymbol = item

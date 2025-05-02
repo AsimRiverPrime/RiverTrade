@@ -405,14 +405,14 @@ class FirestoreServices: BaseViewController {
     }
    
        
-       private func navigateToMainScreen() {
-           let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-//           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-           let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
-           self.navigationController?.pushViewController(mainVC, animated: true)
-//           window?.rootViewController = mainVC
-//           window?.makeKeyAndVisible()
-       }
+//       private func navigateToMainScreen() {
+//           let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+////           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
+//           let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
+//           self.navigationController?.pushViewController(mainVC, animated: true)
+////           window?.rootViewController = mainVC
+////           window?.makeKeyAndVisible()
+//       }
 
         func navigateToLoginScreen() {
 //           let storyboard = UIStoryboard(name: "Main", bundle: nil)

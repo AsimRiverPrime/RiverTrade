@@ -12,10 +12,13 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var countryIcon: UIImageView!
     @IBOutlet weak var lbl_event: UILabel!
-    @IBOutlet weak var firstIcon: UIImageView!
-    @IBOutlet weak var secondIcon: UIImageView!
-    @IBOutlet weak var thridIcon: UIImageView!
+//    @IBOutlet weak var firstIcon: UIImageView!
+//    @IBOutlet weak var secondIcon: UIImageView!
+//    @IBOutlet weak var thridIcon: UIImageView!
     @IBOutlet weak var lbl_date: UILabel!
+    @IBOutlet weak var lbl_actual: UILabel!
+    @IBOutlet weak var lbl_forecast: UILabel!
+    @IBOutlet weak var lbl_previousl: UILabel!
 //    @IBOutlet weak var lbl_symbol: UILabel!
     let countryToISOCode: [String: String] = [
         "Afghanistan": "AF",
@@ -234,6 +237,23 @@ class UpcomingEventsTableViewCell: UITableViewCell {
             print("Failed to convert date string to Date")
         }
         
+        if event.actual == "" {
+            lbl_actual.text = "-"
+        }else{
+            lbl_actual.text = event.actual
+        }
+        if event.forecast == "" {
+            lbl_forecast.text =  "-"
+        }else{
+            lbl_forecast.text = event.forecast
+        }
+        if event.previous == "" {
+            lbl_previousl.text = "-"
+        }else{
+            lbl_previousl.text = event.previous
+        }
+        
+      
 //        lbl_date.text = DateHelper.timeAgo(from: event.date)
             
         // Convert country name to ISO code
@@ -245,32 +265,32 @@ class UpcomingEventsTableViewCell: UITableViewCell {
               countryIcon.image = UIImage(named: "") // Fallback image
           }
     
-        countryIcon.layer.cornerRadius = countryIcon.frame.size.height / 2
-        countryIcon.clipsToBounds = true
-        countryIcon.contentMode = .scaleAspectFill
-        countryIcon.layer.borderWidth = 1
-        countryIcon.layer.borderColor = UIColor.darkGray.cgColor
+//        countryIcon.layer.cornerRadius = countryIcon.frame.size.height / 2
+//        countryIcon.clipsToBounds = true
+//        countryIcon.contentMode = .scaleAspectFill
+//        countryIcon.layer.borderWidth = 1
+//        countryIcon.layer.borderColor = UIColor.darkGray.cgColor
 //        countryIcon.backgroundColor = .red
 
         
-        switch event.importance {
-        case 1:
-            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-        case 2:
-            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-        case 3:
-            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-        default:
-            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-        }
+//        switch event.importance {
+//        case 1:
+//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//        case 2:
+//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//        case 3:
+//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+//        default:
+//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+//        }
         
         
       }
