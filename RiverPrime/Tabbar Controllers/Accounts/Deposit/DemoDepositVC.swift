@@ -16,7 +16,7 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
     
     var ammountValue = String()
     let maxAmount = 1_000_000.0 // Maximum limit (1 million)
-
+    var isRealAcount = false
     
     var odooClient = OdooClientNew()
     var tradeTypeVM = TradeTypeCellVM()
@@ -30,8 +30,12 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
 //            //print("\n Default Account User: \(defaultAccount)")
-            
-            lbl_deposit_detail.text = "Enter the amount you wish to deposit into your Demo trading account.(\(defaultAccount.groupName)/\(defaultAccount.accountNumber))."
+            isRealAcount = defaultAccount.isReal
+            if defaultAccount.isReal {
+                lbl_deposit_detail.text = "Enter the amount you wish to deposit into your Real Trading account.(\(defaultAccount.groupName)/ #\(defaultAccount.accountNumber))."
+            }else{
+                lbl_deposit_detail.text = "Enter the amount you wish to deposit into your Demo Trading account.(\(defaultAccount.groupName)/ #\(defaultAccount.accountNumber))."
+            }
         }
         
         tf_amount.delegate = self
@@ -82,7 +86,13 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
         dismissKeyboard()
         
         if tf_amount.text != "" {
-            odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
+            if isRealAcount{
+                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+                // vc.delegateCompeleteProfile = self
+                self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+            }else{
+                odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
+            }
         }else{
             self.ToastMessage("Please enter amount")
         }
@@ -117,6 +127,5 @@ extension DemoDepositVC: DemoDepositProtocol {
     func demoDepositFailure(error: any Error) {
         self.ToastMessage("Error:\(error)")
     }
-    
     
 }

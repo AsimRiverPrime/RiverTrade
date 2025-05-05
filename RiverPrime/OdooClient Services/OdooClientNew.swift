@@ -311,6 +311,75 @@ class OdooClientNew {
                 break
                 
             }
+        }
+    }
+    
+    func getCheckout_ID(ammount: String, partner_id: Int) {
+        
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        var accountNumber = Int()
+       
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String{
+                self.userEmail = _email
+            }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            if defaultAccount.isReal && defaultAccount.isDefault {
+                accountNumber = defaultAccount.accountNumber
+            }
+        }
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               // uid
+                    dbPassword,        // password
+                    "payment.transaction",  // Model name
+                    "prepare_checkout",   // Method name
+                    [],
+                    [                // vals_list
+                        "partner_id": partner_id,
+                        "email": userEmail,
+                        "mt_loggin_number": accountNumber,
+                        "currency_name": "USD",
+                        "payment_type": "DB",
+                        "source": "ios_app"
+                     ]
+                ]
+            ]
+        ]
+        
+       
+        print("\n params for get checkOut ID from odoo server: \(jsonrpcBody)")
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                    
+//                    UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
+//                    self.createLeadDelegate?.leadCreatSuccess(response: result)
+                    print("result is: \(result)")
+                    
+                }else {
+                    print("Unexpected response format or missing 'result' key")
+                    
+                }
+                
+            case .failure(let error):
+//                self.createLeadDelegate?.leadCreatFailure(error: error)
+                print("error is :\(error)")
+                break
+                
+            }
             
         }
         
@@ -458,8 +527,6 @@ class OdooClientNew {
     
     
     func sendOTP(type: String, email: String, phone: String) {
-        
-        
         
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",

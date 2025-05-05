@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -145,6 +145,11 @@
 		31A08BC52C98765B0028B293 /* ApiProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A08BC42C98765B0028B293 /* ApiProtocols.swift */; };
 		31A4F0422C3E5B0F006FDE6E /* HomeTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */; };
 		31A5225D2C525B0D001DB906 /* PhoneVerifyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */; };
+		31A52ACC2DC8B6E3008460C6 /* HyperPayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A52ACB2DC8B6E3008460C6 /* HyperPayVC.swift */; };
+		31A52AD22DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */; };
+		31A52AD32DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; };
+		31A52AD92DC8C1E6008460C6 /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */; };
 		31A939C22D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */; };
 		31A943802D5B8DAE000E1DEF /* themed.css in Resources */ = {isa = PBXBuildFile; fileRef = 31A943722D5B8DAD000E1DEF /* themed.css */; };
@@ -393,6 +398,21 @@
 		FAF18C5B2CB202F700AAB538 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF18C5A2CB202F700AAB538 /* SplashViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		31A52AD42DC8C1C6008460C6 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				31A52AD32DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Embed Frameworks */,
+				31A52AD92DC8C1E6008460C6 /* OPPWAMobile.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RiverPrime.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		310212092CE4D44A0064F6EF /* incomeExpenseTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = incomeExpenseTVCell.swift; sourceTree = "<group>"; };
@@ -537,6 +557,10 @@
 		31A08BC42C98765B0028B293 /* ApiProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiProtocols.swift; sourceTree = "<group>"; };
 		31A4F0412C3E5B0F006FDE6E /* HomeTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabbarViewController.swift; sourceTree = "<group>"; };
 		31A5225C2C525B0D001DB906 /* PhoneVerifyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneVerifyVC.swift; sourceTree = "<group>"; };
+		31A52ACB2DC8B6E3008460C6 /* HyperPayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyperPayVC.swift; sourceTree = "<group>"; };
+		31A52ACE2DC8C16C008460C6 /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OPPWAMobile.xcframework; sourceTree = "<group>"; };
+		31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:74N8742JFG:n software, Inc."; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk_8845.xcframework; sourceTree = "<group>"; };
+		31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OPPWAMobile.xcframework; path = ../../../../Downloads/iOS_Frameworks_6.19.0/OPPWAMobile.xcframework; sourceTree = "<group>"; };
 		31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionTotalTVCell.swift; sourceTree = "<group>"; };
 		31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionTotalTVCell.xib; sourceTree = "<group>"; };
 		31A943722D5B8DAD000E1DEF /* themed.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themed.css; sourceTree = "<group>"; };
@@ -795,6 +819,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */,
+				31A52AD22DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Frameworks */,
 				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -958,6 +984,7 @@
 		3105DEBA2CB3E8A400D1B884 /* Deposit */ = {
 			isa = PBXGroup;
 			children = (
+				31A52ACA2DC8B6B5008460C6 /* HyperPay */,
 				70624A852D8E49910005DD3D /* NETELLER */,
 				31D4C84E2D5CB82400456277 /* CyptoPaymentVC */,
 				3105DEB82CB3E8A400D1B884 /* TableViewCell */,
@@ -1405,6 +1432,23 @@
 			path = verifyPhoneVC;
 			sourceTree = "<group>";
 		};
+		31A52ACA2DC8B6B5008460C6 /* HyperPay */ = {
+			isa = PBXGroup;
+			children = (
+				31A52ACB2DC8B6E3008460C6 /* HyperPayVC.swift */,
+			);
+			path = HyperPay;
+			sourceTree = "<group>";
+		};
+		31A52ACD2DC8C121008460C6 /* HyperPay_SDKFile */ = {
+			isa = PBXGroup;
+			children = (
+				31A52ACE2DC8C16C008460C6 /* OPPWAMobile.xcframework */,
+				31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */,
+			);
+			path = HyperPay_SDKFile;
+			sourceTree = "<group>";
+		};
 		31AAD94D2D1EF3D700733D78 /* UserManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1577,6 +1621,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				31A52ACD2DC8C121008460C6 /* HyperPay_SDKFile */,
 				31030FE92D420CBE005FA25A /* TradingViewCharts */,
 				317B001D2D37B939007C7C37 /* Notification&AlarmsHandler */,
 				3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */,
@@ -2052,6 +2097,7 @@
 		6593950C2FA3CFCDC874F49E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */,
 				25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */,
 			);
 			name = Frameworks;
@@ -2453,6 +2499,7 @@
 				31D261FC2C3BECDE00FC6651 /* Resources */,
 				316DBC522C6E223B0009E953 /* ShellScript */,
 				8671EC17E52849F6B8015A9F /* [CP] Embed Pods Frameworks */,
+				31A52AD42DC8C1C6008460C6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2949,6 +2996,7 @@
 				31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */,
 				FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */,
 				31C1DA7D2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift in Sources */,
+				31A52ACC2DC8B6E3008460C6 /* HyperPayVC.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				317B00232D37DA0B007C7C37 /* NotificationTVCell.swift in Sources */,
 				31D2AF242C8840B800E0CF2E /* LayoutOptions.swift in Sources */,

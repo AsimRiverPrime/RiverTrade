@@ -60,6 +60,29 @@ class TopNewsViewController: BaseViewController {
         }
        
     }
+    
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "TradeVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+
+                faceIdVC.modalPresentationStyle = .overFullScreen
+                if let sheet = faceIdVC.sheetPresentationController {
+//                        sheet.detents = [.medium(), .large()] // Adjust as needed
+                        sheet.prefersGrabberVisible = true
+                    }
+                guard let topVC = faceIdVC.topMostViewController() else { return }
+                topVC.present(faceIdVC, animated: true, completion: nil)
+            }
+            
+        }
+    }
+    
+    
     func sortLatestDate () {
         allPayloads.sort { payload1, payload2 in
             guard let date1 = DateHelper.convertToDate(from: payload1.date),

@@ -3384,6 +3384,21 @@
             </objects>
             <point key="canvasLocation" x="729" y="1213"/>
         </scene>
+        <!--Hyper PayVC-->
+        <scene sceneID="EJa-VI-bC3">
+            <objects>
+                <viewController storyboardIdentifier="HyperPayVC" id="71Z-7L-MM2" customClass="HyperPayVC" customModule="RiverPrime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PVg-0K-ZeH">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="joa-J2-LWG"/>
+                        <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y0D-h0-vHh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2944" y="1936"/>
+        </scene>
         <!--CryptoVC-->
         <scene sceneID="Lve-SX-58N">
             <objects>

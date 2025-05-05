@@ -332,8 +332,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             if receivedString == "TradeVC" {
                 let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
                 faceIdVC.afterLoginNavigation = true
-//                self.navigate(to: faceIdVC)
-//                PresentModalController.instance.presentBottomSheet(self, VC: faceIdVC)
+
                 faceIdVC.modalPresentationStyle = .overFullScreen
                 if let sheet = faceIdVC.sheetPresentationController {
 //                        sheet.detents = [.medium(), .large()] // Adjust as needed

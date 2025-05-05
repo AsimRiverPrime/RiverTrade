@@ -38,19 +38,27 @@ class MarketsViewController: UIViewController {
              
          }
          
-         @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
-             if let userInfo = notification.userInfo,
-                let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
-                 print("Received string: \(receivedString)")
-                 
-                 if receivedString == "NewsVC" {
-                     let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-                     faceIdVC.afterLoginNavigation = true
-                     self.navigate(to: faceIdVC)
-                 }
-                 
-             }
-         }
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "NewsVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+
+                faceIdVC.modalPresentationStyle = .overFullScreen
+                if let sheet = faceIdVC.sheetPresentationController {
+//                        sheet.detents = [.medium(), .large()] // Adjust as needed
+                        sheet.prefersGrabberVisible = true
+                    }
+                guard let topVC = faceIdVC.topMostViewController() else { return }
+                topVC.present(faceIdVC, animated: true, completion: nil)
+            }
+            
+        }
+    }
+    
          
          override func viewWillAppear(_ animated: Bool) {
         

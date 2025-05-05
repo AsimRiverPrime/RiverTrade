@@ -337,16 +337,12 @@ class AccountsViewController: BaseViewController {
             }
             
         }else{
-            if isRealAcount{
-                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-                // vc.delegateCompeleteProfile = self
-                self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            }else{
+           
                 if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
                     vc.ammountValue = self.actualBalance
                     self.navigate(to: vc)
                 }
-            }
+            
         }
     }
     
