@@ -273,6 +273,9 @@ extension MarketsViewController: TopNewsProtocol {
              }
              tblView.reloadData()
          }
+    
+   
+    
      }
 
 

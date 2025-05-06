@@ -150,6 +150,7 @@
 		31A52AD32DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; };
 		31A52AD92DC8C1E6008460C6 /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		31A52AE82DC9E45F008460C6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AE72DC9E45F008460C6 /* CoreData.framework */; };
 		31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */; };
 		31A939C22D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */; };
 		31A943802D5B8DAE000E1DEF /* themed.css in Resources */ = {isa = PBXBuildFile; fileRef = 31A943722D5B8DAD000E1DEF /* themed.css */; };
@@ -181,7 +182,6 @@
 		31B6C53C2CC9177B000DF849 /* SymbolDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */; };
 		31B830472C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */; };
 		31B830482C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */; };
-		31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */; };
 		31B88C412D34EC310016964C /* EmailSendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B88C402D34EC310016964C /* EmailSendVC.swift */; };
 		31B90D0F2C3FC19000A7A0D2 /* PresentModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */; };
 		31B90D112C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */; };
@@ -561,6 +561,7 @@
 		31A52ACE2DC8C16C008460C6 /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = OPPWAMobile.xcframework; sourceTree = "<group>"; };
 		31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */ = {isa = PBXFileReference; expectedSignature = "AppleDeveloperProgram:74N8742JFG:n software, Inc."; lastKnownFileType = wrapper.xcframework; path = ipworks3ds_sdk_8845.xcframework; sourceTree = "<group>"; };
 		31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OPPWAMobile.xcframework; path = ../../../../Downloads/iOS_Frameworks_6.19.0/OPPWAMobile.xcframework; sourceTree = "<group>"; };
+		31A52AE72DC9E45F008460C6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTransactionTotalTVCell.swift; sourceTree = "<group>"; };
 		31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTransactionTotalTVCell.xib; sourceTree = "<group>"; };
 		31A943722D5B8DAD000E1DEF /* themed.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = themed.css; sourceTree = "<group>"; };
@@ -592,7 +593,6 @@
 		31B6C53B2CC9177B000DF849 /* SymbolDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolDetailsModel.swift; sourceTree = "<group>"; };
 		31B830452C491DFA0050F3DD /* UpcomingEventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingEventsTableViewCell.swift; sourceTree = "<group>"; };
 		31B830462C491DFA0050F3DD /* UpcomingEventsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingEventsTableViewCell.xib; sourceTree = "<group>"; };
-		31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponseCache.swift; sourceTree = "<group>"; };
 		31B88C402D34EC310016964C /* EmailSendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSendVC.swift; sourceTree = "<group>"; };
 		31B90D0E2C3FC19000A7A0D2 /* PresentModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentModelController.swift; sourceTree = "<group>"; };
 		31B90D102C3FC6CA00A7A0D2 /* BottomSheetTransitioningDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetTransitioningDelegate.swift; sourceTree = "<group>"; };
@@ -820,6 +820,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */,
+				31A52AE82DC9E45F008460C6 /* CoreData.framework in Frameworks */,
 				31A52AD22DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Frameworks */,
 				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
@@ -1449,6 +1450,13 @@
 			path = HyperPay_SDKFile;
 			sourceTree = "<group>";
 		};
+		31A52AE92DC9E489008460C6 /* CoreData_News_calender */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreData_News_calender;
+			sourceTree = "<group>";
+		};
 		31AAD94D2D1EF3D700733D78 /* UserManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -1517,14 +1525,6 @@
 				3172C9E72D0AC2230098BBEC /* EconomicCalendarSection.xib */,
 			);
 			path = UpcommingEvents;
-			sourceTree = "<group>";
-		};
-		31B8722B2D0C419700024E8A /* CacheApiResponse */ = {
-			isa = PBXGroup;
-			children = (
-				31B8722C2D0C41B700024E8A /* ApiResponseCache.swift */,
-			);
-			path = CacheApiResponse;
 			sourceTree = "<group>";
 		};
 		31B88C3F2D34EC0C0016964C /* EmailVerificationController  */ = {
@@ -1621,12 +1621,12 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
+				31A52AE92DC9E489008460C6 /* CoreData_News_calender */,
 				31A52ACD2DC8C121008460C6 /* HyperPay_SDKFile */,
 				31030FE92D420CBE005FA25A /* TradingViewCharts */,
 				317B001D2D37B939007C7C37 /* Notification&AlarmsHandler */,
 				3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */,
 				31AAD94D2D1EF3D700733D78 /* UserManager */,
-				31B8722B2D0C419700024E8A /* CacheApiResponse */,
 				31B6C53A2CC91740000DF849 /* Models */,
 				3137AE702C77471A00B5A83B /* PasscodeVC */,
 				318257462C75C7B200723A50 /* WebStockManager */,
@@ -2097,6 +2097,7 @@
 		6593950C2FA3CFCDC874F49E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31A52AE72DC9E45F008460C6 /* CoreData.framework */,
 				31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */,
 				25A38E1E34C41923B25052C6 /* Pods_RiverPrime.framework */,
 			);
@@ -2985,7 +2986,6 @@
 				3105DF122CB3E8A400D1B884 /* CloseTicketBottomSheetVC.swift in Sources */,
 				3105DF132CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift in Sources */,
 				31D4C8502D5CB85D00456277 /* CryptoVC.swift in Sources */,
-				31B8722D2D0C41B700024E8A /* ApiResponseCache.swift in Sources */,
 				3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */,
 				3105DF142CB3E8A400D1B884 /* TradeTypeCellVM.swift in Sources */,
 				3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */,

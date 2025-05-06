@@ -16,6 +16,7 @@ class ListingTableViewCell: UITableViewCell {
         @IBOutlet weak var lblLimits: UILabel!
         @IBOutlet weak var lockBtn: UIButton!
     
+    var lockButtonAction: (() -> Void)?
     
         override func awakeFromNib() {
             super.awakeFromNib()
@@ -29,6 +30,7 @@ class ListingTableViewCell: UITableViewCell {
         }
     @IBAction func btn_availableAction(_ sender: Any) {
         print("btn click")
+        lockButtonAction?()
     
 //        let netellerService = NetellerService(environment: .test, keyUsername: "pmle-441874", keyPassword: "B-p1-0-6679395c-0-302d02150085f00a398fb3afdfe5752df077cbbf36811a67ea02147810894c197da443cf74ce3dff6c5bee49bec2d6")
 //
