@@ -138,6 +138,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 let notificationItem = NotificationItem(
                     id: UUID().uuidString, // Generate a unique ID
                     title: userInfo["title"] as? String ?? "",
+                    partner_id: userInfo["partner_id"] as? Int ?? 0,
                     message: userInfo["message"] as? String ?? "",
                     type: type,
                     status: userInfo["new_status"] as? String ?? "",
@@ -152,11 +153,13 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 
             } else if let newStatus = userInfo["new_status"] as? String,
                       let title = userInfo["title"] as? String,
-                      let message = userInfo["message"] as? String {
+                      let message = userInfo["message"] as? String,
+                      let _partner_id = userInfo["partner_id"] as? Int  {
                 
                 let notificationItem = NotificationItem(
                     id: UUID().uuidString, // Generate a unique ID
                     title: title,
+                    partner_id: _partner_id,
                     message: message,
                     type: type,
                     status: newStatus,
@@ -164,7 +167,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                     isSeen: false
                 )
                 
-                print("Saving other type of notification: \(notificationItem)")
+                print("Saving shufti_status_update type of notification: \(notificationItem)")
                 NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
                 
                 // Update the badge count
@@ -237,30 +240,5 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }
         return base
     }
-    
-//    private func handleKYCStatusChange(_ status: String) {
-//        // Implement your logic for KYC status change
-//        if status == "completed" {
-//            print("KYC process is complete.")
-//            // Navigate to another screen or refresh data
-//        } else {
-//            print("KYC status: \(status)")
-//        }
-//    }
-    
-//    func listenForKYCUpdates() {
-//        let db = Firestore.firestore()
-//        db.collection("users").document("user_id").addSnapshotListener { documentSnapshot, error in
-//            guard let document = documentSnapshot else {
-//                print("Error fetching document: \(error!)")
-//                return
-//            }
-//            if let kycStatus = document.get("kycStatus") as? String {
-//                print("KYC Status updated: \(kycStatus)")
-//                // Update UI or handle status change
-//                //                NotificationCenter.default.post(name: .kycStatusChanged, object: nil, userInfo: ["status": kycStatus])
-//                
-//            }
-//        }
-//    }
+ 
 }

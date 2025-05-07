@@ -82,6 +82,7 @@ class NotificationHandler {
 struct NotificationItem: Codable {
     let id: String
     let title: String
+    let partner_id: Int?
     let message: String
     let type: String
     let status: String

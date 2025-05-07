@@ -21,7 +21,7 @@ class OdooClientNew {
 //    var dbUserName: String = "IOS"
 //    var dbPassword: String = "92d8e79bd3d6fc1b549f128fab3cb7b1f362ee73"
     var dbUserName: String = "ios"
-    var dbPassword: String = "b971caab99ac23eaf16fdabc6b5a3bc168d1cd58"
+    var dbPassword: String = "5021da17d4a522a82ee2ccbab90ee4e90d50f463"
     
     var userEmail: String = ""
     var loginId = Int()
@@ -61,7 +61,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("the params is: \(jsonrpcBody)")
+        print("the params for authenticate is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
@@ -101,7 +101,7 @@ class OdooClientNew {
             ]
         ]
         
-        print("json params for search_read is: \(jsonrpcBody)")
+        print("json params for sendSymbolDetailRequest(search_read) is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
@@ -155,11 +155,11 @@ class OdooClientNew {
             "id": 5263 // ID for the JSON-RPC request
         ]
         
-        print("json params is: \(jsonrpcBody)")
+        print("json params for requestSymbolTrade_session is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result is : \(result)")
+            print("requestSymbolTrade_session result is : \(result)")
             
             switch result {
             case .success(let value):
@@ -218,7 +218,7 @@ class OdooClientNew {
         ]
     ]
         
-        print("\n params for search_read records value for KYCStatus is: \(jsonrpcBody)")
+        print("\n params for search_read records value is : \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("result of search read and save user id is : \(result)")
@@ -229,7 +229,15 @@ class OdooClientNew {
                    let firstItem = resultArray.first { // Assuming we need the first object,  save ID
                         //  let idwiseDecision = firstItem["idwise_decision"] as? String {
                     UserDefaults.standard.set(firstItem["id"], forKey: "recordId")
-                    print("crm user id is: \(firstItem["id"])")
+                   
+                    if let partnerArray = firstItem["partner_id"] as? [Any],
+                       let partnerId = partnerArray.first as? Int {
+                        UserDefaults.standard.set(partnerId, forKey: "partner_id")
+                        
+                        print("crm user_id is: \(firstItem["id"]) and partner_id is \(partnerId)")
+                        
+                    }
+                   
                   //  completion(idwiseDecision, nil)
                     
                 }else {
@@ -291,7 +299,7 @@ class OdooClientNew {
         print("\n params for create records value in odoo server: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result is : \(result)")
+            print("create records result is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
@@ -316,10 +324,15 @@ class OdooClientNew {
     
     func getCheckout_ID(ammount: String, partner_id: Int) {
         
+//        let decimalAmount = Decimal(string: String(format: "%.2f", Double(ammount) ?? 0.0)) ?? 0.00
+        let decimalAmount = NSDecimalNumber(string: String(format: "%.2f", Double(ammount) ?? 0.0))
+        
+//        let doubleValue = Double(ammount) ?? 0.0
+//        let decimalAmount = NSDecimalNumber(value: doubleValue)
+        
         uid = UserDefaults.standard.integer(forKey: "uid")
         var accountNumber = Int()
        
-        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 self.userEmail = _email
@@ -347,6 +360,7 @@ class OdooClientNew {
                     [                // vals_list
                         "partner_id": partner_id,
                         "email": userEmail,
+                        "amount": decimalAmount,
                         "mt_loggin_number": accountNumber,
                         "currency_name": "USD",
                         "payment_type": "DB",
@@ -360,7 +374,7 @@ class OdooClientNew {
         print("\n params for get checkOut ID from odoo server: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result is : \(result)")
+            print("For checkOut_ID result is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {

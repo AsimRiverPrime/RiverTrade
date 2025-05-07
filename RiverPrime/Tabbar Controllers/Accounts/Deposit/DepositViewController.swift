@@ -39,6 +39,12 @@ class DepositViewController: BaseViewController {
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
+        
+       
+        odooClientService.getCheckout_ID(ammount: ammountValue, partner_id: partnerId)
+        
+        
         setupDelegates()
         setupTableView()
         loadUserData()
