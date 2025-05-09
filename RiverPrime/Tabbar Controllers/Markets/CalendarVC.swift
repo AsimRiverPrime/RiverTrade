@@ -9,21 +9,32 @@ import UIKit
 
 class CalendarVC: BaseViewController {
     
+    @IBOutlet weak var firstIcon: UIImageView!
+    @IBOutlet weak var secondIcon: UIImageView!
+    @IBOutlet weak var thridIcon: UIImageView!
+    
+    @IBOutlet weak var starView: UIStackView!
+    @IBOutlet weak var lbl_impactValue: UILabel!
+    @IBOutlet weak var btn_impact: UIButton!
+    @IBOutlet weak var lbl_noEvents: UILabel!
+    @IBOutlet weak var lbl_impactLevel: UILabel!
+    
     @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var labelAmmount: UILabel!
     
     @IBOutlet weak var lbl_accountType: UILabel!
     @IBOutlet weak var lbl_accountGroup: UILabel!
 
+    var impactList = ["All","High", "Medium", "Low", "Lowest"]
+    
     let odooServer = OdooClientNew()
-    var allPayloads: [PayloadItem] = []
-    var filteredPayloads: [PayloadItem] = []
     
     var allEvents: [Event] = []
     var filteredEvents: [Event] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        lbl_noEvents.isHidden = true
 //        odooServer.topNewsDelegate = self
         odooServer.economicCalendarDelegate = self
         
@@ -38,6 +49,19 @@ class CalendarVC: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.FaceAfterLoginUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.FaceAfterLoginConstant.key), object: nil)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
+        print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
+        odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
+//        odooServer.getNewsRecords()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
+
+        getinitialBalance()
+        
+    }
+    
     
     @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
         if let userInfo = notification.userInfo,
@@ -59,20 +83,7 @@ class CalendarVC: BaseViewController {
             
         }
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
-        print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
-        odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
-//        odooServer.getNewsRecords()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
 
-        getinitialBalance()
-        
-    }
-    
     func getCurrentAndTomorrowDate() -> (String, String) {
         let currentDate = Date() // Current date and time
         let tomorrowDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)! // Add 1 day
@@ -135,132 +146,110 @@ extension CalendarVC {
         
     }
     
+    @IBAction func impactButtonAction(_ sender: UIButton) {
+        self.dynamicDropDownButton(sender, list: impactList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            sender.setTitle("", for: .normal)
+            self.lbl_impactValue.text = "Importance " + item
+            self.lbl_impactLevel.text =  item
+            self.filterEvents(byImpact: item)
+            
+            if item == "High" {
+                self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+            }else if item == "Medium"{
+                self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+            }else if item == "Low"{
+                self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+                self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+            }else if item == "Lowest" {
+                self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+                self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+                self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
+            }else {
+//                self.starView.isHidden = true
+                self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+                self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
+            }
+        }
+    
+    }
+    // MARK: - Filtering Logic
+       func filterEvents(byImpact impact: String) {
+           if impact == "All" {
+               filteredEvents = allEvents
+//               self.starView.isHidden = true
+           } else {
+//               self.starView.isHidden = false
+               filteredEvents = allEvents.filter { event in
+                   let eventImpact = mapImpactValue(impactLevel: event.importance)
+                   return eventImpact == impact
+               }
+           }
+           if filteredEvents.count == 0 {
+               lbl_noEvents.isHidden = false
+           }else{
+               lbl_noEvents.isHidden = true
+           }
+           tblView.reloadData()
+       }
+
+       func mapImpactValue(impactLevel: Int) -> String {
+           switch impactLevel {
+           case 0: return "Lowest"
+           case 1: return "Low"
+           case 2: return "Medium"
+           case 3: return "High"
+           default: return "All"
+           }
+       }
+    
 }
 
 extension CalendarVC: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+            return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return min(4, 1 + filteredEvents.count)
+       
+        return filteredEvents.count
         
-//        if section == 0 {
-//            // Economic Calendar Section
-//            return min(4, 1 + filteredEvents.count) // 1 header + up to 3 events
-//        } else if section == 1 {
-//            // Top News Section
-//            return min(4, 1 + filteredPayloads.count) // 1 header + up to 3 news items
-//        }
-//        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            // Economic Calendar Section
-            if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "EconomicCalendarSection", for: indexPath) as! EconomicCalendarSection
-                cell.selectionStyle = .none
-                cell.viewAllAction = { [unowned self] in
-                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "EconomicCalendarListVC") as? EconomicCalendarListVC {
-                        
-                        vc.allEvents = self.allEvents
-                        self.navigate(to: vc)
-                    }
-                }
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "UpcomingEventsTableViewCell", for: indexPath) as! UpcomingEventsTableViewCell
-                cell.selectionStyle = .none
-                
-                let payloadIndex = indexPath.row - 1 // Subtract 1 for the header row
-                let payload = filteredEvents[payloadIndex]
-                
-                cell.configure(with: payload)
-                return cell
-            }
-        }
-//        } else if indexPath.section == 1 {
-//            // Top News Section
-//            if indexPath.row == 0 {
-//                // Top News Section Header
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "TopNewsSection", for: indexPath) as! TopNewsSection
-//                cell.selectionStyle = .none
-//                cell.viewAllAction = { [unowned self] in
-//                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TopNewsViewController") as? TopNewsViewController {
-//
-//                        vc.allPayloads = allPayloads
-//                        self.navigate(to: vc)
-//                    }
-//                }
-//                return cell
-//            } else {
-//                // Top News Payload Rows
-//                let payloadIndex = indexPath.row - 1 // Subtract 1 for the header row
-//                let payload = filteredPayloads[payloadIndex]
-//                let cell = tableView.dequeueReusableCell(withIdentifier: "TopNewsTableViewCell", for: indexPath) as! TopNewsTableViewCell
-//                cell.selectionStyle = .none
-//
-//                cell.configure(with: payload)
-//
-//                return cell
-//            }
-//        }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            // Economic Calendar Section
-            if indexPath.row == 0 {
-                return 40 // Height for EconomicCalendarSection cell
-            } else {
-                return 80 // Height for UpcomingEventsTableViewCell
-            }
-//        } else if indexPath.section == 1 {
-//            // Top News Section
-//            if indexPath.row == 0 {
-//                return 40 // Height for TopNewsSection cell
-//            } else {
-//                return 80 // Height for TopNewsTableViewCell
-//            }
-        }
-        return UITableView.automaticDimension
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            if indexPath.row == 0 {
-                
-            }else{
-                let index = indexPath.row - 1
-                let selectedItem = filteredEvents[index]
-                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "EconomicCalendarDetailVC") as? EconomicCalendarDetailVC {
-                    
-                    vc.selectedItem = selectedItem
-                    self.navigate(to: vc)
-                }
-            }
-//        }else if indexPath.section == 1 {
-//
-//            if indexPath.row == 0 {
-//
-//            }else{
-//                let index = indexPath.row - 1
-//                let selectedItem = filteredPayloads[index]
-//                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "TopNewsDetailVC") as? TopNewsDetailVC {
-//
-//                    vc.selectedItem = selectedItem
-//                    self.navigate(to: vc)
-//                }
-//            }
-        }
-    }
 
+        let cell = tableView.dequeueReusableCell(with: UpcomingEventsTableViewCell.self, for: indexPath)
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+       
+        let event = filteredEvents[indexPath.row]
+       
+        cell.configure(with: event)
+            return cell
+        
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = filteredEvents[indexPath.row]
+        if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "EconomicCalendarDetailVC") as? EconomicCalendarDetailVC {
+            
+            vc.selectedItem = selectedItem
+            self.navigate(to: vc)
+        }
+        
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 80
+    }
 
 }
-//extension MarketsViewController: TopNewsProtocol
 
 extension CalendarVC: EconomicCalendarProtocol {
     func economicCalendarSuccess(response: EconomicCalendarModel) {
@@ -286,9 +275,10 @@ extension CalendarVC: EconomicCalendarProtocol {
         
         updateEconomicUI()
     }
+    
     func updateEconomicUI() {
         calendarFilterImportantEvents()
-        filteredPayloads.sort { payload1, payload2 in
+        filteredEvents.sort { payload1, payload2 in
             guard let date1 = DateHelper.convertToDate(from: payload1.date),
                   let date2 = DateHelper.convertToDate(from: payload2.date) else { return false }
             return date1 > date2

@@ -400,7 +400,6 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String/*, let _pass = savedUserData["password"] as? String*/ {
                 email = _email
-                
             }
         }
         
@@ -411,8 +410,8 @@ class TradeTypeCellVM {
             
         }
         
-        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-            //            showPopup()
+        if (pass == nil || pass == "" ){
+            //showPopup()
             return
         }else{
             print("the password is: \(pass ?? "")")

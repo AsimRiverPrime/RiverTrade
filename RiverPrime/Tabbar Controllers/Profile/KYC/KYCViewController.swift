@@ -238,7 +238,7 @@ class KYCViewController: BaseViewController {
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
                         //move to profile VC
 //                    self.navigationController?.popViewController(animated: true)
-                        let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
+                    let profilevc = Utilities.shared.getViewController(identifier: .accountsViewController, storyboardType: .dashboard) as! AccountsViewController
                         self.navigate(to: profilevc)
 //                    }
                 }

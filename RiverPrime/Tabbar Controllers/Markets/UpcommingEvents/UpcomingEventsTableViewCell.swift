@@ -12,7 +12,8 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var countryIcon: UIImageView!
     @IBOutlet weak var lbl_event: UILabel!
-//    @IBOutlet weak var firstIcon: UIImageView!
+    @IBOutlet weak var impactView: UIView!
+    //    @IBOutlet weak var firstIcon: UIImageView!
 //    @IBOutlet weak var secondIcon: UIImageView!
 //    @IBOutlet weak var thridIcon: UIImageView!
     @IBOutlet weak var lbl_date: UILabel!
@@ -238,17 +239,17 @@ class UpcomingEventsTableViewCell: UITableViewCell {
         }
         
         if event.actual == "" {
-            lbl_actual.text = "-"
+            lbl_actual.text = "--"
         }else{
             lbl_actual.text = event.actual
         }
         if event.forecast == "" {
-            lbl_forecast.text =  "-"
+            lbl_forecast.text =  "--"
         }else{
             lbl_forecast.text = event.forecast
         }
         if event.previous == "" {
-            lbl_previousl.text = "-"
+            lbl_previousl.text = "--"
         }else{
             lbl_previousl.text = event.previous
         }
@@ -273,24 +274,16 @@ class UpcomingEventsTableViewCell: UITableViewCell {
 //        countryIcon.backgroundColor = .red
 
         
-//        switch event.importance {
-//        case 1:
-//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//        case 2:
-//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//        case 3:
-//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .systemYellow)
-//        default:
-//            self.firstIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//            self.secondIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//            self.thridIcon.image = UIImage(systemName: "star.fill")?.tint(with: .lightGray)
-//        }
+        switch event.importance {
+        case 1:
+            impactView.backgroundColor = .darkGray
+        case 2:
+            impactView.backgroundColor = .systemYellow
+        case 3:
+            impactView.backgroundColor = .systemRed
+        default:
+            impactView.backgroundColor = .lightGray
+        }
         
         
       }

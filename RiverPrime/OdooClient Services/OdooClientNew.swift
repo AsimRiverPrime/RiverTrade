@@ -322,14 +322,8 @@ class OdooClientNew {
         }
     }
     
-    func getCheckout_ID(ammount: String, partner_id: Int) {
-        
-//        let decimalAmount = Decimal(string: String(format: "%.2f", Double(ammount) ?? 0.0)) ?? 0.00
-        let decimalAmount = NSDecimalNumber(string: String(format: "%.2f", Double(ammount) ?? 0.0))
-        
-//        let doubleValue = Double(ammount) ?? 0.0
-//        let decimalAmount = NSDecimalNumber(value: doubleValue)
-        
+    func getCheckout_ID(ammount: String, partner_id: Int, completion: @escaping (String?) -> Void) {
+       
         uid = UserDefaults.standard.integer(forKey: "uid")
         var accountNumber = Int()
        
@@ -347,6 +341,7 @@ class OdooClientNew {
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "method":"call",
+            "id": 4646,
             "params": [
                 "service": "object",
                 "method": "execute_kw",
@@ -360,44 +355,86 @@ class OdooClientNew {
                     [                // vals_list
                         "partner_id": partner_id,
                         "email": userEmail,
-                        "amount": decimalAmount,
+                        "amount": ammount,
                         "mt_loggin_number": accountNumber,
                         "currency_name": "USD",
                         "payment_type": "DB",
-                        "source": "ios_app"
+                        "source": "app"
                      ]
                 ]
             ]
         ]
         
-       
         print("\n params for get checkOut ID from odoo server: \(jsonrpcBody)")
+        
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
             print("For checkOut_ID result is : \(result)")
             switch result {
             case .success(let value):
-                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+                if let responseDict = value as? [String: Any],
+                   let result = responseDict["result"] as? [String: Any],
+                   let checkoutId = result["checkout_id"] as? String {
                     
-//                    UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
-//                    self.createLeadDelegate?.leadCreatSuccess(response: result)
-                    print("result is: \(result)")
-                    
-                }else {
-                    print("Unexpected response format or missing 'result' key")
-                    
+                    print("Checkout ID: \(checkoutId)")
+                    completion(checkoutId)
                 }
-                
+               
             case .failure(let error):
-//                self.createLeadDelegate?.leadCreatFailure(error: error)
                 print("error is :\(error)")
-                break
-                
+                completion("\(error)")
             }
-            
         }
-        
     }
+    
+    func getTranscationStatus(CheckOut_id: String, completion: @escaping ([String: Any]) -> Void) {
+       
+        uid = UserDefaults.standard.integer(forKey: "uid")
+      
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "id": 2338,
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               // uid
+                    dbPassword,        // password
+                    "payment.transaction",  // Model name
+                    "payment_status",   // Method name
+                    [],
+                    [
+                        "checkout_id": CheckOut_id,
+                        "get_remote_status":true
+                     ]
+                ]
+            ]
+        ]
+//        {"jsonrpc":"2.0","method":"call","params":{"method":"execute_kw","context":{"uid":0},"service":"object","args":["mbe.riverprime.com",6,"14e2967bd7b677724d4ab692caec34047da84833","payment.transaction","payment_status",[],{"checkout_id":"390C672C6AE87CA16C08FABFB76DFC0D.uat01-vm-tx01","get_remote_status":true}]},"id":2338}
+    
+        print("\n params for get Transcation Status from odoo server: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("\nFor Transcation Status result is: \(result)")
+            switch result {
+            case .success(let value):
+                if let responseDict = value as? [String: Any],
+                   let result = responseDict["result"] as? [String: Any] {
+                    
+                    print("Transcation Status ID: \(result)")
+                    completion(result)
+                }
+               
+            case .failure(let error):
+                print("error is :\(error)")
+                completion(["\(error)": (Any).self])
+            }
+        }
+    }
+    
     
     func writeName_toCRM(name: String){
       

@@ -32,28 +32,26 @@ class DepositViewController: BaseViewController {
     
     // Payment Properties
     var ammountValue = String()
-    var checkoutID = "332EF113E0932367D74629B11AA73363.uat01-vm-tx01"
+    var checkoutID = String()
     var checkoutProvider: OPPCheckoutProvider?
     var paymentProvider: OPPPaymentProvider?
     
     // MARK: - Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
         
-       
-        odooClientService.getCheckout_ID(ammount: ammountValue, partner_id: partnerId)
-        
-        
+        loadUserData()
         setupDelegates()
         setupTableView()
-        loadUserData()
+     
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar(animated: animated)
     }
+    
     
     // MARK: - Private Methods
     private func setupDelegates() {
@@ -76,11 +74,23 @@ class DepositViewController: BaseViewController {
     
     private func loadUserData() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _profileStep = savedUserData["profileStep"] as? Int {
+            if let _profileStep = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String{
+              
+                self.userEmail = _email
                 profileStep = _profileStep
             }
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 realAccount = defaultAccount.isReal == true
+            }
+        
+            let recordedId = UserDefaults.standard.integer(forKey: "recordId")
+            let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
+            if recordedId == 0 || partnerId == 0 {
+                odooClientService.SearchRecord(email: userEmail) { data, error in
+//                    print("CRM user data is: \(String(describing: data)) : error is: \(String(describing: error))")
+                }
+            } else {
+                print("Skipping search_read as crm_User_Id  \(recordedId) & partner_id \(partnerId) exists")
             }
         }
     }
@@ -158,8 +168,13 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
                 self?.navigate(to: vc)
             } else {
-                let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
-                self?.navigate(to: vc)
+//                let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
+//                self?.navigate(to: vc)
+                self?.odooClientService.getCheckout_ID(ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                    print("check out Id result is: \(String(describing: data)) ")
+                    self?.checkoutID = data ?? ""
+                    self?.startCheckout(checkout_id: data ?? "")
+                }
             }
         }
     }
@@ -181,14 +196,18 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
             let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
             self.navigate(to: vc)
         } else {
-            startCheckout()
+//            odooClientService.getCheckout_ID(ammount: ammountValue, partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+//                print("check out Id result is: \(String(describing: data)) ")
+//                self.startCheckout(checkout_id: data ?? "")
+//            }
+            
         }
     }
 }
 
 // MARK: - Payment Handling
 extension DepositViewController {
-    func startCheckout() {
+    func startCheckout(checkout_id: String) {
         paymentProvider = OPPPaymentProvider(mode: .test)
         
         let checkoutSettings = OPPCheckoutSettings()
@@ -196,7 +215,7 @@ extension DepositViewController {
         checkoutSettings.shopperResultURL = "com.riverprime.payments://result"
         
         checkoutProvider = OPPCheckoutProvider(paymentProvider: paymentProvider!,
-                                             checkoutID: checkoutID,
+                                             checkoutID: checkout_id,
                                              settings: checkoutSettings)
         
         checkoutProvider?.presentCheckout { [weak self] transaction, error in
@@ -217,11 +236,17 @@ extension DepositViewController {
             print("✅ Payment possibly succeeded")
             print("Payment Brand: \(transaction.paymentParams.paymentBrand)")
             print("Transaction Type: \(transaction.type.rawValue)")
-            print("Transaction description: \(transaction.description)")
             
-            self.dismiss(animated: true)
+            print("\n checkoutID is: \(checkoutID)")
+            
+            //            self.dismiss(animated: true)
+            
+                let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
+            vc._checkout_id = checkoutID
+                self.navigate(to: vc)
+            }
         }
-    }
+    
 }
 
 // MARK: - DashboardVCDelegate
@@ -339,7 +364,7 @@ extension DepositViewController: KYCVCDelegate {
                                                   storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
         case .KycScreen:
             vc = Utilities.shared.getViewController(identifier: .kycViewController,
-                                                  storyboardType: .bottomSheetPopups) as! KYCViewController
+                                                    storyboardType: .dashboard) as! KYCViewController
         case .FourthScreen:
             vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4,
                                                   storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
