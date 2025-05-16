@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -17,17 +16,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo.gif" translatesAutoresizingMaskIntoConstraints="NO" id="RaX-mr-bOb">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VIcon" translatesAutoresizingMaskIntoConstraints="NO" id="RaX-mr-bOb">
+                                <rect key="frame" x="50" y="100" width="293" height="652"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All rights reserved © RIVER PRIME 2025.(v1.0)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4r0-5f-l2S">
+                                <rect key="frame" x="56.333333333333343" y="802.33333333333337" width="280.33333333333326" height="15.666666666666629"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="B9H-8K-CSu"/>
-                        <color key="backgroundColor" systemColor="systemMintColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="RaX-mr-bOb" secondAttribute="bottom" id="2PK-Cl-ADN"/>
-                            <constraint firstItem="RaX-mr-bOb" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Lx3-7R-qW9"/>
-                            <constraint firstItem="RaX-mr-bOb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ZOt-4f-ifL"/>
-                            <constraint firstAttribute="trailing" secondItem="RaX-mr-bOb" secondAttribute="trailing" id="cnQ-mH-oyj"/>
+                            <constraint firstAttribute="bottom" secondItem="RaX-mr-bOb" secondAttribute="bottom" constant="100" id="2PK-Cl-ADN"/>
+                            <constraint firstItem="RaX-mr-bOb" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="100" id="Lx3-7R-qW9"/>
+                            <constraint firstItem="RaX-mr-bOb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="50" id="ZOt-4f-ifL"/>
+                            <constraint firstAttribute="trailing" secondItem="RaX-mr-bOb" secondAttribute="trailing" constant="50" id="cnQ-mH-oyj"/>
+                            <constraint firstItem="4r0-5f-l2S" firstAttribute="bottom" secondItem="B9H-8K-CSu" secondAttribute="bottom" id="gbw-Fk-Lwa"/>
+                            <constraint firstItem="4r0-5f-l2S" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="lYh-p6-Crc"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -37,9 +45,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo.gif" width="500" height="500"/>
-        <systemColor name="systemMintColor">
-            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="VIcon" width="475" height="472"/>
     </resources>
 </document>

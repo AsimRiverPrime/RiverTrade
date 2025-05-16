@@ -99,7 +99,7 @@ class FirestoreServices: BaseViewController {
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
         // Save userID in UserDefaults
        
-        print("User ID for fetchUserAccountsData: \(userId)")
+        print("\n User ID for fetchUserAccountsData: \(userId)")
         
         // Firestore query with `where` clause
         let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
@@ -126,7 +126,7 @@ class FirestoreServices: BaseViewController {
             
             // Save the combined data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
-            print("Combined User Accounts data saved: \(userAccountsData)")
+            print("\n Combined User Accounts data saved: \(userAccountsData)")
            
             
             // Update accounts

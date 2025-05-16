@@ -21,7 +21,7 @@ class TermsConditionsViewController: BaseViewController {
         super.viewWillAppear(animated)
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .darkGray, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "Terms of Service", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
 

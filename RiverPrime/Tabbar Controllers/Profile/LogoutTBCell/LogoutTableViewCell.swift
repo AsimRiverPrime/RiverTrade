@@ -18,6 +18,9 @@ class LogoutTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        if GlobalVariable.instance.guestAccount {
+            lbl_email.text = "Guest User"
+        }
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
@@ -49,6 +52,7 @@ class LogoutTableViewCell: UITableViewCell {
 //        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: false)
         UserDefaults.standard.removeObject(forKey: "userData")
         UserDefaults.standard.removeObject(forKey: "savedSymbolsKey")
+        UserDefaults.standard.removeObject(forKey: "userPasswordData")
         
         GlobalVariable.instance.isProcessingSymbolTimer = false
         

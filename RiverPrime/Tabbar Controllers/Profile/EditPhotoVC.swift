@@ -81,7 +81,7 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         updateUser()
         odooClient.writeName_toCRM(name: tf_username.text ?? "")
         
-        let timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
             print("Timer fired!")
             
             NotificationCenter.default.post(name: Notification.Name("UpdateProfileData"), object: nil, userInfo: [

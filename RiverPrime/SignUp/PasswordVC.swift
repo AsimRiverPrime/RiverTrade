@@ -168,7 +168,6 @@ class PasswordVC: BaseViewController {
                         self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
                         
                         self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self?.password_tf.text ?? "",*/ registrationType: 1)
-//                        self?.odoClientNew.writeRecords(number: "", firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
                     }
                 }
             }

@@ -133,6 +133,7 @@
 		3185C5912D10571100FC996F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5902D10571100FC996F /* DateHelper.swift */; };
 		3186F8A72CF9FDB4000E7AFE /* Logo.gif in Resources */ = {isa = PBXBuildFile; fileRef = 3186F8A62CF9FDB4000E7AFE /* Logo.gif */; };
 		3188EF3C2CCBA395002F47BA /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3188EF3B2CCBA395002F47BA /* RoundedButton.swift */; };
+		3189FABD2DD5D2E1000CD8E5 /* RiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3189FABC2DD5D2E1000CD8E5 /* RiskViewController.swift */; };
 		319A32902C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */; };
 		319A32922C9C3EFB006DA077 /* TradeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319A32832C9C3EFB006DA077 /* TradeTVC.xib */; };
 		319A32942C9C3EFB006DA077 /* TradeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319A32822C9C3EFB006DA077 /* TradeTVC.swift */; };
@@ -545,6 +546,7 @@
 		3185C5902D10571100FC996F /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		3186F8A62CF9FDB4000E7AFE /* Logo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Logo.gif; sourceTree = "<group>"; };
 		3188EF3B2CCBA395002F47BA /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
+		3189FABC2DD5D2E1000CD8E5 /* RiskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskViewController.swift; sourceTree = "<group>"; };
 		319A32802C9C3EFB006DA077 /* TradeCVCCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeCVCCollectionViewCell.swift; sourceTree = "<group>"; };
 		319A32812C9C3EFB006DA077 /* TradeCVCCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TradeCVCCollectionViewCell.xib; sourceTree = "<group>"; };
 		319A32822C9C3EFB006DA077 /* TradeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeTVC.swift; sourceTree = "<group>"; };
@@ -2090,6 +2092,7 @@
 			children = (
 				31FC183F2C3C0D4200340CFC /* TermsConditionsViewController.swift */,
 				31B124912C3D49420058C9DD /* PrivacyViewController.swift */,
+				3189FABC2DD5D2E1000CD8E5 /* RiskViewController.swift */,
 			);
 			path = TermsNConditions;
 			sourceTree = "<group>";
@@ -2986,6 +2989,7 @@
 				3105DF122CB3E8A400D1B884 /* CloseTicketBottomSheetVC.swift in Sources */,
 				3105DF132CB3E8A400D1B884 /* TradeTypeCollectionViewCell.swift in Sources */,
 				31D4C8502D5CB85D00456277 /* CryptoVC.swift in Sources */,
+				3189FABD2DD5D2E1000CD8E5 /* RiskViewController.swift in Sources */,
 				3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */,
 				3105DF142CB3E8A400D1B884 /* TradeTypeCellVM.swift in Sources */,
 				3105DF152CB3E8A400D1B884 /* CreateAccountSlideCell.swift in Sources */,
@@ -3164,7 +3168,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3179,21 +3183,26 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RiverPrime.RiverTrade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3210,7 +3219,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1.01;
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3225,21 +3234,26 @@
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to the photo library to upload and store user images.";
 				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need access to speech recognition to enhance voice-enabled features.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UIStatusBarHidden = NO;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.RiverPrime.RiverTrade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

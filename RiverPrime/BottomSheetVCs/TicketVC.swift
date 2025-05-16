@@ -1733,7 +1733,7 @@ extension TicketVC {
                             self.showTimeAlert(str: "Order placed successfully")
                         }
                         
-                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                             self.dismiss(animated: true)
                         }
                         
@@ -1752,7 +1752,7 @@ extension TicketVC {
                         self.showTimeAlert(str: "Order not placed")
                     }
                     
-                    let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
+                    let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                         self.dismiss(animated: true)
                     }
                 }

@@ -343,6 +343,7 @@ class CreateAccountTypeVC: BottomSheetController {
                     print("All Saved Passwords on create Account: \(allPasswords)")
                     
                     if self.isReal {
+                        GlobalVariable.instance.realAccount = true
                         self.dismiss(animated: true) {
                             NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
                         }
@@ -352,6 +353,7 @@ class CreateAccountTypeVC: BottomSheetController {
 //                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
 //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
                     }else{
+                        GlobalVariable.instance.realAccount = false
                         NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
                         self.dismiss(animated: true)
                     }

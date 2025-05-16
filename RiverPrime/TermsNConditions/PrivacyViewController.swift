@@ -21,18 +21,7 @@ class PrivacyViewController: BaseViewController {
         //MARK: - Hide Navigation Bar
         
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .darkGray, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "Privacy Policy", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

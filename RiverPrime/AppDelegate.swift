@@ -38,6 +38,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Set the messaging delegate
         Messaging.messaging().delegate = self
         
+//        UNUserNotificationCenter.current().delegate = self
+//                
+//                let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+//                UNUserNotificationCenter.current().requestAuthorization(
+//                    options: authOptions,
+//                    completionHandler: {_ ,_ in })
+//                
+//                application.registerForRemoteNotifications()
+        
         // Request notification permissions
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -46,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             print("Permission granted: \(granted)")
         }
-        
+       
         application.registerForRemoteNotifications()
         // Check if app was launched from a notification
         if let notificationData = launchOptions?[.remoteNotification] as? [String: AnyObject] {
@@ -109,8 +118,7 @@ extension AppDelegate: MessagingDelegate {
         }
         print("Firebase registration token: \(fcmToken)")
         GlobalVariable.instance.firebaseNotificationToken =  fcmToken
-        // Optionally, send the token to your server
-//         sendTokenToServer(fcmToken)
+       
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {

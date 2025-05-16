@@ -233,7 +233,7 @@ class KYCViewController: BaseViewController {
                 print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
                 
-                let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
+                let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
 //                    self.dismiss(animated: true) {
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
                         //move to profile VC

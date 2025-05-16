@@ -30,8 +30,8 @@
             filePath = "RiverPrime/Tabbar Controllers/Accounts/Deposit/DepositViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "startCheckout(checkout_id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -49,6 +49,52 @@
             startingLineNumber = "23"
             endingLineNumber = "23"
             landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4A3BCD50-E869-4F3E-BCA0-8017C144C83C - dbb8d4fd314b0de1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "RiverPrime.HyperPayVC.viewDidLoad() -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/Deposit/HyperPay/HyperPayVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23">
+               </Location>
+               <Location
+                  uuid = "4A3BCD50-E869-4F3E-BCA0-8017C144C83C - a58882f037062d4e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in RiverPrime.HyperPayVC.viewDidLoad() -&gt; ()"
+                  moduleName = "RiverPrime.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/rossrostane/Desktop/Asim/Projects/RiverTrade/RiverPrime/Tabbar%20Controllers/Accounts/Deposit/HyperPay/HyperPayVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "484C236C-92A4-4D07-ADA1-4D519F8E979A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "RiverPrime/SignUp/EmailVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "authorizationController(controller:didCompleteWithAuthorization:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

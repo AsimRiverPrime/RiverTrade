@@ -128,14 +128,14 @@ extension HomeTabbarViewController {
         odooClientService.sendSymbolDetailRequest()
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
-        if recordedId == 0 || partnerId == 0 {
+//        if recordedId == 0 || partnerId == 0 {
             odooClientService.SearchRecord(email: userEmail ?? "") { data, error in
-                print("CRM user data is: \(data) : error is: \(error)")
+//                print("CRM user data is: \(data) : error is: \(error)")
             }
-        } else {
-            print("Skipping search as crm_User_Id exists: \(recordedId)")
-            
-        }
+//        } else {
+            print("-------- search_read as crm_User_Id: \(recordedId) & partner_id: \(partnerId)----")
+//
+//        }
         odooClientService.tradeSymbolDetailDelegate = self
         odooClientService.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
     }
@@ -400,7 +400,7 @@ extension HomeTabbarViewController {
                     self.webSocketManager.delegateSocketConnectionInit = self
                     self.webSocketManager.delegateSocketNotSendData = self
                     
-                    //                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
+                    //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
                     //                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
                 }
             }

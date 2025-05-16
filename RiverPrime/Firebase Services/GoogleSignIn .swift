@@ -52,13 +52,14 @@ class GoogleSignIn {
                         
                         self.fireBaseService.fetchUserData(userId: user.uid)
                         self.fireBaseService.fetchUserAccountsData(userId: user.uid, completion: {
-                        })
-                        
-                        let timer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { _ in
-                            print("Timer fired!")
+                            print("\n user account data fetch from google SignIn ")
                             SVProgressHUD.dismiss()
                             self.fireBaseService.handleFaceID()
-                        }
+                        })
+                        
+//                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+//                            print("Timer fired!")
+//                        }
                     } else {
                         self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "")
                         

@@ -729,38 +729,62 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LX0-Mf-zCz">
-                                <rect key="frame" x="0.0" y="331.66666666666674" width="393" height="437.33333333333326"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tmy-bT-7YZ" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="5" y="336.66666666666674" width="383" height="427.33333333333326"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LX0-Mf-zCz">
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="427.33333333333331"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="J1E-BY-wh7" id="5Od-ui-d1M"/>
+                                            <outlet property="delegate" destination="J1E-BY-wh7" id="hxj-VX-i0G"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="J1E-BY-wh7" id="5Od-ui-d1M"/>
-                                    <outlet property="delegate" destination="J1E-BY-wh7" id="hxj-VX-i0G"/>
-                                </connections>
-                            </tableView>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="LX0-Mf-zCz" secondAttribute="bottom" id="Iu3-1r-PBT"/>
+                                    <constraint firstItem="LX0-Mf-zCz" firstAttribute="leading" secondItem="Tmy-bT-7YZ" secondAttribute="leading" id="R1r-tT-2V0"/>
+                                    <constraint firstAttribute="trailing" secondItem="LX0-Mf-zCz" secondAttribute="trailing" id="cnq-Pk-POI"/>
+                                    <constraint firstItem="LX0-Mf-zCz" firstAttribute="top" secondItem="Tmy-bT-7YZ" secondAttribute="top" id="k6b-2L-dNx"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R1h-j7-h4C"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="LX0-Mf-zCz" firstAttribute="bottom" secondItem="R1h-j7-h4C" secondAttribute="bottom" id="10Y-4Q-eFN"/>
+                            <constraint firstItem="R1h-j7-h4C" firstAttribute="trailing" secondItem="Tmy-bT-7YZ" secondAttribute="trailing" constant="5" id="0he-Uj-0cV"/>
                             <constraint firstItem="K7n-jy-epf" firstAttribute="centerY" secondItem="knW-Uj-7AX" secondAttribute="centerY" id="1tP-fe-4AQ"/>
+                            <constraint firstItem="Tmy-bT-7YZ" firstAttribute="leading" secondItem="R1h-j7-h4C" secondAttribute="leading" constant="5" id="3i1-Xm-HfP"/>
                             <constraint firstItem="0L7-xw-AIf" firstAttribute="width" secondItem="Acr-v4-XV4" secondAttribute="width" id="4fo-Sn-ZUE"/>
                             <constraint firstItem="YBc-7T-U0j" firstAttribute="centerX" secondItem="FeC-pE-nev" secondAttribute="centerX" id="5Tk-Sy-Mey"/>
                             <constraint firstItem="AdN-V7-MV2" firstAttribute="height" secondItem="0L7-xw-AIf" secondAttribute="height" id="5Zz-Cu-Xzs"/>
                             <constraint firstItem="0L7-xw-AIf" firstAttribute="height" secondItem="Acr-v4-XV4" secondAttribute="height" id="5w4-Jp-KUM"/>
                             <constraint firstItem="Acr-v4-XV4" firstAttribute="centerX" secondItem="VQ7-Fw-6Ua" secondAttribute="centerX" id="BGW-ig-9L3"/>
+                            <constraint firstItem="R1h-j7-h4C" firstAttribute="bottom" secondItem="Tmy-bT-7YZ" secondAttribute="bottom" constant="5" id="BNV-LO-DyS"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="width" secondItem="PjZ-SA-mm7" secondAttribute="width" id="CL0-8j-6ZA"/>
                             <constraint firstItem="AdN-V7-MV2" firstAttribute="centerY" secondItem="K4w-Ck-Nlo" secondAttribute="centerY" id="Edg-dr-5H0"/>
-                            <constraint firstAttribute="trailing" secondItem="LX0-Mf-zCz" secondAttribute="trailing" id="EgC-lP-OD4"/>
+                            <constraint firstItem="Tmy-bT-7YZ" firstAttribute="top" secondItem="Tro-ha-xiX" secondAttribute="bottom" constant="5" id="HFo-q5-27b"/>
                             <constraint firstItem="0L7-xw-AIf" firstAttribute="centerX" secondItem="2VL-8A-nq6" secondAttribute="centerX" id="N1g-yO-dRz"/>
                             <constraint firstItem="Tro-ha-xiX" firstAttribute="top" secondItem="ohS-pC-onr" secondAttribute="bottom" constant="8" symbolic="YES" id="OTb-8Y-nHY"/>
                             <constraint firstItem="YBc-7T-U0j" firstAttribute="centerY" secondItem="FeC-pE-nev" secondAttribute="centerY" id="PDa-vJ-Z9W"/>
                             <constraint firstItem="Acr-v4-XV4" firstAttribute="centerY" secondItem="VQ7-Fw-6Ua" secondAttribute="centerY" id="ZLb-H7-nfR"/>
                             <constraint firstItem="0L7-xw-AIf" firstAttribute="centerY" secondItem="2VL-8A-nq6" secondAttribute="centerY" id="bGn-8y-7cS"/>
                             <constraint firstItem="K7n-jy-epf" firstAttribute="height" secondItem="YBc-7T-U0j" secondAttribute="height" id="cZ3-wd-WI4"/>
-                            <constraint firstItem="LX0-Mf-zCz" firstAttribute="top" secondItem="Tro-ha-xiX" secondAttribute="bottom" id="eDy-FS-TL9"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="height" secondItem="PjZ-SA-mm7" secondAttribute="height" multiplier="0.25" id="iEC-T7-H08"/>
                             <constraint firstItem="R1h-j7-h4C" firstAttribute="trailing" secondItem="Tro-ha-xiX" secondAttribute="trailing" constant="5" id="iTr-rF-Xro"/>
                             <constraint firstItem="Tro-ha-xiX" firstAttribute="leading" secondItem="R1h-j7-h4C" secondAttribute="leading" constant="5" id="iYY-NJ-DLj"/>
@@ -770,7 +794,6 @@
                             <constraint firstItem="YBc-7T-U0j" firstAttribute="height" secondItem="AdN-V7-MV2" secondAttribute="height" id="nF1-DQ-sWD"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="centerX" secondItem="PjZ-SA-mm7" secondAttribute="centerX" id="o4E-1x-jAw"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="top" secondItem="R1h-j7-h4C" secondAttribute="top" id="pMO-Ya-RIq"/>
-                            <constraint firstItem="LX0-Mf-zCz" firstAttribute="leading" secondItem="PjZ-SA-mm7" secondAttribute="leading" id="qtv-Bl-RFM"/>
                             <constraint firstItem="AdN-V7-MV2" firstAttribute="width" secondItem="0L7-xw-AIf" secondAttribute="width" id="uDy-B0-dvo"/>
                             <constraint firstItem="K7n-jy-epf" firstAttribute="width" secondItem="YBc-7T-U0j" secondAttribute="width" id="vxB-Tm-55m"/>
                             <constraint firstItem="AdN-V7-MV2" firstAttribute="centerX" secondItem="K4w-Ck-Nlo" secondAttribute="centerX" id="wUJ-6t-eb3"/>

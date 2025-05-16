@@ -103,6 +103,31 @@ class ViewController: BaseViewController {
         
     }
     
+    @IBAction func termsConditionAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "TermsConditionsViewController") as! TermsConditionsViewController
+    
+        self.navigate(to: vc)
+    }
+    
+    @IBAction func privacyPolicyAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "PrivacyViewController") as! PrivacyViewController
+    
+        self.navigate(to: vc)
+    }
+    
+    @IBAction func ExecutionAction(_ sender: Any) {
+        
+    }
+    
+    @IBAction func riskAction(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "RiskViewController") as! RiskViewController
+    
+        self.navigate(to: vc)
+    }
+    
     func saveToKeychain(userIdentifier: String) {
         
         keychain.set(userIdentifier, forKey: "appleUserIdentifier")
@@ -134,12 +159,14 @@ extension ViewController {
     }
     
     func navigateToNationility(){
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let nationalityVC = storyboard.instantiateViewController(withIdentifier: "NationalityVC") as! NationalityVC
     
         self.navigate(to: nationalityVC)
     }
+    
+    
+    
     
 }
 

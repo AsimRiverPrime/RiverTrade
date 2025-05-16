@@ -36,7 +36,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //MARK: - App initialization.
         GlobalVariable.instance.isAppLunch = false
         splash(scene: scene)
-//        decideRootViewController()
         
         //MARK: - ProgressBar initialization.
         self.setSVProgressHUD()
@@ -102,7 +101,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
-//        navigateToFaceScreen()
         
         //MARK: - //MARK: - Connect web socket.
         self.webSocketManager.connectWebSocket()

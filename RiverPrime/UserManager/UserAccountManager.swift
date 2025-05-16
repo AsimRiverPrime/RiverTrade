@@ -17,7 +17,7 @@ class UserAccountManager {
 
     // Update accounts from Firebase response
     func updateAccounts(from firebaseResponse: [String: [String: Any]]) {
-        print("Firebase Response: \(firebaseResponse)\n")
+//        print("Firebase Response: \(firebaseResponse)\n")
         var updatedAccounts: [String: UserAccount] = [:]
 
         for (key, value) in firebaseResponse {
