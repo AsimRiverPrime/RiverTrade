@@ -129,7 +129,7 @@ class KYCViewController: BaseViewController {
             ]
         ]
         
-        print("Final Request: \(dataDictionary)")
+        print("---Final Request for Shufti---: \(dataDictionary)")
         
         
         shufti.shuftiProVerification(requestObject: dataDictionary, authKeys: authKeyss, parentVC: self, configs: configsss) {(result) in

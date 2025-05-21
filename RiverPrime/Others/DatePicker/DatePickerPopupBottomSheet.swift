@@ -91,6 +91,7 @@ class DatePickerPopupBottomSheet: UIViewController {
         
         // Optionally, you can change the font for the day numbers as well
         calendar.appearance.titleFont = UIFont.systemFont(ofSize: 14)
+      
     }
     
     // MARK: - to show events.
@@ -147,6 +148,7 @@ class DatePickerPopupBottomSheet: UIViewController {
         calendar.appearance.headerMinimumDissolvedAlpha = 0
         NextButton.setTitle("", for: .normal)
         PreviousButton.setTitle("", for: .normal)
+      
         
         ifAlreadySelected()
         
@@ -239,55 +241,7 @@ class DatePickerPopupBottomSheet: UIViewController {
         
         self.delegate?.getStartEndDate(startDate: startDate, endDate: endDate)
         self.delegate?.doneDatePickerButton(sender)
-        
-//        if calendar.allowsMultipleSelection == true {
-//            if startDate != "" && endDate == "" {
-//                guard let _startDate = dateFormatter2.date(from: startDate) else {
-//                    print("ERROR: Date conversion failed due to mismatched format.")
-//                    return
-//                }
-//                
-//                print("DateTimeHandling._DateTimeHandling.SetCurrentDate() = \(SetCurrentDate())")
-//                print("startDate = \(startDate)")
-//                
-//                if startDate == SetCurrentDate() {
-//                    let date: String = SetCurrentDate()
-//                    startDate = date
-//                    endDate = date
-//                    print("startDate = \(startDate)")
-//                    print("endDate = \(endDate)")
-//                    self.delegate?.getStartEndDate(startDate: startDate, endDate: endDate)
-//                } else {
-//                    if _startDate < setCurrentDate() {
-//                        
-//                        if isSingleEntery == true {
-//                            endDate = startDate
-//                            print("startDate = \(startDate)")
-//                            print("endDate = \(endDate)")
-//                            self.delegate?.getStartEndDate(startDate: startDate, endDate: endDate)
-//                        } else {
-//                            self.delegate?.showAlert(str: "Start and End Date cannot be less than today.")
-//                        }
-//                        
-//                    } else {
-//                        endDate = startDate
-//                        print("startDate = \(startDate)")
-//                        print("endDate = \(endDate)")
-//                        self.delegate?.getStartEndDate(startDate: startDate, endDate: endDate)
-//                    }
-//                }
-//                
-//            } else {
-//                setCurrentDateIfDoneNothing()
-//            }
-//        } else {
-//            //MARK: - for Single
-//            if startDate == "" {
-//                return
-//            }
-//        }
-//        self.isSingleEntery = nil
-//        self.delegate?.doneDatePickerButton(sender)
+     
     }
     
     @IBAction func cancelDateButton(_ sender: UIButton) {
@@ -364,6 +318,7 @@ class DatePickerPopupBottomSheet: UIViewController {
     }
     
 }
+
 
 //MARK: - Calendar delegate methods
 extension DatePickerPopupBottomSheet: FSCalendarDelegate {
@@ -459,9 +414,6 @@ extension DatePickerPopupBottomSheet: FSCalendarDelegate {
             self.delegate?.getDate(date: date)
             print("selected date = \(date)")
            
-            
-           
-            
         }
         
     }
@@ -546,6 +498,14 @@ extension DatePickerPopupBottomSheet: FSCalendarDelegate {
 }
 
 extension DatePickerPopupBottomSheet: FSCalendarDataSource {
+    
+    func maximumDate(for calendar: FSCalendar) -> Date {
+        return Date() // Set this to any custom date you want
+    }
+    
+    func minimumDate(for calendar: FSCalendar) -> Date {
+        return Date(timeIntervalSinceNow: -60*60*24*365) // Example: 1 year ago
+    }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
 

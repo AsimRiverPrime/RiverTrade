@@ -19,7 +19,7 @@ class DepositViewController: BaseViewController {
     weak var delegateCompeleteProfile: DashboardVCDelegate?
     weak var delegate2: CompleteProfileButtonDelegate?
     
-    private let bank_item = ["Pay with HyperPay"]
+    private let bank_item = ["Pay with HyperPay", "Apple Pay"]
     private let odooClientService = OdooClientNew()
     
     // User Profile Properties
@@ -44,15 +44,19 @@ class DepositViewController: BaseViewController {
         setupDelegates()
         setupTableView()
      
-        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissPaymentView))
+           view.addGestureRecognizer(tapGesture)
     }
+
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupNavigationBar(animated: animated)
     }
     
-    
+    @objc func dismissPaymentView(){
+        self.view.endEditing(true)
+    }
     // MARK: - Private Methods
     private func setupDelegates() {
         self.delegateCompeleteProfile = self
@@ -139,7 +143,14 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
         let bankName = bank_item[indexPath.row]
         
         cell.lblTitle.text = bankName
-        cell.icon_bank.image = UIImage(named: bankName == "Trust wallet" ? "trustWallet" : "hyperPay")
+//        cell.icon_bank.image = UIImage(named: bankName == "Apple Pay" ? "appleIcon" : "hyperPay")
+        if bankName == "Apple Pay" {
+            cell.icon_bank.image = UIImage(systemName: "apple.logo")
+            cell.icon_bank.tintColor = .white
+        } else {
+            cell.icon_bank.image = UIImage(named: "hyperPay")
+        }
+        
         cell.icon_bank.layer.cornerRadius = 0
         cell.icon_bank.backgroundColor = .clear
         cell.selectionStyle = .none
@@ -163,9 +174,14 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
             if bankName == "Trust wallet" {
                 let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
                 self?.navigate(to: vc)
-            } else {
-//                let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
-//                self?.navigate(to: vc)
+            }else if bankName == "Apple Pay" {
+
+                self?.odooClientService.getAppleCheckout_ID(ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                    print("check out Id result is: \(String(describing: data)) ")
+                    self?.checkoutID = data ?? ""
+                    self?.startAppleCheckout(checkout_id: data ?? "")
+                }
+            }else{
                 self?.odooClientService.getCheckout_ID(ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
                     print("check out Id result is: \(String(describing: data)) ")
                     self?.checkoutID = data ?? ""
@@ -203,13 +219,63 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - Payment Handling
 extension DepositViewController {
+    func startAppleCheckout(checkout_id: String) {
+        // Initialize the payment provider
+        let paymentProvider = OPPPaymentProvider(mode: .test)
+
+        // Setup checkout settings
+        let checkoutSettings = OPPCheckoutSettings()
+        checkoutSettings.paymentBrands = ["APPLEPAY"]
+        checkoutSettings.shopperResultURL = "com.riverprime.payments://result"
+
+        // Apple Pay request configuration
+        let paymentRequest = PKPaymentRequest()
+        paymentRequest.merchantIdentifier = "merchant.com.RiverPrime.RiverTrade"
+        paymentRequest.supportedNetworks = [.visa, .masterCard]
+        paymentRequest.merchantCapabilities = .capability3DS
+        paymentRequest.countryCode = "US"
+        paymentRequest.currencyCode = "USD"
+
+        // Assign Apple Pay request to settings (✅ THIS is how Apple Pay works in v2.19)
+        checkoutSettings.applePayPaymentRequest = paymentRequest
+
+        // Initialize and present the HyperPay checkout
+        let checkoutProvider = OPPCheckoutProvider(paymentProvider: paymentProvider,
+                                                   checkoutID: checkoutID,
+                                                   settings: checkoutSettings)
+
+            checkoutProvider?.presentCheckout { [weak self] transaction, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                print("❌ Payment failed: \(error.localizedDescription)")
+                return
+            }
+
+            guard let transaction = transaction else {
+                print("❌ No transaction returned")
+                return
+            }
+
+                print("✅ Payment possibly succeeded")
+                print("Payment Brand: \(transaction.paymentParams.paymentBrand)")
+                print("Transaction Type: \(transaction.type.rawValue)")
+                print("Checkout ID: \(checkoutID)")
+
+            // Navigate to confirmation screen if needed
+            let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
+            vc._checkout_id = checkoutID
+            self.navigate(to: vc)
+        }
+    }
+
     func startCheckout(checkout_id: String) {
         paymentProvider = OPPPaymentProvider(mode: .test)
         
         let checkoutSettings = OPPCheckoutSettings()
-        checkoutSettings.paymentBrands = ["VISA", "MASTER", "MADA"]
+        checkoutSettings.paymentBrands = ["VISA", "MASTER"]
         checkoutSettings.shopperResultURL = "com.riverprime.payments://result"
-        
+       
         checkoutProvider = OPPCheckoutProvider(paymentProvider: paymentProvider!,
                                              checkoutID: checkout_id,
                                              settings: checkoutSettings)
@@ -242,8 +308,9 @@ extension DepositViewController {
                 self.navigate(to: vc)
             }
         }
-    
 }
+
+
 
 // MARK: - DashboardVCDelegate
 extension DepositViewController: DashboardVCDelegate {

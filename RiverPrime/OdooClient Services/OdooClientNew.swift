@@ -321,6 +321,70 @@ class OdooClientNew {
             }
         }
     }
+    func getAppleCheckout_ID(ammount: String, partner_id: Int, completion: @escaping (String?) -> Void) {
+        
+        uid = UserDefaults.standard.integer(forKey: "uid")
+        var accountNumber = Int()
+       
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String{
+                self.userEmail = _email
+            }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            if defaultAccount.isReal && defaultAccount.isDefault {
+                accountNumber = defaultAccount.accountNumber
+            }
+        }
+        
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "method":"call",
+            "id": 4646,
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,      // Database name
+                    uid,               // uid
+                    dbPassword,        // password
+                    "payment.transaction",  // Model name
+                    "prepare_checkout",   // Method name
+                    [],
+                    [                // vals_list
+                        "partner_id": partner_id,
+                        "email": userEmail,
+                        "amount": ammount,
+                        "mt_loggin_number": accountNumber,
+                        "currency_name": "USD",
+                        "payment_type": "DB",
+                        "source": "app"
+                     ]
+                ]
+            ]
+        ]
+        
+        print("\n params for get checkOut ID from odoo server: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            print("For checkOut_ID result is : \(result)")
+            switch result {
+            case .success(let value):
+                if let responseDict = value as? [String: Any],
+                   let result = responseDict["result"] as? [String: Any],
+                   let checkoutId = result["checkout_id"] as? String {
+                    
+                    print("Checkout ID: \(checkoutId)")
+                    completion(checkoutId)
+                }
+               
+            case .failure(let error):
+                print("error is :\(error)")
+                completion("\(error)")
+            }
+        }
+    }
     
     func getCheckout_ID(ammount: String, partner_id: Int, completion: @escaping (String?) -> Void) {
        

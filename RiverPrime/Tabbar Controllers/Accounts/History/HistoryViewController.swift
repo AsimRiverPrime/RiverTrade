@@ -299,6 +299,10 @@ extension HistoryViewController {
     func showDatePicker(_ sender: UIButton) {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
+        
+        // ✨ Prevent future dates by setting the maximum date to today
+        datePicker.maximumDate = Date()
+        
         datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
         
         if sender == btn_fromDate {
@@ -309,13 +313,9 @@ extension HistoryViewController {
             fromDate = ""
         }
         
-        // Create an alert controller
         let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
-        
-        // Add the date picker to the alert
         alertController.view.addSubview(datePicker)
         
-        // Set the height of the date picker
         datePicker.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             datePicker.widthAnchor.constraint(equalTo: alertController.view.widthAnchor),
@@ -323,20 +323,18 @@ extension HistoryViewController {
             datePicker.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -60)
         ])
         
-        // Add a "Done" button
         let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
             let selectedDate = datePicker.date
             let dateFormatter = DateFormatter()
             dateFormatter.dateStyle = .medium
-            
             print("Selected date: \(dateFormatter.string(from: selectedDate))")
         }
         
         alertController.addAction(doneAction)
         
-        // Present the alert controller
         present(alertController, animated: true, completion: nil)
     }
+
     
     @objc func dateChanged(_ sender: UIDatePicker) {
         // Optionally handle date changes in real-time if needed
