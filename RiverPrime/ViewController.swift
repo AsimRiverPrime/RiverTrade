@@ -77,6 +77,7 @@ class ViewController: BaseViewController {
     
     @IBAction func signInBtn(_ sender: Any) {
         GlobalVariable.instance.guestAccount = false
+        GlobalVariable.instance.realAccount = false
         if let signInVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "SignInViewController"){
             self.navigate(to: signInVC)
         }

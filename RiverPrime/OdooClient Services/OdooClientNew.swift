@@ -221,7 +221,7 @@ class OdooClientNew {
         print("\n params for search_read records value is : \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("result of search read and save user id is : \(result)")
+            print("search read result of save user is : \(result)")
             switch result {
             case .success(let value):
                 if let json = value as? [String: Any],
@@ -234,8 +234,8 @@ class OdooClientNew {
                        let partnerId = partnerArray.first as? Int {
                         UserDefaults.standard.set(partnerId, forKey: "partner_id")
                         
-                        print("crm user_id is: \(firstItem["id"]) and partner_id is \(partnerId)")
-                        
+                        print("crm user_id(record_ID) is: \(firstItem["id"]) and partner_id is \(partnerId)")
+                        self.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
                     }
                    
                   //  completion(idwiseDecision, nil)
@@ -390,7 +390,8 @@ class OdooClientNew {
        
         uid = UserDefaults.standard.integer(forKey: "uid")
         var accountNumber = Int()
-       
+        var accountPassword = String()
+        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 self.userEmail = _email
@@ -399,6 +400,7 @@ class OdooClientNew {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             if defaultAccount.isReal && defaultAccount.isDefault {
                 accountNumber = defaultAccount.accountNumber
+                accountPassword = defaultAccount.password
             }
         }
         
@@ -423,7 +425,8 @@ class OdooClientNew {
                         "mt_loggin_number": accountNumber,
                         "currency_name": "USD",
                         "payment_type": "DB",
-                        "source": "app"
+                        "source": "app",
+                        "mt_password": accountPassword
                      ]
                 ]
             ]
@@ -570,18 +573,19 @@ class OdooClientNew {
         ]
         
         
-        print("\n params value for write records on CRM like Firebase_Notification_Token: \(jsonrpcBody)")
+        print("\nWrite records on CRM -> Firebase_Notification_Token: \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("/n send firebaseToken record to CRM result is : \(result)")
+            print("/nfirebaseToken response from CRM is : \(result)")
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-                    print("success firebase token result is: \(result)")
+                    print("successfuly added firebase token to CRM: \(result)")
 //                    self.updateNumberDelegate?.updateNumberSuccess(response: result)
                     
                 }else {
-                    print("Unexpected response format or missing 'result' key")
+                    print("Unexpected response form CRM or missing 'result' key")
+                
                 }
                 
             case .failure(let error):

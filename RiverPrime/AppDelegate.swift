@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: - To make SVProgressHUD position center we need this line.
         window = UIWindow(frame: UIScreen.main.bounds)
         Connectivity.shared.startMonitoring()
-        
+//        FirebaseConfiguration.shared.setLoggerLevel(.debug)
+        print("\n-<--------->--- \n")
         FirebaseApp.configure()
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
@@ -37,16 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        UIApplication.shared.applicationIconBadgeNumber = 0
         // Set the messaging delegate
         Messaging.messaging().delegate = self
-        
-//        UNUserNotificationCenter.current().delegate = self
-//                
-//                let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-//                UNUserNotificationCenter.current().requestAuthorization(
-//                    options: authOptions,
-//                    completionHandler: {_ ,_ in })
-//                
-//                application.registerForRemoteNotifications()
-        
+
         // Request notification permissions
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -135,6 +127,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
         let userInfo = notification.request.content.userInfo
         print("Foreground notification received: \(userInfo)")
         // Parse the notification payload

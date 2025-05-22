@@ -128,16 +128,15 @@ extension HomeTabbarViewController {
         odooClientService.sendSymbolDetailRequest()
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
-//        if recordedId == 0 || partnerId == 0 {
-            odooClientService.SearchRecord(email: userEmail ?? "") { data, error in
+
+        odooClientService.SearchRecord(email: userEmail ?? "") { [weak self] data, error in
 //                print("CRM user data is: \(data) : error is: \(error)")
             }
-//        } else {
+
             print("-------- search_read as crm_User_Id: \(recordedId) & partner_id: \(partnerId)----")
-//
-//        }
+
         odooClientService.tradeSymbolDetailDelegate = self
-        odooClientService.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+       
     }
 }
 
