@@ -144,8 +144,7 @@ extension HomeTabbarViewController {
 //MARK: - Symbol API calling at the start and Save list local and set sectors in the collectionview (Section 1).
 extension HomeTabbarViewController: TradeSymbolDetailDelegate {
     func tradeSymbolDetailSuccess(response: [String: Any]) {
-        //   print("\n symbol resposne is: \(response) ")
-        //        convertXMLIntoJson(response)
+       
         convertJSONIntoSymbols(response)
         ActivityIndicator.shared.hide(from: self.view)
     }
@@ -215,29 +214,23 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                     )
                 )
                 
-                //                print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
+                //print("Added symbol: \(symbolName) with ID: \(symbolId) trading_sessions_ids: \(symboltrade_session)")
             }
-            
-            //            if loadSymbolData().count == 0 {
-            //                saveSymbolData(GlobalVariable.instance.symbolDataArray)
-            //            }
-            
-            //            if Session.instance.getSymbolData()?.count == 0 {
-            //
-            //            }
             
             Session.instance.symbolData = nil
             
             print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
             Session.instance.symbolData = GlobalVariable.instance.symbolDataArray
-            //            print("Session.instance.symbolData after = \(Session.instance.symbolData ?? [])")
-            
-            //            print("loadSymbolData() before = \(loadSymbolData())")
-            //            saveSymbolData(GlobalVariable.instance.symbolDataArray)
-            //            print("loadSymbolData() after = \(loadSymbolData())")
-            
+      
             print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
-            //             Process and save symbols
+            // Process and save symbols and isfavorite symbol
+            let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
+            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
+            
+            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+                Session.instance.filteredSymbolData = filterfavoriteSymbols
+            }
+            
             processSymbols(GlobalVariable.instance.symbolDataArray)
         } else {
             print("Error: Invalid JSON structure")

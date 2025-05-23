@@ -88,9 +88,9 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
         if tf_amount.text != "" {
             if isRealAcount{
                 let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-                // vc.delegateCompeleteProfile = self
+                
                 vc.ammountValue = tf_amount.text ?? ""
-                self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                self.navigate(to: vc)
             }else{
                 odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
             }

@@ -16,7 +16,7 @@ class NotificationViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var notifications: [NotificationItem] = []
-    
+    var isNotification: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,14 @@ class NotificationViewController: BaseViewController {
         
     }
     override func viewWillAppear(_ animated: Bool) {
-        self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: TradeViewController(), navController: self.navigationController, title: "Notifications", leftTitle: "", rightTitle: "Read All", textColor: .white, barColor: .black)
+        if isNotification{
+            self.setNavBar(vc: self, isBackButton: true, isBar: false)
+            
+        }else{
+            self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        }
+//        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: TradeViewController(), navController: self.navigationController, title: "Notifications", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     func fetchNotifications() {

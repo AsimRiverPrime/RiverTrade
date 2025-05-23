@@ -143,9 +143,7 @@ class SelectAccountTypeVC: BottomSheetController {
 
        
 //        sortCurrentData()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.reloadData()
+     
         
 //        let isReal = savedList.filter {($0.value["isReal"] as? Int) == 1}
        
@@ -162,6 +160,10 @@ class SelectAccountTypeVC: BottomSheetController {
         }else{
             self.nodata_label.isHidden = true
         }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.reloadData()
     }
     
     func sortCurrentData() {

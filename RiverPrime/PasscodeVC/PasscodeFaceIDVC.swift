@@ -241,7 +241,7 @@ extension PasscodeFaceIDVC {
  
 }
 
-extension PasscodeFaceIDVC {
+extension UIViewController {
     
     func topMostViewController() -> UIViewController? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

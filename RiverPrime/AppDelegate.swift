@@ -213,9 +213,24 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                         topVC.present(profileVC, animated: true)
                     }
                 case "deposit", "withdrawal":
-                    if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
-                        notificationVC.modalPresentationStyle = .overFullScreen
-                        topVC.present(notificationVC, animated: true)
+//                    if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
+//                        notificationVC.modalPresentationStyle = .overFullScreen
+//                        topVC.present(notificationVC, animated: true)
+//                    }
+                    
+                    if let notificationVC = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as? NotificationViewController {
+//                       let topVC = UIApplication.shared.keyWindow?.rootViewController?.topMostViewController() {
+//                        
+//                        let navController = UINavigationController(rootViewController: notificationVC)
+//                        navController.modalPresentationStyle = .fullScreen // or .automatic if you prefer
+////                        topVC.present(navController, animated: true, completion: nil)
+//                        
+//                        topVC.navigationController?.pushViewController(navController, animated: true)
+                        notificationVC.isNotification = true
+                        let navController = UINavigationController(rootViewController: notificationVC)
+                                            SCENE_DELEGATE.window?.rootViewController = navController
+                                            SCENE_DELEGATE.window?.makeKeyAndVisible()
+                        
                     }
                 default:
                     print("⚠️ Unhandled notification type: \(notificationType)")

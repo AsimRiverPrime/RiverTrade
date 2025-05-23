@@ -20,7 +20,7 @@ class OdooClientNew {
     var dataBaseName: String = "mbe.riverprime.com" // localhost
 //    var dbUserName: String = "IOS"
 //    var dbPassword: String = "92d8e79bd3d6fc1b549f128fab3cb7b1f362ee73"
-    var dbUserName: String = "ios"
+    var dbUserName: String = "ios@riverprime.com"
     var dbPassword: String = "5021da17d4a522a82ee2ccbab90ee4e90d50f463"
     
     var userEmail: String = ""

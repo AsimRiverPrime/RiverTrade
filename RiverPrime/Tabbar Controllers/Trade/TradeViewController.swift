@@ -1059,14 +1059,14 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(with: trade! , symbolDataObj: symbolDataObj, indexPath: indexPath)
             
             // Disable interaction for specific cells
-            if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.
-                cell.isUserInteractionEnabled = false
-                cell.contentView.alpha = 0.5 // Visual cue that the cell is disabled
-                // No selection effect
-            } else {
-                cell.isUserInteractionEnabled = true
-                cell.contentView.alpha = 1.0
-            }
+//            if !(getSymbolData[indexPath.row].isTickFlag ?? false) { //MARK: - User Interface disabled, when tick flag is false.
+//                cell.isUserInteractionEnabled = false
+//                cell.contentView.alpha = 0.5 // Visual cue that the cell is disabled
+//                // No selection effect
+//            } else {
+//                cell.isUserInteractionEnabled = true
+//                cell.contentView.alpha = 1.0
+//            }
            
             cell.onLabelSymbolTapped = { [weak self] in
                        guard let self = self else { return }
@@ -1082,13 +1082,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                        print("Index out of range: \(indexPath.row)")
                    }
                 
-              //  let getSymbolData = getSymbolData[indexPath.row]
-//                if getSymbolData.historyMessage?.chartData.count != 0 {
-//
-//                    delegateDetail?.tradeDetailTap(indexPath: indexPath, getSymbolData: getSymbolData)
-//                }
-//
-                
+             
             }
             cell.onLabelAskTapped = { [weak self] in
                 guard let self = self else { return }

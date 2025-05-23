@@ -487,9 +487,11 @@ extension AccountsViewController {
             
             
             if ammount == "0.0" /*&& initBalance(10000) != 0*/ {
-                self.lbl_amountPercent.text = "0.0%"
+                self.lbl_amountPercent.text = "0.0%" 
             }else{
-                let balancePercent = ((Double(ammount) ?? 0.0) - 10000.0) / 10000.0 * 100 // change with starting balance when account first deposit occure
+                let totalDeposit = UserManager.shared.currentUser?.totalDeposit ?? 0.0
+                print("totalDeposit ------>>>>>>>>>\(totalDeposit)")
+                let balancePercent = ((Double(ammount) ?? 0.0) - totalDeposit) / totalDeposit * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                 
                 if balancePercent > 0.0 {

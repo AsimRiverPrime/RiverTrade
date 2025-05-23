@@ -22,8 +22,8 @@ class GlobalVariable: NSObject {
     var keyIdentifier = "com.riverTrade.aesPassKey"
     
     var dataBaseName: String = "mbe.riverprime.com" // localhost
-    var dbUserName: String =  "ios"
-    var dbPassword: String =  "0cd0a595da38d1fa832b05012f35a8bc602eeac2"
+    var dbUserName: String =  "ios@riverprime.com"
+    var dbPassword: String =  "5021da17d4a522a82ee2ccbab90ee4e90d50f463"
     
     var firebaseNotificationToken = ""
     

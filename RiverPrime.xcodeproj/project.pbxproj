@@ -86,6 +86,9 @@
 		315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */; };
 		315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */; };
 		315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */; };
+		3162CD532DE0543800E5293A /* Model_SymbolData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3162CD512DE0543800E5293A /* Model_SymbolData.xcdatamodeld */; };
+		3162CD622DE06A8C00E5293A /* Fav_SymbolData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162CD612DE06A8C00E5293A /* Fav_SymbolData+CoreDataProperties.swift */; };
+		3162CD632DE06A8C00E5293A /* Fav_SymbolData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3162CD602DE06A8C00E5293A /* Fav_SymbolData+CoreDataClass.swift */; };
 		31643B8B2D1AED58000054F9 /* SelectAccountTypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31643B892D1AED58000054F9 /* SelectAccountTypeCell.swift */; };
 		31643B8C2D1AED58000054F9 /* SelectAccountTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31643B8A2D1AED58000054F9 /* SelectAccountTypeCell.xib */; };
 		3164C5ED2C47D0540055F093 /* MarketsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164C5EC2C47D0540055F093 /* MarketsViewController.swift */; };
@@ -151,7 +154,6 @@
 		31A52AD32DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD02DC8C17E008460C6 /* ipworks3ds_sdk_8845.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; };
 		31A52AD92DC8C1E6008460C6 /* OPPWAMobile.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AD72DC8C1E6008460C6 /* OPPWAMobile.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		31A52AE82DC9E45F008460C6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31A52AE72DC9E45F008460C6 /* CoreData.framework */; };
 		31A939C12D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31A939C02D5A021E000E1DEF /* HistoryTransactionTotalTVCell.xib */; };
 		31A939C22D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A939BF2D5A021E000E1DEF /* HistoryTransactionTotalTVCell.swift */; };
 		31A943802D5B8DAE000E1DEF /* themed.css in Resources */ = {isa = PBXBuildFile; fileRef = 31A943722D5B8DAD000E1DEF /* themed.css */; };
@@ -498,6 +500,9 @@
 		315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoWithdrawalVC.swift; sourceTree = "<group>"; };
 		315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketSectionCell.swift; sourceTree = "<group>"; };
 		315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseTicketSectionCell.xib; sourceTree = "<group>"; };
+		3162CD522DE0543800E5293A /* Model_SymbolData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model_SymbolData.xcdatamodel; sourceTree = "<group>"; };
+		3162CD602DE06A8C00E5293A /* Fav_SymbolData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fav_SymbolData+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		3162CD612DE06A8C00E5293A /* Fav_SymbolData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Fav_SymbolData+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		31643B892D1AED58000054F9 /* SelectAccountTypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAccountTypeCell.swift; sourceTree = "<group>"; };
 		31643B8A2D1AED58000054F9 /* SelectAccountTypeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectAccountTypeCell.xib; sourceTree = "<group>"; };
 		3164C5EC2C47D0540055F093 /* MarketsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketsViewController.swift; sourceTree = "<group>"; };
@@ -822,7 +827,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */,
-				31A52AE82DC9E45F008460C6 /* CoreData.framework in Frameworks */,
 				31A52AD22DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Frameworks */,
 				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
@@ -1247,6 +1251,30 @@
 			path = LogoutTBCell;
 			sourceTree = "<group>";
 		};
+		3162CD4E2DE0466800E5293A /* OfflineSymbolsData */ = {
+			isa = PBXGroup;
+			children = (
+				3162CD602DE06A8C00E5293A /* Fav_SymbolData+CoreDataClass.swift */,
+				3162CD612DE06A8C00E5293A /* Fav_SymbolData+CoreDataProperties.swift */,
+				3162CD512DE0543800E5293A /* Model_SymbolData.xcdatamodeld */,
+			);
+			path = OfflineSymbolsData;
+			sourceTree = "<group>";
+		};
+		3162CD4F2DE0468300E5293A /* CalendarData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CalendarData;
+			sourceTree = "<group>";
+		};
+		3162CD502DE0469B00E5293A /* NewsData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NewsData;
+			sourceTree = "<group>";
+		};
 		3164C5EE2C47D0860055F093 /* MarketsCollectionViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1452,11 +1480,14 @@
 			path = HyperPay_SDKFile;
 			sourceTree = "<group>";
 		};
-		31A52AE92DC9E489008460C6 /* CoreData_News_calender */ = {
+		31A52AE92DC9E489008460C6 /* CoreData_collections */ = {
 			isa = PBXGroup;
 			children = (
+				3162CD502DE0469B00E5293A /* NewsData */,
+				3162CD4F2DE0468300E5293A /* CalendarData */,
+				3162CD4E2DE0466800E5293A /* OfflineSymbolsData */,
 			);
-			path = CoreData_News_calender;
+			path = CoreData_collections;
 			sourceTree = "<group>";
 		};
 		31AAD94D2D1EF3D700733D78 /* UserManager */ = {
@@ -1623,7 +1654,7 @@
 		31D262002C3BECDE00FC6651 /* RiverPrime */ = {
 			isa = PBXGroup;
 			children = (
-				31A52AE92DC9E489008460C6 /* CoreData_News_calender */,
+				31A52AE92DC9E489008460C6 /* CoreData_collections */,
 				31A52ACD2DC8C121008460C6 /* HyperPay_SDKFile */,
 				31030FE92D420CBE005FA25A /* TradingViewCharts */,
 				317B001D2D37B939007C7C37 /* Notification&AlarmsHandler */,
@@ -2761,6 +2792,7 @@
 				31D2AF2F2C8840B800E0CF2E /* SeriesMarker.swift in Sources */,
 				313A92342D084BB0004AC33D /* UserManager.swift in Sources */,
 				315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */,
+				3162CD532DE0543800E5293A /* Model_SymbolData.xcdatamodeld in Sources */,
 				31D2AEEF2C8840B800E0CF2E /* AreaSeries.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
 				3102120B2CE4D44A0064F6EF /* incomeExpenseTVCell.swift in Sources */,
@@ -2983,6 +3015,8 @@
 				3117F78F2CBCE3500095DA19 /* HistoryVM.swift in Sources */,
 				3185C58A2D0FF55100FC996F /* EconomicCalendarListVC.swift in Sources */,
 				3105DF092CB3E8A400D1B884 /* CreateDemoAccountVC.swift in Sources */,
+				3162CD622DE06A8C00E5293A /* Fav_SymbolData+CoreDataProperties.swift in Sources */,
+				3162CD632DE06A8C00E5293A /* Fav_SymbolData+CoreDataClass.swift in Sources */,
 				3105DF0A2CB3E8A400D1B884 /* TradeTypeTableViewCell.swift in Sources */,
 				3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */,
 				3105DF0C2CB3E8A400D1B884 /* TransactionCell.swift in Sources */,
@@ -3173,7 +3207,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.5;
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -3227,7 +3261,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.4;
+				CURRENT_PROJECT_VERSION = 1.2.5;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -3293,6 +3327,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3162CD512DE0543800E5293A /* Model_SymbolData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3162CD522DE0543800E5293A /* Model_SymbolData.xcdatamodel */,
+			);
+			currentVersion = 3162CD522DE0543800E5293A /* Model_SymbolData.xcdatamodel */;
+			path = Model_SymbolData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 31D261F62C3BECDE00FC6651 /* Project object */;
 }

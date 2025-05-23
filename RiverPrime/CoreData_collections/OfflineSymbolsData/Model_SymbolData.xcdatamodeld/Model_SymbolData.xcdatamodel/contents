@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23788" systemVersion="24F74" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Fav_SymbolData" representedClassName="Fav_SymbolData" syncable="YES">
+        <attribute name="contractSize" optional="YES" attributeType="String"/>
+        <attribute name="desc" optional="YES" attributeType="String"/>
+        <attribute name="digits" optional="YES" attributeType="String"/>
+        <attribute name="displayName" optional="YES" attributeType="String"/>
+        <attribute name="icon_url" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="is_mobile_favorite" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="mobile_available" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="sector" optional="YES" attributeType="String"/>
+        <attribute name="spreadSize" optional="YES" attributeType="String"/>
+        <attribute name="stopsLevel" optional="YES" attributeType="String"/>
+        <attribute name="swapLong" optional="YES" attributeType="String"/>
+        <attribute name="swapShort" optional="YES" attributeType="String"/>
+        <attribute name="volumeMax" optional="YES" attributeType="String"/>
+        <attribute name="volumeMin" optional="YES" attributeType="String"/>
+        <attribute name="volumeStep" optional="YES" attributeType="String"/>
+        <attribute name="yesterday_close" optional="YES" attributeType="String"/>
+    </entity>
+</model>

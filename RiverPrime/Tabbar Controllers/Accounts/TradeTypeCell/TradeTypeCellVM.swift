@@ -409,13 +409,7 @@ class TradeTypeCellVM {
             pass = defaultAccount.password
             
         }
-        
-        if (pass == nil || pass == "" ){
-            //showPopup()
-            return
-        }else{
-            print("the password is: \(pass ?? "")")
-        }
+      
         
         let params: [String: Any] = [
             "jsonrpc": "2.0",
