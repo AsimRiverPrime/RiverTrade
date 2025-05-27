@@ -50,14 +50,7 @@ class HyperPayVC: BaseViewController {
             image_status.image = UIImage(systemName: "checkmark")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
             lbl_status.text = "Transaction Success"
             lbl_amountMessage.text = "Your deposit for \(amount) USD has been credited to your account."
-            tradeTypeVM.getBalance(completion: { response in
-                print("get balance in Real deposit: \(response)")
-                if response == "Invalid Response" {
-                    return
-                }
-                GlobalVariable.instance.balanceUpdate = response
-                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-            })
+           
         case .pending:
             image_status.image = UIImage(systemName: "hourglass.circle")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
             lbl_status.text = "Transaction Pending"
@@ -73,6 +66,16 @@ class HyperPayVC: BaseViewController {
             lbl_status.text = "Unknown Status"
             lbl_amountMessage.text = "We couldn't determine the transaction status."
         }
+        
+        tradeTypeVM.getBalance(completion: { response in
+            print("get balance in Real deposit: \(response)")
+            if response == "Invalid Response" {
+                return
+            }
+            GlobalVariable.instance.balanceUpdate = response
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+        })
+        
     }
     
     

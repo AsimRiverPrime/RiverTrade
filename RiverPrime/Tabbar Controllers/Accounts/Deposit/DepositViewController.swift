@@ -176,13 +176,13 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
                 self?.navigate(to: vc)
             }else if bankName == "Apple Pay" {
 
-                self?.odooClientService.getAppleCheckout_ID(ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                self?.odooClientService.getCheckout_ID(is_apple: true, ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
                     print("check out Id result is: \(String(describing: data)) ")
                     self?.checkoutID = data ?? ""
                     self?.startAppleCheckout(checkout_id: data ?? "")
                 }
             }else{
-                self?.odooClientService.getCheckout_ID(ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                self?.odooClientService.getCheckout_ID(is_apple: false, ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
                     print("check out Id result is: \(String(describing: data)) ")
                     self?.checkoutID = data ?? ""
                     self?.startCheckout(checkout_id: data ?? "")

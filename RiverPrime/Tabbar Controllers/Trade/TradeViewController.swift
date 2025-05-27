@@ -431,48 +431,89 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         
     }
-    
+   
     @IBAction func searchCloseButton(_ sender: UIButton) {
-        
         if let currentImage = self.searchCloseButton.image(for: .normal),
            currentImage.isEqual(UIImage(systemName: "magnifyingglass")) {
+            
             print("The button image is magnifyingglass.")
+            
+            // Start search
             symbolDataSector.removeAll()
-            //MARK: - Set all sectors by default.
             symbolDataSector = GlobalVariable.instance.sectors
             filteredData = []
-//            showEmptySearch = false
-            tblView.isHidden = false
+
             isSearching = true
-//            tblSearchView.isHidden = false
+            symbolDataSectorSelected = false // ← Add this line to match default behavior
+
             self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+            self.tblView.isHidden = false
             
-////            tblSearchView.delegate = nil
-////            tblSearchView.dataSource = nil
-////            tblSearchView.reloadData()
-//
             DispatchQueue.main.async {
-                self.tblView.delegate = self
-                self.tblView.dataSource = self
                 self.tblView.reloadData()
             }
-        }else{
-            
+
+        } else {
+            print("The button image is crossBtn.")
+            // Close search
             symbolDataSector.removeAll()
-            //MARK: - Set all sectors by default.
             symbolDataSector = GlobalVariable.instance.sectors
-            //        self.symbolDataSectorSelected = false
             filteredData = []
-//            showEmptySearch = false
+
+            isSearching = false // ← Important
+            symbolDataSectorSelected = false // ← Important to show getSymbolData
+
             self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-            self.tblView.isHidden = false
-//            self.tblSearchView.isHidden = true
             self.tf_searchSymbol.text = ""
             self.tf_searchSymbol.resignFirstResponder()
+            self.tblView.isHidden = false
             
+            DispatchQueue.main.async {
+                self.tblView.reloadData()
+            }
         }
-        
     }
+//    @IBAction func searchCloseButton(_ sender: UIButton) {
+//        
+//        if let currentImage = self.searchCloseButton.image(for: .normal),
+//           currentImage.isEqual(UIImage(systemName: "magnifyingglass")) {
+//            print("The button image is magnifyingglass.")
+//            symbolDataSector.removeAll()
+//            //MARK: - Set all sectors by default.
+//            symbolDataSector = GlobalVariable.instance.sectors
+//            filteredData = []
+////            showEmptySearch = false
+//            tblView.isHidden = false
+//            isSearching = true
+////            tblSearchView.isHidden = false
+//            self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
+//            
+//////            tblSearchView.delegate = nil
+//////            tblSearchView.dataSource = nil
+//////            tblSearchView.reloadData()
+////
+//            DispatchQueue.main.async {
+//                self.tblView.delegate = self
+//                self.tblView.dataSource = self
+//                self.tblView.reloadData()
+//            }
+//        }else{
+//            
+//            symbolDataSector.removeAll()
+//            //MARK: - Set all sectors by default.
+//            symbolDataSector = GlobalVariable.instance.sectors
+//            //        self.symbolDataSectorSelected = false
+//            filteredData = []
+////            showEmptySearch = false
+//            self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+//            self.tblView.isHidden = false
+////            self.tblSearchView.isHidden = true
+//            self.tf_searchSymbol.text = ""
+//            self.tf_searchSymbol.resignFirstResponder()
+//            
+//        }
+//        
+//    }
     
     //    private func callCollectionViewAtStart() {
     //

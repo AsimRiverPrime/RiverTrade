@@ -52,10 +52,7 @@ extension TransactionCell {
         
         var getSymbol = ""
         
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
+         if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
