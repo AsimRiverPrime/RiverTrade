@@ -18,10 +18,11 @@ class HyperPayVC: BaseViewController {
     var _checkout_id = String()
     var amount = String()
     let odooClientService = OdooClientNew()
+    var is_apple = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        odooClientService.getTranscationStatus(CheckOut_id: _checkout_id) { response in
+        odooClientService.getTranscationStatus(is_applePay: is_apple, CheckOut_id: _checkout_id) { response in
             print("\n transcation status in hyperPayScreen is: \(response)")
             
             // Parse only what's needed
@@ -135,16 +136,7 @@ class HyperPayVC: BaseViewController {
     
     
     @IBAction func close_action(_ sender: Any) {
-        
-//        let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-//         let accountVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
-//       
-//        accountVC.modalPresentationStyle = .overFullScreen
-//         if let sheet = accountVC.sheetPresentationController {
-//                 sheet.prefersGrabberVisible = true
-//             }
-//         guard let topVC = accountVC.topMostViewController() else { return }
-//         topVC.present(accountVC, animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
         
     }
 

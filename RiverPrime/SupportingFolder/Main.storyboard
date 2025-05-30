@@ -152,11 +152,11 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="eCv-Lp-781">
-                                        <rect key="frame" x="28" y="632.33333333333337" width="319" height="33.333333333333371"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-30" translatesAutoresizingMaskIntoConstraints="NO" id="eCv-Lp-781">
+                                        <rect key="frame" x="47" y="632.33333333333337" width="318.66666666666669" height="33.333333333333371"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WdS-Lk-1sd">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="33.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="174.33333333333334" height="33.333333333333336"/>
                                                 <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Terms of Service  |">
@@ -166,8 +166,8 @@
                                                     <action selector="termsConditionAction:" destination="f3D-8O-hwq" eventType="touchUpInside" id="DtR-3m-tai"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avV-tC-ZRr">
-                                                <rect key="frame" x="152" y="0.0" width="167" height="33.333333333333336"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="avV-tC-ZRr">
+                                                <rect key="frame" x="144.33333333333331" y="0.0" width="174.33333333333331" height="33.333333333333336"/>
                                                 <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Privacy Policy">
@@ -179,11 +179,11 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-15" translatesAutoresizingMaskIntoConstraints="NO" id="vI3-WX-FWa">
-                                        <rect key="frame" x="28" y="655.66666666666663" width="319" height="33.333333333333371"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-39" translatesAutoresizingMaskIntoConstraints="NO" id="vI3-WX-FWa">
+                                        <rect key="frame" x="47" y="655.66666666666663" width="318.66666666666669" height="33.333333333333371"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAJ-fn-cGy">
-                                                <rect key="frame" x="0.0" y="0.0" width="167" height="33.333333333333336"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="178.66666666666666" height="33.333333333333336"/>
                                                 <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Execution Policy  |">
@@ -194,7 +194,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hQ-Ad-1P2">
-                                                <rect key="frame" x="152" y="0.0" width="167" height="33.333333333333336"/>
+                                                <rect key="frame" x="139.66666666666666" y="0.0" width="178.99999999999997" height="33.333333333333336"/>
                                                 <color key="tintColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Risk Disclosure">
@@ -240,7 +240,7 @@
                                     <constraint firstItem="zo3-qq-gFM" firstAttribute="centerY" secondItem="5xB-nq-lXT" secondAttribute="centerY" multiplier="0.88" id="myu-Q3-RyD"/>
                                     <constraint firstAttribute="bottom" secondItem="Bpv-Uj-RSb" secondAttribute="bottom" id="nfq-1h-Xze"/>
                                     <constraint firstItem="dvM-cC-gGo" firstAttribute="leading" secondItem="Wsm-OG-LHP" secondAttribute="leading" id="oO9-74-Hdk"/>
-                                    <constraint firstItem="eCv-Lp-781" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" id="of4-TB-NDM"/>
+                                    <constraint firstItem="eCv-Lp-781" firstAttribute="centerX" secondItem="5xB-nq-lXT" secondAttribute="centerX" multiplier="1.1" id="of4-TB-NDM"/>
                                     <constraint firstItem="Bpv-Uj-RSb" firstAttribute="top" secondItem="5xB-nq-lXT" secondAttribute="top" id="wMi-Ki-D9N"/>
                                     <constraint firstItem="Wsm-OG-LHP" firstAttribute="trailing" secondItem="O5F-kX-ide" secondAttribute="trailing" id="wzF-sr-fog"/>
                                     <constraint firstItem="Wsm-OG-LHP" firstAttribute="height" secondItem="O5F-kX-ide" secondAttribute="height" id="zNL-0J-feb"/>
@@ -2326,7 +2326,7 @@ You also acknowledge that you fully understand the nature and associated risks o
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="i1m-ls-FTH">
-                                        <rect key="frame" x="37.666666666666657" y="48.33333333333335" width="300" height="96.666666666666714"/>
+                                        <rect key="frame" x="37.666666666666657" y="48.33333333333335" width="300" height="96.666666666666686"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set a new passcode now to access your account quickly and securely" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9r-V5-3Oo">
                                         <rect key="frame" x="20" y="155" width="335" height="43"/>

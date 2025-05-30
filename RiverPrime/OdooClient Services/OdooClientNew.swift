@@ -459,7 +459,7 @@ class OdooClientNew {
         }
     }
     
-    func getTranscationStatus(CheckOut_id: String, completion: @escaping ([String: Any]) -> Void) {
+    func getTranscationStatus(is_applePay: Bool,CheckOut_id: String, completion: @escaping ([String: Any]) -> Void) {
        
         uid = UserDefaults.standard.integer(forKey: "uid")
       
@@ -479,7 +479,8 @@ class OdooClientNew {
                     [],
                     [
                         "checkout_id": CheckOut_id,
-                        "get_remote_status":true
+                        "get_remote_status":true,
+                        "is_ios": is_applePay
                      ]
                 ]
             ]

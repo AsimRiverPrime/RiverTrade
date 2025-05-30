@@ -265,6 +265,7 @@ extension DepositViewController {
             // Navigate to confirmation screen if needed
             let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
             vc._checkout_id = checkoutID
+                vc.is_apple = true
             self.navigate(to: vc)
         }
     }
@@ -305,6 +306,7 @@ extension DepositViewController {
             
                 let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
             vc._checkout_id = checkoutID
+            vc.is_apple = false
                 self.navigate(to: vc)
             }
         }

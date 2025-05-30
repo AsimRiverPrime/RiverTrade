@@ -139,14 +139,15 @@ class PhoneVerifyVC: BaseViewController{
                 
                 print("User isPhone fields updated successfully!")
                 self.firestoreService.fetchUserData(userId: userId)
-                //                    self.navigateToFaceID()
+
                 self.delegate?.didCompletePhoneVerification()
-//                self.delegate?.didCompletePhoneOTPVerification()
+
                 if GlobalVariable.instance.realAccount {
                     Session.instance.isRealAccountInitFlowComplete = true
                     self.initKYC_CheckData()
                 } else {
-                    self.dismiss(animated: true)
+                    self.initKYC_CheckData()
+//                    self.dismiss(animated: true)
                 }
 //                self.dismiss(animated: true)
                 
@@ -154,7 +155,7 @@ class PhoneVerifyVC: BaseViewController{
         }
     }
 }
-
+    
 extension PhoneVerifyVC {
     
     func initKYC_CheckData(){

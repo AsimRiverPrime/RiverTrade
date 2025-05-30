@@ -10,6 +10,7 @@ import GoogleSignIn
 import SVProgressHUD
 import FirebaseMessaging
 import UserNotifications
+import FirebaseCrashlytics
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //        Thread.sleep(forTimeInterval: 1.0)
+        FirebaseConfiguration.shared.setLoggerLevel(.error)
         
         //MARK: - To make SVProgressHUD position center we need this line.
         window = UIWindow(frame: UIScreen.main.bounds)
@@ -30,6 +32,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        FirebaseConfiguration.shared.setLoggerLevel(.debug)
         print("\n-<--------->--- \n")
         FirebaseApp.configure()
+        Crashlytics.crashlytics().setCrashlyticsCollectionEnabled(true)
+        Analytics.setAnalyticsCollectionEnabled(false)
         
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: "1059141438445-iq15u0pnvcob3aid1duckiqa1oc8el92.apps.googleusercontent.com")
         
