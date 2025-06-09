@@ -21,6 +21,9 @@ class CloseTicketBottomSheetVC: UIViewController {
     var ticketName = String()
     var datee = String()
     
+    var getSymbol = ""
+    var symbolDigits = 0
+    
     var totalValue: Double?
     var vm = TransactionCellVM()
     
@@ -35,22 +38,22 @@ class CloseTicketBottomSheetVC: UIViewController {
         
         if closeData?.action == 0 {
             ticketName = "B"
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 1 {
             ticketName = "S"
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 2 {
             ticketName = "BL" // but limit
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 3 {
             ticketName = "SL"  // Sell limit
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }else if closeData?.action == 4 {
             ticketName = "BS" // buy stop
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if closeData?.action == 5 {
             ticketName = "SS"  // Sell Stop
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }
         
 
@@ -65,14 +68,12 @@ class CloseTicketBottomSheetVC: UIViewController {
             return
         }
         
-        var getSymbol = ""
-        
         if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
         }
-        
+        self.lbl_ticketName.text = data.symbol
     }
     
     private func registerCell() {
@@ -138,30 +139,20 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
             let volumee = Double(data?.volume ?? 0) / Double(10000)
             cell.lbl_volume.text = "\(volumee)"
             
-            let amount = String.formatStringNumber("\(data?.price ?? 0.0)")
-            cell.lbl_price.text = amount
             
             let createDate = Date(timeIntervalSince1970: Double(data?.time ?? 0))
             
             let calendar = Calendar.current
-            if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+            if let updatedDate = calendar.date(byAdding: .hour, value: 0, to: createDate) {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
                 dateFormatter.timeZone = .current
                 
                 cell.lbl_profit.text = dateFormatter.string(from: updatedDate)
             }
-            
-//            cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
-           
-//            if data?.profit == 0.0 {
-//                cell.lbl_profit.text = "--"
-//            }else{
-//                cell.lbl_profit.text = "\(data?.profit ?? 0.0)".trimmedTrailingZeros()
-//            }
-            //            self.totalValue = Double(closeData!.profit)
+    
             let Tprofit = closeData?.totalProfit ?? 0
-            let profit = data?.profit ?? 0
+//            let profit = data?.profit ?? 0
             
             if Tprofit < 0  {
                 self.lbl_totalPrice.textColor = .systemRed
@@ -176,13 +167,15 @@ extension CloseTicketBottomSheetVC: UITableViewDelegate, UITableViewDataSource {
                 self.lbl_totalPrice.text = "$0"
             }
             
-//            if profit < 0 {
-//                cell.lbl_profit.textColor = .systemRed
-//            }else if profit > 0 {
-//                cell.lbl_profit.textColor = .systemGreen
-//            }else{
-//                cell.lbl_profit.textColor = .white
-//            }
+            if let symbolMatch = GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbol }) {
+                let symbolData = GlobalVariable.instance.symbolDataArray[symbolMatch]
+             
+                let symbolDigits = Int(symbolData.digits) ?? 2
+                self.symbolDigits = symbolDigits
+            }
+           
+            let amount = String(format: "%.\(self.symbolDigits)f", data?.price ?? 0.0)
+            cell.lbl_price.text = amount
             
             return cell
         }

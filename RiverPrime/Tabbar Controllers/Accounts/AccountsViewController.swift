@@ -482,7 +482,7 @@ extension AccountsViewController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-            print("Received ammount in account Home vc: \(ammount)")
+//            print("Received ammount in account Home vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             
             
@@ -490,7 +490,7 @@ extension AccountsViewController {
                 self.lbl_amountPercent.text = "0.0%" 
             }else{
                 let totalDeposit = UserManager.shared.currentUser?.totalDeposit ?? 0.0
-                print("totalDeposit ------>>>>>>>>>\(totalDeposit)")
+//                print("totalDeposit ------>>>>>>>>>\(totalDeposit)")
                 let balancePercent = ((Double(ammount) ?? 0.0) - totalDeposit) / totalDeposit * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                 
@@ -1293,7 +1293,7 @@ extension AccountsViewController: GetSocketMessages {
                                     
                                     // Safely unwrap the profit value
                                     let getProfit = Double(cell.lbl_profitValue.text ?? "") ?? 0.0
-                                    print("getProfit \(index) = \(getProfit)")
+//                                    print("getProfit \(index) = \(getProfit)")
                                     
                                     return total + getProfit
                                 }
@@ -1302,7 +1302,7 @@ extension AccountsViewController: GetSocketMessages {
                             return total
                         }
                         
-                        print("Total Profit value of Open postions: \(totalProfitOpenClose)")
+//                        print("Total Profit value of Open postions: \(totalProfitOpenClose)")
                         
                         //MARK: - END Set Total P/L
                         

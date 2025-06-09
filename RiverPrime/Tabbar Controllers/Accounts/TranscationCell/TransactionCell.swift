@@ -77,8 +77,6 @@ extension TransactionCell {
 //        }
         
         lbl_symbolName.text = data.symbol
-//        lbl_profitValue.text = "\(data.priceCurrent)"
-     //  lbl_openPriceVolume =  data.action // apply check according to type and also volume value and open price value
         
         if data.action == 0 {
             ticketName = "Buy"
@@ -106,6 +104,14 @@ extension TransactionCell {
 //        print("\(volume)")
         lbl_openPriceVolume.text = ticketName! + " \(volume)" + " Lots at "
         lbl_openPrice.text = "$\(data.priceOpen)"
+        
+//        if let symbolMatch = GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbol }) {
+//            let symbolData = GlobalVariable.instance.symbolDataArray[symbolMatch]
+//            let symbolDigits = Int(symbolData.digits) ?? 2
+//            self.symbolDigit = symbolDigits
+//        }
+//        let amount = String(format: "%.\(self.symbolDigit)f", data.price)
+
     }
     
 }

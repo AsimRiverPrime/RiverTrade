@@ -17,6 +17,7 @@ class CloseOrderCell: UITableViewCell {
     @IBOutlet weak var lbl_timeValue: UILabel!
     
     var vm = TransactionCellVM()
+    var getSymbol = ""
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,36 +41,31 @@ extension CloseOrderCell {
             return
         }
         
-        var getSymbol = ""
-        
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
+         if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
         }
         
         // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            // Return the icon_url if a match is found
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else {
-                let imageUrl = URL(string: symbolData.icon_url)
-                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
-            
-        }
+//        if let symbolData = savedSymbolsDict[getSymbol] {
+//            // Return the icon_url if a match is found
+//            if symbolData.name == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else {
+//                let imageUrl = URL(string: symbolData.icon_url)
+//                symbol_icon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
+//            
+//        }
         
         lbl_symbolName.text = data.symbol
         
         let createDate = Date(timeIntervalSince1970: Double(data.LatestTime))
         
         let calendar = Calendar.current
-        if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+        if let updatedDate = calendar.date(byAdding: .hour, value: 0, to: createDate) {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
             dateFormatter.timeZone = .current

@@ -24,6 +24,9 @@ class HistoryTradeTVCell: UITableViewCell {
     var closeData = NewCloseModel()
     var vm = TransactionCellVM()
     
+    var getSymbol = ""
+    var symbolDigit = 0
+    
     var ticketName = String()
     var totalValue: Double?
     var datee = String()
@@ -74,16 +77,7 @@ extension HistoryTradeTVCell {
         } else {
             getSymbol = closeData.symbol
         }
-        // Retrieve the symbol data using the name as the key
-//        if let symbolData = savedSymbolsDict[getSymbol] {
-//            if symbolData.name == "Platinum" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else {
-//                let imageUrl = URL(string: symbolData.icon_url)
-//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }
-//        }
+    
         
         lbl_symbolName.text = closeData.symbol
         
@@ -162,7 +156,7 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
            
             let createDate = Date(timeIntervalSince1970: Double(data.time))
             let calendar = Calendar.current
-            if let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) {
+            if let updatedDate = calendar.date(byAdding: .hour, value: 0, to: createDate) {
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd/MM/yy HH:mm:ss"
                 dateFormatter.timeZone = .current
@@ -175,10 +169,24 @@ extension HistoryTradeTVCell: UITableViewDelegate, UITableViewDataSource {
             
             cell.lbl_type.text = "\(ticketName)/\(directionText)"
             cell.lbl_volume.text = "\(volumee)"
-
-            let amount = String.formatStringNumber("\(data.price)")
+            
+            if data.symbol.contains(".") {
+                getSymbol = String(data.symbol.dropLast())
+            } else {
+                getSymbol = data.symbol
+            }
+            
+            if let symbolMatch = GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbol }) {
+                let symbolData = GlobalVariable.instance.symbolDataArray[symbolMatch]
+             
+                let symbolDigits = Int(symbolData.digits) ?? 2
+                self.symbolDigit = symbolDigits
+            }
+            
+            let amount = String(format: "%.\(self.symbolDigit)f", data.price)
             cell.lbl_price.text = amount
             
+   
             return cell
         }
     }

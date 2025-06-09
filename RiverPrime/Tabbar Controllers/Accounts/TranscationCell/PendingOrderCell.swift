@@ -18,6 +18,8 @@ class PendingOrderCell: UITableViewCell {
     
     var vm = TransactionCellVM()
     var ticketName: String?
+    var getSymbol = ""
+    var symbolDigit = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,12 +50,8 @@ extension PendingOrderCell {
             return
         }
         
-        var getSymbol = ""
-        
-        if data.symbol.contains("..") {
-            getSymbol = String(data.symbol.dropLast())
-            getSymbol = String(getSymbol.dropLast())
-        } else if data.symbol.contains(".") {
+       
+       if data.symbol.contains(".") {
             getSymbol = String(data.symbol.dropLast())
         } else {
             getSymbol = data.symbol
@@ -93,14 +91,18 @@ extension PendingOrderCell {
             ticketName = "Sell Stop"
         }
         
-        let volume : Double = Double(data.volume) / Double(10000)
-        lbl_currentPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(data.price)"
+        if let symbolMatch = GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == getSymbol }) {
+            let symbolData = GlobalVariable.instance.symbolDataArray[symbolMatch]
+         
+            let symbolDigits = Int(symbolData.digits) ?? 2
+            self.symbolDigit = symbolDigits
+        }
         
-//        if data.profit < 0 {
-//            lbl_profitValue.textColor = .systemRed
-//        }else{
-//            lbl_profitValue.textColor = .systemGreen
-//        }
+        let amount = String(format: "%.\(self.symbolDigit)f", data.price)
+      
+        
+        let volume : Double = Double(data.volume) / Double(10000)
+        lbl_currentPriceVolume.text = ticketName! + " \(volume)" + " Lots at " + "\(amount)"
       
     }
     

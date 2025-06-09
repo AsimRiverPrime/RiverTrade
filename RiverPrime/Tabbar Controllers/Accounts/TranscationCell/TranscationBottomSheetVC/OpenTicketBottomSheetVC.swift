@@ -69,7 +69,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
         self.partialClose_View.isUserInteractionEnabled = false
         partialCose_switch.isOn = false
         
-        print("openData = \(openData) \n symbol_Digits value: \(digitValue)")
+//        print("openData = \(openData) \n symbol_Digits value: \(digitValue)")
 //        self.lbl_symbolName.text = openData?.symbol
         self.lbl_positionNumber.text = "#\(openData?.position ?? 0) |"
        
@@ -98,8 +98,8 @@ class OpenTicketBottomSheetVC: BaseViewController {
         }else {
             ticketName = "Sell Ticket"
         }
-        self.lbl_ticketName.text = ticketName
-        
+//        self.lbl_ticketName.text = ticketName
+        self.lbl_ticketName.text = openData?.symbol
         let time = timeConvert()
         self.lbl_dateTime.text =  time
         
@@ -137,24 +137,6 @@ class OpenTicketBottomSheetVC: BaseViewController {
             getSymbol = data.symbol
         }
         
-        // Retrieve the symbol data using the name as the key
-//        if let symbolData = savedSymbolsDict[getSymbol] {
-//            // Return the icon_url if a match is found
-//            if symbolData.name == "Platinum" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else if symbolData.name == "NDX100" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else if symbolData.name == "DJI30" {
-//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }else{
-//                let imageUrl = URL(string: symbolData.icon_url)
-//                img_symbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-//            }
-//        }
-        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
@@ -187,7 +169,7 @@ class OpenTicketBottomSheetVC: BaseViewController {
            
            // Subtract 3 hours
            let calendar = Calendar.current
-           guard let updatedDate = calendar.date(byAdding: .hour, value: -3, to: createDate) else {
+           guard let updatedDate = calendar.date(byAdding: .hour, value: 0, to: createDate) else {
                return ""
            }
            

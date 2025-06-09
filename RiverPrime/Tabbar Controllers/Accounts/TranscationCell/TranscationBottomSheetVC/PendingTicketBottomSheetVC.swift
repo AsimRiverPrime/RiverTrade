@@ -58,24 +58,24 @@ class PendingTicketBottomSheetVC: BaseViewController {
         
         if pendingData?.type == 0 {
             ticketName = "Buy"
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if pendingData?.type == 1 {
             ticketName = "Sell"
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }else if pendingData?.type == 2 {
             ticketName = "Buy Limit"
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if pendingData?.type == 3 {
             ticketName = "Sell Limit"
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }else if pendingData?.type == 4 {
             ticketName = "Buy Stop"
-            self.lbl_ticketName.text = "Buy Ticket"
+//            self.lbl_ticketName.text = "Buy Ticket"
         }else if pendingData?.type == 5 {
             ticketName = "Sell Stop"
-            self.lbl_ticketName.text = "Sell Ticket"
+//            self.lbl_ticketName.text = "Sell Ticket"
         }
-        
+        self.lbl_ticketName.text = pendingData?.symbol
         let volume: Double = Double(pendingData?.volume ?? 0) / Double(10000)
         
         let time = timeConvert()
@@ -115,22 +115,22 @@ class PendingTicketBottomSheetVC: BaseViewController {
         }
         
         // Retrieve the symbol data using the name as the key
-        if let symbolData = savedSymbolsDict[getSymbol] {
-            // Return the icon_url if a match is found
-            if symbolData.name == "Platinum" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "NDX100" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else if symbolData.name == "DJI30" {
-                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }else{
-                let imageUrl = URL(string: symbolData.icon_url)
-                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
-            }
-        }
+//        if let symbolData = savedSymbolsDict[getSymbol] {
+//            // Return the icon_url if a match is found
+//            if symbolData.name == "Platinum" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/silver.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "NDX100" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/ndx.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else if symbolData.name == "DJI30" {
+//                let imageUrl = URL(string: "https://icons-mt5symbols.s3.us-east-2.amazonaws.com/png/dj30.png")
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }else{
+//                let imageUrl = URL(string: symbolData.icon_url)
+//                image_SymbolIcon.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "photo.circle"))
+//            }
+//        }
         
     }
     

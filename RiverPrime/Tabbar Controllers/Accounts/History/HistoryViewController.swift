@@ -13,9 +13,10 @@ enum HistoryType {
 }
 
 class HistoryViewController: BaseViewController {
-    
-    @IBOutlet weak var btn_fromDate: UIButton!
-    @IBOutlet weak var btn_toDate: UIButton!
+  
+    @IBOutlet weak var chooseDateBtn: CardViewButton!
+//    @IBOutlet weak var btn_fromDate: UIButton!
+//    @IBOutlet weak var btn_toDate: UIButton!
     @IBOutlet weak var lbl_noPosition: UILabel!
     @IBOutlet weak var lbl_totalProfit: UILabel!
     
@@ -47,6 +48,7 @@ class HistoryViewController: BaseViewController {
     var isFromOrToDate = ""
     
     var historyType: HistoryType? = .trade
+    var dateList = ["Select Date","1 Day","1 Week", "15 Days", "1 Month", "6 Months", "Custom Date"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,11 +64,17 @@ class HistoryViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.chooseDateBtn.setTitle(dateList[0], for: .normal)
+        self.setChooseDate(dateItem: dateList[0])
+        
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "History", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func btn_trades(_ sender: UIButton) {
+        self.chooseDateBtn.setTitle(dateList[0], for: .normal)
+        self.setChooseDate(dateItem: dateList[0])
+        
         historyType = .trade
         btnTradeView.backgroundColor = .systemYellow
         btnTranscationView.backgroundColor = .lightGray
@@ -78,6 +86,9 @@ class HistoryViewController: BaseViewController {
     }
     
     @IBAction func btn_transcation(_ sender: UIButton) {
+        self.chooseDateBtn.setTitle(dateList[0], for: .normal)
+        self.setChooseDate(dateItem: dateList[0])
+        
         historyType = .transaction
         btnTradeView.backgroundColor = .lightGray
         btnTranscationView.backgroundColor = .systemYellow
@@ -89,43 +100,349 @@ class HistoryViewController: BaseViewController {
         self.historyTableView.reloadData()
     }
     
-    @IBAction func fromDateBtn_action(_ sender: Any) {
+//    @IBAction func fromDateBtn_action(_ sender: Any) {
+//        
+//        //        showDatePicker(sender as! UIButton)
+//        
+//        isFromOrToDate = "From"
+//        
+//        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+//        
+//        vc.delegate = self
+//        vc.isSingleEntery = true
+//        
+//        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+//        
+//    }
+    
+//    @IBAction func toDateBtn_action(_ sender: Any) {
+//        
+//        //        showDatePicker(sender as! UIButton)
+//        
+//        isFromOrToDate = "To"
+//        
+//        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+//        
+//        vc.delegate = self
+//        vc.isSingleEntery = true
+//        //        vc.multipleSelection(isMultiple: false)
+//        //        vc.calendar.allowsMultipleSelection = false
+//        vc.singleDateSelection = true
+//        
+//        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
+//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+//    }
+    
+    @IBAction func chooseDateBtn(_ sender: CardViewButton){
+        print("Choose date button click.")
+        self.dynamicDropDownButton(sender, list: dateList) { index, item in
+            print("drop down index = \(index)")
+            print("drop down item = \(item)")
+            sender.setTitle(item, for: .normal)
+            
+            sender.titleLabel?.text = item
+            
+            if item == "Custom Date" {
+            
+                let popupVC = DateRangePickerViewController()
+                popupVC.modalPresentationStyle = .overCurrentContext
+                popupVC.modalTransitionStyle = .crossDissolve
+                popupVC.onApply = { from, to in
+                    print("Selected From: \(from)")
+                    print("Selected To: \(to)")
+                    sender.setTitle("\(from) - \(to)", for: .normal)
+                    
+                    // Create a date formatter
+                    let dateFormatter = DateFormatter()
+                    
+                    dateFormatter.dateFormat = "MMM dd, yyyy"
+                    
+                    // Convert the selected date string to a Date object
+                    guard let myfromDate = dateFormatter.date(from: from) else {
+                        print("ERROR: Date conversion failed due to mismatched format myfromDate (Custom Date).")
+                        return
+                    }
+                    
+                    // Convert the selected date string to a Date object
+                    guard let mytoDate = dateFormatter.date(from: to) else {
+                        print("ERROR: Date conversion failed due to mismatched format mytoDate Custom Date.")
+                        return
+                    }
+                    
+                    dateFormatter.dateFormat = "dd-MM-yyyy"
+                    
+                    //                    print("From:", formatter.string(from: fromDatePicker.date))
+                    //                    print("To:", formatter.string(from: toDatePicker.date))
+                    let _fromDate = dateFormatter.string(from: myfromDate)
+                    let _toDate = dateFormatter.string(from: mytoDate)
+                    
+                    // Convert the selected date string to a Date object
+                    guard let fromDate = dateFormatter.date(from: _fromDate) else {
+                        print("ERROR: Date conversion failed due to mismatched format myfromDate (Custom Date).")
+                        return
+                    }
+                    
+                    // Convert the selected date string to a Date object
+                    guard let toDate = dateFormatter.date(from: _toDate) else {
+                        print("ERROR: Date conversion failed due to mismatched format myToDate (Custom Date).")
+                        return
+                    }
+                    
+                    //TODO: START From:
+                    var fromDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: fromDate)
+                    // Add specific time (e.g., 23:59:59) to the date
+                    fromDateComponents.hour = 23
+                    fromDateComponents.minute = 59
+                    fromDateComponents.second = 59
+//
+                    guard let updatedFromDate = Calendar.current.date(from: fromDateComponents) else {
+                        print("ERROR: Failed to create updated date with time.")
+                        return
+                    }
+                    
+                    // Format the updated date with time back into a string
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                    let _datefrom = dateFormatter.string(from: updatedFromDate)
+                    print("previous date with time: \(_datefrom)")
+                    
+                    // Get the timestamp for the updated date
+                    let from_timestamp = updatedFromDate.timeIntervalSince1970
+                    print("Selected from_timestamp: \(from_timestamp)")
+                    
+                    self.fromTimestamp = Int(from_timestamp)
+                    //TODO: END From:
+                    
+                    //TODO: START To:
+                    var toDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: toDate)
+                    // Add specific time (e.g., 23:59:59) to the date
+                    toDateComponents.hour = 23
+                    toDateComponents.minute = 59
+                    toDateComponents.second = 59
+                    
+                    guard let updatedToDate = Calendar.current.date(from: toDateComponents) else {
+                        print("ERROR: Failed to create updated date with time.")
+                        return
+                    }
+                    
+                    // Format the updated date with time back into a string
+                    dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                    let _dateto = dateFormatter.string(from: updatedToDate)
+                    print("Current date with time: \(_dateto)")
+                    
+                    // Get the timestamp for the updated date
+                    let to_timestamp = updatedToDate.timeIntervalSince1970
+                    print("Selected to_timestamp: \(to_timestamp)")
+                    
+                    self.toTimestamp = Int(to_timestamp)
+               
+                }
+                
+                self.present(popupVC, animated: true, completion: nil)
+            } else {
+                self.setChooseDate(dateItem: item)
+            }
+
+        }
+    }
+    
+    private func setChooseDate(dateItem: String) {
         
-        //        showDatePicker(sender as! UIButton)
+        var from = ""
+        var to = ""
         
-        isFromOrToDate = "From"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy" // Set the desired format
+        let currentDate = formatter.string(from: Date()) // Get the current date as a string
+
+        print("Current Date: \(currentDate)")
         
-        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+        if dateItem == "1 Day" {
+            
+            to = currentDate
+            let previousWeekEndDate = getPreviousPeriodEndDate(forPeriod: "1 Day")
+            
+            let end = formatter.string(from: previousWeekEndDate)
+            
+            from = end
+            
+        } else if dateItem == "1 Week" {
+            
+            to = currentDate
+  
+            let previousWeekEndDate = getPreviousPeriodEndDate(forPeriod: "week")
+            
+            let end = formatter.string(from: previousWeekEndDate)
+            
+            from = end
+            
+        } else if dateItem == "15 Days" {
+            
+            to = currentDate
+            
+            let previous15DaysEndDate = getPreviousPeriodEndDate(forPeriod: "15days")
+            
+            let end = formatter.string(from: previous15DaysEndDate)
+            
+            from = end
+            
+        } else if dateItem == "1 Month" {
+            
+            to = currentDate
+            
+            let previousMonthEndDate = getPreviousPeriodEndDate(forPeriod: "month")
+            
+            let end = formatter.string(from: previousMonthEndDate)
+            
+            from = end
+            
+        } else if dateItem == "6 Months" {
+            
+            to = currentDate
+            
+            let previous6MonthsEndDate = getPreviousPeriodEndDate(forPeriod: "6months")
+            
+            let end = formatter.string(from: previous6MonthsEndDate)
+            
+            from = end
+            
+        }
         
-        vc.delegate = self
-        vc.isSingleEntery = true
+        // Create a date formatter
+        let dateFormatter = DateFormatter()
         
-        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        
+        // Convert the selected date string to a Date object
+        guard let myfromDate = dateFormatter.date(from: from) else {
+            print("ERROR: Date conversion failed due to mismatched format (6 Months).")
+            return
+        }
+        
+        // Convert the selected date string to a Date object
+        guard let mytoDate = dateFormatter.date(from: to) else {
+            print("ERROR: Date conversion failed due to mismatched format (6 Months).")
+            return
+        }
+        
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+ 
+        let _fromDate = dateFormatter.string(from: myfromDate)
+        let _toDate = dateFormatter.string(from: mytoDate)
+        
+        // Convert the selected date string to a Date object
+        guard let fromDate = dateFormatter.date(from: _fromDate) else {
+            print("ERROR: Date conversion failed due to mismatched format.")
+            return
+        }
+        
+        // Convert the selected date string to a Date object
+        guard let toDate = dateFormatter.date(from: _toDate) else {
+            print("ERROR: Date conversion failed due to mismatched format.")
+            return
+        }
+        
+        //TODO: START From:
+        var fromDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: fromDate)
+        // Add specific time (e.g., 23:59:59) to the date
+        fromDateComponents.hour = 23
+        fromDateComponents.minute = 59
+        fromDateComponents.second = 59
+        
+        guard let updatedFromDate = Calendar.current.date(from: fromDateComponents) else {
+            print("ERROR: Failed to create updated date with time.")
+            return
+        }
+        
+        // Format the updated date with time back into a string
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let _datefrom = dateFormatter.string(from: updatedFromDate)
+        print("previous date with time: \(_datefrom)")
+        
+        // Get the timestamp for the updated date
+        let from_timestamp = updatedFromDate.timeIntervalSince1970
+        print("Selected from_timestamp: \(from_timestamp)")
+        
+        self.fromTimestamp = Int(from_timestamp)
+        //TODO: END From:
+        
+        //TODO: START To:
+//        var toDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: toDate)
+        // Add specific time (e.g., 23:59:59) to the date
+//        toDateComponents.hour = 23
+//        toDateComponents.minute = 59
+//        toDateComponents.second = 59
+        
+//        guard let updatedToDate = Calendar.current.date(from: toDateComponents) else {
+//            print("ERROR: Failed to create updated date with time.")
+//            return
+//        }
+        // Format the updated date with time back into a string
+//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+//        let _dateto = dateFormatter.string(from: updatedToDate)
+//        print("Current date with time: \(_dateto)")
+        
+        // Get the current day timestamp for the to date
+        let to_timestamp = Date().timeIntervalSince1970 //updatedToDate.timeIntervalSince1970
+        print("Selected to_timestamp: \(to_timestamp)")
+        
+        self.toTimestamp = Int(to_timestamp)
+        //TODO: END To:
         
     }
     
-    @IBAction func toDateBtn_action(_ sender: Any) {
+    func getPreviousPeriodEndDate(forPeriod period: String) -> Date {
+        let calendar = Calendar.current
         
-        //        showDatePicker(sender as! UIButton)
+        // Get today's date
+        let currentDate = Date()
         
-        isFromOrToDate = "To"
+        // Start of today (removes the time portion, setting it to midnight)
+        let startOfToday = calendar.startOfDay(for: currentDate)
         
-        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
+        var previousPeriodStart: Date
+        var previousPeriodEnd: Date
         
-        vc.delegate = self
-        vc.isSingleEntery = true
-        //        vc.multipleSelection(isMultiple: false)
-        //        vc.calendar.allowsMultipleSelection = false
-        vc.singleDateSelection = true
+        switch period {
+        case "1 Day":
+            previousPeriodStart = calendar.date(byAdding: .day, value: -1, to: startOfToday)!
+            return previousPeriodStart
+        case "week":
+            // Calculate the start of the previous week (7 days back)
+            previousPeriodStart = calendar.date(byAdding: .day, value: -7, to: startOfToday)!
+
+            return previousPeriodStart
+        case "15days":
+            // Calculate the start of the previous 15 days (15 days back)
+            previousPeriodStart = calendar.date(byAdding: .day, value: -15, to: startOfToday)!
+            
+            return previousPeriodStart
+        case "month":
+            // Calculate the start of the previous month (1 month back)
+            previousPeriodStart = calendar.date(byAdding: .month, value: -1, to: startOfToday)!
+            // Calculate the end of the previous month (last day of the previous month)
+            previousPeriodEnd = calendar.date(byAdding: .month, value: -1, to: startOfToday)!
+            previousPeriodEnd = calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: previousPeriodEnd))!
+            
+        case "6months":
+            // Calculate the start of the previous 6 months (6 months back)
+            previousPeriodStart = calendar.date(byAdding: .month, value: -6, to: startOfToday)!
+            // Calculate the end of the previous 6 months (last day of the 6th month)
+            previousPeriodEnd = calendar.date(byAdding: .month, value: -6, to: startOfToday)!
+            previousPeriodEnd = calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: previousPeriodEnd))!
+            
+        default:
+            fatalError("Invalid period")
+        }
         
-        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
-        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
+        return previousPeriodEnd
     }
+
     
     @IBAction func searchBtn_action(_ sender: Any) {
-        
-        if btn_fromDate.titleLabel?.text != "from date" && btn_toDate.titleLabel?.text != "to date" {
+        if chooseDateBtn.titleLabel?.text == "Custom Date" || chooseDateBtn.titleLabel?.text == "Select Date" {
+            Alert.showAlert(withMessage: "Please select date", andTitle: "Message!", on: self )
+        }else{
             let from: Int = fromTimestamp
             let to: Int = toTimestamp
             
@@ -133,11 +450,10 @@ class HistoryViewController: BaseViewController {
             print("to = \(to)")
             
             closeApiCalling(fromDate: from, toDate: to)
-            
-        }else{
-            Alert.showAlert(withMessage: "Please enter date", andTitle: "Message!", on: self )
         }
+
     }
+    
 }
 
 extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -294,175 +610,175 @@ extension HistoryViewController {
     
 }
 
-extension HistoryViewController {
-    
-    func showDatePicker(_ sender: UIButton) {
-        let datePicker = UIDatePicker()
-        datePicker.datePickerMode = .date
-        
-        // ✨ Prevent future dates by setting the maximum date to today
-        datePicker.maximumDate = Date()
-        
-        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-        
-        if sender == btn_fromDate {
-            fromDate = "From"
-            toDate = ""
-        } else if sender == btn_toDate {
-            toDate = "To"
-            fromDate = ""
-        }
-        
-        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
-        alertController.view.addSubview(datePicker)
-        
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            datePicker.widthAnchor.constraint(equalTo: alertController.view.widthAnchor),
-            datePicker.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 50),
-            datePicker.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -60)
-        ])
-        
-        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
-            let selectedDate = datePicker.date
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateStyle = .medium
-            print("Selected date: \(dateFormatter.string(from: selectedDate))")
-        }
-        
-        alertController.addAction(doneAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-
-    
-    @objc func dateChanged(_ sender: UIDatePicker) {
-        // Optionally handle date changes in real-time if needed
-        let selectedDate = sender.date
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
-        let date = dateFormatter.string(from: selectedDate)
-        print("Current date: \(date)")
-        
-        let timestamp = selectedDate.timeIntervalSince1970
-        print("Selected timestamp: \(timestamp)")
-        
-        if fromDate != "" {
-            btn_fromDate.setTitle(date, for: .normal)
-            btn_fromDate.titleLabel?.text = date
-            fromTimestamp = Int(timestamp)
-        } else if toDate != "" {
-            btn_toDate.setTitle(date, for: .normal)
-            btn_toDate.titleLabel?.text = date
-            toTimestamp = Int(timestamp)
-        }
-        
-    }
-    
-}
+//extension HistoryViewController {
+//    
+//    func showDatePicker(_ sender: UIButton) {
+//        let datePicker = UIDatePicker()
+//        datePicker.datePickerMode = .date
+//        
+//        // ✨ Prevent future dates by setting the maximum date to today
+//        datePicker.maximumDate = Date()
+//        
+//        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
+//        
+//        if sender == btn_fromDate {
+//            fromDate = "From"
+//            toDate = ""
+//        } else if sender == btn_toDate {
+//            toDate = "To"
+//            fromDate = ""
+//        }
+//        
+//        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
+//        alertController.view.addSubview(datePicker)
+//        
+//        datePicker.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            datePicker.widthAnchor.constraint(equalTo: alertController.view.widthAnchor),
+//            datePicker.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 50),
+//            datePicker.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -60)
+//        ])
+//        
+//        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
+//            let selectedDate = datePicker.date
+//            let dateFormatter = DateFormatter()
+//            dateFormatter.dateStyle = .medium
+//            print("Selected date: \(dateFormatter.string(from: selectedDate))")
+//        }
+//        
+//        alertController.addAction(doneAction)
+//        
+//        present(alertController, animated: true, completion: nil)
+//    }
+//
+//    
+//    @objc func dateChanged(_ sender: UIDatePicker) {
+//        // Optionally handle date changes in real-time if needed
+//        let selectedDate = sender.date
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateStyle = .medium
+//        let date = dateFormatter.string(from: selectedDate)
+//        print("Current date: \(date)")
+//        
+//        let timestamp = selectedDate.timeIntervalSince1970
+//        print("Selected timestamp: \(timestamp)")
+//        
+//        if fromDate != "" {
+//            btn_fromDate.setTitle(date, for: .normal)
+//            btn_fromDate.titleLabel?.text = date
+//            fromTimestamp = Int(timestamp)
+//        } else if toDate != "" {
+//            btn_toDate.setTitle(date, for: .normal)
+//            btn_toDate.titleLabel?.text = date
+//            toTimestamp = Int(timestamp)
+//        }
+//        
+//    }
+//    
+//}
 
 //MARK: - Date picker delegate
-extension HistoryViewController: didSelectBtnDelegate {
-    
-    func showAlert(str: String) {
-        
-        if var topController = SCENE_DELEGATE.window?.rootViewController {
-            while let presentedViewController = topController.presentedViewController {
-                topController = presentedViewController
-                topController.view.makeToast(str)
-            }
-        }
-    }
-    
-    func getDate(date: String) {
-        print("this is date: \(date)")
-    }
-    
-    func getStartEndDate(startDate: String, endDate: String) {
-        if startDate == "" /*|| endDate == ""*/ {
-            //            self..text = ""
-            //            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
-            self.showTimeAlert(str: "Please select date properly.")
-        } else {
-            
-            //            self.tfDate.text =
-            //            print("this is selected date : \(startDate) to \(endDate)")
-            //            _getSelectedDate = "\(startDate) to \(endDate)"
-            print("this is selected date : \(startDate)")
-            _getSelectedDate = "\(startDate)"
-        }
-    }
-    func doneDatePickerButton(_ sender: UIButton) {
-        print("done")
-        print("_getSelectedDate = \(_getSelectedDate)")
-        
-        // Create a date formatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        
-        // Convert the selected date string to a Date object
-        guard let date = dateFormatter.date(from: _getSelectedDate) else {
-            print("ERROR: Date conversion failed due to mismatched format.")
-            return
-        }
-        
-        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-        if isFromOrToDate == "To" {
-            // Add specific time (e.g., 23:59:59) to the date
-            dateComponents.hour = 23
-            dateComponents.minute = 59
-            dateComponents.second = 59
-        }
-        
-        guard let updatedDate = Calendar.current.date(from: dateComponents) else {
-            print("ERROR: Failed to create updated date with time.")
-            return
-        }
-        
-        // Format the updated date with time back into a string
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        let _date = dateFormatter.string(from: updatedDate)
-        print("Current date with time: \(_date)")
-        
-        // Get the timestamp for the updated date
-        let timestamp = updatedDate.timeIntervalSince1970
-        print("Selected timestamp: \(timestamp)")
-        
-        // Handle "From" and "To" date selection
-        if isFromOrToDate == "From" {
-            btn_fromDate.setTitle(_getSelectedDate, for: .normal)
-            btn_fromDate.titleLabel?.text = _getSelectedDate
-            fromTimestamp = Int(timestamp)
-        } else if isFromOrToDate == "To" {
-            // Check if "From" date exists
-            if fromTimestamp != 0 {
-                let fromDate = Date(timeIntervalSince1970: TimeInterval(fromTimestamp))
-                
-                // Calculate the difference in months
-                let monthsDifference = Calendar.current.dateComponents([.month], from: fromDate, to: updatedDate).month ?? 0
-                if monthsDifference > 2 {
-                    print("ERROR: The difference between From and To dates cannot exceed 2 months.")
-                    self.showTimeAlert(str: "The difference between From and To dates cannot exceed 2 months.")
-                    // Optionally, show an alert to the user
-                    return
-                }
-            }
-            
-            btn_toDate.setTitle(_getSelectedDate, for: .normal)
-            btn_toDate.titleLabel?.text = _getSelectedDate
-            toTimestamp = Int(timestamp)
-        }
-        isFromOrToDate = ""
-        
-        // Dismiss the bottom sheet
-        PresentModalController.instance.dismisBottomSheet(self)
-    }
-    
-    func cancelDatePickerButton(_ sender: UIButton) {
-        print("cancel")
-        //        datePickerPopup.dismissView()
-        //        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
-        PresentModalController.instance.dismisBottomSheet(self)
-    }
-    
-}
+//extension HistoryViewController: didSelectBtnDelegate {
+//    
+//    func showAlert(str: String) {
+//        
+//        if var topController = SCENE_DELEGATE.window?.rootViewController {
+//            while let presentedViewController = topController.presentedViewController {
+//                topController = presentedViewController
+//                topController.view.makeToast(str)
+//            }
+//        }
+//    }
+//    
+//    func getDate(date: String) {
+//        print("this is date: \(date)")
+//    }
+//    
+//    func getStartEndDate(startDate: String, endDate: String) {
+//        if startDate == "" /*|| endDate == ""*/ {
+//            //            self..text = ""
+//            //            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
+//            self.showTimeAlert(str: "Please select date properly.")
+//        } else {
+//            
+//            //            self.tfDate.text =
+//            //            print("this is selected date : \(startDate) to \(endDate)")
+//            //            _getSelectedDate = "\(startDate) to \(endDate)"
+//            print("this is selected date : \(startDate)")
+//            _getSelectedDate = "\(startDate)"
+//        }
+//    }
+//    func doneDatePickerButton(_ sender: UIButton) {
+//        print("done")
+//        print("_getSelectedDate = \(_getSelectedDate)")
+//        
+//        // Create a date formatter
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "dd-MM-yyyy"
+//        
+//        // Convert the selected date string to a Date object
+//        guard let date = dateFormatter.date(from: _getSelectedDate) else {
+//            print("ERROR: Date conversion failed due to mismatched format.")
+//            return
+//        }
+//        
+//        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
+//        if isFromOrToDate == "To" {
+//            // Add specific time (e.g., 23:59:59) to the date
+//            dateComponents.hour = 23
+//            dateComponents.minute = 59
+//            dateComponents.second = 59
+//        }
+//        
+//        guard let updatedDate = Calendar.current.date(from: dateComponents) else {
+//            print("ERROR: Failed to create updated date with time.")
+//            return
+//        }
+//        
+//        // Format the updated date with time back into a string
+//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
+//        let _date = dateFormatter.string(from: updatedDate)
+//        print("Current date with time: \(_date)")
+//        
+//        // Get the timestamp for the updated date
+//        let timestamp = updatedDate.timeIntervalSince1970
+//        print("Selected timestamp: \(timestamp)")
+//        
+//        // Handle "From" and "To" date selection
+//        if isFromOrToDate == "From" {
+//            btn_fromDate.setTitle(_getSelectedDate, for: .normal)
+//            btn_fromDate.titleLabel?.text = _getSelectedDate
+//            fromTimestamp = Int(timestamp)
+//        } else if isFromOrToDate == "To" {
+//            // Check if "From" date exists
+//            if fromTimestamp != 0 {
+//                let fromDate = Date(timeIntervalSince1970: TimeInterval(fromTimestamp))
+//                
+//                // Calculate the difference in months
+//                let monthsDifference = Calendar.current.dateComponents([.month], from: fromDate, to: updatedDate).month ?? 0
+//                if monthsDifference > 2 {
+//                    print("ERROR: The difference between From and To dates cannot exceed 2 months.")
+//                    self.showTimeAlert(str: "The difference between From and To dates cannot exceed 2 months.")
+//                    // Optionally, show an alert to the user
+//                    return
+//                }
+//            }
+//            
+//            btn_toDate.setTitle(_getSelectedDate, for: .normal)
+//            btn_toDate.titleLabel?.text = _getSelectedDate
+//            toTimestamp = Int(timestamp)
+//        }
+//        isFromOrToDate = ""
+//        
+//        // Dismiss the bottom sheet
+//        PresentModalController.instance.dismisBottomSheet(self)
+//    }
+//    
+//    func cancelDatePickerButton(_ sender: UIButton) {
+//        print("cancel")
+//        //        datePickerPopup.dismissView()
+//        //        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
+//        PresentModalController.instance.dismisBottomSheet(self)
+//    }
+//    
+//}

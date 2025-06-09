@@ -3171,64 +3171,46 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="omF-jo-itK">
-                                <rect key="frame" x="0.0" y="165" width="393" height="99"/>
+                                <rect key="frame" x="0.0" y="165" width="393" height="130.33333333333337"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GYi-sr-9vB">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="40"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hhp-qB-olB">
+                                        <rect key="frame" x="0.0" y="5" width="393" height="40"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4z7-4l-Ec9">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DWq-AE-o0v">
+                                                <rect key="frame" x="338" y="15.999999999999988" width="15" height="9.3333333333333375"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="tintColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="15" id="gBX-KG-amK"/>
+                                                    <constraint firstAttribute="width" constant="15" id="gbm-jz-jJa"/>
+                                                </constraints>
+                                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="medium"/>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rkS-qW-rPN">
                                                 <rect key="frame" x="30" y="2" width="333" height="36"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Msa-q2-o8g" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="161.66666666666666" height="36"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faH-WW-KjY" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="333" height="36"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="from date" imagePadding="3">
-                                                            <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
-                                                        </buttonConfiguration>
+                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="1"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                                 <real key="value" value="10"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
-                                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="fromDateBtn_action:" destination="9ea-FZ-cfm" eventType="touchUpInside" id="OXS-yx-rew"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tC5-gL-11j" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                                        <rect key="frame" x="171.66666666666663" y="0.0" width="161.33333333333337" height="36"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="calendar" catalog="system" title="to date" imagePadding="3">
-                                                            <fontDescription key="titleFontDescription" type="system" pointSize="13"/>
-                                                        </buttonConfiguration>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                <real key="value" value="1"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="10"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="color" keyPath="titleTintColor">
-                                                                <color key="value" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                        <connections>
-                                                            <action selector="toDateBtn_action:" destination="9ea-FZ-cfm" eventType="touchUpInside" id="thR-Yd-Fhx"/>
+                                                            <action selector="chooseDateBtn:" destination="9ea-FZ-cfm" eventType="touchUpInside" id="avd-Y3-T88"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -3237,44 +3219,49 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="4z7-4l-Ec9" firstAttribute="top" secondItem="GYi-sr-9vB" secondAttribute="top" constant="2" id="5vU-1c-C3o"/>
-                                            <constraint firstAttribute="trailing" secondItem="4z7-4l-Ec9" secondAttribute="trailing" constant="30" id="8gv-sR-og2"/>
-                                            <constraint firstAttribute="height" constant="40" id="IRZ-FE-I3X"/>
-                                            <constraint firstAttribute="bottom" secondItem="4z7-4l-Ec9" secondAttribute="bottom" constant="2" id="L3S-5R-RfG"/>
-                                            <constraint firstItem="4z7-4l-Ec9" firstAttribute="leading" secondItem="GYi-sr-9vB" secondAttribute="leading" constant="30" id="h7S-wS-eTc"/>
+                                            <constraint firstAttribute="bottom" secondItem="rkS-qW-rPN" secondAttribute="bottom" constant="2" id="4xf-wX-Pro"/>
+                                            <constraint firstItem="DWq-AE-o0v" firstAttribute="trailing" secondItem="faH-WW-KjY" secondAttribute="trailing" constant="-10" id="77E-bZ-eLR"/>
+                                            <constraint firstAttribute="trailing" secondItem="rkS-qW-rPN" secondAttribute="trailing" constant="30" id="G1j-Gj-lGp"/>
+                                            <constraint firstItem="rkS-qW-rPN" firstAttribute="top" secondItem="hhp-qB-olB" secondAttribute="top" constant="2" id="PR8-bR-Z1C"/>
+                                            <constraint firstItem="DWq-AE-o0v" firstAttribute="centerY" secondItem="faH-WW-KjY" secondAttribute="centerY" id="cUk-X2-ic9"/>
+                                            <constraint firstAttribute="height" constant="40" id="dAN-Xq-q20"/>
+                                            <constraint firstItem="rkS-qW-rPN" firstAttribute="leading" secondItem="hhp-qB-olB" secondAttribute="leading" constant="30" id="ytS-Xk-CHw"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No. of Position:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zNm-73-WLQ">
-                                        <rect key="frame" x="10" y="43" width="101" height="17"/>
+                                        <rect key="frame" x="10" y="55" width="101" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKu-fr-1RT">
-                                        <rect key="frame" x="116" y="43" width="9.6666666666666714" height="17"/>
+                                        <rect key="frame" x="116" y="55" width="9.6666666666666714" height="17"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Profit:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GJN-PX-2LM">
-                                        <rect key="frame" x="280" y="43" width="78.666666666666686" height="17"/>
+                                        <rect key="frame" x="280" y="55" width="78.666666666666686" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LMu-Ul-7us">
-                                        <rect key="frame" x="368.66666666666669" y="43" width="9.3333333333333144" height="17"/>
+                                        <rect key="frame" x="368.66666666666669" y="55" width="9.3333333333333144" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smE-j8-gbv" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="154.33333333333334" y="63" width="84.666666666666657" height="31"/>
+                                        <rect key="frame" x="116.66666666666669" y="82" width="160" height="33.333333333333343"/>
                                         <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="3dA-qQ-pxb"/>
+                                        </constraints>
                                         <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Search...">
-                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Search">
+                                            <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
                                         </buttonConfiguration>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -3294,24 +3281,24 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="GYi-sr-9vB" firstAttribute="top" secondItem="omF-jo-itK" secondAttribute="top" id="8yY-ah-xOd"/>
                                     <constraint firstItem="smE-j8-gbv" firstAttribute="centerX" secondItem="omF-jo-itK" secondAttribute="centerX" id="Go1-uZ-lbW"/>
                                     <constraint firstItem="QKu-fr-1RT" firstAttribute="leading" secondItem="zNm-73-WLQ" secondAttribute="trailing" constant="5" id="HkP-pT-tVS"/>
                                     <constraint firstItem="LMu-Ul-7us" firstAttribute="leading" secondItem="GJN-PX-2LM" secondAttribute="trailing" constant="10" id="KRz-vW-Obt"/>
                                     <constraint firstAttribute="trailing" secondItem="LMu-Ul-7us" secondAttribute="trailing" constant="15" id="M4v-7v-8QS"/>
+                                    <constraint firstItem="hhp-qB-olB" firstAttribute="leading" secondItem="omF-jo-itK" secondAttribute="leading" id="Qf6-bX-feB"/>
                                     <constraint firstItem="LMu-Ul-7us" firstAttribute="centerY" secondItem="GJN-PX-2LM" secondAttribute="centerY" id="UOA-iN-Lb5"/>
-                                    <constraint firstAttribute="bottom" secondItem="smE-j8-gbv" secondAttribute="bottom" constant="5" id="Y18-mi-g3C"/>
-                                    <constraint firstItem="GYi-sr-9vB" firstAttribute="leading" secondItem="omF-jo-itK" secondAttribute="leading" id="dCs-h8-Zm8"/>
+                                    <constraint firstAttribute="bottom" secondItem="smE-j8-gbv" secondAttribute="bottom" constant="15" id="Y18-mi-g3C"/>
+                                    <constraint firstAttribute="trailing" secondItem="hhp-qB-olB" secondAttribute="trailing" id="Y82-CD-2sO"/>
                                     <constraint firstItem="zNm-73-WLQ" firstAttribute="leading" secondItem="omF-jo-itK" secondAttribute="leading" constant="10" id="dJU-Tv-Fqy"/>
-                                    <constraint firstAttribute="trailing" secondItem="GYi-sr-9vB" secondAttribute="trailing" id="eNp-cc-qLD"/>
-                                    <constraint firstItem="smE-j8-gbv" firstAttribute="top" secondItem="GJN-PX-2LM" secondAttribute="bottom" constant="3" id="iB6-Q9-Say"/>
-                                    <constraint firstItem="zNm-73-WLQ" firstAttribute="top" secondItem="GYi-sr-9vB" secondAttribute="bottom" constant="3" id="n9G-X3-LW3"/>
+                                    <constraint firstItem="hhp-qB-olB" firstAttribute="top" secondItem="omF-jo-itK" secondAttribute="top" constant="5" id="dTC-yR-e9d"/>
+                                    <constraint firstItem="smE-j8-gbv" firstAttribute="top" secondItem="GJN-PX-2LM" secondAttribute="bottom" constant="10" id="iB6-Q9-Say"/>
+                                    <constraint firstItem="zNm-73-WLQ" firstAttribute="top" secondItem="hhp-qB-olB" secondAttribute="bottom" constant="10" id="kM5-mA-blP"/>
                                     <constraint firstItem="GJN-PX-2LM" firstAttribute="centerY" secondItem="QKu-fr-1RT" secondAttribute="centerY" id="pUZ-hM-1cq"/>
                                     <constraint firstItem="QKu-fr-1RT" firstAttribute="centerY" secondItem="zNm-73-WLQ" secondAttribute="centerY" id="tJS-gy-j0J"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Zfd-vQ-PuW">
-                                <rect key="frame" x="0.0" y="264" width="393" height="588"/>
+                                <rect key="frame" x="0.0" y="295.33333333333331" width="393" height="556.66666666666674"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bxj-zR-bG0">
@@ -3391,10 +3378,9 @@
                     <connections>
                         <outlet property="btnTradeView" destination="0Pf-9n-sBh" id="zBB-pC-goO"/>
                         <outlet property="btnTranscationView" destination="XCi-KN-7Ot" id="wEE-Am-yep"/>
-                        <outlet property="btn_fromDate" destination="Msa-q2-o8g" id="c08-q1-Yre"/>
-                        <outlet property="btn_toDate" destination="tC5-gL-11j" id="gMr-oj-gWz"/>
                         <outlet property="btn_trades" destination="7Fk-J9-stm" id="mpM-bS-jCP"/>
                         <outlet property="btn_transcation" destination="bTh-Nl-d0N" id="N76-wz-nRs"/>
+                        <outlet property="chooseDateBtn" destination="faH-WW-KjY" id="y6S-w7-mxk"/>
                         <outlet property="historyTableView" destination="Zfd-vQ-PuW" id="et6-tQ-xd4"/>
                         <outlet property="lbl_PositionCount" destination="zNm-73-WLQ" id="r8v-wW-fi3"/>
                         <outlet property="lbl_noPosition" destination="QKu-fr-1RT" id="t5E-8S-g15"/>
@@ -3841,7 +3827,6 @@
         <image name="account" width="25" height="25"/>
         <image name="alarmIcon" width="24" height="24"/>
         <image name="building.columns" catalog="system" width="128" height="112"/>
-        <image name="calendar" catalog="system" width="128" height="107"/>
         <image name="calendar.badge.clock" catalog="system" width="128" height="109"/>
         <image name="chart.bar.xaxis.ascending.badge.clock" catalog="system" width="128" height="109"/>
         <image name="chevron.down" catalog="system" width="128" height="70"/>
