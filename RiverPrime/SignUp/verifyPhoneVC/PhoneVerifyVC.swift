@@ -66,6 +66,18 @@ class PhoneVerifyVC: BaseViewController{
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
+    @IBAction func closeBtn_action1(_ sender: Any) {
+
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+
+        }
+        
+    }
     
     @IBAction func confirmBtnAction(_ sender: Any) {
         

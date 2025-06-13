@@ -484,13 +484,13 @@ extension AccountsViewController {
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
 //            print("Received ammount in account Home vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
+            let totalDeposit = UserManager.shared.currentUser?.totalDeposit ?? 0.0
             
-            
-            if ammount == "0.0" /*&& initBalance(10000) != 0*/ {
-                self.lbl_amountPercent.text = "0.0%" 
+            if ammount == "0.0" || totalDeposit == 0.0 {
+                self.lbl_amountPercent.text = "0.0%"
+                view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
             }else{
-                let totalDeposit = UserManager.shared.currentUser?.totalDeposit ?? 0.0
-//                print("totalDeposit ------>>>>>>>>>\(totalDeposit)")
+                    
                 let balancePercent = ((Double(ammount) ?? 0.0) - totalDeposit) / totalDeposit * 100 // change with starting balance when account first deposit occure
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                 
@@ -824,16 +824,16 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
             
             switch opcList {
             case .open(let open):
-                cell.emptyLabelMessage.text = "No Open Orders."
+                cell.emptyLabelMessage.text = "No open orders."
                 cell.lbl_secondMessage.text = ""
             case .pending(let pending):
-                cell.emptyLabelMessage.text = "No Pending Orders."
+                cell.emptyLabelMessage.text = "No pending orders."
                 cell.lbl_secondMessage.text = ""
             case .close(let close):
-                cell.emptyLabelMessage.text = "No Closed Orders."
+                cell.emptyLabelMessage.text = "No closed orders."
                 cell.lbl_secondMessage.text = ""
             case .none:
-                cell.emptyLabelMessage.text = "No Data Found."
+                cell.emptyLabelMessage.text = "No data found."
                 cell.lbl_secondMessage.text = ""
             }
             

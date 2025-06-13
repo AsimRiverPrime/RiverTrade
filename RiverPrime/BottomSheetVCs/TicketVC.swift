@@ -1669,6 +1669,7 @@ class TicketVC: BottomSheetController {
         
 //        print("\n symbol: \(selectedSymbol) \t contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)  \t volume: \(volume) \t price: \(priceValue) \t stop_loss: \(stopLoss) \t take_profit: \(takeProfit)")
         
+        
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
     }
 }
@@ -1677,6 +1678,16 @@ extension TicketVC {
     
     func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
+                
+        if GlobalVariable.instance.balanceUpdate < "\(price)" {
+            self.showTimeAlert(str:"Unable to place the order: insufficient account balance.")
+            ActivityIndicator.shared.hide(from: self.view)
+            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                self.dismiss(animated: true)
+            }
+            return
+        }
+        
         
         let url = "https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //
         
@@ -1733,7 +1744,7 @@ extension TicketVC {
                             self.showTimeAlert(str: "Order placed successfully")
                         }
                         
-                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
                             self.dismiss(animated: true)
                         }
                         

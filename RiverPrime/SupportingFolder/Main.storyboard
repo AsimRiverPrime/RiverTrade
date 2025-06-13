@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1428,6 +1429,23 @@ Reach out for questions or concerns about your privacy.</string>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yym-aw-mus">
+                                                <rect key="frame" x="262" y="3.6666666666666572" width="45" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="45" id="2WK-98-Ekt"/>
+                                                    <constraint firstAttribute="height" constant="40" id="fEJ-KZ-BL8"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <imageReference key="image" image="xmark" catalog="system" renderingMode="hierarchical-single">
+                                                        <hierarchicalColors>
+                                                            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color systemColor="secondaryLabelColor"/>
+                                                            <color systemColor="tertiaryLabelColor"/>
+                                                        </hierarchicalColors>
+                                                    </imageReference>
+                                                </buttonConfiguration>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W8g-aM-HVe">
                                                 <rect key="frame" x="20" y="53.333333333333343" width="277" height="45"/>
                                                 <subviews>
@@ -1516,10 +1534,12 @@ Reach out for questions or concerns about your privacy.</string>
                                             <constraint firstItem="XaQ-a6-lV4" firstAttribute="leading" secondItem="lqP-lp-5b4" secondAttribute="leading" constant="20" id="7dB-8r-Cb6"/>
                                             <constraint firstItem="W8g-aM-HVe" firstAttribute="top" secondItem="XaQ-a6-lV4" secondAttribute="bottom" constant="14" id="G7M-PV-X4W"/>
                                             <constraint firstItem="5Po-ON-OqJ" firstAttribute="leading" secondItem="W8g-aM-HVe" secondAttribute="leading" id="MDZ-JX-gcy"/>
+                                            <constraint firstAttribute="trailing" secondItem="Yym-aw-mus" secondAttribute="trailing" constant="10" id="PUs-aY-q7P"/>
                                             <constraint firstItem="W8g-aM-HVe" firstAttribute="leading" secondItem="lqP-lp-5b4" secondAttribute="leading" constant="20" id="V3z-E4-76E"/>
                                             <constraint firstItem="5Po-ON-OqJ" firstAttribute="trailing" secondItem="W8g-aM-HVe" secondAttribute="trailing" id="WoI-ZS-tBe"/>
                                             <constraint firstAttribute="height" constant="180" id="YLb-GP-Z6Q"/>
                                             <constraint firstAttribute="trailing" secondItem="W8g-aM-HVe" secondAttribute="trailing" constant="20" id="fh1-xP-m15"/>
+                                            <constraint firstItem="Yym-aw-mus" firstAttribute="centerY" secondItem="XaQ-a6-lV4" secondAttribute="centerY" multiplier="0.8" id="jJf-Hc-KZN"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -3076,16 +3096,16 @@ You also acknowledge that you fully understand the nature and associated risks o
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dq-Nv-BeW">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="956"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="backgroundImage" translatesAutoresizingMaskIntoConstraints="NO" id="5Zx-e3-DCX">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="956"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIr-hH-qZV" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="39" y="119.66666666666666" width="297" height="334.33333333333337"/>
+                                        <rect key="frame" x="39" y="101.66666666666669" width="297" height="283.99999999999994"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Verification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0GR-PP-5GZ">
-                                                <rect key="frame" x="10" y="9.999999999999984" width="277" height="19.333333333333329"/>
+                                                <rect key="frame" x="10" y="9.9999999999999982" width="277" height="19.333333333333329"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -3100,13 +3120,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pDG-n4-Rb1">
-                                                <rect key="frame" x="10" y="138" width="277" height="56.666666666666657"/>
+                                                <rect key="frame" x="10" y="138" width="277" height="48"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="EfM-My-Apq">
-                                                        <rect key="frame" x="10" y="10" width="257" height="36.666666666666664"/>
+                                                        <rect key="frame" x="10" y="10" width="257" height="28"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Te6-hx-7wn">
-                                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="36.666666666666664"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="34.666666666666664" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="65" id="Znd-xJ-h08">
@@ -3118,31 +3138,31 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mns-3k-IKs">
-                                                                <rect key="frame" x="44.666666666666671" y="0.0" width="34.333333333333329" height="36.666666666666664"/>
+                                                                <rect key="frame" x="44.666666666666671" y="0.0" width="34.333333333333329" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZCH-kq-KYI">
-                                                                <rect key="frame" x="89" y="0.0" width="34.666666666666657" height="36.666666666666664"/>
+                                                                <rect key="frame" x="89" y="0.0" width="34.666666666666657" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zS7-sz-9wv">
-                                                                <rect key="frame" x="133.66666666666666" y="0.0" width="34.333333333333343" height="36.666666666666664"/>
+                                                                <rect key="frame" x="133.66666666666666" y="0.0" width="34.333333333333343" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eDs-5N-PaH">
-                                                                <rect key="frame" x="178" y="0.0" width="34.666666666666657" height="36.666666666666664"/>
+                                                                <rect key="frame" x="178" y="0.0" width="34.666666666666657" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                             </textField>
                                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-Zv-XeU">
-                                                                <rect key="frame" x="222.66666666666669" y="0.0" width="34.333333333333314" height="36.666666666666664"/>
+                                                                <rect key="frame" x="222.66666666666669" y="0.0" width="34.333333333333314" height="28"/>
                                                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -3166,13 +3186,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The code was entered incorrectly" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mt5-t9-Zwu">
-                                                <rect key="frame" x="54.000000000000014" y="195.66666666666663" width="189.33333333333337" height="14.333333333333343"/>
+                                                <rect key="frame" x="54.000000000000014" y="187" width="189.33333333333337" height="14.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8sN-pS-aXl">
-                                                <rect key="frame" x="10" y="230" width="277" height="45"/>
+                                                <rect key="frame" x="10" y="221.33333333333331" width="277" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="j2I-kz-6n7"/>
@@ -3192,7 +3212,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MjS-PB-cVC">
-                                                <rect key="frame" x="10" y="220" width="277" height="31"/>
+                                                <rect key="frame" x="10" y="211.33333333333331" width="277" height="31"/>
                                                 <color key="tintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="plain" title="Didn't receive a verification code?">
@@ -3203,13 +3223,13 @@ To complete your phone number verification, please enter the 6-digit activation 
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You may request a new code in" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LXJ-Xr-49O">
-                                                <rect key="frame" x="33.333333333333329" y="256" width="200.33333333333337" height="17"/>
+                                                <rect key="frame" x="33.333333333333329" y="247.33333333333331" width="200.33333333333337" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="czy-Pd-E1Z">
-                                                <rect key="frame" x="237.66666666666671" y="256" width="38.333333333333343" height="17"/>
+                                                <rect key="frame" x="237.66666666666671" y="247.33333333333331" width="38.333333333333343" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" red="0.41960784309999999" green="0.41960784309999999" blue="0.41960784309999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -4809,6 +4829,10 @@ Reach out for questions or concerns about your privacy.</string>
         <image name="logo" width="1440" height="640"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="startBackgroundImage" width="440" height="956"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -4826,6 +4850,9 @@ Reach out for questions or concerns about your privacy.</string>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tertiaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
