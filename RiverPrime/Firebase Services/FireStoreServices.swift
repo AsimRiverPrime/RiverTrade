@@ -16,9 +16,10 @@ class FirestoreServices: BaseViewController {
     var window: UIWindow?
     
     let db = Firestore.firestore()
-   
+    
     var odoClientNew = OdooClientNew()
-    var accounts: [AccountModel] = []
+    var accountsMT: [AccountModel] = []
+    var crmCredientals: [CrmCredentialsModel] = []
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
         let userRef = db.collection("users").document(user.uid)
@@ -26,14 +27,14 @@ class FirestoreServices: BaseViewController {
     }
     
     func addUserAccountData(uid: String, data: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
-           // Add a new document in collection "userAccount"
-           db.collection("userKYCdata").document(uid).setData(data, merge: true) { error in
-               if let error = error {
-                   completion(.failure(error))
-               } else {
-                   completion(.success(()))
-               }
-           }
+        // Add a new document in collection "userAccount"
+        db.collection("userKYCdata").document(uid).setData(data, merge: true) { error in
+            if let error = error {
+                completion(.failure(error))
+            } else {
+                completion(.success(()))
+            }
+        }
     }
     
     func saveAdditionalUserData(userId: String, kyc: String, address: String, dateOfBirth: String, profileStep: Int, name: String, gender: String, phone: String, email: String, emailVerified: Bool, phoneVerified:Bool, isLogin: Bool, pushedToCRM:Bool, nationality: String, residence : String, /*password: String,*/ registrationType: Int) {
@@ -57,12 +58,12 @@ class FirestoreServices: BaseViewController {
             "pushedToCRM": pushedToCRM,
             "registrationType": registrationType,
             "residence": residence,
-//            "password": password
-//            "userName" : userName,
-//            "loginId": loginId,
-//            "demoAccountGroup": demoAccountGroup,
-//            "realAccountCreated": realAccountCreated,
-//            "demoAccountCreated": demoAccountCreated,
+            //            "password": password
+            //            "userName" : userName,
+            //            "loginId": loginId,
+            //            "demoAccountGroup": demoAccountGroup,
+            //            "realAccountCreated": realAccountCreated,
+            //            "demoAccountCreated": demoAccountCreated,
             
         ]) { error in
             if let error = error {
@@ -73,32 +74,32 @@ class FirestoreServices: BaseViewController {
         }
         fetchUserData(userId: userId)
     }
-
-       
+    
+    
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
         print("fetch user ID is: \(userId)")
         
-         let docRef = db.collection("users").document(userId)
-         
-         docRef.getDocument { (document, error) in
-             if let document = document, document.exists {
-               
-                 if let data = document.data() {
-                   
-                     print("\n fetch User data is: \(data)")
-                     UserDefaults.standard.set(data, forKey: "userData")
-                 }
-             } else {
-                 print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
-
-             }
-         }
-     }
+        let docRef = db.collection("users").document(userId)
+        
+        docRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                
+                if let data = document.data() {
+                    
+                    print("\n fetch User data is: \(data)")
+                    UserDefaults.standard.set(data, forKey: "userData")
+                }
+            } else {
+                print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
+                
+            }
+        }
+    }
     
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
         // Save userID in UserDefaults
-       
+        
         print("\n User ID for fetchUserAccountsData: \(userId)")
         
         // Firestore query with `where` clause
@@ -127,11 +128,11 @@ class FirestoreServices: BaseViewController {
             // Save the combined data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
             print("\n Combined User Accounts data saved: \(userAccountsData)")
-           
+            
             
             // Update accounts
             UserAccountManager.shared.updateAccounts(from: userAccountsData)
-
+            
             // Retrieve and print the default account
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account : \(defaultAccount)")
@@ -147,8 +148,53 @@ class FirestoreServices: BaseViewController {
         }
     }
     
+    func fetchCredentialData( completion: @escaping (CrmCredentialsModel?) -> Void) {
+        db.collection("crm").whereField("isAndroid", isEqualTo: false).getDocuments { querySnapshot, error in
+            if let error = error {
+                print("Error fetching document: \(error.localizedDescription)")
+                completion(nil)
+                return
+            }
 
-   
+            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+                          print("No iOS documents found")
+                          completion(nil)
+                          return
+                      }
+            let data = documents[0].data()
+
+            guard
+                let user = data["U"] as? String,
+                let socketURL = data["SOCKET_URL"] as? String,
+                let predictionSocketURL = data["PREDICTION_SOCKET_URL"] as? String,
+                let baseURL = data["BASE_URL"] as? String,
+                let isAndroid = data["isAndroid"] as? Bool,
+                let password = data["P"] as? String,
+                let domain = data["D"] as? String
+            else {
+                print("Invalid data format in document:")
+                completion(nil)
+                return
+            }
+
+            let account = CrmCredentialsModel(
+                user: user,
+                socketURL: socketURL,
+                predictionSocketURL: predictionSocketURL,
+                baseURL: baseURL,
+                isAndroid: isAndroid,
+                password: password,
+                domain: domain
+            )
+
+            completion(account)
+        }
+    }
+
+
+
+    
+    
     func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
         db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
             if let error = error {
@@ -156,7 +202,7 @@ class FirestoreServices: BaseViewController {
                 completion([])
                 return
             }
-
+            
             for document in querySnapshot!.documents {
                 let data = document.data()
                 if let account = try? AccountModel(
@@ -178,11 +224,11 @@ class FirestoreServices: BaseViewController {
                     hedging: data["hedging"] as? Int ?? 0,
                     leverage: data["leverage"] as? String ?? ""
                 ) {
-                    self.accounts.append(account)
+                    self.accountsMT.append(account)
                 }
             }
-            print("accountGroup data:\(self.accounts)")
-            completion(self.accounts)
+            print("accountGroup data:\(self.accountsMT)")
+            completion(self.accountsMT)
         }
     }
     
@@ -191,44 +237,16 @@ class FirestoreServices: BaseViewController {
             print("\n Handle saved User for navigation to faceID: \(data)")
             navigateToFaceID()
         }
-       
+        
     }
     
     func handleUserData() {
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n Handle saved User for navigation : \(data)")
             navigateToDashboardScreen()
-//            KYCViewController
             
-//            let dashboardVC = MyNavigationController.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups)
-//            
-//            let navController = UINavigationController(rootViewController: dashboardVC)
-//            SCENE_DELEGATE.window?.rootViewController = navController
-//            SCENE_DELEGATE.window?.makeKeyAndVisible()
-            
-            
-//            if let emailVerified = data["emailVerified"] as? Bool, !emailVerified {
-//                if let email = data["email"] as? String {
-//                    odoClientNew.sendOTP(type: "email", email: email , phone: "")
-//                   
-//                }
-//               navigateToEmailVerificationScreen()
-//                print("navigate to user email verification")
-//               
-//            } else if let phoneVerified = data["phone"] as? String, phoneVerified == "" {
-//               navigateToPhoneVerificationScreen()
-//                print("/n navigate to user phone verification")
-//            } else if let demoAccountCreated = data["demoAccountCreated"] as? Bool, !demoAccountCreated {
-//                navigateToDashboardScreen()
-//                print("navigate to user demo account")
-////            } else if let profileStep = data["demoAccountCreated"] as? Int {
-////                print("check profile step: \(profileStep)")
-//            } else {
-//                print("navigate to Main dashboard")
-//                navigateToDashboardScreen()
-//            }
         }
-  }
+    }
     
     func checkUserExists(withID id: String, completion: @escaping (Bool) -> Void) {
         let userRef = db.collection("users").document(id)
@@ -242,9 +260,9 @@ class FirestoreServices: BaseViewController {
     }
     
     func updateUserFields(userID: String, fields: [String: Any], completion: @escaping (Error?) -> Void) {
-           let userRef = db.collection("users").document(userID)
-           userRef.updateData(fields, completion: completion)
-       }
+        let userRef = db.collection("users").document(userID)
+        userRef.updateData(fields, completion: completion)
+    }
     
     func updateUserAccountsFields(fields: [String: Any], completion: @escaping (Error?) -> Void) {
         let uniqueId = db.collection("userAccounts").document().documentID
@@ -254,17 +272,17 @@ class FirestoreServices: BaseViewController {
     
     func updateDefaultAccount(for accountKey: String, userId: String, completion: @escaping (Error?) -> Void) {
         print("Updating default account for accountKey: \(accountKey), userId: \(userId)")
-
+        
         // Retrieve accounts from UserDefaults
         guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             print("No accounts found in UserDefaults. Fetching data...")
             fetchUserAccountsData(userId: userId){
                 self.updateDefaultAccount(for: accountKey, userId: userId, completion: completion)
             }
-           
+            
             return
         }
-
+        
         for (key, account) in accountsDict {
             if var accountData = account as? [String: Any],
                let accountUserID = accountData["userID"] as? String,
@@ -272,24 +290,24 @@ class FirestoreServices: BaseViewController {
                 
                 let isMatchingAccount = (accountNumber == Int(accountKey))
                 let isMatchingUser = (accountUserID == userId)
-
+                
                 print("Key: \(key), accountNumber: \(accountNumber), isMatchingAccount: \(isMatchingAccount), accountUserID: \(accountUserID), isMatchingUser: \(isMatchingUser)")
-
+                
                 accountData["isDefault"] = (isMatchingAccount && isMatchingUser) ? 1 : 0
                 accountsDict[key] = accountData
             } else {
                 print("Key \(key) is missing accountNumber, userID, or account data.")
             }
         }
-//        print("After update in UserDefaults: \(accountsDict)")
-
+        //        print("After update in UserDefaults: \(accountsDict)")
+        
         // Save updated accounts back to UserDefaults
         UserDefaults.standard.set(accountsDict, forKey: "userAccountsData")
         UserDefaults.standard.synchronize()
-
+        
         // Update the `isDefault` flag in Firebase
         let batch = self.db.batch()
-
+        
         for (key, account) in accountsDict {
             if let accountUserID = account["userID"] as? String, accountUserID == userId {
                 let isDefault = account["isDefault"] as? Int ?? 0
@@ -298,7 +316,7 @@ class FirestoreServices: BaseViewController {
                 batch.setData(["isDefault": isDefault], forDocument: docRef, merge: true)
             }
         }
-
+        
         // Commit the batch
         batch.commit { error in
             if let error = error {
@@ -309,12 +327,12 @@ class FirestoreServices: BaseViewController {
                 self.fetchUserAccountsData(userId: userId) {
                     completion(nil)
                 }
-              
+                
             }
         }
     }
-
-
+    
+    
     func deleteAllUserAccounts(for userId: String, completion: @escaping (Error?) -> Void) {
         let userAccountsCollection = db.collection("userAccounts")
         
@@ -351,7 +369,7 @@ class FirestoreServices: BaseViewController {
             }
         }
     }
-
+    
     //MARK: Get data from the Firebase Firestore by email and UserID
     func getUserDataByEmail(email: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
         let usersRef = db.collection("users")
@@ -403,50 +421,35 @@ class FirestoreServices: BaseViewController {
             }
         }
     }
-   
-       
-//       private func navigateToMainScreen() {
-//           let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-////           let mainVC = storyboard.instantiateViewController(withIdentifier: "DashboardVC") as! DashboardVC
-//           let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! HomeTabbarViewController
-//           self.navigationController?.pushViewController(mainVC, animated: true)
-////           window?.rootViewController = mainVC
-////           window?.makeKeyAndVisible()
-//       }
-
-        func navigateToLoginScreen() {
-//           let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//           let loginVC = storyboard.instantiateViewController(withIdentifier: "SignUpViewController") as! SignUpViewController
-//           self.navigationController?.pushViewController(loginVC, animated: true)
-            
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-            
-            let navController = UINavigationController(rootViewController: loginVC)
-            SCENE_DELEGATE.window?.rootViewController = navController
-            SCENE_DELEGATE.window?.makeKeyAndVisible()
-       }
-       
+    
+    func navigateToLoginScreen() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+        
+        let navController = UINavigationController(rootViewController: loginVC)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
+    }
+    
     private func navigateToEmailVerificationScreen() {
-               //MARK: - Go to the VerifyCodeViewController Screen.
+        //MARK: - Go to the VerifyCodeViewController Screen.
         let verifyCodeVC = MyNavigationController.shared.getViewController(identifier: .verifyCodeViewController, storyboardType: .main) as? VerifyCodeViewController
         verifyCodeVC!.isEmailVerification = true
-       
-               let navController = UINavigationController(rootViewController: verifyCodeVC!)
-               SCENE_DELEGATE.window?.rootViewController = navController
-               SCENE_DELEGATE.window?.makeKeyAndVisible()
-           }
-       
-       private func navigateToPhoneVerificationScreen() {
-          
-           let phoneVerifyVC = MyNavigationController.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main)
-           self.ToastMessage("Verify phone number by OTP")
-           let navController = UINavigationController(rootViewController: phoneVerifyVC)
-           SCENE_DELEGATE.window?.rootViewController = navController
-           SCENE_DELEGATE.window?.makeKeyAndVisible()
-       }
- 
+        
+        let navController = UINavigationController(rootViewController: verifyCodeVC!)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
+    }
+    
+    private func navigateToPhoneVerificationScreen() {
+        
+        let phoneVerifyVC = MyNavigationController.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main)
+        self.ToastMessage("Verify phone number by OTP")
+        let navController = UINavigationController(rootViewController: phoneVerifyVC)
+        SCENE_DELEGATE.window?.rootViewController = navController
+        SCENE_DELEGATE.window?.makeKeyAndVisible()
+    }
+    
     private func navigateToDashboardScreen() {
         
         let dashboardVC = MyNavigationController.shared.getViewController(identifier: .homeTabbarViewController, storyboardType: .dashboard)

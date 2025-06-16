@@ -1679,14 +1679,14 @@ extension TicketVC {
     func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
                 
-        if GlobalVariable.instance.balanceUpdate < "\(price)" {
-            self.showTimeAlert(str:"Unable to place the order: insufficient account balance.")
-            ActivityIndicator.shared.hide(from: self.view)
-            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                self.dismiss(animated: true)
-            }
-            return
-        }
+//        if GlobalVariable.instance.balanceUpdate < "\(price)" {
+//            self.showTimeAlert(str:"Unable to place the order: insufficient account balance.")
+//            ActivityIndicator.shared.hide(from: self.view)
+//            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+//                self.dismiss(animated: true)
+//            }
+//            return
+//        }
         
         
         let url = "https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //

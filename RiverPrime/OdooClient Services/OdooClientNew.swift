@@ -12,16 +12,35 @@ import Alamofire
 class OdooClientNew {
     
     var createRequestBool : Bool = false
-    
-    private let baseURL = "https://mbe.riverprime.com"
-//    private let baseURL = "http://18.116.153.208:8069"
-    private let authURL = "https://mbe.riverprime.com/jsonrpc" // "http://18.116.153.208:8069/jsonrpc"
-    
-    var dataBaseName: String = "mbe.riverprime.com" // localhost
-//    var dbUserName: String = "IOS"
-//    var dbPassword: String = "92d8e79bd3d6fc1b549f128fab3cb7b1f362ee73"
-    var dbUserName: String = "ios@riverprime.com"
-    var dbPassword: String = "5021da17d4a522a82ee2ccbab90ee4e90d50f463"
+  
+//    private let authURL = "https://mbe.riverprime.com/jsonrpc"
+//    private let baseURL = "https://mbe.riverprime.com"
+//    var dataBaseName: String = "mbe.riverprime.com"
+//    var dbUserName: String = "ios@riverprime.com"
+//    var dbPassword: String = "riverprime"
+//    
+    var crmCredentials: CrmCredentialsModel?
+
+//    // Computed properties for cleaner code
+    var baseURL: String {
+        return crmCredentials?.baseURL ?? "https://mbe.riverprime.com"
+    }
+
+    var authURL: String {
+        return "\(crmCredentials?.baseURL ?? "https://mbe.riverprime.com")jsonrpc"
+    }
+
+    var dataBaseName: String {
+        return crmCredentials?.domain ?? "mbe.riverprime.com"
+    }
+
+    var dbUserName: String {
+        return crmCredentials?.user ?? "ios@riverprime.com"
+    }
+
+    var dbPassword: String {
+        return crmCredentials?.password ?? "riverprime"
+    }
     
     var userEmail: String = ""
     var loginId = Int()
@@ -221,7 +240,7 @@ class OdooClientNew {
         print("\n params for search_read records value is : \(jsonrpcBody)")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
-            print("search read result of save user is : \(result)")
+//            print("search read result of save user is : \(result)")
             switch result {
             case .success(let value):
                 if let json = value as? [String: Any],
@@ -234,14 +253,14 @@ class OdooClientNew {
                        let partnerId = partnerArray.first as? Int {
                         UserDefaults.standard.set(partnerId, forKey: "partner_id")
                         
-                        print("crm user_id(record_ID) is: \(firstItem["id"]) and partner_id is \(partnerId)")
+                        print("\ncrm user_id(record_ID) is: \(firstItem["id"]) and partner_id is \(partnerId)")
                         self.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
                     }
                    
                   //  completion(idwiseDecision, nil)
                     
                 }else {
-                    print("Unexpected response format or missing 'result' key")
+                    print("\nUnexpected search_read records response format or missing 'result' key")
                     completion("", nil)
                 }
                 
@@ -283,11 +302,12 @@ class OdooClientNew {
                     "create",         // Method name
                     [[                // vals_list
                         "contact_name": name,
-//                        "name": name,
-//                        "last_name": "",
                         "firebase_uid": firebase_uid,
                         "type": "opportunity",
-                        "email_from": email
+                        "email_from": email,
+                        "shufti_source":"ios_mobile_app",
+                        "source_name" : "River Trade iOS App"
+//                        "medium": "mobile"
                        
                      ]]
                 ]
@@ -306,7 +326,7 @@ class OdooClientNew {
                     
                     UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
                     self.createLeadDelegate?.leadCreatSuccess(response: result)
-                    print("result is: \(result)")
+                    print("\ncreate records result is: \(result)")
                     
                 }else {
                     print("Unexpected response format or missing 'result' key")
@@ -321,75 +341,7 @@ class OdooClientNew {
             }
         }
     }
-//    func getAppleCheckout_ID(ammount: String, partner_id: Int, completion: @escaping (String?) -> Void) {
-//        
-//        uid = UserDefaults.standard.integer(forKey: "uid")
-//        var accountNumber = Int()
-//        var Mt_password = String()
-//        
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            if let _email = savedUserData["email"] as? String{
-//                self.userEmail = _email
-//            }
-//        }
-//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//            if defaultAccount.isReal && defaultAccount.isDefault {
-//                accountNumber = defaultAccount.accountNumber
-//                Mt_password = defaultAccount.password
-//            }
-//        }
-//        
-//        let jsonrpcBody: [String: Any] = [
-//            "jsonrpc": "2.0",
-//            "method":"call",
-//            "id": 4646,
-//            "params": [
-//                "service": "object",
-//                "method": "execute_kw",
-//                "args": [
-//                    dataBaseName,      // Database name
-//                    uid,               // uid
-//                    dbPassword,        // password
-//                    "payment.transaction",  // Model name
-//                    "prepare_checkout",   // Method name
-//                    [],
-//                    [                // vals_list
-//                        "partner_id": partner_id,
-//                        "email": userEmail,
-//                        "amount": ammount,
-//                        "mt_loggin_number": accountNumber,
-//                        "currency_name": "USD",
-//                        "payment_type": "DB",
-//                        "source": "app",
-//                        "mt_password": Mt_password,
-//                        "is_ios": is_apple
-//                     ]
-//                ]
-//            ]
-//        ]
-//        
-//        print("\n params for get checkOut ID from odoo server: \(jsonrpcBody)")
-//        
-//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-//            
-//            print("For checkOut_ID result is : \(result)")
-//            switch result {
-//            case .success(let value):
-//                if let responseDict = value as? [String: Any],
-//                   let result = responseDict["result"] as? [String: Any],
-//                   let checkoutId = result["checkout_id"] as? String {
-//                    
-//                    print("Checkout ID: \(checkoutId)")
-//                    completion(checkoutId)
-//                }
-//               
-//            case .failure(let error):
-//                print("error is :\(error)")
-//                completion("\(error)")
-//            }
-//        }
-//    }
-    
+
     func getCheckout_ID(is_apple: Bool,ammount: String, partner_id: Int, completion: @escaping (String?) -> Void) {
        
         uid = UserDefaults.standard.integer(forKey: "uid")
@@ -448,7 +400,7 @@ class OdooClientNew {
                    let result = responseDict["result"] as? [String: Any],
                    let checkoutId = result["checkout_id"] as? String {
                     
-                    print("Checkout ID: \(checkoutId)")
+                    print("\nCheckout ID: \(checkoutId)")
                     completion(checkoutId)
                 }
                
@@ -932,32 +884,7 @@ class OdooClientNew {
         }
     
     func createAccount(phone: String, group: String, email: String, currency: String, leverage: Int, first_name: String, last_name: String, password: String, is_demo: Bool) {
-        
-//        let jsonrpcBody: [String: Any] = [
-//            "jsonrpc": "2.0",
-//            "params": [
-//                "service": "object",
-//                "method": "execute_kw",
-//                "args": [
-//                    dataBaseName,
-//                    uid,
-//                    dbPassword,
-//                    "mt.middleware",
-//                    "create_account",
-//                    [
-//                        [],
-//                        email,
-//                        phone,
-//                        group,
-//                        leverage,
-//                        first_name,
-//                        last_name,
-//                        password,
-//                        is_demo
-//                    ]
-//                ]
-//            ]
-//        ]
+
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "method": "call",
@@ -1008,7 +935,7 @@ class OdooClientNew {
                         print("Error response: \(error)")
                     }
                 } else {
-                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
+                    let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSONResponse structure"])
                     self.createUserAcctDelegate?.createAccountFailure(error: error)
                     print("Error response: \(error)")
                 }

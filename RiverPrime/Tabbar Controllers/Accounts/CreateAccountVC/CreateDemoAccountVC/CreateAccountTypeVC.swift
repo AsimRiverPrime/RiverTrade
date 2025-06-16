@@ -130,18 +130,7 @@ class CreateAccountTypeVC: BottomSheetController {
             self.currencyCode = item
         }
     }
-   
-//    func showAlert(message: String) {
-//        print("\n----****-----Alert: \(message) ---***-----\n") // Replace with your alert presentation logic (e.g., UIAlertController in iOS)
-//        //        Alert.showAlert(withMessage: message, andTitle: "Warraning!", on: UIViewController?.none)
-//
-//        let alert = UIAlertController(title: "Warraning!", message: message, preferredStyle: UIAlertController.Style.alert)
-//        alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: { (_) in
-//            self.dismiss(animated: true)
-//        }))
-//        self.present(alert, animated: true, completion: nil)
-//    }
-    
+
     func checkAccountRestrictions(accounts: [[String: Any]], newGroupName: String) -> (Bool, String) {
         let restrictedGroups: Set<String> = ["PRO", "PRIME", "PREMIUM"]
         var existingGroups = Set<String>()
@@ -198,19 +187,7 @@ class CreateAccountTypeVC: BottomSheetController {
                 demoAccountGroup = "PREMIUM"
             }
         }
-        
-//        var (isAllowed, message) = checkAccountRestrictions(accounts: demoData, newGroupName: demoAccountGroup)
-//
-//        // Handle UI Logic
-//        if !isAllowed {
-//            print(message) // Show alert with this message
-//        } else {
-//            if isReal {
-//                odooClientService.createAccount(phone: phone ?? "+97112345678", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: false)
-//            }else{
-//                odooClientService.createAccount(phone: phone ?? "", group: group, email: userEmail, currency: currencyCode, leverage: 400 /*Int(account!.leverage) ?? 0*/, first_name: userName , last_name: "", password: (self.tf_password.text ?? ""), is_demo: true)
-//            }
-//        }
+
        
         var isAllowed: Bool = false
         var message: String = ""
@@ -228,7 +205,7 @@ class CreateAccountTypeVC: BottomSheetController {
             }
         } else {
             odooClientService.createAccount(
-                phone: isReal ? (phone ?? "+97112345678") : "",
+                phone: isReal ? (phone ?? "") : "",
                 group: group,
                 email: userEmail,
                 currency: currencyCode,

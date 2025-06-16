@@ -130,6 +130,7 @@
 		31836B1F2D2E4ED90017C9D4 /* EmailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31836B1E2D2E4ED90017C9D4 /* EmailVC.swift */; };
 		31836B212D2E4EEB0017C9D4 /* PasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31836B202D2E4EEB0017C9D4 /* PasswordVC.swift */; };
 		3184F0832CAE8C3600BC1479 /* AccountOPCModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */; };
+		31857BEB2DFFF7D10071C488 /* CrmCredentialsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31857BEA2DFFF7D10071C488 /* CrmCredentialsModel.swift */; };
 		3185C58A2D0FF55100FC996F /* EconomicCalendarListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */; };
 		3185C58C2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */; };
 		3185C58E2D0FFB7300FC996F /* EconomicCalendarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3185C58D2D0FFB7300FC996F /* EconomicCalendarModel.swift */; };
@@ -546,6 +547,7 @@
 		31836B202D2E4EEB0017C9D4 /* PasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordVC.swift; sourceTree = "<group>"; };
 		3184C7CC2D2BE675007A60C9 /* RiverPrime.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RiverPrime.entitlements; sourceTree = "<group>"; };
 		3184F0822CAE8C3600BC1479 /* AccountOPCModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountOPCModel.swift; sourceTree = "<group>"; };
+		31857BEA2DFFF7D10071C488 /* CrmCredentialsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrmCredentialsModel.swift; sourceTree = "<group>"; };
 		3185C5892D0FF55100FC996F /* EconomicCalendarListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarListVC.swift; sourceTree = "<group>"; };
 		3185C58B2D0FF57E00FC996F /* EconomicCalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarDetailVC.swift; sourceTree = "<group>"; };
 		3185C58D2D0FFB7300FC996F /* EconomicCalendarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EconomicCalendarModel.swift; sourceTree = "<group>"; };
@@ -1364,6 +1366,7 @@
 			isa = PBXGroup;
 			children = (
 				314A69D82C94662800125CE3 /* OdooClientNew.swift */,
+				31857BEA2DFFF7D10071C488 /* CrmCredentialsModel.swift */,
 			);
 			path = "OdooClient Services";
 			sourceTree = "<group>";
@@ -2782,6 +2785,7 @@
 				315DDB032C4F9A2900C4F8C0 /* SuppotTableViewCell.swift in Sources */,
 				A5140CD32D296C7000F46FC1 /* FaceIDAlertView.swift in Sources */,
 				31475AB12CEC5D13009E962B /* EditPhotoVC.swift in Sources */,
+				31857BEB2DFFF7D10071C488 /* CrmCredentialsModel.swift in Sources */,
 				70624A872D8E49A10005DD3D /* NetellerService.swift in Sources */,
 				31D2AEF42C8840B800E0CF2E /* LineSeries.swift in Sources */,
 				3135798B2C7C4F3C000AEEC2 /* ForgotPasscodeVC.swift in Sources */,
@@ -3212,7 +3216,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.2.7;
+				CURRENT_PROJECT_VERSION = 1.2.8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -3265,12 +3269,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1.2.7;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.2.8;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = J9K56G79V5;
+				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RiverPrime/Info.plist;
@@ -3301,7 +3303,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.RiverPrime.RiverTrade;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "RiverTrade ProvisionProfile";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

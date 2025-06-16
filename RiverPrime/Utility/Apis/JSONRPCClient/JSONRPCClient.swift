@@ -16,7 +16,7 @@ protocol IJSONRPCClient: AnyObject {
 }
 
 class JSONRPCClient: IJSONRPCClient {
-    
+   let fireStoreInstance = FirestoreServices()
     static let instance = JSONRPCClient()
     
     private let baseURL = "https://mbe.riverprime.com"
@@ -35,6 +35,18 @@ class JSONRPCClient: IJSONRPCClient {
                     completion(.failure(error))
                 }
             }
+    }
+    
+    private func getCRMCredentials(completion: @escaping (Bool) -> Void) {
+        fireStoreInstance.fetchCredentialData(completion: { credential in
+            if let credential = credential {
+                print("Fetched credential for user: \(credential.user) \t \(credential)")
+                completion(true)
+            } else {
+                print("Failed to fetch credential.")
+                completion(false)
+            }
+        })
     }
     
     func sendData(endPoint: Endpoint, method: HTTPMethod, jsonrpcBody: [String: Any], showLoader: Bool, showLoaderWithStatus: Bool? = nil, completion: @escaping (Result<Any?, Error>) -> Void) {

@@ -34,9 +34,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //MARK: - App initialization.
+        fireStoreInstance.fetchCredentialData(completion: { credential in
+            if let credential = credential {
+                print("Fetched credential for user: \(credential.user) \t \(credential)")
+                self.odoObject.authenticate()
+            } else {
+                print("Failed to fetch credential.")
+            }
+        })
         GlobalVariable.instance.isAppLunch = false
         splash(scene: scene)
-        
+      
         //MARK: - ProgressBar initialization.
         self.setSVProgressHUD()
         GlobalVariable.instance.socketTimer = 10.0
@@ -45,26 +53,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         clearData()
         
-        odoObject.authenticate()
+       
         
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            print("\n saved User Data: scenceDelegate \(savedUserData)")
-//            if let uid = savedUserData["id"]  as? String {
-//                print("UID is: \(uid)")
-//                self.fireStoreInstance.fetchUserData(userId: uid)
-//            }
-//                // Access specific values from the dictionary
-//            if let isCreateDemoAccount = savedUserData["demoAccountCreated"] as? Bool {
-//
-//                    GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-//                }
-//
-//            fireStoreInstance.handleUserData()
-//        }else {
-//            fireStoreInstance.navigateToLoginScreen()
-//        }
-
-        // Check if the user has authenticated with Face ID
         window?.makeKeyAndVisible()
         
     }
@@ -197,7 +187,7 @@ extension SceneDelegate {
     }
     
     func decideRootViewController() {
-        
+      
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n saved User Data: scenceDelegate \(savedUserData)")
             GlobalVariable.instance.isAppStartAfterLogin = true
