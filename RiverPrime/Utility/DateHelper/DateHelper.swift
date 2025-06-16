@@ -109,4 +109,25 @@ class DateHelper {
         
         return weekdayName
     }
+    
+    static func saveAppLaunchDate() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        let today = formatter.string(from: Date())
+        UserDefaults.standard.set(today, forKey: "AppLaunchDate")
+    }
+    
+    static func isSameDayAsLastLaunch() -> Bool {
+        guard let savedDate = UserDefaults.standard.string(forKey: "AppLaunchDate") else {
+            return false // No saved date
+        }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        let today = formatter.string(from: Date())
+        
+        return savedDate == today
+    }
 }

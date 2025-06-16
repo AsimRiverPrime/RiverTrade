@@ -19,27 +19,27 @@ class OdooClientNew {
 //    var dbUserName: String = "ios@riverprime.com"
 //    var dbPassword: String = "riverprime"
 //    
-    var crmCredentials: CrmCredentialsModel?
+//    var crmCredentials: CrmCredentialsModel?
 
 //    // Computed properties for cleaner code
     var baseURL: String {
-        return crmCredentials?.baseURL ?? "https://mbe.riverprime.com"
+        return  Session.instance.crmCredentials?.baseURL ?? "" // "https://mbe.riverprime.com"
     }
 
     var authURL: String {
-        return "\(crmCredentials?.baseURL ?? "https://mbe.riverprime.com")jsonrpc"
+        return "\( Session.instance.crmCredentials?.baseURL ?? "")jsonrpc"  //https://mbe.riverprime.com")jsonrpc"
     }
 
     var dataBaseName: String {
-        return crmCredentials?.domain ?? "mbe.riverprime.com"
+        return  Session.instance.crmCredentials?.domain ?? ""// "mbe.riverprime.com"
     }
 
     var dbUserName: String {
-        return crmCredentials?.user ?? "ios@riverprime.com"
+        return  Session.instance.crmCredentials?.user ?? "" //ios@riverprime.com"
     }
 
     var dbPassword: String {
-        return crmCredentials?.password ?? "riverprime"
+        return  Session.instance.crmCredentials?.password ?? "" //riverprime"
     }
     
     var userEmail: String = ""

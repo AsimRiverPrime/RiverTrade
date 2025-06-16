@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CrmCredentialsModel {
+struct CrmCredentialsModel: Codable {
     let user: String
     let socketURL: String
     let predictionSocketURL: String

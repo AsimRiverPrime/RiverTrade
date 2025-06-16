@@ -162,6 +162,77 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        viewWillAppearData()
+        updateIndicator()
+    }
+    
+    private func updateIndicator() {
+        
+        //MARK: - If tick flag is true then we just update the label only not reload the tableview.
+        if getSymbolData.count != 0 {
+            for i in 0...getSymbolData.count-1 {
+                let indexPath = IndexPath(row: i, section: 0)
+                if let cell = tblView.cellForRow(at: indexPath) as? TradeTableViewCell {
+                    //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
+                    if GlobalVariable.instance.openSymbolList.contains(getSymbolData[i].tickMessage!.symbol) {
+                        for j in 0...GlobalVariable.instance.openSymbolList.count-1 {
+                            if GlobalVariable.instance.openSymbolList[j].contains(getSymbolData[i].tickMessage!.symbol) {
+                                
+                                if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                    //
+                                    var symbolProfitLossSum: [String: Double] = [:]
+                                    
+                                    // Iterate through openSymbolList to calculate total profit/loss for duplicate symbols
+                                    for (index, symbol) in GlobalVariable.instance.openSymbolList.enumerated() {
+                                        let profitLoss = GlobalVariable.instance.myProfitLossForOpenSymbolList[index]
+                                        symbolProfitLossSum[symbol, default: 0.0] += profitLoss
+                                    }
+                                    
+                                    // Get the symbol from tableView cell
+                                    let currentSymbol = getSymbolData[i].tickMessage!.symbol
+                                    
+                                    // Check if the symbol exists in the summed profit/loss dictionary
+                                    if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
+                                        if totalProfitLoss > 0.0 {
+                                            cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                            cell.lblCurrencySymbl.textColor = .systemGreen
+                                        } else if totalProfitLoss < 0.0 {
+                                            cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                            cell.lblCurrencySymbl.textColor = .systemRed
+                                        }
+                                        break
+                                    }
+                                }
+                                
+                                if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                    if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
+                                        cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                        cell.lblCurrencySymbl.textColor = .systemRed
+                                    } else {
+                                        cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                        cell.lblCurrencySymbl.textColor = .systemGreen
+                                    }
+                                } else {
+//                                    cell.openPosSymbolColorView.backgroundColor = UIColor.green
+                                }
+                                break
+                            }
+                        }
+                        
+                    } else {
+                        cell.lblCurrencySymbl.textColor = .white
+                        cell.openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func viewWillAppearData() {
+        
+        GlobalVariable.instance.socketTimerCount = 0
+        
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         NotificationCenter.default.addObserver(self, selector: #selector(handleBadgeUpdate(_:)), name: NSNotification.Name("UpdateBadge"), object: nil)
         APP_DELEGATE.updateBadgeCount()
@@ -233,11 +304,6 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     @objc func updateAccountList() {
-        
-//        if GlobalVariable.instance.realAccount || realAccountAfterLogin {
-////            NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
-//            NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
-//        }
         
         var isPhoneVerified = Bool()
         var isEmailVerified = Bool()
@@ -353,21 +419,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             if receivedString == "UpdateTradeList" {
                 
                 DispatchQueue.main.async { [self] in
-                    
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
-                    
-//                    let getDeletedSymbol = getSymbolData[indexPath.row].tickMessage?.symbol ?? ""
-//
-//                    //MARK: - START calling Socket message from here.
-//                    vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: [getDeletedSymbol])
-//
-//                    print("GlobalVariable.instance.previouseSymbolList = \(GlobalVariable.instance.previouseSymbolList)")
-//
-//                    GlobalVariable.instance.previouseSymbolList.remove(at: indexPath.row)
-//                    // Remove the item from the data source
-//                    getSymbolData.remove(at: indexPath.row)
-//                    Session.instance.filteredSymbolData?.remove(at: indexPath.row)
-                    
+  
                     filteredData = []
 //                    showEmptySearch = false
                     symbolDataSectorSelected = false
@@ -377,22 +429,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                     tf_searchSymbol.text = ""
                     tf_searchSymbol.resignFirstResponder()
                     self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-                    
-//                    if GlobalVariable.instance.symbolDataUpdatedList.count != 0 {
-//                        for i in 0...GlobalVariable.instance.symbolDataUpdatedList.count-1 {
-//                            if GlobalVariable.instance.symbolDataUpdatedList[i].name == getDeletedSymbol {
-//                                GlobalVariable.instance.symbolDataUpdatedList.remove(at: i)
-//                                break
-//                            }
-//                        }
-//                    }
-//
-////                    // Animate the deletion of the row
-////                    tableView.beginUpdates()
-////                    tableView.deleteRows(at: [indexPath], with: .automatic)
-////                    tableView.endUpdates()
-//                    tblView.reloadData()
-                    
+    
                     DispatchQueue.main.async {
                         self.tblView.delegate = self
                         self.tblView.dataSource = self
@@ -473,53 +510,6 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             }
         }
     }
-//    @IBAction func searchCloseButton(_ sender: UIButton) {
-//        
-//        if let currentImage = self.searchCloseButton.image(for: .normal),
-//           currentImage.isEqual(UIImage(systemName: "magnifyingglass")) {
-//            print("The button image is magnifyingglass.")
-//            symbolDataSector.removeAll()
-//            //MARK: - Set all sectors by default.
-//            symbolDataSector = GlobalVariable.instance.sectors
-//            filteredData = []
-////            showEmptySearch = false
-//            tblView.isHidden = false
-//            isSearching = true
-////            tblSearchView.isHidden = false
-//            self.searchCloseButton.setImage(UIImage(systemName: "xmark.circle"), for: .normal)
-//            
-//////            tblSearchView.delegate = nil
-//////            tblSearchView.dataSource = nil
-//////            tblSearchView.reloadData()
-////
-//            DispatchQueue.main.async {
-//                self.tblView.delegate = self
-//                self.tblView.dataSource = self
-//                self.tblView.reloadData()
-//            }
-//        }else{
-//            
-//            symbolDataSector.removeAll()
-//            //MARK: - Set all sectors by default.
-//            symbolDataSector = GlobalVariable.instance.sectors
-//            //        self.symbolDataSectorSelected = false
-//            filteredData = []
-////            showEmptySearch = false
-//            self.searchCloseButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-//            self.tblView.isHidden = false
-////            self.tblSearchView.isHidden = true
-//            self.tf_searchSymbol.text = ""
-//            self.tf_searchSymbol.resignFirstResponder()
-//            
-//        }
-//        
-//    }
-    
-    //    private func callCollectionViewAtStart() {
-    //
-    //        let indexPath = GlobalVariable.instance.lastSelectedSectorIndex //IndexPath(row: 0, section: 0)
-    //
-    //    }
     
     @objc func notificationTradeApiUpdate(_ notification: NSNotification) {
         
@@ -683,8 +673,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                             if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
                                                 if totalProfitLoss > 0.0 {
                                                     cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                                    cell.lblCurrencySymbl.textColor = .systemGreen
                                                 } else if totalProfitLoss < 0.0 {
                                                     cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                                    cell.lblCurrencySymbl.textColor = .systemRed
                                                 }
                                                 break
                                             }
@@ -693,17 +685,20 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                         if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
                                             if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
                                                 cell.openPosSymbolColorView.backgroundColor = .systemRed
+                                                cell.lblCurrencySymbl.textColor = .systemRed
                                             } else {
                                                 cell.openPosSymbolColorView.backgroundColor = .systemGreen
+                                                cell.lblCurrencySymbl.textColor = .systemGreen
                                             }
                                         } else {
-                                            cell.openPosSymbolColorView.backgroundColor = UIColor.green
+//                                            cell.openPosSymbolColorView.backgroundColor = UIColor.green
                                         }
                                         break
                                     }
                                 }
                                 
                             } else {
+                                cell.lblCurrencySymbl.textColor = .white
                                 cell.openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
                             }
                         }
@@ -1143,6 +1138,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     
                     let _getSymbolData = getSymbolData[indexPath.row]
                     vc.getSymbolDetail = _getSymbolData
+                    vc.orderCreatedDelegate = self
                     PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                 }
             }
@@ -1815,4 +1811,14 @@ extension TradeViewController: UITextFieldDelegate {
         return true
     }
     
+}
+
+extension TradeViewController: IsOrderCreated {
+    func orderCreated() {
+        
+        //TODO: Navigate to Accounts.
+        if let tabBarController = tabBarController as? HomeTabbarViewController {
+            tabBarController.selectedIndex = 0
+        }
+    }
 }

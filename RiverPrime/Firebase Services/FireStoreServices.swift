@@ -187,6 +187,7 @@ class FirestoreServices: BaseViewController {
                 domain: domain
             )
 
+            Session.instance.crmCredentials = account
             completion(account)
         }
     }

@@ -56,8 +56,34 @@ class HomeTabbarViewController: UITabBarController {
 //            tabBarController.selectedIndex = 1
 //        }
        
-        //MARK: - START Symbol api calling.
-        symbolApiCalling()
+        if DateHelper.isSameDayAsLastLaunch() {
+            print("Use cached for symbolData")
+            
+            print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
+            
+            GlobalVariable.instance.symbolDataArray = Session.instance.symbolData ?? []
+            print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
+            // Process and save symbols and isfavorite symbol
+            let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
+            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
+            
+            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+                Session.instance.filteredSymbolData = filterfavoriteSymbols
+            }
+            
+            processSymbols(GlobalVariable.instance.symbolDataArray)
+            
+        } else {
+            print("Date changed – refresh symbolData")
+            DateHelper.saveAppLaunchDate() // Save new date
+            
+            //MARK: - START Symbol api calling.
+            symbolApiCalling()
+            
+        }
+        
+//        //MARK: - START Symbol api calling.
+//        symbolApiCalling()
         
         if GlobalVariable.instance.realAccount && Session.instance.isRealAccountInitFlowComplete == nil {
             let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
@@ -299,7 +325,7 @@ extension HomeTabbarViewController: SocketConnectionInitDelegate {
 extension HomeTabbarViewController {
 //    func showPopup() {
 //        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-//        
+//
 //        // Replace "PopupViewController" with the actual identifier of your popup view controller
 //        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
 //            // Set modal presentation style
@@ -309,7 +335,7 @@ extension HomeTabbarViewController {
 //            // Optional: Set modal transition style (this is for animation)
 //            popupVC.modalTransitionStyle = .crossDissolve
 //            popupVC.metaTraderType = .Balance
-//            
+//
 //            // Present the popup
 //            self.present(popupVC, animated: true, completion: nil)
 //        }
