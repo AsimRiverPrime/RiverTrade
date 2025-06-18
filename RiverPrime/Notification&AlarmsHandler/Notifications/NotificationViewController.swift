@@ -47,12 +47,45 @@ class NotificationViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         if isNotification{
             self.setNavBar(vc: self, isBackButton: true, isBar: false)
+      
+                let closeImage = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
+                let closeButton = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
+                closeButton.tintColor = .white
+                navigationItem.rightBarButtonItem = closeButton
             
         }else{
             self.setNavBar(vc: self, isBackButton: false, isBar: false)
         }
 //        self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: TradeViewController(), navController: self.navigationController, title: "Notifications", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
+    
+    @objc func closeButtonTapped() {
+//        // Dismiss the modal first
+//        var root = self.presentingViewController
+//
+//           // Traverse up the presenting stack
+//           while let presenter = root?.presentingViewController {
+//               root = presenter
+//           }
+//
+//           root?.dismiss(animated: true) {
+//               // After all modals are dismissed, ensure we're on AccountVC tab
+//               if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//                  let window = scene.windows.first(where: { $0.isKeyWindow }),
+//                  let tabBar = window.rootViewController as? UITabBarController {
+//                   
+//                   // Make sure AccountVC tab is selected (adjust index if needed)
+//                   tabBar.selectedIndex = 2
+//               }
+//           }
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
     }
     
     func fetchNotifications() {

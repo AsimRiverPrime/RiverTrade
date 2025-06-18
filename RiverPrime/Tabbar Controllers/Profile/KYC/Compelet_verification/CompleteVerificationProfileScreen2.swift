@@ -100,6 +100,12 @@ class CompleteVerificationProfileScreen2: BaseViewController {
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {
-        self.dismiss(animated: true)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
     }
 }

@@ -180,7 +180,9 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
     }
     
     func startCountdown() {
-        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateButtonTitle), userInfo: nil, repeats: true)
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.updateButtonTitle()
+        } // Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateButtonTitle), userInfo: nil, repeats: true)
     }
     
     // Method to update the button title each second

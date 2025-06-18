@@ -64,6 +64,9 @@ class EconomicCalendarDetailVC: BaseViewController {
        if selectedItem?.forecast == "" {
            lbl_forecast.text = "--"
        }
+       if selectedItem?.teForecast == "" {
+           lbl_teforecast.text = "--"
+       }
        lbl_Category.text = selectedItem?.category ?? ""
        
        switch selectedItem?.importance ?? 0 {

@@ -23,7 +23,7 @@ class EmailSendVC: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
 //        self.navigationController?.isNavigationBarHidden = true
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Verify Email", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Need Email Verification", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func sendCode_action(_ sender: Any) {
@@ -47,6 +47,12 @@ class EmailSendVC: BaseViewController {
     }
     
     @IBAction func close_action(_ sender: Any) {
-        self.dismiss(animated: true)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
     }
 }

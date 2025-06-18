@@ -16,10 +16,11 @@ protocol IJSONRPCClient: AnyObject {
 }
 
 class JSONRPCClient: IJSONRPCClient {
-   let fireStoreInstance = FirestoreServices()
+//   let fireStoreInstance = FirestoreServices()
     static let instance = JSONRPCClient()
     
-    private let baseURL = "https://mbe.riverprime.com"
+//    private let baseURL = "https://mbe.riverprime.com"
+    private let baseURL = Session.instance.crmCredentials?.baseURL ?? ""
 //    private let baseURL = "http://18.116.153.208:8069"
     
     func sendData<T: Encodable>(endPoint: Endpoint, method: HTTPMethod, request: JSONRPCRequest<T>, completion: @escaping (Result<Data?, Error>) -> Void) {
@@ -37,17 +38,17 @@ class JSONRPCClient: IJSONRPCClient {
             }
     }
     
-    private func getCRMCredentials(completion: @escaping (Bool) -> Void) {
-        fireStoreInstance.fetchCredentialData(completion: { credential in
-            if let credential = credential {
-                print("Fetched credential for user: \(credential.user) \t \(credential)")
-                completion(true)
-            } else {
-                print("Failed to fetch credential.")
-                completion(false)
-            }
-        })
-    }
+//    private func getCRMCredentials(completion: @escaping (Bool) -> Void) {
+//        fireStoreInstance.fetchCredentialData(completion: { credential in
+//            if let credential = credential {
+//                print("Fetched credential for user: \(credential.user) \t \(credential)")
+//                completion(true)
+//            } else {
+//                print("Failed to fetch credential.")
+//                completion(false)
+//            }
+//        })
+//    }
     
     func sendData(endPoint: Endpoint, method: HTTPMethod, jsonrpcBody: [String: Any], showLoader: Bool, showLoaderWithStatus: Bool? = nil, completion: @escaping (Result<Any?, Error>) -> Void) {
         

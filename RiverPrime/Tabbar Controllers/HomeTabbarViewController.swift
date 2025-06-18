@@ -22,17 +22,6 @@ class HomeTabbarViewController: UITabBarController {
     public weak var delegateSocketMessage: GetSocketMessages?
     public weak var delegateSocketNotSendData: SocketNotSendDataDelegate?
     
-    override func viewDidAppear(_ animated: Bool) {
-            super.viewDidAppear(animated)
-//        if !GlobalVariable.instance.isAppLunch {
-//            DispatchQueue.main.async {
-////                self.tabBarController?.selectedIndex = 1
-//                self.selectedIndex = 1
-//                GlobalVariable.instance.isAppLunch = true
-//            }
-//        }
-        }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,12 +39,7 @@ class HomeTabbarViewController: UITabBarController {
        
         tabBar.standardAppearance = tabBarAppearance
         tabBar.scrollEdgeAppearance = tabBarAppearance
-        
-        
-//        if let tabBarController = self.view.window?.rootViewController as? UITabBarController {
-//            tabBarController.selectedIndex = 1
-//        }
-       
+  
         if DateHelper.isSameDayAsLastLaunch() {
             print("Use cached for symbolData")
             
@@ -79,11 +63,15 @@ class HomeTabbarViewController: UITabBarController {
             
             //MARK: - START Symbol api calling.
             symbolApiCalling()
-            
         }
-        
-//        //MARK: - START Symbol api calling.
-//        symbolApiCalling()
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let email = savedUserData["email"] as? String{
+                self.userEmail = email
+                odooClientService.SearchRecord(email: userEmail ?? "") { [weak self] data, error in
+                    }
+            }
+        }
+       
         
         if GlobalVariable.instance.realAccount && Session.instance.isRealAccountInitFlowComplete == nil {
             let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
@@ -154,10 +142,6 @@ extension HomeTabbarViewController {
         odooClientService.sendSymbolDetailRequest()
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
-
-        odooClientService.SearchRecord(email: userEmail ?? "") { [weak self] data, error in
-//                print("CRM user data is: \(data) : error is: \(error)")
-            }
 
             print("-------- search_read as crm_User_Id: \(recordedId) & partner_id: \(partnerId)----")
 
@@ -413,10 +397,18 @@ extension HomeTabbarViewController {
                     }
                     
                     //MARK: - START SOCKET and call delegate method to get data from socket.
-                    self.webSocketManager.connectWebSocket()
-                    self.webSocketManager.delegateSocketData = self
-                    self.webSocketManager.delegateSocketConnectionInit = self
-                    self.webSocketManager.delegateSocketNotSendData = self
+                    DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
+                                            //MARK: - START SOCKET and call delegate method to get data from socket.
+                                            self.webSocketManager.connectWebSocket()
+                                            self.webSocketManager.delegateSocketData = self
+                                            self.webSocketManager.delegateSocketConnectionInit = self
+                                            self.webSocketManager.delegateSocketNotSendData = self
+                                        }
+//                    
+//                    self.webSocketManager.connectWebSocket()
+//                    self.webSocketManager.delegateSocketData = self
+//                    self.webSocketManager.delegateSocketConnectionInit = self
+//                    self.webSocketManager.delegateSocketNotSendData = self
                     
                     //MARK: - This Notification is only use to update trader at first time when api call is completed, it just update trader that api call is completed.
                     //                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.TradeApiUpdateConstant.key, dict: [NotificationObserver.Constants.TradeApiUpdateConstant.title: "TradeApiUpdate"])
@@ -424,7 +416,7 @@ extension HomeTabbarViewController {
             }
         }
     }
-    
+   
 }
 
 extension HomeTabbarViewController: SocketNotSendDataDelegate {

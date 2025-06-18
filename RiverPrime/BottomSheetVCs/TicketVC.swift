@@ -17,6 +17,7 @@ class TicketVC: BottomSheetController {
     
     @IBOutlet weak var lbl_title: UILabel!
     @IBOutlet weak var lbl_symbolName: UILabel!
+    @IBOutlet weak var lbl_bidValue: UILabel!
     //MARK: - volume Outlets
     @IBOutlet weak var tf_volume: UITextField!
     @IBOutlet weak var lbl_volumeDropdown: UILabel!
@@ -164,11 +165,11 @@ class TicketVC: BottomSheetController {
         
         tf_stopLoss.attributedPlaceholder = NSAttributedString(
             string: "not set",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
         tf_takeProfit.attributedPlaceholder = NSAttributedString(
                 string: "not set",
-                attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+                attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         
 
     }
@@ -217,6 +218,7 @@ class TicketVC: BottomSheetController {
         }
     }
     
+   
     @objc func hideKeyboard() {
         view.endEditing(true)  // This will dismiss the keyboard for all text fields
     }
@@ -228,6 +230,13 @@ class TicketVC: BottomSheetController {
             if tradeDetail.symbol == getSymbolDetail.tickMessage?.symbol {
                 self.getPriceLiveValue = "\(tradeDetail.bid)"
                 // priceValue = bidValue
+                if let price = Double(getPriceLiveValue ?? ""), let digits = self.digits {
+                    let formattedBid = String(format: "%.\(digits)f", price)
+                    self.lbl_bidValue.text = formattedBid
+                } else {
+                    self.lbl_bidValue.text = "--" // or some fallback
+                }
+                
                 checkEnable(liveValue: getPriceLiveValue ?? "")
             }
         }
@@ -235,426 +244,9 @@ class TicketVC: BottomSheetController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        print("ticketVC Deinit called for \(self)")
     }
-    
-    private func checkEnable(liveValue: String) {
-        var price: (String,Double,Bool) = ("",0.0,false)
-        var profit: (String,Double,Bool) = ("",0.0,false)
-        var loss: (String,Double,Bool) = ("",0.0,false)
-        
-        //  self.lbl_ConfrmBtnPrice.text = liveValue
-        
-        
-        //MARK: - START Price Logic
-        if titleString == "SELL" { //TODO: SELL
-            
-            if self.selectedPrice == "Limit" {
-                self.type = 3
-                price.0 = "Limit"
-                price.1 = Double(liveValue) ?? 0.0
-                price.2 = true
-            } else if self.selectedPrice == "Stop" {
-                self.type = 5
-                price.0 = "Stop"
-                price.1 = Double(liveValue) ?? 0.0
-                price.2 = true
-            } else { //TODO: Market check here.
-                self.type = 1
-                price.0 = ""
-                price.1 = 0.0
-                price.2 = false
-                priceValue = bidValue
-            }
-            
-        } else { //TODO: BUY
-            if self.selectedPrice == "Limit" {
-                self.type = 2
-                price.0 = "Limit"
-                price.1 = Double(liveValue) ?? 0.0
-                price.2 = true
-            } else if self.selectedPrice == "Stop" {
-                self.type = 4
-                price.0 = "Stop"
-                price.1 = Double(liveValue) ?? 0.0
-                price.2 = true
-            } else { //TODO: Market check here.
-                self.type = 0
-                price.0 = ""
-                price.1 = 0.0
-                price.2 = false
-                priceValue = bidValue
-            }
-        }
-        //MARK: - END Price Logic
-        
-        //MARK: - START profit Logic
-        if takeProfit_switch.isOn {
-            if self.selectedPrice == "Market" {
-                profit.0 = "Profit"
-                profit.1 = Double(liveValue) ?? 0.0
-                profit.2 = true
-            }else{
-                profit.0 = "Profit"
-                profit.1 = Double(tf_priceValue.text ?? "") ?? 0.0
-                profit.2 = true
-            }
-        } else {
-            profit.0 = ""
-            profit.1 = 0.0
-            profit.2 = false
-        }
-        //MARK: - END profit Logic
-        
-        //MARK: - START loss Logic
-        if stopLoss_switch.isOn {
-            if self.selectedPrice == "Market" {
-                loss.0 = "Loss"
-                loss.1 = Double(liveValue) ?? 0.0
-                loss.2 = true
-            }else{
-                loss.0 = "Loss"
-                loss.1 = Double(tf_priceValue.text ?? "") ?? 0.0
-                loss.2 = true
-            }
-        } else {
-            loss.0 = ""
-            loss.1 = 0.0
-            loss.2 = false
-        }
-        //MARK: - END loss Logic
-        
-        //MARK: - START Main Logic
-        if price.2 == true || profit.2 == true || loss.2 == true {
-            
-            var isConfirmEnable: [(String,Bool,String)] = [("",false,""), ("",false,""), ("",false,"")]
-            
-            if price.2 == true && price.0 == "Limit" {  //TODO: LIMIT ORDER TYPE
-                
-                if !isFirstValueSet {
-                    bidValue = Double(liveValue)!
-                    // Set the text field with the first value
-                    tf_priceValue.text = String(liveValue)
-                    currentValue2 = Double(liveValue)!
-                    // Update the flag so the field is not updated again
-                    isFirstValueSet = true
-                }
-                
-                let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
-                
-                if titleString == "SELL" { //TODO: SELL for LIMIT ORDER TYPE
-                    
-                    self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"  // According to logic later
-                    //                        lbl_limit.text = "Limit"
-                    
-                    if price.1 < myPriceValue {
-                        isConfirmEnable[0].1 = true
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "SELL"
-                    }else{
-                        isConfirmEnable[0].1 = false
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "SELL"
-                    }
-                    if profit.2 == true && profit.0 == "Profit" {
-                        if !isFirstValueTakeProfit {
-                            tf_takeProfit.text = String(liveValue)
-                            currentValue3 = Double(liveValue)!
-                            isFirstValueTakeProfit = true
-                        }
-                        let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
-                        if myPriceValue > myTakeProfitValue {
-                            isConfirmEnable[1].1 = true
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }else{
-                            isConfirmEnable[1].1 = false
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }
-                    }
-                    if loss.2 == true && loss.0 == "Loss" {
-                        if !isFirstValueStopLoss {
-                            tf_stopLoss.text = String(liveValue)
-                            currentValue4 = Double(liveValue)!
-                            isFirstValueStopLoss = true
-                        }
-                        let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
-                        if myPriceValue < myStopLossValue {
-                            isConfirmEnable[2].1 = true
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }else{
-                            isConfirmEnable[2].1 = false
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }
-                    }
-                    
-                } else { //TODO: BUY for LIMIT ORDER TYPE
-                    
-//                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
-                    
-                    self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)" // According to logic later
-                    
-                    if price.1 > myPriceValue {
-                        isConfirmEnable[0].1 = true
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "BUY"
-                    }else{
-                        isConfirmEnable[0].1 = false
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "BUY"
-                    }
-                }
-                if profit.2 == true && profit.0 == "Profit" {
-                    if !isFirstValueTakeProfit {
-                        tf_takeProfit.text = String(liveValue)
-                        currentValue3 = Double(liveValue)!
-                        isFirstValueTakeProfit = true
-                    }
-                    let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
-                    
-                    if titleString == "SELL" { //TODO: SELL for LIMIT ORDER TYPE
-                        if myPriceValue > myTakeProfitValue {
-                            isConfirmEnable[1].1 = true
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }else{
-                            isConfirmEnable[1].1 = false
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }
-                    } else { //TODO: BUY for LIMIT ORDER TYPE
-                        if myPriceValue < myTakeProfitValue {
-                            isConfirmEnable[1].1 = true
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }else{
-                            isConfirmEnable[1].1 = false
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }
-                    }
-                }
-                if loss.2 == true && loss.0 == "Loss" {
-                    if !isFirstValueStopLoss {
-                        tf_stopLoss.text = String(liveValue)
-                        currentValue4 = Double(liveValue)!
-                        isFirstValueStopLoss = true
-                    }
-                    let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
-                    
-                    if titleString == "SELL" { //TODO: SELL for LIMIT ORDER TYPE
-                        if myPriceValue < myStopLossValue {
-                            isConfirmEnable[2].1 = true
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }else{
-                            isConfirmEnable[2].1 = false
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }
-                    } else { //TODO: BUY for LIMIT ORDER TYPE
-                        if myPriceValue > myStopLossValue {
-                            isConfirmEnable[2].1 = true
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }else{
-                            isConfirmEnable[2].1 = false
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }
-                    }
-                }
-                
-            } else if price.2 == true && price.0 == "Stop" { //TODO: STOP ORDER TYPE
-                if !isFirstValueSet {
-                    bidValue = Double(liveValue)!
-                    // Set the text field with the first value
-                    tf_priceValue.text = String(liveValue)
-                    currentValue2 = Double(liveValue)!
-                    // Update the flag so the field is not updated again
-                    isFirstValueSet = true
-                }
-                
-                if titleString == "SELL" {        //TODO: SELL FOR STOP order type
-                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
-                    self.lbl_currentPriceValue.text = "Max. " + "\(liveValue)"
-                    //                        lbl_limit.text = "Stop"
-                    
-                    if price.1 > myPriceValue {
-                        isConfirmEnable[0].1 = true
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "SELL"
-                    }else{
-                        isConfirmEnable[0].1 = false
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "SELL"
-                    }
-                    if profit.2 == true && profit.0 == "Profit" {
-                        if !isFirstValueTakeProfit {
-                            tf_takeProfit.text = String(liveValue)
-                            currentValue3 = Double(liveValue)!
-                            isFirstValueTakeProfit = true
-                        }
-                        let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
-                        if myPriceValue > myTakeProfitValue {
-                            isConfirmEnable[1].1 = true
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }else{
-                            isConfirmEnable[1].1 = false
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }
-                    }
-                    if loss.2 == true && loss.0 == "Loss" {
-                        if !isFirstValueStopLoss {
-                            tf_stopLoss.text = String(liveValue)
-                            currentValue4 = Double(liveValue)!
-                            isFirstValueStopLoss = true
-                        }
-                        let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
-                        if myPriceValue < myStopLossValue {
-                            isConfirmEnable[2].1 = true
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }else{
-                            isConfirmEnable[2].1 = false
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }
-                    }
-                } else { //TODO: BUY FOR STOP order type
-                    let myPriceValue: Double = Double(tf_priceValue.text ?? "0") ?? 0
-                    self.lbl_currentPriceValue.text = "Min. " + "\(liveValue)"
-                    if price.1 < myPriceValue {
-                        isConfirmEnable[0].1 = true
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "BUY"
-                    }else{
-                        isConfirmEnable[0].1 = false
-                        isConfirmEnable[0].0 = "on"
-                        isConfirmEnable[0].2 = "BUY"
-                    }
-                    if profit.2 == true && profit.0 == "Profit" {   //TODO: TakeProfit
-                        if !isFirstValueTakeProfit {
-                            tf_takeProfit.text = String(liveValue)
-                            currentValue3 = Double(liveValue)!
-                            isFirstValueTakeProfit = true
-                        }
-                        let myTakeProfitValue: Double = Double(tf_takeProfit.text ?? "0") ?? 0
-                        if profit.1 < myTakeProfitValue {
-                            isConfirmEnable[1].1 = true
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        }else{
-                            isConfirmEnable[1].1 = false
-                            isConfirmEnable[1].0 = "on"
-                            isConfirmEnable[1].2 = "Profit"
-                        } }
-                    if loss.2 == true && loss.0 == "Loss" {     //TODO: STOP LOSS
-                        if !isFirstValueStopLoss {
-                            tf_stopLoss.text = String(liveValue)
-                            currentValue4 = Double(liveValue)!
-                            isFirstValueStopLoss = true
-                        }
-                        let myStopLossValue: Double = Double(tf_stopLoss.text ?? "0") ?? 0
-                        if loss.1 > myStopLossValue {
-                            isConfirmEnable[2].1 = true
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        }else{
-                            isConfirmEnable[2].1 = false
-                            isConfirmEnable[2].0 = "on"
-                            isConfirmEnable[2].2 = "Loss"
-                        } }
-                }
-            }
-            var checkEnable = false
-            
-            for isEnable in isConfirmEnable {
-                    if isEnable.0 != "" {
-                        if !isEnable.1 {
-                            checkEnable = true
-                            
-                            if isEnable.2 == "SELL" {
-                                self.btn_confirm.isEnabled = false
-                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
-                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
-                                self.price_view.layer.borderWidth = 0.3
-                                self.price_view.layer.borderColor = UIColor.red.cgColor
-                                self.lbl_currentPriceValue.textColor = UIColor.red
-                            } else if isEnable.2 == "BUY" {
-                                self.btn_confirm.isEnabled = false
-                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
-                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
-                                self.price_view.layer.borderWidth = 0.3
-                                self.price_view.layer.borderColor = UIColor.red.cgColor
-                                self.lbl_currentPriceValue.textColor = UIColor.red
-                            } else if isEnable.2 == "Profit" {
-                                self.btn_confirm.isEnabled = false
-                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
-                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
-                                self.takeProfit_view.layer.borderWidth = 0.3
-                                self.takeProfit_view.layer.borderColor = UIColor.red.cgColor
-                                self.lbl_liveProfitLoss.isHidden = false
-                                let value: Double = (Double(tf_priceValue.text ?? "0.0") ?? 0.0)// + 0.01
-                                
-                                
-                                if titleString == "SELL" { //TODO: SELL for LIMIT ORDER TYPE
-                            
-                                    let plusValue = value.adjusted(by: "minus")
-                                    self.lbl_liveProfitLoss.text = "Max. \(plusValue)"
-                                } else {
-                                    let plusValue = value.adjusted(by: "plus")
-                                    self.lbl_liveProfitLoss.text = "Min. \(plusValue)"
-                                }
-                                
-                                self.lbl_liveProfitLoss.textColor = UIColor.red
-                            } else if isEnable.2 == "Loss" {
-                                self.btn_confirm.isEnabled = false
-                                self.btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
-                                self.btn_confirm.titleLabel?.textColor = UIColor.systemGray2
-                                self.stopLoss_view.layer.borderWidth = 0.3
-                                self.stopLoss_view.layer.borderColor = UIColor.red.cgColor
-                                self.lbl_liveStopLoss.isHidden = false
-                                let value: Double = (Double(tf_priceValue.text ?? "0.0") ?? 0.0)// - 0.01
-                                                                
-                                if titleString == "SELL" { //TODO: SELL for LIMIT ORDER TYPE
-                        
-                                    let minusValue = value.adjusted(by: "plus")
-                                    self.lbl_liveStopLoss.text = "Min. \(minusValue)"
-                                } else {
-                                    let minusValue = value.adjusted(by: "minus")
-                                    self.lbl_liveStopLoss.text = "Max. \(minusValue)"
-                                }
-                                
-                                self.lbl_liveStopLoss.textColor = UIColor.red
-                            }
-                        }
-                    }
-                }
-            
-            if !checkEnable {
-                self.btn_confirm.isEnabled = true
-                self.btn_confirm.tintColor = UIColor.systemYellow
-                self.btn_confirm.layer.borderColor = UIColor.systemYellow.cgColor
-                
-                self.stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
-                self.lbl_liveStopLoss.isHidden = true
-                
-                self.price_view.layer.borderColor = UIColor.darkGray.cgColor
-                self.lbl_currentPriceValue.textColor = UIColor.lightGray
-                
-                self.takeProfit_view.layer.borderColor = UIColor.darkGray.cgColor
-                self.lbl_liveProfitLoss.isHidden = true
-            }
-        }
-        
-        bidValue = Double(liveValue) ?? 0.0
-    }
-    
+   
     func updateVolumeValue() {
         
         //        // Check if the new selection is the same as the previous one
@@ -805,7 +397,10 @@ class TicketVC: BottomSheetController {
     
     func updateValue(for textField: UITextField, increment: Bool) {
         //        let step: Double = 0.01 self.digits  You can adjust the step value (e.g., 0.1 for increments in decimal)
-        let step: Double = pow(10.0, -Double(self.digits ?? 0))
+//        let step: Double = pow(10.0, -Double(self.digits ?? 0))
+        let actualDigits = self.digits ?? 0
+        let step: Double = pow(10.0, -Double(max(actualDigits - 1, 0)))
+        
         // Determine which text field is being updated and get its current value
         switch textField {
         case tf_volume:
@@ -855,6 +450,7 @@ class TicketVC: BottomSheetController {
         if sender.isOn {
             self.takeProfit_view.isUserInteractionEnabled = true
             //            lbl_TP.isHidden = false
+            tf_takeProfit.text = getPriceLiveValue
             takeProfit_switch.thumbTintColor = .systemYellow
             takeProfit_switch.onTintColor = .darkGray
         }else{
@@ -904,7 +500,7 @@ class TicketVC: BottomSheetController {
         tf_takeProfit.text = ""
         tf_takeProfit.attributedPlaceholder = NSAttributedString(
             string: "not set",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white] // Change color here
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray] // Change color here
         )
         
     }
@@ -915,6 +511,7 @@ class TicketVC: BottomSheetController {
         if sender.isOn {
             self.stopLoss_view.isUserInteractionEnabled = true
             //            lbl_SL.isHidden = false
+            tf_stopLoss.text = getPriceLiveValue
             stopLoss_switch.thumbTintColor = .systemYellow
             stopLoss_switch.onTintColor = .darkGray
         }else{
@@ -965,7 +562,7 @@ class TicketVC: BottomSheetController {
         //        tf_stopLoss.placeholder = "not set"
         tf_stopLoss.attributedPlaceholder = NSAttributedString(
             string: "not set",
-            attributes: [NSAttributedString.Key.foregroundColor: UIColor.white] // Change color here
+            attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray] // Change color here
         )
     }
    
@@ -1092,9 +689,6 @@ class TicketVC: BottomSheetController {
             selectedSymbol! += "."
         }
         
-//        print("\n symbol: \(selectedSymbol) \t contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) \t type: \(type) \t digit_currcny: \(digits_currency)  \t volume: \(volume) \t price: \(priceValue) \t stop_loss: \(stopLoss) \t take_profit: \(takeProfit)")
-        
-        
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
     }
 }
@@ -1103,18 +697,26 @@ extension TicketVC {
     
     func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
+             
+            
+            if let balance1 = Double(GlobalVariable.instance.balanceUpdate){
+                let balance2 = Double(self.lbl_totalBalance.text ?? "0") ?? 0
                 
-//        if GlobalVariable.instance.balanceUpdate < "\(price)" {
-//            self.showTimeAlert(str:"Unable to place the order: insufficient account balance.")
-//            ActivityIndicator.shared.hide(from: self.view)
-//            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-//                self.dismiss(animated: true)
-//            }
-//            return
-//        }
+                print("balance1: \(balance1), balance2: \(balance2), price: \(price)")
+
+            if balance1 < price && balance2 < price {
+                self.showTimeAlert(str: "Unable to place order: insufficient account balance.")
+                ActivityIndicator.shared.hide(from: self.view)
+                Timer.scheduledTimer(withTimeInterval: 1.7, repeats: false) { [weak self] _ in
+                    self?.dismiss(animated: true)
+                }
+                return
+            }
+        }
+        print("\n check fail balance1: \(GlobalVariable.instance.balanceUpdate),\t balance2: \(self.lbl_totalBalance.text ?? "0"),\t price: \(price)")
         
         
-        let url = "https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //
+        let url = odooClient.authURL //"https://mbe.riverprime.com/jsonrpc" //"http://18.116.153.208:8069/jsonrpc" //
         
         let parameters1: [String: Any] = [
             "jsonrpc": "2.0",
@@ -1169,10 +771,10 @@ extension TicketVC {
                             self.showTimeAlert(str: "Order placed successfully")
                         }
                         
-                        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                            self.dismiss(animated: true)
-                            let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
-                                self.orderCreatedDelegate?.orderCreated()
+                        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+                            self?.dismiss(animated: true)
+                            let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in
+                                self?.orderCreatedDelegate?.orderCreated()
                             }
                         }
                         
@@ -1191,8 +793,8 @@ extension TicketVC {
                         self.showTimeAlert(str: "Order not placed")
                     }
                     
-                    let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                        self.dismiss(animated: true)
+                    let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+                        self?.dismiss(animated: true)
                     }
                 }
             case .failure(let error):
@@ -1247,5 +849,328 @@ extension Double {
     func rounded(toPlaces places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
         return (self * divisor).rounded() / divisor
+    }
+}
+
+extension TicketVC {
+    private func checkEnable(liveValue: String) {
+        // Convert live value to double
+        guard let currentBid = Double(liveValue) else { return }
+        
+        // Initialize validation states
+        var validationErrors: [ValidationError] = []
+        
+        // Update bid value
+        bidValue = currentBid
+        
+        // MARK: - Order Type Configuration
+        configureOrderType()
+        
+        // MARK: - Initialize Text Fields on First Load
+        initializeTextFieldsIfNeeded(with: liveValue)
+        
+        // MARK: - Validate Order Based on Type
+        switch selectedPrice {
+        case "Market":
+            validateMarketOrder(currentBid: currentBid, validationErrors: &validationErrors)
+        case "Limit":
+            validateLimitOrder(currentBid: currentBid, validationErrors: &validationErrors)
+        case "Stop":
+            validateStopOrder(currentBid: currentBid, validationErrors: &validationErrors)
+        default:
+            break
+        }
+        
+        // MARK: - Update UI Based on Validation Results
+        updateUIBasedOnValidation(validationErrors: validationErrors, currentBid: currentBid)
+    }
+
+    // MARK: - Helper Structures
+    private struct ValidationError {
+        let type: ErrorType
+        let message: String
+        
+        enum ErrorType {
+            case price, takeProfit, stopLoss
+        }
+    }
+
+    // MARK: - Configuration Methods
+    private func configureOrderType() {
+        if titleString == "SELL" {
+            self.type = selectedPrice == "Limit" ? 3 : (selectedPrice == "Stop" ? 5 : 1)
+        } else { // BUY
+            self.type = selectedPrice == "Limit" ? 2 : (selectedPrice == "Stop" ? 4 : 0)
+        }
+    }
+
+    private func initializeTextFieldsIfNeeded(with liveValue: String) {
+        // Initialize price field for Limit/Stop orders
+        if (selectedPrice == "Limit" || selectedPrice == "Stop") && !isFirstValueSet {
+            tf_priceValue.text = liveValue
+            currentValue2 = Double(liveValue) ?? 0.0
+            isFirstValueSet = true
+        }
+        
+        // Initialize take profit field
+        if takeProfit_switch.isOn && !isFirstValueTakeProfit {
+            tf_takeProfit.text = liveValue
+            currentValue3 = Double(liveValue) ?? 0.0
+            isFirstValueTakeProfit = true
+        }
+        
+        // Initialize stop loss field
+        if stopLoss_switch.isOn && !isFirstValueStopLoss {
+            tf_stopLoss.text = liveValue
+            currentValue4 = Double(liveValue) ?? 0.0
+            isFirstValueStopLoss = true
+        }
+    }
+
+    // MARK: - Validation Methods
+    private func validateMarketOrder(currentBid: Double, validationErrors: inout [ValidationError]) {
+        priceValue = currentBid
+        
+        // Validate Take Profit for Market Orders
+        if takeProfit_switch.isOn {
+            validateTakeProfit(orderPrice: currentBid, validationErrors: &validationErrors)
+        }
+        
+        // Validate Stop Loss for Market Orders
+        if stopLoss_switch.isOn {
+            validateStopLoss(orderPrice: currentBid, validationErrors: &validationErrors)
+        }
+    }
+
+    private func validateLimitOrder(currentBid: Double, validationErrors: inout [ValidationError]) {
+        guard let userPrice = Double(tf_priceValue.text ?? "0") else {
+            validationErrors.append(ValidationError(type: .price, message: "Invalid price"))
+            return
+        }
+        
+        var current_bidValue: Double?
+        if let price = bidValue, let digits = self.digits {
+            let formattedBid = String(format: "%.\(digits)f", currentBid)
+            current_bidValue = Double(formattedBid)
+        }
+        
+        // Update UI labels based on order type
+        if titleString == "BUY" {
+            lbl_currentPriceValue.text = "Max. \(current_bidValue ?? 0)"
+            // BUY Limit: Price must be < Current Bid
+            if userPrice >= currentBid {
+                validationErrors.append(ValidationError(type: .price, message: "Buy limit price must be below current bid"))
+            }
+        } else { // SELL
+            lbl_currentPriceValue.text = "Min. \(current_bidValue ?? 0)"
+            // SELL Limit: Price must be > Current Bid
+            if userPrice <= currentBid {
+                validationErrors.append(ValidationError(type: .price, message: "Sell limit price must be above current bid"))
+            }
+        }
+        
+        // Validate Take Profit and Stop Loss
+        if takeProfit_switch.isOn {
+            validateTakeProfit(orderPrice: userPrice, validationErrors: &validationErrors)
+        }
+        
+        if stopLoss_switch.isOn {
+            validateStopLoss(orderPrice: userPrice, validationErrors: &validationErrors)
+        }
+    }
+
+    private func validateStopOrder(currentBid: Double, validationErrors: inout [ValidationError]) {
+        guard let userPrice = Double(tf_priceValue.text ?? "0") else {
+            validationErrors.append(ValidationError(type: .price, message: "Invalid price"))
+            return
+        }
+        
+        var current_bidValue: Double?
+        if let price = bidValue, let digits = self.digits {
+            let formattedBid = String(format: "%.\(digits)f", currentBid)
+            current_bidValue = Double(formattedBid)
+        }
+        
+        // Update UI labels based on order type
+        if titleString == "BUY" {
+            lbl_currentPriceValue.text = "Min. \(current_bidValue ?? 0)"
+            // BUY Stop: Price must be > Current Bid
+            if userPrice <= currentBid {
+                validationErrors.append(ValidationError(type: .price, message: "Buy stop price must be above current bid"))
+            }
+        } else { // SELL
+            lbl_currentPriceValue.text = "Max. \(current_bidValue ?? 0)"
+            // SELL Stop: Price must be < Current Bid
+            if userPrice >= currentBid {
+                validationErrors.append(ValidationError(type: .price, message: "Sell stop price must be below current bid"))
+            }
+        }
+        
+        // Validate Take Profit and Stop Loss
+        if takeProfit_switch.isOn {
+            validateTakeProfit(orderPrice: userPrice, validationErrors: &validationErrors)
+        }
+        
+        if stopLoss_switch.isOn {
+            validateStopLoss(orderPrice: userPrice, validationErrors: &validationErrors)
+        }
+    }
+
+    private func validateTakeProfit(orderPrice: Double, validationErrors: inout [ValidationError]) {
+        guard let takeProfitPrice = Double(tf_takeProfit.text ?? "0") else {
+            validationErrors.append(ValidationError(type: .takeProfit, message: "Invalid take profit"))
+            return
+        }
+        
+        if titleString == "BUY" {
+            // BUY: Take Profit must be > Order Price
+            if takeProfitPrice <= orderPrice {
+                validationErrors.append(ValidationError(type: .takeProfit, message: "Take profit must be above order price"))
+            }
+        } else { // SELL
+            // SELL: Take Profit must be < Order Price
+            if takeProfitPrice >= orderPrice {
+                validationErrors.append(ValidationError(type: .takeProfit, message: "Take profit must be below order price"))
+            }
+        }
+    }
+
+    private func validateStopLoss(orderPrice: Double, validationErrors: inout [ValidationError]) {
+        guard let stopLossPrice = Double(tf_stopLoss.text ?? "0") else {
+            validationErrors.append(ValidationError(type: .stopLoss, message: "Invalid stop loss"))
+            return
+        }
+        
+        if titleString == "BUY" {
+            // BUY: Stop Loss must be < Order Price
+            if stopLossPrice >= orderPrice {
+                validationErrors.append(ValidationError(type: .stopLoss, message: "Stop loss must be below order price"))
+            }
+        } else { // SELL
+            // SELL: Stop Loss must be > Order Price
+            if stopLossPrice <= orderPrice {
+                validationErrors.append(ValidationError(type: .stopLoss, message: "Stop loss must be above order price"))
+            }
+        }
+    }
+
+    // MARK: - UI Update Methods
+    private func updateUIBasedOnValidation(validationErrors: [ValidationError], currentBid: Double) {
+        // Reset all UI elements to normal state first
+        resetUIToNormalState()
+        
+        if validationErrors.isEmpty {
+            // Enable confirm button if no errors
+            enableConfirmButton()
+        } else {
+            // Disable confirm button and show errors
+            disableConfirmButton()
+            
+            // Handle each validation error
+            for error in validationErrors {
+                switch error.type {
+                case .price:
+                    highlightPriceError()
+                case .takeProfit:
+                    highlightTakeProfitError()
+                case .stopLoss:
+                    highlightStopLossError()
+                }
+            }
+        }
+    }
+
+    private func resetUIToNormalState() {
+        // Reset price view
+        price_view.layer.borderColor = UIColor.darkGray.cgColor
+        price_view.layer.borderWidth = 0.3
+        lbl_currentPriceValue.textColor = UIColor.lightGray
+        
+        // Reset take profit view
+        takeProfit_view.layer.borderColor = UIColor.darkGray.cgColor
+        takeProfit_view.layer.borderWidth = 0.3
+        lbl_liveProfitLoss.isHidden = true
+        
+        // Reset stop loss view
+        stopLoss_view.layer.borderColor = UIColor.lightGray.cgColor
+        stopLoss_view.layer.borderWidth = 0.3
+        lbl_liveStopLoss.isHidden = true
+    }
+
+    private func enableConfirmButton() {
+        btn_confirm.isEnabled = true
+        btn_confirm.tintColor = UIColor.systemYellow
+        btn_confirm.layer.borderColor = UIColor.systemYellow.cgColor
+    }
+
+    private func disableConfirmButton() {
+        btn_confirm.isEnabled = false
+        btn_confirm.layer.borderColor = UIColor.systemGray2.cgColor
+        btn_confirm.titleLabel?.textColor = UIColor.systemGray2
+    }
+
+    private func highlightPriceError() {
+        price_view.layer.borderWidth = 0.3
+        price_view.layer.borderColor = UIColor.red.cgColor
+        lbl_currentPriceValue.textColor = UIColor.red
+    }
+
+    private func highlightTakeProfitError() {
+        takeProfit_view.layer.borderWidth = 0.3
+        takeProfit_view.layer.borderColor = UIColor.red.cgColor
+        lbl_liveProfitLoss.isHidden = false
+        liveValue_view.isHidden = false
+        lbl_liveProfitLoss.textColor = UIColor.red
+        
+        var correct_bidValue: Double?
+        if let price = bidValue, let digits = self.digits {
+            let formattedBid = String(format: "%.\(digits)f", price)
+            correct_bidValue = Double(formattedBid)
+        }
+        
+        // Use bidValue for Market orders, orderPrice for Limit/Stop orders
+        let referencePrice: Double
+        if selectedPrice == "Market" {
+            referencePrice = correct_bidValue ?? 0
+        } else {
+            referencePrice = Double(tf_priceValue.text ?? "0") ?? (correct_bidValue ?? 0)
+        }
+        
+        if titleString == "SELL" {
+            let adjustedValue = referencePrice.adjusted(by: "minus")
+            lbl_liveProfitLoss.text = "Max. \(adjustedValue)"
+        } else {
+            let adjustedValue = referencePrice.adjusted(by: "plus")
+            lbl_liveProfitLoss.text = "Min. \(adjustedValue)"
+        }
+    }
+
+    private func highlightStopLossError() {
+        stopLoss_view.layer.borderWidth = 0.3
+        stopLoss_view.layer.borderColor = UIColor.red.cgColor
+        lbl_liveStopLoss.isHidden = false
+        stopLossLiveValue_view.isHidden = false
+        lbl_liveStopLoss.textColor = UIColor.red
+        
+        var correct_bidValue: Double?
+        if let price = bidValue, let digits = self.digits {
+            let formattedBid = String(format: "%.\(digits)f", price)
+            correct_bidValue = Double(formattedBid)
+        }
+        // Use bidValue for Market orders, orderPrice for Limit/Stop orders
+        let referencePrice: Double
+        if selectedPrice == "Market" {
+            referencePrice = correct_bidValue ?? 0.0
+        } else {
+            referencePrice = Double(tf_priceValue.text ?? "0") ?? (correct_bidValue ?? 0)
+        }
+        
+        if titleString == "SELL" {
+            let adjustedValue = referencePrice.adjusted(by: "plus")
+            lbl_liveStopLoss.text = "Min. \(adjustedValue)"
+        } else {
+            let adjustedValue = referencePrice.adjusted(by: "minus")
+            lbl_liveStopLoss.text = "Max. \(adjustedValue)"
+        }
     }
 }

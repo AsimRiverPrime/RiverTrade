@@ -71,14 +71,7 @@ class SignInViewController: BaseViewController {
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
     
 //        enableLoginButton()
-//        firebaseInstance.fetchCredentialData(completion: { credential in
-//            if let credential = credential {
-//                print("Fetched credential for user: \(credential.user) \t \(credential)")
-//                self.odoClientNew.authenticate()
-//            } else {
-//                print("Failed to fetch credential.")
-//            }
-//        })
+
     }
 
     override func viewWillAppear(_ animated: Bool) {

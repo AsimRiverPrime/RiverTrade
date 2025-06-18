@@ -63,8 +63,13 @@ class KYCViewController: BaseViewController {
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Document Verification", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     @IBAction func closeBtn_action(_ sender: Any) {
-        //        self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true)
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+            window.rootViewController = tabBarController
+            window.makeKeyAndVisible()
+        }
     }
     
     
@@ -233,13 +238,13 @@ class KYCViewController: BaseViewController {
                 print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
                 
-                let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
 //                    self.dismiss(animated: true) {
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
                         //move to profile VC
 //                    self.navigationController?.popViewController(animated: true)
                     let profilevc = Utilities.shared.getViewController(identifier: .accountsViewController, storyboardType: .dashboard) as! AccountsViewController
-                        self.navigate(to: profilevc)
+                        self?.navigate(to: profilevc)
 //                    }
                 }
             }

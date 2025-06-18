@@ -107,5 +107,4 @@ class Session: ISession {
                 UserDefaults.standard.set(data, forKey: kCrmCredentialsKey)
             }
         }
- 
 }

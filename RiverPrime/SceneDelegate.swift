@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
-        //MARK: - App initialization.
+        //MARK: - App credential initialization.
         fireStoreInstance.fetchCredentialData(completion: { credential in
             if let credential = credential {
                 print("Fetched credential for user: \(credential.user) \t \(credential)")

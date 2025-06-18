@@ -1571,7 +1571,9 @@ extension TradeViewController: GetSocketMessages {
     
     func start60SecondsCountdown() {
         timeLeft = 60 // Reset to 60 seconds
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: true) { [weak self] _ in
+            self?.updateTimer()
+        } //Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
     @objc func updateTimer() {

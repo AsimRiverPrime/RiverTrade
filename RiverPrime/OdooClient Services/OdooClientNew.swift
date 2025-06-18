@@ -814,7 +814,7 @@ class OdooClientNew {
                     do {
                         let jsonData = try JSONSerialization.data(withJSONObject: responseDict, options: [])
                         let decodedResponse = try JSONDecoder().decode(TopNewsModel.self, from: jsonData)
-                        print("Decoded Response: \(decodedResponse)")
+//                        print("Decoded Response: \(decodedResponse)")
                         self.topNewsDelegate?.topNewsSuccess(response: decodedResponse)
                     } catch {
                         print("Failed to decode JSON: \(error)")

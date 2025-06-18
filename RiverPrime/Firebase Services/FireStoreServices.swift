@@ -19,7 +19,7 @@ class FirestoreServices: BaseViewController {
     
     var odoClientNew = OdooClientNew()
     var accountsMT: [AccountModel] = []
-    var crmCredientals: [CrmCredentialsModel] = []
+//    var crmCredientals: [CrmCredentialsModel] = []
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
         let userRef = db.collection("users").document(user.uid)

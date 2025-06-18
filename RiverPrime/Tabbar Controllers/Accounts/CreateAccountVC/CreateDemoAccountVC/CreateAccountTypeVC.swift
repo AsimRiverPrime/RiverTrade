@@ -349,6 +349,7 @@ extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
         updateUserAccount()
         //        updateUser()
         showTimeAlert(str: "Account Create Sucessfully.")
+      
     }
     
     func createAccountFailure(error: any Error) {
