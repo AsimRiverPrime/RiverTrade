@@ -54,7 +54,8 @@ class SelectAccountTypeVC: BottomSheetController {
     var  AccountReal = Bool()
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
-    
+    weak var accountDismisalProtocol: AccountDismisalProtocol?
+
     var accountsPassword: [String: [String: String]] = [:]
     let passwordManager = PasswordManager()
     
@@ -97,20 +98,7 @@ class SelectAccountTypeVC: BottomSheetController {
         let allPasswords = passwordManager.getAllPasswords()
         print("All Saved Passwords on create Account: \(allPasswords)")
     }
-    
-    @IBAction func deleteAll(_ sender: Any) {
-        firestoreObject.deleteAllUserAccounts(for: "wMmWmODl5cUTVYZFR4B6XBy981I2") { error in
-            if let error = error {
-                print("Failed to delete user accounts: \(error.localizedDescription)")
-            } else {
-                print("Successfully deleted all user accounts for the specified userID.")
-            }
-        }
-        firestoreObject.fetchUserAccountsData(userId: "wMmWmODl5cUTVYZFR4B6XBy981I2", completion: {
-            
-        })
-    }
-    
+ 
     private func registerCell() {
         guard let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             return
@@ -141,12 +129,6 @@ class SelectAccountTypeVC: BottomSheetController {
             SelectAccountTypeCell.self
         ])
 
-       
-//        sortCurrentData()
-     
-        
-//        let isReal = savedList.filter {($0.value["isReal"] as? Int) == 1}
-       
         if savedList.contains(where: { $0.value["isReal"] as? Int == 1 && $0.value["isDefault"] as? Int == 1 }) {
             currentData = realData
             updateButtonStyles(selectedButton: realButton)
@@ -252,6 +234,7 @@ class SelectAccountTypeVC: BottomSheetController {
         var isLimitReached = Bool()
         
         let vc = Utilities.shared.getViewController(identifier: .createAccountSelectTradeType, storyboardType: .bottomSheetPopups) as! CreateAccountSelectTradeType
+       
          if AccountReal {
                    vc.isRealAccount = true
                 isLimitReached = checkAccountsLimit(accounts: realData)
@@ -259,6 +242,7 @@ class SelectAccountTypeVC: BottomSheetController {
                    isLimitReached = checkAccountsLimit(accounts: demoData)
                    vc.isRealAccount = false
                }
+        vc.accountDismisalProtocol = self.accountDismisalProtocol
         
         if isLimitReached {
             Alert.showAlert(withMessage: "You have already created 3 accounts. No additional accounts can be created.", andTitle: "🚫 Account Limit Reached", OKButtonText: "OK", on: self)
@@ -376,22 +360,14 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                     NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None]) 
                     
                     self.dismiss(animated: true, completion: nil)
+                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
+                    self.accountDismisalProtocol?.accountDismisal()
+                   
                 }
             })
         } else {
             print("Account not found. Navigating to login screen.")
-            
-            // Navigate to the LoginPopupVC screen
-//            if let mtLoginVC = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-//                .instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-//                mtLoginVC.loginId = accountNumber
-//                mtLoginVC.modalPresentationStyle = .overFullScreen
-//                mtLoginVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-//                mtLoginVC.view.alpha = 0
-//                mtLoginVC.modalTransitionStyle = .crossDissolve
-//                mtLoginVC.metaTraderType = .Balance
-//                self.present(mtLoginVC, animated: true, completion: nil)
-//            }
+  
         }
     }
 }

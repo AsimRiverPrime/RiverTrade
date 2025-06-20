@@ -20,7 +20,7 @@ class CompleteVerificationProfileScreen5: BaseViewController {
     @IBOutlet weak var btn_back: UIButton!
     
     var selectedExperience: [String: [String]] = [:]
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,19 +77,10 @@ class CompleteVerificationProfileScreen5: BaseViewController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedExperience, forKey: "SelectedTradeExprience")
-//        self.dismiss(animated: true)
-//       delegateKYC?.navigateToCompeletProfile(kyc: .SixthScreen)
-        
-        
-        if GlobalVariable.instance.realAccount {
+
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
-    //        vc.delegateKYC = self
             self.navigate(to: vc)
-        } else {
-            self.dismiss(animated: true)
-            delegateKYC?.navigateToCompeletProfile(kyc: .SixthScreen)
-        }
-        
+     
     }
     
     @IBAction func backBtn_action(_ sender: Any) {

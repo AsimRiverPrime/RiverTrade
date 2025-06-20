@@ -62,7 +62,6 @@ class CreateAccountTypeVC: BottomSheetController {
             // Use account data to update UI
         }
         
-        //        lbl_accountTitle.text = getSelectedAccountType.title
         lbl_accountTitle.text = "\(account!.name.uppercased()) Account"
         odooClientService.createUserAcctDelegate = self
         
@@ -119,7 +118,6 @@ class CreateAccountTypeVC: BottomSheetController {
     @objc func dismissKeyboard() {
         view.endEditing(true) // This will dismiss the keyboard
     }
-    
     
     @IBAction func currencySelect(_ sender: UIButton) {
         self.dynamicDropDownButton(sender, list: currencyList) { index, item in

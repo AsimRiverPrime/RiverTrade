@@ -53,7 +53,7 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
     let overAllStatus = UserDefaults.standard.string(forKey: "OverAllStatus")
     let sid = UserDefaults.standard.string(forKey: "SID")
     
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -153,8 +153,9 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
  
     }
     @IBAction func backBtn_action(_ sender: Any) {
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .ProfileScreen)
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .ProfileScreen)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func updateGenderButtons(for gender: String) {
@@ -189,60 +190,12 @@ class CompleteVerificationProfileScreen7: BottomSheetController {
            }
           
        }
-    
-//    func AddUserAccountDetail() {
-//        // Merge all dictionaries into one dictionary
-//           var questionAnswer: [String: [String]] = [:]
-//           
-//           // Merge all individual dictionaries into questionAnswer
-//           questionAnswer.merge(tradeObjective!) { (current, _) in current }
-//           questionAnswer.merge(tradeInstruments!) { (current, _) in current }
-//           questionAnswer.merge(tradeAnticipateMonthly!) { (current, _) in current }
-//           questionAnswer.merge(tradeSourceIncome!) { (current, _) in current }
-//           questionAnswer.merge(tradeExprience!) { (current, _) in current }
-//           questionAnswer.merge(tradePurpose!) { (current, _) in current }
-//      //  print("\(questionAnswer)")
-//        
-//        
-//        let userData: [String: Any] = [
-//               "uid": userId!,
-//               "sId": sid!,
-//               "step": profileStep,
-//               "profileStep": profileStep,
-//               "overAllStatus": overAllStatus! ,
-//               "questionAnswer": questionAnswer
-//           ]
-//        
-//        fireStoreInstance.addUserAccountData(uid: userId!, data: userData) { result in
-//            switch result {
-//            case .success:
-//                print("Document USER_ACCOUNT detail ADD successfully!")
-//             
-//                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
-//                    self.navigateToDashboard()
-//                }
-//               
-//                
-//            case .failure(let error):
-//                print("Error adding/updating document: \(error)")
-//                self.ToastMessage("\(error)")
-//            }
-//        }
-//    }
-    
-    func showAlert(message: String, completion: (() -> Void)? = nil) {
-            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                completion?()
-               
-            }
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-        }
+ 
     
     func navigateToKYC() {
-        self.dismiss(animated: true)
-        delegateKYC?.navigateToCompeletProfile(kyc: .FirstScreen)
+//        self.dismiss(animated: true)
+//        delegateKYC?.navigateToCompeletProfile(kyc: .FirstScreen)
+        
     }
     
     func updateUser() {

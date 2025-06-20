@@ -10,22 +10,22 @@ import SVProgressHUD
 //import IDWiseSDK
 import ShuftiPro.Swift
 
-enum KYCType {
-    case KycScreen
-    case ProfileScreen
-    case FirstScreen
-    case SecondScreen
-    case ThirdScreen
-    case FourthScreen
-    case FifthScreen
-    case SixthScreen
-    case SeventhScreen
-    case ReturnDashboard
-}
-
-protocol KYCVCDelegate: AnyObject {
-    func navigateToCompeletProfile(kyc: KYCType)
-}
+//enum KYCType {
+//    case KycScreen
+//    case ProfileScreen
+//    case FirstScreen
+//    case SecondScreen
+//    case ThirdScreen
+//    case FourthScreen
+//    case FifthScreen
+//    case SixthScreen
+//    case SeventhScreen
+//    case ReturnDashboard
+//}
+//
+//protocol KYCVCDelegate: AnyObject {
+//    func navigateToCompeletProfile(kyc: KYCType)
+//}
 
 class KYCViewController: BaseViewController {
     
@@ -39,7 +39,7 @@ class KYCViewController: BaseViewController {
  
     let fireStoreInstance = FirestoreServices()
     
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,13 +63,18 @@ class KYCViewController: BaseViewController {
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Document Verification", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     @IBAction func closeBtn_action(_ sender: Any) {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
-            window.rootViewController = tabBarController
-            window.makeKeyAndVisible()
-        }
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let window = windowScene.windows.first {
+//            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+//            window.rootViewController = tabBarController
+//            window.makeKeyAndVisible()
+//        }
+        self.navigationController?.popToRootViewController(animated: true)
+         // Change to tab index 0
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+             self.tabBarController?.selectedIndex = 0
+         }
     }
     
     
@@ -224,7 +229,7 @@ class KYCViewController: BaseViewController {
         let userId =  UserDefaults.standard.string(forKey: "userID")
         let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
         
-        var fieldsToUpdate: [String: Any] = [
+        let fieldsToUpdate: [String: Any] = [
             
             "profileStep": profileStep,
             "KycStatus": "verification.accepted"
@@ -259,62 +264,4 @@ class KYCViewController: BaseViewController {
         }
         
     }
-}
-
-extension KYCViewController: KYCVCDelegate {
-    
-    func navigateToCompeletProfile(kyc: KYCType) {
-        switch kyc {
-        case .ProfileScreen:
-            let profileVC = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
-            self.navigate(to: profileVC)
-            break
-        case .FirstScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .SecondScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .ThirdScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .FourthScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .FifthScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .SixthScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
-            vc.delegateKYC = self
-            self.navigate(to: vc) //  PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .SeventhScreen:
-            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            break
-        case .ReturnDashboard:
-            let profileVC = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
-            self.navigate(to: profileVC)
-            
-            break
-        case .KycScreen:
-            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-            vc.delegateKYC = self
-            self.navigate(to: vc) // PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            
-        }
-    }
-    
 }

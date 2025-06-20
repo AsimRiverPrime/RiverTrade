@@ -27,7 +27,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
     @IBOutlet weak var lbl_stopOutLevel: UILabel!
         
     
-    
+    weak var accountDismisalProtocol: AccountDismisalProtocol?
     weak var newAccoutDelegate : CreateAccountUpdateProtocol?
     weak var dismissDelegate: BottomSheetDismissDelegate?
     
@@ -61,6 +61,7 @@ class CreateAccountSelectTradeType: BottomSheetController {
         self.dismiss(animated: true)
         NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
         NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountListForRealAccount"), object: nil)
+        self.accountDismisalProtocol?.accountDismisal()
     }
     
     func setupPageControl() {

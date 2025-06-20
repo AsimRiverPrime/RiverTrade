@@ -19,7 +19,7 @@ class CompleteVerificationProfileScreen4: BaseViewController {
     
     var selectedIncome: [String: [String]] = [:]
 
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,19 +75,9 @@ class CompleteVerificationProfileScreen4: BaseViewController {
     
     @IBAction func continueBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedIncome, forKey: "SelectedTradeSourceIncome")
-        
-//        self.dismiss(animated: true)
-//        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
-        
-        
-        if GlobalVariable.instance.realAccount {
+    
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
-    //        vc.delegateKYC = self
             self.navigate(to: vc)
-        } else {
-            self.dismiss(animated: true)
-            delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
-        }
         
     }
     

@@ -21,7 +21,7 @@ class CompleteVerificationProfileScreen6: BaseViewController {
     var selectedPurpose: [String: [String]] = [:]
     
     let fireStoreInstance = FirestoreServices()
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,32 +82,17 @@ class CompleteVerificationProfileScreen6: BaseViewController {
         UserDefaults.standard.set(selectedPurpose, forKey: "SelectedTradePurpose")
         
         AddUserAccountDetail()
-        // self.dismiss(animated: true)
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-//        self.dismiss(animated: true)
-//        delegateKYC?.navigateToCompeletProfile(kyc: .FifthScreen)
         self.navigationController?.popViewController(animated: true)
-
     }
-    
-    @IBAction func closeBtn_action(_ sender: Any) {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
-            window.rootViewController = tabBarController
-            window.makeKeyAndVisible()
-        }
-    }
-   
     
     func updateUser() {
         let userId =  UserDefaults.standard.string(forKey: "userID")
         let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
         
-        var fieldsToUpdate: [String: Any] = [
+        let fieldsToUpdate: [String: Any] = [
                 "profileStep": profileStep
              ]
         
@@ -117,6 +102,7 @@ class CompleteVerificationProfileScreen6: BaseViewController {
                 return
             } else {
                 print("\n User data save successfully in the fireBase")
+                self.fireStoreInstance.fetchUserData(userId: userId!)
             }
         }
     }
@@ -160,14 +146,10 @@ class CompleteVerificationProfileScreen6: BaseViewController {
             guard let self = self else { return }
             switch result {
             case .success:
-                print("Document USER_ACCOUNT detail ADD successfully!")
+                print("Questions added successfully!")
                 self.updateUser()
                 self.navigateToDashboard()
-//                Alert.showAlertWithOKHandler(withHandler: "Thank you for providing your details. A Customer Support representative will reach out to you shortly with further instructions and to complete your account activation.", andTitle: "Completed", OKButtonText: "Return to Dashboard", on: self) { ok in
-//
-//                }
-               
-                
+
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.ToastMessage("\(error)")
@@ -175,32 +157,10 @@ class CompleteVerificationProfileScreen6: BaseViewController {
         }
     }
     
-    func showAlert(message: String, completion: (() -> Void)? = nil) {
-            let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
-                completion?()
-               
-            }
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-        }
-    
     func navigateToDashboard() {
-        //        self.dismiss(animated: true)
-        ////        delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
-        //
-                
-                if GlobalVariable.instance.realAccount {
-     
+      
                     let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-        //            vc.delegateKYC = self
                     self.navigate(to: vc)
-                } else {
-                    self.dismiss(animated: true)
-                    delegateKYC?.navigateToCompeletProfile(kyc: .KycScreen)
-                }
-                
             }
     
-       
 }

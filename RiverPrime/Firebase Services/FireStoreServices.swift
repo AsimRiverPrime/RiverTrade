@@ -151,7 +151,7 @@ class FirestoreServices: BaseViewController {
     func fetchCredentialData( completion: @escaping (CrmCredentialsModel?) -> Void) {
         db.collection("crm").whereField("isAndroid", isEqualTo: false).getDocuments { querySnapshot, error in
             if let error = error {
-                print("Error fetching document: \(error.localizedDescription)")
+                print("Error crm crediental fetching document: \(error.localizedDescription)")
                 completion(nil)
                 return
             }

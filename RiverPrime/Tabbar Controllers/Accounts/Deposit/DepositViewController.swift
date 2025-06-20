@@ -328,12 +328,12 @@ extension DepositViewController: DashboardVCDelegate {
         case 0:
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1,
                                                       storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-            vc.delegateKYC = self
+//            vc.delegateKYC = self
             self.navigate(to: vc)
         case 1:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController,
                                                       storyboardType: .dashboard) as! KYCViewController
-            vc.delegateKYC = self
+//            vc.delegateKYC = self
             self.navigate(to: vc)
         case 2:
             self.ToastMessage("Already Done KYC")
@@ -396,12 +396,12 @@ extension DepositViewController: CompleteProfileButtonDelegate, PhoneVerifyDeleg
         case 0:
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1,
                                                       storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-            vc.delegateKYC = self
+//            vc.delegateKYC = self
             self.navigate(to: vc)
         case 1:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController,
                                                       storyboardType: .dashboard) as! KYCViewController
-            vc.delegateKYC = self
+//            vc.delegateKYC = self
             self.navigate(to: vc)
         default:
             self.ToastMessage("Already Done KYC")
@@ -410,64 +410,64 @@ extension DepositViewController: CompleteProfileButtonDelegate, PhoneVerifyDeleg
 }
 
 // MARK: - KYCVCDelegate
-extension DepositViewController: KYCVCDelegate {
-    func navigateToCompeletProfile(kyc: KYCType) {
-        let vc: UIViewController
-        
-        switch kyc {
-        case .ProfileScreen:
-            vc = Utilities.shared.getViewController(identifier: .depositViewController,
-                                                  storyboardType: .dashboard) as! DepositViewController
-        case .FirstScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-        case .SecondScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-        case .ThirdScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
-        case .KycScreen:
-            vc = Utilities.shared.getViewController(identifier: .kycViewController,
-                                                    storyboardType: .dashboard) as! KYCViewController
-        case .FourthScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
-        case .FifthScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
-        case .SixthScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
-        case .SeventhScreen:
-            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7,
-                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-        case .ReturnDashboard:
-            vc = Utilities.shared.getViewController(identifier: .profileViewController,
-                                                  storyboardType: .bottomSheetPopups) as! ProfileViewController
-        }
-        
-        configureKYCDelegate(for: vc)
-        self.navigate(to: vc)
-    }
-    
-    private func configureKYCDelegate(for viewController: UIViewController) {
-        if let kycVC = viewController as? CompleteVerificationProfileScreen1 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen2 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen3 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen4 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen5 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen6 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? CompleteVerificationProfileScreen7 {
-            kycVC.delegateKYC = self
-        } else if let kycVC = viewController as? ProfileViewController {
-            kycVC.delegateKYC = self
-        }
-    }
-}
+//extension DepositViewController: KYCVCDelegate {
+//    func navigateToCompeletProfile(kyc: KYCType) {
+//        let vc: UIViewController
+//        
+//        switch kyc {
+//        case .ProfileScreen:
+//            vc = Utilities.shared.getViewController(identifier: .depositViewController,
+//                                                  storyboardType: .dashboard) as! DepositViewController
+//        case .FirstScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+//        case .SecondScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
+//        case .ThirdScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
+//        case .KycScreen:
+//            vc = Utilities.shared.getViewController(identifier: .kycViewController,
+//                                                    storyboardType: .dashboard) as! KYCViewController
+//        case .FourthScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
+//        case .FifthScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
+//        case .SixthScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
+//        case .SeventhScreen:
+//            vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7,
+//                                                  storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
+//        case .ReturnDashboard:
+//            vc = Utilities.shared.getViewController(identifier: .profileViewController,
+//                                                  storyboardType: .bottomSheetPopups) as! ProfileViewController
+//        }
+//        
+//        configureKYCDelegate(for: vc)
+//        self.navigate(to: vc)
+//    }
+//    
+//    private func configureKYCDelegate(for viewController: UIViewController) {
+//        if let kycVC = viewController as? CompleteVerificationProfileScreen1 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen2 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen3 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen4 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen5 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen6 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? CompleteVerificationProfileScreen7 {
+//            kycVC.delegateKYC = self
+//        } else if let kycVC = viewController as? ProfileViewController {
+//            kycVC.delegateKYC = self
+//        }
+//    }
+//}

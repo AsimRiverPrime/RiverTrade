@@ -20,7 +20,7 @@ class CompleteVerificationProfileScreen1: BaseViewController {
     
     var selectedObjective: [String: [String]] = [:]
     
-    weak var delegateKYC: KYCVCDelegate?
+//    weak var delegateKYC: KYCVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,36 +78,26 @@ class CompleteVerificationProfileScreen1: BaseViewController {
     
     @IBAction func submitBtn_action(_ sender: Any) {
         UserDefaults.standard.set(selectedObjective, forKey: "SelectedTradeObjective")
-        
-        if GlobalVariable.instance.realAccount {
+
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-    //        vc.delegateKYC = self
             self.navigate(to: vc)
-        } else {
-            self.dismiss(animated: true)
-            delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
-        }
-        
-//        self.dismiss(animated: true)
-//        delegateKYC?.navigateToCompeletProfile(kyc: .SecondScreen)
         
     }
     
     @IBAction func backBtn_action(_ sender: Any) {
-//        self.dismiss(animated: true)
-//        delegateKYC?.navigateToCompeletProfile(kyc: .ProfileScreen)
         self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func closeBtn_action(_ sender: Any) {
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let window = windowScene.windows.first {
-            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
-            window.rootViewController = tabBarController
-            window.makeKeyAndVisible()
-        }
-    }
-    
+//                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//                   let window = windowScene.windows.first {
+//                    let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//                    let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
+//                    window.rootViewController = tabBarController
+//                    window.makeKeyAndVisible()
+//                }
+        self.navigationController?.popViewController(animated: true)
+            }
+      
 }
     

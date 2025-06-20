@@ -15,6 +15,9 @@ protocol AccountInfoTapDelegate: AnyObject {
 protocol CreateAccountInfoTapDelegate: AnyObject {
     func createAccountInfoTap(_ createAccountInfo: CreateAccountInfo)
 }
+protocol AccountDismisalProtocol: AnyObject {
+    func accountDismisal()
+}
 
 enum OPCNavigationType {
     case open(OpenModel)
@@ -106,7 +109,6 @@ class AccountsViewController: BaseViewController {
         super.viewDidLoad()
         self.view.setGradientBackground()
         dashboardDatainit()
-        //        balanceShowHide()
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.opcCallingAtStart(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.OPCUpdateConstant.key), object: nil)
         
@@ -425,7 +427,7 @@ class AccountsViewController: BaseViewController {
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             //        vc.newAccoutDelegate = self
             vc.dismissDelegate = self
-            //        self.navigate(to: vc)
+            vc.accountDismisalProtocol = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         }
     }
@@ -437,7 +439,6 @@ class AccountsViewController: BaseViewController {
             print("drop down item = \(item)")
             sender.setTitle("", for: .normal)
         }
-        
     }
     
     deinit {
@@ -561,7 +562,7 @@ extension AccountsViewController {
                             } else if let positions = openData {
                                 
                                 GlobalVariable.instance.openSymbolList.removeAll()
-                                
+                               
                                 let symbols = positions.map { self.getSymbol(item: $0.symbol) }
                                 GlobalVariable.instance.openSymbolList = symbols
                                 
@@ -670,6 +671,20 @@ extension AccountsViewController {
     }
     
 }
+
+extension AccountsViewController: AccountDismisalProtocol {
+    
+    func accountDismisal() {
+        print("Account Dismissed through Protocol.")
+        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in
+            //TODO: Navigate to Accounts.
+            if let tabBarController = self?.tabBarController as? HomeTabbarViewController {
+                tabBarController.selectedIndex = 1
+            }
+        }
+    }
+}
+
 extension AccountsViewController: CreateAccountUpdateProtocol {
     func updateAccountBalance(isNewAccount: Bool) {
         let getbalanceApi = TradeTypeCellVM()
@@ -696,8 +711,8 @@ extension AccountsViewController: CreateAccountUpdateProtocol {
             }
         })
     }
-    
 }
+
 extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: - Just reload the given tableview section.
@@ -900,69 +915,6 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-//
-//extension AccountsViewController: AccountInfoDelegate {
-//    func accountInfoTap1(_ accountInfo: AccountInfo) {
-//        print("delegte called  \(accountInfo)" )
-//
-//        switch accountInfo {
-//
-//        case .deposit:
-//
-//            delegate?.accountInfoTap(.deposit)
-//            break
-//        case .withDraw:
-//
-//            delegate?.accountInfoTap(.withDraw)
-//            break
-//        case .history:
-//
-//            delegate?.accountInfoTap(.history)
-//            break
-//        case .detail:
-//
-//            delegate?.accountInfoTap(.detail)
-//            break
-//        case .notification:
-//
-//            delegate?.accountInfoTap(.notification)
-//            break
-//        case .createAccount:
-//            delegate?.accountInfoTap(.createAccount)
-//            break
-//        }
-//
-//
-//    }
-//
-//
-//}
-
-//extension AccountsViewController: CreateAccountInfoDelegate {
-//
-//    func createAccountInfoTap1(_ createAccountInfo: CreateAccountInfo) {
-//        print("delegte called  \(createAccountInfo)" )
-//
-//        switch createAccountInfo {
-//        case .createNew:
-//            print("Create new")
-//            let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customSmall, VC: vc)
-//
-//            break
-//        case .unarchive:
-//            print("Unarchive")
-//            let vc = Utilities.shared.getViewController(identifier: .unarchiveAccountTypeVC, storyboardType: .bottomSheetPopups) as! UnarchiveAccountTypeVC
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .medium, VC: vc)
-//            break
-//        case .notification:
-//            let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        }
-//    }
-//
-//}
 
 extension AccountsViewController: OPCDelegate {
     func getOPCData(opcType: OPCType) {
@@ -1230,49 +1182,7 @@ extension AccountsViewController: GetSocketMessages {
                                                 cell.lbl_currentPrice.text = "$\(bidValue)"
                                             }
                                         }
-                                        
-//                                        if cell.lbl_symbolName.text == openData[index].symbol && cell.volume == (Double(openData[myIndexPath.row].volume) / 10000) {
-//                                            let x =  openData[index].symbol.dropLast()
-//                                            if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-//                                                let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-//                                                
-//                                                let bid = getSymbolData[index].tickMessage?.bid ?? 0.0
-//                                                let priceOpen = Double(openData[myIndexPath.row].priceOpen)
-//                                                let volume = Double(openData[myIndexPath.row].volume) / 10000
-//                                                let contractSize = Double(symbolContractSize)!
-//                                   //pl logic
-//                                                profitLoss = (bid - priceOpen) * volume * contractSize
-//                                                
-//                                                if openData[myIndexPath.row].action == 1 {
-//                                                    profitLoss = (priceOpen - bid) * volume * contractSize
-//                                                }else {
-//                                                    profitLoss = (bid - priceOpen) * volume * contractSize
-//                                                }
-//                                            
-//                                            }
-//                                         if profitLoss < 0.0 {
-//                                                cell.lbl_profitValue.textColor = .systemRed
-//                                                
-//                                            }else{
-//                                                cell.lbl_profitValue.textColor = .systemGreen
-//                                                
-//                                            }
-//                                            roundValue = String(format: "%.2f", profitLoss)
-//                                            
-//                                            cell.lbl_profitValue.text = "\(roundValue)"
-//                                            
-//                                            //                                            let xy =  openData[indexPath.row].symbol.dropLast()
-//                                            if let digitss = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-//                                                
-//                                                let digit = Int(GlobalVariable.instance.symbolDataArray[digitss].digits) ?? 0
-//                                                let bidValuess = String(format: "%.\(digit)f", getSymbolData[index].tickMessage?.bid ?? 0.0) //getSymbolData[index].tickMessage?.bid ?? 0.0 //
-//                                                cell.lbl_currentPrice.text = "$\(bidValuess)"
-//                                            }
-//                                            
-//                                            //                                            let bidValuess = String(format: "%.\(digit)f", getSymbolData[index].tickMessage?.bid ?? 0.0) //getSymbolData[index].tickMessage?.bid ?? 0.0 //
-//                                            //                                            cell.lbl_currentPrice.text = "$\(bidValuess)"
-//                                        }
-                                        
+                             
                                     }else{
                                         cell.isHidden = true
                                     }

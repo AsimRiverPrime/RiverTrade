@@ -305,25 +305,8 @@ extension HomeTabbarViewController: SocketConnectionInitDelegate {
     
 }
 
-//MARK: - Main and final list which is change when the sector is set and all the symbols which is on the selected sector.
 extension HomeTabbarViewController {
-//    func showPopup() {
-//        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-//
-//        // Replace "PopupViewController" with the actual identifier of your popup view controller
-//        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
-//            // Set modal presentation style
-//            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-//            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-//            popupVC.view.alpha = 0
-//            // Optional: Set modal transition style (this is for animation)
-//            popupVC.modalTransitionStyle = .crossDissolve
-//            popupVC.metaTraderType = .Balance
-//
-//            // Present the popup
-//            self.present(popupVC, animated: true, completion: nil)
-//        }
-//    }
+
     //MARK: - Update all list when selector will change, and update tick socket message according to the selected sector.
     private func setTradeModel(collectionViewIndex: Int) {
         
@@ -436,7 +419,7 @@ extension HomeTabbarViewController: GetSocketData {
             if let getTick = tickMessage {
                 //                       let openData = GlobalVariable.instance.openList
                 
-                if let index = GlobalVariable.instance.getSymbolData.firstIndex(where: { /*print("$0.symbol = \(getSymbol(item: $0.symbol))"); print("getTick.symbol = \(getTick.symbol)"); return*/ getSymbol(item: $0.tickMessage?.symbol ?? "") == getTick.symbol }) {
+                if let index = GlobalVariable.instance.getSymbolData.firstIndex(where: { getSymbol(item: $0.tickMessage?.symbol ?? "") == getTick.symbol }) {
                     GlobalVariable.instance.getSymbolData[index].tickMessage = tickMessage
                     
                     let openData = GlobalVariable.instance.openList
@@ -452,17 +435,7 @@ extension HomeTabbarViewController: GetSocketData {
                             if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) {
                                 let x =  openData[index].symbol.dropLast()
                                 if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
-                                    //                                    let symbolContractSize = GlobalVariable.instance.symbolDataArray[contractValue].contractSize
-                                    //
-                                    //                                    let bid = GlobalVariable.instance.getSymbolData[index].tickMessage?.bid ?? 0.0
-                                    //                                    let priceOpen = Double(openData[i].priceOpen)
-                                    //                                    let volume = Double(openData[i].volume) / 10000
-                                    //                                    let contractSize = Double(symbolContractSize)!
-                                    //
-                                    //                                    var profitLoss = (bid - priceOpen) * volume * contractSize
-                                    //                                    if openData[i].action == 1 {
-                                    //                                        profitLoss = (priceOpen - bid) * volume * contractSize
-                                    //                                    }
+                                   
                                     let symbolData = GlobalVariable.instance.symbolDataArray[contractValue]
                                     let symbolContractSize = Double(symbolData.contractSize) ?? 1.0
                                     let symbolSector = symbolData.sector // Assuming "Currency" is a valid sector value
@@ -487,8 +460,6 @@ extension HomeTabbarViewController: GetSocketData {
                                     }
                                     
                                     total += profitLoss
-                                    //                                    print("profitLoss = \(profitLoss)\n")
-                                    //                                    print("total = \(total)\n")
                                     
                                     tpValue.append(profitLoss)
                                     myProfitLoss = profitLoss

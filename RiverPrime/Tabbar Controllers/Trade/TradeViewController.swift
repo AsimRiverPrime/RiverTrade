@@ -195,10 +195,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                     if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
                                         if totalProfitLoss > 0.0 {
                                             cell.openPosSymbolColorView.backgroundColor = .systemGreen
-                                            cell.lblCurrencySymbl.textColor = .systemGreen
+//                                            cell.lblCurrencySymbl.textColor = .systemGreen
                                         } else if totalProfitLoss < 0.0 {
                                             cell.openPosSymbolColorView.backgroundColor = .systemRed
-                                            cell.lblCurrencySymbl.textColor = .systemRed
+//                                            cell.lblCurrencySymbl.textColor = .systemRed
                                         }
                                         break
                                     }
@@ -207,10 +207,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                 if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
                                     if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
                                         cell.openPosSymbolColorView.backgroundColor = .systemRed
-                                        cell.lblCurrencySymbl.textColor = .systemRed
+//                                        cell.lblCurrencySymbl.textColor = .systemRed
                                     } else {
                                         cell.openPosSymbolColorView.backgroundColor = .systemGreen
-                                        cell.lblCurrencySymbl.textColor = .systemGreen
+//                                        cell.lblCurrencySymbl.textColor = .systemGreen
                                     }
                                 } else {
 //                                    cell.openPosSymbolColorView.backgroundColor = UIColor.green
@@ -321,20 +321,13 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
 //                UserDefaults.standard.set(_userId, forKey: "userID")
             }
         }
-        
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            if let _isEmailVerified = savedUserData["emailVerified"] as? Bool, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool {
-//                isEmailVerified = _isEmailVerified
-//                isPhoneVerified = _isPhoneVerified
-//            }
-//        }
+    
         if GlobalVariable.instance.realAccount {
             if registrationType == 1 && !isEmailVerified {
                 
                 let vc = Utilities.shared.getViewController(identifier: .emailSendVC, storyboardType: .bottomSheetPopups) as! EmailSendVC
                 vc.UserEmail = userEmail
                 self.navigate(to: vc)
-//                PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
             }else if !isPhoneVerified {
                 
                 let vc = Utilities.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main) as! PhoneVerifyVC
@@ -673,10 +666,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                             if let totalProfitLoss = symbolProfitLossSum[currentSymbol] {
                                                 if totalProfitLoss > 0.0 {
                                                     cell.openPosSymbolColorView.backgroundColor = .systemGreen
-                                                    cell.lblCurrencySymbl.textColor = .systemGreen
+//                                                    cell.lblCurrencySymbl.textColor = .systemGreen
                                                 } else if totalProfitLoss < 0.0 {
                                                     cell.openPosSymbolColorView.backgroundColor = .systemRed
-                                                    cell.lblCurrencySymbl.textColor = .systemRed
+//                                                    cell.lblCurrencySymbl.textColor = .systemRed
                                                 }
                                                 break
                                             }
@@ -685,10 +678,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                         if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
                                             if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
                                                 cell.openPosSymbolColorView.backgroundColor = .systemRed
-                                                cell.lblCurrencySymbl.textColor = .systemRed
+//                                                cell.lblCurrencySymbl.textColor = .systemRed
                                             } else {
                                                 cell.openPosSymbolColorView.backgroundColor = .systemGreen
-                                                cell.lblCurrencySymbl.textColor = .systemGreen
+//                                                cell.lblCurrencySymbl.textColor = .systemGreen
                                             }
                                         } else {
 //                                            cell.openPosSymbolColorView.backgroundColor = UIColor.green

@@ -36,14 +36,35 @@ extension UIViewController {
     }
     
     func navigate(to viewController: UIViewController, animated: Bool = true) {
-           if let navigationController = self.navigationController {
-               navigationController.pushViewController(viewController, animated: animated)
-           } else {
-               let navigationController = UINavigationController(rootViewController: viewController)
-               navigationController.modalPresentationStyle = .fullScreen
-               self.present(navigationController, animated: animated, completion: nil)
-           }
-       }
+        var targetNavigationController: UINavigationController?
+        
+        if let navigationController = self.navigationController {
+            targetNavigationController = navigationController
+        } else if let tabBarController = self.tabBarController,
+                  let selectedNavController = tabBarController.selectedViewController as? UINavigationController {
+            targetNavigationController = selectedNavController
+        }
+        
+        if let navController = targetNavigationController {
+            navController.pushViewController(viewController, animated: animated)
+        } else {
+            let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: animated, completion: nil)
+        }
+    }
+//    func navigate(to viewController: UIViewController, animated: Bool = true) {
+//        if let navigationController = self.navigationController {
+//            navigationController.pushViewController(viewController, animated: animated)
+//        } else if let tabBarController = self.tabBarController,
+//                  let selectedNavController = tabBarController.selectedViewController as? UINavigationController {
+//            selectedNavController.pushViewController(viewController, animated: animated)
+//        } else {
+//            let navigationController = UINavigationController(rootViewController: viewController)
+//            navigationController.modalPresentationStyle = .fullScreen
+//            self.present(navigationController, animated: animated, completion: nil)
+//        }
+//    }
        
        func instantiateViewController(fromStoryboard storyboardName: String, withIdentifier identifier: String) -> UIViewController? {
            let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
