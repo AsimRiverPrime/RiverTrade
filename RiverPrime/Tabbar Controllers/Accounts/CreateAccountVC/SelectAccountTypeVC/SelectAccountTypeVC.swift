@@ -357,10 +357,10 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                    
                     self.metaTraderType = .Balance
                     
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None]) 
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                     
                     self.dismiss(animated: true, completion: nil)
-                    NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
+                 
                     self.accountDismisalProtocol?.accountDismisal()
                    
                 }

@@ -110,6 +110,8 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     var isTimerRunMoreThenOnce = false
     var symbolDataObj: SymbolData?
     
+    var tradeTypeCellVM = TradeTypeCellVM()
+    
     @IBOutlet weak var badgeLabel: UILabel!
     
     @IBOutlet weak var viewBadge: CardView!
@@ -253,6 +255,8 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             tabBarController.delegateSocketNotSendData = self
         }
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.OPCListDissmisal(_:)), name: .OPCListDismissall, object: nil)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationTradeApiUpdate(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.TradeApiUpdateConstant.key), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
@@ -298,6 +302,50 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                         cell.setStyledLabel(value: getSymbolData[i].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
                         cell.setStyledLabel(value: getSymbolData[i].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
                     }
+                }
+            }
+        }
+    }
+    
+    @objc private func OPCListDissmisal(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo["OPCType"] as? String {
+            print("Received string: \(receivedString)")
+            if receivedString == "Open" {
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    openData()
+          
+                }
+            }
+        }
+    }
+    
+    private func getSymbol(item: String) -> String {
+        
+        var getSymbol = ""
+        
+       if item.contains(".") {
+            getSymbol = String(item.dropLast())
+        } else {
+            getSymbol = item
+        }
+        
+        return getSymbol
+        
+    }
+    
+    func openData() {
+        // Execute the fetch on a background thread
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            
+            self.tradeTypeCellVM.OPCApi(index: 0) { openData, pendingData, closeData, error in
+                DispatchQueue.main.async {
+                    
+                    self.updateIndicator()
+                 
                 }
             }
         }

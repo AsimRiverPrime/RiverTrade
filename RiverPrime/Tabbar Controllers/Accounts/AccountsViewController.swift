@@ -680,6 +680,7 @@ extension AccountsViewController: AccountDismisalProtocol {
             //TODO: Navigate to Accounts.
             if let tabBarController = self?.tabBarController as? HomeTabbarViewController {
                 tabBarController.selectedIndex = 1
+                NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
             }
         }
     }
@@ -1467,18 +1468,18 @@ extension AccountsViewController {
 extension AccountsViewController {
 //    func showPopup() {
 //        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-//        
+//
 //        // Replace "PopupViewController" with the actual identifier of your popup view controller
 //        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
 //            // Set modal presentation style
 //            popupVC.modalPresentationStyle = .overFullScreen// .overCurrentContext    // You can use .overFullScreen for full-screen dimming
-//            
+//
 //            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
 //            popupVC.view.alpha = 0
 //            // Optional: Set modal transition style (this is for animation)
 //            popupVC.modalTransitionStyle = .crossDissolve
 //            popupVC.metaTraderType = .Balance
-//            
+//
 //            // Present the popup
 //            self.present(popupVC, animated: true, completion: nil)
 //        }
