@@ -36,21 +36,21 @@ class SignInViewController: BaseViewController {
     
     @IBOutlet weak var lbl_emailCheck: UILabel!
     @IBOutlet weak var lbl_passwordCheck: UILabel!
-//    @IBOutlet weak var lbl_credientailCheck: UILabel!
+    //    @IBOutlet weak var lbl_credientailCheck: UILabel!
     @IBOutlet weak var btn_rememberMe: UIButton!
-   
+    
     @IBOutlet weak var btn_submit: UIButton!
     
     @IBOutlet weak var hideShowPassBtn: UIButton!
     
     var firebaseInstance = FirestoreServices()
     var viewModel = SignViewModel()
-//    var signUpVC = SignUpViewController()
-//    var odooClientService = OdooClient()
+    //    var signUpVC = SignUpViewController()
+    //    var odooClientService = OdooClient()
     var odoClientNew = OdooClientNew()
     var googleSignIn = GoogleSignIn()
     var emailUser: String?
-      
+    
     var fromOpenAccount : Bool = false
     var isGoogleLogin : Bool = false
     var isAppleLogin : Bool = false
@@ -61,44 +61,44 @@ class SignInViewController: BaseViewController {
     var _fullName : String?
     var _password: String?
     
-//    let passwordManager = PasswordManager()
+    //    let passwordManager = PasswordManager()
     fileprivate var currentNonce: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
         self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
-    
-//        enableLoginButton()
-
+        
+        //        enableLoginButton()
+        
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
-     
+        
     }
     
-//    private func enableLoginButton() {
-//        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
-//            self.btn_submit.isEnabled = true
-//            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
-//        } else {
-//            self.btn_submit.isEnabled = false
-//            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-//        }
-//        
-//        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
-//            self.btn_submit.isEnabled = false
-//            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-//            return
-//           }
-//    }
+    //    private func enableLoginButton() {
+    //        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
+    //            self.btn_submit.isEnabled = true
+    //            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
+    //        } else {
+    //            self.btn_submit.isEnabled = false
+    //            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+    //        }
+    //
+    //        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
+    //            self.btn_submit.isEnabled = false
+    //            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
+    //            return
+    //           }
+    //    }
     
     @objc func emailTextChanged(_ textField: UITextField) {
         if self.viewModel.isValidEmail(self.username_tf.text!) {
@@ -108,18 +108,18 @@ class SignInViewController: BaseViewController {
             self.lbl_emailCheck.text = "email is not correct"
             self.lbl_emailCheck.isHidden = false
         }
-//        enableLoginButton()
+        //        enableLoginButton()
     }
     
     @objc func passwordTextChanged(_ textField: UITextField) {
-    
+        
         if self.viewModel.isValidatePassword(password: self.password_tf.text!)  {
             self.lbl_passwordCheck.isHidden = true
         }else{
             self.lbl_passwordCheck.isHidden = false
             self.lbl_passwordCheck.text = "Password should be atleast 8 characters with one capital & one Special letter & one number."
         }
-//        enableLoginButton()
+        //        enableLoginButton()
     }
     @IBAction func rememberMeBtn(_ sender: Any) {
         self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
@@ -133,6 +133,7 @@ class SignInViewController: BaseViewController {
     }
     
     @IBAction func submitBtn(_ sender: Any) {
+        
         login()
     }
     
@@ -142,10 +143,10 @@ class SignInViewController: BaseViewController {
                 print("Sign in failed: \(error.localizedDescription)")
                 return
             }
-//            print("result user: \(result)")
+            //            print("result user: \(result)")
             guard let user1 = result?.user else { return }
             SVProgressHUD.show()
-        
+            
             self?.authenticateGoogleWithFirebase(user: user1)
         }
     }
@@ -177,6 +178,7 @@ class SignInViewController: BaseViewController {
     
     private func login() {
         // Check if all text fields are filled
+        SVProgressHUD.show()
         guard
             let email = username_tf.text, !email.isEmpty
         else {
@@ -221,38 +223,40 @@ class SignInViewController: BaseViewController {
             }else{
                 self?.lbl_emailCheck.isHidden = true
                 self?.lbl_passwordCheck.isHidden = true
-//                self?.lbl_credientailCheck.isHidden = true
+                //                self?.lbl_credientailCheck.isHidden = true
                 print(" signing in successfully: \(authres ?? " no data")")
                 
                 if let userId = authResult?.user.uid {
                     self?.firebaseInstance.fetchUserData(userId: userId)
                     self?.firebaseInstance.fetchUserAccountsData(userId: userId, completion: {
                         print("\n user account data fetch from SignIn through email ")
-                        self?.firebaseInstance.handleUserData()
+                        
+                        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
+                            print("Timer fired!")
+                            SVProgressHUD.dismiss()
+                            self?.firebaseInstance.handleUserData()
+                        }
+                        
                     })
                 }
-                
-//                let timer = Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
-//                    print("Timer fired!")
-//                }
             }
         }
     }
     
-     func navigateToFaceID() {
+    func navigateToFaceID() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-         let verifyVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-      
+        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+        
         GlobalVariable.instance.userEmail = self.emailUser ?? ""
         
-//        self.navigate(to: verifyVC)
-         verifyVC.modalPresentationStyle = .overFullScreen
-         if let sheet = verifyVC.sheetPresentationController {
-                 sheet.prefersGrabberVisible = true
-             }
-         guard let topVC = verifyVC.topMostViewController() else { return }
-         topVC.present(verifyVC, animated: true, completion: nil)
+        //        self.navigate(to: verifyVC)
+        verifyVC.modalPresentationStyle = .overFullScreen
+        if let sheet = verifyVC.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+        }
+        guard let topVC = verifyVC.topMostViewController() else { return }
+        topVC.present(verifyVC, animated: true, completion: nil)
     }
     
 }
@@ -293,15 +297,15 @@ extension SignInViewController {
                             self.navigateToFaceID()
                         })
                         
-//                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-//                            print("Timer fired!")
-//                        }
+                        //                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+                        //                            print("Timer fired!")
+                        //                        }
                     } else {
                         SVProgressHUD.dismiss()
                         Alert.showAlertWithOKHandler(withHandler: "This email is not registered. Please sign up first before logging in.", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
                             self.navigationController?.popViewController(animated: true)
                         })
-                       
+                        
                     }
                 }
             }
@@ -356,21 +360,21 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-
+            
             guard let nonce = currentNonce else {
                 fatalError("Invalid state: A login callback was received, but no login request was sent.")
             }
-
+            
             guard let appleIDToken = appleIDCredential.identityToken else {
                 print("❌ Unable to fetch identity token")
                 return
             }
-
+            
             guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
                 print("❌ Unable to serialize token string from data: \(appleIDToken.debugDescription)")
                 return
             }
-
+            
             // MARK: - Handle Email (Hide or Share)
             if let email = appleIDCredential.email {
                 print("✅ Apple returned email: \(email)")
@@ -383,13 +387,13 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                 print("❌ No email found from Apple or Keychain.")
                 _email = nil
             }
-
+            
             // MARK: - Handle Full Name
             if let fullName = appleIDCredential.fullName {
                 let formattedName = [fullName.givenName, fullName.familyName]
                     .compactMap { $0 }
                     .joined(separator: " ")
-
+                
                 if !formattedName.isEmpty {
                     print("✅ Full Name from Apple: \(formattedName)")
                     keychain.set(formattedName, forKey: "appleName")
@@ -405,58 +409,58 @@ extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizati
                 _fullName = "Unknown User"
                 print("❌ No full name available.")
             }
-
+            
             // Save for use
             UserDefaults.standard.set(_fullName, forKey: "FullName")
-
+            
             // MARK: - Sign in with Firebase
             let credential = OAuthProvider.appleCredential(
                 withIDToken: idTokenString,
                 rawNonce: nonce,
                 fullName: appleIDCredential.fullName
             )
-
+            
             Auth.auth().signIn(with: credential) { authResult, error in
                 if let error = error {
                     print("🔥 Firebase authentication failed: \(error.localizedDescription)")
                     return
                 }
-
+                
                 guard let user = authResult?.user else { return }
-
+                
                 UserDefaults.standard.set(user.uid, forKey: "userID")
-
+                
                 self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
-                        if let error = error {
-                            print("❌ Firestore lookup error: \(error.localizedDescription)")
-                            return
-                        }
-
-                        if let snapshot = querySnapshot, !snapshot.isEmpty {
-                            print("✅ Existing Firestore user.")
-
-                            self.firebaseInstance.fetchUserData(userId: user.uid)
-                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                                print("🔄 User account data fetched successfully.")
-                                self.navigateToFaceID()
-                            })
-
-                        } else {
-                            print("🚫 No Firestore user. Prompt to sign up.")
-
-                            Alert.showAlertWithOKHandler(
-                                withHandler: "This email is not registered. Please sign up first before logging in.",
-                                andTitle: "Error!",
-                                OKButtonText: "OK",
-                                on: self
-                            ) { _ in
-                                self.navigationController?.popViewController(animated: true)
-                            }
+                    if let error = error {
+                        print("❌ Firestore lookup error: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+                        print("✅ Existing Firestore user.")
+                        
+                        self.firebaseInstance.fetchUserData(userId: user.uid)
+                        self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
+                            print("🔄 User account data fetched successfully.")
+                            self.navigateToFaceID()
+                        })
+                        
+                    } else {
+                        print("🚫 No Firestore user. Prompt to sign up.")
+                        
+                        Alert.showAlertWithOKHandler(
+                            withHandler: "This email is not registered. Please sign up first before logging in.",
+                            andTitle: "Error!",
+                            OKButtonText: "OK",
+                            on: self
+                        ) { _ in
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
+                }
             }
         }
     }
-
-}
     
+}
+

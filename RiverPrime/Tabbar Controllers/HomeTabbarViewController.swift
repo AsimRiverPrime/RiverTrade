@@ -387,7 +387,7 @@ extension HomeTabbarViewController {
                                             self.webSocketManager.delegateSocketConnectionInit = self
                                             self.webSocketManager.delegateSocketNotSendData = self
                                         }
-//                    
+//
 //                    self.webSocketManager.connectWebSocket()
 //                    self.webSocketManager.delegateSocketData = self
 //                    self.webSocketManager.delegateSocketConnectionInit = self

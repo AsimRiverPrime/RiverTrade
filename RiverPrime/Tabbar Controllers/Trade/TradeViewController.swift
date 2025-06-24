@@ -272,7 +272,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
 //            NotificationCenter.default.post(name: NSNotification.Name("updateSelectedAccountList"), object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountListForRealAccount"), object: nil)
         }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.accountChangeUpdation(_:)), name: .accountChangeUpdation, object: nil)
         //        callCollectionViewAtStart()
         
         //MARK: - Get the list and save localy and set sectors and symbols.
@@ -302,6 +302,21 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                         cell.setStyledLabel(value: getSymbolData[i].tickMessage?.bid ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_bidAmount)
                         cell.setStyledLabel(value: getSymbolData[i].tickMessage?.ask ?? 0.0, digit: cell.digits ?? 0, label: cell.lbl_askAmount)
                     }
+                }
+            }
+        }
+    }
+    
+    @objc private func accountChangeUpdation(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo["accountChangeUpdation"] as? String {
+            print("Received string: \(receivedString)")
+            if receivedString == "accountChangeUpdation" {
+                DispatchQueue.global(qos: .background).async { [weak self] in
+                    guard let self = self else { return }
+                    
+                    openData()
+          
                 }
             }
         }
@@ -344,7 +359,38 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
             self.tradeTypeCellVM.OPCApi(index: 0) { openData, pendingData, closeData, error in
                 DispatchQueue.main.async {
                     
-                    self.updateIndicator()
+                    if let error = error {
+                        print("Error fetching positions: \(error)")
+                        // Handle the error (e.g., show an alert)
+                    } else if let positions = openData {
+                        
+                        //MARK: - START to update values for socket dynamic method at start.
+                        GlobalVariable.instance.openList = positions
+                        
+                        GlobalVariable.instance.getSymbolData.removeAll()
+                        
+                        for item in positions {
+                            
+                            let getSymbol = self.getSymbol(item: item.symbol)
+                            
+                            GlobalVariable.instance.getSymbolData.append(SymbolCompleteList(tickMessage: TradeDetails(datetime: 0, symbol: getSymbol, ask: 0.0, bid: 0.0, url: "", close: 0, ask_high: 0, bid_low: 0)))
+                        }
+                        //MARK: - END to update values for socket dynamic method at start.
+                        
+                        GlobalVariable.instance.openSymbolList.removeAll()
+                        
+                        let symbols = positions.map { self.getSymbol(item: $0.symbol) }
+                        GlobalVariable.instance.openSymbolList = symbols
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
+                       
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                        
+                    }
+                    
+//                    let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { [weak self] _ in
+//                        self?.updateIndicator()
+//                    }
                  
                 }
             }
@@ -360,7 +406,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         var userEmail = String()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["uid"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
 //                profileStep = profileStep1
                 userEmail = _email
                 registrationType = _registrationType

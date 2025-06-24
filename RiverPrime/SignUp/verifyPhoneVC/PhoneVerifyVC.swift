@@ -68,14 +68,6 @@ class PhoneVerifyVC: BaseViewController{
     
     @IBAction func closeBtn_action1(_ sender: Any) {
 
-//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//           let window = windowScene.windows.first {
-//            let storyboard = UIStoryboard(name: "Dashboard", bundle: nil)
-//            let tabBarController = storyboard.instantiateViewController(withIdentifier: "HomeTabbarViewController") as! UITabBarController
-//            window.rootViewController = tabBarController
-//            window.makeKeyAndVisible()
-//
-//        }
         self.navigationController?.popToRootViewController(animated: true)
          
          // Change to tab index 0
@@ -156,17 +148,7 @@ class PhoneVerifyVC: BaseViewController{
                 
                 print("User isPhone fields updated successfully!")
                 self.firestoreService.fetchUserData(userId: userId)
-
-//                self.delegate?.didCompletePhoneVerification()
-
-                if GlobalVariable.instance.realAccount {
-                    Session.instance.isRealAccountInitFlowComplete = true
-                    self.initKYC_CheckData()
-                } else {
-                    self.initKYC_CheckData()
-//                    self.dismiss(animated: true)
-                }
-//                self.dismiss(animated: true)
+                self.initKYC_CheckData()
                 
             }
         }
@@ -177,13 +159,7 @@ extension PhoneVerifyVC {
     
     func initKYC_CheckData(){
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["id"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
-//                profileStep = profileStep1
-//                userEmail = _email
-//                registrationType = _registrationType
-//                isPhoneVerified = _isPhoneVerified
-//                isEmailVerified = _isEmailVerified
-//                UserDefaults.standard.set(_userId, forKey: "userID")
+            if let profileStep1 = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _userId = savedUserData["uid"] as? String, let _registrationType = savedUserData["registrationType"] as? Int, let _isPhoneVerified = savedUserData["phoneVerified"] as? Bool, let _isEmailVerified = savedUserData["emailVerified"] as? Bool  {
                 didCompleteKYCVerification(profileStep1: profileStep1)
             }
         }
@@ -195,12 +171,9 @@ extension PhoneVerifyVC {
         switch profileStep1 {
         case 0:
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-//            vc.delegateKYC = self
             self.navigate(to: vc)
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
         case 1:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-//            vc.delegateKYC = self
             self.navigate(to: vc)
         
         default:

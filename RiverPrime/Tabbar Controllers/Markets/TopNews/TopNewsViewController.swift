@@ -212,29 +212,6 @@ extension TopNewsViewController: UITextFieldDelegate {
         // Reload the table view to reflect the search results
         tableView_News.reloadData()
         
-//        if searchText.isEmpty {
-//            filteredData = [] // If the search text is empty, show all data
-////            symbolDataSectorSelected = false
-//        } else {
-//
-//            // If no sector is selected, filter symbols across all sectors
-//            let filteredSymbols = symbolDataSector.flatMap { sectorGroup in
-//                sectorGroup.symbols.filter { $0.name.lowercased().contains(searchText) }
-//            }
-//
-//            // Regroup filtered symbols into their respective sectors
-//            filteredData = symbolDataSector.compactMap { sectorGroup in
-//                let filteredSectorSymbols = filteredSymbols.filter { $0.sector == sectorGroup.sector }
-//                return filteredSectorSymbols.isEmpty ? nil : SectorGroup(sector: sectorGroup.sector, symbols: filteredSectorSymbols)
-//            }
-////
-////            symbolDataSectorSelected = true
-//        }
-//
-////        tblSearchView.delegate = self
-////        tblSearchView.dataSource = self
-////        // Reload the table view to show the filtered data
-////        tblSearchView.reloadData()
     }
     
     // Optional: Dismiss the keyboard when the user taps 'Return'

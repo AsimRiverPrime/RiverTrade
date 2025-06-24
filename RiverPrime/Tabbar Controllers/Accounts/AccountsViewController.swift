@@ -680,7 +680,8 @@ extension AccountsViewController: AccountDismisalProtocol {
             //TODO: Navigate to Accounts.
             if let tabBarController = self?.tabBarController as? HomeTabbarViewController {
                 tabBarController.selectedIndex = 1
-                NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
+//                NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
+                NotificationCenter.default.post(name: .accountChangeUpdation, object: nil, userInfo: ["accountChangeUpdation": "accountChangeUpdation"])
             }
         }
     }

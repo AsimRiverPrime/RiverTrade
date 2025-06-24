@@ -48,7 +48,7 @@ class FirestoreServices: BaseViewController {
             
             "fullName": name,
             "gender" : gender,
-            "id": userId,
+            "uid": userId,
             "isLogin": isLogin,
             "nationality": nationality,
             
@@ -58,13 +58,6 @@ class FirestoreServices: BaseViewController {
             "pushedToCRM": pushedToCRM,
             "registrationType": registrationType,
             "residence": residence,
-            //            "password": password
-            //            "userName" : userName,
-            //            "loginId": loginId,
-            //            "demoAccountGroup": demoAccountGroup,
-            //            "realAccountCreated": realAccountCreated,
-            //            "demoAccountCreated": demoAccountCreated,
-            
         ]) { error in
             if let error = error {
                 print("Error saving user data: \(error.localizedDescription)")
@@ -74,7 +67,6 @@ class FirestoreServices: BaseViewController {
         }
         fetchUserData(userId: userId)
     }
-    
     
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
@@ -88,21 +80,69 @@ class FirestoreServices: BaseViewController {
                 if let data = document.data() {
                     
                     print("\n fetch User data is: \(data)")
-                    UserDefaults.standard.set(data, forKey: "userData")
+                    
+                    // Define the fields you want to keep
+                    let fieldsToKeep = [
+                        "KycStatus",
+                        "address",
+                        "dateOfBirth",
+                        "email",
+                        "emailVerified",
+                        "fullName",
+                        "gender",
+                        "uid",
+                        "isLogin",
+                        "nationality",
+                        "phone",
+                        "phoneVerified",
+                        "profileStep",
+                        "pushedToCRM",
+                        "registrationType",
+                        "residence"
+                    ]
+                    
+                    // Filter data to only include desired fields
+                    var filteredData = [String: Any]()
+                    for field in fieldsToKeep {
+                        if let value = data[field] {
+                            filteredData[field] = value
+                        }
+                    }
+                    
+                    print("\n Filtered User data: \(filteredData)")
+                    
+                    // Save the filtered data in UserDefaults
+                    UserDefaults.standard.set(filteredData, forKey: "userData")
                 }
             } else {
                 print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
-                
             }
         }
     }
+//    func fetchUserData(userId: String) {
+//        UserDefaults.standard.set(userId, forKey: "userID")
+//        print("fetch user ID is: \(userId)")
+//        
+//        let docRef = db.collection("users").document(userId)
+//        
+//        docRef.getDocument { (document, error) in
+//            if let document = document, document.exists {
+//                
+//                if let data = document.data() {
+//                    
+//                    print("\n fetch User data is: \(data)")
+//                    UserDefaults.standard.set(data, forKey: "userData")
+//                }
+//            } else {
+//                print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
+//                
+//            }
+//        }
+//    }
     
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
-        // Save userID in UserDefaults
-        
         print("\n User ID for fetchUserAccountsData: \(userId)")
         
-        // Firestore query with `where` clause
         let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
         
         query.getDocuments { (querySnapshot, error) in
@@ -117,18 +157,42 @@ class FirestoreServices: BaseViewController {
                 return
             }
             
-            var userAccountsData = [String: [String: Any]]() // Dictionary to store all documents' data
+            var userAccountsData = [String: [String: Any]]()
+            
+            // Define the fields you want to keep
+            let fieldsToKeep = [
+                "KycStatus",
+                "name",
+                "currency",
+                "userID",
+                "groupID",
+                "isDefault",
+                "isReal",
+                "password",
+                "groupName",
+                "accountNumber"
+            ]
             
             for document in documents {
                 let documentId = document.documentID
                 let data = document.data()
-                userAccountsData[documentId] = data
+                
+                // Filter data to only include desired fields
+                var filteredData = [String: Any]()
+                for field in fieldsToKeep {
+                    if let value = data[field] {
+                        filteredData[field] = value
+                    }
+                }
+                
+                userAccountsData[documentId] = filteredData
             }
             
-            // Save the combined data in UserDefaults
+            print("\n All User Accounts (filtered): \(userAccountsData)")
+            
+            // Save the filtered data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
             print("\n Combined User Accounts data saved: \(userAccountsData)")
-            
             
             // Update accounts
             UserAccountManager.shared.updateAccounts(from: userAccountsData)
@@ -139,14 +203,60 @@ class FirestoreServices: BaseViewController {
                 UserDefaults.standard.set(defaultAccount.password, forKey: "password")
             }
             
-            if userAccountsData.count == 0 {
-                GlobalVariable.instance.isAccountCreated = false
-            }else{
-                GlobalVariable.instance.isAccountCreated = true
-            }
+            GlobalVariable.instance.isAccountCreated = !userAccountsData.isEmpty
             completion()
         }
     }
+//    func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
+//        // Save userID in UserDefaults
+//        
+//        print("\n User ID for fetchUserAccountsData: \(userId)")
+//        
+//        // Firestore query with `where` clause
+//        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
+//        
+//        query.getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error fetching user accounts: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+//                print("No user accounts found for the given userID.: \(userId)")
+//                GlobalVariable.instance.isAccountCreated = false
+//                return
+//            }
+//            
+//            var userAccountsData = [String: [String: Any]]() // Dictionary to store all documents' data
+//            
+//            for document in documents {
+//                let documentId = document.documentID
+//                let data = document.data()
+//                userAccountsData[documentId] = data
+//            }
+//            print("\n All User Accounts\(userAccountsData)")
+//            // Save the combined data in UserDefaults
+//            UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
+//            print("\n Combined User Accounts data saved: \(userAccountsData)")
+//            
+//            
+//            // Update accounts
+//            UserAccountManager.shared.updateAccounts(from: userAccountsData)
+//            
+//            // Retrieve and print the default account
+//            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//                print("\n Default user Account : \(defaultAccount)")
+//                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
+//            }
+//            
+//            if userAccountsData.count == 0 {
+//                GlobalVariable.instance.isAccountCreated = false
+//            }else{
+//                GlobalVariable.instance.isAccountCreated = true
+//            }
+//            completion()
+//        }
+//    }
     
     func fetchCredentialData( completion: @escaping (CrmCredentialsModel?) -> Void) {
         db.collection("crm").whereField("isAndroid", isEqualTo: false).getDocuments { querySnapshot, error in

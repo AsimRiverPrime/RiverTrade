@@ -106,7 +106,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data Profile screen: \(savedUserData)")
-            if let _profileStep = savedUserData["profileStep"] as? Int, let _name = savedUserData["fullName"] as? String, let _userId = savedUserData["id"] as? String {
+            if let _profileStep = savedUserData["profileStep"] as? Int, let _name = savedUserData["fullName"] as? String, let _userId = savedUserData["uid"] as? String {
                 userId = _userId
                 profileStep = _profileStep
                 if let imageData = UserDefaults.standard.data(forKey: "userProfileImage"),

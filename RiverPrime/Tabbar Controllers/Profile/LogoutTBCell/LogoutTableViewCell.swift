@@ -25,7 +25,7 @@ class LogoutTableViewCell: UITableViewCell {
             //print("saved User Data: \(savedUserData)")
             // Access specific values from the dictionary
             
-            if let _email = savedUserData["email"] as? String , let _userId = savedUserData["id"]  as? String{
+            if let _email = savedUserData["email"] as? String , let _userId = savedUserData["uid"]  as? String{
                 self.lbl_email.text = _email
                 self.userId = _userId
                // print("\n userId: \(userId) and userId_firebase: \(userId1)")

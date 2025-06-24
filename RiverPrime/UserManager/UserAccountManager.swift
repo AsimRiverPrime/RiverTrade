@@ -69,7 +69,7 @@ struct UserAccount: Codable {
     let groupID: String
     let userID: String
     let currency: String?
-    let kycStatus: String
+    let kycStatus: String?
     let password: String
     let isReal: Bool
 
@@ -81,7 +81,7 @@ struct UserAccount: Codable {
             let name = dictionary["name"] as? String,
             let groupID = dictionary["groupID"] as? String,
             let userID = dictionary["userID"] as? String,
-            let kycStatus = dictionary["KycStatus"] as? String,
+           
             let password = dictionary["password"] as? String,
             let isReal = dictionary["isReal"] as? Int
         else {
@@ -95,11 +95,12 @@ struct UserAccount: Codable {
         self.name = name
         self.groupID = groupID
         self.userID = userID
-        self.kycStatus = kycStatus
+       
         self.password = password
         self.isReal = isReal == 1
 
         // Handle optional field
+        self.kycStatus = dictionary["kycStatus"] as? String
         self.currency = dictionary["currency"] as? String
     }
 }

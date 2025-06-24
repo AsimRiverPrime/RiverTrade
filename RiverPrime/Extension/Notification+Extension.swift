@@ -17,4 +17,5 @@ extension Notification.Name {
     
     static let connectionLost = Notification.Name("connectionLost")
     static let connectionRestored = Notification.Name("connectionRestored")
+    static let accountChangeUpdation = Notification.Name("accountChangeUpdation")
 }

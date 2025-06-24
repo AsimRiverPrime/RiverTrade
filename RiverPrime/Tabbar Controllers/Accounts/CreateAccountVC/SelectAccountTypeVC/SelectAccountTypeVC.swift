@@ -355,9 +355,9 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                     }
                     print("\n updating isDefault account success: ")
                    
-                    self.metaTraderType = .Balance
-                    
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+//                    self.metaTraderType = .Balance
+//
+//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                     
                     self.dismiss(animated: true, completion: nil)
                  
