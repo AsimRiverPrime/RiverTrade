@@ -228,6 +228,10 @@ extension MarketsViewController {
             print("Received ammount in news vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
+            
+            if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+            }
         }
     }
 }

@@ -348,9 +348,7 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
         // Check if the accountNumber exists in the dictionary
         if let password = allPasswords[accountNumberKey] {
             print("Account found with password: \(password)")
-            
-            // Call the login API directly
-//            loginAPI(accountNumber: accountNumber, password: password)
+ 
             getbalanceApi.loginForPassword(loginID: accountNumber, pass: password, completion: { response in
                 print("the login to meta Trader account response is: \(response)")
                 self.firestoreObject.updateDefaultAccount(for: "\(accountNumber)", userId: self.userID){ [weak self] error in

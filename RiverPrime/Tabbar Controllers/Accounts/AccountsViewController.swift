@@ -971,10 +971,10 @@ extension AccountsViewController: OPCDelegate {
         //MARK: - START calling Socket message from here.
         webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
         //MARK: - Remove symbol local after unsubcibe.
-        GlobalVariable.instance.previouseSymbolList.removeAll()
+//        GlobalVariable.instance.previouseSymbolList.removeAll()
         
         let symbolList = getFormattedSymbols(opcType: opcType)
-        GlobalVariable.instance.previouseSymbolList = symbolList
+//        GlobalVariable.instance.previouseSymbolList = symbolList
         
         //MARK: - Merge OPEN list with the given list.
         let getList = Array(Set(GlobalVariable.instance.openSymbolList + symbolList)) //GlobalVariable.instance.openSymbolList + symbolList

@@ -215,7 +215,7 @@ class TradeTableViewCell: UITableViewCell {
         
         //MARK: - Check if Open position have data then match it with our trade list and show color to our View.
         if GlobalVariable.instance.openSymbolList.contains(trade.symbol) {
-            openPosSymbolColorView.backgroundColor = UIColor.green // Match found at the same index
+            openPosSymbolColorView.backgroundColor = UIColor.systemGreen // Match found at the same index
         } else {
             openPosSymbolColorView.backgroundColor = UIColor.clear // Default color
         }

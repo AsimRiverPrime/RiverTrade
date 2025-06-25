@@ -191,6 +191,11 @@ extension CalendarVC {
             print("Received ammount in Calendar vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             self.labelAmmount.text = "$\(String(describing: amount))"
+            
+            if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+            }
+            
         }
     }
     
