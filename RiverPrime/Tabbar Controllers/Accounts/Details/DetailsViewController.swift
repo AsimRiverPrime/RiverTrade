@@ -18,26 +18,30 @@ class DetailsViewController: BaseViewController {
     
     var fundsView = FundsView()
     var settingsView = SettingsView()
-   
+    let getbalanceApi = TradeTypeCellVM()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //MARK: - START Call balance api
         
-        let getbalanceApi = TradeTypeCellVM()
-        
-        getbalanceApi.getBalance(completion: { response in
-            print("response of get balance detail screen: \(response)")
-            if response == "Invalid Response" {
-              
-                return
+        getbalanceApi.getUserBalance(completion: { response in
+            print("get response of user balance from detailVC: \(response)")
+            switch response{
+        case .success(let responseModel):
+    
+            UserManager.shared.currentUser = responseModel.result.user
+            
+            GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+         
+            print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+         
+            case .failure(let error):
+                print("Failed to fetch balance: \(error.localizedDescription)")
             }
-//            self.balance = response
-            GlobalVariable.instance.balanceUpdate = response
-            //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
-            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: response])
-                    
         })
-        
+ 
         //MARK: - END Call balance api
         fundsV()
     }

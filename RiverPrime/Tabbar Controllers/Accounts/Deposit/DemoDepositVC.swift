@@ -106,16 +106,33 @@ extension DemoDepositVC: DemoDepositProtocol {
         print("the success response: \(response)")
         if let success = response["success"] as? Int {
             if success == 1 {
-                tradeTypeVM.getBalance(completion: { response in
-                    print("response of get balance in demo deposit: \(response)")
-                    if response == "Invalid Response" {
-                        
-                        return
-                    }
-                    GlobalVariable.instance.balanceUpdate = response
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                })
+//                tradeTypeVM.getBalance(completion: { response in
+//                    print("response of get balance in demo deposit: \(response)")
+//                    if response == "Invalid Response" {
+//                        
+//                        return
+//                    }
+//                    GlobalVariable.instance.balanceUpdate = response
+//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+//                })
 //                dismiss(animated: true)
+                tradeTypeVM.getUserBalance(completion: { response in
+                    print("get response of user balance for demo deposit: \(response)")
+                    switch response{
+                case .success(let responseModel):
+            
+                    UserManager.shared.currentUser = responseModel.result.user
+                    
+                    GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+                 
+                    print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                 
+                    case .failure(let error):
+                        print("Failed to fetch balance: \(error.localizedDescription)")
+                    }
+                })
+                
             }else{
                 self.ToastMessage("Error: Balance not update")
             }

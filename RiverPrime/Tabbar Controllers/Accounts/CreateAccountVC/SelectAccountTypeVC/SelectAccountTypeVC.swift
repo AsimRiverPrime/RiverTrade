@@ -73,14 +73,21 @@ class SelectAccountTypeVC: BottomSheetController {
     
     @objc func updateAccountList(){
          
-            self.getbalanceApi.getBalance(completion: { response in
+            self.getbalanceApi.getUserBalance(completion: { response in
                 print("response of get balance: \(response)")
-                if response == "Invalid Response" {
-                    return
-                }
-                GlobalVariable.instance.balanceUpdate = response //self.balance
+                switch response{
+            case .success(let responseModel):
+        
+                UserManager.shared.currentUser = responseModel.result.user
+                
+                GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+             
                 print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
                 NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+             
+                case .failure(let error):
+                    print("Failed to fetch balance: \(error.localizedDescription)")
+                }
             })
             
             NotificationCenter.default.post(name: NSNotification.Name("accountCreate"), object: nil) // modify with A bhai
@@ -355,9 +362,8 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                     }
                     print("\n updating isDefault account success: ")
                    
-//                    self.metaTraderType = .Balance
-//
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                    self.metaTraderType = .Balance
+                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                     
                     self.dismiss(animated: true, completion: nil)
                  

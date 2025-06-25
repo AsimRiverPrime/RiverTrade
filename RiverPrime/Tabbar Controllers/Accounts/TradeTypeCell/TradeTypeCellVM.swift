@@ -437,7 +437,7 @@ class TradeTypeCellVM {
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
             case .success(let value):
-                print("/\n get user balance Value: \(value)")
+                print("/\n get user balance Value for loginID: \(self.loginId): \(value)")
                 do {
                     // Convert the response to Data
                     let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
@@ -460,93 +460,93 @@ class TradeTypeCellVM {
         }
     }
     
-    func getBalance(completion: @escaping (String) -> Void) {
-        var pass = UserDefaults.standard.string(forKey: "password")
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String {
-                email = _email
-            }
-        }
-        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            //print("\n Default Account User: \(defaultAccount)")
-            loginId = defaultAccount.accountNumber
-            pass = defaultAccount.password
-        }
-        
-        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-            //            showPopup()
-            return
-        }else{
-            print("the MT login password is: \(pass ?? "")")
-        }
-        
-        let params: [String: Any] = [
-            "jsonrpc": "2.0",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    odooClientService.dataBaseName,
-                    uid,
-                    odooClientService.dbPassword,
-                    "mt.middleware",
-                    "get_user",
-                    [
-                        [],
-                        email,
-                        loginId,
-                        pass ?? ""
-                        
-                    ]
-                ]
-            ]
-        ]
-        print("\n get balance params is: \(params)")
-        
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
-            switch result {
-                
-            case .success(let value):
-                print("------->>>>get user MT balance value is: \(value)")
-                do {
-                    // Decode the response
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
-                       let success = result["success"] as? Int, // Success and balance are inside "result" ,
-                       
-                        let user_detail = result["user"] as? [String: Any],
-                       let balance_get = user_detail["balance"] as? Double {
-                        
-                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        print("jsonData for user MT balance: \(String(data: jsonData, encoding: .utf8) ?? "")")
-                        
-                        if success == 1 {
-                            // Return the balance value in the completion handler
-                            completion("\(balance_get)")
-                            print("\n !!!balance update sucess!!!!\n")
-                        } else {
-                            // Handle the case where success is not 1
-//                            completion("No balance Found")
-                            completion("0.0")
-                        }
-                        
-                    } else {
-                        print("Error: Invalid JSON structure")
-                        completion("Invalid Response")
-                        
-                    }
-                } catch {
-                    print("Error decoding response: \(error)")
-//                    completion("Error: \(error.localizedDescription)")
-                    completion("0.0")
-                }
-            case .failure(let error):
-                print("Request failed with error: \(error)")
-//                completion("\(error)")
-                completion("0.0")
-            }
-        }
-    }
+//    func getBalance(completion: @escaping (String) -> Void) {
+//        var pass = UserDefaults.standard.string(forKey: "password")
+//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+//            if let _email = savedUserData["email"] as? String {
+//                email = _email
+//            }
+//        }
+//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//            //print("\n Default Account User: \(defaultAccount)")
+//            loginId = defaultAccount.accountNumber
+//            pass = defaultAccount.password
+//        }
+//        
+//        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
+//            //            showPopup()
+//            return
+//        }else{
+//            print("the MT login password is: \(pass ?? "")")
+//        }
+//        
+//        let params: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    odooClientService.dataBaseName,
+//                    uid,
+//                    odooClientService.dbPassword,
+//                    "mt.middleware",
+//                    "get_user",
+//                    [
+//                        [],
+//                        email,
+//                        loginId,
+//                        pass ?? ""
+//                        
+//                    ]
+//                ]
+//            ]
+//        ]
+//        print("\n get balance params is: \(params)")
+//        
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
+//            switch result {
+//                
+//            case .success(let value):
+//                print("------->>>>get user MT balance value for loginID:\(self.loginId): \(value)")
+//                do {
+//                    // Decode the response
+//                    if let json = value as? [String: Any],
+//                       let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
+//                       let success = result["success"] as? Int, // Success and balance are inside "result" ,
+//                       
+//                        let user_detail = result["user"] as? [String: Any],
+//                       let balance_get = user_detail["balance"] as? Double {
+//                        
+//                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+//                        print("jsonData for user MT balance: \(String(data: jsonData, encoding: .utf8) ?? "")")
+//                        
+//                        if success == 1 {
+//                            // Return the balance value in the completion handler
+//                            completion("\(balance_get)")
+//                            print("\n !!!balance update sucess!!!!\n")
+//                        } else {
+//                            // Handle the case where success is not 1
+////                            completion("No balance Found")
+//                            completion("0.0")
+//                        }
+//                        
+//                    } else {
+//                        print("Error: Invalid JSON structure")
+//                        completion("Invalid Response")
+//                        
+//                    }
+//                } catch {
+//                    print("Error decoding response: \(error)")
+////                    completion("Error: \(error.localizedDescription)")
+//                    completion("0.0")
+//                }
+//            case .failure(let error):
+//                print("Request failed with error: \(error)")
+////                completion("\(error)")
+//                completion("0.0")
+//            }
+//        }
+//    }
     
     func OPCApi(index: Int, fromDate: Int? = nil, toDate: Int? = nil, isHistory: Bool = false, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
         

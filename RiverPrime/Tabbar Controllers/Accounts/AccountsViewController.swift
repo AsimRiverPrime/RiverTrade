@@ -576,20 +576,28 @@ extension AccountsViewController {
                     
                     let getbalanceApi = TradeTypeCellVM()
                     
-                    getbalanceApi.getBalance(completion: { response in
-                        print("response of get balance in Account home vc: \(response)")
-                        if response == "Invalid Response" {
-                            self.balance = "0.0"
-                            return
+                    getbalanceApi.getUserBalance(completion: { result in
+                        switch result {
+                        case .success(let responseModel):
+                            // Save the response model or use it as needed
+                            print("Balance: \(responseModel.result.user.balance)")
+                            print("Equity: \(responseModel.result.user.equity)")
+                            
+                            // Example: Storing in a singleton for global access
+                            UserManager.shared.currentUser = responseModel.result.user
+                            
+                            self.balance = "\(responseModel.result.user.balance)"
+                            GlobalVariable.instance.balanceUpdate = self.balance
+                            
+                            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+                            
+                            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                            
+                        case .failure(let error):
+                            print("Failed to fetch balance: \(error.localizedDescription)")
                         }
-                        self.balance = response
-                        GlobalVariable.instance.balanceUpdate = self.balance
-                        //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
-                        
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-                        
                     })
+                    
                     
                     //MARK: - END Call balance api
                     
@@ -632,28 +640,29 @@ extension AccountsViewController {
                         // Example: Storing in a singleton for global access
                         UserManager.shared.currentUser = responseModel.result.user
                         
+                        self.balance = "\(responseModel.result.user.balance)"
+                        GlobalVariable.instance.balanceUpdate = self.balance
+                        self.collectionViewinit()
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                        
                     case .failure(let error):
                         print("Failed to fetch balance: \(error.localizedDescription)")
                     }
                 })
                 
                 
-                getbalanceApi.getBalance(completion: { response in
-                    print("response of get balance in HomeAccount vc : \(response)")
-                    if response == "Invalid Response" {
-                        self.balance = "0.0"
-                        return
-                    }
-                    self.balance = response
-                    GlobalVariable.instance.balanceUpdate = self.balance
-                    self.collectionViewinit()
-                    
-                    //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: self.balance])
-                    
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-                    
-                })
+//                getbalanceApi.getBalance(completion: { response in
+//                    print("response of get balance in HomeAccount vc : \(response)")
+//                    if response == "Invalid Response" {
+//                        self.balance = "0.0"
+//                        return
+//                    }
+//                })
+                
+                
                 break
             case .GetBalance:
                 break

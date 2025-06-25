@@ -68,13 +68,30 @@ class HyperPayVC: BaseViewController {
             lbl_amountMessage.text = "We couldn't determine the transaction status."
         }
         
-        tradeTypeVM.getBalance(completion: { response in
-            print("get balance in Real deposit: \(response)")
-            if response == "Invalid Response" {
-                return
-            }
-            GlobalVariable.instance.balanceUpdate = response
+//        tradeTypeVM.getBalance(completion: { response in
+//            print("get balance in Real deposit: \(response)")
+//            if response == "Invalid Response" {
+//                return
+//            }
+//            GlobalVariable.instance.balanceUpdate = response
+//            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+//        })
+        
+        tradeTypeVM.getUserBalance(completion: { response in
+            print("get response of user balance from hyperpayVC: \(response)")
+            switch response{
+        case .success(let responseModel):
+    
+            UserManager.shared.currentUser = responseModel.result.user
+            
+            GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+         
+            print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
             NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+         
+            case .failure(let error):
+                print("Failed to fetch balance: \(error.localizedDescription)")
+            }
         })
         
     }

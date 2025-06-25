@@ -697,27 +697,17 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                         // Example: Storing in a singleton for global access
                         UserManager.shared.currentUser = responseModel.result.user
                         
+                        GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
+                        
                     case .failure(let error):
                         print("Failed to fetch balance: \(error.localizedDescription)")
                     }
                 })
-                
-                
-                getbalanceApi.getBalance(completion: { response in
-                    print("response of get balance in trade Vc: \(response)")
-                    if response == "Invalid Response" {
-                        //                        self.balance = "0.0"
-                        return
-                    }
-                    //                    self.balance = response
-                    //                    GlobalVariable.instance.balanceUpdate = self.balance
-                    GlobalVariable.instance.balanceUpdate = response
-                    //                    NotificationCenter.default.post(name: .BalanceUpdate, object: nil,  userInfo: ["BalanceUpdateType": self.balance])
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                    
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.OPCUpdateConstant.key, dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"])
-                    
-                })
+        
                 break
             case .GetBalance:
                 break
@@ -1463,8 +1453,6 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     tableView.deleteRows(at: [indexPath], with: .automatic)
                     tableView.endUpdates()
                     tableView.reloadData()
-                    
-//                    tableView.deleteRows(at: [indexPath], with: .automatic)
                 }
             }
         }
@@ -1791,11 +1779,8 @@ extension TradeViewController: SocketNotSendDataDelegate {
                 GlobalVariable.instance.socketNotSendData = true
                 
             }
-            
         }
-        
     }
-    
 }
 
 extension TradeViewController: UITextFieldDelegate {

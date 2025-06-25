@@ -40,8 +40,6 @@ class FundsView: UIView {
             print("fetchedAccounts Groups: \(fetchedAccounts)")
             
             accountsGroup = fetchedAccounts
-            
-            
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -51,9 +49,9 @@ class FundsView: UIView {
             self.lbl_acctGroup.text = defaultAccount.groupName
             self.userGroupID = defaultAccount.groupID
             
-            print("accountsGroup : \(accountsGroup) , defaultAccount.groupID: \(defaultAccount.groupID)")
         }
         
+//    userAccountData()
         NotificationCenter.default.addObserver(self, selector: #selector(self.notificationPopup(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.BalanceUpdateConstant.key), object: nil)
     }
     
