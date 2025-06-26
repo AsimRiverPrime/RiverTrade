@@ -63,7 +63,8 @@ class SelectAccountTypeVC: BottomSheetController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.firestoreObject.fetchUserAccountsData(userId: userID, completion: {
+        })
 //        self.dismissDelegate = self
         self.btn_createAccount.titleTintColor = .systemYellow
         
@@ -110,6 +111,7 @@ class SelectAccountTypeVC: BottomSheetController {
         guard let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             return
         }
+        
         print("savedList of accounts: \(savedList)")
         
         demoData.removeAll()

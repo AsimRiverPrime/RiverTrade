@@ -383,7 +383,8 @@ class OdooClientNew {
                         "payment_type": "DB",
                         "source": "app",
                         "mt_password": accountPassword,
-                        "is_ios": is_apple
+                        "is_ios": is_apple,
+                        "message": "River Trade iOS app"
                      ]
                 ]
             ]
@@ -978,7 +979,9 @@ class OdooClientNew {
                         userEmail,
                         loginId,
                         UserDefaults.standard.string(forKey: "password") ?? "",
-                        amount
+                        amount,
+                        true,
+                        "River Trade iOS app"
                     ]
                 ]
             ]

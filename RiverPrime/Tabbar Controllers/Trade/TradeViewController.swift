@@ -382,7 +382,7 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                         let symbols = positions.map { self.getSymbol(item: $0.symbol) }
                         GlobalVariable.instance.openSymbolList = symbols
                         
-                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
+//                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
                        
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
                         

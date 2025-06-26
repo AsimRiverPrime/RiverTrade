@@ -42,23 +42,14 @@ protocol OPCDelegate: AnyObject {
 class AccountsViewController: BaseViewController {
     
     @IBOutlet weak var view_topHeader: UIView!
-    //    @IBOutlet weak var view_depositWithdraw: UIView!
-    //    @IBOutlet weak var view_CreateNewAcct: UIView!
-    
-    //    @IBOutlet weak var lbl_greetingCreateNew: UILabel!
-    //    @IBOutlet weak var image_createNew: UIImageView!
-    //    @IBOutlet weak var lbl_userNameCreateNew: UILabel!
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
-    //    @IBOutlet weak var lbl_greeting: UILabel!
     @IBOutlet weak var lbl_account: UILabel!
-    //    @IBOutlet weak var lbl_MT5: UILabel!
     @IBOutlet weak var lbl_accountType: UILabel!
     
     @IBOutlet weak var labelAmmount: UILabel!
     @IBOutlet weak var tblView: UITableView!
-    //    var model: [String] = ["Open","Pending","Close","image"]
     @IBOutlet weak var lbl_amountPercent: UILabel!
     @IBOutlet weak var view_percentage: UIView!
     
@@ -82,7 +73,7 @@ class AccountsViewController: BaseViewController {
     var demoAccountCreated = Bool()
     var balance = String()
     var isRealAcount = Bool()
-    
+//    var userId = String()
     var actualBalance = String()
     var isBalanceHidden = false
     
@@ -127,27 +118,6 @@ class AccountsViewController: BaseViewController {
         
     }
     
-    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
-        if let userInfo = notification.userInfo,
-           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
-            print("Received string: \(receivedString)")
-            
-            if receivedString == "AccountVC" {
-                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-                faceIdVC.afterLoginNavigation = true
-                //                self.navigate(to: faceIdVC)
-                //                PresentModalController.instance.presentBottomSheet(self, VC: faceIdVC)
-                faceIdVC.modalPresentationStyle = .overFullScreen
-                if let sheet = faceIdVC.sheetPresentationController {
-                    sheet.prefersGrabberVisible = true
-                }
-                guard let topVC = faceIdVC.topMostViewController() else { return }
-                topVC.present(faceIdVC, animated: true, completion: nil)
-            }
-            
-        }
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
@@ -170,6 +140,27 @@ class AccountsViewController: BaseViewController {
             view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
         }
        
+    }
+    
+    @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
+        if let userInfo = notification.userInfo,
+           let receivedString = userInfo[NotificationObserver.Constants.FaceAfterLoginConstant.title] as? String {
+            print("Received string: \(receivedString)")
+            
+            if receivedString == "AccountVC" {
+                let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+                faceIdVC.afterLoginNavigation = true
+                //                self.navigate(to: faceIdVC)
+                //                PresentModalController.instance.presentBottomSheet(self, VC: faceIdVC)
+                faceIdVC.modalPresentationStyle = .overFullScreen
+                if let sheet = faceIdVC.sheetPresentationController {
+                    sheet.prefersGrabberVisible = true
+                }
+                guard let topVC = faceIdVC.topMostViewController() else { return }
+                topVC.present(faceIdVC, animated: true, completion: nil)
+            }
+            
+        }
     }
     
     private func callCollectionViewAtStart() {
@@ -201,12 +192,7 @@ class AccountsViewController: BaseViewController {
             }
         }
     }
-    
-//    @IBAction func createNewAccount_action(_ sender: Any) {
-//        let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//    }
-    
+
     @IBAction func showHideBalance(_ sender: Any) {
         balanceShowHide()
     }
@@ -230,6 +216,7 @@ class AccountsViewController: BaseViewController {
         // Toggle the button icon
         btn_balanceShowHide.setImage(isBalanceHidden ? UIImage(systemName: "eye.slash") : UIImage(systemName: "eye"), for: .normal)
     }
+    
     func accountData() {
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
@@ -260,9 +247,6 @@ class AccountsViewController: BaseViewController {
     }
     
     func dashboardDatainit() {
-        
-        //        NotificationCenter.default.addObserver(self, selector: #selector(self.MetaTraderLogin(_:)), name: NSNotification.Name(rawValue: NotificationObserver.Constants.MetaTraderLoginConstant.key), object: nil)
-//        if GlobalVariable.instance.isAccountCreated { //MARK: - if account is already created.
             view_topHeader.isHidden = false
             //            view_depositWithdraw.isHidden = false
             btn_creat.isHidden = false
@@ -274,23 +258,9 @@ class AccountsViewController: BaseViewController {
             self.tblView.isHidden = false
             self.tradeTypeCollectionView.isHidden = false
             tblView.registerCells([
-                /*AccountTableViewCell.self, TradeTypeTableViewCell.self, */Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
+               Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
             ])
-//        } else { //MARK: - if no account exist.
-            //            view_topHeader.isHidden = true
-            //            btn_creat.isHidden = true
-            //            btn_deposit.isHidden = true
-            //            btn_details.isHidden = true
-            //            btn_history.isHidden = true
-            //            btn_withdraw.isHidden = true
-            //            //            view_depositWithdraw.isHidden = true
-            ////            view_CreateNewAcct.isHidden = false
-            //            self.tblView.isHidden = true
-            //            self.tradeTypeCollectionView.isHidden = true
-            //            tblView.registerCells([
-            //                /*CreateAccountTVCell.self, TradeTypeTableViewCell.self, CreateAccountTVCell.self*/ Total_PLCell.self, TransactionCell.self, PendingOrderCell.self, CloseOrderCell.self, EmptyCell.self
-            //            ])
-//        }
+
         // Retrieve the data from UserDefaults
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
@@ -298,8 +268,7 @@ class AccountsViewController: BaseViewController {
             
             if let profileStep1 = savedUserData["profileStep"] as? Int{
                 profileStep = profileStep1
-                //                GlobalVariable.instance.isAccountCreated = isCreateDemoAccount
-                
+               
             }
         }
         
@@ -414,6 +383,7 @@ class AccountsViewController: BaseViewController {
         }
     }
     @IBAction func createAcoountAction(_ sender: Any) {
+      
         if GlobalVariable.instance.guestAccount {
             
             Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
@@ -424,8 +394,11 @@ class AccountsViewController: BaseViewController {
             }
             
         }else{
+           
             let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
             //        vc.newAccoutDelegate = self
+            vc.userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
+            
             vc.dismissDelegate = self
             vc.accountDismisalProtocol = self
             PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
@@ -1137,7 +1110,7 @@ extension AccountsViewController: GetSocketMessages {
                         var profitLoss = Double()
                         var roundValue = String()
                         
-                        //                        GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
+                        //GlobalVariable.instance.myProfitLossForOpenSymbolList.removeAll()
                         
                         //MARK: - Get All Matched Symbols data and Set accordingly.
                         if openData.count != 0 {

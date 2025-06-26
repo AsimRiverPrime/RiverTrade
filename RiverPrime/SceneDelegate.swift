@@ -34,14 +34,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         //MARK: - App credential initialization.
-        fireStoreInstance.fetchCredentialData(completion: { credential in
-            if let credential = credential {
-                print("Fetched credential for user: \(credential.user) \t \(credential)")
-                self.odoObject.authenticate()
-            } else {
-                print("Failed to fetch credential.")
+        // Sign in anonymously first
+        Auth.auth().signInAnonymously { authResult, error in
+            if let error = error {
+                print("Anonymous auth failed: \(error.localizedDescription)")
+                return
             }
-        })
+            
+            print("Anonymous sign-in successful")
+            
+            self.fireStoreInstance.fetchCredentialData(completion: { credential in
+                if let credential = credential {
+                    print("Fetched credential for user: \(credential.user) \t \(credential)")
+                    self.odoObject.authenticate()
+                } else {
+                    print("Failed to fetch credential.")
+                }
+            })
+        }
         GlobalVariable.instance.isAppLunch = false
         splash(scene: scene)
       
