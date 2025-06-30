@@ -332,6 +332,11 @@ extension HomeTabbarViewController {
         GlobalVariable.instance.tradeCollectionViewIndex.1.removeAll()
         
         if GlobalVariable.instance.guestAccount {
+            GlobalVariable.instance.openSymbolList.removeAll()
+            GlobalVariable.instance.openList.removeAll()
+            
+            NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
+            
             self.webSocketManager.connectWebSocket()
             self.webSocketManager.delegateSocketData = self
             self.webSocketManager.delegateSocketConnectionInit = self
