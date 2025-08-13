@@ -68,12 +68,13 @@ class PhoneVerifyVC: BaseViewController{
     
     @IBAction func closeBtn_action1(_ sender: Any) {
 
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.popViewController(animated: true)
          
          // Change to tab index 0
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
              self.tabBarController?.selectedIndex = 0
          }
+        
     }
     
     @IBAction func confirmBtnAction(_ sender: Any) {

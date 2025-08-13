@@ -204,7 +204,7 @@ class CreateAccountTypeVC: BottomSheetController {
         } else {
             odooClientService.createAccount(
                 phone: isReal ? (phone ?? "") : "",
-                group: group,
+                group: demoAccountGroup,
                 email: userEmail,
                 currency: currencyCode,
                 leverage: 400,
@@ -325,7 +325,7 @@ class CreateAccountTypeVC: BottomSheetController {
 //                        NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
 //                        self.dismiss(animated: true)
                         
-//                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
+                        let forKYC = UIStoryboard(name: "Dashboard", bundle: nil).instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController
 //                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: forKYC!)
                     }else{
                         GlobalVariable.instance.realAccount = false

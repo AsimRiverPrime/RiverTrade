@@ -139,7 +139,7 @@ class KYCViewController: BaseViewController {
             ]
         ]
         
-        print("---Final Request for Shufti---: \(dataDictionary)")
+        print("\n---Final Request for Shufti---:\n \(dataDictionary)\n")
         
         
         shufti.shuftiProVerification(requestObject: dataDictionary, authKeys: authKeyss, parentVC: self, configs: configsss) {(result) in
@@ -246,14 +246,15 @@ class KYCViewController: BaseViewController {
                 let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
                         NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
                         //move to account VC
-                    let vc = Utilities.shared.getViewController(identifier: .accountsViewController, storyboardType: .dashboard) as! AccountsViewController
-                        self?.navigate(to: vc)
+//                    let vc = Utilities.shared.getViewController(identifier: .accountsViewController, storyboardType: .dashboard) as! AccountsViewController
+//                        self?.navigate(to: vc)
                     
-//                    self.navigationController.popToRootViewController(animated: true)
-//                     // Change to tab index 0
-//                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                         self.tabBarController?.selectedIndex = 0
-//                     }
+                    self?.navigationController?.popToRootViewController(animated: true)
+                     // Change to tab index 0
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                         self?.tabBarController?.selectedIndex = 0
+                     }
+                    
                 }
             }
         }

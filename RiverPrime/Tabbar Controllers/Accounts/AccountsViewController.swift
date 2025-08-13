@@ -465,15 +465,15 @@ extension AccountsViewController {
                 view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
             }else{
                     
-                let balancePercent = ((Double(ammount) ?? 0.0) - totalDeposit) / totalDeposit * 100 // change with starting balance when account first deposit occure
+                let balancePercent = ((Double(ammount) ?? 0.0) - totalDeposit) / totalDeposit * 100
                 self.lbl_amountPercent.text = "\(balancePercent)".trimmedTrailingZeros() + "%"
                 
                 if balancePercent > 0.0 {
                     view_percentage.backgroundColor = UIColor(red: 43.0/255.0, green: 96.0/255.0, blue: 56.0/255.0, alpha: 1.0)
-                    //                    self.lbl_amountPercent.textColor = .white // UIColor(red: 80.0/255.0, green: 205.0/255.0, blue: 136.0/255.0, alpha: 1.0)
+           
                 }else if balancePercent < 0.0{
                     view_percentage.backgroundColor = UIColor(red: 1, green: 38.0/255.0, blue: 0.0, alpha: 0.35)
-                    //                    self.lbl_amountPercent.textColor = .white
+                  
                 }else{
                     view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
                 }
