@@ -88,8 +88,7 @@ class DepositViewController: BaseViewController {
             }
         
             
-            odooClientService.SearchRecord(email: userEmail) { data, error in
-//                    print("CRM user data is: \(String(describing: data)) : error is: \(String(describing: error))")
+            odooClientService.SearchRequest(email: userEmail) { data, error in
                 }
            
         }

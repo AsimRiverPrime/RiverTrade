@@ -40,7 +40,7 @@ class SelectAccountTypeVC: BottomSheetController {
     var getbalanceApi = TradeTypeCellVM()
     var metaTraderType: MetaTraderType? = .None
 
-//    var loginID = Int()
+    var loginID = Int()
 //    var createDemoAccount = String()
 //    var realAccount = String()
 //    var accountType = String()
@@ -60,6 +60,9 @@ class SelectAccountTypeVC: BottomSheetController {
     let passwordManager = PasswordManager()
     
     var userID = String()
+    var isDemo = Bool()
+    
+    let webSocketManager = WebSocketManager.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,9 +144,11 @@ class SelectAccountTypeVC: BottomSheetController {
         if savedList.contains(where: { $0.value["isReal"] as? Int == 1 && $0.value["isDefault"] as? Int == 1 }) {
             currentData = realData
             updateButtonStyles(selectedButton: realButton)
+            isDemo = false
         }else{
             currentData = demoData
             updateButtonStyles(selectedButton: demoButton)
+            isDemo = true
         }
        
         if demoData.count == 0 {
@@ -236,9 +241,6 @@ class SelectAccountTypeVC: BottomSheetController {
     }
     
     @IBAction func createAccount(_ sender: Any) {
-//        self.dismiss(animated: true)
-
-//        dismissDelegate?.presentNextBottomSheet(screen: .selectAccountType, AccountReal: AccountReal, accounts: [], index: 0)
        
         var isLimitReached = Bool()
         
@@ -330,9 +332,18 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
             cell.btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            
+            if let accountReal = selectedAccount["isReal"] as? Int {
+                if accountReal == 0 {
+                    self?.isDemo = true
+                }else{
+                    self?.isDemo = false
+                }
+            }
+            
             if let accountNumber = selectedAccount["accountNumber"] as? Int {
-                didTapButton(accountNumber: accountNumber)
+                self?.didTapButton(accountNumber: accountNumber)
             }
         }
     }
@@ -350,30 +361,100 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
         // Check if the accountNumber exists in the dictionary
         if let password = allPasswords[accountNumberKey] {
             print("Account found with password: \(password)")
- 
-            getbalanceApi.loginForPassword(loginID: accountNumber, pass: password, completion: { response in
-                print("the login to meta Trader account response is: \(response)")
-                self.firestoreObject.updateDefaultAccount(for: "\(accountNumber)", userId: self.userID){ [weak self] error in
-                    guard let self = self else { return }
-                    
-                    if let error = error {
-                        print("Error updating default account: \(error.localizedDescription)")
-                        return
+            if password != "" {
+                getbalanceApi.loginForPassword(loginID: accountNumber, pass: password, isDemo: isDemo, completion: { response in
+                    print("the login to meta Trader account response is: \(response)")
+                    self.firestoreObject.updateDefaultAccount(for: "\(accountNumber)", userId: self.userID){ [weak self] error in
+                        guard let self = self else { return }
+                        
+                        if let error = error {
+                            print("Error updating default account: \(error.localizedDescription)")
+                            return
+                        }
+                        print("\n updating isDefault account success: ")
+                        
+                        self.metaTraderType = .Balance
+                        
+                        // MARK: - NEW LOGIC: Separate data based on server_id
+                        GlobalVariable.instance.separateSymbolsByServerId(Session.instance.bothSymbols ?? [])
+                        
+//                        if AccountReal {
+//                            if AccountReal == isDemo { //Change socket.
+//                                print("Change socket.")
+//                                updateSocket(isReal: true)
+//                            } else {
+//                                print("No Change socket.")
+//                            }
+//                        } else {
+//                            if AccountReal == isDemo { //Change socket.
+//                                print("Change socket.")
+//                                updateSocket(isReal: false)
+//                            } else {
+//                                print("No Change socket.")
+//                            }
+//                        }
+                        
+                        if AccountReal {
+                            print("Change socket to Live.")
+                            updateSocket(isReal: true)
+                        }else{
+                            print("Change socket to Demo.")
+                            updateSocket(isReal: false)
+                        }
+                        
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                        
+                        self.dismiss(animated: true, completion: nil)
+                        self.accountDismisalProtocol?.accountDismisal()
+                        
                     }
-                    print("\n updating isDefault account success: ")
-                   
-                    self.metaTraderType = .Balance
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
-                    
-                    self.dismiss(animated: true, completion: nil)
-                 
-                    self.accountDismisalProtocol?.accountDismisal()
-                   
-                }
-            })
+                })
+            }else{
+                print("Account not found. Navigating to login screen.")
+                self.loginID = accountNumber
+                showPopup()
+            }
         } else {
             print("Account not found. Navigating to login screen.")
-  
+            self.loginID = accountNumber
+            showPopup()
+           
+        }
+    }
+    
+    private func updateSocket(isReal: Bool) {
+        //MARK: - Disconnect web socket.
+        self.webSocketManager.DisconnectWebSocket()
+        if isReal {
+            //MARK: - //MARK: - Connect web socket.
+            self.webSocketManager.connectWebSocket(socketURLType:  .live)
+        } else {
+            //MARK: - //MARK: - Connect web socket.
+            self.webSocketManager.connectWebSocket(socketURLType:  .demo)
+        }
+    }
+}
+
+extension SelectAccountTypeVC {
+    func showPopup() {
+        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+        if let popupVC = storyboard.instantiateViewController(withIdentifier: "LoginPopupVC") as? LoginPopupVC {
+            // Set modal presentation style
+            popupVC.loginId = self.loginID
+            popupVC.userID = self.userID
+           
+            popupVC.isDemo = !self.AccountReal
+            popupVC.modalPresentationStyle = .overFullScreen
+            popupVC.view.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+            popupVC.view.alpha = 0
+            // Optional: Set modal transition style (this is for animation)
+            popupVC.modalTransitionStyle = .crossDissolve
+            popupVC.metaTraderType = .Balance
+            
+            // Present the popup
+//            SCENE_DELEGATE.window?.rootViewController?.present(popupVC, animated: true)
+            self.present(popupVC, animated: true, completion: nil)
         }
     }
 }

@@ -42,7 +42,7 @@ class TradeVM {
     let pass = UserDefaults.standard.string(forKey: "password")
     var email = ""
     var loginId = 0
-    
+    var isDemo = Bool()
     
      let webSocketManager = WebSocketManager.shared
     
@@ -98,8 +98,6 @@ extension TradeVM {
         }else{
             print("the count is finished")
         }
-
-      
     }
     
 }
@@ -154,6 +152,7 @@ extension TradeVM {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            isDemo = !defaultAccount.isReal
         }
         
         let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
@@ -174,7 +173,8 @@ extension TradeVM {
                         email,                     // Email
                         symbol,                   // Symbol
                         hourBeforeTimestamp,      // Start time
-                        currentTimestamp          // End time
+                        currentTimestamp,          // End time
+                        isDemo
                     ]
                 ]
             ]

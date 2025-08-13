@@ -19,6 +19,7 @@ class TradeTypeCellVM {
     let pass = UserDefaults.standard.string(forKey: "password")
     var email = ""
     var loginId = 0
+    var isDemo = Bool()
     
     func positionClosed(symbol: String, type: Int, volume: Double, price: Int, position: Int, completion: @escaping (String) -> Void) {
         // Retrieve the data from UserDefaults
@@ -31,6 +32,7 @@ class TradeTypeCellVM {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //            //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            isDemo = !defaultAccount.isReal
         }
         
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) ")
@@ -55,7 +57,8 @@ class TradeTypeCellVM {
                         type,
                         volume,
                         price,
-                        position
+                        position,
+                        isDemo
                     ]
                 ]
             ]
@@ -113,6 +116,7 @@ class TradeTypeCellVM {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            isDemo = !defaultAccount.isReal
         }
         print("/n uid: \(uid) \t email: \(email) \t pass: \(pass ?? "")) \t loginID: \(loginId) \t  position: \(position) \t takeProfit: \(takeProfit) \t stoploss: \(stopLoss)")
         
@@ -134,7 +138,8 @@ class TradeTypeCellVM {
                         pass ?? "",
                         position,
                         takeProfit,
-                        stopLoss
+                        stopLoss,
+                        isDemo
                     ]
                 ]
             ]
@@ -210,7 +215,8 @@ class TradeTypeCellVM {
                         email,
                         loginId,
                         pass ?? "",
-                        order_Id
+                        order_Id,
+                        isDemo
                     ]
                 ]
             ]
@@ -281,7 +287,8 @@ class TradeTypeCellVM {
                         email,
                         loginId,
                         pass ?? "",
-                        order_Id
+                        order_Id,
+                        isDemo
                     ]
                 ]
             ]
@@ -324,7 +331,7 @@ class TradeTypeCellVM {
         }
     }
     
-    func loginForPassword (loginID: Int, pass: String, completion: @escaping (String) -> Void) {
+    func loginForPassword(loginID: Int, pass: String, isDemo: Bool, completion: @escaping (String) -> Void) {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
@@ -332,11 +339,6 @@ class TradeTypeCellVM {
                 
             }
         }
-        //        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-        //            //print("\n Default Account User: \(defaultAccount)")
-        //            if
-        //            loginId = defaultAccount.accountNumber
-        //        }
         
         let params: [String: Any] = [
             "jsonrpc": "2.0",
@@ -353,14 +355,15 @@ class TradeTypeCellVM {
                         [],
                         email,
                         loginID,
-                        pass
+                        pass,
+                        isDemo
                         
                     ]
                 ]
             ]
         ]
         
-        print("params is: \(params)")
+        print("Login params is: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
@@ -397,17 +400,19 @@ class TradeTypeCellVM {
     
     func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
         var pass = UserDefaults.standard.string(forKey: "password")
+      
+        
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String/*, let _pass = savedUserData["password"] as? String*/ {
+            if let _email = savedUserData["email"] as? String {
                 email = _email
             }
         }
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User in get user balance: \(defaultAccount)")
+            print("\n Default Account User in get user balance api: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
             pass = defaultAccount.password
-            
+            isDemo = !defaultAccount.isReal
         }
       
         
@@ -426,7 +431,8 @@ class TradeTypeCellVM {
                         [],
                         email,
                         loginId,
-                        pass ?? ""
+                        pass ?? "",
+                        isDemo
                     ]
                 ]
             ]
@@ -448,105 +454,18 @@ class TradeTypeCellVM {
                     // Pass the decoded model to the completion handler
                     completion(.success(decodedResponse))
                 } catch {
-                    print("Decoding error: \(error.localizedDescription)")
+                    print("Balance API Decoding error: \(error.localizedDescription)")
                     completion(.failure(error))
 //                    completion("0.0")
                 }
             case .failure(let error):
-                print("API call error: \(error.localizedDescription)")
+                print("Balance API call error: \(error.localizedDescription)")
                 completion(.failure(error))
 //                completion("0.0")
             }
         }
     }
     
-//    func getBalance(completion: @escaping (String) -> Void) {
-//        var pass = UserDefaults.standard.string(forKey: "password")
-//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-//            if let _email = savedUserData["email"] as? String {
-//                email = _email
-//            }
-//        }
-//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//            //print("\n Default Account User: \(defaultAccount)")
-//            loginId = defaultAccount.accountNumber
-//            pass = defaultAccount.password
-//        }
-//        
-//        if (pass == nil || pass == "" ) && GlobalVariable.instance.isAccountCreated {
-//            //            showPopup()
-//            return
-//        }else{
-//            print("the MT login password is: \(pass ?? "")")
-//        }
-//        
-//        let params: [String: Any] = [
-//            "jsonrpc": "2.0",
-//            "params": [
-//                "service": "object",
-//                "method": "execute_kw",
-//                "args": [
-//                    odooClientService.dataBaseName,
-//                    uid,
-//                    odooClientService.dbPassword,
-//                    "mt.middleware",
-//                    "get_user",
-//                    [
-//                        [],
-//                        email,
-//                        loginId,
-//                        pass ?? ""
-//                        
-//                    ]
-//                ]
-//            ]
-//        ]
-//        print("\n get balance params is: \(params)")
-//        
-//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: true) { result in
-//            switch result {
-//                
-//            case .success(let value):
-//                print("------->>>>get user MT balance value for loginID:\(self.loginId): \(value)")
-//                do {
-//                    // Decode the response
-//                    if let json = value as? [String: Any],
-//                       let result = json["result"] as? [String: Any], // Result is a dictionary, not an array
-//                       let success = result["success"] as? Int, // Success and balance are inside "result" ,
-//                       
-//                        let user_detail = result["user"] as? [String: Any],
-//                       let balance_get = user_detail["balance"] as? Double {
-//                        
-//                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-//                        print("jsonData for user MT balance: \(String(data: jsonData, encoding: .utf8) ?? "")")
-//                        
-//                        if success == 1 {
-//                            // Return the balance value in the completion handler
-//                            completion("\(balance_get)")
-//                            print("\n !!!balance update sucess!!!!\n")
-//                        } else {
-//                            // Handle the case where success is not 1
-////                            completion("No balance Found")
-//                            completion("0.0")
-//                        }
-//                        
-//                    } else {
-//                        print("Error: Invalid JSON structure")
-//                        completion("Invalid Response")
-//                        
-//                    }
-//                } catch {
-//                    print("Error decoding response: \(error)")
-////                    completion("Error: \(error.localizedDescription)")
-//                    completion("0.0")
-//                }
-//            case .failure(let error):
-//                print("Request failed with error: \(error)")
-////                completion("\(error)")
-//                completion("0.0")
-//            }
-//        }
-//    }
     
     func OPCApi(index: Int, fromDate: Int? = nil, toDate: Int? = nil, isHistory: Bool = false, completion: @escaping ([OpenModel]?, [PendingModel]?, [NewCloseModel]?, Error?) -> Void) {
         
@@ -563,6 +482,7 @@ class TradeTypeCellVM {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
+            isDemo = !defaultAccount.isReal
         }
         
         if index == 0 {
@@ -581,7 +501,8 @@ class TradeTypeCellVM {
                         [
                             [],
                             email,
-                            loginId
+                            loginId,
+                            isDemo
                         ]
                     ]
                 ]
@@ -601,8 +522,9 @@ class TradeTypeCellVM {
                         "get_orders",
                         [
                             [],
-                            email, //"asimprime900@gmail.com",
-                            loginId //1012576
+                            email,
+                            loginId,
+                            isDemo
                         ]
                     ]
                 ]
@@ -633,8 +555,8 @@ class TradeTypeCellVM {
                             email,
                             loginId,
                             fromDate ?? 0, // to previous
-                            toDate ?? newTimestampInSeconds  // from current
-                            
+                            toDate ?? newTimestampInSeconds, // from current
+                            isDemo
                         ]
                     ]
                 ]

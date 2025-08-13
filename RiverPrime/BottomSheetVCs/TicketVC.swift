@@ -130,6 +130,8 @@ class TicketVC: BottomSheetController {
     var previousStopLossType: String = "Loss in Price"
     var previousTakeProfitType: String = "Profit in Price"
     
+    var isDemo = Bool()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         lbl_title.text = titleString + " Ticket"
@@ -199,6 +201,7 @@ class TicketVC: BottomSheetController {
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             self.userLoginID = defaultAccount.accountNumber
+            isDemo = !defaultAccount.isReal
         }
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
@@ -689,13 +692,13 @@ class TicketVC: BottomSheetController {
             selectedSymbol! += "."
         }
         
-        createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, comment: "comment testing")
+        createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, is_demo: isDemo, comment: "comment testing")
     }
 }
 
 extension TicketVC {
     
-    func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int, comment: String) {
+    func createOrder(email: String, loginID: Int, password: String, symbol: String, type: Int, volume: Double, price: Double, stop_loss: Double, take_profit: Double, digits: Int, digits_currency: Int, contract_size: Int,is_demo: Bool, comment: String) {
         ActivityIndicator.shared.show(in: self.view, style: .large)
              
             
@@ -745,6 +748,7 @@ extension TicketVC {
                         digits,
                         digits_currency,
                         contract_size,
+                        is_demo,
                         comment
                     ]
                 ]

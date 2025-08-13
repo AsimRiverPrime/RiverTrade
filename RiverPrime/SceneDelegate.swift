@@ -35,23 +35,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //MARK: - App credential initialization.
         // Sign in anonymously first
-        Auth.auth().signInAnonymously { authResult, error in
-            if let error = error {
-                print("Anonymous auth failed: \(error.localizedDescription)")
-                return
-            }
-            
-            print("Anonymous sign-in successful")
-            
-            self.fireStoreInstance.fetchCredentialData(completion: { credential in
-                if let credential = credential {
-                    print("Fetched credential for user: \(credential.user) \t \(credential)")
-                    self.odoObject.authenticate()
-                } else {
-                    print("Failed to fetch credential.")
-                }
-            })
-        }
+//        Auth.auth().signInAnonymously { authResult, error in
+//            if let error = error {
+//                print("Anonymous auth failed: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            print("Anonymous sign-in successful")
+//            
+//            self.fireStoreInstance.fetchCredentialData(completion: { credential in
+//                if let credential = credential {
+//                    print("Fetched credential for user: \(credential.user) \t \(credential)")
+//                    self.odoObject.authenticate()
+//                } else {
+//                    print("Failed to fetch credential.")
+//                }
+//            })
+//        }
+        
+        self.odoObject.authenticate()
         GlobalVariable.instance.isAppLunch = false
         splash(scene: scene)
       
@@ -103,7 +105,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to undo the changes made on entering the background.
         
         //MARK: - //MARK: - Connect web socket.
-        self.webSocketManager.connectWebSocket()
+        self.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n Handle saved User Data for navigation : \(data)")

@@ -20,6 +20,7 @@ class FirestoreServices: BaseViewController {
     var odoClientNew = OdooClientNew()
     var accountsMT: [AccountModel] = []
 //    var crmCredientals: [CrmCredentialsModel] = []
+    var userNotFound: (() -> Void)?
     
     func addUser(_ user: UserModel, completion: @escaping (Error?) -> Void) {
         let userRef = db.collection("users").document(user.uid)
@@ -119,26 +120,6 @@ class FirestoreServices: BaseViewController {
             }
         }
     }
-//    func fetchUserData(userId: String) {
-//        UserDefaults.standard.set(userId, forKey: "userID")
-//        print("fetch user ID is: \(userId)")
-//        
-//        let docRef = db.collection("users").document(userId)
-//        
-//        docRef.getDocument { (document, error) in
-//            if let document = document, document.exists {
-//                
-//                if let data = document.data() {
-//                    
-//                    print("\n fetch User data is: \(data)")
-//                    UserDefaults.standard.set(data, forKey: "userData")
-//                }
-//            } else {
-//                print("User document does not exist: \(error?.localizedDescription ?? "Unknown error")")
-//                
-//            }
-//        }
-//    }
     
     func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
         print("\n User ID for fetchUserAccountsData: \(userId)")
@@ -154,6 +135,7 @@ class FirestoreServices: BaseViewController {
             guard let documents = querySnapshot?.documents, !documents.isEmpty else {
                 print("No user accounts found for the given userID.: \(userId)")
                 GlobalVariable.instance.isAccountCreated = false
+                self.userNotFound?()
                 return
             }
             
@@ -187,124 +169,25 @@ class FirestoreServices: BaseViewController {
                 
                 userAccountsData[documentId] = filteredData
             }
-            
-            print("\n All User Accounts (filtered): \(userAccountsData)")
-            
+                        
             // Save the filtered data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
-            print("\n Combined User Accounts data saved: \(userAccountsData)")
+            print("\n All User MT Accounts saved: \(userAccountsData)")
             
             // Update accounts
             UserAccountManager.shared.updateAccounts(from: userAccountsData)
             
             // Retrieve and print the default account
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-                print("\n Default user Account : \(defaultAccount)")
+                print("\n Default user Account in fetchuserAccountFunction : \(defaultAccount)")
                 UserDefaults.standard.set(defaultAccount.password, forKey: "password")
+               
             }
             
             GlobalVariable.instance.isAccountCreated = !userAccountsData.isEmpty
             completion()
         }
     }
-//    func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
-//        // Save userID in UserDefaults
-//        
-//        print("\n User ID for fetchUserAccountsData: \(userId)")
-//        
-//        // Firestore query with `where` clause
-//        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
-//        
-//        query.getDocuments { (querySnapshot, error) in
-//            if let error = error {
-//                print("Error fetching user accounts: \(error.localizedDescription)")
-//                return
-//            }
-//            
-//            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
-//                print("No user accounts found for the given userID.: \(userId)")
-//                GlobalVariable.instance.isAccountCreated = false
-//                return
-//            }
-//            
-//            var userAccountsData = [String: [String: Any]]() // Dictionary to store all documents' data
-//            
-//            for document in documents {
-//                let documentId = document.documentID
-//                let data = document.data()
-//                userAccountsData[documentId] = data
-//            }
-//            print("\n All User Accounts\(userAccountsData)")
-//            // Save the combined data in UserDefaults
-//            UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
-//            print("\n Combined User Accounts data saved: \(userAccountsData)")
-//            
-//            
-//            // Update accounts
-//            UserAccountManager.shared.updateAccounts(from: userAccountsData)
-//            
-//            // Retrieve and print the default account
-//            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-//                print("\n Default user Account : \(defaultAccount)")
-//                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
-//            }
-//            
-//            if userAccountsData.count == 0 {
-//                GlobalVariable.instance.isAccountCreated = false
-//            }else{
-//                GlobalVariable.instance.isAccountCreated = true
-//            }
-//            completion()
-//        }
-//    }
-    
-    func fetchCredentialData( completion: @escaping (CrmCredentialsModel?) -> Void) {
-        db.collection("crm").whereField("isAndroid", isEqualTo: false).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error crm crediental fetching document: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-
-            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
-                          print("No iOS documents found")
-                          completion(nil)
-                          return
-                      }
-            let data = documents[0].data()
-
-            guard
-                let user = data["U"] as? String,
-                let socketURL = data["SOCKET_URL"] as? String,
-                let predictionSocketURL = data["PREDICTION_SOCKET_URL"] as? String,
-                let baseURL = data["BASE_URL"] as? String,
-                let isAndroid = data["isAndroid"] as? Bool,
-                let password = data["P"] as? String,
-                let domain = data["D"] as? String
-            else {
-                print("Invalid data format in document:")
-                completion(nil)
-                return
-            }
-
-            let account = CrmCredentialsModel(
-                user: user,
-                socketURL: socketURL,
-                predictionSocketURL: predictionSocketURL,
-                baseURL: baseURL,
-                isAndroid: isAndroid,
-                password: password,
-                domain: domain
-            )
-
-            Session.instance.crmCredentials = account
-            completion(account)
-        }
-    }
-
-
-
-    
     
     func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
         db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
@@ -381,6 +264,80 @@ class FirestoreServices: BaseViewController {
         userRef.setData(fields, completion: completion)
     }
     
+    func updatePassword(for accountKey: String, userId: String, newPassword: String, completion: @escaping (Error?) -> Void) {
+        print("Updating password for accountKey: \(accountKey), userId: \(userId)")
+        
+        // Retrieve accounts from UserDefaults
+        guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
+            print("No accounts found in UserDefaults. Fetching data...")
+            fetchUserAccountsData(userId: userId) {
+                self.updatePassword(for: accountKey, userId: userId, newPassword: newPassword, completion: completion)
+            }
+            return
+        }
+        
+        print("accountsDict values: \(accountsDict)")
+        
+        var updated = false
+        
+        // Update only the matching account in UserDefaults
+        for (key, var accountData) in accountsDict {
+            if let accountUserID = accountData["userID"] as? String,
+               let accountNumber = accountData["accountNumber"] as? Int,
+               accountUserID == userId,
+               accountNumber == Int(accountKey) {
+                
+                accountData["password"] = newPassword
+                accountsDict[key] = accountData
+                updated = true
+                print("✅ Updated password in UserDefaults for accountKey: \(accountKey)")
+                break // stop after finding the match
+            }
+        }
+        
+        guard updated else {
+            print("⚠️ No matching account found for accountKey: \(accountKey), userId: \(userId)")
+            completion(nil)
+            return
+        }
+        
+        // Save updated accounts back to UserDefaults
+        UserDefaults.standard.set(accountsDict, forKey: "userAccountsData")
+        UserDefaults.standard.synchronize()
+        
+        // Update password in Firebase only for the matching account
+        let batch = self.db.batch()
+        
+        for (key, account) in accountsDict {
+            if let accountUserID = account["userID"] as? String,
+               let accountNumber = account["accountNumber"] as? Int,
+               accountUserID == userId,
+               accountNumber == Int(accountKey) {
+                
+                let password = account["password"] as? String ?? "0"
+                print("Setting password in Firebase for accountKey \(key): \(password)")
+                let docRef = self.db.collection("userAccounts").document(key)
+                batch.setData(["password": password], forDocument: docRef, merge: true)
+                break // stop after matching
+            }
+        }
+        
+        // Commit the batch
+        batch.commit { error in
+            if let error = error {
+                print("❌ Error updating password in Firebase: \(error.localizedDescription)")
+                completion(error)
+            } else {
+                print("✅ Password updated successfully in Firebase")
+                self.fetchUserAccountsData(userId: userId) {
+                    completion(nil)
+                }
+            }
+        }
+    }
+
+
+    
     func updateDefaultAccount(for accountKey: String, userId: String, completion: @escaping (Error?) -> Void) {
         print("Updating default account for accountKey: \(accountKey), userId: \(userId)")
         
@@ -439,44 +396,6 @@ class FirestoreServices: BaseViewController {
                     completion(nil)
                 }
                 
-            }
-        }
-    }
-    
-    
-    func deleteAllUserAccounts(for userId: String, completion: @escaping (Error?) -> Void) {
-        let userAccountsCollection = db.collection("userAccounts")
-        
-        // Query documents where userID matches the specified value
-        userAccountsCollection.whereField("userID", isEqualTo: userId).getDocuments { querySnapshot, error in
-            if let error = error {
-                print("Error fetching user accounts: \(error.localizedDescription)")
-                completion(error)
-                return
-            }
-            
-            guard let documents = querySnapshot?.documents else {
-                print("No user accounts found for userID: \(userId)")
-                completion(nil)
-                return
-            }
-            
-            // Delete each document
-            let dispatchGroup = DispatchGroup()
-            for document in documents {
-                dispatchGroup.enter()
-                document.reference.delete { error in
-                    if let error = error {
-                        print("Error deleting document: \(error.localizedDescription)")
-                    }
-                    dispatchGroup.leave()
-                }
-            }
-            
-            // Notify when all deletions are completed
-            dispatchGroup.notify(queue: .main) {
-                print("All user accounts deleted for userID: \(userId)")
-                completion(nil)
             }
         }
     }

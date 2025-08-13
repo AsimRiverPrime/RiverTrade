@@ -7,99 +7,86 @@
 import Foundation
 import UIKit
 import TPKeyboardAvoiding
+import FirebaseCore
 import FirebaseAuth
 import FirebaseFirestore
-import GoogleSignIn
 import SVProgressHUD
 
-import AuthenticationServices
-import KeychainSwift
-import Firebase
-import CryptoKit
-
-class SignInViewController: BaseViewController {
+class SignInViewController: BaseViewController, UITextFieldDelegate {
     
-    @IBOutlet var bfView: UIView!
     @IBOutlet weak var username_tf: UITextField!{
         didSet{
-            username_tf.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
+            username_tf.setIcon(UIImage(imageLiteralResourceName: "emailIcon"))
             username_tf.tintColor = UIColor.lightGray
         }
     }
     
-    @IBOutlet weak var password_tf: UITextField!{
-        didSet{
-            password_tf.tintColor = UIColor.lightGray
-            password_tf.setIcon(UIImage(imageLiteralResourceName: "passwordIcon"))
-        }
-    }
-    
     @IBOutlet weak var lbl_emailCheck: UILabel!
-    @IBOutlet weak var lbl_passwordCheck: UILabel!
-    //    @IBOutlet weak var lbl_credientailCheck: UILabel!
-    @IBOutlet weak var btn_rememberMe: UIButton!
-    
     @IBOutlet weak var btn_submit: UIButton!
     
-    @IBOutlet weak var hideShowPassBtn: UIButton!
+    @IBOutlet weak var otp_view: CardView!
+    @IBOutlet weak var tf_firstNum: UITextField!
+    @IBOutlet weak var tf_SecondNum: UITextField!
+    @IBOutlet weak var tf_thirdNum: UITextField!
+    @IBOutlet weak var tf_fourthNum: UITextField!
+    @IBOutlet weak var tf_fivethNum: UITextField!
+    @IBOutlet weak var tf_sixthNum: UITextField!
+    
+    
+    @IBOutlet weak var resendCodeButton: UIButton!
+    @IBOutlet weak var label_errorCode: UILabel!
+    @IBOutlet weak var lbl_remainingTime: UILabel!
+   
+    var countdownTimer: Timer?
+    var remainingSeconds = 59
     
     var firebaseInstance = FirestoreServices()
     var viewModel = SignViewModel()
-    //    var signUpVC = SignUpViewController()
-    //    var odooClientService = OdooClient()
+//    var signUpVC = SignUpViewController()
+//    var odooClientService = OdooClient()
     var odoClientNew = OdooClientNew()
-    var googleSignIn = GoogleSignIn()
     var emailUser: String?
+      
+    var fireBaseUserData = [String: Any]()
     
-    var fromOpenAccount : Bool = false
-    var isGoogleLogin : Bool = false
-    var isAppleLogin : Bool = false
-    
-    let keychain = KeychainSwift()
+//    let keychain = KeychainSwift()
     let db = Firestore.firestore()
-    var _email : String?
+    
+    var _userID : String?
     var _fullName : String?
     var _password: String?
     
-    //    let passwordManager = PasswordManager()
-    fileprivate var currentNonce: String?
+//    let passwordManager = PasswordManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        otp_view.isHidden = true
         self.username_tf.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
-        self.password_tf.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
+    
+        self.label_errorCode.isHidden = true
         
-        //        enableLoginButton()
+        odoClientNew.otpDelegate = self
+        odoClientNew.verifyDelegate = self
+        
+        let textFields = [tf_firstNum, tf_SecondNum, tf_thirdNum, tf_fourthNum, tf_fivethNum, tf_sixthNum]
+        
+        for textField in textFields {
+            textField?.delegate = self
+            textField?.keyboardType = .numberPad
+            textField?.textAlignment = .center
+            textField?.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        }
         
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //        self.navigationController?.setNavigationBarHidden(true, animated: true)
         //MARK: - Show Navigation Bar
-        self.setNavBar(vc: self, isBackButton: true, isBar: true)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .splashScreen)
-        
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .black, barColor: .clear)
+     
     }
-    
-    //    private func enableLoginButton() {
-    //        if self.viewModel.isLoginFieldsValid(email: self.username_tf.text!, password: self.password_tf.text!) && self.username_tf.state.isEmpty && self.password_tf.state.isEmpty {
-    //            self.btn_submit.isEnabled = true
-    //            self.btn_submit.setTitleColor(UIColor(named: "white"), for: .normal)
-    //        } else {
-    //            self.btn_submit.isEnabled = false
-    //            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-    //        }
-    //
-    //        guard let email = username_tf.text, !email.isEmpty, let password = password_tf.text, !password.isEmpty else {
-    //            self.btn_submit.isEnabled = false
-    //            self.btn_submit.setTitleColor(UIColor(named: "lightGray"), for: .normal)
-    //            return
-    //           }
-    //    }
-    
+ 
     @objc func emailTextChanged(_ textField: UITextField) {
         if self.viewModel.isValidEmail(self.username_tf.text!) {
             self.lbl_emailCheck.isHidden = true
@@ -108,359 +95,567 @@ class SignInViewController: BaseViewController {
             self.lbl_emailCheck.text = "email is not correct"
             self.lbl_emailCheck.isHidden = false
         }
-        //        enableLoginButton()
+
     }
-    
-    @objc func passwordTextChanged(_ textField: UITextField) {
-        
-        if self.viewModel.isValidatePassword(password: self.password_tf.text!)  {
-            self.lbl_passwordCheck.isHidden = true
-        }else{
-            self.lbl_passwordCheck.isHidden = false
-            self.lbl_passwordCheck.text = "Password should be atleast 8 characters with one capital & one Special letter & one number."
-        }
-        //        enableLoginButton()
-    }
-    @IBAction func rememberMeBtn(_ sender: Any) {
-        self.btn_rememberMe.isSelected = !self.btn_rememberMe.isSelected
-        self.btn_rememberMe.setImage(!self.btn_rememberMe.isSelected ? UIImage(systemName: "circle") : UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-        self.btn_rememberMe.tintColor = self.btn_rememberMe.isSelected ? .systemYellow : .white
-    }
-    
-    @IBAction func passwordIconAction(_ sender: Any) {
-        self.password_tf.isSecureTextEntry = !self.password_tf.isSecureTextEntry
-        self.hideShowPassBtn.setImage(!self.password_tf.isSecureTextEntry ? UIImage(systemName: "eye") : UIImage(systemName: "eye.slash"), for: .normal)
-    }
-    
+
     @IBAction func submitBtn(_ sender: Any) {
+        SVProgressHUD.show()
+        guard let email = username_tf.text, !email.isEmpty  else {
+            lbl_emailCheck.text = "Please enter email."
+            lbl_emailCheck.isHidden = false
+            SVProgressHUD.dismiss()
+            return
+        }
         
-        login()
-    }
-    
-    @IBAction func signINGoogle_action(_ sender: Any) {
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
+        odoClientNew.SearchRecord(email: self.username_tf.text ?? "") { userFound, userData, error in
+            
             if let error = error {
-                print("Sign in failed: \(error.localizedDescription)")
+                print("Error checking user:", error)
+                self.ToastMessage("No user found with this email.")
                 return
             }
-            //            print("result user: \(result)")
-            guard let user1 = result?.user else { return }
-            SVProgressHUD.show()
-            
-            self?.authenticateGoogleWithFirebase(user: user1)
+
+            if userFound {
+                print("✅ User exists, sending OTP...")
+                self.btn_submit.isHidden = true
+                self.otp_view.isHidden = false
+                
+                self.fireBaseUserData = userData ?? [:]
+//                print("\n ---->the crm user data is saved for firebaseUser: \(self.fireBaseUserData)--->\n")
+               
+                self.odoClientNew.sendOTP(type: "email", email: self.username_tf.text ?? "", phone: "")
+            } else {
+                print("❌ User does not exist")
+                // Show alert or error to user
+              
+                self.ToastMessage("No user found with this email.")
+            }
         }
     }
     
-    @IBAction func appleSignIN_btnAction(_ sender: Any) {
-        
-        let nonce = randomNonceString()
-        currentNonce = nonce
-        let appleIDProvider = ASAuthorizationAppleIDProvider()
-        let request = appleIDProvider.createRequest()
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = sha256(nonce)
-        
-        let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-        authorizationController.delegate = self
-        authorizationController.presentationContextProvider = self
-        authorizationController.performRequests()
-        
+    @IBAction func verify_OTP(_ sender: Any) {
+        callApi()
     }
-    @IBAction func forgotBtn(_ sender: Any) {
-        if let forgotVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "ForgotViewController"){
-            self.navigate(to: forgotVC)
-        }
-    }
+    
     
     @IBAction func createAccountBtn(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
     
-    private func login() {
-        // Check if all text fields are filled
-        SVProgressHUD.show()
-        guard
-            let email = username_tf.text, !email.isEmpty
-        else {
-            lbl_emailCheck.text = "Please enter email."
-            lbl_emailCheck.isHidden = false
-            return
-        }
-        guard
-            let password = password_tf.text, !password.isEmpty
-        else {
-            lbl_passwordCheck.text = "Please enter password."
-            lbl_passwordCheck.isHidden = false
-            return
-        }
-        
-        // Use Firebase Authentication to sign in
-        Auth.auth().signIn(withEmail: username_tf.text!, password: password_tf.text!) { [weak self] authResult, error in
-            
-            let authres = authResult?.user.email
-            
-            if let error = error as NSError? {
-                if let authError = AuthErrorCode.Code(rawValue: error.code) {
-                    print("Error code: \(authError)")
-                    switch authError {
-                        
-                    case .invalidEmail:
-                        self?.lbl_emailCheck.text = "Please enter correct email."
-                        self?.lbl_emailCheck.isHidden = false
-                    case .wrongPassword:
-                        self?.lbl_passwordCheck.text = "Please enter correct password."
-                        self?.lbl_passwordCheck.isHidden = false
-                    case .userNotFound:
-                        self?.lbl_emailCheck.text = "No account found for this email."
-                        self?.lbl_emailCheck.isHidden = false
-                    default:
-                        self?.lbl_passwordCheck.text = "Please enter correct crediential."
-                        self?.lbl_passwordCheck.isHidden = false
-                        print("Error signing in: \(error.localizedDescription)")
-                        return
-                    }
-                }
-            }else{
-                self?.lbl_emailCheck.isHidden = true
-                self?.lbl_passwordCheck.isHidden = true
-                //                self?.lbl_credientailCheck.isHidden = true
-                print(" signing in successfully: \(authres ?? " no data")")
-                
-                if let userId = authResult?.user.uid {
-                    self?.firebaseInstance.fetchUserData(userId: userId)
-                    self?.firebaseInstance.fetchUserAccountsData(userId: userId, completion: {
-                        print("\n user account data fetch from SignIn through email ")
-                        
-                        let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
-                            print("Timer fired!")
-                            SVProgressHUD.dismiss()
-                            self?.firebaseInstance.handleUserData()
-                        }
-                        
-                    })
-                }
-            }
-        }
-    }
-    
-    func navigateToFaceID() {
+     func navigateToFaceID() {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let verifyVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
-        
+         let verifyVC = storyboard.instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
+      
         GlobalVariable.instance.userEmail = self.emailUser ?? ""
         
-        //        self.navigate(to: verifyVC)
-        verifyVC.modalPresentationStyle = .overFullScreen
-        if let sheet = verifyVC.sheetPresentationController {
-            sheet.prefersGrabberVisible = true
+        self.navigate(to: verifyVC)
+    }
+    
+    func navigateToSelectDefaultAccount() {
+        print("\n navigateToSelectDefaultAccount \n")
+        let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+        let selectDefaultVC = storyboard.instantiateViewController(withIdentifier: "SelectDefaultVC") as! SelectDefaultVC
+        selectDefaultVC.userID = _userID ?? ""
+        self.navigate(to: selectDefaultVC)
+   }
+    
+}
+
+extension SignInViewController{
+    func callApi(){
+        if ((getVerificationCode()?.isEmpty) == nil) {
+            print("please enter code")
+            label_errorCode.isHidden = false
+            return
+        }else{
+            label_errorCode.isHidden = true
+            odoClientNew.verifyOTP(type: "email", email: username_tf.text ?? "", phone: "", otp: getVerificationCode() ?? "" )
         }
-        guard let topVC = verifyVC.topMostViewController() else { return }
-        topVC.present(verifyVC, animated: true, completion: nil)
+    }
+    
+    @IBAction func resendCodeBtn(_ sender: Any) {
+        callMethodAfterDelay()
+//        resendCodeButton.isEnabled = false
+        
+        
+        //        resendCodeButton.setTitle("Resend in \(remainingSeconds) seconds", for: .disabled)
+        
+        // Start the countdown timer
+        startCountdown()
+        
+        // Call your method after 60 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 59) {
+            self.callMethodAfterDelay()
+        }
+    }
+    
+    func startCountdown() {
+        countdownTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateButtonTitle), userInfo: nil, repeats: true)
+    }
+    
+    // Method to update the button title each second
+    @objc func updateButtonTitle() {
+        remainingSeconds -= 1
+        if remainingSeconds >= 0 {
+            //            resendCodeButton.setTitle("Resend code in \(remainingSeconds) seconds", for: .disabled)
+            self.lbl_remainingTime.text = "00:\(remainingSeconds)"
+//            resendCodeButton.isEnabled = false
+            resendCodeButton.isUserInteractionEnabled = false
+        } else {
+        
+            countdownTimer?.invalidate()
+            countdownTimer = nil
+//            resendCodeButton.isEnabled = true
+            resendCodeButton.isUserInteractionEnabled = true
+            remainingSeconds = 59 // Reset the countdown time
+        }
+    }
+    
+    // Method to be called after the delay
+    func callMethodAfterDelay() {
+        // Add your method logic here
+        print("Method called after 25 Second")
+        
+        odoClientNew.sendOTP(type: "email", email: username_tf.text ?? "", phone: "")
+            
+        }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        guard let text = textField.text, text.count == 1 else { return }
+        
+        switch textField {
+        case tf_firstNum:
+            tf_SecondNum.becomeFirstResponder()
+        case tf_SecondNum:
+            tf_thirdNum.becomeFirstResponder()
+        case tf_thirdNum:
+            tf_fourthNum.becomeFirstResponder()
+        case tf_fourthNum:
+            tf_fivethNum.becomeFirstResponder()
+        case tf_fivethNum:
+            tf_sixthNum.becomeFirstResponder()
+        case tf_sixthNum:
+            tf_sixthNum.resignFirstResponder()
+            dismissKeyboard()
+            // Optionally, get the combined string when the user finishes input
+            
+            let verificationCode = getVerificationCode()
+            print("Verification Code is: \(verificationCode ?? "")")
+//            callApi()
+        default:
+            break
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        
+        self.tf_firstNum.backgroundColor = .white
+        self.tf_SecondNum.backgroundColor = .white
+        self.tf_thirdNum.backgroundColor = .white
+        self.tf_fourthNum.backgroundColor = .white
+        self.tf_fivethNum.backgroundColor = .white
+        self.tf_sixthNum.backgroundColor = .white
+        
+        if string.isEmpty { // Check for backspace
+            if text.isEmpty {
+                switch textField {
+                case tf_firstNum:
+                    tf_firstNum.becomeFirstResponder()
+                case tf_SecondNum:
+                    tf_firstNum.becomeFirstResponder()
+                case tf_thirdNum:
+                    tf_SecondNum.becomeFirstResponder()
+                case tf_fourthNum:
+                    tf_thirdNum.becomeFirstResponder()
+                case tf_fivethNum:
+                    tf_fourthNum.becomeFirstResponder()
+                case tf_sixthNum:
+                    tf_fivethNum.becomeFirstResponder()
+                    
+                default:
+                    break
+                }
+            }
+            return true
+        }
+        
+        let newLength = text.count + string.count - range.length
+        return newLength <= 1
+    }
+    
+    // Method to get the combined string from all text fields
+    func getVerificationCode() -> String? {
+        
+        guard
+            let code1 = tf_firstNum.text, !code1.isEmpty,
+            let code2 = tf_SecondNum.text, !code2.isEmpty,
+            let code3 = tf_thirdNum.text, !code3.isEmpty,
+            let code4 = tf_fourthNum.text, !code4.isEmpty,
+            let code5 = tf_fivethNum.text, !code5.isEmpty,
+            let code6 = tf_sixthNum.text, !code6.isEmpty
+        else {
+            print("Please fill in all fields.")
+            self.ToastMessage("Please fill in all fields.")
+            return nil
+        }
+        
+        let code = code1 + code2 + code3 + code4 + code5 + code6
+        return code
+    }
+    
+    func dismissKeyboard(){
+        self.view.endEditing(true)
     }
     
 }
 
-extension SignInViewController {
-    func authenticateGoogleWithFirebase(user: GIDGoogleUser) {
+extension SignInViewController: SendOTPDelegate {
+    func otpSuccess(response: Any) {
+        print("this is the email send otp response: \(response)")
+           
+        self.ToastMessage("Check your email inbox or spam for OTP")
+        startCountdown()
+    }
+    
+    func otpFailure(error: Error) {
+        print("this is the error  otp response: \(error)")
+       
+    }
+}
+
+extension SignInViewController:  VerifyOTPDelegate {
+    func otpVerifySuccess(response: Any) {
+        print("\nthis is the verify Email otp response: \(response)\n")
         
-        let idToken = user.idToken?.tokenString
-        let accessToken = user.accessToken.tokenString
+     
+            self.ToastMessage("OTP Verify.")
+            ActivityIndicator.shared.hide(from: self.view)
+          
+        [self.tf_firstNum, self.tf_SecondNum, self.tf_thirdNum, self.tf_fourthNum, self.tf_fivethNum, self.tf_sixthNum].forEach {
+            $0?.backgroundColor = .systemGreen
+        }
+
+        guard let email = self.username_tf.text, !email.isEmpty else {
+            print("❌ Email is empty, aborting Firebase check")
+            return
+        }
         
-        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
+         checkUserExists(email: email)
+           
+    }
+    
+    //   navigateToPhoneVerifiyScreen()
+    func otpVerifyFailure(error: Error) {
         
-        Auth.auth().signIn(with: credential) { authResult, error in
+        print("this is the error from verify otp response: \(error)")
+        self.label_errorCode.isHidden = false
+        
+        self.ToastMessage("OTP Verification Failed.")
+        
+        [self.tf_firstNum, self.tf_SecondNum, self.tf_thirdNum, self.tf_fourthNum, self.tf_fivethNum, self.tf_sixthNum].forEach {
+            $0?.backgroundColor = .systemRed
+        }
+    }
+ 
+   
+    func checkUserExists(email: String) {
+        let tempPassword = UUID().uuidString
+        
+        Auth.auth().createUser(withEmail: email, password: tempPassword) { result, error in
+           
+            if let error = error as NSError? {
+                if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
+                    print("✅ User exists in Firebase Auth")
+                    // User exists in Auth, now check if they exist in Firestore
+                    self.checkExistingUserInFirestore(email: email)
+                } else {
+                    print("⚠️ Error in checkUserExists in auth: \(error.localizedDescription)")
+                }
+            } else {
+                // User was created successfully - they didn't exist before
+                print("✅ New user created in Auth")
+                
+                guard let user = result?.user else { return }
+                
+                // Add new user to Firestore
+                self.addUserToFirestore(email: email, user: user)
+            }
+        }
+    }
+
+    func checkExistingUserInFirestore(email: String) {
+    
+        db.collection("users").whereField("email", isEqualTo: email).getDocuments { snapshot, error in
+//                .whereField("uid", isEqualTo: userId)
             if let error = error {
-                print("Firebase authentication failed: \(error.localizedDescription)")
+                print("⚠️ Firestore query error: \(error)")
+                self.ToastMessage("❌ user premission denied")
                 return
             }
             
-            // User is signed in with Firebase successfuly
-            if let user = authResult?.user {
-                
-                UserDefaults.standard.set(user.uid, forKey: "userID")
-                self.emailUser = user.email ?? ""
-                GlobalVariable.instance.userEmail = self.emailUser!
-                
-                self.db.collection("users").whereField("email", isEqualTo: self.emailUser ?? "").getDocuments { (querySnapshot, error) in
-                    if let error = error {
-                        print("Error checking for existing user: \(error.localizedDescription)")
-                    }
-                    
-                    if let snapshot = querySnapshot, !snapshot.isEmpty {
-                        print("User with this email already exists.")
-                        
-                        self.firebaseInstance.fetchUserData(userId: user.uid)
-                        self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                            print("\n user account data fetch from google SignIn ")
-                            SVProgressHUD.dismiss()
-                            self.navigateToFaceID()
-                        })
-                        
-                        //                        let timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-                        //                            print("Timer fired!")
-                        //                        }
-                    } else {
-                        SVProgressHUD.dismiss()
-                        Alert.showAlertWithOKHandler(withHandler: "This email is not registered. Please sign up first before logging in.", andTitle: "Error!", OKButtonText: "OK", on: self, andCompletionHandler: { action in
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        
-                    }
+            if let docs = snapshot?.documents, !docs.isEmpty {
+                print("✅ User exists in Firestore")
+                let userID = docs[0].documentID
+               
+                self.proceedToFetchUserAccount(userID: userID)
+            } else {
+                print("❌ User exists in Auth but not in Firestore")
+                // Get the current authenticated user and add them to Firestore
+                if let currentUser = Auth.auth().currentUser {
+                    self.addUserToFirestore(email: email, user: currentUser)
+                } else {
+                    print("❌ No current user found")
+                    self.ToastMessage("❌ No current user found")
                 }
             }
         }
     }
-}
 
-
-extension SignInViewController {
-    private func randomNonceString(length: Int = 32) -> String {
-        precondition(length > 0)
-        var randomBytes = [UInt8](repeating: 0, count: length)
-        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-        if errorCode != errSecSuccess {
-            fatalError(
-                "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
-            )
+    func addUserToFirestore(email: String, user: User) {
+        print("⚠️ Add new user to Firestore with fields: \(fireBaseUserData)")
+        guard let kycStatus = fireBaseUserData["kyc_status"] as? String else {
+            return
+        }
+        guard let address = fireBaseUserData["contact_address"] as? String else {
+            return
+        }
+//        guard let phone = fireBaseUserData["phone"] as? String else {
+//            return
+//        }
+        guard let residence = fireBaseUserData["country_of_residance"] as? Bool else {
+            return
+        }
+        guard let isKyc = fireBaseUserData["is_kyc"] as? Bool else {
+            return
+        }
+        guard let questionnaire_done = fireBaseUserData["questionnaire_done"] as? Bool else {
+            return
         }
         
-        let charset: [Character] =
-        Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-        
-        let nonce = randomBytes.map { byte in
-            // Pick a random character from the set, wrapping around if needed.
-            charset[Int(byte) % charset.count]
+        var phone: String?
+
+        if let phoneString = fireBaseUserData["phone"] as? String {
+            phone = phoneString
+        } else if let phoneBool = fireBaseUserData["phone"] as? Bool {
+            phone = String(phoneBool) // or "Yes"/"No" if you prefer
         }
         
-        return String(nonce)
-    }
-    
-    @available(iOS 13, *)
-    private func sha256(_ input: String) -> String {
-        let inputData = Data(input.utf8)
-        let hashedData = SHA256.hash(data: inputData)
-        let hashString = hashedData.compactMap {
-            String(format: "%02x", $0)
-        }.joined()
+        var profileStep : Int = 0
+        if questionnaire_done == true {
+            profileStep = 1
+        }else if isKyc == true {
+            profileStep = 2
+        }else{
+            profileStep = 0
+        }
+       
+        print("⚠️ Add fields to new user")
+        db.collection("users").document(user.uid).setData([
         
-        return hashString
-    }
-}
-
-extension SignInViewController: ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
-    
-    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-        return view.window!
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("Sign in with Apple error: \(error.localizedDescription)")
-    }
-    
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            "KycStatus":kycStatus,
+            "address":address,
+            "dateOfBirth": "",
+            "email": email,
+            "emailVerified": true,
+            "fullName": user.displayName ?? "",
+            "gender": "",
+            "uid": user.uid,
             
-            guard let nonce = currentNonce else {
-                fatalError("Invalid state: A login callback was received, but no login request was sent.")
-            }
+            "isLogin": true,
+            "nationality": residence,
+            "phone": phone,
+            "phoneVerified": false,
+            "profileStep":profileStep,
+            "pushedToCRM": true,
+            "registrationType" : 0,
+            "residence": residence,
+            "created_at": Timestamp(date: Date())
             
-            guard let appleIDToken = appleIDCredential.identityToken else {
-                print("❌ Unable to fetch identity token")
-                return
-            }
-            
-            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
-                print("❌ Unable to serialize token string from data: \(appleIDToken.debugDescription)")
-                return
-            }
-            
-            // MARK: - Handle Email (Hide or Share)
-            if let email = appleIDCredential.email {
-                print("✅ Apple returned email: \(email)")
-                keychain.set(email, forKey: "appleEmail") // Save for future
-                _email = email
-            } else if let savedEmail = keychain.get("appleEmail") {
-                print("📦 Loaded email from Keychain: \(savedEmail)")
-                _email = savedEmail
+        ]) { err in
+            if let err = err {
+                print("❌ Error adding Firestore doc: \(err)")
             } else {
-                print("❌ No email found from Apple or Keychain.")
-                _email = nil
+                print("✅ User added to Firestore")
+                self.proceedToFetchUserAccount(userID: user.uid)
             }
-            
-            // MARK: - Handle Full Name
-            if let fullName = appleIDCredential.fullName {
-                let formattedName = [fullName.givenName, fullName.familyName]
-                    .compactMap { $0 }
-                    .joined(separator: " ")
+        }
+    }
+
+    func proceedToFetchUserAccount(userID: String) {
+        self._userID = userID
+        UserDefaults.standard.set(userID, forKey: "userID")
+        
+        print("🎉 Proceeding to Fetch user Account")
+        guard let accountIds = fireBaseUserData["account_ids"] as? [Int] else {
+            print("No account IDs found")
+            return
+        }
+
+        print("Account IDs to fetch: \(accountIds)")
+        
+        odoClientNew.SearchUserMtAccounts(accountIds: accountIds) { isExists, userAccounts, error in
+            if let error = error {
+                print("Error checking user:", error)
+                return
+            }
+
+            if isExists {
+                print("✅ User Accounts exists, sending or checking to Firebase mtAccountsData...")
                 
-                if !formattedName.isEmpty {
-                    print("✅ Full Name from Apple: \(formattedName)")
-                    keychain.set(formattedName, forKey: "appleName")
-                    _fullName = formattedName
-                } else if let savedName = keychain.get("appleName") {
-                    print("📦 Loaded name from Keychain: \(savedName)")
-                    _fullName = savedName
-                }
-            } else if let savedName = keychain.get("appleName") {
-                print("📦 Loaded name from Keychain: \(savedName)")
-                _fullName = savedName
+//                print("\n ---->the MT user account data is saved for firebaseUser: \(userAccounts)--->\n")
+                self.processMTAccountsForFirebase(mtAccountsData: userAccounts, userID: userID)
             } else {
-                _fullName = "Unknown User"
-                print("❌ No full name available.")
+                print("❌ User accounts does not exist")
+                // Show alert or error to user
+              
+                self.ToastMessage("No user accounts found with this email.")
+            }
+        }
+    }
+    
+    func processMTAccountsForFirebase(mtAccountsData: [[String: Any]]?, userID: String) {
+       
+        firebaseInstance.userNotFound = {
+            print("\n ---***---No user account found and create MT user in firbase---***----\n")
+            self.createMTAccounts(mtAccountsData: mtAccountsData, userID: userID)
+            return
+        }
+        
+        firebaseInstance.fetchUserAccountsData(userId: userID) {
+            
+            self.firebaseInstance.fetchUserData(userId: userID)
+            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+                print("\n Default user Account get in signing process : \(defaultAccount)")
+              
+                self.navigateToFaceID()
+            }else{
+//                self.navigateToSelectDefaultAccount()
+            }
+          
+        }
+        
+    }
+
+    private func createMTAccounts(mtAccountsData: [[String: Any]]?, userID: String) {
+        // Group ID mapping
+        let groupIDMapping: [String: String] = [
+            "Prime": "RWHwgycWkAqi5OPvv1oX",
+            "Pro": "J4DE6ojeCiIt8uWDWUBT",
+            "Premium": "hejJt530sHou5bEuMk48"
+        ]
+        
+        let userAccountsCollection = db.collection("userAccounts")
+        
+        // Handle Optional array
+        guard let accountsArray = mtAccountsData else {
+            print("❌ No MT accounts data found")
+            return
+        }
+        
+        print("🚀 Processing \(accountsArray.count) MT accounts...")
+        
+        for (index, account) in accountsArray.enumerated() {
+            print("Processing account \(index + 1)")
+            
+            // Extract data from MT account response
+            guard let login = account["login"] as? Int,
+                  let groupIdArray = account["group_id"] as? [Any],
+                  let serverIdArray = account["server_id"] as? [Any],
+                  let createDateString = account["create_date"] as? String,
+                  let writeDateString = account["write_date"] as? String else {
+                print("⚠️ Failed to extract required data from account")
+                continue
             }
             
-            // Save for use
-            UserDefaults.standard.set(_fullName, forKey: "FullName")
+            // Extract group name from group_id array (second element)
+            let fullGroupName = groupIdArray.count > 1 ? String(describing: groupIdArray[1]) : ""
+            let groupName = self.extractGroupName(from: fullGroupName)
             
-            // MARK: - Sign in with Firebase
-            let credential = OAuthProvider.appleCredential(
-                withIDToken: idTokenString,
-                rawNonce: nonce,
-                fullName: appleIDCredential.fullName
-            )
+            // Extract server ID (first element)
+            let serverID = serverIdArray.count > 0 ? serverIdArray[0] as? Int ?? 1 : 1
             
-            Auth.auth().signIn(with: credential) { authResult, error in
+            // Map server_id to isReal (1 = demo/false, 2 = real/true)
+            let isReal = serverID == 2
+            
+            // Create account name
+            let accountType = isReal ? "Real" : "Demo"
+            let name = "\(groupName) \(accountType) Account"
+            
+            // Get group ID from mapping
+            let groupID = groupIDMapping[groupName] ?? ""
+            
+            // Convert date strings to timestamps
+            let createDate = DateHelper.convertToDate(from: createDateString)
+            let updateDate = DateHelper.convertToDate(from: writeDateString)
+            
+            // Handle password - can be string, number 0, or false/null
+            var password = ""
+            if let passwordString = account["password"] as? String {
+                password = passwordString
+            } else if let passwordNumber = account["password"] as? Int, passwordNumber != 0 {
+                password = String(passwordNumber)
+            }
+            
+            print("🏦 Account \(login): Group=\(groupName), IsReal=\(isReal)")
+            
+            // Prepare Firebase document data
+            let firebaseAccountData: [String: Any] = [
+                "accountNumber": login,
+                "createdAt": createDate,
+                "groupID": groupID,
+                "groupName": groupName,
+                "isDefault": false,
+                "isReal": isReal,
+                "name": name,
+                "password": password,
+                "updatedAt": updateDate,
+                "userID": userID
+            ]
+            
+            // Create a unique document for each account using userID + login
+            let documentID = "\(userID)_\(login)"
+            
+            // Add to Firebase
+            userAccountsCollection.document(documentID).setData(firebaseAccountData) { error in
                 if let error = error {
-                    print("🔥 Firebase authentication failed: \(error.localizedDescription)")
-                    return
-                }
-                
-                guard let user = authResult?.user else { return }
-                
-                UserDefaults.standard.set(user.uid, forKey: "userID")
-                
-                self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
-                    if let error = error {
-                        print("❌ Firestore lookup error: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    if let snapshot = querySnapshot, !snapshot.isEmpty {
-                        print("✅ Existing Firestore user.")
-                        
-                        self.firebaseInstance.fetchUserData(userId: user.uid)
-                        self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                            print("🔄 User account data fetched successfully.")
-                            self.navigateToFaceID()
-                        })
-                        
-                    } else {
-                        print("🚫 No Firestore user. Prompt to sign up.")
-                        
-                        Alert.showAlertWithOKHandler(
-                            withHandler: "This email is not registered. Please sign up first before logging in.",
-                            andTitle: "Error!",
-                            OKButtonText: "OK",
-                            on: self
-                        ) { _ in
-                            self.navigationController?.popViewController(animated: true)
-                        }
-                    }
+                    print("❌ Error adding account \(login): \(error)")
+                } else {
+                    print("✅ Successfully added account \(login) to Firebase")
+                   
                 }
             }
         }
+        self.navigateToSelectDefaultAccount()
+    }
+
+    // Helper function to extract group name from full group path
+    func extractGroupName(from fullGroupName: String) -> String {
+        print("Extracting group name from: '\(fullGroupName)'")
+        
+        // Handle both single and double backslashes
+        // Extract from patterns like "demo\RP\PRO", "RP\PRIME\6C-0R-20SO", "RP\PRO\0C-0R-20SO"
+        let components = fullGroupName.components(separatedBy: "\\")
+        
+        for component in components {
+            let upperComponent = component.uppercased().trimmingCharacters(in: .whitespaces)
+            print("Checking component: '\(upperComponent)'")
+            
+            if upperComponent.contains("PRIME") {
+                print("Found PRIME group")
+                return "Prime"
+            } else if upperComponent.contains("PRO") {
+                print("Found PRO group")
+                return "Pro"
+            } else if upperComponent.contains("PREMIUM") {
+                print("Found PREMIUM group")
+                return "Premium"
+            }
+        }
+        
+        print("No specific group found, using default: Pro")
+        return "Pro" // Default fallback
     }
     
 }
-

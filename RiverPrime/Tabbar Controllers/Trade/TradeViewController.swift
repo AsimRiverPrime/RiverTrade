@@ -54,8 +54,9 @@ struct SymbolData: Codable {
     let yesterday_close: String
     let is_mobile_favorite: Bool
     let trading_sessions_ids: [Int]
+    let serverId: [ServerID]
     
-    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String,is_mobile_favorite:Bool,trading_sessions_ids: [Int] ) {
+    init(id: String, name: String, description: String, icon_url: String, volumeMin: String, volumeMax: String, volumeStep: String, contractSize: String, displayName: String, sector: String, digits: String, stopsLevel: String, swapLong: String, swapShort: String, spreadSize: String, mobile_available: String, yesterday_close: String,is_mobile_favorite:Bool,trading_sessions_ids: [Int], serverId: [ServerID] ) {
         self.id = id
         self.name = name
         self.description = description
@@ -75,8 +76,14 @@ struct SymbolData: Codable {
         self.yesterday_close = yesterday_close
         self.is_mobile_favorite = is_mobile_favorite
         self.trading_sessions_ids = trading_sessions_ids
+        self.serverId = serverId
     }
     
+}
+
+struct ServerID : Codable {
+    let id: Int
+    let name: String
 }
 
 struct SectorGroup {
@@ -1637,7 +1644,7 @@ extension TradeViewController: GetSocketMessages {
                 print("Socket is not connected")
                 //MARK: - START SOCKET.
                 //                   vm.webSocketManager.delegateSocketMessage = self
-                vm.webSocketManager.connectWebSocket()
+                vm.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
             }
             
             break

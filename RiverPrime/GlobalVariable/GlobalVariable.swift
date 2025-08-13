@@ -25,6 +25,8 @@ class GlobalVariable: NSObject {
     var dbUserName: String =  "ios@riverprime.com"
     var dbPassword: String =  "5021da17d4a522a82ee2ccbab90ee4e90d50f463"
     
+    var socketURLType = SocketURLType.demo
+    
     var firebaseNotificationToken = ""
     
     var uid: Int =  0
@@ -140,3 +142,60 @@ class GlobalVariable: NSObject {
     
 }
  
+extension GlobalVariable {
+    
+    // MARK: - New function to separate symbols by server_id
+    func separateSymbolsByServerId(_ symbols: [SymbolData]) {
+        var demoSymbols: [SymbolData] = []
+        var liveSymbols: [SymbolData] = []
+        var bothSymbols: [SymbolData] = []
+        
+        for symbol in symbols {
+            // Check if serverId array has elements and get the first server's id
+            if let firstServer = symbol.serverId.first {
+                switch firstServer.id {
+                case 1:
+                    demoSymbols.append(symbol)
+                case 2:
+                    liveSymbols.append(symbol)
+                default:
+                    // Handle other server ids if needed
+                    print("Unknown server id: \(firstServer.id) for symbol: \(symbol.name)")
+                }
+            }
+            bothSymbols.append(symbol)
+        }
+        
+        
+        // Optional: Also store in Session if needed
+        Session.instance.demoSymbols = demoSymbols
+        Session.instance.liveSymbols = liveSymbols
+        Session.instance.bothSymbols = bothSymbols
+        
+        print("Demo symbols count: \(demoSymbols.count)")
+        print("Live symbols count: \(liveSymbols.count)")
+        print("Both symbols count: \(bothSymbols.count)")
+        
+        var isReal = Bool()
+        
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//            print("\n Default Account User in get user balance: \(defaultAccount)")
+            isReal = defaultAccount.isReal
+            
+        }else{
+            isReal = false
+        }
+        
+        if isReal {
+            print("\n Live symbol list for Real Account")
+            Session.instance.symbolData = Session.instance.liveSymbols
+            GlobalVariable.instance.symbolDataArray = Session.instance.liveSymbols ?? []
+        } else {
+            print("\n Demo symbol list for Demo Account")
+            Session.instance.symbolData = Session.instance.demoSymbols
+            GlobalVariable.instance.symbolDataArray = Session.instance.demoSymbols ?? []
+        }
+        
+    }
+    
+}

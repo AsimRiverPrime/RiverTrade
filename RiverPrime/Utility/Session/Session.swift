@@ -12,7 +12,7 @@ protocol ISession {
     //MARK: - IsQR
     var isFaceIDEnabled: Bool? { get set }
     
-//    func getSymbolData() -> [SymbolData]?
+    //    func getSymbolData() -> [SymbolData]?
     
     var symbolData: [SymbolData]? { get set }
     
@@ -21,8 +21,11 @@ protocol ISession {
     //MARK: - isRealAccountInitFlowComplete
     var isRealAccountInitFlowComplete: Bool? { get set }
     
-    var crmCredentials: CrmCredentialsModel? { get set }
+//    var crmCredentials: CrmCredentialsModel? { get set }
     
+    var demoSymbols: [SymbolData]? { get set }
+    var liveSymbols: [SymbolData]? { get set }
+    var bothSymbols: [SymbolData]? { get set }
     
 }
 
@@ -95,16 +98,62 @@ class Session: ISession {
             UserDefaults.standard.set(data, forKey: kFilteredSymbolData)
         }
     }
-
-    var kCrmCredentialsKey = "kCrmCredentialsKey"
-        var crmCredentials: CrmCredentialsModel? {
-            get {
-                guard let data = UserDefaults.standard.data(forKey: kCrmCredentialsKey) else { return nil }
-                return try? JSONDecoder().decode(CrmCredentialsModel.self, from: data)
-            }
-            set {
-                guard let data = try? JSONEncoder().encode(newValue) else { return }
-                UserDefaults.standard.set(data, forKey: kCrmCredentialsKey)
-            }
+    
+//    var kCrmCredentialsKey = "kCrmCredentialsKey"
+//    var crmCredentials: CrmCredentialsModel? {
+//        get {
+//            guard let data = UserDefaults.standard.data(forKey: kCrmCredentialsKey) else { return nil }
+//            return try? JSONDecoder().decode(CrmCredentialsModel.self, from: data)
+//        }
+//        set {
+//            guard let data = try? JSONEncoder().encode(newValue) else { return }
+//            UserDefaults.standard.set(data, forKey: kCrmCredentialsKey)
+//        }
+//    }
+    
+    //MARK: - kdemoSymbols
+    var kdemoSymbols = "kdemoSymbols"
+    var demoSymbols: [SymbolData]?
+    {
+        get
+        {
+            guard let data = UserDefaults.standard.data(forKey: kdemoSymbols) else { return nil }
+            return (try? JSONDecoder().decode([SymbolData].self, from: data)) ?? nil
         }
+        set
+        {
+            guard let data = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(data, forKey: kdemoSymbols)
+        }
+    }
+    //MARK: - kliveSymbols
+    var kliveSymbols = "kliveSymbols"
+    var liveSymbols: [SymbolData]?
+    {
+        get
+        {
+            guard let data = UserDefaults.standard.data(forKey: kliveSymbols) else { return nil }
+            return (try? JSONDecoder().decode([SymbolData].self, from: data)) ?? nil
+        }
+        set
+        {
+            guard let data = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(data, forKey: kliveSymbols)
+        }
+    }
+    //MARK: - kbothSymbols
+    var kbothSymbols = "kbothSymbols"
+    var bothSymbols: [SymbolData]?
+    {
+        get
+        {
+            guard let data = UserDefaults.standard.data(forKey: kbothSymbols) else { return nil }
+            return (try? JSONDecoder().decode([SymbolData].self, from: data)) ?? nil
+        }
+        set
+        {
+            guard let data = try? JSONEncoder().encode(newValue) else { return }
+            UserDefaults.standard.set(data, forKey: kbothSymbols)
+        }
+    }
 }

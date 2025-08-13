@@ -67,7 +67,7 @@ class HomeTabbarViewController: UITabBarController {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let email = savedUserData["email"] as? String{
                 self.userEmail = email
-                odooClientService.SearchRecord(email: userEmail ?? "") { [weak self] data, error in
+                odooClientService.SearchRequest(email: userEmail ?? "") { data, error in
                     }
             }
         }
@@ -143,8 +143,8 @@ extension HomeTabbarViewController {
         let recordedId = UserDefaults.standard.integer(forKey: "recordId")
         let partnerId = UserDefaults.standard.integer(forKey: "partner_id")
 
-            print("-------- search_read as crm_User_Id: \(recordedId) & partner_id: \(partnerId)----")
-
+            print("-------- search_read as crm_User_Id: \(recordedId) & partner_id: \(partnerId) in HomeTabbarViewController -----")
+       
         odooClientService.tradeSymbolDetailDelegate = self
        
     }
@@ -191,6 +191,18 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                 let symbolis_mobile_favorite = result["is_mobile_favorite"] as? Bool ?? false
                 let symboltrade_session = result["trading_sessions_ids"] as? [Int]
                 
+                var symbolServerID = result["server_id"] as? [ServerID] ?? []
+                // Parse server_id array
+                let serverIdArray = result["server_id"] as? [Any]
+                var parsedServerID = ServerID(id: -1, name: "Unknown Server")
+                if let serverIdArray = serverIdArray, serverIdArray.count == 2 {
+                    if let serverId = serverIdArray[0] as? Int,
+                       let serverName = serverIdArray[1] as? String {
+                        parsedServerID = ServerID(id: serverId, name: serverName)
+                        symbolServerID = [parsedServerID]
+                    }
+                }
+                
                 // Modify the icon URL if needed
                 let modifiedUrl = symbolIcon
                     .replacingOccurrences(of: "-01.svg", with: ".png")
@@ -220,7 +232,8 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
                         mobile_available: String(symbolMobileAvailable),
                         yesterday_close: String(symbolyesterday_close),
                         is_mobile_favorite: Bool(symbolis_mobile_favorite),
-                        trading_sessions_ids: [Int](symboltrade_session ?? [])
+                        trading_sessions_ids: [Int](symboltrade_session ?? []),
+                        serverId: symbolServerID
                     )
                 )
                 
@@ -240,6 +253,9 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
             if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
                 Session.instance.filteredSymbolData = filterfavoriteSymbols
             }
+            
+            // MARK: - NEW LOGIC: Separate data based on server_id
+            GlobalVariable.instance.separateSymbolsByServerId(GlobalVariable.instance.symbolDataArray)
             
             processSymbols(GlobalVariable.instance.symbolDataArray)
         } else {
@@ -337,7 +353,7 @@ extension HomeTabbarViewController {
             
             NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.CheckOpenPositionConstant.key, dict: [NotificationObserver.Constants.CheckOpenPositionConstant.title: "openPositionViewUpdate"])
             
-            self.webSocketManager.connectWebSocket()
+            self.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
             self.webSocketManager.delegateSocketData = self
             self.webSocketManager.delegateSocketConnectionInit = self
             self.webSocketManager.delegateSocketNotSendData = self
@@ -386,12 +402,12 @@ extension HomeTabbarViewController {
                     
                     //MARK: - START SOCKET and call delegate method to get data from socket.
                     DispatchQueue.global().asyncAfter(deadline: .now() + .seconds(1)) {
-                                            //MARK: - START SOCKET and call delegate method to get data from socket.
-                                            self.webSocketManager.connectWebSocket()
-                                            self.webSocketManager.delegateSocketData = self
-                                            self.webSocketManager.delegateSocketConnectionInit = self
-                                            self.webSocketManager.delegateSocketNotSendData = self
-                                        }
+                        //MARK: - START SOCKET and call delegate method to get data from socket.
+                        self.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
+                        self.webSocketManager.delegateSocketData = self
+                        self.webSocketManager.delegateSocketConnectionInit = self
+                        self.webSocketManager.delegateSocketNotSendData = self
+                    }
 //
 //                    self.webSocketManager.connectWebSocket()
 //                    self.webSocketManager.delegateSocketData = self

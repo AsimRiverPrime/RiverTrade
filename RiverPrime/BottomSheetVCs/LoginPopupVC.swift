@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 enum MetaTraderType {
     case Balance
@@ -39,29 +40,25 @@ class LoginPopupVC: BaseViewController {
     @IBOutlet weak var Btn_showHidePass: UIButton!
     
     @IBOutlet weak var lbl_wrongPassword: UILabel!
-    var email: String?
+    
+   
     var loginId = Int()
+    var isDemo = Bool()
+    var userID = String()
     
     var viewModel = TradeTypeCellVM()
     var metaTraderType: MetaTraderType? = .None
     let passwordManager = PasswordManager()
-    
+    let firestoreObject = FirestoreServices()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.lbl_wrongPassword.isHidden = true
         // Do any additional setup after loading the view.
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String/*, let _pass = savedUserData["password"] as? String*/{
-                email = _email
-//                password_tf.text = _pass
-            }
-        }
-        
+       
         self.loginID_tf.text = "\(loginId)"
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
            view.addGestureRecognizer(tapGesture)
-        
     }
     
     @objc func dismissKeyboard(){
@@ -74,28 +71,48 @@ class LoginPopupVC: BaseViewController {
     
     @IBAction func login_action(_ sender: Any) {
       
-        viewModel.loginForPassword(loginID: loginId, pass: self.password_tf.text ?? "", completion: { response in
+        viewModel.loginForPassword(loginID: loginId, pass: self.password_tf.text ?? "", isDemo: isDemo, completion: { response in
             print("the login to meta Trader account response is: \(response)")
         
-            if self.passwordManager.savePassword(for: String(self.loginId), password: self.password_tf.text ?? "") {
-                print("Password successfully saved from loginScreen.")
-            } else {
-                print("ID already exists. Cannot save password.")
-            }
-            
-            let allPasswords = self.passwordManager.getAllPasswords()
-            print("All Saved Passwords on from loginScreen: \(allPasswords)")
-              
             
             self.ToastMessage(response)
             if response == "Login Failed" {
                 self.lbl_wrongPassword.isHidden = false
             }else{
-                //            NotificationCenter.default.post(name: .MetaTraderLogin, object: nil,  userInfo: ["MetaTraderLoginType": self.metaTraderType ?? MetaTraderType.None])
-                NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
-                self.dismiss(animated: true, completion: nil)
-            }
-        })
+              
+                self.firestoreObject.updatePassword(for: "\(self.loginId)", userId:  self.userID, newPassword: self.password_tf.text ?? "") { [weak self] error in
+                    guard let self = self else { return }
+                    if let error = error {
+                        print("Error updating default account: \(error.localizedDescription)")
+                        return
+                    }
+                    print("password added successfully.")
+                    self.firestoreObject.updateDefaultAccount(for: "\(self.loginId)", userId: self.userID){ [weak self] error in
+                        guard let self = self else { return }
+                        
+                        if let error = error {
+                            print("Error updating default account: \(error.localizedDescription)")
+                            return
+                        }
+                        print("\n updating isDefault account success in loginScreen: ")
+                        if self.passwordManager.savePassword(for: String(self.loginId), password: self.password_tf.text ?? "") {
+                            print("Password successfully saved from loginScreen.")
+                        } else {
+                            print("ID already exists. Cannot save password.")
+                        }
+                        
+                        let allPasswords = self.passwordManager.getAllPasswords()
+                        print("All Saved Passwords on from loginScreen: \(allPasswords)")
+                        
+                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+
+                    }
+                })
+                
+                
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {

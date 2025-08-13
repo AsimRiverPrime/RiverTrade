@@ -19,9 +19,7 @@ class JSONRPCClient: IJSONRPCClient {
 //   let fireStoreInstance = FirestoreServices()
     static let instance = JSONRPCClient()
     
-//    private let baseURL = "https://mbe.riverprime.com"
-    private let baseURL = Session.instance.crmCredentials?.baseURL ?? ""
-//    private let baseURL = "http://18.116.153.208:8069"
+    private let baseURL = "https://mbe.riverprime.com"
     
     func sendData<T: Encodable>(endPoint: Endpoint, method: HTTPMethod, request: JSONRPCRequest<T>, completion: @escaping (Result<Data?, Error>) -> Void) {
         

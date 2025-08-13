@@ -1269,7 +1269,7 @@ extension AccountsViewController: GetSocketMessages {
                 print("Socket is not connected")
                 //MARK: - START SOCKET.
                 //                webSocketManager.delegateSocketMessage = self
-                webSocketManager.connectWebSocket()
+                webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
             }
             
             break

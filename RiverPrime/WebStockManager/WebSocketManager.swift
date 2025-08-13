@@ -44,6 +44,20 @@ protocol StartOffLineDataDelegate: AnyObject {
     func startOfflineData()
 }
 
+enum SocketURLType {
+    case demo
+    case live
+
+    var url: String {
+        switch self {
+        case .demo:
+            return "ws://2.59.169.158:8074"
+        case .live:
+            return "ws://2.59.169.158:8075"
+        }
+    }
+}
+
 class WebSocketManager: WebSocketDelegate {
 
     var webSocket: WebSocket?
@@ -183,7 +197,7 @@ class WebSocketManager: WebSocketDelegate {
                 print("🔄 Network recovered, attempting to reconnect...")
                 // Reset reconnect attempts when network comes back
                 reconnectAttempts = 0
-                connectWebSocket()
+                connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
             }
         case .unavailable:
             print("❌ Network is unavailable")
@@ -218,7 +232,7 @@ class WebSocketManager: WebSocketDelegate {
         print("GlobalVariable.instance.socketTimer = \(GlobalVariable.instance.socketTimer)")
         
         DisconnectWebSocket()
-        connectWebSocket()
+        connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
         
         //MARK: - Save symbol local to unsubcibe.
         sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: true)
@@ -231,10 +245,16 @@ class WebSocketManager: WebSocketDelegate {
         return GlobalVariable.instance.isConnected
     }
 
-    func connectWebSocket() {
+    func connectWebSocket(socketURLType: SocketURLType) {
 //        let url = URL(string: "wss://mbe.riverprime.com/mobile_web_socket")!
 
-        let url = URL(string: Session.instance.crmCredentials?.socketURL ?? "ws://2.59.169.158:8074")!
+        GlobalVariable.instance.socketURLType = socketURLType
+        guard let url = URL(string: socketURLType.url) else {
+            print("Invalid URL for socket type: \(socketURLType)")
+            return
+        }
+        print("socket URL get: \(url)")
+//        let url = URL(string: Session.instance.crmCredentials?.socketURL ?? "ws://2.59.169.158:8074")!
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -265,7 +285,7 @@ class WebSocketManager: WebSocketDelegate {
                 print("Attempting to reconnect... Attempt \(self.reconnectAttempts)")
                 self.webSocket?.disconnect()
 //                self.webSocket?.connect()
-                connectWebSocket()
+                connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
             }
         }
     }
