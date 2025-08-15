@@ -105,35 +105,88 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         self.view.addGestureRecognizer(rightSwipe)
         
     }
+    
     @objc func handleSwipe(_ gestureRecognizer: UISwipeGestureRecognizer) {
-        guard !accounts.isEmpty else {
-            print("No accounts available.")
-            return
-        }
+        guard !accounts.isEmpty else { return }
 
         let maxCounter = accounts.count - 1
+        var newCounter = counter
 
-        if gestureRecognizer.direction == .left {
-            print("left")
-            if counter < maxCounter {
-                counter += 1
-                self.view.inoutAnimation(to: -self.view.frame.width, sView: self.bgView)
-                getIndexValues(counter: counter, accounts: self.accounts)
-            }
-        } else if gestureRecognizer.direction == .right {
-            print("right")
-            if counter > 0 {
-                counter -= 1
-                self.view.inoutAnimation(to: self.view.frame.width, sView: self.bgView)
-                getIndexValues(counter: counter, accounts: self.accounts)
-            }
-        } else {
-            print("Unhandled swipe direction")
+        if gestureRecognizer.direction == .left, counter < maxCounter {
+            newCounter += 1
+            animateTransition(isLeft: true, newCounter: newCounter)
+        } else if gestureRecognizer.direction == .right, counter > 0 {
+            newCounter -= 1
+            animateTransition(isLeft: false, newCounter: newCounter)
+        }
+    }
+    
+    private func animateTransition(isLeft: Bool, newCounter: Int) {
+        let offset = isLeft ? bgView.frame.width : -bgView.frame.width
+        let startFrame = bgView.frame
+
+        // Snapshot current bgView
+        UIGraphicsBeginImageContextWithOptions(bgView.bounds.size, false, UIScreen.main.scale)
+        bgView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let bgSnapshotImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let bgSnapshot = UIImageView(image: bgSnapshotImage)
+        bgSnapshot.frame = startFrame
+
+        // Create newView snapshot for incoming content
+        let tempCard = CardView(frame: bgView.frame)
+        fillView(tempCard, with: accounts[newCounter])
+        UIGraphicsBeginImageContextWithOptions(tempCard.bounds.size, false, UIScreen.main.scale)
+        tempCard.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let newCardImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        let newSnapshot = UIImageView(image: newCardImage)
+        newSnapshot.frame = startFrame.offsetBy(dx: offset, dy: 0)
+
+        // Hide original bgView
+        bgView.isHidden = true
+
+        // Add snapshots above everything
+        if let superV = bgView.superview {
+            superV.addSubview(bgSnapshot)
+            superV.addSubview(newSnapshot)
         }
 
-        print("Counter = \(counter)")
-        pageControl.currentPage = counter
+        UIView.animate(withDuration: 0.22, delay: 0, options: [.curveEaseInOut], animations: {
+            bgSnapshot.frame = startFrame.offsetBy(dx: -offset, dy: 0)
+            newSnapshot.frame = startFrame
+        }) { _ in
+            // Reveal original bgView with new data
+            self.fillView(self.bgView, with: self.accounts[newCounter])
+            self.bgView.isHidden = false
+
+            // Remove snapshots
+            bgSnapshot.removeFromSuperview()
+            newSnapshot.removeFromSuperview()
+
+            // Update counter/page
+            self.counter = newCounter
+            self.pageControl.currentPage = newCounter
+        }
     }
+
+
+    private func fillView(_ targetView: UIView, with account: AccountModel) {
+        // Directly set labels/images into the target view
+        // Here we use your existing getIndexValues logic
+        // but adapted for a given target view if needed.
+        mainTitle.text = "\(account.name) Account\nSpecifications"
+        lbl_Spread.text = "Floating/ As low as \(account.spreadsFrom)"
+        lbl_leverage.text = account.leverage
+        lbl_commission.text = "$\(account.commission)"
+        lbl_miniDeposit.text = "$\(account.startingDeposit)"
+        lbl_swap.text = account.islamicAccounts == 1 ? "Free" : "Not Free"
+        lbl_stopOutLevel.text = account.stopOutLevel
+        img_ProRibbon.isHidden = account.recommended != 1
+    }
+
 
     
     func fetchAccountsAndSetupPageControl() {
@@ -166,8 +219,6 @@ extension CreateAccountSelectTradeType: UIGestureRecognizerDelegate {
         lbl_stopOutLevel.text = account.stopOutLevel
         img_ProRibbon.isHidden = account.recommended != 1
 
-        // Update selected account type
-//        getSelectedAccountType.title = mainTitle.text ?? ""
     }
     
 }

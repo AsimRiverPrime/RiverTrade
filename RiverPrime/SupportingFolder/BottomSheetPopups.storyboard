@@ -3058,7 +3058,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KJI-XE-nny" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="182" y="5" width="50" height="5"/>
+                                <rect key="frame" x="182" y="10" width="50" height="5"/>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="5" id="IkX-AP-BbA"/>
@@ -3074,7 +3074,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QRg-gk-eJS" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="20" y="40" width="374" height="816"/>
+                                <rect key="frame" x="20" y="35" width="374" height="821"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xni-yO-P0c">
                                         <rect key="frame" x="10" y="45" width="354" height="1"/>
@@ -3097,7 +3097,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="lz7-zg-tVy">
-                                        <rect key="frame" x="20" y="61" width="334" height="571"/>
+                                        <rect key="frame" x="20" y="61" width="334" height="574.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="JcX-hK-pfn">
                                                 <rect key="frame" x="0.0" y="0.0" width="334" height="19.5"/>
@@ -3134,7 +3134,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Ch0-8K-JDs">
-                                                <rect key="frame" x="0.0" y="89.5" width="334" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="90.5" width="334" height="19.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commission" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G5e-x6-7ls">
                                                         <rect key="frame" x="0.0" y="0.0" width="93" height="19.5"/>
@@ -3151,7 +3151,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="fBb-21-q2H">
-                                                <rect key="frame" x="0.0" y="134.5" width="334" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="135.5" width="334" height="19.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum Deposit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XB9-Kr-nIW">
                                                         <rect key="frame" x="0.0" y="0.0" width="131.5" height="19.5"/>
@@ -3168,7 +3168,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="UoB-zA-fMY">
-                                                <rect key="frame" x="0.0" y="179.5" width="334" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="180.5" width="334" height="19.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gl2-x4-Eg4">
                                                         <rect key="frame" x="0.0" y="0.0" width="42.5" height="19.5"/>
@@ -3185,7 +3185,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-tp-w5n">
-                                                <rect key="frame" x="0.0" y="224.5" width="334" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="225.5" width="334" height="19.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stop-out level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wMg-HA-Bhm">
                                                         <rect key="frame" x="0.0" y="0.0" width="106" height="19.5"/>
@@ -3202,7 +3202,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="TAX-b5-AKd">
-                                                <rect key="frame" x="0.0" y="269" width="334" height="19.5"/>
+                                                <rect key="frame" x="0.0" y="271" width="334" height="19.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Platforms available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hk8-jP-YZm">
                                                         <rect key="frame" x="0.0" y="0.0" width="143" height="19.5"/>
@@ -3219,7 +3219,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="i8O-qs-Gd9">
-                                                <rect key="frame" x="0.0" y="314" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="316" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advanced charting packages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxZ-KY-xIt">
                                                         <rect key="frame" x="0.0" y="0.0" width="221.5" height="15"/>
@@ -3238,7 +3238,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="Jhu-7P-I9n">
-                                                <rect key="frame" x="0.0" y="354.5" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="356.5" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Economic calendar" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ina-MH-15R">
                                                         <rect key="frame" x="0.0" y="0.0" width="145" height="15"/>
@@ -3257,7 +3257,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="KnA-22-Emb">
-                                                <rect key="frame" x="0.0" y="395" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="397" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Trading Instruments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onR-be-K2s">
                                                         <rect key="frame" x="0.0" y="0.0" width="151.5" height="15"/>
@@ -3276,7 +3276,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="KNy-La-L9c">
-                                                <rect key="frame" x="0.0" y="435" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="438" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expert Advisory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="op2-Jk-SJ1">
                                                         <rect key="frame" x="0.0" y="0.0" width="121" height="15"/>
@@ -3295,7 +3295,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="3dq-cQ-GOZ">
-                                                <rect key="frame" x="0.0" y="475.5" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="478.5" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Technical analysis tools" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sus-xO-AEQ">
                                                         <rect key="frame" x="0.0" y="0.0" width="179.5" height="15"/>
@@ -3314,7 +3314,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="b7n-zW-Dc1">
-                                                <rect key="frame" x="0.0" y="516" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="519" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live news " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K57-Rq-f46">
                                                         <rect key="frame" x="0.0" y="0.0" width="80" height="15"/>
@@ -3333,7 +3333,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="LF5-JU-Fyr">
-                                                <rect key="frame" x="0.0" y="556" width="334" height="15"/>
+                                                <rect key="frame" x="0.0" y="559.5" width="334" height="15"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24/6 phone support" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ycz-3g-SX9">
                                                         <rect key="frame" x="0.0" y="0.0" width="151" height="15"/>
@@ -3355,7 +3355,7 @@
                                         <color key="backgroundColor" red="0.074509803921568626" green="0.082352941176470587" blue="0.10196078431372549" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t9d-TZ-bu8" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                        <rect key="frame" x="67" y="740" width="240" height="35"/>
+                                        <rect key="frame" x="67" y="745" width="240" height="35"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="240" id="IgV-ii-FJ8"/>
@@ -3382,7 +3382,7 @@
                                         </connections>
                                     </button>
                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="eR1-YK-xuE">
-                                        <rect key="frame" x="67" y="785" width="240" height="26"/>
+                                        <rect key="frame" x="67" y="790" width="240" height="26"/>
                                         <color key="pageIndicatorTintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="currentPageIndicatorTintColor" red="1" green="0.79215686269999996" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </pageControl>
@@ -3422,8 +3422,8 @@
                             <constraint firstItem="KJI-XE-nny" firstAttribute="centerX" secondItem="5C3-3a-erS" secondAttribute="centerX" id="QtL-KQ-eKu"/>
                             <constraint firstAttribute="trailing" secondItem="QRg-gk-eJS" secondAttribute="trailing" constant="20" id="VxN-ED-MjM"/>
                             <constraint firstItem="QRg-gk-eJS" firstAttribute="leading" secondItem="jDF-MY-599" secondAttribute="leading" constant="20" id="WPi-ng-1jm"/>
-                            <constraint firstItem="KJI-XE-nny" firstAttribute="top" secondItem="jDF-MY-599" secondAttribute="top" constant="5" id="a3x-Ev-Ayd"/>
-                            <constraint firstItem="QRg-gk-eJS" firstAttribute="top" secondItem="KJI-XE-nny" secondAttribute="bottom" constant="30" id="eh3-Im-Yb9"/>
+                            <constraint firstItem="KJI-XE-nny" firstAttribute="top" secondItem="jDF-MY-599" secondAttribute="top" constant="10" id="a3x-Ev-Ayd"/>
+                            <constraint firstItem="QRg-gk-eJS" firstAttribute="top" secondItem="KJI-XE-nny" secondAttribute="bottom" constant="20" id="eh3-Im-Yb9"/>
                         </constraints>
                     </view>
                     <connections>
@@ -7876,40 +7876,40 @@
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemCyanColor">
-            <color red="0.1960784314" green="0.67843137249999996" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.19607843137254902" green="0.67843137254901964" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

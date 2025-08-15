@@ -519,6 +519,7 @@ extension SignInViewController:  VerifyOTPDelegate {
        
         firebaseInstance.userNotFound = {
             print("\n ---***---No user account found and create MT user in firbase---***----\n")
+            self.firebaseInstance.fetchUserData(userId: userID)
             self.createMTAccounts(mtAccountsData: mtAccountsData, userID: userID)
             return
         }

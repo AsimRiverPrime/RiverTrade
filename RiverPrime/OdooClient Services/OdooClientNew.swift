@@ -429,7 +429,7 @@ class OdooClientNew {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
                     
-                    UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
+              
                     self.createLeadDelegate?.leadCreatSuccess(response: result)
                     print("result is: \(result)")
                     self.createRecords1(firebase_uid: firebase_uid, email: email, name: name)
@@ -479,9 +479,9 @@ class OdooClientNew {
             switch result {
             case .success(let value):
                 if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-//                    UserDefaults.standard.set(result, forKey: "recordId") // crm UserID
+                    UserDefaults.standard.set(result, forKey: "recordId")
 //                    self.createLeadDelegate?.leadCreatSuccess(response: result)
-                    print("result is: \(result)")
+                    print("result from res.partner is: \(result)")
                 }else {
                     print("Unexpected response createRecords res.partner format or missing 'result' key")
                 }
