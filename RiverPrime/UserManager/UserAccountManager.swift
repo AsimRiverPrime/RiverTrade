@@ -13,6 +13,8 @@ class UserAccountManager {
     let passwordManager = PasswordManager()
     
     private var accounts: [String: UserAccount] = [:]
+    private var selectAccounts: [MTAccount] = []
+    
     private let defaultUserAccountKey = "defaultUserAccount"
 
     // Update accounts from Firebase response
@@ -58,6 +60,10 @@ class UserAccountManager {
 
         return account
     }
+    
+    func getAccount(for loginId: Int) -> MTAccount? {
+              return selectAccounts.first(where: { $0.accountNumber == "\(loginId)" })
+    }
 }
 
 
@@ -76,7 +82,7 @@ struct UserAccount: Codable {
     init?(dictionary: [String: Any]) {
         guard
             let accountNumber = dictionary["accountNumber"] as? Int,
-            let isDefault = dictionary["isDefault"] as? Int,
+            let isDefault = dictionary["isDefault"] as? Bool,
             let groupName = dictionary["groupName"] as? String,
             let name = dictionary["name"] as? String,
             let groupID = dictionary["groupID"] as? String,
@@ -90,7 +96,7 @@ struct UserAccount: Codable {
         }
 
         self.accountNumber = accountNumber
-        self.isDefault = isDefault == 1
+        self.isDefault = isDefault 
         self.groupName = groupName
         self.name = name
         self.groupID = groupID

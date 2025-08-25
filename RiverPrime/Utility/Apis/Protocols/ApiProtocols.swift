@@ -63,5 +63,5 @@ protocol DemoDepositProtocol: AnyObject {
 
 protocol DemoWithdrawProtocol: AnyObject {
     func demoWithdrawSuccess(response: [String: Any])
-    func demoWithdrawFailure(error: Error)
+    func demoWithdrawFailure(error: String)
 }

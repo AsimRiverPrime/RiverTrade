@@ -131,3 +131,29 @@ class DateHelper {
         return savedDate == today
     }
 }
+
+extension String {
+    /// Convert ISO date string -> formatted date string
+    func formattedDate(from inputFormat: String = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS",
+                       to outputFormat: String = "dd MMM yyyy, hh:mm a") -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        
+        // Input format (API)
+        formatter.dateFormat = inputFormat
+        if let date = formatter.date(from: self) {
+            // Output format (UI)
+            formatter.dateFormat = outputFormat
+            return formatter.string(from: date)
+        }
+        
+        // Try fallback if API sometimes sends shorter format (without microseconds)
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        if let date = formatter.date(from: self) {
+            formatter.dateFormat = outputFormat
+            return formatter.string(from: date)
+        }
+        
+        return self // fallback to original string
+    }
+}

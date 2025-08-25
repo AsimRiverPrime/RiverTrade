@@ -398,9 +398,10 @@ class TradeTypeCellVM {
         }
     }
     
-    func getUserBalance(completion: @escaping (Result<ResponseModel, Error>) -> Void) {
-        var pass = UserDefaults.standard.string(forKey: "password")
+ 
+    func getUserBalance(login_id: Int? = nil, mtPassword: String? = nil, _isDemo: Bool? = nil,  completion: @escaping (Result<ResponseModel, Error>) -> Void) {
       
+        var pass1 = String()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String {
@@ -408,12 +409,19 @@ class TradeTypeCellVM {
             }
         }
         
-        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            print("\n Default Account User in get user balance api: \(defaultAccount)")
-            loginId = defaultAccount.accountNumber
-            pass = defaultAccount.password
-            isDemo = !defaultAccount.isReal
-        }
+        if let login_id = login_id, let pass = mtPassword, let isDemo = _isDemo {
+                  // Use the passed login_id
+                  loginId = login_id
+                  pass1 = pass
+                  self.isDemo = !isDemo
+                  print("given loginId: \(loginId), given password: \(pass1), isDemo: \(self.isDemo)")
+              } else if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+                  // Fallback to default account
+                  loginId = defaultAccount.accountNumber
+                  pass1 = defaultAccount.password
+                  let is_Real = defaultAccount.isReal
+                  isDemo = !is_Real
+              }
       
         
         let params: [String: Any] = [
@@ -431,7 +439,7 @@ class TradeTypeCellVM {
                         [],
                         email,
                         loginId,
-                        pass ?? "",
+                        pass1,
                         isDemo
                     ]
                 ]

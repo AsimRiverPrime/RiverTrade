@@ -13,12 +13,12 @@ extension UIViewController {
         // Set the title of the navigation bar
         self.navigationItem.title = title
         // Add the back button
-//        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
-//        self.navigationItem.leftBarButtonItem = backButton
+        //        let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(backButtonTapped))
+        //        self.navigationItem.leftBarButtonItem = backButton
         
         let originalRightButton1Image = rightButton1Image.withRenderingMode(.alwaysOriginal)
         let originalRightButton2Image = rightButton2Image.withRenderingMode(.alwaysOriginal)
-               
+        
         
         // Add the first right button
         let rightButton1 = UIBarButtonItem(image: originalRightButton1Image, style: .plain, target: self, action: rightButton1Action)
@@ -53,24 +53,24 @@ extension UIViewController {
             self.present(navigationController, animated: animated, completion: nil)
         }
     }
-//    func navigate(to viewController: UIViewController, animated: Bool = true) {
-//        if let navigationController = self.navigationController {
-//            navigationController.pushViewController(viewController, animated: animated)
-//        } else if let tabBarController = self.tabBarController,
-//                  let selectedNavController = tabBarController.selectedViewController as? UINavigationController {
-//            selectedNavController.pushViewController(viewController, animated: animated)
-//        } else {
-//            let navigationController = UINavigationController(rootViewController: viewController)
-//            navigationController.modalPresentationStyle = .fullScreen
-//            self.present(navigationController, animated: animated, completion: nil)
-//        }
-//    }
-       
-       func instantiateViewController(fromStoryboard storyboardName: String, withIdentifier identifier: String) -> UIViewController? {
-           let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
-           return storyboard.instantiateViewController(withIdentifier: identifier)
-       }
-   
+    //    func navigate(to viewController: UIViewController, animated: Bool = true) {
+    //        if let navigationController = self.navigationController {
+    //            navigationController.pushViewController(viewController, animated: animated)
+    //        } else if let tabBarController = self.tabBarController,
+    //                  let selectedNavController = tabBarController.selectedViewController as? UINavigationController {
+    //            selectedNavController.pushViewController(viewController, animated: animated)
+    //        } else {
+    //            let navigationController = UINavigationController(rootViewController: viewController)
+    //            navigationController.modalPresentationStyle = .fullScreen
+    //            self.present(navigationController, animated: animated, completion: nil)
+    //        }
+    //    }
+    
+    func instantiateViewController(fromStoryboard storyboardName: String, withIdentifier identifier: String) -> UIViewController? {
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        return storyboard.instantiateViewController(withIdentifier: identifier)
+    }
+    
 }
 
 extension UITableView {
@@ -93,35 +93,49 @@ extension UITableView {
 }
 
 extension UITextField {
-func setIcon(_ image: UIImage) {
-   let iconView = UIImageView(frame:
-                  CGRect(x: 5, y: 5, width: 20, height: 17))
-   iconView.image = image
-   let iconContainerView: UIView = UIView(frame:
-                  CGRect(x: 20, y: 0, width: 25, height: 25))
-   iconContainerView.addSubview(iconView)
-   leftView = iconContainerView
-   leftViewMode = .always
-}
+    
+    func setIcon(_ image: UIImage) {
+        let iconView = UIImageView(frame:
+                                    CGRect(x: 5, y: 5, width: 20, height: 17))
+        iconView.image = image
+        let iconContainerView: UIView = UIView(frame:
+                                                CGRect(x: 20, y: 0, width: 25, height: 25))
+        iconContainerView.addSubview(iconView)
+        leftView = iconContainerView
+        leftViewMode = .always
+    }
+    
+    func addDoneButton(title: String = "Done", target: Any? = nil, selector: Selector? = nil) {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        
+        let doneButton = UIBarButtonItem(title: title, style: .plain, target: target, action: selector)
+        doneButton.setTitleTextAttributes([.foregroundColor: UIColor.label], for: .normal)
+        
+        toolbar.items = [flexSpace, doneButton]
+        self.inputAccessoryView = toolbar
+    }
 }
 
 public extension UIDevice {
-
-   class var isPhone: Bool {
-       return UIDevice.current.userInterfaceIdiom == .phone
-   }
-
-   class var isPad: Bool {
-       return UIDevice.current.userInterfaceIdiom == .pad
-   }
-
-   class var isTV: Bool {
-       return UIDevice.current.userInterfaceIdiom == .tv
-   }
-
-   class var isCarPlay: Bool {
-       return UIDevice.current.userInterfaceIdiom == .carPlay
-   }
+    
+    class var isPhone: Bool {
+        return UIDevice.current.userInterfaceIdiom == .phone
+    }
+    
+    class var isPad: Bool {
+        return UIDevice.current.userInterfaceIdiom == .pad
+    }
+    
+    class var isTV: Bool {
+        return UIDevice.current.userInterfaceIdiom == .tv
+    }
+    
+    class var isCarPlay: Bool {
+        return UIDevice.current.userInterfaceIdiom == .carPlay
+    }
 }
 
 let screen_width = UIScreen.main.bounds.size.width

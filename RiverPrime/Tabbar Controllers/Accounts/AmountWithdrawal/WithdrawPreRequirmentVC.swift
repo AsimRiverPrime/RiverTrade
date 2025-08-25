@@ -22,12 +22,12 @@ class WithdrawPreRequirmentVC: BaseViewController, UIImagePickerControllerDelega
         super.viewWillAppear(animated)
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Upload Utility Bill", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Upload Utility Bill", leftTitle: "", rightTitle: "", textColor: .black, barColor: .white)
     }
     @IBAction func submitDocument(_ sender: Any) {
         self.dismiss(animated: true)
 //        UserDefaults.standard.set(false, forKey: "hasUploadBill")
-        UserDefaults.standard.set(true, forKey: "hasUploadBill")
+//        UserDefaults.standard.set(true, forKey: "hasUploadBill")
         let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
         PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
 //        if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WithdrawViewController") as? WithdrawViewController {

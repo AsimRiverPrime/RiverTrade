@@ -79,21 +79,22 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
         //MARK: - Hide Navigation Bar
 
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Deposit", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Demo Account Deposit", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func submit_action(_ sender: Any) {
         dismissKeyboard()
         
         if tf_amount.text != "" {
-            if isRealAcount{
-                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-                
-                vc.ammountValue = tf_amount.text ?? ""
-                self.navigate(to: vc)
-            }else{
-                odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
-            }
+//            if isRealAcount{
+//                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
+//                
+//                vc.ammountValue = tf_amount.text ?? ""
+//                self.navigate(to: vc)
+//            }else{
+//                odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
+//            }
+            odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
         }else{
             self.ToastMessage("Please enter amount")
         }
@@ -106,21 +107,13 @@ extension DemoDepositVC: DemoDepositProtocol {
         print("the success response: \(response)")
         if let success = response["success"] as? Int {
             if success == 1 {
-//                tradeTypeVM.getBalance(completion: { response in
-//                    print("response of get balance in demo deposit: \(response)")
-//                    if response == "Invalid Response" {
-//                        
-//                        return
-//                    }
-//                    GlobalVariable.instance.balanceUpdate = response
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-//                })
-//                dismiss(animated: true)
+                
                 tradeTypeVM.getUserBalance(completion: { response in
                     print("get response of user balance for demo deposit: \(response)")
                     switch response{
                 case .success(let responseModel):
-            
+                    self.ToastMessage("Deposit done successfully")
+                        
                     UserManager.shared.currentUser = responseModel.result.user
                     
                     GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"

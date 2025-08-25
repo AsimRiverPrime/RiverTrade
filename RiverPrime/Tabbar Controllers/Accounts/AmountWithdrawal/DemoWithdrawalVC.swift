@@ -10,32 +10,43 @@ import UIKit
 class DemoWithdrawalVC: BaseViewController {
     
     @IBOutlet weak var tf_amount: UITextField!
-//    {
-//        didSet{
-//            tf_amount.setIcon(UIImage(systemName: "dollarsign")!)
-//          
-//            tf_amount.tintColor = UIColor.black
-//        }
-//    }
+  
     @IBOutlet weak var lbl_withdraw_detail: UILabel!
-
+    @IBOutlet weak var lbl_errorMessage: UILabel!
+    @IBOutlet weak var btn_submit: CardViewButton!
     
+    var isRealAcount = Bool()
     var odooClient = OdooClientNew()
     var tradeTypeVM = TradeTypeCellVM()
+    var selectedPaymentTypeId = Int()
+    var selectedPaymentTypeName = String()
+    
+    var request_type = String()
+    var walletBalance = String()
+    var wallet_Name = String()
+    
+    let maxAmount = 1_000_000.0 // Maximum limit (1 million) for real deposit
     
     override func viewDidLoad() {
         super.viewDidLoad()
         odooClient.demoWithdrawProtocolDelegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-           view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)
         
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             
-            lbl_withdraw_detail.text = "Enter the amount you wish to withdraw from your Demo trading account.(\(defaultAccount.groupName)/\(defaultAccount.accountNumber))"
+//             \(defaultAccount.groupName)/\(defaultAccount.accountNumber)."
         }
-        
+        if request_type == "Withdrawal" {
+            lbl_withdraw_detail.text = "Enter the amount you want to withdrawal from  \(wallet_Name)"
+        }else{
+            lbl_withdraw_detail.text = "Enter the amount you want deposit to  \(wallet_Name)"
+        }
+//        print("Stack:", navigationController?.viewControllers)
+        tf_amount.delegate = self
+        tf_amount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
     }
     
     @objc func dismissKeyboard(){
@@ -47,25 +58,84 @@ class DemoWithdrawalVC: BaseViewController {
         //MARK: - Hide Navigation Bar
         
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Withdraw", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Enter \(request_type) Amount", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func submit_withdrawAction(_ sender: Any) {
-        dismissKeyboard()
+      
         if tf_amount.text != "" {
-          
-            let balance = Double(GlobalVariable.instance.balanceUpdate)
-            print("current balance is: \(balance ?? 0.0)")
+            dismissKeyboard()
+//            if isRealAcount{
+//                let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+//                self.navigate(to: vc)
+//            }else{
+//                let balance = Double(GlobalVariable.instance.balanceUpdate)
+                print("current wallet balance is: \(walletBalance)")
+                let cleanString = walletBalance.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)
+
+                // Convert to Double
+                guard let newBalance = Double(cleanString) else {
+                    print("❌ Invalid number")
+                    return
+                }
+               
+            guard let amount = Double(tf_amount.text ?? "") else {  return }
             
-            if let amount = Double(tf_amount.text ?? ""), let balance = balance, amount <= balance {
-                odooClient.demoWithdrawal(amount: (amount))
-            } else {
-                self.ToastMessage("Please enter less withdrawal amount from current balance")
-            }
+            if request_type == "Withdrawal"{
+                
+                if amount <= newBalance {
+                    self.lbl_errorMessage.isHidden = true
+                    
+                    odooClient.create_withdrawal_fundRequest(amount: amount, MethodTypeId: selectedPaymentTypeId, paymentType: "withdrawal")
+                } else {
+                    self.lbl_errorMessage.isHidden = false
+                    self.lbl_errorMessage.text  = "Please enter less withdrawal amount from your current balance"
+                }
+            }else{
+               
+                if selectedPaymentTypeName == "Credit Card" {
+                    if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DepositViewController") as? DepositViewController {
+                    vc.ammountValue = tf_amount.text ?? ""
+                    self.navigate(to: vc)
+                }
+                }else{
+                    odooClient.create_withdrawal_fundRequest(amount: amount, MethodTypeId: selectedPaymentTypeId, paymentType: "deposit")
+                }
+        }
+            
         }else{
-            self.ToastMessage("please enter amount")
+            self.lbl_errorMessage.isHidden = false
+            self.lbl_errorMessage.text = "please enter amount"
         }
     }
+    
+    func validateDepositAmount() {
+        guard let text = tf_amount.text, let enteredAmount = Double(text) else {
+            return
+        }
+        let cleanedAmountValue = walletBalance.replacingOccurrences(of: ",", with: "") // "11676.33"
+        let currentAmount = Double(cleanedAmountValue) ?? 0.0
+        
+        if enteredAmount > maxAmount {
+            self.lbl_errorMessage.isHidden = false
+            self.ToastMessage("You cannot deposit more than $1,000,000.")
+            self.lbl_errorMessage.text = "You cannot deposit more than $1,000,000."
+            tf_amount.text = ""
+            lbl_errorMessage.textColor = .systemRed
+            btn_submit.isUserInteractionEnabled = false
+        } else if (currentAmount + enteredAmount) > maxAmount {
+            self.lbl_errorMessage.isHidden = false
+            self.lbl_errorMessage.text = "Total balance after deposit cannot be exceed $1,000,000."
+            self.ToastMessage("Total balance after deposit cannot be exceed $1,000,000.")
+            tf_amount.text = ""
+            lbl_errorMessage.textColor = .systemRed
+            btn_submit.isUserInteractionEnabled = false
+        }else{
+            lbl_errorMessage.isHidden = true
+            btn_submit.isUserInteractionEnabled = true
+        }
+    }
+    
 }
 
 extension DemoWithdrawalVC: DemoWithdrawProtocol {
@@ -74,44 +144,41 @@ extension DemoWithdrawalVC: DemoWithdrawProtocol {
         print("the success response: \(response)")
         if let success = response["success"] as? Int {
             if success == 1 {
-//                tradeTypeVM.getBalance(completion: { response in
-//                    print("response of get balance for demo withdrawal: \(response)")
-//                    if response == "Invalid Response" {
-//                        
-//                        return
-//                    }
-//                    GlobalVariable.instance.balanceUpdate = response
-//                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-//                })
-                tradeTypeVM.getUserBalance(completion: { response in
-                    print("get response of user balance for demo withdrawal: \(response)")
-                    switch response{
-                case .success(let responseModel):
-            
-                    UserManager.shared.currentUser = responseModel.result.user
+                self.lbl_errorMessage.isHidden = true
+                
+                let message = response["message"] as? String
+
+                self.ToastMessage(message ?? "")
+         
+                if let homeVC = navigationController?.viewControllers.first(where: { $0 is HomeTabbarViewController }),
+                   let walletVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WalletVC") as? WalletVC {
                     
-                    GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
-                 
-                    print("GlobalVariable.instance.balanceUpdate = \(GlobalVariable.instance.balanceUpdate)")
-                    NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.BalanceUpdateConstant.key, dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate])
-                 
-                    case .failure(let error):
-                        print("Failed to fetch balance: \(error.localizedDescription)")
-                    }
-                })
+                    navigationController?.setViewControllers([homeVC, walletVC], animated: true)
+                }
                 
             }else{
                 self.ToastMessage("Error: Balance not update")
             }
         }else{
-            self.ToastMessage("Error: Json is invalid")
+            self.ToastMessage("Server Error")
         }
-        self.navigationController?.popViewController(animated: true)
+       
     }
     
-    func demoWithdrawFailure(error: any Error) {
-        self.ToastMessage("Error:\(error)")
+    func demoWithdrawFailure(error: String) {
+      self.ToastMessage( "Error:\(error)")
+        self.lbl_errorMessage.isHidden = false
+        self.lbl_errorMessage.text = "\(error)"
     }
     
+    
+}
+
+extension DemoWithdrawalVC: UITextFieldDelegate {
+    @objc func textFieldDidChange() {
+        if request_type == "Deposit" {
+            validateDepositAmount()
+        }
+    }
     
 }

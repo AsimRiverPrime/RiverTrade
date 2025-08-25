@@ -134,14 +134,14 @@ class SelectAccountTypeVC: BottomSheetController {
         demoData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
         realData.sort { ($0["isDefault"] as? Int ?? 0) > ($1["isDefault"] as? Int ?? 0) }
            
-        print("\nDemo account Data: \(demoData)\n")
+        print("\n Demo account Data: \(demoData)\n")
         print("Real account Data: \(realData)")
         
         tableView.registerCells([
             SelectAccountTypeCell.self
         ])
 
-        if savedList.contains(where: { $0.value["isReal"] as? Int == 1 && $0.value["isDefault"] as? Int == 1 }) {
+        if savedList.contains(where: { $0.value["isReal"] as? Int == 1 && $0.value["isDefault"] as? Bool == true }) {
             currentData = realData
             updateButtonStyles(selectedButton: realButton)
             isDemo = false

@@ -14,7 +14,6 @@
 		3105DEE62CB3E8A400D1B884 /* CreateAccountTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DE962CB3E8A400D1B884 /* CreateAccountTVCell.xib */; };
 		3105DEE82CB3E8A400D1B884 /* PendingOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DED52CB3E8A400D1B884 /* PendingOrderCell.xib */; };
 		3105DEEA2CB3E8A400D1B884 /* AccountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DE922CB3E8A400D1B884 /* AccountTableViewCell.xib */; };
-		3105DEEB2CB3E8A400D1B884 /* withDrawTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEDA2CB3E8A400D1B884 /* withDrawTableViewCell.xib */; };
 		3105DEEC2CB3E8A400D1B884 /* UnarchiveAccountTypeTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEAD2CB3E8A400D1B884 /* UnarchiveAccountTypeTVC.xib */; };
 		3105DEED2CB3E8A400D1B884 /* CreateAccountVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEB42CB3E8A400D1B884 /* CreateAccountVC.xib */; };
 		3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DED32CB3E8A400D1B884 /* CloseOrderCell.xib */; };
@@ -23,7 +22,6 @@
 		3105DEF12CB3E8A400D1B884 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DED72CB3E8A400D1B884 /* TransactionCell.xib */; };
 		3105DEF32CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DEA72CB3E8A400D1B884 /* UnarchiveAccountTypeDetailTVC.xib */; };
 		3105DEF42CB3E8A400D1B884 /* CloseTicketTBCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3105DECC2CB3E8A400D1B884 /* CloseTicketTBCell.xib */; };
-		3105DEF52CB3E8A400D1B884 /* withDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DED92CB3E8A400D1B884 /* withDrawTableViewCell.swift */; };
 		3105DEF62CB3E8A400D1B884 /* CreateAccountTypeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE9E2CB3E8A400D1B884 /* CreateAccountTypeVC.swift */; };
 		3105DEF72CB3E8A400D1B884 /* ListingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB62CB3E8A400D1B884 /* ListingTableViewCell.swift */; };
 		3105DEF82CB3E8A400D1B884 /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB32CB3E8A400D1B884 /* CreateAccountVC.swift */; };
@@ -45,7 +43,6 @@
 		3105DF0A2CB3E8A400D1B884 /* TradeTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEC62CB3E8A400D1B884 /* TradeTypeTableViewCell.swift */; };
 		3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE952CB3E8A400D1B884 /* CreateAccountTVCell.swift */; };
 		3105DF0C2CB3E8A400D1B884 /* TransactionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DED62CB3E8A400D1B884 /* TransactionCell.swift */; };
-		3105DF0D2CB3E8A400D1B884 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEDC2CB3E8A400D1B884 /* WithdrawViewController.swift */; };
 		3105DF0F2CB3E8A400D1B884 /* AccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE912CB3E8A400D1B884 /* AccountTableViewCell.swift */; };
 		3105DF102CB3E8A400D1B884 /* CountryCurrencyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DEB22CB3E8A400D1B884 /* CountryCurrencyListViewController.swift */; };
 		3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105DE9A2CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift */; };
@@ -83,7 +80,6 @@
 		315DDB072C4F9C8300C4F8C0 /* LogoutTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */; };
 		315DDB082C4F9C8300C4F8C0 /* LogoutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */; };
 		315EE9392D193C2200EA96DC /* DemoDepositVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315EE9382D193C2200EA96DC /* DemoDepositVC.swift */; };
-		315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */; };
 		315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */; };
 		315F08612CB51842008B8673 /* CloseTicketSectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */; };
 		3162CD532DE0543800E5293A /* Model_SymbolData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3162CD512DE0543800E5293A /* Model_SymbolData.xcdatamodeld */; };
@@ -200,7 +196,6 @@
 		31BE553B2C4925DB00DE2640 /* TopNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */; };
 		31BE553C2C4925DB00DE2640 /* TopNewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */; };
 		31BE553F2C492AD800DE2640 /* TradeDetalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */; };
-		31C1DA7D2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1DA7C2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift */; };
 		31C619DA2D0AED97004FA259 /* TopNewsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C619D92D0AED97004FA259 /* TopNewsModel.swift */; };
 		31D262022C3BECDE00FC6651 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262012C3BECDE00FC6651 /* AppDelegate.swift */; };
 		31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31D262032C3BECDE00FC6651 /* SceneDelegate.swift */; };
@@ -319,6 +314,18 @@
 		31DC19CE2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */; };
 		31DC19CF2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */; };
 		31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */; };
+		31E682242E5C449400ACCDCB /* WalletVC_TVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E682222E5C449400ACCDCB /* WalletVC_TVCell.xib */; };
+		31E682252E5C449400ACCDCB /* WalletVC_TVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682212E5C449400ACCDCB /* WalletVC_TVCell.swift */; };
+		31E682262E5C449400ACCDCB /* TransferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6821E2E5C449400ACCDCB /* TransferViewController.swift */; };
+		31E682272E5C449400ACCDCB /* WalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682202E5C449400ACCDCB /* WalletVC.swift */; };
+		31E682282E5C449400ACCDCB /* TranscationsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6821C2E5C449400ACCDCB /* TranscationsResponse.swift */; };
+		31E682332E5C538100ACCDCB /* withDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6822C2E5C538100ACCDCB /* withDrawTableViewCell.swift */; };
+		31E682342E5C538100ACCDCB /* UserPaymentMethodsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6822A2E5C538100ACCDCB /* UserPaymentMethodsResponse.swift */; };
+		31E682352E5C538100ACCDCB /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682312E5C538100ACCDCB /* WithdrawViewController.swift */; };
+		31E682362E5C538100ACCDCB /* DemoWithdrawalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E6822F2E5C538100ACCDCB /* DemoWithdrawalVC.swift */; };
+		31E682372E5C538100ACCDCB /* PaymentTypesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682292E5C538100ACCDCB /* PaymentTypesResponse.swift */; };
+		31E682382E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682302E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift */; };
+		31E682392E5C538100ACCDCB /* withDrawTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E6822D2E5C538100ACCDCB /* withDrawTableViewCell.xib */; };
 		31F119472D1309A900D6D275 /* TradeSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F119462D1309A900D6D275 /* TradeSessionModel.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */; };
@@ -468,9 +475,6 @@
 		3105DED52CB3E8A400D1B884 /* PendingOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PendingOrderCell.xib; sourceTree = "<group>"; };
 		3105DED62CB3E8A400D1B884 /* TransactionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionCell.swift; sourceTree = "<group>"; };
 		3105DED72CB3E8A400D1B884 /* TransactionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
-		3105DED92CB3E8A400D1B884 /* withDrawTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = withDrawTableViewCell.swift; sourceTree = "<group>"; };
-		3105DEDA2CB3E8A400D1B884 /* withDrawTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = withDrawTableViewCell.xib; sourceTree = "<group>"; };
-		3105DEDC2CB3E8A400D1B884 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
 		3105DEE02CB3E8A400D1B884 /* AccountsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewController.swift; sourceTree = "<group>"; };
 		3106BBB22C993B7100B7ABF9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3106BBB42C998A3600B7ABF9 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -502,7 +506,6 @@
 		315DDB052C4F9C8300C4F8C0 /* LogoutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutTableViewCell.swift; sourceTree = "<group>"; };
 		315DDB062C4F9C8300C4F8C0 /* LogoutTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogoutTableViewCell.xib; sourceTree = "<group>"; };
 		315EE9382D193C2200EA96DC /* DemoDepositVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoDepositVC.swift; sourceTree = "<group>"; };
-		315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoWithdrawalVC.swift; sourceTree = "<group>"; };
 		315F085E2CB51842008B8673 /* CloseTicketSectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloseTicketSectionCell.swift; sourceTree = "<group>"; };
 		315F085F2CB51842008B8673 /* CloseTicketSectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CloseTicketSectionCell.xib; sourceTree = "<group>"; };
 		3162CD522DE0543800E5293A /* Model_SymbolData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model_SymbolData.xcdatamodel; sourceTree = "<group>"; };
@@ -620,7 +623,6 @@
 		31BE55392C4925DB00DE2640 /* TopNewsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsTableViewCell.swift; sourceTree = "<group>"; };
 		31BE553A2C4925DB00DE2640 /* TopNewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopNewsTableViewCell.xib; sourceTree = "<group>"; };
 		31BE553E2C492AD800DE2640 /* TradeDetalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeDetalVC.swift; sourceTree = "<group>"; };
-		31C1DA7C2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawPreRequirmentVC.swift; sourceTree = "<group>"; };
 		31C619D92D0AED97004FA259 /* TopNewsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopNewsModel.swift; sourceTree = "<group>"; };
 		31D261FE2C3BECDE00FC6651 /* RiverPrime.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RiverPrime.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		31D262012C3BECDE00FC6651 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -742,6 +744,18 @@
 		31DC19CC2C4F7D98005BC2BB /* RefferalProgramTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefferalProgramTableViewCell.swift; sourceTree = "<group>"; };
 		31DC19CD2C4F7D98005BC2BB /* RefferalProgramTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefferalProgramTableViewCell.xib; sourceTree = "<group>"; };
 		31DD0FDE2D1D94E300812F6E /* ResidencVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResidencVC.swift; sourceTree = "<group>"; };
+		31E6821C2E5C449400ACCDCB /* TranscationsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscationsResponse.swift; sourceTree = "<group>"; };
+		31E6821E2E5C449400ACCDCB /* TransferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferViewController.swift; sourceTree = "<group>"; };
+		31E682202E5C449400ACCDCB /* WalletVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletVC.swift; sourceTree = "<group>"; };
+		31E682212E5C449400ACCDCB /* WalletVC_TVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletVC_TVCell.swift; sourceTree = "<group>"; };
+		31E682222E5C449400ACCDCB /* WalletVC_TVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletVC_TVCell.xib; sourceTree = "<group>"; };
+		31E682292E5C538100ACCDCB /* PaymentTypesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTypesResponse.swift; sourceTree = "<group>"; };
+		31E6822A2E5C538100ACCDCB /* UserPaymentMethodsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPaymentMethodsResponse.swift; sourceTree = "<group>"; };
+		31E6822C2E5C538100ACCDCB /* withDrawTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = withDrawTableViewCell.swift; sourceTree = "<group>"; };
+		31E6822D2E5C538100ACCDCB /* withDrawTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = withDrawTableViewCell.xib; sourceTree = "<group>"; };
+		31E6822F2E5C538100ACCDCB /* DemoWithdrawalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoWithdrawalVC.swift; sourceTree = "<group>"; };
+		31E682302E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawPreRequirmentVC.swift; sourceTree = "<group>"; };
+		31E682312E5C538100ACCDCB /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
 		31F119462D1309A900D6D275 /* TradeSessionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TradeSessionModel.swift; sourceTree = "<group>"; };
 		31F29B322C7C9B6300BBB126 /* SwiftGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftGif.h; sourceTree = "<group>"; };
 		31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
@@ -1107,29 +1121,11 @@
 			path = TranscationCell;
 			sourceTree = "<group>";
 		};
-		3105DEDB2CB3E8A400D1B884 /* withdrawTableCell */ = {
-			isa = PBXGroup;
-			children = (
-				3105DED92CB3E8A400D1B884 /* withDrawTableViewCell.swift */,
-				3105DEDA2CB3E8A400D1B884 /* withDrawTableViewCell.xib */,
-			);
-			path = withdrawTableCell;
-			sourceTree = "<group>";
-		};
-		3105DEDD2CB3E8A400D1B884 /* AmountWithdrawal */ = {
-			isa = PBXGroup;
-			children = (
-				3105DEDB2CB3E8A400D1B884 /* withdrawTableCell */,
-				3105DEDC2CB3E8A400D1B884 /* WithdrawViewController.swift */,
-				315EE93A2D193C5E00EA96DC /* DemoWithdrawalVC.swift */,
-				31C1DA7C2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift */,
-			);
-			path = AmountWithdrawal;
-			sourceTree = "<group>";
-		};
 		3105DEE12CB3E8A400D1B884 /* Accounts */ = {
 			isa = PBXGroup;
 			children = (
+				31E682322E5C538100ACCDCB /* AmountWithdrawal */,
+				31E682232E5C449400ACCDCB /* Account_Wallet */,
 				316B05C02E4C703200520E02 /* SelectDefaultAccount */,
 				316CDF8F2D23BDF100CA3050 /* PasswordHandleLocaly */,
 				3105DE942CB3E8A400D1B884 /* AccountTableViewCells */,
@@ -1142,7 +1138,6 @@
 				FA316F812CC1ADED0048B181 /* Total_PLCell */,
 				3105DEC82CB3E8A400D1B884 /* TradeTypeCell */,
 				3105DED82CB3E8A400D1B884 /* TranscationCell */,
-				3105DEDD2CB3E8A400D1B884 /* AmountWithdrawal */,
 				3105DEE02CB3E8A400D1B884 /* AccountsViewController.swift */,
 			);
 			path = Accounts;
@@ -2055,6 +2050,64 @@
 			path = ReferralTBCell;
 			sourceTree = "<group>";
 		};
+		31E6821D2E5C449400ACCDCB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				31E6821C2E5C449400ACCDCB /* TranscationsResponse.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		31E6821F2E5C449400ACCDCB /* TransferVC */ = {
+			isa = PBXGroup;
+			children = (
+				31E6821E2E5C449400ACCDCB /* TransferViewController.swift */,
+			);
+			path = TransferVC;
+			sourceTree = "<group>";
+		};
+		31E682232E5C449400ACCDCB /* Account_Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				31E6821D2E5C449400ACCDCB /* Models */,
+				31E6821F2E5C449400ACCDCB /* TransferVC */,
+				31E682202E5C449400ACCDCB /* WalletVC.swift */,
+				31E682212E5C449400ACCDCB /* WalletVC_TVCell.swift */,
+				31E682222E5C449400ACCDCB /* WalletVC_TVCell.xib */,
+			);
+			path = Account_Wallet;
+			sourceTree = "<group>";
+		};
+		31E6822B2E5C538100ACCDCB /* withdraw_Models */ = {
+			isa = PBXGroup;
+			children = (
+				31E682292E5C538100ACCDCB /* PaymentTypesResponse.swift */,
+				31E6822A2E5C538100ACCDCB /* UserPaymentMethodsResponse.swift */,
+			);
+			path = withdraw_Models;
+			sourceTree = "<group>";
+		};
+		31E6822E2E5C538100ACCDCB /* withdrawTableCell */ = {
+			isa = PBXGroup;
+			children = (
+				31E6822C2E5C538100ACCDCB /* withDrawTableViewCell.swift */,
+				31E6822D2E5C538100ACCDCB /* withDrawTableViewCell.xib */,
+			);
+			path = withdrawTableCell;
+			sourceTree = "<group>";
+		};
+		31E682322E5C538100ACCDCB /* AmountWithdrawal */ = {
+			isa = PBXGroup;
+			children = (
+				31E6822B2E5C538100ACCDCB /* withdraw_Models */,
+				31E6822E2E5C538100ACCDCB /* withdrawTableCell */,
+				31E6822F2E5C538100ACCDCB /* DemoWithdrawalVC.swift */,
+				31E682302E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift */,
+				31E682312E5C538100ACCDCB /* WithdrawViewController.swift */,
+			);
+			path = AmountWithdrawal;
+			sourceTree = "<group>";
+		};
 		31F119452D13099000D6D275 /* TradeSessionModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -2618,6 +2671,7 @@
 				31A943862D5B8DAE000E1DEF /* datafeeds in Resources */,
 				31A943872D5B8DAE000E1DEF /* charting_library.d.ts in Resources */,
 				31A943882D5B8DAE000E1DEF /* CONTRIBUTING.md in Resources */,
+				31E682392E5C538100ACCDCB /* withDrawTableViewCell.xib in Resources */,
 				31A943892D5B8DAE000E1DEF /* changelog.md in Resources */,
 				31A9438A2D5B8DAE000E1DEF /* themed.html in Resources */,
 				31A9438B2D5B8DAE000E1DEF /* README.md in Resources */,
@@ -2665,13 +2719,13 @@
 				31643B8C2D1AED58000054F9 /* SelectAccountTypeCell.xib in Resources */,
 				3105DEE82CB3E8A400D1B884 /* PendingOrderCell.xib in Resources */,
 				3105DEEA2CB3E8A400D1B884 /* AccountTableViewCell.xib in Resources */,
-				3105DEEB2CB3E8A400D1B884 /* withDrawTableViewCell.xib in Resources */,
 				3105DEEC2CB3E8A400D1B884 /* UnarchiveAccountTypeTVC.xib in Resources */,
 				FA10ECCB2CE6A23F00C1980F /* Poppins-Light.ttf in Resources */,
 				3105DEED2CB3E8A400D1B884 /* CreateAccountVC.xib in Resources */,
 				FA10ECD32CE6A23F00C1980F /* Poppins-LightItalic.ttf in Resources */,
 				31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */,
 				31B263342CCF5C5E006D4DF4 /* SettingsView.xib in Resources */,
+				31E682242E5C449400ACCDCB /* WalletVC_TVCell.xib in Resources */,
 				3105DEEE2CB3E8A400D1B884 /* CloseOrderCell.xib in Resources */,
 				3172C9E52D0AC0FB0098BBEC /* TopNewsSection.xib in Resources */,
 				3105DEEF2CB3E8A400D1B884 /* UnarchiveAccountTypeCVC.xib in Resources */,
@@ -2817,7 +2871,6 @@
 				31D2621D2C3BF5CE00FC6651 /* Extension.swift in Sources */,
 				31D2AF2F2C8840B800E0CF2E /* SeriesMarker.swift in Sources */,
 				313A92342D084BB0004AC33D /* UserManager.swift in Sources */,
-				315EE93B2D193C5E00EA96DC /* DemoWithdrawalVC.swift in Sources */,
 				3162CD532DE0543800E5293A /* Model_SymbolData.xcdatamodeld in Sources */,
 				31D2AEEF2C8840B800E0CF2E /* AreaSeries.swift in Sources */,
 				FA532D762C5721E1003A26D6 /* FontController.swift in Sources */,
@@ -2955,6 +3008,12 @@
 				70624A892D8E49BA0005DD3D /* NetellerPaymentRequest.swift in Sources */,
 				31DD0FDF2D1D94E300812F6E /* ResidencVC.swift in Sources */,
 				31836B1F2D2E4ED90017C9D4 /* EmailVC.swift in Sources */,
+				31E682332E5C538100ACCDCB /* withDrawTableViewCell.swift in Sources */,
+				31E682342E5C538100ACCDCB /* UserPaymentMethodsResponse.swift in Sources */,
+				31E682352E5C538100ACCDCB /* WithdrawViewController.swift in Sources */,
+				31E682362E5C538100ACCDCB /* DemoWithdrawalVC.swift in Sources */,
+				31E682372E5C538100ACCDCB /* PaymentTypesResponse.swift in Sources */,
+				31E682382E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift in Sources */,
 				31F959FB2CD0E8A100607467 /* ChartTypeVC.swift in Sources */,
 				3164C5FC2C47F13E0055F093 /* TradingSignalTableViewCell.swift in Sources */,
 				FA532D772C5721E1003A26D6 /* NavigationBar.swift in Sources */,
@@ -3015,7 +3074,6 @@
 				31D262042C3BECDE00FC6651 /* SceneDelegate.swift in Sources */,
 				31D2AF422C8840B800E0CF2E /* ChartApi.swift in Sources */,
 				FAC321A22C6AC6B80019073C /* AccountDetailTVC.swift in Sources */,
-				3105DEF52CB3E8A400D1B884 /* withDrawTableViewCell.swift in Sources */,
 				3105DEF62CB3E8A400D1B884 /* CreateAccountTypeVC.swift in Sources */,
 				3105DEF72CB3E8A400D1B884 /* ListingTableViewCell.swift in Sources */,
 				31ABE5CF2D55E84200DF9941 /* AlarmAlertVC.swift in Sources */,
@@ -3028,6 +3086,10 @@
 				315F08602CB51842008B8673 /* CloseTicketSectionCell.swift in Sources */,
 				31710CDF2CE321C80082AB28 /* String+Extension.swift in Sources */,
 				3105DEFC2CB3E8A400D1B884 /* TransactionCellVM.swift in Sources */,
+				31E682252E5C449400ACCDCB /* WalletVC_TVCell.swift in Sources */,
+				31E682262E5C449400ACCDCB /* TransferViewController.swift in Sources */,
+				31E682272E5C449400ACCDCB /* WalletVC.swift in Sources */,
+				31E682282E5C449400ACCDCB /* TranscationsResponse.swift in Sources */,
 				3105DEFD2CB3E8A400D1B884 /* PendingOrderCell.swift in Sources */,
 				3105DEFE2CB3E8A400D1B884 /* DepositViewController.swift in Sources */,
 				3105DEFF2CB3E8A400D1B884 /* UnarchiveAccountTypeTVC.swift in Sources */,
@@ -3049,7 +3111,6 @@
 				3105DF0A2CB3E8A400D1B884 /* TradeTypeTableViewCell.swift in Sources */,
 				3105DF0B2CB3E8A400D1B884 /* CreateAccountTVCell.swift in Sources */,
 				3105DF0C2CB3E8A400D1B884 /* TransactionCell.swift in Sources */,
-				3105DF0D2CB3E8A400D1B884 /* WithdrawViewController.swift in Sources */,
 				3105DF0F2CB3E8A400D1B884 /* AccountTableViewCell.swift in Sources */,
 				3105DF102CB3E8A400D1B884 /* CountryCurrencyListViewController.swift in Sources */,
 				3105DF112CB3E8A400D1B884 /* CreateAccountSelectTradeType.swift in Sources */,
@@ -3066,7 +3127,6 @@
 				FA9B00C02C4BFBE900BC57F1 /* GlobalVariable.swift in Sources */,
 				31D993ED2CD3B33300FC8FF9 /* TimeFrameTVCell.swift in Sources */,
 				FAC321A72C6AC72C0019073C /* CustomSegmentedControl.swift in Sources */,
-				31C1DA7D2D4A3AE3000B5AA8 /* WithdrawPreRequirmentVC.swift in Sources */,
 				31A52ACC2DC8B6E3008460C6 /* HyperPayVC.swift in Sources */,
 				3169F2402C53AC0C0032272A /* FireStoreServices.swift in Sources */,
 				317B00232D37DA0B007C7C37 /* NotificationTVCell.swift in Sources */,

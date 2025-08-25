@@ -12,35 +12,31 @@ import FirebaseFirestore
 import KeychainSwift
 import Firebase
 import CryptoKit
-
+import SVProgressHUD
 
 class EmailVC: BaseViewController {
-
    
     @IBOutlet weak var tf_email: UITextField!{
         didSet{
-            tf_email.setIcon(UIImage(imageLiteralResourceName: "emailIcon"))
-            tf_email.tintColor = UIColor.lightGray
+            tf_email.setIcon(UIImage(imageLiteralResourceName: "emailIcon").withTintColor(.black))
+            tf_email.tintColor = UIColor.black
         }
     }
-    
     @IBOutlet weak var tf_fullName: UITextField!{
         didSet{
-            tf_fullName.setIcon(UIImage(imageLiteralResourceName: "personIcon"))
-            tf_fullName.tintColor = UIColor.lightGray
+            tf_fullName.setIcon(UIImage(imageLiteralResourceName: "personIcon").withTintColor(.black))
+            tf_fullName.tintColor = UIColor.black
         }
     }
     
     @IBOutlet weak var lbl_emailError: UILabel!
-    
+
     var viewModel = SignViewModel()
     let googleSignIn = GoogleSignIn()
     var odoClientNew = OdooClientNew()
     var firebaseInstance = FirestoreServices()
     
-//    var fromOpenAccount : Bool = false
-//    var isGoogleLogin : Bool = false
-//    var isAppleLogin : Bool = false
+    var isAppleLogin : Bool = false
     
     let keychain = KeychainSwift()
     let db = Firestore.firestore()
@@ -58,10 +54,6 @@ class EmailVC: BaseViewController {
         odoClientNew.createLeadDelegate = self
         odoClientNew.createUserAcctDelegate = self
         
-//        fromOpenAccount =  UserDefaults.standard.bool(forKey: "fromOpenAccount")
-//        isGoogleLogin =  UserDefaults.standard.bool(forKey: "isGoogleLogin")
-//        isAppleLogin =  UserDefaults.standard.bool(forKey: "isAppleLogin")
-      
         self.tf_email.addTarget(self, action: #selector(emailTextChanged), for: .editingChanged)
       
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -70,24 +62,26 @@ class EmailVC: BaseViewController {
         self._password = passwordManager.generateRandomPassword(length: 8)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.setNavBar(vc: self, isBackButton: true, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ViewController(), navController: self.navigationController, title: "Sign Up", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
-    }
-    
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
     }
     
     @objc func emailTextChanged(_ textField: UITextField) {
-        if self.viewModel.isValidEmail(self.tf_email.text!)  {
-            self.lbl_emailError.isHidden = true
-           
+        if let email = self.tf_email.text, !email.isEmpty {
+            if self.viewModel.isValidEmail(email) {
+                self.lbl_emailError.isHidden = true
+                self.tf_email.layer.borderColor = UIColor.black.cgColor
+            } else {
+                self.lbl_emailError.textColor = .systemRed
+                self.lbl_emailError.text = "Email is not correct"
+                self.lbl_emailError.isHidden = false
+                self.tf_email.layer.borderColor = UIColor.red.cgColor
+            }
         } else {
             self.lbl_emailError.textColor = .systemRed
-            self.lbl_emailError.text = "Email is not correct"
+            self.lbl_emailError.text = "Email field cannot be empty"
             self.lbl_emailError.isHidden = false
+            self.tf_email.layer.borderColor = UIColor.red.cgColor
         }
     }
     
@@ -96,6 +90,7 @@ class EmailVC: BaseViewController {
         guard let email = tf_email.text, !email.isEmpty else {
             self.lbl_emailError.isHidden = false
             self.lbl_emailError.text = "This field cannot be empty"
+            self.tf_email.layer.borderColor = UIColor.red.cgColor
             return
         }
         
@@ -114,9 +109,12 @@ class EmailVC: BaseViewController {
     }
     
     @IBAction func signInGoogle(_ sender: Any) {
+        SVProgressHUD.show()
+        self.isAppleLogin = false
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { [weak self] result, error in
             if let error = error {
                 print("Sign in failed: \(error.localizedDescription)")
+                SVProgressHUD.dismiss()
                 return
             }
             //            print("google login user result : \(result)")
@@ -128,15 +126,17 @@ class EmailVC: BaseViewController {
             UserDefaults.standard.set(self?._fullName, forKey: "FullName")
             GlobalVariable.instance.userEmail = self?._email ?? ""
 //            GlobalVariable.instance.userID = result?.user.userID ?? ""
-//            self?.isGoogleLogin = true
+           
             
-            self?.googleSignIn.odoClientNew.createLeadDelegate = self
-            self?.googleSignIn.authenticateWithFirebase(user: user1)
+//            self?.googleSignIn.odoClientNew.createLeadDelegate = self
+//            self?.googleSignIn.authenticateWithFirebase(user: user1)
+            self?.authenticateWithFirebase(user: user1)
         }
     }
     
     @IBAction func appleSignIN_btnAction(_ sender: Any) {
-        
+        SVProgressHUD.show()
+        self.isAppleLogin = true
         let nonce = randomNonceString()
         currentNonce = nonce
         let appleIDProvider = ASAuthorizationAppleIDProvider()
@@ -150,7 +150,6 @@ class EmailVC: BaseViewController {
         authorizationController.performRequests()
         
     }
-
     
 }
 
@@ -216,7 +215,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
             } else {
                 print("Email not provided")
                 _email = keychain.get("appleEmail")
-                print("User Email get: \(_email)")
+                print("User Email get from Keychain: \(_email ?? "")")
             }
             
             if let fullName = appleIDCredential.fullName {
@@ -249,35 +248,55 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                     print("Firebase authentication failed: \(error.localizedDescription)")
                     return
                 }
+                
                 // User is signed in with Firebase successfuly
                 if let user = authResult?.user {
-                    
+                    print("User is signed in with Firebase successfuly: \(user.uid)")
                     UserDefaults.standard.set(user.uid, forKey: "userID")
                     //self.emailUser = user.email ?? ""
 //                    GlobalVariable.instance.userEmail = self.emailUser!
                     
-                    self.db.collection("users").whereField("email", isEqualTo: user.email ?? "").getDocuments { (querySnapshot, error) in
+                    self.db.collection("users").whereField("email", isEqualTo: self._email ?? "").getDocuments { (querySnapshot, error) in
                         if let error = error {
                             print("Error checking for existing user: \(error.localizedDescription)")
                         }
-                        
+                        print("User is in with Firebase users collection : \(self._email ?? "")")
                         if let snapshot = querySnapshot, !snapshot.isEmpty {
                             print("User with this email already exists.")
+                            SVProgressHUD.dismiss()
+                            self.ToastMessage("User with this email already exists.\nPlease Sign In")
                             
-                            self.firebaseInstance.fetchUserData(userId: user.uid)
-                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-                            })
-                            
-                            let _ = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false) { [weak self] _ in
-                                print("Timer fired!")
-                                
-                                self?.firebaseInstance.handleFaceID()
-                            }
-                            
+//                            self.firebaseInstance.fetchUserData(userId: user.uid)
+//                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
+//                            })
+//
+//                            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
+//                                print("Timer fired!")
+//
+//                                self.firebaseInstance.handleFaceID()
+//                            }
+                         
                         } else {
-                            self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
-                            self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "",registrationType: 3)
-                            
+                            self.odoClientNew.SearchRecord(email: self._email ?? "") { userFound, userData, error in
+                                
+                                if let error = error {
+                                    print("Error checking user:", error)
+                                    self.ToastMessage("No user found.Server error.")
+                                    return
+                                }
+
+                                if userFound {
+                                    print("✅ User exists in CRM")
+                                    self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                                    return
+                                } else {
+                                    print("❌ User does not exist")
+                                    self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
+                                    self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "",registrationType: 3)
+                                  
+                                }
+                            }
+                           
                         }
                     }
                 }
@@ -287,23 +306,32 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print("Sign in with Apple error: \(error.localizedDescription)")
+        SVProgressHUD.dismiss()
     }
     
     func navigateFaceID(){
      
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
         faceIdVC.afterLoginNavigation = false
-//        self.navigate(to: faceIdVC)
-        faceIdVC.modalPresentationStyle = .overFullScreen
-        if let sheet = faceIdVC.sheetPresentationController {
-                sheet.prefersGrabberVisible = true
-            }
-        guard let topVC = faceIdVC.topMostViewController() else { return }
-        topVC.present(faceIdVC, animated: true, completion: nil)
+        SVProgressHUD.dismiss()
+        self.navigate(to: faceIdVC)
     }
     
+    func createMTAccount() {
+        let id =  UserDefaults.standard.string(forKey: "userID")
+        UserDefaults.standard.set((self._password ?? ""), forKey: "password")
+        
+          if self.isAppleLogin {
+              
+              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 3)
+          }else{
+              self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence,  registrationType: 2)
+          }
+ 
+          self.odoClientNew.createAccount(phone: "", group: "PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
+    }
     
-       func updateUserAccount(){
+       func updateUserMTAccount(){
            let id =  UserDefaults.standard.string(forKey: "userID")
            
            var fieldsToUpdate: [String:Any] = [
@@ -348,7 +376,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                               print("All Saved Passwords on create Account: \(allPasswords)")
                                
                             NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
-//                                  self.dismiss(animated: true)
+                                  self.dismiss(animated: true)
 //                              }
                           }
                           
@@ -361,17 +389,16 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
 
 extension EmailVC:  CreateLeadOdooDelegate {
 func leadCreatSuccess(response: Any) {
-    print("this is success response from create Lead and record ID is:\(response)")
+    print("this is success response from create Lead is:\(response)")
     
     if GlobalVariable.instance.realAccount {
         self.navigateFaceID()
-
+       
     }else{
-//        createMTAccount()
-        self.odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
+        createMTAccount()
+
     }
    
-    
 }
 
 func leadCreatFailure(error: any Error) {
@@ -382,9 +409,9 @@ func leadCreatFailure(error: any Error) {
 
 extension EmailVC : CreateUserAccountTypeDelegate {
        func createAccountSuccess(response: Any) {
-           print("\nthis is create user success response from Password Screen: \(response)")
+           print("\n this is create user success response from Email Screen: \(response)")
            // get loginId from the response
-           updateUserAccount()
+           updateUserMTAccount()
    
        }
        
@@ -394,3 +421,61 @@ extension EmailVC : CreateUserAccountTypeDelegate {
        }
    }
 
+extension EmailVC {
+    func authenticateWithFirebase(user: GIDGoogleUser) {
+        
+        let idToken = user.idToken?.tokenString
+        let accessToken = user.accessToken.tokenString
+        
+        let credential = GoogleAuthProvider.credential(withIDToken: idToken ?? "", accessToken: accessToken)
+        
+        Auth.auth().signIn(with: credential) { authResult, error in
+            if let error = error {
+                print("Firebase authentication failed: \(error.localizedDescription)")
+                return
+            }
+            
+            // User is signed in with Firebase successfuly
+            if let user = authResult?.user {
+                
+                UserDefaults.standard.set(user.uid, forKey: "userID")
+                self._email = user.email ?? ""
+                GlobalVariable.instance.userEmail = self._email!
+                
+                self.db.collection("users").whereField("email", isEqualTo: self._email ?? "").getDocuments { (querySnapshot, error) in
+                    if let error = error {
+                        print("Error checking for existing user: \(error.localizedDescription)")
+                    }
+                    print("User is in with Firebase users collection : \(self._email ?? "")")
+                    if let snapshot = querySnapshot, !snapshot.isEmpty {
+                        print("User with this email already exists.")
+                        SVProgressHUD.dismiss()
+                        self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                        
+                    } else {
+                        self.odoClientNew.SearchRecord(email: self._email ?? "") { userFound, userData, error in
+                            
+                            if let error = error {
+                                print("Error checking user:", error)
+                                self.ToastMessage("No user found.Server error.")
+                                return
+                            }
+                            
+                            if userFound {
+                                print("✅ User exists in CRM")
+                                self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                                return
+                            } else {
+                                print("❌ User does not exist")
+                                self.odoClientNew.createRecords(firebase_uid: user.uid, email: user.email ?? "", name: user.displayName ?? "anyName")
+                                
+                                self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: user.displayName ?? "", gender: "", phone: "", email: user.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "",  registrationType: 2)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}

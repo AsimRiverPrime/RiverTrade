@@ -308,11 +308,13 @@ class AccountsViewController: BaseViewController {
             }
             
         }else{
-           
-                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
-                    vc.ammountValue = self.actualBalance
-                    self.navigate(to: vc)
-                }
+            if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WalletVC") as? WalletVC {
+                self.navigate(to: vc)
+            }
+//                if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DemoDepositVC") as? DemoDepositVC {
+//                    vc.ammountValue = self.actualBalance
+//                    self.navigate(to: vc)
+//                }
             
         }
     }

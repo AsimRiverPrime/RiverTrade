@@ -94,7 +94,7 @@ class FirestoreServices: BaseViewController {
                         "uid",
                         "isLogin",
                         "nationality",
-                        "phone",
+//                        "phone",
                         "phoneVerified",
                         "profileStep",
                         "pushedToCRM",
@@ -361,7 +361,7 @@ class FirestoreServices: BaseViewController {
                 
                 print("Key: \(key), accountNumber: \(accountNumber), isMatchingAccount: \(isMatchingAccount), accountUserID: \(accountUserID), isMatchingUser: \(isMatchingUser)")
                 
-                accountData["isDefault"] = (isMatchingAccount && isMatchingUser) ? 1 : 0
+                accountData["isDefault"] = (isMatchingAccount && isMatchingUser) ? true : false
                 accountsDict[key] = accountData
             } else {
                 print("Key \(key) is missing accountNumber, userID, or account data.")
@@ -378,7 +378,7 @@ class FirestoreServices: BaseViewController {
         
         for (key, account) in accountsDict {
             if let accountUserID = account["userID"] as? String, accountUserID == userId {
-                let isDefault = account["isDefault"] as? Int ?? 0
+                let isDefault = account["isDefault"] as? Bool
                 print("Setting isDefault in Firebase for accountKey \(key): \(isDefault)")
                 let docRef = self.db.collection("userAccounts").document(key)
                 batch.setData(["isDefault": isDefault], forDocument: docRef, merge: true)
