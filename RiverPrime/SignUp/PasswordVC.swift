@@ -44,7 +44,7 @@ class PasswordVC: BaseViewController {
     
     var account:  [AccountModel] = []
     let passwordManager = PasswordManager()
-    
+    var encryptedPassword = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +67,13 @@ class PasswordVC: BaseViewController {
         password_tf.text = randomPassword
         passwordDidChange(password_tf)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: EmailVC(), navController: self.navigationController, title: "Password", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
     }
@@ -126,8 +132,15 @@ class PasswordVC: BaseViewController {
     @IBAction func continueAction(_ sender: Any) {
         SVProgressHUD.show()
         guard let password = password_tf.text, !password.isEmpty else {
+            SVProgressHUD.dismiss()
             return
         }
+        encryptedPassword = PasswordEncryption.encryptPassword(self.password_tf.text ?? "")
+        print("\n✅ encryptedPassword is: \(encryptedPassword)\n")
+        let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
+        print("\n decryptedPassword is: \(decryptedPassword)\n")
+        PasswordEncryption.manualTest(_testPassword: self.password_tf.text ?? "")
+        
         openAccountSignUp()
        
     }
@@ -136,15 +149,16 @@ class PasswordVC: BaseViewController {
         db.collection("users").whereField("email", isEqualTo: email ?? "").getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error checking for existing user: \(error.localizedDescription)")
+                SVProgressHUD.dismiss()
             }
             
             if let snapshot = querySnapshot, !snapshot.isEmpty {
                 print("User with this email already exists.")
-                Alert.showAlert(withMessage: "User with this email already exists.", andTitle: "", OKButtonText: "Ok", on: self)
+                Alert.showAlert(withMessage: "User with this email already exists. Please signIn", andTitle: "", OKButtonText: "Ok", on: self)
                 SVProgressHUD.dismiss()
                 return
             } else {
-                UserDefaults.standard.set((self.password_tf.text ?? ""), forKey: "password")
+                UserDefaults.standard.set(self.encryptedPassword, forKey: "password")
                 //if user is not exist then Use Firebase Authentication to create a new user
                 let pass =  self.password_tf.text ?? ""
                 
@@ -153,12 +167,13 @@ class PasswordVC: BaseViewController {
                         if let authError = AuthErrorCode.Code(rawValue: error.code){
                             switch authError {
                             case .emailAlreadyInUse:
-                                Alert.showAlert(withMessage: "User with this email already exists.", andTitle: "", OKButtonText: "Ok", on: self)
+                                Alert.showAlert(withMessage: "User with this email already exists. Please signIn", andTitle: "", OKButtonText: "Ok", on: self)
                                 print("The email address is already in use by another account.")
                                 SVProgressHUD.dismiss()
                                 return
                             default:
                                 print("Error creating user: \(error.localizedDescription)")
+                                SVProgressHUD.dismiss()
                             }
                         }
                         return
@@ -173,23 +188,25 @@ class PasswordVC: BaseViewController {
                             if let error = error {
                                 print("Error checking user:", error)
                                 self?.ToastMessage("No user found.Server error.")
+                                SVProgressHUD.dismiss()
                                 return
                             }
                             
                             if userFound {
                                 print("✅ User exists in CRM")
                                 self?.ToastMessage("User with this email already exists.\nPlease Sign In")
+                                SVProgressHUD.dismiss()
                                 return
                             } else {
+                                
                                 print("❌ User does not exist so create record in CRM")
                                 self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
                                 
                                 self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 1)
+                               
                             }
                         }
-//                        self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
-//                        
-//                        self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, /*password: self?.password_tf.text ?? "",*/ registrationType: 1)
+
                     }
                 }
             }
@@ -197,6 +214,11 @@ class PasswordVC: BaseViewController {
     }
 
        func updateUserAccount(){
+//           encryptedPassword = PasswordEncryption.encryptPassword(self.password_tf.text ?? "")
+//           print("\n encryptedPassword is: \(encryptedPassword)\n")
+//           let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
+//           print("\n decryptedPassword is: \(decryptedPassword)\n")
+           
            
            var fieldsToUpdate: [String:Any] = [
                "KycStatus": "Not Started",
@@ -206,19 +228,19 @@ class PasswordVC: BaseViewController {
                "groupID": "RWHwgycWkAqi5OPvv1oX",
                "isDefault" : true,
                "isReal": false,
-               "password": self.password_tf.text ?? "",
+               "password": encryptedPassword, //self.password_tf.text ?? "",
                "groupName" : "PRO",
                "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
            ]
           
-           print("updating user Accounts fields are: \(fieldsToUpdate)")
+           print("updating user Accounts fields are in paaswordVC: \(fieldsToUpdate)")
           
            fireStoreInstance.updateUserAccountsFields(fields: fieldsToUpdate, completion: { error in
                       if let error = error {
                           print("Error updating UserAccounts fields: \(error.localizedDescription)")
                           return
                       } else {
-                          print("(byDefault) User Accounts fields updated successfully!")
+                          print("(byDefault) User Accounts fields updated successfully! in paaswordVC")
                           self.fireStoreInstance.updateDefaultAccount(for: "\(GlobalVariable.instance.loginID)", userId: self.userId ?? ""){ [weak self] error in
                               guard let self = self else { return }
                               
@@ -226,18 +248,17 @@ class PasswordVC: BaseViewController {
                                   print("Error updating default account: \(error.localizedDescription)")
                                   return
                               }
-                              print("\n updating isDefault account success: ")
+                              print("\n updating isDefault account success in paaswordVC: ")
    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
-                              
                             
-                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: password_tf.text ?? "") {
-                                  print("Password successfully saved.")
+                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: encryptedPassword /*password_tf.text ?? ""*/) {
+                                  print("Password successfully saved in paaswordVC.")
                               } else {
                                   print("ID already exists. Cannot save password.")
                               }
                               
                               let allPasswords = passwordManager.getAllPasswords()
-                              print("All Saved Passwords on create Account: \(allPasswords)")
+                              print("All Saved Passwords on create Account in paaswordVC: \(allPasswords)")
                                
                             NotificationCenter.default.post(name: NSNotification.Name("dismissCreateAccountScreen"), object: nil)
 //                                  self.dismiss(animated: true)
@@ -250,6 +271,7 @@ class PasswordVC: BaseViewController {
        }
     
     func navigateFaceID(){
+        SVProgressHUD.dismiss()
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
         faceIdVC.afterLoginNavigation = false
 //        self.navigate(to: faceIdVC)
@@ -266,14 +288,14 @@ class PasswordVC: BaseViewController {
 extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-       let password = self.password_tf.text ?? ""
+//       let password = self.password_tf.text ?? ""
         
         if GlobalVariable.instance.realAccount {
             self.navigateFaceID()
 
         }else{
     //        createMTAccount()
-            odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: password, is_demo: true)
+            odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: encryptedPassword, is_demo: true)
         }
       
     }

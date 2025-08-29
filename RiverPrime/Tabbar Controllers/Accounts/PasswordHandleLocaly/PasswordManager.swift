@@ -15,16 +15,10 @@ class PasswordManager {
         // Retrieve existing passwords
         var savedPasswords = getAllPasswords()
         print("Before saving, passwords: \(savedPasswords)")
-        // Check if the ID already exists
-//        if savedPasswords[id] != nil {
-//            print("Password for ID \(id) already exists.")
-//            return false
-//        }
-
         savedPasswords[id] = password
         saveToUserDefaults(savedPasswords)
         print("Password saved for ID \(id).")
-        print("After saving, passwords: \(savedPasswords)")
+        print("After saving, passwords: \(savedPasswords)/n")
         return true
     }
     

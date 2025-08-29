@@ -61,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.setSVProgressHUD()
         GlobalVariable.instance.socketTimer = 10.0
         
-        window!.overrideUserInterfaceStyle = .light
+        window?.overrideUserInterfaceStyle = .light
         
         clearData()
         

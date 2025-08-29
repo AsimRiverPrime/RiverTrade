@@ -2677,19 +2677,19 @@ You also acknowledge that you fully understand the nature and associated risks o
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6p-pD-E8P">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="100" width="375" height="712"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTd-hN-oaB" customClass="TPKeyboardAvoidingScrollView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="712"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sign In" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLD-CZ-oc7">
-                                                <rect key="frame" x="39" y="60" width="297" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CLD-CZ-oc7">
+                                                <rect key="frame" x="39" y="10" width="297" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mbR-Y8-o6r">
-                                                <rect key="frame" x="39" y="104" width="297" height="45"/>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Email Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mbR-Y8-o6r">
+                                                <rect key="frame" x="39" y="54" width="297" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="45" id="i7S-jP-5bI"/>
@@ -2698,13 +2698,13 @@ You also acknowledge that you fully understand the nature and associated risks o
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                             </textField>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email is not correct" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iE9-DF-bi7">
-                                                <rect key="frame" x="39" y="154" width="297" height="12"/>
+                                                <rect key="frame" x="39" y="104" width="297" height="12"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" systemColor="systemRedColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fS-Kb-LZl" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                                <rect key="frame" x="39" y="179" width="297" height="35.666666666666657"/>
+                                                <rect key="frame" x="39" y="129" width="297" height="35.666666666666657"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" systemColor="systemYellowColor"/>
                                                 <state key="normal" title="Button"/>
@@ -2730,7 +2730,7 @@ You also acknowledge that you fully understand the nature and associated risks o
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b6q-Mx-laY" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                                <rect key="frame" x="39" y="175.99999999999997" width="297" height="333.33333333333326"/>
+                                                <rect key="frame" x="39" y="125.99999999999997" width="297" height="333.33333333333326"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OTP Verification" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HJ9-fj-ky5">
                                                         <rect key="frame" x="10" y="9.9999999999999982" width="277" height="19.333333333333329"/>
@@ -2739,7 +2739,7 @@ You also acknowledge that you fully understand the nature and associated risks o
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am8-Pg-ESb">
-                                                        <rect key="frame" x="10" y="39.333333333333343" width="277" height="50.333333333333343"/>
+                                                        <rect key="frame" x="10" y="39.333333333333314" width="277" height="50.333333333333343"/>
                                                         <string key="text">We have sent you OTP code with an Email.
 
 Please enter the 6-digit activation code.</string>
@@ -2928,7 +2928,7 @@ Please enter the 6-digit activation code.</string>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="-7" translatesAutoresizingMaskIntoConstraints="NO" id="lme-No-N8t">
-                                                <rect key="frame" x="37" y="559.33333333333337" width="301" height="40"/>
+                                                <rect key="frame" x="37" y="509.33333333333337" width="301" height="40"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0z-gh-Oh6">
                                                         <rect key="frame" x="0.0" y="0.0" width="151.66666666666666" height="40"/>
@@ -2967,7 +2967,7 @@ Please enter the 6-digit activation code.</string>
                                             <constraint firstItem="lme-No-N8t" firstAttribute="centerX" secondItem="xTd-hN-oaB" secondAttribute="centerX" id="PUK-Tg-WDo"/>
                                             <constraint firstItem="iE9-DF-bi7" firstAttribute="centerX" secondItem="mbR-Y8-o6r" secondAttribute="centerX" id="QC7-yb-Rrq"/>
                                             <constraint firstAttribute="bottom" secondItem="lme-No-N8t" secondAttribute="bottom" constant="24" id="QUD-Dk-3jY"/>
-                                            <constraint firstItem="CLD-CZ-oc7" firstAttribute="top" secondItem="xTd-hN-oaB" secondAttribute="top" constant="60" id="ZCr-dl-lag"/>
+                                            <constraint firstItem="CLD-CZ-oc7" firstAttribute="top" secondItem="xTd-hN-oaB" secondAttribute="top" constant="10" id="ZCr-dl-lag"/>
                                             <constraint firstItem="CLD-CZ-oc7" firstAttribute="centerX" secondItem="xTd-hN-oaB" secondAttribute="centerX" id="cUi-EP-nIa"/>
                                             <constraint firstItem="CLD-CZ-oc7" firstAttribute="leading" secondItem="xTd-hN-oaB" secondAttribute="leading" constant="39" id="dmt-uT-JP0"/>
                                             <constraint firstItem="8fS-Kb-LZl" firstAttribute="leading" secondItem="mbR-Y8-o6r" secondAttribute="leading" id="ezO-2R-8cd"/>
@@ -2991,12 +2991,13 @@ Please enter the 6-digit activation code.</string>
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="MhV-c5-wKs"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="k6p-pD-E8P" secondAttribute="bottom" id="3mW-kO-SYg"/>
                             <constraint firstItem="lbr-ER-WSe" firstAttribute="top" secondItem="dvS-F9-PbV" secondAttribute="top" id="BLS-JU-2EB"/>
+                            <constraint firstItem="MhV-c5-wKs" firstAttribute="top" secondItem="k6p-pD-E8P" secondAttribute="top" id="MAe-dF-nUo"/>
                             <constraint firstItem="lbr-ER-WSe" firstAttribute="leading" secondItem="dvS-F9-PbV" secondAttribute="leading" id="PZi-yX-Nff"/>
-                            <constraint firstItem="k6p-pD-E8P" firstAttribute="top" secondItem="dvS-F9-PbV" secondAttribute="top" id="WAi-rR-kXp"/>
                             <constraint firstAttribute="trailing" secondItem="k6p-pD-E8P" secondAttribute="trailing" id="aRF-4Z-YND"/>
                             <constraint firstAttribute="bottom" secondItem="lbr-ER-WSe" secondAttribute="bottom" id="n6F-ta-bSX"/>
                             <constraint firstAttribute="trailing" secondItem="lbr-ER-WSe" secondAttribute="trailing" id="nem-L5-N8a"/>
@@ -4147,7 +4148,7 @@ To complete your phone number verification, please enter the 6-digit activation 
                                     <constraint firstAttribute="height" constant="45" id="knj-4A-Myg"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                             </textField>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This field cannot be empty" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMP-8b-mhd">
                                 <rect key="frame" x="47.999999999999986" y="303.33333333333331" width="171.66666666666663" height="17"/>
@@ -5192,28 +5193,28 @@ Reach out for questions or concerns about your privacy.</string>
         <image name="startBackgroundImage" width="440" height="956"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

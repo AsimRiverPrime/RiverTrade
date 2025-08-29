@@ -193,6 +193,9 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                     
                                     // Iterate through openSymbolList to calculate total profit/loss for duplicate symbols
                                     for (index, symbol) in GlobalVariable.instance.openSymbolList.enumerated() {
+                                        if GlobalVariable.instance.openSymbolList.count != GlobalVariable.instance.myProfitLossForOpenSymbolList.count {
+                                            break
+                                        }
                                         let profitLoss = GlobalVariable.instance.myProfitLossForOpenSymbolList[index]
                                         symbolProfitLossSum[symbol, default: 0.0] += profitLoss
                                     }
@@ -214,6 +217,10 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
                                 }
                                 
                                 if GlobalVariable.instance.myProfitLossForOpenSymbolList.count != 0 {
+                                    if GlobalVariable.instance.openSymbolList.count != GlobalVariable.instance.myProfitLossForOpenSymbolList.count {
+                                        cell.openPosSymbolColorView.backgroundColor = UIColor.clear 
+                                        break
+                                    }
                                     if GlobalVariable.instance.myProfitLossForOpenSymbolList[j] < 0.0 {
                                         cell.openPosSymbolColorView.backgroundColor = .systemRed
 //                                        cell.lblCurrencySymbl.textColor = .systemRed
@@ -1245,7 +1252,7 @@ extension TradeViewController: UITableViewDelegate, UITableViewDataSource {
                     vc.titleString = "BUY"
                     let _getSymbolData = getSymbolData[indexPath.row]
                     vc.getSymbolDetail = _getSymbolData
-                    
+                    vc.orderCreatedDelegate = self
                     PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
                 }
             }

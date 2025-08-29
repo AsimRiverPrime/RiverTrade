@@ -26,6 +26,7 @@ class TopNewsDetailVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
+        textView_description.isUserInteractionEnabled = false
         // Do any additional setup after loading the view.
     }
     

@@ -9,6 +9,7 @@ import UIKit
 
 class HistoryTransactionTVCell: UITableViewCell {
 
+    @IBOutlet weak var lbl_description: UILabel!
     @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var timeLbl: UILabel!
     
@@ -42,7 +43,7 @@ extension HistoryTransactionTVCell {
         let datee = dateFormatter.string(from: createDate)
             
         timeLbl.text = "\(datee)"
-        
+        lbl_description.text = model.comment
         if model.profit < 0 {
             priceLbl.textColor = UIColor(red: 217/255.0, green: 94/255.0, blue: 90/255.0, alpha: 1.0) // red
 //            let total = "\(model.profit)".trimmedTrailingZeros()

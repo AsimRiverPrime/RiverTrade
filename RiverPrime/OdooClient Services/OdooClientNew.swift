@@ -428,49 +428,49 @@ class OdooClientNew {
         }
     }
     
-    func createRecords1(firebase_uid: String, email: String, name: String) {
-        
-        uid = UserDefaults.standard.integer(forKey: "uid")
-        
-        let jsonrpcBody: [String: Any] = [
-            "jsonrpc": "2.0",
-            "method":"call",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    dataBaseName,      // Database name
-                    uid,               // uid
-                    dbPassword,        // password
-                    "res.partner",       // Model name
-                    "create",         // Method name
-                    [[                // vals_list
-                        "last_name": name,
-                        "firebase_uid": firebase_uid,
-                        "email": email
-                        
-                     ]]
-                ]
-            ]
-        ]
-        print("\n params for create records value for res.partner in odoo server: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
-            print("create lead records result form res.partner: \(result)")
-            switch result {
-            case .success(let value):
-                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
-                    print("result is res.partner: \(result)")
-                }else {
-                    print("Unexpected response createRecords res.partner format or missing 'result' key")
-                }
-            case .failure(let error):
-                //                self.createLeadDelegate?.leadCreatFailure(error: error)
-                print("error is res.partner :\(error)")
-                break
-                
-            }
-        }
-    }
+//    func createRecords1(firebase_uid: String, email: String, name: String) {
+//        
+//        uid = UserDefaults.standard.integer(forKey: "uid")
+//        
+//        let jsonrpcBody: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "method":"call",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    dataBaseName,      // Database name
+//                    uid,               // uid
+//                    dbPassword,        // password
+//                    "res.partner",       // Model name
+//                    "create",         // Method name
+//                    [[                // vals_list
+//                        "last_name": name,
+//                        "firebase_uid": firebase_uid,
+//                        "email": email
+//                        
+//                     ]]
+//                ]
+//            ]
+//        ]
+//        print("\n params for create records value for res.partner in odoo server: \(jsonrpcBody)")
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+//            print("create lead records result form res.partner: \(result)")
+//            switch result {
+//            case .success(let value):
+//                if let jsonData = value as? [String: Any],  let result = jsonData["result"] as? Int {
+//                    print("result is res.partner: \(result)")
+//                }else {
+//                    print("Unexpected response createRecords res.partner format or missing 'result' key")
+//                }
+//            case .failure(let error):
+//                //                self.createLeadDelegate?.leadCreatFailure(error: error)
+//                print("error is res.partner :\(error)")
+//                break
+//                
+//            }
+//        }
+//    }
     
     //MARKS:- Withdraw methods
     func checkAll_withdrawMethod(completion: @escaping (Result<[PaymentType], Error>) -> Void) {
@@ -1233,17 +1233,19 @@ class OdooClientNew {
                 
             case .success(let value):
                 print("createAccount value is: \(value)")
-                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool, let loginID = result["login"] as? Int {  // Expecting a boolean here
+                if let json = value as? [String: Any], let result = json["result"] as? [String: Any], let status = result["success"] as? Bool {  // Expecting a boolean here
                     if status {
-                        
-                        print("The login Id is: \(loginID)")
-                        GlobalVariable.instance.loginID = loginID
-                        self.createUserAcctDelegate?.createAccountSuccess(response: result)
+                       if let loginID = result["login"] as? Int{
+                            print("The login Id is: \(loginID)")
+                            GlobalVariable.instance.loginID = loginID
+                            self.createUserAcctDelegate?.createAccountSuccess(response: result)
+                        }
                     } else {
-                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Status is not success"])
+                        let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Failed to create account on server"])
                         self.createUserAcctDelegate?.createAccountFailure(error: error)
-                        print("Error response: \(error)")
-                    }
+                            print("Error response: \(error)")
+                        }
+                    
                 } else {
                     let error = NSError(domain: "", code: 400, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON structure"])
                     self.createUserAcctDelegate?.createAccountFailure(error: error)
@@ -1258,7 +1260,7 @@ class OdooClientNew {
     }
     
     func demoDeposit(amount: Double) {
-        var pass = String()
+//        var pass = String()
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
@@ -1270,7 +1272,7 @@ class OdooClientNew {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             //print("\n Default Account User: \(defaultAccount)")
             loginId = defaultAccount.accountNumber
-            pass = defaultAccount.password
+//            pass = defaultAccount.password
             
         }
         
@@ -1339,7 +1341,7 @@ class OdooClientNew {
     }
     
     func create_withdrawal_fundRequest(amount: Double, MethodTypeId: Int, paymentType: String) {
-        let password = UserDefaults.standard.string(forKey: "password")
+//        let password = UserDefaults.standard.string(forKey: "password")
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("saved User Data in withdrawl: \(savedUserData)")
             if let email = savedUserData["email"] as? String{

@@ -43,7 +43,7 @@ class EmailVC: BaseViewController {
     var _email : String?
     var _fullName : String?
     var _password: String?
-    
+    var encryptedPassword = String()
     let passwordManager = PasswordManager()
     
     fileprivate var currentNonce: String?
@@ -60,6 +60,13 @@ class EmailVC: BaseViewController {
            view.addGestureRecognizer(tapGesture)
         
         self._password = passwordManager.generateRandomPassword(length: 8)
+    }
+   
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ResidencVC(), navController: self.navigationController, title: "SignUP", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @objc func dismissKeyboard(){
@@ -125,11 +132,7 @@ class EmailVC: BaseViewController {
             print("_email : \(self?._email ?? "") and name is : \(self?._fullName ?? "")")
             UserDefaults.standard.set(self?._fullName, forKey: "FullName")
             GlobalVariable.instance.userEmail = self?._email ?? ""
-//            GlobalVariable.instance.userID = result?.user.userID ?? ""
-           
             
-//            self?.googleSignIn.odoClientNew.createLeadDelegate = self
-//            self?.googleSignIn.authenticateWithFirebase(user: user1)
             self?.authenticateWithFirebase(user: user1)
         }
     }
@@ -266,28 +269,20 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                             SVProgressHUD.dismiss()
                             self.ToastMessage("User with this email already exists.\nPlease Sign In")
                             
-//                            self.firebaseInstance.fetchUserData(userId: user.uid)
-//                            self.firebaseInstance.fetchUserAccountsData(userId: user.uid, completion: {
-//                            })
-//
-//                            let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { _ in
-//                                print("Timer fired!")
-//
-//                                self.firebaseInstance.handleFaceID()
-//                            }
-                         
                         } else {
                             self.odoClientNew.SearchRecord(email: self._email ?? "") { userFound, userData, error in
                                 
                                 if let error = error {
                                     print("Error checking user:", error)
                                     self.ToastMessage("No user found.Server error.")
+                                    SVProgressHUD.dismiss()
                                     return
                                 }
 
                                 if userFound {
                                     print("✅ User exists in CRM")
                                     self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                                    SVProgressHUD.dismiss()
                                     return
                                 } else {
                                     print("❌ User does not exist")
@@ -310,16 +305,22 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
     }
     
     func navigateFaceID(){
-     
+        SVProgressHUD.dismiss()
         let faceIdVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PasscodeFaceIDVC") as! PasscodeFaceIDVC
         faceIdVC.afterLoginNavigation = false
-        SVProgressHUD.dismiss()
+       
         self.navigate(to: faceIdVC)
     }
     
     func createMTAccount() {
         let id =  UserDefaults.standard.string(forKey: "userID")
-        UserDefaults.standard.set((self._password ?? ""), forKey: "password")
+        
+        let plainPassword = self._password ?? ""
+        encryptedPassword = PasswordEncryption.encryptPassword(plainPassword)
+        print("\n✅ encryptedPassword is: \(encryptedPassword)\n")
+        let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
+        print("\n decryptedPassword is: \(decryptedPassword)\n")
+        UserDefaults.standard.set((self.encryptedPassword), forKey: "password")
         
           if self.isAppleLogin {
               
@@ -328,7 +329,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
               self.firebaseInstance.saveAdditionalUserData(userId: id ?? "", kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence,  registrationType: 2)
           }
  
-          self.odoClientNew.createAccount(phone: "", group: "PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: self._password ?? "", is_demo: true)
+          self.odoClientNew.createAccount(phone: "", group: "PRO", email: _email ?? "", currency: "USD", leverage: 400, first_name: self._fullName ?? "", last_name: "", password: encryptedPassword, is_demo: true)
     }
     
        func updateUserMTAccount(){
@@ -342,7 +343,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                "groupID": "RWHwgycWkAqi5OPvv1oX",
                "isDefault" : true,
                "isReal": false,
-               "password": self._password ?? "",
+               "password": encryptedPassword,
                "groupName" : "PRO",
                "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
            ]
@@ -366,7 +367,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                               
                               
-                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: self._password ?? "") {
+                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: encryptedPassword /*self._password ?? ""*/) {
                                   print("Password successfully saved.")
                               } else {
                                   print("ID already exists. Cannot save password.")
@@ -417,7 +418,8 @@ extension EmailVC : CreateUserAccountTypeDelegate {
        
        func createAccountFailure(error: any Error) {
            print("\n this is create user error response: \(error)")
-           showTimeAlert(str: "Account Create Failed.")
+           self.ToastMessage("Account Create Failed.")
+           SVProgressHUD.dismiss()
        }
    }
 
@@ -457,13 +459,15 @@ extension EmailVC {
                             
                             if let error = error {
                                 print("Error checking user:", error)
-                                self.ToastMessage("No user found.Server error.")
+                                self.ToastMessage("Server error:\(error)")
+                                SVProgressHUD.dismiss()
                                 return
                             }
                             
                             if userFound {
                                 print("✅ User exists in CRM")
                                 self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                                SVProgressHUD.dismiss()
                                 return
                             } else {
                                 print("❌ User does not exist")

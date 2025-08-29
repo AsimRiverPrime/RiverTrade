@@ -100,39 +100,6 @@ class HistoryViewController: BaseViewController {
         self.historyTableView.reloadData()
     }
     
-//    @IBAction func fromDateBtn_action(_ sender: Any) {
-//        
-//        //        showDatePicker(sender as! UIButton)
-//        
-//        isFromOrToDate = "From"
-//        
-//        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
-//        
-//        vc.delegate = self
-//        vc.isSingleEntery = true
-//        
-//        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
-//        
-//    }
-    
-//    @IBAction func toDateBtn_action(_ sender: Any) {
-//        
-//        //        showDatePicker(sender as! UIButton)
-//        
-//        isFromOrToDate = "To"
-//        
-//        let vc = Utilities.shared.getViewController(identifier: .datePickerPopupBottomSheet, storyboardType: .bottomSheetPopups) as! DatePickerPopupBottomSheet
-//        
-//        vc.delegate = self
-//        vc.isSingleEntery = true
-//        //        vc.multipleSelection(isMultiple: false)
-//        //        vc.calendar.allowsMultipleSelection = false
-//        vc.singleDateSelection = true
-//        
-//        //        PresentModalController.instance.presentBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!, sizeOfSheet: .medium, VC: vc)
-//        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
-//    }
     
     @IBAction func chooseDateBtn(_ sender: CardViewButton){
         print("Choose date button click.")
@@ -530,7 +497,7 @@ extension HistoryViewController: UITableViewDelegate, UITableViewDataSource {
         case .trade:
             return 160
         case .transaction:
-            return indexPath.row == 0 ? 70 : 40
+            return indexPath.row == 0 ? 70 : 60
         case .none:
             return 0
         }
@@ -556,32 +523,38 @@ extension HistoryViewController {
             
             if let closeData1 = closeData {
 
-                var updatedModels = [NewCloseModel]()
+                let updatedModels = [NewCloseModel]()
 
                 if let firstResult = closeData1.first,
-                                   closeData1.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
-                                    
-                                    var updatedModels = [NewCloseModel]()
-                                    
-                                    for i in 0...closeData1.count-1 {
-                                        for j in 0...closeData1[i].repeatedFilteredArray.count-1 {
-                                            if closeData1[i].repeatedFilteredArray[j].action == 1 {
-                                                updatedModels.append(closeData1[i])
-                                            }
-                                        }
-                                    }
-                                    self.closeData = updatedModels
-                                    
-                                } else {
-                                    self.closeData = closeData1
-                                }
+                   closeData1.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
+                    
+                    var updatedModels = [NewCloseModel]()
+                    
+                    for i in 0...closeData1.count-1 {
+                        for j in 0...closeData1[i].repeatedFilteredArray.count-1 {
+                            if closeData1[i].repeatedFilteredArray[j].action == 1 {
+                                updatedModels.append(closeData1[i])
+                            }
+                        }
+                    }
+                    self.closeData = updatedModels
+                    
+                } else {
+                    self.closeData = closeData1
+                }
                 print("updatedModels closeData1 = \(updatedModels)")
-                
+                if self.closeData.count == 0 {
+                    self.view_noMatchData.isHidden = false
+                    self.historyTableView.isHidden = true
+                }else{
+                    self.view_noMatchData.isHidden = true
+                    self.historyTableView.isHidden = false
+                }
 //                self.closeData = updatedModels
         
                 var uniqueDeals = Set<Int>()
                 self.transactionCloseData = closeData1
-                    .flatMap { $0.historyCloseData.filter { $0.action == 2 } }
+                    .flatMap { $0.historyCloseData.filter { $0.action == 2 || $0.action == 5 } }
                     .filter { uniqueDeals.insert($0.deal).inserted }
                 
                 self.lbl_noPosition.text = "\(self.closeData.count)"
@@ -609,176 +582,3 @@ extension HistoryViewController {
     }
     
 }
-
-//extension HistoryViewController {
-//    
-//    func showDatePicker(_ sender: UIButton) {
-//        let datePicker = UIDatePicker()
-//        datePicker.datePickerMode = .date
-//        
-//        // ✨ Prevent future dates by setting the maximum date to today
-//        datePicker.maximumDate = Date()
-//        
-//        datePicker.addTarget(self, action: #selector(dateChanged(_:)), for: .valueChanged)
-//        
-//        if sender == btn_fromDate {
-//            fromDate = "From"
-//            toDate = ""
-//        } else if sender == btn_toDate {
-//            toDate = "To"
-//            fromDate = ""
-//        }
-//        
-//        let alertController = UIAlertController(title: "Select Date", message: nil, preferredStyle: .alert)
-//        alertController.view.addSubview(datePicker)
-//        
-//        datePicker.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            datePicker.widthAnchor.constraint(equalTo: alertController.view.widthAnchor),
-//            datePicker.topAnchor.constraint(equalTo: alertController.view.topAnchor, constant: 50),
-//            datePicker.bottomAnchor.constraint(equalTo: alertController.view.bottomAnchor, constant: -60)
-//        ])
-//        
-//        let doneAction = UIAlertAction(title: "Done", style: .default) { _ in
-//            let selectedDate = datePicker.date
-//            let dateFormatter = DateFormatter()
-//            dateFormatter.dateStyle = .medium
-//            print("Selected date: \(dateFormatter.string(from: selectedDate))")
-//        }
-//        
-//        alertController.addAction(doneAction)
-//        
-//        present(alertController, animated: true, completion: nil)
-//    }
-//
-//    
-//    @objc func dateChanged(_ sender: UIDatePicker) {
-//        // Optionally handle date changes in real-time if needed
-//        let selectedDate = sender.date
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateStyle = .medium
-//        let date = dateFormatter.string(from: selectedDate)
-//        print("Current date: \(date)")
-//        
-//        let timestamp = selectedDate.timeIntervalSince1970
-//        print("Selected timestamp: \(timestamp)")
-//        
-//        if fromDate != "" {
-//            btn_fromDate.setTitle(date, for: .normal)
-//            btn_fromDate.titleLabel?.text = date
-//            fromTimestamp = Int(timestamp)
-//        } else if toDate != "" {
-//            btn_toDate.setTitle(date, for: .normal)
-//            btn_toDate.titleLabel?.text = date
-//            toTimestamp = Int(timestamp)
-//        }
-//        
-//    }
-//    
-//}
-
-//MARK: - Date picker delegate
-//extension HistoryViewController: didSelectBtnDelegate {
-//    
-//    func showAlert(str: String) {
-//        
-//        if var topController = SCENE_DELEGATE.window?.rootViewController {
-//            while let presentedViewController = topController.presentedViewController {
-//                topController = presentedViewController
-//                topController.view.makeToast(str)
-//            }
-//        }
-//    }
-//    
-//    func getDate(date: String) {
-//        print("this is date: \(date)")
-//    }
-//    
-//    func getStartEndDate(startDate: String, endDate: String) {
-//        if startDate == "" /*|| endDate == ""*/ {
-//            //            self..text = ""
-//            //            SCENE_DELEGATE.window?.rootViewController?.navigationController?.view.makeToast("Please select date properly.")
-//            self.showTimeAlert(str: "Please select date properly.")
-//        } else {
-//            
-//            //            self.tfDate.text =
-//            //            print("this is selected date : \(startDate) to \(endDate)")
-//            //            _getSelectedDate = "\(startDate) to \(endDate)"
-//            print("this is selected date : \(startDate)")
-//            _getSelectedDate = "\(startDate)"
-//        }
-//    }
-//    func doneDatePickerButton(_ sender: UIButton) {
-//        print("done")
-//        print("_getSelectedDate = \(_getSelectedDate)")
-//        
-//        // Create a date formatter
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "dd-MM-yyyy"
-//        
-//        // Convert the selected date string to a Date object
-//        guard let date = dateFormatter.date(from: _getSelectedDate) else {
-//            print("ERROR: Date conversion failed due to mismatched format.")
-//            return
-//        }
-//        
-//        var dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: date)
-//        if isFromOrToDate == "To" {
-//            // Add specific time (e.g., 23:59:59) to the date
-//            dateComponents.hour = 23
-//            dateComponents.minute = 59
-//            dateComponents.second = 59
-//        }
-//        
-//        guard let updatedDate = Calendar.current.date(from: dateComponents) else {
-//            print("ERROR: Failed to create updated date with time.")
-//            return
-//        }
-//        
-//        // Format the updated date with time back into a string
-//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:ss"
-//        let _date = dateFormatter.string(from: updatedDate)
-//        print("Current date with time: \(_date)")
-//        
-//        // Get the timestamp for the updated date
-//        let timestamp = updatedDate.timeIntervalSince1970
-//        print("Selected timestamp: \(timestamp)")
-//        
-//        // Handle "From" and "To" date selection
-//        if isFromOrToDate == "From" {
-//            btn_fromDate.setTitle(_getSelectedDate, for: .normal)
-//            btn_fromDate.titleLabel?.text = _getSelectedDate
-//            fromTimestamp = Int(timestamp)
-//        } else if isFromOrToDate == "To" {
-//            // Check if "From" date exists
-//            if fromTimestamp != 0 {
-//                let fromDate = Date(timeIntervalSince1970: TimeInterval(fromTimestamp))
-//                
-//                // Calculate the difference in months
-//                let monthsDifference = Calendar.current.dateComponents([.month], from: fromDate, to: updatedDate).month ?? 0
-//                if monthsDifference > 2 {
-//                    print("ERROR: The difference between From and To dates cannot exceed 2 months.")
-//                    self.showTimeAlert(str: "The difference between From and To dates cannot exceed 2 months.")
-//                    // Optionally, show an alert to the user
-//                    return
-//                }
-//            }
-//            
-//            btn_toDate.setTitle(_getSelectedDate, for: .normal)
-//            btn_toDate.titleLabel?.text = _getSelectedDate
-//            toTimestamp = Int(timestamp)
-//        }
-//        isFromOrToDate = ""
-//        
-//        // Dismiss the bottom sheet
-//        PresentModalController.instance.dismisBottomSheet(self)
-//    }
-//    
-//    func cancelDatePickerButton(_ sender: UIButton) {
-//        print("cancel")
-//        //        datePickerPopup.dismissView()
-//        //        PresentModalController.instance.dismisBottomSheet((SCENE_DELEGATE.window?.rootViewController.self)!)
-//        PresentModalController.instance.dismisBottomSheet(self)
-//    }
-//    
-//}

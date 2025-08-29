@@ -53,7 +53,7 @@ class TransferViewController: BaseViewController {
     var groupName = String()
     var mtAccoutnName = String()
     var accountNumber = String()
-    var walletPaymentType = Bool()
+   
     var payment_type = String()
     
     var mtAccounts: [MTAccount] = []
@@ -116,8 +116,7 @@ class TransferViewController: BaseViewController {
                 lbl_amountValid.text = "Amount exceeds balance. Enter ≤ $\(avaliableBalance)"
                 return
             }
-            btn_transfer.isEnabled = true
-            btn_transfer.alpha = 1.0
+           
             odooClient.transfer_wallet_to_mt(email: userEmail, wallet_type: self.wallet_type, amount: amount, mt_loginId: Int(self.accountNumber) ?? 0, completion: { response in
                 print("wallet to mt response: \(response)")
                               
@@ -144,8 +143,6 @@ class TransferViewController: BaseViewController {
             })
         }else if payment_type == "trade" {
             avaliableBalance = Double(mtBalance) ?? 0
-            btn_transfer.isEnabled = true
-            btn_transfer.alpha = 1.0
             
             odooClient.transfer_mt_to_wallet(email: userEmail, amount: amount, mt_loginId: Int(self.accountNumber) ?? 0, completion: { response in
                 print("Mt to wallet response: \(response)")
@@ -301,8 +298,12 @@ class TransferViewController: BaseViewController {
     func updateTypeButtons(for type: String) {
       
         if type == "wallet" {
+            self.tf_amount.isEnabled = true
+            btn_transfer.isEnabled = true
+            btn_transfer.alpha = 1.0
+            
            
-            walletPaymentType = true
+            
             btn_wallet_to_trade.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
             btn_trade_to_wallet.setImage(UIImage(systemName: "circle"), for: .normal)
             btn_trade_to_trade.setImage(UIImage(systemName: "circle"), for: .normal)
@@ -331,8 +332,10 @@ class TransferViewController: BaseViewController {
             lbl_wallet_name.text = "\(self.mtAccoutnName) " + "(\(self.groupName)-\(accountNumber))" + "\t $\(self.mtBalance)"
             
         }else if type == "trade" {
-         
-            walletPaymentType = false
+            self.tf_amount.isEnabled = true
+            btn_transfer.isEnabled = true
+            btn_transfer.alpha = 1.0
+            
             btn_trade_to_wallet.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
             btn_wallet_to_trade.setImage(UIImage(systemName: "circle"), for: .normal)
             btn_trade_to_trade.setImage(UIImage(systemName: "circle"), for: .normal)
@@ -362,7 +365,6 @@ class TransferViewController: BaseViewController {
                         
         }else{
             
-            walletPaymentType = false
             btn_trade_to_trade.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
             btn_wallet_to_trade.setImage(UIImage(systemName: "circle"), for: .normal)
             btn_trade_to_wallet.setImage(UIImage(systemName: "circle"), for: .normal)

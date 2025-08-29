@@ -68,7 +68,7 @@ class CalendarVC: BaseViewController {
         let (currentDate, tomorrowDate) = getCurrentAndTomorrowDate()
         print("currentDate: \(currentDate) , tomorrowDate: \(tomorrowDate)")
         odooServer.getCalendarDataRecords(fromDate: currentDate, toDate: tomorrowDate)
-        
+        getinitialBalance()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -178,7 +178,56 @@ class CalendarVC: BaseViewController {
 
 // MARK: - Balance Management
 extension CalendarVC {
-
+    func getinitialBalance() {
+        guard let defaultAccount = UserAccountManager.shared.getDefaultAccount() else {
+            return
+        }
+        
+        self.lbl_accountGroup.text = defaultAccount.groupName
+        lbl_accountType.text = defaultAccount.isReal == true ? "Real" : "Demo"
+        
+        // Store reference to cancel if needed
+        let getbalanceApi = TradeTypeCellVM()
+//        self.balanceRequest = getbalanceApi
+        
+        getbalanceApi.getUserBalance(completion: { [weak self] result in
+            // Clear the request reference
+//            self?.balanceRequest = nil
+            
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let responseModel):
+                print("Balance: \(responseModel.result.user.balance)")
+                print("Equity: \(responseModel.result.user.equity)")
+                
+                let balance = responseModel.result.user.balance
+                
+                DispatchQueue.main.async { [weak self] in
+                    self?.labelAmmount.text = "$\(String.formatStringNumber(String(balance)))"
+                }
+                
+                UserManager.shared.currentUser = responseModel.result.user
+                
+                GlobalVariable.instance.balanceUpdate = "\(responseModel.result.user.balance)"
+                print("GlobalVariable.instance.balanceUpdate in News = \(GlobalVariable.instance.balanceUpdate)")
+                
+                NotificationObserver.shared.postNotificationObserver(
+                    key: NotificationObserver.Constants.BalanceUpdateConstant.key,
+                    dict: [NotificationObserver.Constants.BalanceUpdateConstant.title: GlobalVariable.instance.balanceUpdate]
+                )
+                
+                NotificationObserver.shared.postNotificationObserver(
+                    key: NotificationObserver.Constants.OPCUpdateConstant.key,
+                    dict: [NotificationObserver.Constants.OPCUpdateConstant.title: "Open"]
+                )
+                
+            case .failure(let error):
+                print("Failed to fetch balance in NEWS: \(error.localizedDescription)")
+            }
+        })
+    }
+    
     @objc func notificationPopup(_ notification: NSNotification) {
         guard let defaultAccount = UserAccountManager.shared.getDefaultAccount() else {
             return

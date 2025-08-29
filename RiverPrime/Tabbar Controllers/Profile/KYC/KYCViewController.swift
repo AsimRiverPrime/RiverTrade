@@ -180,8 +180,10 @@ class KYCViewController: BaseViewController {
             }
             else if reponse?.value(forKey: "event") as? String == "request.pending"{
                 // This event is returned for all on-site verifications until the verification is completed or timeout.
+                self.ToastMessage("KYC verification request.pending!")
             }else if reponse?.value(forKey: "event") as? String == "request.unauthorized"{
                 // This event occurs when the auth header is not correct and, client id/secret key may be invlaid.
+                self.ToastMessage("KYC verification request.unAuthorized!")
             }else{
                 print("Declined: Do something")
                 self.ToastMessage("KYC verification declined!")
@@ -216,7 +218,17 @@ class KYCViewController: BaseViewController {
                 print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
                 self.ToastMessage("KYC detail added successfully!")
-                
+                let _ = Timer.scheduledTimer(withTimeInterval: 0.85, repeats: false) { [weak self] _ in
+//                    NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
+                    //move to account VC
+                    self?.navigationController?.popToRootViewController(animated: true)
+                     // Change to tab index 0
+                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                         self?.tabBarController?.selectedIndex = 0
+                     }
+
+                    
+                }
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
                 self.showTimeAlert(str:"\(error)")
@@ -242,21 +254,10 @@ class KYCViewController: BaseViewController {
             } else {
                 print("\n User data save successfully in the fireBase after KYC process")
                 self.fireStoreInstance.fetchUserData(userId: userId!)
-                
-                let _ = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { [weak self] _ in
-                        NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
-                        //move to account VC
-                    let vc = Utilities.shared.getViewController(identifier: .accountsViewController, storyboardType: .dashboard) as! AccountsViewController
-                        self?.navigate(to: vc)
-                    
-//                    self?.navigationController?.popToRootViewController(animated: true)
-//                     // Change to tab index 0
-//                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-//                         self?.tabBarController?.selectedIndex = 0
-//                     }
-                }
+
             }
         }
+        
         if let savedData = UserDefaults.standard.data(forKey: "verificationData") {
             do {
                 let verificationData = try JSONSerialization.jsonObject(with: savedData, options: []) as? [String: Any]

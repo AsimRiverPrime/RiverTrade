@@ -161,6 +161,14 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
     
     func tradeSymbolDetailFailure(error: any Error) {
         print("\n the trade symbol detail Error response: \(error) ")
+        GlobalVariable.instance.symbolDataArray =  Session.instance.symbolData ?? [SymbolData]()
+
+        processSymbols(GlobalVariable.instance.symbolDataArray)
+        //MARK: - START SOCKET and call delegate method to get data from socket.
+        self.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
+        self.webSocketManager.delegateSocketData = self
+        self.webSocketManager.delegateSocketConnectionInit = self
+        self.webSocketManager.delegateSocketNotSendData = self
     }
     
     func convertJSONIntoSymbols(_ jsonResponse: [String: Any]) {
@@ -454,7 +462,8 @@ extension HomeTabbarViewController: GetSocketData {
                         for i in 0...openData.count-1 {
                             
                             if getSymbol(item: tickMessage?.symbol ?? "") == getSymbol(item: openData[i].symbol) {
-                                let x =  openData[index].symbol.dropLast()
+//                                let x =  openData[index].symbol.dropLast()
+                                let x = openData[index].symbol
                                 if let contractValue = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
                                    
                                     let symbolData = GlobalVariable.instance.symbolDataArray[contractValue]

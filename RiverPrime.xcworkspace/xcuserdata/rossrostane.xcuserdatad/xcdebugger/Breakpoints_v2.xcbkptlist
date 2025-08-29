@@ -7,48 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E43053C9-F829-43D5-9FAA-317B56D33A19"
+            uuid = "3E3C7F81-015F-48B5-AEC5-6639204E2B11"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/Account_Wallet/TransferVC/TransferViewController.swift"
+            filePath = "RiverPrime/Tabbar Controllers/Accounts/AccountsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "transfer_action(_:)"
+            startingLineNumber = "1062"
+            endingLineNumber = "1062"
+            landmarkName = "getFormattedSymbols(opcType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6CFA0972-2CCC-45C2-A8B6-C67E1F4141A5"
+            uuid = "A531E27F-F7FB-4286-943E-6C086E8A1CDB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/Account_Wallet/TransferVC/TransferViewController.swift"
+            filePath = "RiverPrime/Tabbar Controllers/Accounts/AccountsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
-            landmarkName = "transfer_action(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4C21DD0C-9B37-4DC2-9EB6-BEF24B1D5C95"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "RiverPrime/Tabbar Controllers/Accounts/Account_Wallet/TransferVC/TransferViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
-            landmarkName = "transfer_action(_:)"
+            startingLineNumber = "1057"
+            endingLineNumber = "1057"
+            landmarkName = "getFormattedSymbols(opcType:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

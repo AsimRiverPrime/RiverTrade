@@ -202,6 +202,7 @@ class TicketVC: BottomSheetController {
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
             self.userLoginID = defaultAccount.accountNumber
             isDemo = !defaultAccount.isReal
+            userPassword = defaultAccount.password
         }
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
@@ -215,9 +216,9 @@ class TicketVC: BottomSheetController {
             volumeMin = Int("\(obj.volumeMin)")
             digits = Int("\(obj.digits)")
             
-            userPassword = UserDefaults.standard.string(forKey: "password")
+//            userPassword = UserDefaults.standard.string(forKey: "password")
             
-            print("selectedSymbol: \(selectedSymbol)\n contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \n password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
+            print("selectedSymbol: \(selectedSymbol)\t contractSize: \(String(describing: contractSize)) \t volumeStep: \(volumeStep ?? 0) \t volumeMax:\(volumeMax) \t volumeMin: \(volumeMin) \t digits: \(digits) \t password: \(userPassword) \t email: \(userEmail) \t loginID: \(userLoginID) ")
         }
     }
     
@@ -688,9 +689,9 @@ class TicketVC: BottomSheetController {
         stopLoss = Double(self.tf_stopLoss.text ?? "") ?? 0
         takeProfit = Double(self.tf_takeProfit.text ?? "") ?? 0
         
-        if !selectedSymbol!.contains(".") {
-            selectedSymbol! += "."
-        }
+//        if !selectedSymbol!.contains(".") {
+//            selectedSymbol! += "."
+//        }
         
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, is_demo: isDemo, comment: "comment testing")
     }

@@ -13,7 +13,7 @@ protocol SendOTPDelegate: AnyObject {
     func otpFailure(error: Error)
 }
 protocol VerifyOTPDelegate: AnyObject {
-    func otpVerifySuccess(response: Any)
+    func otpVerifySuccess(response: [String: Any])
     func otpVerifyFailure(error: Error)
 }
 

@@ -180,7 +180,7 @@ class FirestoreServices: BaseViewController {
             // Retrieve and print the default account
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account in fetchuserAccountFunction : \(defaultAccount)")
-                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
+//                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
                
             }
             

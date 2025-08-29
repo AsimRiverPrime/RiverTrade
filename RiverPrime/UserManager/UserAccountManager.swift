@@ -28,7 +28,7 @@ class UserAccountManager {
                 updatedAccounts[key] = account
                 
                 if passwordManager.savePassword(for: String(account.accountNumber), password: account.password) {
-                    print("Password saved for account \(account.accountNumber)\n")
+                    print("----->>>Password saved for account \(account.accountNumber)\n")
                 } else {
                     print("Password already exists for account \(account.accountNumber)\n")
                 }

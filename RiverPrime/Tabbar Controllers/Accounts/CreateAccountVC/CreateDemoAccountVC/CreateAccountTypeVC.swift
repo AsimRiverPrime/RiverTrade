@@ -52,6 +52,7 @@ class CreateAccountTypeVC: BottomSheetController {
     var userAccountsPasswordData : [String: [String: String]] = [:]
     var currencyList = ["USD", "EURO", "GBP", "USDT"]
     let passwordManager = PasswordManager()
+    var encryptedPassword = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,19 +148,23 @@ class CreateAccountTypeVC: BottomSheetController {
     }
     
     @IBAction func submitBtnAction(_ sender: Any) {
-//        if !validateInputs() {
-//            return
-//        }
+
+        let plainPassword = self.tf_password.text ?? ""
+        encryptedPassword = PasswordEncryption.encryptPassword(plainPassword)
+        print("\n ✅ encryptedPassword in createAccount VC is: \(encryptedPassword)\n")
+        let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
+        print("\n decryptedPassword in createAccount VC  is: \(decryptedPassword)\n")
         
         print("this is given name: \(userName)")
         print("this is select Currency: \(currencyCode)")
         print("this is given email: \(userEmail)")
         print("this is given password: \(self.tf_password.text ?? "")")
+        
         let phone =  UserDefaults.standard.string(forKey: "phoneNumber")
         let Firstname = UserDefaults.standard.string(forKey: "firstName")
         let LastName = UserDefaults.standard.string(forKey: "lastName")
         print("this is phoneNumber:\(phone) firstName:\(Firstname) lastName:\(LastName): leravage: \(account!.leverage)")
-        UserDefaults.standard.set((self.tf_password.text ?? ""), forKey: "password")
+        UserDefaults.standard.set(encryptedPassword, forKey: "password")
         UserDefaults.standard.set(userName, forKey: "MTUserName")
         
         if isReal {
@@ -202,6 +207,7 @@ class CreateAccountTypeVC: BottomSheetController {
                 self.dismiss(animated: true)
             }
         } else {
+           
             odooClientService.createAccount(
                 phone: isReal ? (phone ?? "") : "",
                 group: demoAccountGroup,
@@ -210,7 +216,7 @@ class CreateAccountTypeVC: BottomSheetController {
                 leverage: 400,
                 first_name: userName,
                 last_name: "",
-                password: (self.tf_password.text ?? ""),
+                password: encryptedPassword, //(self.tf_password.text ?? ""),
                 is_demo: !isReal
             )
         }
@@ -286,7 +292,7 @@ class CreateAccountTypeVC: BottomSheetController {
             "groupID": account?.id ?? "",
             "isDefault" : true,
             "isReal": isReal,
-            "password": tf_password.text ?? "",
+            "password": encryptedPassword, //tf_password.text ?? "",
             "groupName" : self.demoAccountGroup,
             "accountNumber" : GlobalVariable.instance.loginID // loginID in createAccount response
         ]
@@ -308,7 +314,7 @@ class CreateAccountTypeVC: BottomSheetController {
                     }
                     print("\n updating isDefault account success: ")
                    
-                    if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: tf_password.text ?? "") {
+                    if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: self.encryptedPassword /*tf_password.text ?? ""*/) {
                         print("Password successfully saved.")
                     } else {
                         print("ID already exists. Cannot save password.")
@@ -352,6 +358,6 @@ extension CreateAccountTypeVC : CreateUserAccountTypeDelegate {
     
     func createAccountFailure(error: any Error) {
         print("\n this is create user error response: \(error)")
-        showTimeAlert(str: "Account Create Failed.")
+        showTimeAlert(str: "Account Create Failed.Server error")
     }
 }

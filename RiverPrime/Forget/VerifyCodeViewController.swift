@@ -79,7 +79,7 @@ class VerifyCodeViewController: BaseViewController, UITextFieldDelegate{
         }
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Verify Code", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func confirmBtn(_ sender: Any) {
@@ -334,8 +334,8 @@ extension VerifyCodeViewController: SendOTPDelegate {
 }
 
 extension VerifyCodeViewController:  VerifyOTPDelegate {
-    func otpVerifySuccess(response: Any) {
-        print("\nthis is the verify Email otp response: \(response)")
+    func otpVerifySuccess(response: [String:Any]) {
+        print("\n this is the verify Email otp response in verifyVC: \(response)")
         
         if isEmailVerification == true {
             updateUser()

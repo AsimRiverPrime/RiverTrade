@@ -458,7 +458,7 @@ extension AccountsViewController {
     @objc func notificationPopup(_ notification: NSNotification) {
         
         if let ammount = notification.userInfo?[NotificationObserver.Constants.BalanceUpdateConstant.title] as? String {
-//            print("Received ammount in account Home vc: \(ammount)")
+            print("Received ammount in account Home vc: \(ammount)")
             let amount = String.formatStringNumber(ammount)
             let totalDeposit = UserManager.shared.currentUser?.totalDeposit ?? 0.0
             
@@ -863,7 +863,8 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 let vc = Utilities.shared.getViewController(identifier: .openTicketBottomSheetVC, storyboardType: .bottomSheetPopups) as! OpenTicketBottomSheetVC
                 
-                let x =  openData[indexPath.row].symbol.dropLast()
+//                let x =  openData[indexPath.row].symbol.dropLast()
+                let x =  openData[indexPath.row].symbol
                 if let digitss = (GlobalVariable.instance.symbolDataArray.firstIndex(where: {$0.name == x })) {
                     
                     vc.digitValue = Int(GlobalVariable.instance.symbolDataArray[digitss].digits) ?? 0
@@ -1128,8 +1129,9 @@ extension AccountsViewController: GetSocketMessages {
                                         cell.isHidden = false
                                         
                                         if cell.lbl_symbolName.text == openData[index].symbol && cell.volume == (Double(openData[myIndexPath.row].volume) / 10000) {
-                                            let x = openData[index].symbol.dropLast()
-
+//                                            let x = openData[index].symbol.dropLast()
+                                            let x = openData[index].symbol
+                                            
                                             if let contractValueIndex = GlobalVariable.instance.symbolDataArray.firstIndex(where: { $0.name == x }) {
                                                 let symbolData = GlobalVariable.instance.symbolDataArray[contractValueIndex]
                                                 let symbolContractSize = Double(symbolData.contractSize) ?? 1.0
@@ -1218,8 +1220,12 @@ extension AccountsViewController: GetSocketMessages {
                                 totalCell.detailTextLabel?.textColor = .systemRed
                                 let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
                                 totalCell.detailTextLabel?.text = "-$\(abs(Double(xyz) ?? 0))"
-                            }else{
+                            }else if totalProfitOpenClose > 0.0{
                                 totalCell.detailTextLabel?.textColor = .systemGreen
+                                let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
+                                totalCell.detailTextLabel?.text = "$" + xyz
+                            }else{
+                                totalCell.detailTextLabel?.textColor = .white
                                 let xyz = "\(totalProfitOpenClose)".trimmedTrailingZeros()
                                 totalCell.detailTextLabel?.text = "$" + xyz
                             }
@@ -1288,15 +1294,6 @@ extension AccountsViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TradeTypeCollectionViewCell", for: indexPath) as! TradeTypeCollectionViewCell
-        
-        //        cell.onRefreshImageButtonClick = {
-        //            [self] sender in
-        //            print("onRefreshImageButtonClick")
-        //            self.dynamicDropDownButton(sender, list: refreshList) { index, item in
-        //                print("drop down index = \(index)")
-        //                print("drop down item = \(item)")
-        //            }
-        //        }
         
         cell.lbl_tradetype.text = model[indexPath.row]
         if indexPath.row == selectedIndex {

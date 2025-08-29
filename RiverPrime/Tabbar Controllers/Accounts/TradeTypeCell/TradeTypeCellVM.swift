@@ -336,7 +336,6 @@ class TradeTypeCellVM {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let _email = savedUserData["email"] as? String{
                 email = _email
-                
             }
         }
         
@@ -376,7 +375,7 @@ class TradeTypeCellVM {
                     if let json = value as? [String: Any],
                        let result = json["result"] as? [String: Any],
                        let success = result["success"] as? Int {
-                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+//                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
                         //                        print("jsonData: \(jsonData)")
                         if success == 1 {
                             UserDefaults.standard.set((pass), forKey: "password")
@@ -389,7 +388,7 @@ class TradeTypeCellVM {
                 }
                 catch {
                     print("Error decoding response: \(error)")
-                    //                    completion("\(error)")
+                                        completion("\(error)")
                 }
             case .failure(let error):
                 print("Request failed with error: \(error)")
@@ -414,7 +413,7 @@ class TradeTypeCellVM {
                   loginId = login_id
                   pass1 = pass
                   self.isDemo = !isDemo
-                  print("given loginId: \(loginId), given password: \(pass1), isDemo: \(self.isDemo)")
+                  print("/ngiven loginId: \(loginId), given password: \(pass1), isDemo: \(self.isDemo)/n")
               } else if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                   // Fallback to default account
                   loginId = defaultAccount.accountNumber
@@ -446,12 +445,12 @@ class TradeTypeCellVM {
             ]
         ]
         
-        print("get balance Params: \(params)")
+        print("\n get user balance Params: \(params)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
             switch result {
             case .success(let value):
-                print("/\n get user balance Value for loginID: \(self.loginId): \(value)")
+                print("\n get user balance Value for loginID: \(self.loginId): \(value)")
                 do {
                     // Convert the response to Data
                     let jsonData = try JSONSerialization.data(withJSONObject: value, options: [])
@@ -524,7 +523,7 @@ class TradeTypeCellVM {
                     "method": "execute_kw",
                     "args": [
                         odooClientService.dataBaseName,
-                        uid, //6,
+                        uid,
                         odooClientService.dbPassword, 
                         "mt.middleware",
                         "get_orders",
@@ -572,7 +571,7 @@ class TradeTypeCellVM {
             
         }
         
-        print("\n parameter is : \(jsonrpcBody)")
+        print("\n parameter for Open/Closed/Pending LIST according to index = \(index) is : \(jsonrpcBody)/n")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             switch result {
@@ -616,17 +615,11 @@ class TradeTypeCellVM {
                             if orders.count != 0  {
                                 
                                 var _isHistory = isHistory
-                                
-                                if let firstResult = orders.first,
-                                   orders.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
-                                    if _isHistory {
-                                        _isHistory = true
-                                    } else {
-                                        _isHistory = false
-                                    }
-                                } else {
-                                    if isHistory {
-                                        _isHistory = false
+                                // Only override when there are valid trade positions
+                                if orders.contains(where: { $0.position != 0 }) {
+                                    if let firstResult = orders.first,
+                                       orders.allSatisfy({ $0.action == firstResult.action && $0.position == firstResult.position }) {
+                                        _isHistory = isHistory
                                     } else {
                                         _isHistory = false
                                     }
@@ -634,21 +627,14 @@ class TradeTypeCellVM {
                                 
                                 let getNewCloseList = self.getSymbolProfitList(from: orders, isHistory: _isHistory)
                                 newCloseModel = getNewCloseList
-                                
                             }
-                            //TODO: Without sort.
-                            //completion(nil, nil, newCloseModel, nil) // Pass positions to completion
                             
                             //TODO: With sort.
                             // Sort orders before passing them to the completion handler
                             var sortedOrders = newCloseModel.sorted { $0.position < $1.position }
                             sortedOrders = newCloseModel.sorted { $0.LatestTime > $1.LatestTime }
                             print("\n closed order values:\(sortedOrders)")
-                            //                            print("\n closed order values in newCloseModel:\(newCloseModel)")
                             completion(nil, nil, sortedOrders, nil) // Pass positions to completion
-                            
-                            //                            completion(nil, nil, newCloseModel, nil) // Pass positions to completion
-                            
                         }
                         
                     }
@@ -676,10 +662,8 @@ class TradeTypeCellVM {
         } else {
             filteredOrders = closes
         }
-        //        var filteredOrders = closes.filter { $0.position != 0 }
         
         let groupedCloseModels = separateDuplicatePositionsOnly(from: filteredOrders, isHistory: isHistory)
-        //        let groupedCloseModels = separateDuplicatePositionsOnly(from: closes)
         var newCloseModel = [NewCloseModel]()
         
         if groupedCloseModels.count == 0 {
@@ -721,40 +705,11 @@ class TradeTypeCellVM {
             
             newCloseModel.append(NewCloseModel(symbol: symbol, LatestTime: latestTime, totalPrice: totalPrice, totalProfit: totalProfit, action: action ?? -1, order: order, position: position, repeatedFilteredArray: groupedCloseModels[position]!, historyCloseData: closes))
         }
-        
+        print("getSymbolProfitList count: \(newCloseModel.count)")
         
         return newCloseModel
     }
-    
-    
-    //    func separateDuplicateSymbols(from closeModels: [CloseModel]) -> [String: [CloseModel]] {
-    //        var uniqueSymbols: Set<String> = []
-    //        var groupedModels: [String: [CloseModel]] = [:]
-    //
-    //        for model in closeModels {
-    //            if !uniqueSymbols.contains(model.symbol) {
-    //                uniqueSymbols.insert(model.symbol)
-    //                groupedModels[model.symbol] = []
-    //            }
-    //            groupedModels[model.symbol]?.append(model)
-    //        }
-    //
-    //        return groupedModels
-    //    }
-    
-    func separateDuplicatePositions(from closeModels: [CloseModel]) -> [Int: [CloseModel]] {
-        var groupedModels: [Int: [CloseModel]] = [:]
-        
-        for model in closeModels {
-            if groupedModels[model.position] == nil {
-                groupedModels[model.position] = []
-            }
-            groupedModels[model.position]?.append(model)
-        }
-        
-        return groupedModels
-    }
-    
+
     func separateDuplicatePositionsOnly(from closeModels: [CloseModel], isHistory: Bool = false) -> [Int: [CloseModel]] {
         var positionCount: [Int: Int] = [:]
         var groupedModels: [Int: [CloseModel]] = [:]
@@ -790,7 +745,6 @@ class TradeTypeCellVM {
         
         return groupedModels
     }
-    
     
 }
 

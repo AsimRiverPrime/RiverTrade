@@ -54,7 +54,7 @@ class ChangeTradePasswordVC: BaseViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
-        
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     @objc func dismissKeyboard() {

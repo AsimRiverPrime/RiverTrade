@@ -63,7 +63,7 @@ class PhoneVerifyVC: BaseViewController{
     override func viewWillAppear(_ animated: Bool) {
         //MARK: - Show Navigation Bar
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
-        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: SignInViewController(), navController: self.navigationController, title: "", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Verify Phone Number", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
     }
     
     @IBAction func closeBtn_action1(_ sender: Any) {

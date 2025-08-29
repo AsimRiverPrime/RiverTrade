@@ -10,7 +10,7 @@ import UIKit
 import FirebaseFirestore
 import SDWebImage
 
-class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class EditPhotoVC: BaseViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var tf_username: UITextField!
@@ -47,7 +47,13 @@ class EditPhotoVC: UIViewController, UIImagePickerControllerDelegate, UINavigati
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //MARK: - Hide Navigation Bar
+
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: ProfileViewController(), navController: self.navigationController, title: "Edit Name/Image", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
+    }
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
