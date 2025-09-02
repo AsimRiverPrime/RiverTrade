@@ -221,7 +221,7 @@ class OdooClientNew {
         ]
         
         print("\n params for search_read records value is : \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             //            print("result of search read and save user id is : \(result)")
             
@@ -282,7 +282,7 @@ class OdooClientNew {
         ]
         
         print("\n params for user MT accounts search records value is : \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             
             switch result {
@@ -339,7 +339,7 @@ class OdooClientNew {
         ]
         
         print("\n params for search_request records value is: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             //            print("result of search read and save user id is : \(result)")
             switch result {
@@ -403,7 +403,7 @@ class OdooClientNew {
         ]
         
         print("\n params for create records value in odoo server: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             print("create lead records result is : \(result)")
             switch result {
@@ -799,7 +799,7 @@ class OdooClientNew {
         ]
         
         print("\n params value for write records on CRM like Firebase_Notification_Token: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             print("\n send firebaseToken record to CRM result is : \(result)")
             switch result {
@@ -843,7 +843,7 @@ class OdooClientNew {
         ]
         
         print("\n params value for write records on CRM like Firebase_Notification_Token: \(jsonrpcBody)")
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
             
             print("\n send firebaseToken record to CRM result is : \(result)")
             switch result {
