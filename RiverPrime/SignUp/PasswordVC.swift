@@ -80,15 +80,18 @@ class PasswordVC: BaseViewController {
     
     @objc func passwordDidChange(_ textField: UITextField) {
 
-        validatePassword(password: textField.text ?? "")
+        validatePassword(textField.text ?? "")
     }
     
-    func validatePassword(password: String) {
+    func validatePassword(_ password: String) -> Bool {
+        var isValid = true
+        
         // Condition 1: Length between 8 and 15 characters
         if password.count >= 8 && password.count <= 15 {
             lbl_firstCondition.textColor = .green
         } else {
             lbl_firstCondition.textColor = .red
+            isValid = false
         }
         
         // Condition 2: At least one uppercase and one lowercase letter
@@ -101,27 +104,32 @@ class PasswordVC: BaseViewController {
             lbl_secondCondition.textColor = .green
         } else {
             lbl_secondCondition.textColor = .red
-            
+            isValid = false
         }
         
-        // Condition 3: At least one number and one special character
+        // Condition 3: At least one number
         let numbers = CharacterSet.decimalDigits
-        let specialCharacters = CharacterSet.punctuationCharacters.union(.symbols)
         let hasNumber = password.rangeOfCharacter(from: numbers) != nil
-        let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
         
         if hasNumber {
             lbl_thirdCondition.textColor = .green
         } else {
             lbl_thirdCondition.textColor = .red
+            isValid = false
         }
+        
+        // Condition 4: At least one special character
+        let specialCharacters = CharacterSet.punctuationCharacters.union(.symbols)
+        let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
         
         if hasSpecial {
             lbl_forthCondition.textColor = .green
         } else {
             lbl_forthCondition.textColor = .red
-            
+            isValid = false
         }
+        
+        return isValid
     }
     
     @IBAction func passwordIconAction(_ sender: Any) {
@@ -130,19 +138,23 @@ class PasswordVC: BaseViewController {
     }
 
     @IBAction func continueAction(_ sender: Any) {
-        SVProgressHUD.show()
         guard let password = password_tf.text, !password.isEmpty else {
-            SVProgressHUD.dismiss()
+            SVProgressHUD.showError(withStatus: "Correct Password is required")
             return
         }
         encryptedPassword = PasswordEncryption.encryptPassword(self.password_tf.text ?? "")
         print("\n✅ encryptedPassword is: \(encryptedPassword)\n")
         let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
         print("\n decryptedPassword is: \(decryptedPassword)\n")
-        PasswordEncryption.manualTest(_testPassword: self.password_tf.text ?? "")
-        
-        openAccountSignUp()
+        PasswordEncryption.manualTest(password: self.password_tf.text ?? "")
        
+        
+        if validatePassword(password) {
+            SVProgressHUD.show()
+            openAccountSignUp()
+        } else {
+            SVProgressHUD.showError(withStatus: "Password does not meet requirements")
+        }
     }
     
     private func openAccountSignUp() {
@@ -214,11 +226,6 @@ class PasswordVC: BaseViewController {
     }
 
        func updateUserAccount(){
-//           encryptedPassword = PasswordEncryption.encryptPassword(self.password_tf.text ?? "")
-//           print("\n encryptedPassword is: \(encryptedPassword)\n")
-//           let decryptedPassword = PasswordEncryption.decryptPassword(encryptedPassword)
-//           print("\n decryptedPassword is: \(decryptedPassword)\n")
-           
            
            var fieldsToUpdate: [String:Any] = [
                "KycStatus": "Not Started",
@@ -251,7 +258,7 @@ class PasswordVC: BaseViewController {
                               print("\n updating isDefault account success in paaswordVC: ")
    //                           self.fireStoreInstance.fetchUserAccountsData(userId: self.userId)
                             
-                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: encryptedPassword /*password_tf.text ?? ""*/) {
+                              if passwordManager.savePassword(for: String(GlobalVariable.instance.loginID), password: encryptedPassword) {
                                   print("Password successfully saved in paaswordVC.")
                               } else {
                                   print("ID already exists. Cannot save password.")
@@ -288,14 +295,13 @@ class PasswordVC: BaseViewController {
 extension PasswordVC:  CreateLeadOdooDelegate {
     func leadCreatSuccess(response: Any) {
         print("this is success response from create Lead :\(response)")
-//       let password = self.password_tf.text ?? ""
         
         if GlobalVariable.instance.realAccount {
             self.navigateFaceID()
 
         }else{
     //        createMTAccount()
-            odoClientNew.createAccount(phone: "", group: "demo\\RP\\PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: encryptedPassword, is_demo: true)
+            odoClientNew.createAccount(phone: "", group: "PRO", email: email ?? "", currency: "USD", leverage: 400, first_name: fullName ?? "", last_name: "", password: encryptedPassword, is_demo: true)
         }
       
     }
@@ -318,7 +324,7 @@ extension PasswordVC : CreateUserAccountTypeDelegate {
        
        func createAccountFailure(error: any Error) {
            print("\n this is create user error response: \(error)")
-           showTimeAlert(str: "Account Create Failed.")
+           self.ToastMessage("MT Account Create Failed.")
        }
    }
 

@@ -48,7 +48,7 @@ class HistoryViewController: BaseViewController {
     var isFromOrToDate = ""
     
     var historyType: HistoryType? = .trade
-    var dateList = ["Select Date","1 Day","1 Week", "15 Days", "1 Month", "6 Months", "Custom Date"]
+    var dateList = ["1 Day","1 Week", "15 Days", "1 Month", "6 Months", "Custom Date"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -512,6 +512,7 @@ extension HistoryViewController {
             if error != nil {
                 return
             }
+            print("fetchPositions closeData count is = \(closeData?.count ?? 0)")
             
             if closeData?.count == 0 {
                 self.view_noMatchData.isHidden = false
@@ -543,13 +544,7 @@ extension HistoryViewController {
                     self.closeData = closeData1
                 }
                 print("updatedModels closeData1 = \(updatedModels)")
-                if self.closeData.count == 0 {
-                    self.view_noMatchData.isHidden = false
-                    self.historyTableView.isHidden = true
-                }else{
-                    self.view_noMatchData.isHidden = true
-                    self.historyTableView.isHidden = false
-                }
+               
 //                self.closeData = updatedModels
         
                 var uniqueDeals = Set<Int>()

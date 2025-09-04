@@ -326,7 +326,6 @@
 		31E682372E5C538100ACCDCB /* PaymentTypesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682292E5C538100ACCDCB /* PaymentTypesResponse.swift */; };
 		31E682382E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E682302E5C538100ACCDCB /* WithdrawPreRequirmentVC.swift */; };
 		31E682392E5C538100ACCDCB /* withDrawTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31E6822D2E5C538100ACCDCB /* withDrawTableViewCell.xib */; };
-		31E6823F2E5D92BF00ACCDCB /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31E6823E2E5D92BF00ACCDCB /* CryptoSwift */; };
 		31F119472D1309A900D6D275 /* TradeSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F119462D1309A900D6D275 /* TradeSessionModel.swift */; };
 		31F29B362C7C9B6500BBB126 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F29B332C7C9B6500BBB126 /* UIImage+Gif.swift */; };
 		31F3D27D2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F3D27C2C8EF9CC004E120F /* CompleteVerificationProfileScreen7.swift */; };
@@ -856,7 +855,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31A52AD82DC8C1E6008460C6 /* OPPWAMobile.xcframework in Frameworks */,
-				31E6823F2E5D92BF00ACCDCB /* CryptoSwift in Frameworks */,
 				31A52AD22DC8C1C6008460C6 /* ipworks3ds_sdk_8845.xcframework in Frameworks */,
 				42206C1426801705E99E5535 /* Pods_RiverPrime.framework in Frameworks */,
 			);
@@ -2628,7 +2626,6 @@
 			);
 			name = RiverPrime;
 			packageProductDependencies = (
-				31E6823E2E5D92BF00ACCDCB /* CryptoSwift */,
 			);
 			productName = RiverPrime;
 			productReference = 31D261FE2C3BECDE00FC6651 /* RiverPrime.app */;
@@ -2660,7 +2657,6 @@
 			);
 			mainGroup = 31D261F52C3BECDE00FC6651;
 			packageReferences = (
-				31E6823D2E5D92BF00ACCDCB /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = 31D261FF2C3BECDE00FC6651 /* Products */;
 			projectDirPath = "";
@@ -3427,25 +3423,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		31E6823D2E5D92BF00ACCDCB /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.9.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		31E6823E2E5D92BF00ACCDCB /* CryptoSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31E6823D2E5D92BF00ACCDCB /* XCRemoteSwiftPackageReference "CryptoSwift" */;
-			productName = CryptoSwift;
-		};
-/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3162CD512DE0543800E5293A /* Model_SymbolData.xcdatamodeld */ = {

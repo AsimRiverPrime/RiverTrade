@@ -171,6 +171,21 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+//        if GlobalVariable.instance.guestAccount {
+//            self.labelAmmount.isHidden = true
+//            self.lbl_account.isHidden = true
+//            self.lbl_accountType.isHidden = true
+//        }else{
+//            self.labelAmmount.isHidden = false
+//            self.lbl_account.isHidden = false
+//            self.lbl_accountType.isHidden = false
+//        }
+        
+        let shouldHide = GlobalVariable.instance.guestAccount
+        [labelAmmount, lbl_account, lbl_accountType].forEach {
+            $0?.isHidden = shouldHide
+        }
+        
         viewWillAppearData()
         updateIndicator()
     }

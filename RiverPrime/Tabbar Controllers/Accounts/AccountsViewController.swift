@@ -60,6 +60,9 @@ class AccountsViewController: BaseViewController {
     @IBOutlet weak var btn_creat: CardViewButton!
     @IBOutlet weak var btn_balanceShowHide: UIButton!
     
+    @IBOutlet weak var view_buttons: CardView!
+    @IBOutlet weak var btn_guestAccount: CardViewButton!
+    
     weak var delegate: AccountInfoTapDelegate?
     weak var delegateCreateAccount: CreateAccountInfoTapDelegate?
     weak var delegateOPCNavigation: OPCNavigationDelegate?
@@ -140,6 +143,27 @@ class AccountsViewController: BaseViewController {
             view_percentage.backgroundColor = .black.withAlphaComponent(0.85)
         }
        
+        if GlobalVariable.instance.guestAccount {
+            self.view_buttons.isHidden = true
+            btn_guestAccount.isHidden = false
+            self.lbl_name.text = "Guest User"
+            self.labelAmmount.isHidden = true
+            self.lbl_amountPercent.isHidden = true
+            self.lbl_account.isHidden = true
+            self.lbl_accountType.isHidden = true
+            self.btn_balanceShowHide.isHidden = true
+            self.view_percentage.isHidden = true
+        }else{
+            self.view_buttons.isHidden = false
+            btn_guestAccount.isHidden = true
+            self.labelAmmount.isHidden = false
+            self.lbl_amountPercent.isHidden = false
+            self.lbl_account.isHidden = false
+            self.lbl_accountType.isHidden = false
+            self.btn_balanceShowHide.isHidden = false
+            self.view_percentage.isHidden = false
+        }
+       
     }
     
     @objc private func FaceAfterLoginUpdate(_ notification: Notification) {
@@ -193,6 +217,11 @@ class AccountsViewController: BaseViewController {
         }
     }
 
+    @IBAction func btn_guestAccount_Action(_ sender: Any) {
+        let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
+        self.navigate(to: vc)
+    }
+    
     @IBAction func showHideBalance(_ sender: Any) {
         balanceShowHide()
     }
@@ -300,7 +329,7 @@ class AccountsViewController: BaseViewController {
     @IBAction func depositAction(_ sender: Any) {
         if GlobalVariable.instance.guestAccount {
 
-            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+            Alert.ShowWindowAlert("You are in Guest mode.You don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
                 let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
                 self.navigate(to: vc)
             } andCompletionHandler: { cancel in
@@ -388,7 +417,7 @@ class AccountsViewController: BaseViewController {
       
         if GlobalVariable.instance.guestAccount {
             
-            Alert.ShowWindowAlert("It looks like you don't have an account yet. Would you like to create one now?\n\n Create an account to unlock all feature!", andTitle: "No Account Found!", OKButtonText: "CREATE ACCOUNT", window: SCENE_DELEGATE.window!) { ok in
+            Alert.ShowWindowAlert("You are in Guest mode.You don't have an account yet. Would you like to create new one now?\n\n Create an account to unlock all features!", andTitle: "No Account Found!", OKButtonText: "Create An Account", window: SCENE_DELEGATE.window!) { ok in
                 let vc = Utilities.shared.getViewController(identifier: .viewController, storyboardType: .main) as! ViewController
                 self.navigate(to: vc)
             } andCompletionHandler: { cancel in
@@ -874,7 +903,6 @@ extension AccountsViewController: UITableViewDelegate, UITableViewDataSource {
                 vc.getIndex = indexPath
                 
                 PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .customMedium, VC: vc)
-                
                 
                 break
             case .pending(let pendingData):

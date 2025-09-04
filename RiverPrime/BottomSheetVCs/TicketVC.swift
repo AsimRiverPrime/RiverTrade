@@ -131,6 +131,7 @@ class TicketVC: BottomSheetController {
     var previousTakeProfitType: String = "Profit in Price"
     
     var isDemo = Bool()
+    var accountGroup = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,6 +204,7 @@ class TicketVC: BottomSheetController {
             self.userLoginID = defaultAccount.accountNumber
             isDemo = !defaultAccount.isReal
             userPassword = defaultAccount.password
+            accountGroup = defaultAccount.groupName
         }
         
         if let obj = GlobalVariable.instance.symbolDataArray.first(where: {$0.name == getSymbolDetail.tickMessage?.symbol}) {
@@ -689,9 +691,11 @@ class TicketVC: BottomSheetController {
         stopLoss = Double(self.tf_stopLoss.text ?? "") ?? 0
         takeProfit = Double(self.tf_takeProfit.text ?? "") ?? 0
         
-//        if !selectedSymbol!.contains(".") {
-//            selectedSymbol! += "."
-//        }
+        if accountGroup == "PRO" {
+            if !selectedSymbol!.contains(".") {
+                selectedSymbol! += "."
+            }
+        }
         
         createOrder(email: userEmail ?? "", loginID: userLoginID ?? 0, password: userPassword ?? "", symbol: selectedSymbol ?? "" , type: type ?? 0, volume: volume ?? 0, price: priceValue ?? 0, stop_loss: stopLoss, take_profit: takeProfit, digits: digits ?? 0, digits_currency: digits_currency, contract_size: contractSize ?? 0, is_demo: isDemo, comment: "comment testing")
     }

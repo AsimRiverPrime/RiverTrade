@@ -19,6 +19,7 @@ class ProfileViewController: BaseViewController{
     @IBOutlet weak var tblView: UITableView!
     
     weak var delegateCompeleteProfile: DashboardVCDelegate?
+    let webSocketManager = WebSocketManager.shared
     
     var profileStep = Int()
     
@@ -126,6 +127,71 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: LogoutTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.onLogoutTapped = { [weak self] in
+                guard let self = self else { return }
+                Alert.ShowWindowAlert("Are you want to Logout?", andTitle: "Log out", OKButtonText: "Yes", window: SCENE_DELEGATE.window!) { ok in
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                    self.webSocketManager.connectionCheckTimer?.invalidate()
+                    self.webSocketManager.connectionCheckTimer = nil
+                    
+                    self.webSocketManager.DisconnectWebSocket()
+                    
+                    //MARK: - START calling Socket message from here.
+                    //        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: false)
+                    UserDefaults.standard.removeObject(forKey: "userData")
+                    UserDefaults.standard.removeObject(forKey: "savedSymbolsKey")
+                    UserDefaults.standard.removeObject(forKey: "userPasswordData")
+                    UserDefaults.standard.removeObject(forKey: "userProfileImage")
+                    
+                    GlobalVariable.instance.isProcessingSymbolTimer = false
+                    
+                    GlobalVariable.instance.userEmail = ""
+                    
+                    GlobalVariable.instance.balanceUpdate = "0.0"
+                    
+                    GlobalVariable.instance.symbolDataArray = []
+                    
+                    GlobalVariable.instance.changeSector = Bool()
+                    GlobalVariable.instance.resultTopButtonType = String()
+                    GlobalVariable.instance.isProcessingSymbol = false
+                    GlobalVariable.instance.isAppLunch = false
+                    GlobalVariable.instance.isAccountCreated = Bool()
+                    
+                    GlobalVariable.instance.tradeCollectionViewIndex = (0, [])
+                    
+                    GlobalVariable.instance.sectors = []
+                    GlobalVariable.instance.tempSectors = []
+                    
+                    GlobalVariable.instance.filteredSymbols = [[]]
+                    GlobalVariable.instance.filteredSymbolsUrl = [[]]
+                    
+                    GlobalVariable.instance.getSelectedSectorSymbols = (0, [""])
+                    
+                    GlobalVariable.instance.historyChartData = [SymbolChartData]()
+                    
+                    GlobalVariable.instance.isStopTick = false
+                    GlobalVariable.instance.isStopHistory = false
+                    
+                    GlobalVariable.instance.previouseSymbolList = [String]()
+                    GlobalVariable.instance.tempPreviouseSymbolList = [String]()
+                    
+                    //        GlobalVariable.instance.isConnected = false // Track connection state
+                    GlobalVariable.instance.getSectorIndex = 0
+                    
+                    let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                    
+                    let navController = UINavigationController(rootViewController: loginVC)
+                    SCENE_DELEGATE.window?.rootViewController = navController
+                    SCENE_DELEGATE.window?.makeKeyAndVisible()
+                    print("log out")
+                   
+                } andCompletionHandler: { cancel in
+                    print("Cancel")
+                }
+               
+            }
             return cell
         }
         

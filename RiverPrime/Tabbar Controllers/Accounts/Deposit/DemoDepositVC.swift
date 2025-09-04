@@ -39,38 +39,42 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
         }
         
         tf_amount.delegate = self
-        tf_amount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        
+        tf_amount.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
+        }
+    @objc func textFieldEditingChanged(_ textField: UITextField) {
+        if let text = textField.text {
+            // Format number with commas
+            let formatted = String.formatStringNumberTF(text)
+            textField.text = formatted
+        }
+        
+        // Validate after formatting
+        validateDepositAmount()
     }
-           
-           @objc func textFieldDidChange() {
-               validateDepositAmount()
-           }
 
     func validateDepositAmount() {
-        guard let text = tf_amount.text, let enteredAmount = Double(text) else {
-            return
-        }
-//       let currentAmmount =  (Double(ammountValue) ?? 0.0)
-        let cleanedAmountValue = ammountValue.replacingOccurrences(of: ",", with: "") // "11676.33"
+        guard let text = tf_amount.text else { return }
+        
+        // Remove commas for validation
+        let cleanedText = text.replacingOccurrences(of: ",", with: "")
+        guard let enteredAmount = Double(cleanedText) else { return }
+        
+        let cleanedAmountValue = ammountValue.replacingOccurrences(of: ",", with: "")
         let currentAmount = Double(cleanedAmountValue) ?? 0.0
-        
-        
+
         if enteredAmount > maxAmount {
             self.ToastMessage("You cannot deposit more than $1,000,000.")
             tf_amount.text = ""
             lbl_exceededAmount.textColor = .systemRed
-           
         } else if (currentAmount + enteredAmount) > maxAmount {
-            self.ToastMessage("Total balance after deposit cannot be exceed $1,000,000.")
+            self.ToastMessage("Total balance after deposit cannot exceed $1,000,000.")
             tf_amount.text = ""
             lbl_exceededAmount.textColor = .systemRed
-           
-        }else{
+        } else {
             lbl_exceededAmount.textColor = .white
-           
         }
     }
-    
     @objc func dismissKeyboard(){
         self.view.endEditing(true)
     }
@@ -85,16 +89,20 @@ class DemoDepositVC: BaseViewController, UITextFieldDelegate {
     @IBAction func submit_action(_ sender: Any) {
         dismissKeyboard()
         
-        if tf_amount.text != "" {
-//            if isRealAcount{
-//                let vc = Utilities.shared.getViewController(identifier: .depositViewController, storyboardType: .dashboard) as! DepositViewController
-//                
-//                vc.ammountValue = tf_amount.text ?? ""
-//                self.navigate(to: vc)
-//            }else{
-//                odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
-//            }
-            odooClient.demoDeposit(amount: Double(tf_amount.text ?? "") ?? 0)
+        if tf_amount.text != ""  {
+           
+            let x = tf_amount.text ?? ""
+            let cleanedAmountValue = x.replacingOccurrences(of: ",", with: "")
+            let currentAmount = Double(cleanedAmountValue) ?? 0.0
+            
+            if currentAmount < 1 {
+                self.ToastMessage("Deposit amount must be at least $1.")
+                tf_amount.text = ""
+                lbl_exceededAmount.textColor = .systemRed
+                return
+            }
+            
+            odooClient.demoDeposit(amount: currentAmount)
         }else{
             self.ToastMessage("Please enter amount")
         }

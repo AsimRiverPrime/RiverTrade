@@ -14,8 +14,8 @@
             filePath = "RiverPrime/Tabbar Controllers/Accounts/AccountsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
+            startingLineNumber = "1090"
+            endingLineNumber = "1090"
             landmarkName = "getFormattedSymbols(opcType:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -30,8 +30,8 @@
             filePath = "RiverPrime/Tabbar Controllers/Accounts/AccountsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1057"
-            endingLineNumber = "1057"
+            startingLineNumber = "1085"
+            endingLineNumber = "1085"
             landmarkName = "getFormattedSymbols(opcType:)"
             landmarkType = "7">
          </BreakpointContent>

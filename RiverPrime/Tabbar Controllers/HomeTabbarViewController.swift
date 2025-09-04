@@ -43,10 +43,10 @@ class HomeTabbarViewController: UITabBarController {
         if DateHelper.isSameDayAsLastLaunch() {
             print("Use cached for symbolData")
             
-            print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
+//            print("Session.instance.symbolData before = \(Session.instance.symbolData?.count)")
             
             GlobalVariable.instance.symbolDataArray = Session.instance.symbolData ?? []
-            print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
+            print("\nin HomeTabbarViewController Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             // Process and save symbols and isfavorite symbol
             let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
             let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
@@ -250,10 +250,10 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
             
             Session.instance.symbolData = nil
             
-            print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
+//            print("Session.instance.symbolData before = \(Session.instance.symbolData ?? [])")
             Session.instance.symbolData = GlobalVariable.instance.symbolDataArray
       
-            print("\n Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
+            print("\n In TabbarVC: Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             // Process and save symbols and isfavorite symbol
             let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
             let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }

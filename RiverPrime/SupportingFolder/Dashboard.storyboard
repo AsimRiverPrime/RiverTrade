@@ -138,13 +138,13 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gVq-i1-ls6" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="19.666666666666657" y="212.66666666666666" width="353.66666666666674" height="49.999999999999972"/>
+                                <rect key="frame" x="20" y="212.66666666666666" width="353" height="49.999999999999972"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search symbol here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSx-FD-v4b">
-                                        <rect key="frame" x="0.0" y="0.0" width="353.66666666666669" height="50"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Search symbol here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dSx-FD-v4b">
+                                        <rect key="frame" x="3" y="0.0" width="350" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" systemColor="darkTextColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -153,7 +153,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nca-Ln-4Qr">
-                                        <rect key="frame" x="304" y="0.0" width="49.666666666666686" height="50"/>
+                                        <rect key="frame" x="303.33333333333331" y="0.0" width="49.666666666666686" height="50"/>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain">
@@ -173,7 +173,7 @@
                                     <constraint firstItem="nca-Ln-4Qr" firstAttribute="trailing" secondItem="dSx-FD-v4b" secondAttribute="trailing" id="ky6-Z7-mba"/>
                                     <constraint firstItem="nca-Ln-4Qr" firstAttribute="centerY" secondItem="dSx-FD-v4b" secondAttribute="centerY" id="mP3-4f-FkH"/>
                                     <constraint firstAttribute="height" constant="50" id="nCG-Kl-UKr"/>
-                                    <constraint firstItem="dSx-FD-v4b" firstAttribute="leading" secondItem="gVq-i1-ls6" secondAttribute="leading" id="rDk-KO-mAH"/>
+                                    <constraint firstItem="dSx-FD-v4b" firstAttribute="leading" secondItem="gVq-i1-ls6" secondAttribute="leading" constant="3" id="rDk-KO-mAH"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -183,7 +183,7 @@
                                         <color key="value" red="0.36862745099999999" green="0.38431372549999998" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="20"/>
+                                        <real key="value" value="15"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -199,6 +199,7 @@
                         <viewLayoutGuide key="safeArea" id="NHF-fU-zOi"/>
                         <color key="backgroundColor" red="0.047058823530000002" green="0.050980392159999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="gVq-i1-ls6" firstAttribute="leading" secondItem="NHF-fU-zOi" secondAttribute="leading" constant="20" id="178-wr-URy"/>
                             <constraint firstItem="d4C-EB-mUV" firstAttribute="top" secondItem="gVq-i1-ls6" secondAttribute="bottom" constant="20.000000000000028" id="3u4-X4-dso"/>
                             <constraint firstItem="qmA-Cz-qEg" firstAttribute="top" secondItem="dcn-3L-Dba" secondAttribute="top" constant="-8" id="4Qx-dc-KxI"/>
                             <constraint firstItem="NHF-fU-zOi" firstAttribute="trailing" secondItem="dcn-3L-Dba" secondAttribute="trailing" constant="15" id="5N7-XD-LFF"/>
@@ -208,11 +209,11 @@
                             <constraint firstItem="Wqg-OY-rEC" firstAttribute="top" secondItem="2z4-5z-2fp" secondAttribute="bottom" constant="3" id="Mpc-4y-hnK"/>
                             <constraint firstItem="d4C-EB-mUV" firstAttribute="bottom" secondItem="NHF-fU-zOi" secondAttribute="bottom" id="N69-Bt-Mtq"/>
                             <constraint firstItem="qmA-Cz-qEg" firstAttribute="trailing" secondItem="dcn-3L-Dba" secondAttribute="trailing" constant="10" id="RDB-r3-UoU"/>
-                            <constraint firstItem="gVq-i1-ls6" firstAttribute="width" secondItem="Ht6-Hf-frT" secondAttribute="width" multiplier="0.9" id="aDj-Kn-MQh"/>
                             <constraint firstItem="gVq-i1-ls6" firstAttribute="centerX" secondItem="NHF-fU-zOi" secondAttribute="centerX" id="dBe-od-mbt"/>
                             <constraint firstItem="Kjm-E9-vn2" firstAttribute="centerY" secondItem="2z4-5z-2fp" secondAttribute="centerY" id="gFI-ea-LB4"/>
                             <constraint firstItem="Kjm-E9-vn2" firstAttribute="centerY" secondItem="dcn-3L-Dba" secondAttribute="centerY" id="gh1-Jl-tNW"/>
                             <constraint firstItem="Wqg-OY-rEC" firstAttribute="leading" secondItem="2z4-5z-2fp" secondAttribute="leading" id="loA-A2-NfW"/>
+                            <constraint firstItem="NHF-fU-zOi" firstAttribute="trailing" secondItem="gVq-i1-ls6" secondAttribute="trailing" constant="20" id="pzg-bJ-xWf"/>
                             <constraint firstItem="2z4-5z-2fp" firstAttribute="top" secondItem="NHF-fU-zOi" secondAttribute="top" constant="5" id="ufD-2g-9Pb"/>
                             <constraint firstItem="gVq-i1-ls6" firstAttribute="top" secondItem="Wqg-OY-rEC" secondAttribute="bottom" constant="10" id="vcH-sN-eZG"/>
                             <constraint firstItem="dcn-3L-Dba" firstAttribute="leading" secondItem="Kjm-E9-vn2" secondAttribute="trailing" constant="10" id="ybj-Jo-iRL"/>
@@ -570,28 +571,130 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohS-pC-onr">
-                                                <rect key="frame" x="15" y="77" width="363" height="1"/>
-                                                <color key="backgroundColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K7n-jy-epf" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                <rect key="frame" x="31.666666666666671" y="-8.0000000000000284" width="56" height="56"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="28"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="depositAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="HP2-Jc-oWn"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-7T-U0j" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                <rect key="frame" x="168" y="1.3333333333332575" width="56" height="56"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="withDrawAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="3x9-IN-fzS"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdN-V7-MV2" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                <rect key="frame" x="123" y="-8.0000000000000284" width="56" height="56"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="28"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="historyAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="Xfo-lA-8Yq"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-xw-AIf" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                <rect key="frame" x="214" y="-8.0000000000000284" width="56" height="56"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="28"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="detailAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="8KP-q2-92w"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acr-v4-XV4" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                                <rect key="frame" x="305.33333333333331" y="-8.0000000000000284" width="56" height="56"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="1" id="cYT-y8-Qvc"/>
+                                                    <constraint firstAttribute="height" constant="56" id="Yq3-4H-UwX"/>
+                                                    <constraint firstAttribute="width" constant="56" id="bXG-sB-bru"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <integer key="value" value="28"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="createAcoountAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="FdP-w4-ap1"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="K7n-jy-epf" firstAttribute="width" secondItem="AdN-V7-MV2" secondAttribute="width" id="79j-Gy-gyn"/>
+                                            <constraint firstItem="K7n-jy-epf" firstAttribute="centerX" secondItem="knW-Uj-7AX" secondAttribute="centerX" id="7tU-6a-erS"/>
                                             <constraint firstItem="0hK-LA-tha" firstAttribute="leading" secondItem="gYK-QK-u4A" secondAttribute="leading" constant="15" id="84O-3M-MgK"/>
+                                            <constraint firstItem="AdN-V7-MV2" firstAttribute="height" secondItem="0L7-xw-AIf" secondAttribute="height" id="AKr-Hn-ysP"/>
                                             <constraint firstItem="0hK-LA-tha" firstAttribute="centerY" secondItem="gYK-QK-u4A" secondAttribute="centerY" id="AP1-vD-slU"/>
                                             <constraint firstItem="0hK-LA-tha" firstAttribute="top" secondItem="gYK-QK-u4A" secondAttribute="top" id="Bnu-1c-p91"/>
                                             <constraint firstAttribute="trailing" secondItem="0hK-LA-tha" secondAttribute="trailing" constant="15" id="ENL-z3-O6T"/>
-                                            <constraint firstAttribute="trailing" secondItem="ohS-pC-onr" secondAttribute="trailing" constant="15" id="Ix7-aE-NUd"/>
-                                            <constraint firstItem="ohS-pC-onr" firstAttribute="leading" secondItem="gYK-QK-u4A" secondAttribute="leading" constant="15" id="LKV-Zu-bSp"/>
+                                            <constraint firstItem="0L7-xw-AIf" firstAttribute="width" secondItem="Acr-v4-XV4" secondAttribute="width" id="EaA-Dj-wUh"/>
+                                            <constraint firstItem="AdN-V7-MV2" firstAttribute="centerY" secondItem="K4w-Ck-Nlo" secondAttribute="centerY" id="Fek-QM-4h8"/>
+                                            <constraint firstItem="0L7-xw-AIf" firstAttribute="centerX" secondItem="2VL-8A-nq6" secondAttribute="centerX" id="JQ0-m1-Wem"/>
+                                            <constraint firstItem="Acr-v4-XV4" firstAttribute="centerY" secondItem="VQ7-Fw-6Ua" secondAttribute="centerY" id="RzC-4e-jQu"/>
                                             <constraint firstItem="0hK-LA-tha" firstAttribute="centerY" secondItem="gYK-QK-u4A" secondAttribute="centerY" id="TYa-bC-5cb"/>
-                                            <constraint firstItem="ohS-pC-onr" firstAttribute="top" secondItem="BeL-Ve-3x9" secondAttribute="bottom" constant="10" id="W4o-nd-LX0"/>
+                                            <constraint firstItem="K7n-jy-epf" firstAttribute="height" secondItem="AdN-V7-MV2" secondAttribute="height" id="XRg-1y-6Hw"/>
+                                            <constraint firstItem="AdN-V7-MV2" firstAttribute="width" secondItem="0L7-xw-AIf" secondAttribute="width" id="ZMJ-mt-AIG"/>
+                                            <constraint firstItem="K7n-jy-epf" firstAttribute="centerY" secondItem="knW-Uj-7AX" secondAttribute="centerY" id="f0C-wE-ZNj"/>
                                             <constraint firstAttribute="bottom" secondItem="0hK-LA-tha" secondAttribute="bottom" id="g1t-6L-Xpg"/>
+                                            <constraint firstItem="0L7-xw-AIf" firstAttribute="centerY" secondItem="2VL-8A-nq6" secondAttribute="centerY" id="jaa-Dq-gNX"/>
+                                            <constraint firstItem="AdN-V7-MV2" firstAttribute="centerX" secondItem="K4w-Ck-Nlo" secondAttribute="centerX" id="lLr-rj-fkq"/>
+                                            <constraint firstItem="0L7-xw-AIf" firstAttribute="height" secondItem="Acr-v4-XV4" secondAttribute="height" id="sMd-wj-fmr"/>
+                                            <constraint firstItem="Acr-v4-XV4" firstAttribute="centerX" secondItem="VQ7-Fw-6Ua" secondAttribute="centerX" id="spM-cS-qab"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -616,108 +719,43 @@
                                     <constraint firstItem="POo-SL-ehr" firstAttribute="leading" secondItem="BNA-JA-b52" secondAttribute="leading" id="oZo-jW-t4W"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K7n-jy-epf" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="31.666666666666671" y="249.66666666666663" width="56" height="56"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="depositAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="HP2-Jc-oWn"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YBc-7T-U0j" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="79.333333333333329" y="249.66666666666663" width="55.999999999999986" height="56"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="0.0"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="withDrawAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="3x9-IN-fzS"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdN-V7-MV2" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="123" y="249.66666666666663" width="56" height="56"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="historyAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="Xfo-lA-8Yq"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L7-xw-AIf" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="214" y="249.66666666666663" width="56" height="56"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="28"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="detailAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="8KP-q2-92w"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acr-v4-XV4" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="305.33333333333331" y="249.66666666666663" width="56" height="56"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ta6-Zz-tYd" customClass="CardViewButton" customModule="RiverPrime" customModuleProvider="target">
+                                <rect key="frame" x="30" y="259.33333333333331" width="333" height="45"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="Yq3-4H-UwX"/>
-                                    <constraint firstAttribute="width" constant="56" id="bXG-sB-bru"/>
+                                    <constraint firstAttribute="height" constant="45" id="2Ub-Mq-HlH"/>
                                 </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Create an Account to unlock all features">
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                </buttonConfiguration>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="28"/>
-                                    </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" systemColor="systemYellowColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                         <real key="value" value="2"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="createAcoountAction:" destination="J1E-BY-wh7" eventType="touchUpInside" id="FdP-w4-ap1"/>
+                                    <action selector="btn_guestAccount_Action:" destination="J1E-BY-wh7" eventType="touchUpInside" id="zLa-bA-zT4"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohS-pC-onr">
+                                <rect key="frame" x="15" y="344.33333333333331" width="363" height="1"/>
+                                <color key="backgroundColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="cYT-y8-Qvc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Tro-ha-xiX">
-                                <rect key="frame" x="5" y="343.66666666666669" width="383" height="47"/>
+                                <rect key="frame" x="5" y="345.33333333333331" width="383" height="51"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0Qi-d6-aeZ">
                                     <size key="itemSize" width="128" height="128"/>
@@ -727,10 +765,10 @@
                                 </collectionViewFlowLayout>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tmy-bT-7YZ" customClass="CardView" customModule="RiverPrime" customModuleProvider="target">
-                                <rect key="frame" x="5" y="395.66666666666674" width="383" height="334.33333333333326"/>
+                                <rect key="frame" x="5" y="401.33333333333326" width="383" height="328.66666666666674"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="never" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LX0-Mf-zCz">
-                                        <rect key="frame" x="0.0" y="0.0" width="383" height="334.33333333333331"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="383" height="328.66666666666669"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -765,35 +803,23 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="R1h-j7-h4C" firstAttribute="trailing" secondItem="Tmy-bT-7YZ" secondAttribute="trailing" constant="5" id="0he-Uj-0cV"/>
-                            <constraint firstItem="K7n-jy-epf" firstAttribute="centerY" secondItem="knW-Uj-7AX" secondAttribute="centerY" id="1tP-fe-4AQ"/>
                             <constraint firstItem="Tmy-bT-7YZ" firstAttribute="leading" secondItem="R1h-j7-h4C" secondAttribute="leading" constant="5" id="3i1-Xm-HfP"/>
-                            <constraint firstItem="0L7-xw-AIf" firstAttribute="width" secondItem="Acr-v4-XV4" secondAttribute="width" id="4fo-Sn-ZUE"/>
-                            <constraint firstItem="YBc-7T-U0j" firstAttribute="centerX" secondItem="FeC-pE-nev" secondAttribute="centerX" id="5Tk-Sy-Mey"/>
-                            <constraint firstItem="AdN-V7-MV2" firstAttribute="height" secondItem="0L7-xw-AIf" secondAttribute="height" id="5Zz-Cu-Xzs"/>
-                            <constraint firstItem="0L7-xw-AIf" firstAttribute="height" secondItem="Acr-v4-XV4" secondAttribute="height" id="5w4-Jp-KUM"/>
-                            <constraint firstItem="Acr-v4-XV4" firstAttribute="centerX" secondItem="VQ7-Fw-6Ua" secondAttribute="centerX" id="BGW-ig-9L3"/>
+                            <constraint firstItem="R1h-j7-h4C" firstAttribute="trailing" secondItem="ta6-Zz-tYd" secondAttribute="trailing" constant="30" id="7xd-qQ-KYP"/>
                             <constraint firstItem="R1h-j7-h4C" firstAttribute="bottom" secondItem="Tmy-bT-7YZ" secondAttribute="bottom" constant="5" id="BNV-LO-DyS"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="width" secondItem="PjZ-SA-mm7" secondAttribute="width" id="CL0-8j-6ZA"/>
-                            <constraint firstItem="AdN-V7-MV2" firstAttribute="centerY" secondItem="K4w-Ck-Nlo" secondAttribute="centerY" id="Edg-dr-5H0"/>
                             <constraint firstItem="Tmy-bT-7YZ" firstAttribute="top" secondItem="Tro-ha-xiX" secondAttribute="bottom" constant="5" id="HFo-q5-27b"/>
-                            <constraint firstItem="0L7-xw-AIf" firstAttribute="centerX" secondItem="2VL-8A-nq6" secondAttribute="centerX" id="N1g-yO-dRz"/>
-                            <constraint firstItem="Tro-ha-xiX" firstAttribute="top" secondItem="ohS-pC-onr" secondAttribute="bottom" constant="8" symbolic="YES" id="OTb-8Y-nHY"/>
-                            <constraint firstItem="YBc-7T-U0j" firstAttribute="centerY" secondItem="FeC-pE-nev" secondAttribute="centerY" id="PDa-vJ-Z9W"/>
-                            <constraint firstItem="Acr-v4-XV4" firstAttribute="centerY" secondItem="VQ7-Fw-6Ua" secondAttribute="centerY" id="ZLb-H7-nfR"/>
-                            <constraint firstItem="0L7-xw-AIf" firstAttribute="centerY" secondItem="2VL-8A-nq6" secondAttribute="centerY" id="bGn-8y-7cS"/>
-                            <constraint firstItem="K7n-jy-epf" firstAttribute="height" secondItem="YBc-7T-U0j" secondAttribute="height" id="cZ3-wd-WI4"/>
+                            <constraint firstItem="ta6-Zz-tYd" firstAttribute="leading" secondItem="R1h-j7-h4C" secondAttribute="leading" constant="30" id="K7T-NS-40G"/>
+                            <constraint firstItem="ohS-pC-onr" firstAttribute="top" secondItem="ta6-Zz-tYd" secondAttribute="bottom" constant="40" id="XbL-C8-3d4"/>
+                            <constraint firstItem="ohS-pC-onr" firstAttribute="leading" secondItem="PjZ-SA-mm7" secondAttribute="leading" constant="15" id="Yrz-km-0LA"/>
+                            <constraint firstItem="ohS-pC-onr" firstAttribute="top" secondItem="gYK-QK-u4A" secondAttribute="bottom" constant="27" id="aOZ-gu-ck8"/>
+                            <constraint firstAttribute="trailing" secondItem="ohS-pC-onr" secondAttribute="trailing" constant="15" id="bFG-eH-ifA"/>
+                            <constraint firstItem="Tro-ha-xiX" firstAttribute="top" secondItem="ohS-pC-onr" secondAttribute="bottom" id="cAN-cQ-yyH"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="height" secondItem="PjZ-SA-mm7" secondAttribute="height" multiplier="0.25" id="iEC-T7-H08"/>
                             <constraint firstItem="R1h-j7-h4C" firstAttribute="trailing" secondItem="Tro-ha-xiX" secondAttribute="trailing" constant="5" id="iTr-rF-Xro"/>
                             <constraint firstItem="Tro-ha-xiX" firstAttribute="leading" secondItem="R1h-j7-h4C" secondAttribute="leading" constant="5" id="iYY-NJ-DLj"/>
-                            <constraint firstItem="Tro-ha-xiX" firstAttribute="height" secondItem="PjZ-SA-mm7" secondAttribute="height" multiplier="0.055" id="j40-TX-3pa"/>
-                            <constraint firstItem="YBc-7T-U0j" firstAttribute="width" secondItem="AdN-V7-MV2" secondAttribute="width" id="j74-RT-pbD"/>
-                            <constraint firstItem="K7n-jy-epf" firstAttribute="centerX" secondItem="knW-Uj-7AX" secondAttribute="centerX" id="kwK-IC-rss"/>
-                            <constraint firstItem="YBc-7T-U0j" firstAttribute="height" secondItem="AdN-V7-MV2" secondAttribute="height" id="nF1-DQ-sWD"/>
+                            <constraint firstItem="Tro-ha-xiX" firstAttribute="height" secondItem="PjZ-SA-mm7" secondAttribute="height" multiplier="0.06" id="j40-TX-3pa"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="centerX" secondItem="PjZ-SA-mm7" secondAttribute="centerX" id="o4E-1x-jAw"/>
                             <constraint firstItem="BNA-JA-b52" firstAttribute="top" secondItem="R1h-j7-h4C" secondAttribute="top" id="pMO-Ya-RIq"/>
-                            <constraint firstItem="AdN-V7-MV2" firstAttribute="width" secondItem="0L7-xw-AIf" secondAttribute="width" id="uDy-B0-dvo"/>
-                            <constraint firstItem="K7n-jy-epf" firstAttribute="width" secondItem="YBc-7T-U0j" secondAttribute="width" id="vxB-Tm-55m"/>
-                            <constraint firstItem="AdN-V7-MV2" firstAttribute="centerX" secondItem="K4w-Ck-Nlo" secondAttribute="centerX" id="wUJ-6t-eb3"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="Teamwork" selectedImage="account" id="DNW-01-bbS"/>
@@ -803,6 +829,7 @@
                         <outlet property="btn_creat" destination="Acr-v4-XV4" id="fEB-Bu-gPx"/>
                         <outlet property="btn_deposit" destination="K7n-jy-epf" id="3Yf-rd-p3r"/>
                         <outlet property="btn_details" destination="0L7-xw-AIf" id="Qub-mL-PPY"/>
+                        <outlet property="btn_guestAccount" destination="ta6-Zz-tYd" id="HZa-4B-oIn"/>
                         <outlet property="btn_history" destination="AdN-V7-MV2" id="h7f-yE-a8K"/>
                         <outlet property="btn_withdraw" destination="YBc-7T-U0j" id="Is6-q7-Emt"/>
                         <outlet property="labelAmmount" destination="Eud-1l-Qiy" id="tpc-vO-yDQ"/>
@@ -813,13 +840,14 @@
                         <outlet property="tblView" destination="LX0-Mf-zCz" id="NlR-vp-Kvg"/>
                         <outlet property="tradeTypeCollectionView" destination="Tro-ha-xiX" id="wTW-dd-AzB"/>
                         <outlet property="userImage" destination="kEB-8O-YlC" id="HXR-bA-ZpW"/>
+                        <outlet property="view_buttons" destination="gYK-QK-u4A" id="vXf-MQ-YnY"/>
                         <outlet property="view_percentage" destination="FHM-ds-RAf" id="t0S-bq-3lD"/>
                         <outlet property="view_topHeader" destination="BNA-JA-b52" id="JIk-uo-3yX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KXb-VB-Vp1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2778" y="494"/>
+            <point key="canvasLocation" x="2777.8625954198474" y="493.66197183098592"/>
         </scene>
         <!--Results-->
         <scene sceneID="pxO-9W-0ve">
@@ -2546,7 +2574,7 @@
                                         <rect key="frame" x="0.0" y="5" width="393" height="40"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="DWq-AE-o0v">
-                                                <rect key="frame" x="338" y="15.999999999999993" width="15" height="9.3333333333333286"/>
+                                                <rect key="frame" x="338" y="15.999999999999988" width="15" height="9.3333333333333375"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
@@ -4053,7 +4081,7 @@
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name the check payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCr-Wo-w2X">
                                                                         <rect key="frame" x="0.0" y="23.666666666666686" width="359" height="14.333333333333336"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                 </subviews>
@@ -4319,37 +4347,37 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -19,7 +19,7 @@ protocol ProfileEditButtonDelegate: AnyObject {
 class ProfileTopTableViewCell: BaseTableViewCell {
     
     @IBOutlet weak var lbl_title: UILabel!
-    
+    @IBOutlet weak var lbl_email: UILabel!
     @IBOutlet weak var progreeBar: UIProgressView!
     //    @IBOutlet weak var view_profileComplete: CardView!
     @IBOutlet weak var lbl_progressPercent: UILabel!
@@ -44,6 +44,22 @@ class ProfileTopTableViewCell: BaseTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if GlobalVariable.instance.guestAccount {
+            btn_editProfile.isUserInteractionEnabled = false
+            btn_edit.isHidden = true
+            lbl_email.isHidden = true
+            lbl_title.text = "Guest User"
+        }else{
+            btn_editProfile.isEnabled = true
+            btn_edit.isHidden = false
+            lbl_email.isHidden = false
+        }
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let _email = savedUserData["email"] as? String{
+                lbl_email.text = _email
+            }
+        }
+        
         checkProfileStatus()
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfileData(_:)), name: Notification.Name("UpdateProfileData"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateProfileDataStatus(_:)), name: Notification.Name("UpdateProfileDataStatus"), object: nil)

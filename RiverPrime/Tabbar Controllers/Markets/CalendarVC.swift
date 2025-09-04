@@ -53,6 +53,12 @@ class CalendarVC: BaseViewController {
         
         // Add observers
         addNotificationObservers()
+        
+        let shouldHide = GlobalVariable.instance.guestAccount
+        [labelAmmount, lbl_accountGroup, lbl_accountType].forEach {
+            $0?.isHidden = shouldHide
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -205,6 +211,9 @@ extension CalendarVC {
                 
                 DispatchQueue.main.async { [weak self] in
                     self?.labelAmmount.text = "$\(String.formatStringNumber(String(balance)))"
+                    if GlobalVariable.instance.getBalanceHidden == "$•••••••" {
+                        self?.labelAmmount.text = GlobalVariable.instance.getBalanceHidden
+                    }
                 }
                 
                 UserManager.shared.currentUser = responseModel.result.user

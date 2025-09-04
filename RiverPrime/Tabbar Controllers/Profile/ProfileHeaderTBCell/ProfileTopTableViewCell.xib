@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
     <customFonts key="customFonts">
         <array key="Inter.ttc">
             <string>Inter-Bold</string>
+            <string>Inter-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -64,8 +65,14 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFh-nM-Xbm">
-                                <rect key="frame" x="60" y="35" width="204" height="0.0"/>
-                                <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="20"/>
+                                <rect key="frame" x="60" y="18" width="204" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Inter-Bold" family="Inter" pointSize="18"/>
+                                <color key="textColor" systemColor="systemGray5Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NNo-op-PY5">
+                                <rect key="frame" x="60" y="21" width="204" height="0.0"/>
+                                <fontDescription key="fontDescription" name="Inter-Regular" family="Inter" pointSize="14"/>
                                 <color key="textColor" systemColor="systemGray5Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -110,12 +117,11 @@
                         <constraints>
                             <constraint firstItem="fUb-Pq-J4V" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="bottom" constant="15" id="1lW-kk-6SA"/>
                             <constraint firstItem="TZp-2y-AMB" firstAttribute="top" secondItem="zrW-0a-vHz" secondAttribute="top" constant="15" id="2Jf-wu-MqE"/>
-                            <constraint firstItem="7bO-qy-ou1" firstAttribute="centerY" secondItem="qFh-nM-Xbm" secondAttribute="centerY" id="40R-ro-6ca"/>
                             <constraint firstAttribute="bottom" secondItem="3bw-SY-Tdq" secondAttribute="bottom" id="4mK-6U-uHY"/>
                             <constraint firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" constant="15" id="6Jj-bT-udF"/>
                             <constraint firstItem="qFh-nM-Xbm" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="trailing" constant="5" id="8tP-z7-n6B"/>
                             <constraint firstItem="qct-pe-JUa" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="top" id="9qf-fq-7mX"/>
-                            <constraint firstItem="qFh-nM-Xbm" firstAttribute="centerY" secondItem="TZp-2y-AMB" secondAttribute="centerY" id="D71-Ax-3GJ"/>
+                            <constraint firstItem="NNo-op-PY5" firstAttribute="top" secondItem="qFh-nM-Xbm" secondAttribute="bottom" constant="3" id="Cva-pF-RM8"/>
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="top" secondItem="fUb-Pq-J4V" secondAttribute="bottom" constant="10" id="DOm-xa-dB0"/>
                             <constraint firstAttribute="trailing" secondItem="DEV-A4-RIW" secondAttribute="trailing" constant="15" id="FmB-dy-dog"/>
                             <constraint firstItem="qct-pe-JUa" firstAttribute="bottom" secondItem="TZp-2y-AMB" secondAttribute="bottom" id="JbJ-IZ-nbd"/>
@@ -124,8 +130,10 @@
                             <constraint firstItem="DEV-A4-RIW" firstAttribute="centerY" secondItem="cBt-N7-AcD" secondAttribute="centerY" id="SFM-4e-Wr9"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="trailing" secondItem="cBt-N7-AcD" secondAttribute="trailing" id="TeO-gj-s5b"/>
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="leading" secondItem="fUb-Pq-J4V" secondAttribute="leading" id="V4l-H9-Qnb"/>
+                            <constraint firstItem="NNo-op-PY5" firstAttribute="leading" secondItem="qFh-nM-Xbm" secondAttribute="leading" id="X5A-If-LGs"/>
                             <constraint firstItem="fUb-Pq-J4V" firstAttribute="leading" secondItem="TZp-2y-AMB" secondAttribute="leading" id="XYi-9n-tgP"/>
                             <constraint firstItem="zXx-Vr-ZRq" firstAttribute="trailing" secondItem="3bw-SY-Tdq" secondAttribute="trailing" constant="-10" id="bAb-iM-Ag5"/>
+                            <constraint firstItem="qFh-nM-Xbm" firstAttribute="top" secondItem="TZp-2y-AMB" secondAttribute="top" constant="3" id="dMC-i4-UpF"/>
                             <constraint firstItem="zXx-Vr-ZRq" firstAttribute="centerY" secondItem="3bw-SY-Tdq" secondAttribute="centerY" id="da6-2E-Rrd"/>
                             <constraint firstAttribute="trailing" secondItem="qFh-nM-Xbm" secondAttribute="trailing" constant="60" id="l5D-ij-tLm"/>
                             <constraint firstAttribute="trailing" secondItem="7bO-qy-ou1" secondAttribute="trailing" constant="15" id="lTd-Mr-Bnm"/>
@@ -134,6 +142,8 @@
                             <constraint firstItem="cBt-N7-AcD" firstAttribute="trailing" secondItem="fUb-Pq-J4V" secondAttribute="trailing" id="pxh-rw-LyV"/>
                             <constraint firstItem="TZp-2y-AMB" firstAttribute="leading" secondItem="zrW-0a-vHz" secondAttribute="leading" constant="15" id="qRG-jR-83H"/>
                             <constraint firstItem="3bw-SY-Tdq" firstAttribute="top" secondItem="cBt-N7-AcD" secondAttribute="bottom" constant="5" id="siQ-qq-Oiq"/>
+                            <constraint firstItem="7bO-qy-ou1" firstAttribute="centerY" secondItem="TZp-2y-AMB" secondAttribute="centerY" id="w9F-5H-ui3"/>
+                            <constraint firstItem="NNo-op-PY5" firstAttribute="trailing" secondItem="qFh-nM-Xbm" secondAttribute="trailing" id="zJK-9M-RrZ"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -157,6 +167,7 @@
                 <outlet property="btn_edit" destination="7bO-qy-ou1" id="Ld9-yN-V7N"/>
                 <outlet property="btn_editProfile" destination="qct-pe-JUa" id="y6U-SN-xYN"/>
                 <outlet property="imageIcon" destination="TZp-2y-AMB" id="BJa-Ja-pew"/>
+                <outlet property="lbl_email" destination="NNo-op-PY5" id="Ypr-YW-da6"/>
                 <outlet property="lbl_profile" destination="fUb-Pq-J4V" id="BI3-Gn-3fo"/>
                 <outlet property="lbl_progressPercent" destination="DEV-A4-RIW" id="oIE-p1-C2Z"/>
                 <outlet property="lbl_title" destination="qFh-nM-Xbm" id="1pA-xl-CdR"/>
@@ -169,13 +180,13 @@
         <image name="chevron.right" catalog="system" width="97" height="128"/>
         <image name="person.crop.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

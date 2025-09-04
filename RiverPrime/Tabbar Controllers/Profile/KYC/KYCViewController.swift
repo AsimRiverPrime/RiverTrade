@@ -101,7 +101,7 @@ class KYCViewController: BaseViewController {
             "language": "EN",
             "email": userEmail ?? "",
             "callback_url": "https://mbe.riverprime.com/shufti/callback",
-            "show_results": "1",
+            "show_results": "0",
             
             "show_privacy_policy": "1",
             "show_consent": "1",
@@ -138,9 +138,7 @@ class KYCViewController: BaseViewController {
                 ]
             ]
         ]
-        
         print("\n---Final Request for Shufti---:\n \(dataDictionary)\n")
-        
         
         shufti.shuftiProVerification(requestObject: dataDictionary, authKeys: authKeyss, parentVC: self, configs: configsss) {(result) in
             print("Got response from Shufti sdk:\n \(result)")
@@ -188,9 +186,7 @@ class KYCViewController: BaseViewController {
                 print("Declined: Do something")
                 self.ToastMessage("KYC verification declined!")
             }
-            
         }
-        
     }
     
     func AddUserAccountDetail() {
@@ -227,7 +223,6 @@ class KYCViewController: BaseViewController {
                          self?.tabBarController?.selectedIndex = 0
                      }
 
-                    
                 }
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
@@ -266,6 +261,5 @@ class KYCViewController: BaseViewController {
                 print("Failed to decode verification data: \(error.localizedDescription)")
             }
         }
-        
     }
 }

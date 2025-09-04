@@ -239,7 +239,7 @@ extension String {
         return self
     }
     
-    static  func formatStringNumber(_ numberString: String) -> String {
+   static func formatStringNumber(_ numberString: String) -> String {
         if let number = Double(numberString) {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
@@ -250,4 +250,14 @@ extension String {
         return numberString  // Return original if conversion fails
     }
     
+    static func formatStringNumberTF(_ numberString: String) -> String {
+          let cleaned = numberString.replacingOccurrences(of: ",", with: "")
+          if let number = Double(cleaned) {
+              let formatter = NumberFormatter()
+              formatter.numberStyle = .decimal
+              formatter.maximumFractionDigits = 0 // no decimals
+              return formatter.string(from: NSNumber(value: number)) ?? numberString
+          }
+          return numberString
+      }
 }
