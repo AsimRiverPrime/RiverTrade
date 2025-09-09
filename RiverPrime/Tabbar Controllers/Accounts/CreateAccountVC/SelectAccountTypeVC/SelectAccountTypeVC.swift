@@ -44,7 +44,7 @@ class SelectAccountTypeVC: BottomSheetController {
 //    var createDemoAccount = String()
 //    var realAccount = String()
 //    var accountType = String()
-//    var mt5 = String()
+    var _email = String()
     var firestoreObject = FirestoreServices()
     
     var demoData: [[String: Any]] = []
@@ -61,6 +61,8 @@ class SelectAccountTypeVC: BottomSheetController {
     
     var userID = String()
     var isDemo = Bool()
+    var odooClient = OdooClientNew()
+    var apiAccounts: [Account] = []
     
     let webSocketManager = WebSocketManager.shared
     
@@ -69,6 +71,22 @@ class SelectAccountTypeVC: BottomSheetController {
         self.firestoreObject.fetchUserAccountsData(userId: userID, completion: {
         })
 //        self.dismissDelegate = self
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let email = savedUserData["email"] as? String{
+                self._email = email
+            }
+        }
+        
+        odooClient.get_accounts_with_balances(email: _email)  { [weak self] result in
+            DispatchQueue.main.async {
+                self?.apiAccounts = result
+                self?.tableView.reloadData()
+            }
+            for account in result {
+                print("Login: \(account.login ?? 0), Balance: \(account.balance ?? 0.0)")
+            }
+        }
+             
         self.btn_createAccount.titleTintColor = .systemYellow
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
@@ -115,7 +133,7 @@ class SelectAccountTypeVC: BottomSheetController {
             return
         }
         
-        print("savedList of accounts: \(savedList)")
+        print("savedList of accounts in SelectAccountTypeVC: \(savedList)")
         
         demoData.removeAll()
         realData.removeAll()
@@ -298,10 +316,11 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(with: SelectAccountTypeCell.self, for: indexPath)
 //        cell.isUserInteractionEnabled = true
-        let account = currentData[indexPath.row]
-                cell.configureCell(account: account)
-                cell.delegate = self
         
+        let account = currentData[indexPath.row]
+        cell.configureCell(account: account)
+        cell.delegate = self
+        cell.configureCellBalance(account: account, apiAccounts: self.apiAccounts)
         cell.selectionStyle = .none
         
         return cell

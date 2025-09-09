@@ -1069,6 +1069,62 @@ class OdooClientNew {
         }
     }
     
+    func get_accounts_with_balances(email: String, completion: @escaping ([Account]) -> Void){
+        let jsonrpcBody: [String: Any] = [
+            "jsonrpc": "2.0",
+            "id": 514,
+            "method": "call",
+            "params": [
+                "service": "object",
+                "method": "execute_kw",
+                "args": [
+                    dataBaseName,
+                    uid,
+                    dbPassword,
+                    "mt.middleware",
+                    "get_accounts_with_balances",
+                    [
+                        [],
+                        email
+                    ]
+                ]
+            ]
+        ]
+        
+        print("\n the parameters for get_accounts_with_balances is: \(jsonrpcBody)")
+        
+        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
+            
+            switch result {
+                
+            case .success(let value):
+                print("\n get_Accounts_with_Balances value is: \(value!)")
+                do {
+                    // Convert Any -> Data
+                    guard let json = value else {
+                        completion([])
+                        return
+                    }
+                    let data = try JSONSerialization.data(withJSONObject: json, options: [])
+                    let decoded = try JSONDecoder().decode(AccountsBalanceResponse.self, from: data)
+                    
+                    // Safely unwrap accounts
+                    let accounts = decoded.result?.accounts ?? []
+                    completion(accounts)
+                    
+                } catch {
+                    print("Decoding error: \(error)")
+                    completion([])
+                }
+                
+            case .failure(let error):
+                
+                print("Request failed: \(error)")
+                completion([])
+            }
+        }
+    }
+    
     func getNewsRecords(){
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             //print("saved User Data: \(savedUserData)")
@@ -1091,8 +1147,7 @@ class OdooClientNew {
                     "get_news",
                     [
                         [],
-                        
-                        1,
+                         1,
                         10
                     ]]
             ]

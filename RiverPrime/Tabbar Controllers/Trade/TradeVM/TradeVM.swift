@@ -11,13 +11,7 @@ import Alamofire
 class TradeVM {
     
     static let shared = TradeVM()
-    
-//    private(set) var trades: [TradeDetails] = [] {
-//        didSet {
-//            self.onTradesUpdated?()
-//        }
-//    }
-    
+  
     var trades: [TradeDetails] = [] {
         didSet {
             self.onTradesUpdated?()
@@ -142,74 +136,72 @@ extension TradeVM {
         
     }
     
-    func fetchChartHistory(symbol: String, completion: @escaping (Result<SymbolChartData, Error>) -> Void) {
-        // Retrieve the data from UserDefaults
-        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _email = savedUserData["email"] as? String{
-                email = _email
-            }
-        }
-        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            //print("\n Default Account User: \(defaultAccount)")
-            loginId = defaultAccount.accountNumber
-            isDemo = !defaultAccount.isReal
-        }
-        
-        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
-        
-        let params: [String: Any] = [
-            "jsonrpc": "2.0",
-            "params": [
-                "service": "object",
-                "method": "execute_kw",
-                "args": [
-                    odooClientService.dataBaseName,  // Database name
-                    uid,                     // UID
-                    odooClientService.dbPassword, // Password
-                    "mt.middleware",       // Model
-                    "get_chart_history",   // Method
-                    [
-                        [],
-                        email,                     // Email
-                        symbol,                   // Symbol
-                        hourBeforeTimestamp,      // Start time
-                        currentTimestamp,          // End time
-                        isDemo
-                    ]
-                ]
-            ]
-        ]
-        
-//        print("params is: \(params)")
-        
-        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
-            switch result {
-                
-            case .success(let value):
-//                print("\n---->fetching chart history the response is:--->:::\(value)")
-                do {
-                    // Decode the response
-                    if let json = value as? [String: Any],
-                       let result = json["result"] as? [String: Any],
-                       let chartData = result["chart_data"] as? [[String: Any]] {
-                        
-                        // Create HistoryResponseData from chartData
-                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
-                        let historyResponseData = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
-                        completion(.success(historyResponseData))
-                    } else {
-                        completion(.failure(NSError(domain: "ResponseParsingError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid response structure"])))
-                    }
-                } catch {
-                    print("Error decoding response: \(error)")
-                    completion(.failure(error))
-                }
-                
-            case .failure(let error):
-                print("Request failed with error: \(error)")
-                completion(.failure(error))
-            }
-        }
-    }
+//    func fetchChartHistory(symbol: String, completion: @escaping (Result<SymbolChartData, Error>) -> Void) {
+//        // Retrieve the data from UserDefaults
+//        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+//            if let _email = savedUserData["email"] as? String{
+//                email = _email
+//            }
+//        }
+//        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//            //print("\n Default Account User: \(defaultAccount)")
+//            loginId = defaultAccount.accountNumber
+//            isDemo = !defaultAccount.isReal
+//        }
+//        
+//        let (currentTimestamp, hourBeforeTimestamp) = getCurrentAndNextHourTimestamps()
+//        
+//        let params: [String: Any] = [
+//            "jsonrpc": "2.0",
+//            "params": [
+//                "service": "object",
+//                "method": "execute_kw",
+//                "args": [
+//                    odooClientService.dataBaseName,  // Database name
+//                    uid,                     // UID
+//                    odooClientService.dbPassword, // Password
+//                    "mt.middleware",       // Model
+//                    "get_chart_history",   // Method
+//                    [
+//                        [],
+//                        email,                     // Email
+//                        symbol,                   // Symbol
+//                        hourBeforeTimestamp,      // Start time
+//                        currentTimestamp,          // End time
+//                        isDemo
+//                    ]
+//                ]
+//            ]
+//        ]
+//         
+//        JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: params, showLoader: false) { result in
+//            switch result {
+//                
+//            case .success(let value):
+////                print("\n---->fetching chart history the response is:--->:::\(value)")
+//                do {
+//                    // Decode the response
+//                    if let json = value as? [String: Any],
+//                       let result = json["result"] as? [String: Any],
+//                       let chartData = result["chart_data"] as? [[String: Any]] {
+//                        
+//                        // Create HistoryResponseData from chartData
+//                        let jsonData = try JSONSerialization.data(withJSONObject: result, options: [])
+//                        let historyResponseData = try JSONDecoder().decode(SymbolChartData.self, from: jsonData)
+//                        completion(.success(historyResponseData))
+//                    } else {
+//                        completion(.failure(NSError(domain: "ResponseParsingError", code: 1, userInfo: [NSLocalizedDescriptionKey: "Invalid response structure"])))
+//                    }
+//                } catch {
+//                    print("Error decoding response: \(error)")
+//                    completion(.failure(error))
+//                }
+//                
+//            case .failure(let error):
+//                print("Request failed with error: \(error)")
+//                completion(.failure(error))
+//            }
+//        }
+//    }
     
 }

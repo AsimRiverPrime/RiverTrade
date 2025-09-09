@@ -236,6 +236,8 @@ public final class DropDown: UIView {
 	@objc public dynamic func setupCornerRadius(_ radius: CGFloat) {
 		tableViewContainer.layer.cornerRadius = radius
 		tableView.layer.cornerRadius = radius
+        tableView.layer.borderWidth = 0.7
+        tableView.layer.borderColor = UIColor.lightGray.cgColor
 		reloadAllComponents()
 	}
 

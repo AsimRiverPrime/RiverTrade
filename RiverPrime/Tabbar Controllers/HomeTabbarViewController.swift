@@ -49,11 +49,22 @@ class HomeTabbarViewController: UITabBarController {
             print("\nin HomeTabbarViewController Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             // Process and save symbols and isfavorite symbol
             let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
-            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
-            
-            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+            let blockedSymbols = ["EURJPY", "NZDCAD"]
+
+            let filterfavoriteSymbols = symboleData.filter { symbol in
+                symbol.is_mobile_favorite && !blockedSymbols.contains(symbol.name)
+            }
+
+            if Session.instance.filteredSymbolData == nil || Session.instance.filteredSymbolData?.isEmpty == true {
                 Session.instance.filteredSymbolData = filterfavoriteSymbols
             }
+            
+//            let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
+//            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
+//            
+//            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+//                Session.instance.filteredSymbolData = filterfavoriteSymbols
+//            }
             
             processSymbols(GlobalVariable.instance.symbolDataArray)
             
@@ -256,11 +267,22 @@ extension HomeTabbarViewController: TradeSymbolDetailDelegate {
             print("\n In TabbarVC: Total symbols added: \(GlobalVariable.instance.symbolDataArray.count)\n")
             // Process and save symbols and isfavorite symbol
             let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
-            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
-            
-            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+            let blockedSymbols = ["EURJPY", "NZDCAD"]
+
+            let filterfavoriteSymbols = symboleData.filter { symbol in
+                symbol.is_mobile_favorite && !blockedSymbols.contains(symbol.name)
+            }
+
+            if Session.instance.filteredSymbolData == nil || Session.instance.filteredSymbolData?.isEmpty == true {
                 Session.instance.filteredSymbolData = filterfavoriteSymbols
             }
+//            
+//            let symboleData: [SymbolData] = GlobalVariable.instance.symbolDataArray
+//            let filterfavoriteSymbols = symboleData.filter { $0.is_mobile_favorite }
+//            
+//            if Session.instance.filteredSymbolData?.count == 0 || Session.instance.filteredSymbolData == nil {
+//                Session.instance.filteredSymbolData = filterfavoriteSymbols
+//            }
             
             // MARK: - NEW LOGIC: Separate data based on server_id
             GlobalVariable.instance.separateSymbolsByServerId(GlobalVariable.instance.symbolDataArray)

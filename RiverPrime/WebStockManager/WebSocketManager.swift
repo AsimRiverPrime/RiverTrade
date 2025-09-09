@@ -254,7 +254,7 @@ class WebSocketManager: WebSocketDelegate {
             return
         }
         print("socket URL get: \(url)")
-//        let url = URL(string: Session.instance.crmCredentials?.socketURL ?? "ws://2.59.169.158:8074")!
+        
         var request = URLRequest(url: url)
         request.timeoutInterval = 5
 
@@ -473,11 +473,13 @@ class WebSocketManager: WebSocketDelegate {
                 if myType == "tick" {
                     let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                     handleTradeData(genericResponse.message.payload)
-                   
+                    print("tick  message type: \(myType)")
                 } else if myType == "get_chart_history" {
 //                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
 //                    handleHistoryData(historyResponse.message.payload)
+                    print("get_chart_history message type: \(myType)")
                 } else if myType == "Unsubscribed" {
+                    print("Unsubscribed message type: \(myType)")
                     handleUnsubscribedData()
                 } else {
                     print("Unexpected message type: \(myType)")

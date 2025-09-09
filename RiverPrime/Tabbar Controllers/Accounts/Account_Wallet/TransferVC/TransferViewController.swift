@@ -106,7 +106,15 @@ class TransferViewController: BaseViewController {
             lbl_amountValid.text = "Please enter an amount"
             return
         }
-
+        
+        if amount < 1 {
+            lbl_amountValid.isHidden = false
+            lbl_amountValid.text = "The enter amount must be at least 1."
+            return
+        }else{
+            lbl_amountValid.isHidden = true
+        }
+        
         if payment_type == "wallet" {
             avaliableBalance  = numericValue(from: walletBalance)
             if amount <= avaliableBalance {

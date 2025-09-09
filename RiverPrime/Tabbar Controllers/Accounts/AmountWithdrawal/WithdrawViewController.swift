@@ -309,7 +309,8 @@ class WithdrawViewController: BaseViewController {
                     lbl_typeFirstRequirment.text = field.help
                     lbl_typeFirstRequirment.isHidden = false
                     
-                    tf_typeFirstRequirment.placeholder = field.string
+//                    tf_typeFirstRequirment.placeholder = field.string
+                    tf_typeFirstRequirment.attributedPlaceholder = NSAttributedString(string: field.string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
                     view_firstLine.isHidden = false
                     tf_typeFirstRequirment.isHidden = false
                 }
@@ -317,12 +318,14 @@ class WithdrawViewController: BaseViewController {
                 lbl_typeSecondRequirment.text = field.help
                 lbl_typeSecondRequirment.isHidden = false
                 view_secondLine.isHidden = false
-                tf_typeSecondRequirment.placeholder = field.string
+//                tf_typeSecondRequirment.placeholder = field.string
+                tf_typeSecondRequirment.attributedPlaceholder = NSAttributedString(string: field.string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
                 tf_typeSecondRequirment.isHidden = false
             case 2:
                 lbl_typethridRequirment.text = field.help
                 lbl_typethridRequirment.isHidden = false
-                tf_typethridRequirment.placeholder = field.string
+//                tf_typethridRequirment.placeholder = field.string
+                tf_typethridRequirment.attributedPlaceholder = NSAttributedString(string: field.string, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
                 tf_typethridRequirment.isHidden = false
                 thridRequirment.isHidden = false
                 view_thridLine.isHidden = false
@@ -345,7 +348,10 @@ class WithdrawViewController: BaseViewController {
         
         if shouldShowAllMethods{
            
-                guard let method = selectedPaymentType else { return }
+            guard let method = selectedPaymentType else {
+                self.ToastMessage("Select any Payment Method")
+                return
+            }
 
                 var fieldData: [String: String] = [:]
                 
@@ -356,6 +362,9 @@ class WithdrawViewController: BaseViewController {
                             let selectedValue = selectedDropdownOptionValue ?? ""
                             if !selectedValue.isEmpty {
                                 fieldData[field.name] = selectedValue
+                            }else{
+                                self.ToastMessage("Select any Payment Method")
+                                return
                             }
                              
                         } else {

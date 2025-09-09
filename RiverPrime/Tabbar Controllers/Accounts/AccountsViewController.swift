@@ -1091,9 +1091,9 @@ extension AccountsViewController: OPCDelegate {
                 }
             }
             return closeData.map { symbol in
-                var symbol = symbol
+                let symbol = symbol
                 
-                var getSymbol = getSymbol(item: symbol.symbol)
+                let getSymbol = getSymbol(item: symbol.symbol)
                 
                 return getSymbol
             }

@@ -188,9 +188,9 @@ class TradeTableViewCell: UITableViewCell {
     
     // Function to configure the cell's UI and chart based on trade data.
     func configure(with trade: TradeDetails, symbolDataObj: SymbolData? = nil, indexPath: IndexPath) {
+          
         lblCurrencySymbl.text = trade.symbol
-        //        lblAmount.text = String(trade.bid).trimmedTrailingZeros()
-        
+       
         let createDate = Date(timeIntervalSince1970: Double(trade.datetime))
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm:ss"
@@ -207,7 +207,7 @@ class TradeTableViewCell: UITableViewCell {
             lblCurrencyName.text = symbol.description
             self.digits = Int(symbol.digits)
             self.lastClosedValue = Double(symbol.yesterday_close)
-            print("symbol name:  \(symbol.description) \t symbol digits \(digits) \t symbol lastClosedValue: \(lastClosedValue)")
+            print("symbol name: \(symbol.name) \t symbol description: \(symbol.description) \t symbol digits \(digits) \t symbol lastClosedValue: \(lastClosedValue)")
         }else{
             print("symbol data not fount:---------------------")
         }
@@ -226,6 +226,8 @@ class TradeTableViewCell: UITableViewCell {
         let pipsValues = calculatePips(ask: trade.ask, bid: trade.bid, digits: self.digits ?? 0)
         self.lbl_pipsValues.text = "\(pipsValues)"
     }
+    
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }

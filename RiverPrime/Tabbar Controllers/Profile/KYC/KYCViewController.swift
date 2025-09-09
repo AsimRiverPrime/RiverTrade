@@ -166,8 +166,8 @@ class KYCViewController: BaseViewController {
                     print("Failed to extract verification_data")
                 }
                 
-                UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
-                self.AddUserAccountDetail()
+//                UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
+//                self.AddUserAccountDetail()
             }
             else if reponse?.value(forKey: "event") as? String == "verification.declined"{
                 // Verification Declined Callback
@@ -175,6 +175,7 @@ class KYCViewController: BaseViewController {
             }
             else if reponse?.value(forKey: "event") as? String == "request.received"{
                 // This event states that the verification request has been received and is under processing.
+                self.ToastMessage("KYC Request received and is under processing.")
             }
             else if reponse?.value(forKey: "event") as? String == "request.pending"{
                 // This event is returned for all on-site verifications until the verification is completed or timeout.
@@ -186,6 +187,9 @@ class KYCViewController: BaseViewController {
                 print("Declined: Do something")
                 self.ToastMessage("KYC verification declined!")
             }
+            
+            UserDefaults.standard.set(2, forKey: "profileStepCompeleted")
+            self.AddUserAccountDetail()
         }
     }
     

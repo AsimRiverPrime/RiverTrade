@@ -5,41 +5,7 @@
 //  Created by Ross Rostane on 10/12/2024.
 //
 import Foundation
-
-//// MARK: - ResponseModel
-//struct ResponseModel: Codable {
-//    let jsonrpc: String
-//    let id: Int?
-//    let result: Result1
-//}
-//
-//// MARK: - Result
-//struct Result1: Codable {
-//    let success: Bool
-//    let user: UserBalance
-//}
-//
-//// MARK: - User
-//struct UserBalance: Codable {
-//    let balance: Double
-//    let credit: Double
-//    let equity: Double
-//    let profit: Double
-//    let leverage: Double
-//    let margin: Double
-//    let marginFree: Double
-//    let marginLevel: Double
-//    let totalWithdraw: Double
-//    let totalDeposit: Double
-//    let BalancePrevMonth: Double
-//
-//    enum CodingKeys: String, CodingKey {
-//        case balance, credit, equity, profit, leverage, margin, totalWithdraw,totalDeposit,BalancePrevMonth
-//        case marginFree = "margin_free"
-//        case marginLevel = "margin_level"
-//    }
-//}
-
+ 
 struct ResponseModel: Codable {
     let jsonrpc: String
     let id: String? // Matches `null` in JSON
@@ -78,4 +44,29 @@ struct ResponseModel: Codable {
             case marginLevel = "margin_level"
         }
     }
+ 
+struct AccountsBalanceResponse: Codable {
+    
+        let jsonrpc: String?
+        let id: Int?
+        let result: BalanceResultData?
+    }
 
+    struct BalanceResultData: Codable {
+        let success: Bool?
+        let accounts: [Account]?
+    }
+
+    struct Account: Codable {
+        let login: Int?
+        let accountType: String?
+        let balance: Double?
+        let status: String?
+
+        enum CodingKeys: String, CodingKey {
+            case login
+            case accountType = "account_type"
+            case balance
+            case status
+        }
+    }

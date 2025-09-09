@@ -19,11 +19,12 @@ class SelectAccountTypeCell: UITableViewCell {
     @IBOutlet weak var lbl_balance: UILabel!
     @IBOutlet weak var btn_checkAccount: UIButton!
     
+   
     weak var delegate: SelectAccountCellDelegate?
     
        var accountNumber: Int?
        var isDefault = Bool()
-    
+//    var apiAccounts: [Account] = []
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -34,11 +35,30 @@ class SelectAccountTypeCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+   
+    func configureCellBalance(account: [String: Any], apiAccounts: [Account]) {
+        if let accountNumber = account["accountNumber"] as? Int {
+            // ✅ Lookup API balance for this login
+            if let apiBalance =  apiAccounts.first(where: { $0.login == accountNumber })?.balance {
+                lbl_balance.text = "$\(String(format: "%.2f", apiBalance))"
+            } else {
+                lbl_balance.text = "$0.00"
+            }
+        }
+       
+    }
     func configureCell(account: [String: Any]) {
            if let accountNumber = account["accountNumber"] as? Int {
              
                lbl_loginID.text = " #\(accountNumber)"
            }
+//        // ✅ Lookup API balance for this login
+//               if let apiBalance =  apiAccounts.first(where: { $0.login == accountNumber })?.balance {
+//                   lbl_balance.text = "$\(String(format: "%.2f", apiBalance))"
+//               } else {
+//                   lbl_balance.text = "$0.00"
+//               }
+        
            if let name = account["name"] as? String {
                lbl_name.text = name
            }
@@ -50,7 +70,7 @@ class SelectAccountTypeCell: UITableViewCell {
         if let isDefault = account["isDefault"] as? Bool {
                if !isDefault  {
                    self.isDefault = false
-                   lbl_balance.text = "$0.0" 
+//                   lbl_balance.text = "$0.0" 
                }else{
                    self.isDefault = true
                    let amount = String.formatStringNumber(GlobalVariable.instance.balanceUpdate)
