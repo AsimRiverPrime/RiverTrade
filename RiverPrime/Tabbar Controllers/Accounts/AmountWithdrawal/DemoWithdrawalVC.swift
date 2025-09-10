@@ -46,7 +46,7 @@ class DemoWithdrawalVC: BaseViewController {
         }
 //        print("Stack:", navigationController?.viewControllers)
         tf_amount.delegate = self
-        tf_amount.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        tf_amount.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
     }
     
     @objc func dismissKeyboard(){
@@ -62,14 +62,14 @@ class DemoWithdrawalVC: BaseViewController {
     }
     
     @IBAction func submit_withdrawAction(_ sender: Any) {
-      
+        dismissKeyboard()
+        
         if tf_amount.text != "" {
-            dismissKeyboard()
-//            if isRealAcount{
-//                let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-//                self.navigate(to: vc)
-//            }else{
-//                let balance = Double(GlobalVariable.instance.balanceUpdate)
+            let x = tf_amount.text ?? ""
+            let cleanedAmountValue = x.replacingOccurrences(of: ",", with: "")
+            let currentAmount = Double(cleanedAmountValue) ?? 0.0
+            
+          
                 print("current wallet balance is: \(walletBalance)")
                 let cleanString = walletBalance.replacingOccurrences(of: "[^0-9.]", with: "", options: .regularExpression)
 
@@ -78,28 +78,26 @@ class DemoWithdrawalVC: BaseViewController {
                     print("❌ Invalid number")
                     return
                 }
-               
-            guard let amount = Double(tf_amount.text ?? "") else {  return }
             
             if request_type == "Withdrawal"{
                 
-                if amount <= newBalance {
+                if currentAmount <= newBalance {
                     self.lbl_errorMessage.isHidden = true
                     
-                    odooClient.create_withdrawal_fundRequest(amount: amount, MethodTypeId: selectedPaymentTypeId, paymentType: "withdrawal")
+                    odooClient.create_withdrawal_fundRequest(amount: currentAmount, MethodTypeId: selectedPaymentTypeId, paymentType: "withdrawal")
                 } else {
                     self.lbl_errorMessage.isHidden = false
                     self.lbl_errorMessage.text  = "Please enter less withdrawal amount from your current balance"
                 }
             }else{
                
-                if selectedPaymentTypeName == "Credit Card" {
+                if ["Credit Card", "Credit Card (Default)"].contains(selectedPaymentTypeName) {
                     if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DepositViewController") as? DepositViewController {
                     vc.ammountValue = tf_amount.text ?? ""
                     self.navigate(to: vc)
                 }
                 }else{
-                    odooClient.create_withdrawal_fundRequest(amount: amount, MethodTypeId: selectedPaymentTypeId, paymentType: "deposit")
+                    odooClient.create_withdrawal_fundRequest(amount: currentAmount, MethodTypeId: selectedPaymentTypeId, paymentType: "deposit")
                 }
         }
             
@@ -110,9 +108,13 @@ class DemoWithdrawalVC: BaseViewController {
     }
     
     func validateDepositAmount() {
-        guard let text = tf_amount.text, let enteredAmount = Double(text) else {
-            return
-        }
+        
+        guard let text = tf_amount.text else { return }
+        
+        // Remove commas for validation
+        let cleanedText = text.replacingOccurrences(of: ",", with: "")
+        guard let enteredAmount = Double(cleanedText) else { return }
+        
         let cleanedAmountValue = walletBalance.replacingOccurrences(of: ",", with: "") // "11676.33"
         let currentAmount = Double(cleanedAmountValue) ?? 0.0
         
@@ -175,7 +177,13 @@ extension DemoWithdrawalVC: DemoWithdrawProtocol {
 }
 
 extension DemoWithdrawalVC: UITextFieldDelegate {
-    @objc func textFieldDidChange() {
+    @objc func textFieldEditingChanged(_ textField: UITextField) {
+        if let text = textField.text {
+            // Format number with commas
+            let formatted = String.formatStringNumberTF(text)
+            textField.text = formatted
+        }
+        
         if request_type == "Deposit" {
             validateDepositAmount()
         }

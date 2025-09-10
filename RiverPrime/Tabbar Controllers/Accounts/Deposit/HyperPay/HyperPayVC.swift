@@ -153,8 +153,12 @@ class HyperPayVC: BaseViewController {
     
     
     @IBAction func close_action(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-        
+//        self.navigationController?.popViewController(animated: true)
+        if let homeVC = navigationController?.viewControllers.first(where: { $0 is HomeTabbarViewController }),
+           let walletVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WalletVC") as? WalletVC {
+            
+            navigationController?.setViewControllers([homeVC, walletVC], animated: true)
+        }
     }
 
 }

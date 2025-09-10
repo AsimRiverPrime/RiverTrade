@@ -58,15 +58,27 @@ class OdooClientNew {
         ]
         
         print("\n the params for authenticate is: \(jsonrpcBody)")
-        
+//        UserDefaults.standard.set(171, forKey: "uid")
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: false) { result in
-            
+            print("\n the auth result.  is: \(result)")
             guard let data = result.data else { return }
-            
-            self.saveUserIdFromJSONData(data)
-            //            self.writeFirebaseToken(firebaseToken: GlobalVariable.instance.firebaseNotificationToken)
+            print("\n the auth response.data is: \(data)")
+            do {
+                if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                   let userId = jsonResponse["result"] as? Int {
+                    // Save or process the userId
+                    print("\n User ID calling from scence delegate: \(userId)")
+                    
+                    UserDefaults.standard.set(userId, forKey: "uid")
+                    self.uid = UserDefaults.standard.integer(forKey: "uid")
+                    // You can store the userId in a variable or process it further as needed
+                } else {
+                    print("Unexpected JSON format")
+                }
+            } catch {
+                print("Error parsing JSON: \(error)")
+            }
         }
-        
     }
     
     func sendSymbolDetailRequest() {
@@ -569,29 +581,49 @@ class OdooClientNew {
             print("New_withdraw_method_type added result is : \(result)")
             
             switch result {
-            case .success(let value):
-                if let jsonDict = value as? [String: Any] {
-                    do {
-                        let jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: [])
-                        
-                        //                        let response = try decoder.decode(UserPaymentMethodsResponse.self, from: jsonData)
-                        print("✅ Payment method created: \(String(data: jsonData, encoding: .utf8) ?? "")")
-                        completion(.success(true))
-                    } catch {
-                        print("New_withdraw_method_type Decoding error: \(error)")
-                        completion(.failure(error))
-                    }
-                } else {
-                    print("Unexpected response format New_withdraw_method_type")
-                    completion(.failure(NSError(domain: "InvalidFormat", code: 0, userInfo: nil)))
-                }
-                
-            case .failure(let error):
-                print("Failed to decode JSON New_withdraw_method_type: \(error)")
-                completion(.failure(error))
-                break
-                
-            }
+//            case .success(let value):
+//                if let jsonDict = value as? [String: Any] {
+//                    do {
+//                        let jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: [])
+//                        
+//                        //                        let response = try decoder.decode(UserPaymentMethodsResponse.self, from: jsonData)
+//                        print("✅ Payment method created: \(String(data: jsonData, encoding: .utf8) ?? "")")
+//                        completion(.success(true))
+//                    } catch {
+//                        print("New_withdraw_method_type Decoding error: \(error)")
+//                        completion(.failure(error))
+//                    }
+//                } else {
+//                    print("Unexpected response format New_withdraw_method_type")
+//                    completion(.failure(NSError(domain: "InvalidFormat", code: 0, userInfo: nil)))
+//                }
+//                
+//            case .failure(let error):
+//                print("Failed to decode JSON New_withdraw_method_type: \(error)")
+//                completion(.failure(error))
+//                break
+//             }
+        case .success(let data):
+               if let dict = data as? [String: Any],
+                  let result = dict["result"] as? [String: Any] {
+
+                   if let success = result["success"] as? Int, success == 1 {
+                       completion(.success(true))
+                   } else {
+                       // Extract error message
+                       let errorMessage = result["error"] as? String ??
+                                          (result["validation_errors"] as? [String])?.first ??
+                                          "Unknown error"
+                       completion(.failure(OdooServiceError.serverError(errorMessage)))
+                   }
+               } else {
+                   completion(.failure(OdooServiceError.unknown))
+               }
+
+           case .failure(let error):
+               completion(.failure(error))
+           }
+        
         }
     }
     
@@ -687,7 +719,7 @@ class OdooClientNew {
                     dataBaseName,      // Database name
                     uid,               // uid
                     dbPassword,        // password
-                    "payment.transaction",  // Model name
+                    "rp.payment.transaction",  // Model name
                     "prepare_checkout",   // Method name
                     [],
                     [                // vals_list
@@ -743,7 +775,7 @@ class OdooClientNew {
                     dataBaseName,      // Database name
                     uid,               // uid
                     dbPassword,        // password
-                    "payment.transaction",  // Model name
+                    "rp.payment.transaction",  // Model name
                     "payment_status",   // Method name
                     [],
                     [
@@ -1029,7 +1061,7 @@ class OdooClientNew {
         
     }
     
-    func updateMTUserNamePassword(email: String, loginID: Int, oldPassword: String,newPassword: String,userName: String){
+    func updateMTUserNamePassword(email: String, loginID: Int, oldPassword: String,newPassword: String,userName: String, isdemo: Bool){
         let jsonrpcBody: [String: Any] = [
             "jsonrpc": "2.0",
             "params": [
@@ -1047,13 +1079,14 @@ class OdooClientNew {
                         loginID,
                         oldPassword,
                         userName,
-                        newPassword
+                        newPassword,
+                        isdemo
                     ]
                 ]
             ]
         ]
         
-        print("\n the parameters is: \(jsonrpcBody)")
+        print("\n the parameters for update username/password is: \(jsonrpcBody)")
         
         JSONRPCClient.instance.sendData(endPoint: .jsonrpc, method: .post, jsonrpcBody: jsonrpcBody, showLoader: true) { result in
             
@@ -1460,26 +1493,6 @@ class OdooClientNew {
         }
     }
     
-    
-    func saveUserIdFromJSONData(_ data: Data) {
-        
-        do {
-            
-            if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-               let userId = jsonResponse["result"] as? Int {
-                // Save or process the userId
-                print("\n User ID calling from scence delegate: \(userId)")
-                
-                UserDefaults.standard.set(userId, forKey: "uid")
-                uid = UserDefaults.standard.integer(forKey: "uid")
-                // You can store the userId in a variable or process it further as needed
-            } else {
-                print("Unexpected JSON format")
-            }
-        } catch {
-            print("Error parsing JSON: \(error)")
-        }
-    }
 }
 
 extension OdooClientNew {
@@ -1793,4 +1806,9 @@ extension OdooClientNew {
         }
     }
     
+}
+
+enum OdooServiceError: Error {
+    case serverError(String)
+    case unknown
 }

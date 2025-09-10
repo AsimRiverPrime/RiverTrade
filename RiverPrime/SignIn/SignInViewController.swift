@@ -97,13 +97,13 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     
     @IBAction func submitBtn(_ sender: Any) {
         SVProgressHUD.show()
+      
         guard let email = username_tf.text, !email.isEmpty  else {
             lbl_emailCheck.text = "Please enter email."
             lbl_emailCheck.isHidden = false
             SVProgressHUD.dismiss()
             return
         }
-        
         odoClientNew.SearchRecord(email: self.username_tf.text ?? "") { userFound, userData, error in
             
             if let error = error {
@@ -114,6 +114,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             
             if userFound {
                 print("✅ User exists, sending OTP...")
+//                self.odoClientNew.SearchRequest(email: self.username_tf.text ?? "") { data, error in
+//                    }
+
                 self.btn_submit.isHidden = true
                 self.otp_view.isHidden = false
                 
@@ -122,9 +125,11 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 
                 self.odoClientNew.sendOTP(type: "email", email: self.username_tf.text ?? "", phone: "")
             } else {
+                
                 print("❌ User does not exist")
                 // Show alert or error to user
-                
+                self.dismissKeyboard()
+                SVProgressHUD.dismiss()
                 self.ToastMessage("No user found with this email.")
             }
         }
@@ -174,8 +179,6 @@ extension SignInViewController{
     @IBAction func resendCodeBtn(_ sender: Any) {
         callMethodAfterDelay()
         //        resendCodeButton.isEnabled = false
-        
-        
         //        resendCodeButton.setTitle("Resend in \(remainingSeconds) seconds", for: .disabled)
         
         // Start the countdown timer
@@ -215,8 +218,7 @@ extension SignInViewController{
         print("Method called after 25 Second")
         
         odoClientNew.sendOTP(type: "email", email: username_tf.text ?? "", phone: "")
-        
-    }
+     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         guard let text = textField.text, text.count == 1 else { return }
@@ -326,7 +328,6 @@ extension SignInViewController:  VerifyOTPDelegate {
     func otpVerifySuccess(response: [String: Any]) {
         print("\n this is the verify Email otp response: \(response)\n")
         
-        
         ActivityIndicator.shared.hide(from: self.view)
         
         [self.tf_firstNum, self.tf_SecondNum, self.tf_thirdNum, self.tf_fourthNum, self.tf_fivethNum, self.tf_sixthNum].forEach {
@@ -339,11 +340,6 @@ extension SignInViewController:  VerifyOTPDelegate {
             return
         }
         
-        guard let customToken = response["custom_token"] as? String else {
-            print("❌ No custom token in response")
-            return
-        }
-        
         print("✅ Got custom token from backend")
         self.ToastMessage("OTP Verify.")
         guard let email = self.username_tf.text, !email.isEmpty else {
@@ -351,10 +347,18 @@ extension SignInViewController:  VerifyOTPDelegate {
             self.ToastMessage("❌ Email is empty")
             return
         }
-        
-        checkUserExists(email: email, customToken: customToken)
-    }
-    
+        SVProgressHUD.show()
+        if let customToken = response["custom_token"] as? String {
+                // ✅ Use custom token if available
+                print("✅ Found custom token, signing in...")
+            checkUserExists(email: email, customToken: customToken)
+            } else {
+                // ❌ No token → fallback to anonymous
+                print("❌ No custom token in response, signing in anonymously...")
+                signInAnonymously(email: email)
+            }
+     }
+  
     func otpVerifyFailure(error: Error) {
         
         print("this is the error from verify otp response: \(error)")
@@ -366,6 +370,20 @@ extension SignInViewController:  VerifyOTPDelegate {
             $0?.backgroundColor = .systemRed
         }
     }
+    
+    private func signInAnonymously(email: String) {
+           Auth.auth().signInAnonymously { [weak self] authResult, error in
+               if let error = error {
+                   print("❌ Error signing in anonymously: \(error.localizedDescription)")
+                   self?.ToastMessage("❌ Anonymous sign in failed")
+                   return
+               }
+
+               guard let user = authResult?.user else { return }
+               print("✅ Signed in anonymously with uid: \(user.uid)")
+               self?.checkExistingUserInFirestore(email: email)
+           }
+       }
     
     func checkUserExists(email: String, customToken: String) {
         let tempPassword = UUID().uuidString
@@ -398,9 +416,7 @@ extension SignInViewController:  VerifyOTPDelegate {
             } else {
                 // User was created successfully - they didn't exist before
                 print("✅ New user created in Auth")
-                
                 guard let user = result?.user else { return }
-                
                 // Add new user to Firestore
                 self.addUserToFirestore(email: email, user: user)
             }
@@ -431,6 +447,7 @@ extension SignInViewController:  VerifyOTPDelegate {
                 if let currentUser = Auth.auth().currentUser {
                     self.addUserToFirestore(email: email, user: currentUser)
                 } else {
+                    
                     print("❌ No current user found")
                     self.ToastMessage("❌ No current user found")
                 }
@@ -535,7 +552,7 @@ extension SignInViewController:  VerifyOTPDelegate {
                 print("❌ User accounts does not exist")
                 // Show alert or error to user
                 
-                self.ToastMessage("No user accounts found with this email.")
+                self.ToastMessage("No MT accounts found with this email.")
             }
         }
     }
@@ -554,7 +571,7 @@ extension SignInViewController:  VerifyOTPDelegate {
             self.firebaseInstance.fetchUserData(userId: userID)
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account get in signing process : \(defaultAccount)")
-                
+                SVProgressHUD.dismiss()
                 self.navigateToFaceID()
             }else{
                 print("\n no Default user Account Found")
@@ -653,6 +670,7 @@ extension SignInViewController:  VerifyOTPDelegate {
                 }
             }
         }
+        SVProgressHUD.dismiss()
         self.navigateToSelectDefaultAccount()
     }
     

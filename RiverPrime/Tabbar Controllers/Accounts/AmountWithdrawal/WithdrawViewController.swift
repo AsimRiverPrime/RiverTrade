@@ -130,10 +130,28 @@ class WithdrawViewController: BaseViewController {
                     self?.lbl_first.text = "Select \(self?.request_type ?? "") Method"
                     
                     self?.userPaymentMethods = methods
-                    self?.methodList = self?.userPaymentMethods.map { $0.displayName } ?? []
+//                    self?.methodList = self?.userPaymentMethods.map { $0.displayName } ?? []
+                    self?.methodList = self?.userPaymentMethods.map { method in
+                        let detail = method.details // non-optional String
+                        
+                        if let providerLine = detail
+                            .components(separatedBy: .newlines)
+                            .first(where: { $0.contains("Provider:") }) {
+                            
+                            let providerName = providerLine
+                                .replacingOccurrences(of: "Provider:", with: "")
+                                .trimmingCharacters(in: .whitespaces)
+                            
+                            if !providerName.isEmpty {
+                                return providerName
+                            }
+                        }
+                        
+                        return method.displayName // fallback
+                    } ?? []
                     // Set default title for the button (optional)
                     if let first = self?.methodList.first {
-                        self?.btn_paymentMethod.setTitle(first, for: .normal)
+                        self?.btn_paymentMethod.setTitle(first /*+ "(Default)"*/, for: .normal)
                         self?.selectedPaymentMethodId = self?.userPaymentMethods.first?.id ?? 0
                         self?.selectedPaymentTypeName =  self?.userPaymentMethods.first?.name ?? ""
                         print("\n byDefault, selected payment Method Id: \(self?.selectedPaymentMethodId ?? 0)")
@@ -192,7 +210,7 @@ class WithdrawViewController: BaseViewController {
                self.selectedDropdownOptionValue = self.subSelectionOptions.first(where: { $0.label == selectedItem })?.value
            }
     }
-    
+   
     func showPaymentDropdown(from button: UIButton) {
         
         if userPaymentMethods.isEmpty {
@@ -227,6 +245,11 @@ class WithdrawViewController: BaseViewController {
             print("drop down item = \(item)")
      
             button.setTitle(item, for: .normal)
+            
+            if item == "Cryptocurrency" {
+                Alert.showAlert(withMessage: "We cannot offer Cryptocurrency for payments at this time. Please contact support@riverprime.com for more information.", andTitle: "Warning!", OKButtonText: "Ok", on: self)
+                return
+            }
             // ✅ Show requirement view only when "all methods type" are being shown
             if shouldShowAllMethods {
                 
@@ -405,11 +428,11 @@ class WithdrawViewController: BaseViewController {
                     switch result {
                     case .success:
                         print("✅ Add Payment method created successfully")
+                        self.shouldShowAllMethods = false
                         self.loadUserPaymentMethods()
                     case .failure(let error):
-                        print("❌ Failed to create new payment method: \(error)")
-                        // Handle error
-                        self.ToastMessage("new payment method not created")
+                           print("❌ Failed to create new payment method: \(error.localizedDescription)")
+                           self.ToastMessage(error.localizedDescription)
                     }
                 }
             }

@@ -32,6 +32,7 @@ class SettingsView: UIView {
     weak var updateUserNameDelegate : UpdateUserNamePassword?
     
     var userEmail: String?
+    var isDemo = Bool()
     
     public override func awakeFromNib() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -46,8 +47,9 @@ class SettingsView: UIView {
                 self.lbl_serverName.text = defaultAccount.isReal == true ? "MT5-Server" : "DEMO-Server"
                 self.lbl_accountGroup.text = defaultAccount.groupName
                 self.lbl_acctUserName.text = defaultAccount.name
+                self.isDemo = !defaultAccount.isReal
             }
-            
+         
             if let _email = savedUserData["email"] as? String  {
                 self.userEmail = _email
             }
@@ -92,7 +94,7 @@ class SettingsView: UIView {
                 //                    self.userName = name
                 print("User entered: \(name)")
 
-                self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: storedPassword ?? "", newPassword: "", userName: name)
+                self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: storedPassword ?? "", newPassword: "", userName: name, isdemo: self.isDemo)
                 UserDefaults.standard.set(name, forKey: "MTUserName")
                 
                 self.lbl_acctUserName.text = name

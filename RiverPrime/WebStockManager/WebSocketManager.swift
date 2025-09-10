@@ -473,7 +473,7 @@ class WebSocketManager: WebSocketDelegate {
                 if myType == "tick" {
                     let genericResponse = try JSONDecoder().decode(WebSocketResponse<TradeDetails>.self, from: jsonData)
                     handleTradeData(genericResponse.message.payload)
-                    print("tick  message type: \(myType)")
+//                    print("tick  message type: \(myType)")
                 } else if myType == "get_chart_history" {
 //                    let historyResponse = try JSONDecoder().decode(WebSocketResponse<SymbolChartData>.self, from: jsonData)
 //                    handleHistoryData(historyResponse.message.payload)

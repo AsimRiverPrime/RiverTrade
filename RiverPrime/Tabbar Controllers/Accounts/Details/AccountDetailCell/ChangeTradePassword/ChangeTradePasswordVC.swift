@@ -35,6 +35,8 @@ class ChangeTradePasswordVC: BaseViewController {
     
     var loginID : Int?
     var userEmail : String = ""
+    var isDemo = Bool()
+    var oldPassword = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,13 +45,18 @@ class ChangeTradePasswordVC: BaseViewController {
         tf_newPassword.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(data)")
+            print("saved User Data in passwordChangeVC: \(data)")
             
-            if let loginId = data["loginId"] as? Int, let email1 = data["email"] as? String  {
-                print("login ID: \(loginId)")
-                self.loginID = loginId
+            if  let email1 = data["email"] as? String  {
+                
                 self.userEmail = email1
             }
+        }
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            self.loginID = defaultAccount.accountNumber
+            
+            isDemo = !defaultAccount.isReal
+            oldPassword = defaultAccount.password
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -68,8 +75,9 @@ class ChangeTradePasswordVC: BaseViewController {
             return false
         }
         print("Old Password is:\(storedPassword)")
+        let decryptePassword = PasswordEncryption.decryptPassword(storedPassword)
         // Compare the input password with the stored password
-        return storedPassword == inputPassword
+        return decryptePassword == inputPassword
     }
     
     @IBAction func submitBtnAction(_ sender: Any) {
@@ -94,9 +102,12 @@ class ChangeTradePasswordVC: BaseViewController {
             return
         }else{
             lbl_oldPassword.isHidden = true
-            UserDefaults.standard.set((self.tf_newPassword.text ?? ""), forKey: "password")
+            let oldPassword = PasswordEncryption.encryptPassword(self.tf_oldPassword.text ?? "")
+            let newPassword = PasswordEncryption.encryptPassword(self.tf_newPassword.text ?? "")
             
-            odooClientService.updateMTUserNamePassword(email: userEmail, loginID: loginID ?? 0 , oldPassword: self.tf_oldPassword.text ?? "", newPassword: self.tf_newPassword.text ?? "", userName: "")
+            UserDefaults.standard.set(newPassword, forKey: "password")
+            
+            odooClientService.updateMTUserNamePassword(email: userEmail, loginID: loginID ?? 0 , oldPassword: oldPassword /*self.tf_oldPassword.text ?? ""*/, newPassword: newPassword /*self.tf_newPassword.text ?? ""*/, userName: "", isdemo: isDemo)
         }
     }
     

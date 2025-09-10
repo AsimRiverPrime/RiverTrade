@@ -164,7 +164,6 @@ extension WalletVC: UITableViewDataSource, UITableViewDelegate{
       }
 }
     
-
 extension WalletVC {
     
     func combineTransactionData(transactions: [Transaction], records: [TransactionRecord]) -> [CombinedTransactionRecord] {
@@ -173,7 +172,8 @@ extension WalletVC {
         // Create lookup dictionary from transactions (first API)
         var transactionDict: [String: Transaction] = [:]
         for transaction in transactions {
-            let key = "\(transaction.amount)_\(transaction.createdDate.prefix(10))" // amount_date as key
+            let key = "\(transaction.transactionType)_\(transaction.amount)_\(transaction.createdDate.prefix(10))"
+// let key = "\(transaction.amount)_\(transaction.createdDate.prefix(10))" // amount_date as key
             transactionDict[key] = transaction
         }
         
@@ -199,8 +199,9 @@ extension WalletVC {
             combined.currencySymbol = record.currencySymbol
             
             // Try to match with Transaction (First API)
-            if record.amount > 0, !record.createDate.isEmpty {
-                let key = "\(record.amount)_\(record.createDate.prefix(10))"
+            if !record.createDate.isEmpty {  // ✅ allow both deposits (+) and withdrawals (-)
+                let key = "\(record.type)_\(record.amount)_\(record.createDate.prefix(10))"
+// let key = "\(record.amount)_\(record.createDate.prefix(10))"
                 
                 if let transaction = transactionDict[key] {
                     // Fill from Transaction (First API)
@@ -229,10 +230,11 @@ extension WalletVC {
             combinedRecords.append(combined)
         }
         
-        // Add unmatched transactions from first API (like withdrawals that don't exist in second API)
+        // Add unmatched transactions from first API (like withdrawals not in second API)
         for transaction in transactions {
-            let key = "\(transaction.amount)_\(transaction.createdDate.prefix(10))"
-            
+//            let key = "\(transaction.amount)_\(transaction.createdDate.prefix(10))"
+            let key = "\(transaction.transactionType)_\(transaction.amount)_\(transaction.createdDate.prefix(10))"
+
             // If this transaction wasn't matched with any record, add it
             if !matchedTransactionKeys.contains(key) {
                 var combined = CombinedTransactionRecord()
@@ -255,19 +257,23 @@ extension WalletVC {
                 combined.processingDays = transaction.processingDays
                 combined.isOverdue = transaction.isOverdue
                 
-                // Set display name based on transaction type if not available from record
-                if ((combined.displayName?.isEmpty) != nil) {
+                // ✅ Always set display name fallback if missing
+                if combined.displayName == nil || combined.displayName?.isEmpty == true {
                     let typeCapitalized = transaction.transactionType.capitalized
-                    combined.displayName = "\(typeCapitalized) - \(transaction.amount) \(transaction.currency ?? "$") (\(transaction.statusDisplay ?? transaction.status))"
+                    let statusText = transaction.statusDisplay ?? transaction.status
+                    let currencyText = transaction.currency ?? "$"
+                    combined.displayName = "\(typeCapitalized) - \(transaction.amount) \(currencyText) (\(statusText))"
                 }
                 
                 combinedRecords.append(combined)
-                print("➕ Added unmatched transaction: ID=\(transaction.id), Type=\(transaction.transactionType), Amount=\(transaction.amount)")
+                print("➕ Added unmatched transaction: ID=\(transaction.id ?? 0), Type=\(transaction.transactionType), Amount=\(transaction.amount)")
             }
         }
         
         return combinedRecords
     }
+
+
     
     func loadCombinedTransactionData() {
         odooClient.check_userWallet(email: self.userEmail, wallet_type: self.wallet_type) { wallet in
@@ -290,11 +296,11 @@ extension WalletVC {
             
             // First API: user transactions
             self.odooClient.get_User_transcations(email: self.userEmail, wallet_type: self.wallet_type) { transactionsResponse in
-                print("\n---------->>>*****----->>>>> get user transcation data in walletVC:\(transactionsResponse)\n\n")
+//                print("\n---------->>>*****----->>>>> get user transcation data in walletVC:\(transactionsResponse)\n\n")
                 
                 // Second API: search read
                 self.odooClient.get_transcations_search_read(email: self.userEmail, walletId: walletId) { recordsResponse in
-                    print("\n -------->>>>get search_read transcation data in walletVC:----->>>\(recordsResponse)---**********---------->>>>\n")
+//                    print("\n -------->>>>get search_read transcation data in walletVC:----->>>\(recordsResponse)---**********---------->>>>\n")
                     
                     // Debug: Check the response structure
                     if let responseDict = recordsResponse as? [String: Any],
@@ -371,7 +377,9 @@ extension WalletVC {
                     }
                     
                     print("🎯 Final combined records count: \(self.combinedRecords.count)")
-                    
+                    for (index, record) in self.combinedRecords.enumerated() {
+                        print("📦 Combined \(index): transactionId=\(record.transactionId ?? -1), type=\(record.transactionType ?? record.recordType ?? "N/A"), amount=\(record.transactionAmount ?? record.recordAmount), displayName=\(record.displayName ?? "nil")")
+                    }
                     // Update UI on main thread
                     DispatchQueue.main.async {
                         self.lbl_transcationCount.text = "\(self.combinedRecords.count) Transactions"

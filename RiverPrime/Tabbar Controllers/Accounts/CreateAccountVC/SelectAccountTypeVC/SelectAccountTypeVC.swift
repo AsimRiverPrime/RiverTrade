@@ -77,17 +77,7 @@ class SelectAccountTypeVC: BottomSheetController {
             }
         }
         
-        odooClient.get_accounts_with_balances(email: _email)  { [weak self] result in
-            DispatchQueue.main.async {
-                self?.apiAccounts = result
-                self?.tableView.reloadData()
-            }
-            for account in result {
-                print("Login: \(account.login ?? 0), Balance: \(account.balance ?? 0.0)")
-            }
-        }
-             
-        self.btn_createAccount.titleTintColor = .systemYellow
+         self.btn_createAccount.titleTintColor = .systemYellow
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
         registerCell()
@@ -126,6 +116,16 @@ class SelectAccountTypeVC: BottomSheetController {
         
         let allPasswords = passwordManager.getAllPasswords()
         print("All Saved Passwords on create Account: \(allPasswords)")
+        
+        odooClient.get_accounts_with_balances(email: _email)  { [weak self] result in
+            DispatchQueue.main.async {
+                self?.apiAccounts = result
+                self?.tableView.reloadData()
+            }
+            for account in result {
+                print("Login ID: \(account.login ?? 0), Balance: \(account.balance ?? 0.0)")
+            }
+        }
     }
  
     private func registerCell() {
@@ -425,7 +425,7 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                         
                         self.dismiss(animated: true, completion: nil)
-                        self.accountDismisalProtocol?.accountDismisal()
+//                        self.accountDismisalProtocol?.accountDismisal()  move to tradeVC
                         
                     }
                 })

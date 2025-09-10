@@ -218,8 +218,17 @@ class KYCViewController: BaseViewController {
                 print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
                 self.ToastMessage("KYC detail added successfully!")
+                print("Stack:", navigationController?.viewControllers)
+                
                 let _ = Timer.scheduledTimer(withTimeInterval: 0.85, repeats: false) { [weak self] _ in
 //                    NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": "", "status": "Approved"])
+                    
+//                    if let homeVC = navigationController?.viewControllers.first(where: { $0 is HomeTabbarViewController }),
+//                       let walletVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "WalletVC") as? WalletVC {
+//                        
+//                        navigationController?.setViewControllers([homeVC, walletVC], animated: true)
+//                    }
+                    
                     //move to account VC
                     self?.navigationController?.popToRootViewController(animated: true)
                      // Change to tab index 0
