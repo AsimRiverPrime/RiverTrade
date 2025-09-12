@@ -70,8 +70,13 @@ class LoginPopupVC: BaseViewController {
     }
     
     @IBAction func login_action(_ sender: Any) {
-      
-        viewModel.loginForPassword(loginID: loginId, pass: self.password_tf.text ?? "", isDemo: isDemo, completion: { response in
+        print("enter password is: \(self.password_tf.text ?? "")")
+        let encryptPass = PasswordEncryption.encryptPassword(self.password_tf.text ?? "")
+        print("enter password is encrypted: \(encryptPass)")
+        let decryptedPassword = PasswordEncryption.decryptPassword(self.password_tf.text ?? "")
+        print("password is decryptedPassword: \(decryptedPassword)")
+        
+        viewModel.loginForPassword(loginID: loginId, pass: encryptPass, isDemo: isDemo, completion: { response in
             print("the login to meta Trader account response is: \(response)")
         
             
@@ -80,7 +85,7 @@ class LoginPopupVC: BaseViewController {
                 self.lbl_wrongPassword.isHidden = false
             }else{
               
-                self.firestoreObject.updatePassword(for: "\(self.loginId)", userId:  self.userID, newPassword: self.password_tf.text ?? "") { [weak self] error in
+                self.firestoreObject.updatePassword(for: "\(self.loginId)", userId:  self.userID, newPassword: encryptPass) { [weak self] error in
                     guard let self = self else { return }
                     if let error = error {
                         print("Error updating default account: \(error.localizedDescription)")
@@ -95,7 +100,7 @@ class LoginPopupVC: BaseViewController {
                             return
                         }
                         print("\n updating isDefault account success in loginScreen: ")
-                        if self.passwordManager.savePassword(for: String(self.loginId), password: self.password_tf.text ?? "") {
+                        if self.passwordManager.savePassword(for: String(self.loginId), password: encryptPass) {
                             print("Password successfully saved from loginScreen.")
                         } else {
                             print("ID already exists. Cannot save password.")

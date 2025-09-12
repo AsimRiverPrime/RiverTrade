@@ -195,30 +195,10 @@ class PasswordVC: BaseViewController {
                         UserDefaults.standard.set(user.uid, forKey: "userID")
                         
                         self?.userId = UserDefaults.standard.string(forKey: "userID")
-                        self?.odoClientNew.SearchRecord(email: self?.email ?? "") { userFound, userData, error in
-                            
-                            if let error = error {
-                                print("Error checking user:", error)
-                                self?.ToastMessage("No user found.Server error.")
-                                SVProgressHUD.dismiss()
-                                return
-                            }
-                            
-                            if userFound {
-                                print("✅ User exists in CRM")
-                                self?.ToastMessage("User with this email already exists.\nPlease Sign In")
-                                SVProgressHUD.dismiss()
-                                return
-                            } else {
-                                
-                                print("❌ User does not exist so create record in CRM")
-                                self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
-                                
-                                self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 1)
-                               
-                            }
-                        }
-
+                        
+                        self?.odoClientNew.createRecords(firebase_uid: user.uid, email: self?.email ?? "", name: self?.fullName ?? "")
+                        
+                        self?.fireStoreInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self?.fullName ?? "", gender: "", phone: "", email: self?.email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: GlobalVariable.instance.nationality, residence: GlobalVariable.instance.residence, registrationType: 1)
                     }
                 }
             }

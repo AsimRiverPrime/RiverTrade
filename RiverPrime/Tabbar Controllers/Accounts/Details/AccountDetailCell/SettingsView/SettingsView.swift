@@ -28,11 +28,11 @@ class SettingsView: UIView {
     @IBOutlet weak var lbl_serverName: UILabel!
     
     weak var changePassDelegate : ChangePasswordDelegate?
-    let odooClientService = OdooClientNew()
-    weak var updateUserNameDelegate : UpdateUserNamePassword?
-    
+    var odooClientService = OdooClientNew()
+ 
     var userEmail: String?
     var isDemo = Bool()
+    var _password = String()
     
     public override func awakeFromNib() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -48,6 +48,7 @@ class SettingsView: UIView {
                 self.lbl_accountGroup.text = defaultAccount.groupName
                 self.lbl_acctUserName.text = defaultAccount.name
                 self.isDemo = !defaultAccount.isReal
+                self._password = defaultAccount.password
             }
          
             if let _email = savedUserData["email"] as? String  {
@@ -87,14 +88,13 @@ class SettingsView: UIView {
     }
     
     @IBAction func addCustomName(_ sender: Any) {
-        let storedPassword = UserDefaults.standard.string(forKey: "password")
         
         Alert.showTextFieldAlertView(message: "Please enter your name", placeholder: "enter custom name", completion: { textFieldInput in
             if let name = textFieldInput {
                 //                    self.userName = name
                 print("User entered: \(name)")
 
-                self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: storedPassword ?? "", newPassword: "", userName: name, isdemo: self.isDemo)
+                self.odooClientService.updateMTUserNamePassword(email: self.userEmail ?? "", loginID: Int(self.lbl_loginID.text ?? "") ?? 0 , oldPassword: self._password , newPassword: "", userName: name, isdemo: self.isDemo)
                 UserDefaults.standard.set(name, forKey: "MTUserName")
                 
                 self.lbl_acctUserName.text = name
@@ -106,16 +106,7 @@ class SettingsView: UIView {
         
     }
 }
-extension SettingsView: UpdateUserNamePassword {
-    func updateSuccess(response: Any) {
-        print("update MT User Name sucess response: \(response) ")
-    }
-    
-    func updateFailure(error: any Error) {
-        print("update MT User Name failed response: \(error) ")
-    }
-    
-}
+ 
 extension UIView {
     func parentViewController() -> UIViewController? {
         var responder: UIResponder? = self

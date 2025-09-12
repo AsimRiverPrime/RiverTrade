@@ -101,12 +101,32 @@ class EmailVC: BaseViewController {
             return
         }
         
-        if let passwordVC = instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasswordVC") as? PasswordVC {
-            passwordVC.email = tf_email.text
-            passwordVC.fullName = tf_fullName.text
+        self.odoClientNew.SearchRecord(email: email ) { userFound, userData, error in
             
-            self.navigate(to: passwordVC)
+            if let error = error {
+                print("Error checking user:", error)
+                self.ToastMessage("No user found.Server error.")
+                SVProgressHUD.dismiss()
+                return
+            }
+
+            if userFound {
+                print("✅ User exists in CRM")
+                self.ToastMessage("User with this email already exists.\nPlease Sign In")
+                SVProgressHUD.dismiss()
+                return
+            } else {
+                print("❌ User does not exist")
+                if let passwordVC = self.instantiateViewController(fromStoryboard: "Main", withIdentifier: "PasswordVC") as? PasswordVC {
+                    passwordVC.email = self.tf_email.text
+                    passwordVC.fullName = self.tf_fullName.text
+                    
+                    self.navigate(to: passwordVC)
+                }
+              
+            }
         }
+        
     }
     
     @IBAction func signInBtn(_ sender: Any) {
@@ -263,7 +283,7 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                         if let error = error {
                             print("Error checking for existing user: \(error.localizedDescription)")
                         }
-                        print("User is in with Firebase users collection : \(self._email ?? "")")
+                        print("User is exist in with Firebase users collection : \(self._email ?? "")")
                         if let snapshot = querySnapshot, !snapshot.isEmpty {
                             print("User with this email already exists.")
                             SVProgressHUD.dismiss()

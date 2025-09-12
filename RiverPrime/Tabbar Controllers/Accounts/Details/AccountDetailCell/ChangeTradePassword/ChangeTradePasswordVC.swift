@@ -11,14 +11,12 @@ class ChangeTradePasswordVC: BaseViewController {
    
     @IBOutlet weak var tf_oldPassword: UITextField!{
         didSet{
-            
-            tf_oldPassword.setIcon(UIImage(imageLiteralResourceName: "passwordIcon").tint(with: UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)))
+             tf_oldPassword.setIcon(UIImage(imageLiteralResourceName: "passwordIcon").tint(with: UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)))
         }
     }
     @IBOutlet weak var tf_newPassword: UITextField!{
         didSet{
-         
-            tf_newPassword.setIcon(UIImage(imageLiteralResourceName: "passwordIcon").tint(with: UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)))
+             tf_newPassword.setIcon(UIImage(imageLiteralResourceName: "passwordIcon").tint(with: UIColor(red: 161/255.0, green: 165/255.0, blue: 183/255.0, alpha: 1.0)))
         }
     }
 
@@ -29,38 +27,47 @@ class ChangeTradePasswordVC: BaseViewController {
     @IBOutlet weak var lbl_passCaseOne: UILabel!
     @IBOutlet weak var lbl_passCaseTwo: UILabel!
     @IBOutlet weak var lbl_passCasethree: UILabel!
+    @IBOutlet weak var lbl_passCasefourth: UILabel!
     
     let fireStoreInstance = FirestoreServices()
-    let odooClientService = OdooClientNew()
+    let odooClientUpadePassword = OdooClientNew()
+    let passwordManager = PasswordManager()
+    
     
     var loginID : Int?
     var userEmail : String = ""
     var isDemo = Bool()
     var oldPassword = String()
+    var newPassword = String()
+    var userID = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         lbl_oldPassword.isHidden = true
         
+         odooClientUpadePassword.updateUserNamePasswordDelegate = self
+        
         tf_newPassword.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
         if let data = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data in passwordChangeVC: \(data)")
+            print("saved User Data: \(data)")
             
-            if  let email1 = data["email"] as? String  {
-                
+            if let email1 = data["email"] as? String, let _uid = data["uid"] as? String  {
+                self.userID = _uid
                 self.userEmail = email1
             }
         }
+        
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            self.loginID = defaultAccount.accountNumber
-            
-            isDemo = !defaultAccount.isReal
-            oldPassword = defaultAccount.password
-        }
+                  self.loginID = defaultAccount.accountNumber
+                  
+                  isDemo = !defaultAccount.isReal
+                  oldPassword = defaultAccount.password
+              }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        
         self.navigationController?.navigationBar.isHidden = true
     }
     
@@ -70,12 +77,13 @@ class ChangeTradePasswordVC: BaseViewController {
     
     func isPasswordValid(inputPassword: String) -> Bool {
         // Retrieve the stored password from UserDefaults
-        guard let storedPassword = UserDefaults.standard.string(forKey: "password") else {
-            print("No password found in UserDefaults")
-            return false
-        }
-        print("Old Password is:\(storedPassword)")
-        let decryptePassword = PasswordEncryption.decryptPassword(storedPassword)
+//        guard let storedPassword = UserDefaults.standard.string(forKey: "password") else {
+//            print("No password found in UserDefaults")
+//            return false
+//        }
+        print("Old Password is:\(oldPassword)")
+        let decryptePassword = PasswordEncryption.decryptPassword(oldPassword)
+        print("Old Password decryptePassword is:\(decryptePassword)")
         // Compare the input password with the stored password
         return decryptePassword == inputPassword
     }
@@ -83,9 +91,15 @@ class ChangeTradePasswordVC: BaseViewController {
     @IBAction func submitBtnAction(_ sender: Any) {
         guard let inputPassword = tf_oldPassword.text, !inputPassword.isEmpty else {
                 print("Password field is empty")
+            self.ToastMessage("Old password field is empty")
                 return
             }
-            
+        guard let newPassword = tf_newPassword.text, !newPassword.isEmpty else {
+                print("Password field is empty")
+            self.ToastMessage("New password field is empty")
+                return
+            }
+        
             if isPasswordValid(inputPassword: inputPassword) {
                 print("Passwords match with old one:\(inputPassword)")
                 // Proceed with login
@@ -104,10 +118,16 @@ class ChangeTradePasswordVC: BaseViewController {
             lbl_oldPassword.isHidden = true
             let oldPassword = PasswordEncryption.encryptPassword(self.tf_oldPassword.text ?? "")
             let newPassword = PasswordEncryption.encryptPassword(self.tf_newPassword.text ?? "")
-            
+            print("Both passwords encrypted successfuly")
             UserDefaults.standard.set(newPassword, forKey: "password")
+            self.newPassword = newPassword
             
-            odooClientService.updateMTUserNamePassword(email: userEmail, loginID: loginID ?? 0 , oldPassword: oldPassword /*self.tf_oldPassword.text ?? ""*/, newPassword: newPassword /*self.tf_newPassword.text ?? ""*/, userName: "", isdemo: isDemo)
+            if validatePassword(self.tf_newPassword.text ?? "") {
+                odooClientUpadePassword.updateMTUserNamePassword(email: userEmail, loginID: loginID ?? 0 , oldPassword: oldPassword /*self.tf_oldPassword.text ?? ""*/, newPassword: newPassword /*self.tf_newPassword.text ?? ""*/, userName: "", isdemo: isDemo)
+            } else {
+               self.ToastMessage("Password does not meet requirements")
+           }
+             
         }
     }
     
@@ -128,15 +148,18 @@ class ChangeTradePasswordVC: BaseViewController {
     
     @objc func passwordDidChange(_ textField: UITextField) {
         
-        validatePassword(password: textField.text ?? "")
+        validatePassword(textField.text ?? "")
     }
     
-    func validatePassword(password: String) {
+    func validatePassword(_ password: String) -> Bool {
+        var isValid = true
+        
         // Condition 1: Length between 8 and 15 characters
-        if password.count >= 8 /*&& password.count <= 15*/ {
+        if password.count >= 8 && password.count <= 15 {
             lbl_passCaseOne.textColor = .systemGreen
         } else {
             lbl_passCaseOne.textColor = .systemRed
+            isValid = false
         }
         
         // Condition 2: At least one uppercase and one lowercase letter
@@ -149,30 +172,77 @@ class ChangeTradePasswordVC: BaseViewController {
             lbl_passCaseTwo.textColor = .systemGreen
         } else {
             lbl_passCaseTwo.textColor = .systemRed
+            isValid = false
         }
         
-        // Condition 3: At least one number and one special character
-        let numbers = CharacterSet.decimalDigits
-        let specialCharacters = CharacterSet.punctuationCharacters.union(.symbols)
-        let hasNumber = password.rangeOfCharacter(from: numbers) != nil
-        let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
+        // Condition 3: At least one number
         
-        if hasNumber && hasSpecial {
+        let numbers = CharacterSet.decimalDigits
+        let hasNumber = password.rangeOfCharacter(from: numbers) != nil
+        
+        if hasNumber {
             lbl_passCasethree.textColor = .systemGreen
         } else {
             lbl_passCasethree.textColor = .systemRed
+            isValid = false
         }
-}
+        
+        // Condition 4: At least one special character
+        let specialCharacters = CharacterSet.punctuationCharacters.union(.symbols)
+        let hasSpecial = password.rangeOfCharacter(from: specialCharacters) != nil
+        
+        if hasSpecial {
+            lbl_passCasefourth.textColor = .systemGreen
+        } else {
+            lbl_passCasefourth.textColor = .systemRed
+            isValid = false
+        }
+        
+        return isValid
+    }
 }
 
 extension ChangeTradePasswordVC: UpdateUserNamePassword {
     func updateSuccess(response: Any) {
         print("sucess response of update password: \(response)")
+
+        if let dict = response as? [String: Any],
+           let result = dict["result"] as? [String: Any],
+           let success = result["success"] as? Int {
+            
+            if success == 1 {
+                // ✅ Show success toast
+                self.ToastMessage("Password updated successfully")
+                
+                self.fireStoreInstance.updatePassword(for: String(self.loginID ?? 0) , userId: self.userID , newPassword: newPassword) { [weak self] error in
+                    guard let self = self else { return }
+                    if let error = error {
+                        print("Error updating default account: \(error.localizedDescription)")
+                        return
+                    }
+                    print("password added successfully.")
+                    
+                    if self.passwordManager.savePassword(for: String(self.loginID ?? 0), password:  newPassword) {
+                        print("Password successfully saved from loginScreen.")
+                    } else {
+                        print("ID already exists. Cannot save password.")
+                    }
+                    
+                    let allPasswords = self.passwordManager.getAllPasswords()
+                    print("All Saved Passwords on from loginScreen: \(allPasswords)")
+                    
+                    //                        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+                    self.dismiss(animated: true, completion: nil)
+                }
+            } else {
+                // ❌ Failed case
+                self.ToastMessage("Password update failed, please try again later.")
+            }
+        }
     }
-    
+
     func updateFailure(error: any Error) {
         print("Error response of update password: \(error)")
+        self.ToastMessage("Something went wrong. Please try again.")
     }
-    
-   
 }
