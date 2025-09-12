@@ -425,7 +425,7 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
                         
                         self.dismiss(animated: true, completion: nil)
-//                        self.accountDismisalProtocol?.accountDismisal()  move to tradeVC
+                        self.accountDismisalProtocol?.accountDismisal()  //move to tradeVC
                         
                     }
                 })
