@@ -81,7 +81,7 @@ class TransferViewController: BaseViewController {
         if view.frame.origin.y == 0 {
             if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
                 let keyboardHeight = keyboardFrame.cgRectValue.height
-                view.frame.origin.y -= keyboardHeight / 3.5  // Adjust this value if needed
+                view.frame.origin.y -= keyboardHeight / 3   // Adjust this value if needed
             } }
     }
     @objc func keyboardWillHide(notification: NSNotification) {

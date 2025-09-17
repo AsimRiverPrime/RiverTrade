@@ -60,7 +60,7 @@ enum SocketURLType {
 
 class WebSocketManager: WebSocketDelegate {
 
-    var webSocket: WebSocket?
+    var webSocket: Starscream.WebSocket?
     static let shared = WebSocketManager() // Shared instance
     
     var connectionCheckTimer: Timer?

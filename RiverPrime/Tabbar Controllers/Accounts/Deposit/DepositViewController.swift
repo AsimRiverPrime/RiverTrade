@@ -28,6 +28,7 @@ class DepositViewController: BaseViewController {
     var isPhoneVerified = false
     var isEmailVerified = false
     var userEmail = ""
+    var fullName = String()
     var realAccount = false
     
     // Payment Properties
@@ -78,10 +79,11 @@ class DepositViewController: BaseViewController {
     
     private func loadUserData() {
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
-            if let _profileStep = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String{
+            if let _profileStep = savedUserData["profileStep"] as? Int, let _email = savedUserData["email"] as? String, let _name = savedUserData["fullName"] as? String{
               
                 self.userEmail = _email
                 profileStep = _profileStep
+                fullName = _name
             }
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 realAccount = defaultAccount.isReal == true
@@ -129,8 +131,8 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func configureProfileTopCell(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(with: ProfileTopTableViewCell.self, for: indexPath)
-        cell.lbl_title.text = "Deposit"
-        cell.imageIcon.isHidden = true
+        cell.lbl_title.text = fullName
+//        cell.imageIcon.isHidden = true
         cell.btn_edit.isHidden = true
         cell.btn_editProfile.isHidden = true
         cell.delegate = self
@@ -160,11 +162,11 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
     
     private func configureLockButton(for cell: ListingTableViewCell, bankName: String) {
         if profileStep == 2 {
-            cell.lockBtn.titleLabel?.text = "Avaliable"
+            cell.lockBtn.setTitle("Available", for: .normal)
             cell.lockBtn.setImage(UIImage(systemName: "lock.open"), for: .normal)
             cell.lockBtn.isUserInteractionEnabled = true
         } else {
-            cell.lockBtn.titleLabel?.text = "Unavaliable"
+            cell.lockBtn.setTitle("Unavailable", for: .normal)
             cell.lockBtn.setImage(UIImage(systemName: "lock"), for: .normal)
             cell.lockBtn.isUserInteractionEnabled = false
         }
@@ -202,17 +204,17 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
-        let selectedBank = bank_item[indexPath.row]
-        if selectedBank == "Trust wallet" {
-            let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
-            self.navigate(to: vc)
-        } else {
+//        let selectedBank = bank_item[indexPath.row]
+//        if selectedBank == "Trust wallet" {
+//            let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
+//            self.navigate(to: vc)
+//        } else {
 //            odooClientService.getCheckout_ID(ammount: ammountValue, partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
 //                print("check out Id result is: \(String(describing: data)) ")
 //                self.startCheckout(checkout_id: data ?? "")
 //            }
-            
-        }
+//        }
+        
     }
 }
 
@@ -298,12 +300,11 @@ extension DepositViewController {
             print("✅ Payment possibly succeeded")
             print("Payment Brand: \(transaction.paymentParams.paymentBrand)")
             print("Transaction Type: \(transaction.type.rawValue)")
-            
-            print("\n checkoutID is: \(checkoutID)")
+            print("checkoutID is: \(checkoutID)\n ")
             
             //            self.dismiss(animated: true)
             
-                let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
+            let vc = Utilities.shared.getViewController(identifier: .hyperPayVC, storyboardType: .dashboard) as! HyperPayVC
             vc._checkout_id = checkoutID
             vc.is_apple = false
                 self.navigate(to: vc)

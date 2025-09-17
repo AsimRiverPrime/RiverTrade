@@ -91,14 +91,14 @@ class DemoWithdrawalVC: BaseViewController {
                 }
             }else{
                
-                if ["Credit Card", "Credit Card (Default)"].contains(selectedPaymentTypeName) {
+//                if ["Credit Card", "Credit Card (Default)"].contains(selectedPaymentTypeName) {
                     if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DepositViewController") as? DepositViewController {
                     vc.ammountValue = tf_amount.text ?? ""
                     self.navigate(to: vc)
                 }
-                }else{
-                    odooClient.create_withdrawal_fundRequest(amount: currentAmount, MethodTypeId: selectedPaymentTypeId, paymentType: "deposit")
-                }
+//                }else{
+//                    odooClient.create_withdrawal_fundRequest(amount: currentAmount, MethodTypeId: selectedPaymentTypeId, paymentType: "deposit")
+//                }
         }
             
         }else{

@@ -40,6 +40,7 @@ enum BottomSheetIdentifierType: String {
     
     case withdrawViewController = "WithdrawViewController"
     case transferViewController = "TransferViewController"
+    case demoWithdrawalVC = "DemoWithdrawalVC"
     case cryptoVC = "CryptoVC"
     case hyperPayVC = "HyperPayVC"
     case depositViewController = "DepositViewController"

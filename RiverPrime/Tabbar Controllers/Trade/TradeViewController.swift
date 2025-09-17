@@ -309,18 +309,83 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         }
     }
     
+//    @objc private func accountChangeUpdation123(_ notification: Notification) {
+//        if let userInfo = notification.userInfo,
+//           let receivedString = userInfo["accountChangeUpdation"] as? String {
+//            print("Received string: \(receivedString)")
+//            if receivedString == "accountChangeUpdation" {
+//                DispatchQueue.global(qos: .background).async { [weak self] in
+//                    guard let self = self else { return }
+//                    
+//                    openData()
+//          
+//                }
+//            }
+//        }
+//    }
+    
     @objc private func accountChangeUpdation(_ notification: Notification) {
         if let userInfo = notification.userInfo,
            let receivedString = userInfo["accountChangeUpdation"] as? String {
             print("Received string: \(receivedString)")
             if receivedString == "accountChangeUpdation" {
-                DispatchQueue.global(qos: .background).async { [weak self] in
-                    guard let self = self else { return }
+                
+                // MARK: - Check and reconnect socket if needed
+                if !vm.webSocketManager.isSocketConnected() {
+                    print("Socket not connected, reconnecting...")
+                    vm.webSocketManager.connectWebSocket(socketURLType: GlobalVariable.instance.socketURLType)
                     
-                    openData()
-          
+                    // Wait a moment for connection to establish before proceeding
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
+                        guard let self = self else { return }
+                        self.openData()
+                        self.resubscribeToSymbols()
+                    }
+                } else {
+                    print("Socket is connected, proceeding with data update")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                        DispatchQueue.global(qos: .background).async { [weak self] in
+                            guard let self = self else { return }
+                            self.openData()
+                        }
+                        // Resubscribe to symbols after data is loaded
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                            guard let self = self else { return }
+                            self.resubscribeToSymbols()
+                        }
+                    }
                 }
             }
+        }
+    }
+
+    // MARK: - Add this new method to resubscribe to symbols
+    private func resubscribeToSymbols() {
+        // Get the current symbol list (favorite symbols + open positions)
+        var symbolList: [String] = []
+        
+        // Add favorite symbols if available
+        if let filteredSymbols = Session.instance.filteredSymbolData {
+            symbolList.append(contentsOf: filteredSymbols.map { $0.name })
+        }
+        
+        // Add open position symbols
+        symbolList.append(contentsOf: GlobalVariable.instance.openSymbolList)
+        
+        // Remove duplicates
+        let uniqueSymbolList = Array(Set(symbolList))
+        
+        if !uniqueSymbolList.isEmpty {
+            print("Resubscribing to symbols: \(uniqueSymbolList)")
+            
+            // Update the previous symbol list
+            GlobalVariable.instance.previouseSymbolList = uniqueSymbolList
+            
+            // Unsubscribe first (clean slate)
+            vm.webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: uniqueSymbolList, isTradeDismiss: true)
+            
+            // Then resubscribe
+            vm.webSocketManager.sendWebSocketMessage(for: "subscribeTrade", symbolList: uniqueSymbolList)
         }
     }
     

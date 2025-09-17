@@ -28,7 +28,8 @@ class WalletVC: BaseViewController {
 
     var userEmail = String()
     var wallet_type = String()
-    
+    var getUserBalance = Double()
+    var profileStep = Int()
     
     var records: [TransactionRecord] = [] // transcation data source
     var combinedRecords: [CombinedTransactionRecord] = []
@@ -96,9 +97,9 @@ class WalletVC: BaseViewController {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n get user data in wallet VC: \(savedUserData)")
-            if let _email = savedUserData["email"] as? String {
+            if let _email = savedUserData["email"] as? String, let _profileStep = savedUserData["profileStep"] as? Int {
                 self.userEmail = _email
-                
+                self.profileStep = _profileStep
             }
         }
         
@@ -113,20 +114,30 @@ class WalletVC: BaseViewController {
                 self.navigate(to: vc)
             }
         }else{
-            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-            vc.walletBalance = self.lbl_balance.text ?? ""
-            vc.walletBalance_Name = self.lbl_walletName.text ?? ""
-            vc.request_type = "Deposit"
-            self.navigate(to: vc)
+            if profileStep == 2 {
+                let vc = Utilities.shared.getViewController(identifier: .demoWithdrawalVC, storyboardType: .dashboard) as! DemoWithdrawalVC
+                vc.walletBalance = self.lbl_balance.text ?? ""
+                //            vc.walletBalance_Name = self.lbl_walletName.text ?? ""
+                vc.request_type = "Deposit"
+                vc.wallet_Name = self.lbl_walletName.text ?? ""
+                self.navigate(to: vc)
+            }else{
+                self.ToastMessage("Please do KYC first, then try to deposit.")
+            }
         }
     }
     
     @IBAction func withdraw_btn_Action(_ sender: Any) {
-        let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
-        vc.walletBalance = self.lbl_balance.text ?? ""
-        vc.walletBalance_Name = self.lbl_walletName.text ?? ""
-        vc.request_type = "Withdrawal"
-        self.navigate(to: vc)
+        
+        if self.getUserBalance == 0.0 {
+            self.ToastMessage("Insufficient balance to withdraw. Please deposit first.")
+        }else{
+            let vc = Utilities.shared.getViewController(identifier: .withdrawViewController, storyboardType: .dashboard) as! WithdrawViewController
+            vc.walletBalance = self.lbl_balance.text ?? ""
+            vc.walletBalance_Name = self.lbl_walletName.text ?? ""
+            vc.request_type = "Withdrawal"
+            self.navigate(to: vc)
+        }
     }
     
     @IBAction func transfer_btn_Action(_ sender: Any) {
@@ -288,9 +299,11 @@ extension WalletVC {
                 self.lbl_walletName.text = cleanName
                 
                 if let balanceValue = wallet["balance"] {
+                    self.getUserBalance = balanceValue as! Double
                     self.lbl_balance.text = "$" + String.formatStringNumber("\(balanceValue)")
                 } else {
                     self.lbl_balance.text = "$0.00"
+                    self.getUserBalance = 0.0
                 }
             }
             

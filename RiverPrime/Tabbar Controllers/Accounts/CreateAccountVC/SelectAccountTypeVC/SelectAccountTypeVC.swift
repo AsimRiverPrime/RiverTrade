@@ -397,29 +397,29 @@ extension SelectAccountTypeVC: SelectAccountCellDelegate {
                         // MARK: - NEW LOGIC: Separate data based on server_id
                         GlobalVariable.instance.separateSymbolsByServerId(Session.instance.bothSymbols ?? [])
                         
-//                        if AccountReal {
-//                            if AccountReal == isDemo { //Change socket.
-//                                print("Change socket.")
-//                                updateSocket(isReal: true)
-//                            } else {
-//                                print("No Change socket.")
-//                            }
-//                        } else {
-//                            if AccountReal == isDemo { //Change socket.
-//                                print("Change socket.")
-//                                updateSocket(isReal: false)
-//                            } else {
-//                                print("No Change socket.")
-//                            }
-//                        }
-                        
                         if AccountReal {
-                            print("Change socket to Live.")
-                            updateSocket(isReal: true)
-                        }else{
-                            print("Change socket to Demo.")
-                            updateSocket(isReal: false)
+                            if AccountReal == isDemo { //Change socket.
+                                print("Change socket to real.")
+                                updateSocket(isReal: true)
+                            } else {
+                                print("No Change socket.")
+                            }
+                        } else {
+                            if AccountReal == isDemo { //Change socket.
+                                print("Change socket to demo.")
+                                updateSocket(isReal: false)
+                            } else {
+                                print("No Change socket.")
+                            }
                         }
+                        
+//                        if AccountReal {
+//                            print("Change socket to Live.")
+//                            updateSocket(isReal: true)
+//                        }else{
+//                            print("Change socket to Demo.")
+//                            updateSocket(isReal: false)
+//                        }
                         
                         
                         NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])

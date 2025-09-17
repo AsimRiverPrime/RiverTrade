@@ -45,6 +45,24 @@ class HyperPayVC: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setupNavigationBar(animated: true)
+    }
+    
+    private func setupNavigationBar(animated: Bool) {
+        self.setNavBar(vc: self, isBackButton: false, isBar: false)
+        self.setBarStylingForDashboard(animated: animated,
+                                     view: self.view,
+                                     vc: self,
+                                     VC: AccountsViewController(),
+                                     navController: self.navigationController,
+                                     title: "Transaction Status",
+                                     leftTitle: "",
+                                     rightTitle: "",
+                                     textColor: .white,
+                                     barColor: .black)
+    }
+    
     func updateUI(for status: TransactionStatus) {
         switch status {
         case .success:
