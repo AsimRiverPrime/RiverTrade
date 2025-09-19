@@ -178,6 +178,7 @@
 		31B1248F2C3D461F0058C9DD /* Inter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248C2C3D461F0058C9DD /* Inter.ttc */; };
 		31B124902C3D461F0058C9DD /* InterVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31B1248D2C3D461F0058C9DD /* InterVariable.ttf */; };
 		31B124922C3D49420058C9DD /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B124912C3D49420058C9DD /* PrivacyViewController.swift */; };
+		31B1BB792E7D30CB002EE771 /* NotificationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B1BB782E7D30CB002EE771 /* NotificationRouter.swift */; };
 		31B263312CCF5C5E006D4DF4 /* FundsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2632B2CCF5C5E006D4DF4 /* FundsView.swift */; };
 		31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */; };
 		31B263332CCF5C5E006D4DF4 /* FundsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */; };
@@ -605,6 +606,7 @@
 		31B1248C2C3D461F0058C9DD /* Inter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttc; sourceTree = "<group>"; };
 		31B1248D2C3D461F0058C9DD /* InterVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = InterVariable.ttf; sourceTree = "<group>"; };
 		31B124912C3D49420058C9DD /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		31B1BB782E7D30CB002EE771 /* NotificationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationRouter.swift; sourceTree = "<group>"; };
 		31B2632B2CCF5C5E006D4DF4 /* FundsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FundsView.swift; sourceTree = "<group>"; };
 		31B2632C2CCF5C5E006D4DF4 /* FundsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FundsView.xib; sourceTree = "<group>"; };
 		31B2632E2CCF5C5E006D4DF4 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -2320,6 +2322,7 @@
 		FA3F70332CC70C2300B3CE8A /* NotificationObserver */ = {
 			isa = PBXGroup;
 			children = (
+				31B1BB782E7D30CB002EE771 /* NotificationRouter.swift */,
 				FA3F70342CC70C2300B3CE8A /* NotificationObserver.swift */,
 			);
 			path = NotificationObserver;
@@ -2972,6 +2975,7 @@
 				317B001F2D37B954007C7C37 /* NotificationHandler.swift in Sources */,
 				31B263322CCF5C5E006D4DF4 /* SettingsView.swift in Sources */,
 				3137AE722C77474900B5A83B /* PasscodeFaceIDVC.swift in Sources */,
+				31B1BB792E7D30CB002EE771 /* NotificationRouter.swift in Sources */,
 				31D2AF232C8840B800E0CF2E /* KineticScrollOptions.swift in Sources */,
 				31D2AF022C8840B800E0CF2E /* JavaScriptEvaluator.swift in Sources */,
 				31D2AF3E2C8840B800E0CF2E /* SurfaceColor.swift in Sources */,
@@ -3304,7 +3308,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3.27;
+				CURRENT_PROJECT_VERSION = 1.3.28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -3358,7 +3362,7 @@
 				CODE_SIGN_ENTITLEMENTS = RiverPrime/RiverPrime.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1.3.27;
+				CURRENT_PROJECT_VERSION = 1.3.28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = J9K56G79V5;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;

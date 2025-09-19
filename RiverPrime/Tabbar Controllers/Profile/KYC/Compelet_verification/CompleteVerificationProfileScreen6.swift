@@ -89,20 +89,25 @@ class CompleteVerificationProfileScreen6: BaseViewController {
     }
     
     func updateUser() {
-        let userId =  UserDefaults.standard.string(forKey: "userID")
+//        let userId =  UserDefaults.standard.string(forKey: "userID")
         let profileStep = UserDefaults.standard.integer(forKey: "profileStepCompeleted")
+       
+        guard let userId =  UserDefaults.standard.string(forKey: "userID") else {
+                    print("userId is nil in completeVerfication6_Screen")
+                    return
+                }
         
         let fieldsToUpdate: [String: Any] = [
                 "profileStep": profileStep
              ]
         
-        fireStoreInstance.updateUserFields(userID: userId!, fields: fieldsToUpdate) { error in
+        fireStoreInstance.updateUserFields(userID: userId, fields: fieldsToUpdate) { error in
             if let error = error {
                 print("Error updating user fields: \(error.localizedDescription)")
                 return
             } else {
                 print("\n User data save successfully in the fireBase")
-                self.fireStoreInstance.fetchUserData(userId: userId!)
+                self.fireStoreInstance.fetchUserData(userId: userId)
             }
         }
     }
@@ -146,9 +151,10 @@ class CompleteVerificationProfileScreen6: BaseViewController {
             guard let self = self else { return }
             switch result {
             case .success:
-                print("Questions added successfully!")
+                 
+                print("Document Added to USER_ACCOUNTs collection Successfully!")
                 self.updateUser()
-                self.navigateToDashboard()
+                self.navigateToNextKYC()
 
             case .failure(let error):
                 print("Error adding/updating document: \(error)")
@@ -157,7 +163,7 @@ class CompleteVerificationProfileScreen6: BaseViewController {
         }
     }
     
-    func navigateToDashboard() {
+    func navigateToNextKYC() {
       
                     let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
                     self.navigate(to: vc)

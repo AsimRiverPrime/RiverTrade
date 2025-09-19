@@ -145,7 +145,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             if status == "Approved" {
                                 lbl_profile.text = "Thank you for providing your details."
 //                                btn_completeProfile.isUserInteractionEnabled = true
-                                btn_completeProfile.setTitle("Profile Completed", for: .normal)
+                                btn_completeProfile.setTitle("Profile Completed and KYC is Done.", for: .normal)
                                 progreeBar.progress = 1.0
 //                                self.lbl_progressPercent.text = "100%"
                                } else if status == "Rejected" {
@@ -160,7 +160,7 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                                    // Handle the "refer" status
                                    lbl_profile.text = "Thank you for providing your details."/* Your profile has been submitted for review. Please await further updates."*/
 //                                   btn_completeProfile.isUserInteractionEnabled = true
-                                   btn_completeProfile.setTitle("Profile Completed", for: .normal)
+                                   btn_completeProfile.setTitle("Profile Completed and KYC is Done.", for: .normal)
                                    progreeBar.progress = 1.0
 //                                   self.lbl_progressPercent.text = "90%"
                                }
@@ -176,13 +176,13 @@ class ProfileTopTableViewCell: BaseTableViewCell {
                             progreeBar.progress = 0.0
                             self.lbl_progressPercent.text = "0%"
 //                            btn_completeProfile.isUserInteractionEnabled = true
-                            btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+                            btn_completeProfile.setTitle("Complete your Profile and KYC", for: .normal)
                         }
                     }else{
                         progreeBar.progress = 0.0
                         self.lbl_progressPercent.text = "0%"
 //                        btn_completeProfile.isUserInteractionEnabled = true
-                        btn_completeProfile.setTitle("Complete your Profile", for: .normal)
+                        btn_completeProfile.setTitle("Complete your Profile and KYC", for: .normal)
                       
                     }
         }

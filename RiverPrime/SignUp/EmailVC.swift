@@ -305,9 +305,9 @@ extension EmailVC: ASAuthorizationControllerDelegate, ASAuthorizationControllerP
                                     SVProgressHUD.dismiss()
                                     return
                                 } else {
-                                    print("❌ User does not exist")
+                                    print("❌ User does not exist creade Lead in CRM")
                                     self.odoClientNew.createRecords(firebase_uid: user.uid, email: self._email ?? "", name: self._fullName ?? "")
-                                    self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: false, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "",registrationType: 3)
+                                    self.firebaseInstance.saveAdditionalUserData(userId: user.uid, kyc: "Not Started", address: "", dateOfBirth: "", profileStep: 0, name: self._fullName ?? "", gender: "", phone: "", email: self._email ?? "", emailVerified: true, phoneVerified: false, isLogin: false, pushedToCRM: false, nationality: "", residence: "",registrationType: 3)
                                   
                                 }
                             }

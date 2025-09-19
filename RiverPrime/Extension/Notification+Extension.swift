@@ -14,6 +14,7 @@ extension Notification.Name {
     static let OPCListDismissall = Notification.Name("opcListDismiss")
     static let MetaTraderLogin = Notification.Name("metaTraderLogin")
     static let BalanceUpdate = Notification.Name("balanceUpdate")
+    static let didReceivePushNotification = Notification.Name("didReceivePushNotification")
     
     static let connectionLost = Notification.Name("connectionLost")
     static let connectionRestored = Notification.Name("connectionRestored")

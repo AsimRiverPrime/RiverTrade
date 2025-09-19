@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -530,7 +530,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qmd-JJ-ScU">
-                                                                    <rect key="frame" x="20" y="13" width="293" height="14"/>
+                                                                    <rect key="frame" x="20" y="2" width="293" height="36"/>
                                                                     <color key="tintColor" red="0.63137254899999995" green="0.64705882349999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain"/>
@@ -556,6 +556,8 @@
                                                                 <constraint firstItem="2ny-Ra-kIu" firstAttribute="centerY" secondItem="QHJ-KP-FRK" secondAttribute="centerY" id="JdQ-rj-yky"/>
                                                                 <constraint firstItem="6hP-A4-hT2" firstAttribute="leading" secondItem="sv4-ao-Ziy" secondAttribute="leading" id="KMS-p6-27N"/>
                                                                 <constraint firstAttribute="trailing" secondItem="2ny-Ra-kIu" secondAttribute="trailing" constant="10" id="YL6-ih-9US"/>
+                                                                <constraint firstAttribute="bottom" secondItem="Qmd-JJ-ScU" secondAttribute="bottom" constant="2" id="agd-5R-rjS"/>
+                                                                <constraint firstItem="Qmd-JJ-ScU" firstAttribute="top" secondItem="sv4-ao-Ziy" secondAttribute="top" constant="2" id="ckA-Td-ET4"/>
                                                                 <constraint firstAttribute="trailing" secondItem="6hP-A4-hT2" secondAttribute="trailing" id="hC9-x8-HHE"/>
                                                                 <constraint firstAttribute="bottom" secondItem="6hP-A4-hT2" secondAttribute="bottom" id="i4k-Yn-sUv"/>
                                                                 <constraint firstAttribute="bottom" secondItem="6hP-A4-hT2" secondAttribute="bottom" id="nvR-vO-B1p"/>

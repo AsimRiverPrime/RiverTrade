@@ -93,7 +93,8 @@ class DemoWithdrawalVC: BaseViewController {
                
 //                if ["Credit Card", "Credit Card (Default)"].contains(selectedPaymentTypeName) {
                     if let vc = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "DepositViewController") as? DepositViewController {
-                    vc.ammountValue = tf_amount.text ?? ""
+//                    vc.ammountValue = tf_amount.text ?? ""
+                    vc.ammountValue = (tf_amount.text ?? "").replacingOccurrences(of: ",", with: "")
                     self.navigate(to: vc)
                 }
 //                }else{

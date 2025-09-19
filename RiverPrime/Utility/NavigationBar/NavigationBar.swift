@@ -16,8 +16,8 @@ class NavigationBar {
     func NavBarForDashboard(view: UIView, viewController: UIViewController, navController: UINavigationController?, title: String? = nil, leftTitle: String? = nil, rightTitle: String? = nil/*, isHide: Bool? = nil*/, textColor: UIColor, barColor: UIColor) {
         view.backgroundColor = barColor //UIColor.white
         viewController.navigationItem.title = title
-        viewController.navigationItem.leftBarButtonItem?.title = leftTitle
-        viewController.navigationItem.rightBarButtonItem?.title = rightTitle
+//        viewController.navigationItem.leftBarButtonItem?.title = leftTitle
+//        viewController.navigationItem.rightBarButtonItem?.title = rightTitle
 //        viewController.navigationController?.navigationBar.isHidden = isHide ?? false
         viewController.navigationItem.rightBarButtonItem?.tintColor = textColor
         viewController.navigationItem.leftBarButtonItem?.tintColor = textColor

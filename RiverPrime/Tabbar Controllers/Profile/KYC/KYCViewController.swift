@@ -217,7 +217,7 @@ class KYCViewController: BaseViewController {
             case .success:
                 print("\n KYC detail ADD to firebase successfully!")
                 self.updateUser()
-                self.ToastMessage("KYC detail added successfully!")
+//                self.ToastMessage("KYC detail added successfully!")
                 print("Stack:", navigationController?.viewControllers)
                 
                 let _ = Timer.scheduledTimer(withTimeInterval: 0.85, repeats: false) { [weak self] _ in

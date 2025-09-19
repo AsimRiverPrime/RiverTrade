@@ -595,7 +595,8 @@ class TradeViewController: BaseViewController, UIScrollViewDelegate {
         
         let vc = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as! NotificationViewController
         
-        self.navigate(to: vc) 
+        vc.isNotification = false
+        self.navigate1(to: vc)
         
     }
    

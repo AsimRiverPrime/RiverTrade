@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WalletVC: BaseViewController {
+class WalletVC: BaseViewController, PhoneVerifyDelegate {
     
     
     @IBOutlet weak var view_name_balance: CardView!
@@ -30,6 +30,7 @@ class WalletVC: BaseViewController {
     var wallet_type = String()
     var getUserBalance = Double()
     var profileStep = Int()
+    var isPhoneVerified = Bool()
     
     var records: [TransactionRecord] = [] // transcation data source
     var combinedRecords: [CombinedTransactionRecord] = []
@@ -38,12 +39,9 @@ class WalletVC: BaseViewController {
         super.viewDidLoad()
         view_noTranscations.isHidden = true
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handleWalletTransferNotification(_:)),
-            name: Notification.Name("WalletToMTTransferCompleted"),
-            object: nil
-        )
+        NotificationCenter.default.addObserver(self, selector: #selector(handle_Wallet_Notifications), name: .didReceivePushNotification, object: nil)
+          
+        NotificationCenter.default.addObserver( self, selector: #selector(handleWalletTransferNotification(_:)),  name: Notification.Name("WalletToMTTransferCompleted"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,11 +70,17 @@ class WalletVC: BaseViewController {
             }
         })
     }
+    
+    @objc private func handle_Wallet_Notifications() {
+            userAccountData()
+       }
+    
     @objc private func handleWalletTransferNotification(_ notification: Notification) {
         
         // Update UI or refresh data here
         userAccountData()
     }
+    
     func setupTableView() {
   
         tv_transcation.registerCells([ WalletVC_TVCell.self ])
@@ -97,9 +101,10 @@ class WalletVC: BaseViewController {
         
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             print("\n get user data in wallet VC: \(savedUserData)")
-            if let _email = savedUserData["email"] as? String, let _profileStep = savedUserData["profileStep"] as? Int {
+            if let _email = savedUserData["email"] as? String, let _profileStep = savedUserData["profileStep"] as? Int, let _phoneVerified = savedUserData["phoneVerified"] as? Bool {
                 self.userEmail = _email
                 self.profileStep = _profileStep
+                self.isPhoneVerified = _phoneVerified
             }
         }
         
@@ -122,10 +127,54 @@ class WalletVC: BaseViewController {
                 vc.wallet_Name = self.lbl_walletName.text ?? ""
                 self.navigate(to: vc)
             }else{
+                let alert = UIAlertController(
+                    title: "📋 Notice!!!",
+                    message: "Please do KYC first, then try to deposit.",
+                    preferredStyle: .alert
+                )
+                
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+                    guard let self = self else { return }
+                    
+                    if !isPhoneVerified {
+                        let vc = Utilities.shared.getViewController(identifier: .phoneVerifyVC, storyboardType: .main) as! PhoneVerifyVC
+                        vc.userEmail = userEmail
+                        vc.delegate = self
+                        self.navigate(to: vc)
+                    }else if profileStep == 1 {
+                        let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+                        navigate(to: vc)
+                    }else{
+                        let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+                        navigate(to: vc)
+                    }
+                    
+                }))
+                
+                present(alert, animated: true, completion: nil)
                 self.ToastMessage("Please do KYC first, then try to deposit.")
             }
         }
     }
+    
+    func didCompletePhoneVerification() {
+                 // After phone verification is complete, check profileStep
+                 switch profileStep {
+                case 0:
+                    let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
+      
+                    navigate(to: vc)
+                case 1:
+                    let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
+                     navigate(to: vc)
+
+                default:
+                    self.ToastMessage("Already Done KYC")
+                }
+            }
+       
     
     @IBAction func withdraw_btn_Action(_ sender: Any) {
         
@@ -309,11 +358,11 @@ extension WalletVC {
             
             // First API: user transactions
             self.odooClient.get_User_transcations(email: self.userEmail, wallet_type: self.wallet_type) { transactionsResponse in
-//                print("\n---------->>>*****----->>>>> get user transcation data in walletVC:\(transactionsResponse)\n\n")
+                print("\n----*****----->>>>> get user transcation data in walletVC\n")
                 
                 // Second API: search read
                 self.odooClient.get_transcations_search_read(email: self.userEmail, walletId: walletId) { recordsResponse in
-//                    print("\n -------->>>>get search_read transcation data in walletVC:----->>>\(recordsResponse)---**********---------->>>>\n")
+                    print("\n -------->>>>get search_read transcation data in walletVC   ---**********---------->>>>\n")
                     
                     // Debug: Check the response structure
                     if let responseDict = recordsResponse as? [String: Any],

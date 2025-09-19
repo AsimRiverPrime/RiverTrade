@@ -340,15 +340,19 @@ extension SelectAccountTypeVC: UITableViewDelegate, UITableViewDataSource {
 
             if let cell = tableView.cellForRow(at: indexPath) as? SelectAccountTypeCell {
                 cell.isUserInteractionEnabled = false
-                cell.btn_checkAccount.tintColor = .systemGray
-                cell.btn_checkAccount.setImage(UIImage(systemName: "circle"), for: .normal)
+//                cell.btn_checkAccount.tintColor = .systemGray
+//                cell.btn_checkAccount.setImage(UIImage(systemName: "circle"), for: .normal)
+                cell.img_checkAccount.tintColor = .systemGray
+                cell.img_checkAccount.image = UIImage(systemName: "circle")
             }
         }
         
         if let cell = tableView.cellForRow(at: indexPath) as? SelectAccountTypeCell {
 //            cell.isUserInteractionEnabled = false
-            cell.btn_checkAccount.tintColor = .systemYellow
-            cell.btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+//            cell.btn_checkAccount.tintColor = .systemYellow
+//            cell.btn_checkAccount.setImage(UIImage(systemName: "checkmark.circle"), for: .normal)
+            cell.img_checkAccount.tintColor = .systemYellow
+            cell.img_checkAccount.image = UIImage(systemName: "checkmark.circle")
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in

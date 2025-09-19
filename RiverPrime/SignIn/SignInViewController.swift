@@ -466,9 +466,9 @@ extension SignInViewController:  VerifyOTPDelegate {
         //        guard let phone = fireBaseUserData["phone"] as? String else {
         //            return
         //        }
-        guard let residence = fireBaseUserData["country_of_residance"] as? Bool else {
-            return
-        }
+//        guard let residence = fireBaseUserData["country_of_residance"] as? Bool else {
+//            return
+//        }
         guard let isKyc = fireBaseUserData["is_kyc"] as? Bool else {
             return
         }
@@ -477,6 +477,13 @@ extension SignInViewController:  VerifyOTPDelegate {
         }
         
         var phone: String?
+        var residency: String?
+          
+        if let _residencyString = fireBaseUserData["country_of_residance"] as? String {
+            residency = _residencyString
+        } else if let _residencyBool = fireBaseUserData["country_of_residance"] as? Bool {
+            residency = String(_residencyBool) // or "Yes"/"No" if you prefer
+        }
         
         if let phoneString = fireBaseUserData["phone"] as? String {
             phone = phoneString
@@ -506,13 +513,13 @@ extension SignInViewController:  VerifyOTPDelegate {
             "uid": user.uid,
             
             "isLogin": true,
-            "nationality": residence,
+            "nationality": residency ?? "",
             "phone": phone ?? "",
             "phoneVerified": false,
             "profileStep":profileStep,
             "pushedToCRM": true,
             "registrationType" : 0,
-            "residence": residence,
+            "residence": residency ?? "",
             "created_at": Timestamp(date: Date())
             
         ]) { err in

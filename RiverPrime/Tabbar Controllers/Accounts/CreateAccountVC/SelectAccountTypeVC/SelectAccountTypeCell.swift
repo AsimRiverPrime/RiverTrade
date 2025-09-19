@@ -12,30 +12,30 @@ protocol SelectAccountCellDelegate: AnyObject {
 }
 
 class SelectAccountTypeCell: UITableViewCell {
-
+    
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var lbl_group: UILabel!
     @IBOutlet weak var lbl_loginID: UILabel!
     @IBOutlet weak var lbl_balance: UILabel!
     @IBOutlet weak var btn_checkAccount: UIButton!
+    @IBOutlet weak var img_checkAccount: UIImageView!
     
-   
     weak var delegate: SelectAccountCellDelegate?
     
-       var accountNumber: Int?
-       var isDefault = Bool()
-//    var apiAccounts: [Account] = []
+    var accountNumber: Int?
+    var isDefault = Bool()
+    //    var apiAccounts: [Account] = []
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-   
+    
     func configureCellBalance(account: [String: Any], apiAccounts: [Account]) {
         if let accountNumber = account["accountNumber"] as? Int {
             // ✅ Lookup API balance for this login
@@ -45,50 +45,58 @@ class SelectAccountTypeCell: UITableViewCell {
                 lbl_balance.text = "$0.00"
             }
         }
-       
+        
     }
     func configureCell(account: [String: Any]) {
-           if let accountNumber = account["accountNumber"] as? Int {
-             
-               lbl_loginID.text = " #\(accountNumber)"
-           }
-//        // ✅ Lookup API balance for this login
-//               if let apiBalance =  apiAccounts.first(where: { $0.login == accountNumber })?.balance {
-//                   lbl_balance.text = "$\(String(format: "%.2f", apiBalance))"
-//               } else {
-//                   lbl_balance.text = "$0.00"
-//               }
+        if let accountNumber = account["accountNumber"] as? Int {
+            
+            lbl_loginID.text = " #\(accountNumber)"
+            self.accountNumber = accountNumber
+        }
+        //        // ✅ Lookup API balance for this login
+        //               if let apiBalance =  apiAccounts.first(where: { $0.login == accountNumber })?.balance {
+        //                   lbl_balance.text = "$\(String(format: "%.2f", apiBalance))"
+        //               } else {
+        //                   lbl_balance.text = "$0.00"
+        //               }
         
-           if let name = account["name"] as? String {
-               lbl_name.text = name
-           }
-          
-           if let groupName = account["groupName"] as? String {
-               lbl_group.text = groupName
-           }
+        if let name = account["name"] as? String {
+            lbl_name.text = name
+        }
+        
+        if let groupName = account["groupName"] as? String {
+            lbl_group.text = groupName
+        }
         
         if let isDefault = account["isDefault"] as? Bool {
-               if !isDefault  {
-                   self.isDefault = false
-//                   lbl_balance.text = "$0.0" 
-               }else{
-                   self.isDefault = true
-                   let amount = String.formatStringNumber(GlobalVariable.instance.balanceUpdate)
-                   self.lbl_balance.text = "$\(String(describing: amount))"
-                   
-               }
-           }
-           updateButtonState()
-       }
-
-       private func updateButtonState() {
-          
-           btn_checkAccount.tintColor = isDefault ? .systemYellow : .lightGray
-           btn_checkAccount.setImage(UIImage(systemName: isDefault ? "checkmark.circle" : "circle"), for: .normal)
-       }
-
-       @IBAction func checkButtonTapped(_ sender: UIButton) {
-           guard let accountNumber = accountNumber else { return }
-           delegate?.didTapButton(accountNumber: accountNumber)
-       }
+            if !isDefault  {
+                self.isDefault = false
+                //                   lbl_balance.text = "$0.0"
+            }else{
+                self.isDefault = true
+                let amount = String.formatStringNumber(GlobalVariable.instance.balanceUpdate)
+                self.lbl_balance.text = "$\(String(describing: amount))"
+                
+            }
+        }
+        updateButtonState()
+    }
+    
+    private func updateButtonState() {
+        
+        //           btn_checkAccount.tintColor = isDefault ? .systemYellow : .lightGray
+        //           btn_checkAccount.setImage(UIImage(systemName: isDefault ? "checkmark.circle" : "circle"), for: .normal)
+        img_checkAccount.tintColor = isDefault ? .systemYellow : .lightGray
+        img_checkAccount.image = UIImage(systemName: isDefault ? "checkmark.circle" : "circle")
+    }
+    
+    @IBAction func checkButtonTapped(_ sender: UIButton) {
+        print("select Button tapped!")
+        
+        guard let accountNumber = accountNumber else {
+            print("accountNumber is nil")
+            return
+        }
+        delegate?.didTapButton(accountNumber: accountNumber)
+    }
 }

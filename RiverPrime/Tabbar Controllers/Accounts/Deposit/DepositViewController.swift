@@ -176,14 +176,16 @@ extension DepositViewController: UITableViewDelegate, UITableViewDataSource {
                 let vc = Utilities.shared.getViewController(identifier: .cryptoVC, storyboardType: .dashboard) as! CryptoVC
                 self?.navigate(to: vc)
             }else if bankName == "Apple Pay" {
-
-                self?.odooClientService.getCheckout_ID(is_apple: true, ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                let cleanedAmountValue = self?.ammountValue.replacingOccurrences(of: ",", with: "")
+                self?.odooClientService.getCheckout_ID(is_apple: true, ammount: cleanedAmountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
                     print("check out Id result is: \(String(describing: data)) ")
                     self?.checkoutID = data ?? ""
                     self?.startAppleCheckout(checkout_id: data ?? "")
                 }
             }else{
-                self?.odooClientService.getCheckout_ID(is_apple: false, ammount: self?.ammountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
+                let cleanedAmountValue = self?.ammountValue.replacingOccurrences(of: ",", with: "")
+                
+                self?.odooClientService.getCheckout_ID(is_apple: false, ammount: cleanedAmountValue ?? "", partner_id: UserDefaults.standard.integer(forKey: "partner_id")) { data in
                     print("check out Id result is: \(String(describing: data)) ")
                     self?.checkoutID = data ?? ""
                     self?.startCheckout(checkout_id: data ?? "")

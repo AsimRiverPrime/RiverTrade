@@ -53,18 +53,10 @@ extension UIViewController {
             self.present(navigationController, animated: animated, completion: nil)
         }
     }
-    //    func navigate(to viewController: UIViewController, animated: Bool = true) {
-    //        if let navigationController = self.navigationController {
-    //            navigationController.pushViewController(viewController, animated: animated)
-    //        } else if let tabBarController = self.tabBarController,
-    //                  let selectedNavController = tabBarController.selectedViewController as? UINavigationController {
-    //            selectedNavController.pushViewController(viewController, animated: animated)
-    //        } else {
-    //            let navigationController = UINavigationController(rootViewController: viewController)
-    //            navigationController.modalPresentationStyle = .fullScreen
-    //            self.present(navigationController, animated: animated, completion: nil)
-    //        }
-    //    }
+    
+    func navigate1(to viewController: UIViewController, animated: Bool = true) {
+           self.navigationController?.pushViewController(viewController, animated: animated)
+       }
     
     func instantiateViewController(fromStoryboard storyboardName: String, withIdentifier identifier: String) -> UIViewController? {
         let storyboard = UIStoryboard(name: storyboardName, bundle: nil)

@@ -14,7 +14,7 @@ protocol PhoneVerifyDelegate: AnyObject {
     func didCompletePhoneVerification()
 }
 
-class ProfileViewController: BaseViewController{
+class ProfileViewController: BaseViewController, BottomSheetDismissDelegate, AccountDismisalProtocol{
     
     @IBOutlet weak var tblView: UITableView!
     
@@ -31,6 +31,8 @@ class ProfileViewController: BaseViewController{
     var isEmailVerified = Bool()
     var userEmail = String()
     var odooClientService = OdooClientNew()
+    var showCloseButton = false
+    var metaTraderType: MetaTraderType? = .None
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +45,39 @@ class ProfileViewController: BaseViewController{
         self.setNavBar(vc: self, isBackButton: false, isBar: false)
         self.setBarStylingForDashboard(animated: animated, view: self.view, vc: self, VC: AccountsViewController(), navController: self.navigationController, title: "Profile", leftTitle: "", rightTitle: "", textColor: .white, barColor: .black)
         
+        if showCloseButton {
+            let closeImage = UIImage(systemName: "xmark")?.withRenderingMode(.alwaysTemplate)
+            let closeButton = UIBarButtonItem(image: closeImage, style: .plain, target: self, action: #selector(closeButtonTapped))
+            closeButton.tintColor = .white
+            navigationItem.rightBarButtonItem = closeButton
+        }
+        
         initTableView_CheckData()
+    }
+    
+    @objc func closeButtonTapped() {
+        self.metaTraderType = .Balance
+        
+        NotificationObserver.shared.postNotificationObserver(key: NotificationObserver.Constants.MetaTraderLoginConstant.key, dict: [NotificationObserver.Constants.MetaTraderLoginConstant.title: self.metaTraderType ?? MetaTraderType.None])
+        
+        // Dismiss the modal first
+        var root = self.presentingViewController
+
+           // Traverse up the presenting stack
+           while let presenter = root?.presentingViewController {
+               root = presenter
+           }
+
+           root?.dismiss(animated: true) {
+               // After all modals are dismissed, ensure we're on AccountVC tab
+               if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let window = scene.windows.first(where: { $0.isKeyWindow }),
+                  let tabBar = window.rootViewController as? UITabBarController {
+                   
+                   // Make sure AccountVC tab is selected (adjust index if needed)
+                   tabBar.selectedIndex = 2
+               }
+           }
     }
     
     @objc func updateProfileData(_ notification: Notification) {
@@ -52,6 +86,26 @@ class ProfileViewController: BaseViewController{
         tblView.reloadData()
     }
     
+    func accountDismisal() {
+        
+        print("Account Dismissed through Protocol. in profile screen")
+        initTableView_CheckData()
+//        let _ = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+//            //TODO: Navigate to Accounts.
+//            if let tabBarController = self.tabBarController as? HomeTabbarViewController {
+//                tabBarController.selectedIndex = 0
+////                NotificationCenter.default.post(name: .OPCListDismissall, object: nil, userInfo: ["OPCType": "Open"])
+//                NotificationCenter.default.post(name: .accountChangeUpdation, object: nil, userInfo: ["accountChangeUpdation": "accountChangeUpdation"])
+//
+//            }
+//        }
+        didTapCompleteProfileButtonInCell()
+        
+    }
+    
+    func presentNextBottomSheet(screen: createAccountType, AccountReal: Bool, accounts: [AccountModel], index: Int) {
+        print("it come to presentNextBottomSheet function in ProfileViewController from selectedAccount_typeVC")
+    }
     
     func initTableView_CheckData(){
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
@@ -67,8 +121,7 @@ class ProfileViewController: BaseViewController{
             }
         }
         if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-            //print("\n Default Account User: \(defaultAccount)")
-            
+            print("\n Default Account User in profileVC: \(defaultAccount)")
             realAccount = defaultAccount.isReal == true ? true : false
         }
         
@@ -127,75 +180,75 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(with: LogoutTableViewCell.self, for: indexPath)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
-//            cell.onLogoutTapped = { [weak self] in
-//                guard let self = self else { return }
-//                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-//                   let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
-//                        Alert.ShowWindowAlert("Are you want to Logout?", andTitle: "Log out", OKButtonText: "Yes", window: keyWindow) { ok in
- //
-////                    Alert.ShowWindowAlert("Are you want to Logout?", andTitle: "Log out", OKButtonText: "Yes", window: SCENE_DELEGATE.window!) { ok in
-//                        
-//                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                        
-//                        self.webSocketManager.connectionCheckTimer?.invalidate()
-//                        self.webSocketManager.connectionCheckTimer = nil
-//                        
-//                        self.webSocketManager.DisconnectWebSocket()
-//                        
-//                        //MARK: - START calling Socket message from here.
-//                        //        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: false)
-//                        UserDefaults.standard.removeObject(forKey: "userData")
-//                        UserDefaults.standard.removeObject(forKey: "savedSymbolsKey")
-//                        UserDefaults.standard.removeObject(forKey: "userPasswordData")
-//                        UserDefaults.standard.removeObject(forKey: "userProfileImage")
-//                        
-//                        GlobalVariable.instance.isProcessingSymbolTimer = false
-//                        
-//                        GlobalVariable.instance.userEmail = ""
-//                        
-//                        GlobalVariable.instance.balanceUpdate = "0.0"
-//                        
-//                        GlobalVariable.instance.symbolDataArray = []
-//                        
-//                        GlobalVariable.instance.changeSector = Bool()
-//                        GlobalVariable.instance.resultTopButtonType = String()
-//                        GlobalVariable.instance.isProcessingSymbol = false
-//                        GlobalVariable.instance.isAppLunch = false
-//                        GlobalVariable.instance.isAccountCreated = Bool()
-//                        
-//                        GlobalVariable.instance.tradeCollectionViewIndex = (0, [])
-//                        
-//                        GlobalVariable.instance.sectors = []
-//                        GlobalVariable.instance.tempSectors = []
-//                        
-//                        GlobalVariable.instance.filteredSymbols = [[]]
-//                        GlobalVariable.instance.filteredSymbolsUrl = [[]]
-//                        
-//                        GlobalVariable.instance.getSelectedSectorSymbols = (0, [""])
-//                        
-//                        GlobalVariable.instance.historyChartData = [SymbolChartData]()
-//                        
-//                        GlobalVariable.instance.isStopTick = false
-//                        GlobalVariable.instance.isStopHistory = false
-//                        
-//                        GlobalVariable.instance.previouseSymbolList = [String]()
-//                        GlobalVariable.instance.tempPreviouseSymbolList = [String]()
-//                        
-//                        //        GlobalVariable.instance.isConnected = false // Track connection state
-//                        GlobalVariable.instance.getSectorIndex = 0
-//                        
-//                        let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-//                        
-//                        let navController = UINavigationController(rootViewController: loginVC)
-//                        SCENE_DELEGATE.window?.rootViewController = navController
-//                        SCENE_DELEGATE.window?.makeKeyAndVisible()
-//                        print("log out")
-//                        
-//                    } andCompletionHandler: { cancel in
-//                        print("Cancel")
-//                    }
-//                }
-//            }
+/*            cell.onLogoutTapped = { [weak self] in
+                guard let self = self else { return }
+                if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                   let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
+                        Alert.ShowWindowAlert("Are you want to Logout?", andTitle: "Log out", OKButtonText: "Yes", window: keyWindow) { ok in
+ 
+//                    Alert.ShowWindowAlert("Are you want to Logout?", andTitle: "Log out", OKButtonText: "Yes", window: SCENE_DELEGATE.window!) { ok in
+                        
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        
+                        self.webSocketManager.connectionCheckTimer?.invalidate()
+                        self.webSocketManager.connectionCheckTimer = nil
+                        
+                        self.webSocketManager.DisconnectWebSocket()
+                        
+                        //MARK: - START calling Socket message from here.
+                        //        webSocketManager.sendWebSocketMessage(for: "unsubscribeTrade", symbolList: GlobalVariable.instance.previouseSymbolList, isTradeDismiss: false)
+                        UserDefaults.standard.removeObject(forKey: "userData")
+                        UserDefaults.standard.removeObject(forKey: "savedSymbolsKey")
+                        UserDefaults.standard.removeObject(forKey: "userPasswordData")
+                        UserDefaults.standard.removeObject(forKey: "userProfileImage")
+                        
+                        GlobalVariable.instance.isProcessingSymbolTimer = false
+                        
+                        GlobalVariable.instance.userEmail = ""
+                        
+                        GlobalVariable.instance.balanceUpdate = "0.0"
+                        
+                        GlobalVariable.instance.symbolDataArray = []
+                        
+                        GlobalVariable.instance.changeSector = Bool()
+                        GlobalVariable.instance.resultTopButtonType = String()
+                        GlobalVariable.instance.isProcessingSymbol = false
+                        GlobalVariable.instance.isAppLunch = false
+                        GlobalVariable.instance.isAccountCreated = Bool()
+                        
+                        GlobalVariable.instance.tradeCollectionViewIndex = (0, [])
+                        
+                        GlobalVariable.instance.sectors = []
+                        GlobalVariable.instance.tempSectors = []
+                        
+                        GlobalVariable.instance.filteredSymbols = [[]]
+                        GlobalVariable.instance.filteredSymbolsUrl = [[]]
+                        
+                        GlobalVariable.instance.getSelectedSectorSymbols = (0, [""])
+                        
+                        GlobalVariable.instance.historyChartData = [SymbolChartData]()
+                        
+                        GlobalVariable.instance.isStopTick = false
+                        GlobalVariable.instance.isStopHistory = false
+                        
+                        GlobalVariable.instance.previouseSymbolList = [String]()
+                        GlobalVariable.instance.tempPreviouseSymbolList = [String]()
+                        
+                        //        GlobalVariable.instance.isConnected = false // Track connection state
+                        GlobalVariable.instance.getSectorIndex = 0
+                        
+                        let loginVC = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+                        
+                        let navController = UINavigationController(rootViewController: loginVC)
+                        SCENE_DELEGATE.window?.rootViewController = navController
+                        SCENE_DELEGATE.window?.makeKeyAndVisible()
+                        print("log out")
+                        
+                    } andCompletionHandler: { cancel in
+                        print("Cancel")
+                    }
+                }
+            } */
             return cell
         }
         
@@ -247,7 +300,28 @@ extension ProfileViewController: CompleteProfileButtonDelegate, PhoneVerifyDeleg
             }
             
         }else{
-            Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
+//            Alert.showAlert(withMessage: "Please First Create Real Account", andTitle: "Unable to Proceed!", on: self)
+            let alert = UIAlertController(
+                        title: "📋 Attention!!!",
+                        message: "Please First Select or Create Real Account",
+                        preferredStyle: .alert
+                    )
+
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+                        guard let self = self else { return }
+                        
+                        let vc = Utilities.shared.getViewController(identifier: .selectAccountTypeVC, storyboardType: .bottomSheetPopups) as! SelectAccountTypeVC
+                        //        vc.newAccoutDelegate = self
+                        vc.userID =  UserDefaults.standard.string(forKey: "userID") ?? ""
+                        vc.dismissDelegate = self
+                        vc.accountDismisalProtocol = self
+                        PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
+                   
+                     }))
+
+                    present(alert, animated: true, completion: nil)
         }
     }
     
@@ -257,96 +331,16 @@ extension ProfileViewController: CompleteProfileButtonDelegate, PhoneVerifyDeleg
         switch profileStep {
         case 0:
             let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-//            vc.delegateKYC = self
-            self.navigate(to: vc)
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        case 1:
+             self.navigate(to: vc)
+         case 1:
             let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-//            vc.delegateKYC = self
-            self.navigate(to: vc)
-//            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-            //               case 2:
-            //                   let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-            //                   vc.delegateKYC = self
-            //                   PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-        default:
+             self.navigate(to: vc)
+         default:
             self.ToastMessage("Already Done KYC")
         }
     }
 }
-
-//extension ProfileViewController: KYCVCDelegate {
-//    
-//    func navigateToCompeletProfile(kyc: KYCType) {
-//        switch kyc {
-//        case .ProfileScreen:
-//            
-//            if let profileVC = instantiateViewController(fromStoryboard: "Dashboard", withIdentifier: "ProfileViewController"){
-//                //                profileVC.delegateKYC = self
-//                //                GlobalVariable.instance.isReturnToProfile = true
-//                self.navigate(to: profileVC)
-//            }
-//            break
-//        case .FirstScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen1, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen1
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .SecondScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen2, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen2
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .ThirdScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen3, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen3
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .FourthScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen4, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen4
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .FifthScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen5, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen5
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .SixthScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen6, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen6
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .SeventhScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .completeVerificationProfileScreen7, storyboardType: .bottomSheetPopups) as! CompleteVerificationProfileScreen7
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        case .ReturnDashboard:
-//            initTableView_CheckData()
-//          
-//                let profilevc = Utilities.shared.getViewController(identifier: .profileViewController, storyboardType: .dashboard) as! ProfileViewController
-//                profilevc.delegateKYC = self
-//                self.navigate(to: profilevc)
-//            
-//            break
-//        case .KycScreen:
-//            let vc = Utilities.shared.getViewController(identifier: .kycViewController, storyboardType: .dashboard) as! KYCViewController
-//            vc.delegateKYC = self
-//            self.navigate(to: vc)
-////            PresentModalController.instance.presentBottomSheet(self, sizeOfSheet: .large, VC: vc)
-//            break
-//        }
-//    }
-//    
-//}
+ 
 extension ProfileViewController: ProfileEditButtonDelegate {
     func didTapEditButtonInCell() {
         let vc = Utilities.shared.getViewController(identifier: .editPhotoVC, storyboardType: .dashboard) as! EditPhotoVC

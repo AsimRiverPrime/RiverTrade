@@ -364,7 +364,7 @@ class TransferViewController: BaseViewController {
             img_to_trade.isHidden = true
             
             // from labels
-            lbl_from.text = "From Trade Account"
+            lbl_from.text = "From Trading Account"
             lbl_tradeAccount_id.text = "\(self.mtAccoutnName) " + "(\(self.groupName)-\(accountNumber))" + "\t $\(self.mtBalance)"
             lbl_available_balance.text = "Available Balance: $\(self.mtBalance)"
             // to labels
@@ -391,11 +391,11 @@ class TransferViewController: BaseViewController {
             img_to_trade.isHidden = false
             
             // from labels
-            lbl_from.text = "From Trade Account"
+            lbl_from.text = "From Trading Account"
            
             lbl_Mt_Balance.text = "Available Balance: $\(self.mtBalance)"
             // to labels
-            lbl_to.text = "To Trade Account"
+            lbl_to.text = "To Trading Account"
             
         }
        

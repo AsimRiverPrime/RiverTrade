@@ -135,7 +135,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         let userInfo = notification.request.content.userInfo
         print("Foreground notification received: \(userInfo)")
         // Parse the notification payload
-       
+        NotificationCenter.default.post(name: .didReceivePushNotification, object: nil, userInfo: [:])
+
         // Extract data from the notification payload
         if let type = userInfo["type"] as? String {
             
@@ -153,7 +154,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 
                 // Update the badge count
                 updateBadgeCount()
-                print("Saving deposit/withdraw notification: \(notificationItem)")
+//                print("Saving deposit/withdraw notification: \(notificationItem)")
+                print("Saving other type of notification: \(notificationItem)\n***************#######**************")
                 NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
                 
             } else if let newStatus = userInfo["new_status"] as? String,
@@ -173,13 +175,15 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 )
                 
                 print("Saving shufti_status_update type of notification: \(notificationItem)")
+                
                 NotificationHandler.shared.saveKYCUpdateLocally(notification: notificationItem)
                 
                 // Update the badge count
                 updateBadgeCount()
                 
                 // Optionally update the UI
-                print("type: \(type), new status: \(newStatus)")
+//                print("type: \(type), new status: \(newStatus)")
+                print("\nnotification type: \(type), \t new status: \(newStatus)\n***************#######$$$$$$$$")
                 NotificationCenter.default.post(name: Notification.Name("UpdateProfileDataStatus"), object: nil, userInfo: ["type": type, "status": newStatus])
             }
         }
@@ -201,49 +205,53 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     private func handleNotification(_ userInfo: [AnyHashable: Any]) {
-        guard let notificationType = userInfo["type"] as? String else {
-            print("🚨 No 'type' found in userInfo: \(userInfo)")
-            return
-        }
-
-        DispatchQueue.main.async {
-            let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
-
-            if let topVC = self.topViewController() {  // Get the active view controller
-                switch notificationType {
-                case "shufti_status_update":
-                    let dashboardStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
-                    if let profileVC = dashboardStoryboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
-                        topVC.present(profileVC, animated: true)
-                    }
-                case "deposit", "withdrawal":
-//                    if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
-//                        notificationVC.modalPresentationStyle = .overFullScreen
-//                        topVC.present(notificationVC, animated: true)
-//                    }
-                    
-                    if let notificationVC = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as? NotificationViewController {
-//                       let topVC = UIApplication.shared.keyWindow?.rootViewController?.topMostViewController() {
-//                        
-//                        let navController = UINavigationController(rootViewController: notificationVC)
-//                        navController.modalPresentationStyle = .fullScreen // or .automatic if you prefer
-////                        topVC.present(navController, animated: true, completion: nil)
-//                        
-//                        topVC.navigationController?.pushViewController(navController, animated: true)
-                        notificationVC.isNotification = true
-                        let navController = UINavigationController(rootViewController: notificationVC)
-                                            SCENE_DELEGATE.window?.rootViewController = navController
-                                            SCENE_DELEGATE.window?.makeKeyAndVisible()
-                        
-                    }
-                default:
-                    print("⚠️ Unhandled notification type: \(notificationType)")
-                }
-            } else {
-                print("🚨 No active view controller found!")
-            }
-        }
+        let type = AppNotificationType(from: userInfo)
+        NotificationRouter.shared.route(to: type, from: userInfo)
     }
+//    private func handleNotification(_ userInfo: [AnyHashable: Any]) {
+//        guard let notificationType = userInfo["type"] as? String else {
+//            print("🚨 No 'type' found in userInfo: \(userInfo)")
+//            return
+//        }
+//
+//        DispatchQueue.main.async {
+//            let storyboard = UIStoryboard(name: "BottomSheetPopups", bundle: nil)
+//
+//            if let topVC = self.topViewController() {  // Get the active view controller
+//                switch notificationType {
+//                case "shufti_status_update":
+//                    let dashboardStoryboard = UIStoryboard(name: "Dashboard", bundle: nil)
+//                    if let profileVC = dashboardStoryboard.instantiateViewController(withIdentifier: "ProfileViewController") as? ProfileViewController {
+//                        topVC.present(profileVC, animated: true)
+//                    }
+//                case "deposit", "withdrawal":
+////                    if let notificationVC = storyboard.instantiateViewController(withIdentifier: "NotificationViewController") as? NotificationViewController {
+////                        notificationVC.modalPresentationStyle = .overFullScreen
+////                        topVC.present(notificationVC, animated: true)
+////                    }
+//                    
+//                    if let notificationVC = Utilities.shared.getViewController(identifier: .notificationViewController, storyboardType: .bottomSheetPopups) as? NotificationViewController {
+////                       let topVC = UIApplication.shared.keyWindow?.rootViewController?.topMostViewController() {
+////                        
+////                        let navController = UINavigationController(rootViewController: notificationVC)
+////                        navController.modalPresentationStyle = .fullScreen // or .automatic if you prefer
+//////                        topVC.present(navController, animated: true, completion: nil)
+////                        
+////                        topVC.navigationController?.pushViewController(navController, animated: true)
+//                        notificationVC.isNotification = true
+//                        let navController = UINavigationController(rootViewController: notificationVC)
+//                                            SCENE_DELEGATE.window?.rootViewController = navController
+//                                            SCENE_DELEGATE.window?.makeKeyAndVisible()
+//                        
+//                    }
+//                default:
+//                    print("⚠️ Unhandled notification type: \(notificationType)")
+//                }
+//            } else {
+//                print("🚨 No active view controller found!")
+//            }
+//        }
+//    }
     
     func topViewController(_ base: UIViewController? = UIApplication.shared.connectedScenes
         .compactMap { ($0 as? UIWindowScene)?.keyWindow }

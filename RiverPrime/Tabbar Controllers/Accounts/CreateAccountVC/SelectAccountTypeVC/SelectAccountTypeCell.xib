@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24127" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24063"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -44,7 +44,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-0N-WfL">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ms-0N-WfL">
                                 <rect key="frame" x="275" y="28.666666666666664" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="D6D-0P-GqF"/>
@@ -54,6 +54,15 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="vQy-BT-kbL">
+                                <rect key="frame" x="265" y="24.333333333333336" width="30" height="28.666666666666664"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ydc-VP-a7K"/>
+                                    <constraint firstAttribute="width" constant="30" id="aCJ-4U-L7Q"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.074509803920000006" green="0.08235294118" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                         <constraints>
@@ -62,10 +71,12 @@
                             <constraint firstItem="6LK-S5-qwB" firstAttribute="leading" secondItem="Pbb-fO-j37" secondAttribute="leading" id="7iY-Ax-PmU"/>
                             <constraint firstItem="Kw3-LV-2yP" firstAttribute="top" secondItem="Dmh-SK-hje" secondAttribute="top" constant="10" id="Lio-ua-gQ4"/>
                             <constraint firstItem="3Ms-0N-WfL" firstAttribute="centerY" secondItem="Dmh-SK-hje" secondAttribute="centerY" id="Z1X-vU-Xyp"/>
+                            <constraint firstAttribute="trailing" secondItem="vQy-BT-kbL" secondAttribute="trailing" constant="15" id="ZMo-Jv-pyB"/>
                             <constraint firstItem="Jaq-k9-APE" firstAttribute="leading" secondItem="Pbb-fO-j37" secondAttribute="trailing" constant="10" id="du6-Gr-CWb"/>
                             <constraint firstItem="6LK-S5-qwB" firstAttribute="top" secondItem="Pbb-fO-j37" secondAttribute="bottom" constant="5" id="euu-JB-XQb"/>
                             <constraint firstItem="Jaq-k9-APE" firstAttribute="centerY" secondItem="Pbb-fO-j37" secondAttribute="centerY" id="hMW-h3-3dk"/>
                             <constraint firstItem="Kw3-LV-2yP" firstAttribute="leading" secondItem="Dmh-SK-hje" secondAttribute="leading" constant="20" id="lvG-rR-klr"/>
+                            <constraint firstItem="vQy-BT-kbL" firstAttribute="centerY" secondItem="Dmh-SK-hje" secondAttribute="centerY" id="mG5-oi-bq9"/>
                             <constraint firstItem="Pbb-fO-j37" firstAttribute="leading" secondItem="Kw3-LV-2yP" secondAttribute="leading" id="voP-Dp-BpT"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -87,6 +98,7 @@
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="btn_checkAccount" destination="3Ms-0N-WfL" id="LUW-AF-a3j"/>
+                <outlet property="img_checkAccount" destination="vQy-BT-kbL" id="0md-mK-8UU"/>
                 <outlet property="lbl_balance" destination="6LK-S5-qwB" id="xqd-6u-gv0"/>
                 <outlet property="lbl_group" destination="Pbb-fO-j37" id="pAg-Zy-7bJ"/>
                 <outlet property="lbl_loginID" destination="Jaq-k9-APE" id="8dm-XP-VRM"/>
