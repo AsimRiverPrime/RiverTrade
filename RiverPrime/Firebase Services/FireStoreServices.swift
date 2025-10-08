@@ -71,7 +71,7 @@ class FirestoreServices: BaseViewController {
     
     func fetchUserData(userId: String) {
         UserDefaults.standard.set(userId, forKey: "userID")
-        print("fetch user ID is: \(userId)")
+        print("fetch user with User_ID from users_Collection : \(userId)")
         
         let docRef = db.collection("users").document(userId)
         
@@ -121,7 +121,75 @@ class FirestoreServices: BaseViewController {
         }
     }
     
-    func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
+//    func fetchUserAccountsData(userId: String, completion: @escaping () -> Void) {
+//        print("\n User ID for fetchUserAccountsData: \(userId)")
+//        
+//        let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
+//        
+//        query.getDocuments { (querySnapshot, error) in
+//            if let error = error {
+//                print("Error fetching user accounts: \(error.localizedDescription)")
+//                return
+//            }
+//            
+//            guard let documents = querySnapshot?.documents, !documents.isEmpty else {
+//                print("No user accounts found for the given userID.: \(userId)")
+//                GlobalVariable.instance.isAccountCreated = false
+//                self.userNotFound?()
+//                return
+//            }
+//            
+//            var userAccountsData = [String: [String: Any]]()
+//            
+//            // Define the fields you want to keep
+//            let fieldsToKeep = [
+//                "KycStatus",
+//                "name",
+//                "currency",
+//                "userID",
+//                "groupID",
+//                "isDefault",
+//                "isReal",
+//                "password",
+//                "groupName",
+//                "accountNumber"
+//            ]
+//            
+//            for document in documents {
+//                let documentId = document.documentID
+//                let data = document.data()
+//                
+//                // Filter data to only include desired fields
+//                var filteredData = [String: Any]()
+//                for field in fieldsToKeep {
+//                    if let value = data[field] {
+//                        filteredData[field] = value
+//                    }
+//                }
+//                
+//                userAccountsData[documentId] = filteredData
+//            }
+//                        
+//            // Save the filtered data in UserDefaults
+//            UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
+//            print("\n All User MT Accounts saved: \(userAccountsData)")
+//            
+//            // Update accounts
+//            UserAccountManager.shared.updateAccounts(from: userAccountsData)
+//            
+//            // Retrieve and print the default account
+//            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+//                print("\n Default user Account in fetchuserAccountFunction : \(defaultAccount)")
+////                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
+//               
+//            }
+//            
+//            GlobalVariable.instance.isAccountCreated = !userAccountsData.isEmpty
+//            completion()
+//        }
+//    }
+    
+    func fetchUserAccountsData(userId: String, completion: @escaping (_ accounts: [String: [String: Any]]?) -> Void) {
         print("\n User ID for fetchUserAccountsData: \(userId)")
         
         let query = db.collection("userAccounts").whereField("userID", isEqualTo: userId)
@@ -129,6 +197,7 @@ class FirestoreServices: BaseViewController {
         query.getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching user accounts: \(error.localizedDescription)")
+                completion(nil)
                 return
             }
             
@@ -136,11 +205,12 @@ class FirestoreServices: BaseViewController {
                 print("No user accounts found for the given userID.: \(userId)")
                 GlobalVariable.instance.isAccountCreated = false
                 self.userNotFound?()
+                completion(nil)
                 return
             }
             
+//            var userAccountsData = [[String: Any]]()
             var userAccountsData = [String: [String: Any]]()
-            
             // Define the fields you want to keep
             let fieldsToKeep = [
                 "KycStatus",
@@ -155,39 +225,57 @@ class FirestoreServices: BaseViewController {
                 "accountNumber"
             ]
             
+//            for document in documents {
+//                let data = document.data()
+//                var filteredData = [String: Any]()
+//                for field in fieldsToKeep {
+//                    if let value = data[field] {
+//                        filteredData[field] = value
+//                    }
+//                }
+//                userAccountsData.append(filteredData)
+//            }
             for document in documents {
-                let documentId = document.documentID
-                let data = document.data()
-                
-                // Filter data to only include desired fields
-                var filteredData = [String: Any]()
-                for field in fieldsToKeep {
-                    if let value = data[field] {
-                        filteredData[field] = value
+                        let documentId = document.documentID
+                        let data = document.data()
+        
+                        // Filter data to only include desired fields
+                        var filteredData = [String: Any]()
+                        for field in fieldsToKeep {
+                            if let value = data[field] {
+                                filteredData[field] = value
+                            }
+                        }
+        
+                        userAccountsData[documentId] = filteredData
                     }
-                }
                 
-                userAccountsData[documentId] = filteredData
-            }
-                        
+//            for document in documents {
+//                let data = document.data()
+//                var filteredData = [String: Any]()
+//                for field in fieldsToKeep {
+//                    if let value = data[field] {
+//                        filteredData[field] = value
+//                    }
+//                }
+//
+//                if let accountNumber = filteredData["accountNumber"] as? String {
+//                    userAccountsData[accountNumber] = filteredData
+//                }
+//            }
+            
             // Save the filtered data in UserDefaults
             UserDefaults.standard.set(userAccountsData, forKey: "userAccountsData")
             print("\n All User MT Accounts saved: \(userAccountsData)")
             
             // Update accounts
-            UserAccountManager.shared.updateAccounts(from: userAccountsData)
-            
-            // Retrieve and print the default account
-            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-                print("\n Default user Account in fetchuserAccountFunction : \(defaultAccount)")
-//                UserDefaults.standard.set(defaultAccount.password, forKey: "password")
-               
-            }
+            UserAccountManager.shared.updateAccounts(from: Dictionary(uniqueKeysWithValues: documents.map { ($0.documentID, $0.data()) }))
             
             GlobalVariable.instance.isAccountCreated = !userAccountsData.isEmpty
-            completion()
+            completion(userAccountsData)
         }
     }
+
     
     func fetchAccountsGroup(completion: @escaping ([AccountModel]) -> Void) {
         db.collection("accountsGroup").getDocuments { (querySnapshot, error) in
@@ -259,8 +347,23 @@ class FirestoreServices: BaseViewController {
     }
     
     func updateUserAccountsFields(fields: [String: Any], completion: @escaping (Error?) -> Void) {
-        let uniqueId = db.collection("userAccounts").document().documentID
-        let userRef = db.collection("userAccounts").document(uniqueId)
+//        let documentID = "\(fields["userID"]!)_\(fields["accountName"]!)"
+        guard  let userID = fields["userID"] as? String,  let accountNumber = fields["accountNumber"] as? Int
+        else {
+            completion(NSError(domain: "updateUserAccountsFields",
+                               code: 0,
+                               userInfo: [NSLocalizedDescriptionKey: "Missing or invalid userID/accountNumber"]))
+            return
+        }
+
+           let documentID = "\(userID)_\(accountNumber)"
+           
+           // Now use documentID safely
+           print("Document ID:", documentID)
+        // Add to Firebase
+ 
+//        let uniqueId = db.collection("userAccounts").document().documentID
+        let userRef = db.collection("userAccounts").document(documentID)
         userRef.setData(fields, completion: completion)
     }
     
@@ -270,7 +373,7 @@ class FirestoreServices: BaseViewController {
         // Retrieve accounts from UserDefaults
         guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             print("No accounts found in UserDefaults. Fetching data...")
-            fetchUserAccountsData(userId: userId) {
+            fetchUserAccountsData(userId: userId) {accounts in 
                 self.updatePassword(for: accountKey, userId: userId, newPassword: newPassword, completion: completion)
             }
             return
@@ -329,7 +432,7 @@ class FirestoreServices: BaseViewController {
                 completion(error)
             } else {
                 print("✅ Password updated successfully in Firebase")
-                self.fetchUserAccountsData(userId: userId) {
+                self.fetchUserAccountsData(userId: userId) {accounts in 
                     completion(nil)
                 }
             }
@@ -344,7 +447,7 @@ class FirestoreServices: BaseViewController {
         // Retrieve accounts from UserDefaults
         guard var accountsDict = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             print("No accounts found in UserDefaults. Fetching data...")
-            fetchUserAccountsData(userId: userId){
+            fetchUserAccountsData(userId: userId){accounts in 
                 self.updateDefaultAccount(for: accountKey, userId: userId, completion: completion)
             }
             
@@ -392,7 +495,7 @@ class FirestoreServices: BaseViewController {
                 completion(error)
             } else {
                 print("Successfully updated isDefault in Firebase")
-                self.fetchUserAccountsData(userId: userId) {
+                self.fetchUserAccountsData(userId: userId) {accounts in 
                     completion(nil)
                 }
                 

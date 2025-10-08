@@ -206,7 +206,7 @@ extension SceneDelegate {
             if let uid = savedUserData["uid"]  as? String {
                 print("UID is:scenceDelegate: \(uid)")
                 self.fireStoreInstance.fetchUserData(userId: uid)
-                self.fireStoreInstance.fetchUserAccountsData(userId: uid, completion: {
+                self.fireStoreInstance.fetchUserAccountsData(userId: uid, completion: {accounts in 
                 })
             }
             fireStoreInstance.handleUserData()

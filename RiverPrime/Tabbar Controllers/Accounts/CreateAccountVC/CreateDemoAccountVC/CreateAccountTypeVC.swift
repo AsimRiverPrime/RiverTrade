@@ -73,16 +73,6 @@ class CreateAccountTypeVC: BottomSheetController {
         
         tf_password.addTarget(self, action: #selector(passwordDidChange), for: .editingChanged)
         
-        if let data = UserDefaults.standard.dictionary(forKey: "userData") {
-            print("saved User Data: \(data)")
-            
-            if let userIdSave = data["uid"] as? String, let email1 = data["email"] as? String  {
-                print("user ID: \(userIdSave)")
-                self.userId = userIdSave
-                self.userEmail = email1
-            }
-        }
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
     }
@@ -114,6 +104,16 @@ class CreateAccountTypeVC: BottomSheetController {
         
         self.tf_password.text = passwordManager.generateRandomPassword(length: 9)
         passwordDidChange(tf_password)
+        
+        if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
+            if let email = savedUserData["email"] as? String, let _userId = savedUserData["uid"]  as? String{
+                self.userEmail = email
+                self.userId = _userId
+                
+            } 
+            print("saved User Data in account create screen: \(savedUserData)")
+        }
+        
         
     }
     @objc func dismissKeyboard() {

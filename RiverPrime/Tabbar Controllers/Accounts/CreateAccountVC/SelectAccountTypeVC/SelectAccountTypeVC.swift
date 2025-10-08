@@ -68,8 +68,7 @@ class SelectAccountTypeVC: BottomSheetController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.firestoreObject.fetchUserAccountsData(userId: userID, completion: {
-        })
+       
 //        self.dismissDelegate = self
         if let savedUserData = UserDefaults.standard.dictionary(forKey: "userData") {
             if let email = savedUserData["email"] as? String{
@@ -80,7 +79,7 @@ class SelectAccountTypeVC: BottomSheetController {
          self.btn_createAccount.titleTintColor = .systemYellow
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateAccountList), name: NSNotification.Name(rawValue: "updateSelectedAccountList"), object: nil)
-        registerCell()
+        
     }
     
     @objc func updateAccountList(){
@@ -114,8 +113,13 @@ class SelectAccountTypeVC: BottomSheetController {
         //MARK: - Hide Navigation Bar
         self.setNavBar(vc: self, isBackButton: true, isBar: true)
         
+        self.firestoreObject.fetchUserAccountsData(userId: userID, completion: {accounts in
+            print("In SelectAccountTypeVC all Mt accounts count in firebase is:\((accounts?.count) ?? 0)\n")
+            self.registerCell()
+        })
+        
         let allPasswords = passwordManager.getAllPasswords()
-        print("All Saved Passwords on create Account: \(allPasswords)")
+//        print("All Saved Passwords on create Account: \(allPasswords)")
         
         odooClient.get_accounts_with_balances(email: _email)  { [weak self] result in
             DispatchQueue.main.async {
@@ -129,11 +133,13 @@ class SelectAccountTypeVC: BottomSheetController {
     }
  
     private func registerCell() {
+        
+       
         guard let savedList = UserDefaults.standard.dictionary(forKey: "userAccountsData") as? [String: [String: Any]] else {
             return
         }
         
-        print("savedList of accounts in SelectAccountTypeVC: \(savedList)")
+        print("savedList of accounts in SelectAccountTypeVC: \(savedList)\n and the savedList count is: \(savedList.count)")
         
         demoData.removeAll()
         realData.removeAll()

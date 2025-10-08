@@ -565,28 +565,46 @@ extension SignInViewController:  VerifyOTPDelegate {
     }
     
     func processMTAccountsForFirebase(mtAccountsData: [[String: Any]]?, userID: String) {
-        
-        firebaseInstance.userNotFound = {
-            print("\n ---***---No MT account found and create MT accounts in firbase---***----\n")
-            self.firebaseInstance.fetchUserData(userId: userID)
-            self.createMTAccounts(mtAccountsData: mtAccountsData, userID: userID)
+        guard let mtAccounts = mtAccountsData else {
+            print("❌ No MT accounts returned from server")
             return
         }
         
-        self.firebaseInstance.fetchUserAccountsData(userId: userID) {
-            
-            self.firebaseInstance.fetchUserData(userId: userID)
-            if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
-                print("\n Default user Account get in signing process : \(defaultAccount)")
+        let userAccountsCollection = db.collection("userAccounts")
+        
+        firebaseInstance.fetchUserAccountsData(userId: userID)  { firebaseAccounts in
+            guard let firebaseAccounts = firebaseAccounts else {
+                print("⚠️ No Firebase accounts found")
+                self.createMTAccounts(mtAccountsData: mtAccountsData, userID: userID)
+                return
+            }
+            let firebaseAccountNumbers = firebaseAccounts.values.compactMap { $0["accountNumber"] as? Int }
+
+//            let firebaseAccountNumbers = firebaseAccounts.compactMap { $0["accountNumber"] as? Int }
+            let mtAccountNumbers = mtAccountsData?.compactMap { $0["login"] as? Int } ?? []
+
+            print("📊 Firebase Accounts: \(firebaseAccountNumbers)")
+            print("📊 MT Accounts: \(mtAccountNumbers)")
+
+            let missingAccounts = mtAccountsData?.filter { account in
+                if let login = account["login"] as? Int {
+                    return !firebaseAccountNumbers.contains(login)
+                }
+                return false
+            } ?? []
+
+            if missingAccounts.isEmpty {
+                print("✅ All MT accounts already exist in Firebase")
+                self.firebaseInstance.fetchUserData(userId: userID)
                 SVProgressHUD.dismiss()
                 self.navigateToFaceID()
-            }else{
-                print("\n no Default user Account Found")
+            } else {
+                print("⚡ Found \(missingAccounts.count) accounts missing in Firebase → creating...")
+                self.createMTAccounts(mtAccountsData: missingAccounts, userID: userID)
             }
-            
         }
-        
     }
+
     
     private func createMTAccounts(mtAccountsData: [[String: Any]]?, userID: String) {
         // Group ID mapping
@@ -677,8 +695,21 @@ extension SignInViewController:  VerifyOTPDelegate {
                 }
             }
         }
-        SVProgressHUD.dismiss()
-        self.navigateToSelectDefaultAccount()
+       
+        self.firebaseInstance.fetchUserAccountsData(userId: userID) { accounts in
+            print("Mt accounts count in firebase is:\((accounts?.count) ?? 0)\n")
+        }
+        self.firebaseInstance.fetchUserData(userId: userID)
+        if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
+            print("\n Default user Account get in signing process : \(defaultAccount)\n")
+            SVProgressHUD.dismiss()
+            self.navigateToFaceID()
+        }else{
+            SVProgressHUD.dismiss()
+            print("\n no Default user Account Found")
+            self.navigateToSelectDefaultAccount()
+        }
+        
     }
     
     // Helper function to extract group name from full group path

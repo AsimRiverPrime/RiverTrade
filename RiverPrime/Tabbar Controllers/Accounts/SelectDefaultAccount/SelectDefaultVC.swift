@@ -32,7 +32,7 @@ class SelectDefaultVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firestoreObject.fetchUserAccountsData(userId: userID) {
+        firestoreObject.fetchUserAccountsData(userId: userID) {accounts in 
             self.registerCell()
         }
        
@@ -76,7 +76,7 @@ class SelectDefaultVC: BaseViewController {
        
         UserDefaults.standard.set(self.userID, forKey: "userID")
         updateSocket(isReal: AccountReal)
-        firestoreObject.fetchUserAccountsData(userId: userID) {
+        firestoreObject.fetchUserAccountsData(userId: userID) {accounts in 
           
             if let defaultAccount = UserAccountManager.shared.getDefaultAccount() {
                 print("\n Default user Account get in signing process `continue` btn: \(defaultAccount)")
